@@ -1,0 +1,2 @@
+class RelicSet(object):
+  graphic = ''
