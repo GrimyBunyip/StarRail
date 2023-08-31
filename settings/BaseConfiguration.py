@@ -19,7 +19,6 @@ Configuration = {
     'enemyRes': 0.0, # assume you aren't fighting enemies that are resistant to you
     'brokenMultiplier': 0.95, # enemies take 1.0 damage if toughness is broken, 0.9 otehrwise. I like to assume 0.95 here
 
-
     'fivestarEidolons': 0, #number of eidolons on fivestar characters
     'fourstarEidolons': 6, #number of eidolons on fourstar characters
 

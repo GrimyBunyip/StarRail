@@ -4,15 +4,32 @@ import pandas as pd
 STATS_FILEPATH = 'characterStats\characterStats.csv'
 
 class BaseCharacter(object):
+  baseAtk:float
+  baseDef:float
+  baseHP:float
+  baseSpd:float
+  taunt:float
+  maxEnergy:float
+
+  # define information we would pull from the configuration dictionary and might use
+  # helps with autocomplete in vs code
+  numEnemies:int
+  numRounds:float
+  enemyLevel:int
+  enemySpeed:float
+  enemyType:str  
+  bonusEnergyFlat:float
+  bonusEnergyPerEnemyAttack:float
+  numberEnemyAttacksPerTurn:float
+  enemyMaxHP:float
+  enemyToughness:float
+  breakLevelMultiplier:float
+  enemyRes:float
+  brokenMultiplier:float
+  
   def __init__(self, lightcone, relicsetone, relicsettwo, planarset, relicstats, config:dict):
     self.__dict__.update(config)
     
-    self.name = ''
-    self.longName = ''
-    self.graphic = ''
-
-    self.element = ''
-    self.rarity = 4
     self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
     
     self.lightcone = lightcone
@@ -20,13 +37,6 @@ class BaseCharacter(object):
     self.relicsettwo = relicsettwo
     self.planarset = planarset
     self.relicstats = relicstats
-
-    self.baseAtk = 0.0
-    self.baseDef = 0.0
-    self.baseHP = 0.0
-    self.baseSpd = 100.0
-    self.maxEnergy = 100.0
-    self.taunt = 100.0
 
     self.percAtk = 0.0
     self.percDef = 0.0
@@ -36,11 +46,10 @@ class BaseCharacter(object):
     self.flatDef = 0.0
     self.flatHP = 0.0
     self.flatSpd = 0.0
-    self.CR = 0.05
-    self.CD = 0.50
 
     self.ER = 0.0
-    self.BreakEff = 0.0
+    self.BreakEffect = 0.0
+    self.BreakEfficiency = 0.0
 
     self.EHR = 0.0
     self.Res = 0.0
@@ -64,8 +73,6 @@ class BaseCharacter(object):
 
     self.defShred = 0.0
     self.resPen = 0.0
-
-    self.eidolon = 0
     
   def loadCharacterStats(self, name:str):
     df = pd.read_csv(STATS_FILEPATH)
@@ -100,14 +107,14 @@ class BaseCharacter(object):
 
   def useBasic(self):
     retval = BaseEffect()
-    retval.gauge = 30.0 * (1.0 + self.BreakEff)
+    retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
     retval.energy = 20.0 * (1.0 + self.ER)
     retval.skillpoints = 1.0
     return retval
 
   def useSkill(self):
     retval = BaseEffect()
-    retval.gauge = 60.0 * (1.0 + self.BreakEff)
+    retval.gauge = 60.0 * (1.0 + self.BreakEfficiency)
     retval.energy = 30.0 * (1.0 + self.ER)
     retval.skillpoints = -1.0
     return retval

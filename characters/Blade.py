@@ -48,7 +48,7 @@ class Blade(BaseCharacter):
     retval.damage *= 1.0 + min(self.CR, 1.0) * self.CD
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.basicDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = 30.0 * (1.0 + self.BreakEff)
+    retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
     retval.energy = 20.0 * (1.0 + self.ER)
     retval.skillpoints = 1.0
     return retval
@@ -63,7 +63,7 @@ class Blade(BaseCharacter):
     retval.damage *= 1.0 + min(self.CR, 1.0) * self.CD
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.basicDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.BreakEff)
+    retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.BreakEfficiency)
     retval.energy = 30.0 * (1.0 + self.ER)
     retval.skillpoints = - 1.0 / 3 # just gonna estimate it by tweaking this here
     return retval
@@ -88,7 +88,7 @@ class Blade(BaseCharacter):
     retval.damage *= 1.0 + min(self.CR, 1.0) * self.CD
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.ultDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = ( 60.0 + 60.0 * num_adjacents ) * (1.0 + self.BreakEff)
+    retval.gauge = ( 60.0 + 60.0 * num_adjacents ) * (1.0 + self.BreakEfficiency)
     retval.energy = 5.0 * (1.0 + self.ER)
     retval.skillpoints = 0
     return retval
@@ -100,7 +100,7 @@ class Blade(BaseCharacter):
     retval.damage *= 1.0 + min(self.CR, 1.0) * self.CD
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.followupDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = ( 30.0 * self.numEnemies ) * (1.0 + self.BreakEff)
+    retval.gauge = ( 30.0 * self.numEnemies ) * (1.0 + self.BreakEfficiency)
     retval.energy = 10.0 * (1.0 + self.ER)
     retval.skillpoints = 0
     return retval
