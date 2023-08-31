@@ -8,9 +8,11 @@ class CruisingInTheStellarSea(BaseLightCone):
 
   def __init__(self,
                graphic:str = 'https://static.wikia.nocookie.net/houkai-star-rail/images/2/2a/Light_Cone_Cruising_in_the_Stellar_Sea.png',
+               shortname:str = 'Cruising',
                passiveUptime:float = 0.5,
                **config):
     self.graphic = graphic
+    self.shortname = shortname
     self.passiveUptime = passiveUptime
     self.superposition = config['hertaSuperpositions']
 

@@ -4,8 +4,10 @@ from baseClasses.RelicSet import RelicSet
 class HunterOfGlacialForest2pc(RelicSet):
   def __init__(self,
                graphic:str='',
+               shortname:str = 'Glacial 2pc',
                **config):
     self.graphic = graphic
+    self.shortname = shortname
 
   def equipTo(self, char:BaseCharacter):
     char.iceDmg += 0.10
@@ -13,9 +15,11 @@ class HunterOfGlacialForest2pc(RelicSet):
 class HunterOfGlacialForest4pc(RelicSet):
   def __init__(self,
                graphic:str='',
+               shortname:str = 'Glacial 4pc',
                passiveUptime = 1.0,
                **config):
     self.graphic = graphic
+    self.shortname = shortname
     self.passiveUptime = passiveUptime
 
   def equipTo(self, char:BaseCharacter):

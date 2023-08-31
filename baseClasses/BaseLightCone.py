@@ -6,6 +6,8 @@ class BaseLightCone(object):
   baseAtk = 0.0
   baseDef = 0.0
   baseHp = 0.0
+  superposition = 1
+  shortname = ''
 
   def addBaseStats(self, char:BaseCharacter):
     char.baseAtk += self.baseAtk

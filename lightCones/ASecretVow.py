@@ -8,9 +8,11 @@ class ASecretVow(BaseLightCone):
 
   def __init__(self,
                graphic:str = '',
+               shortname:str = 'Secret Vow',
                passiveUptime:float = 0.5,
                **config):
     self.graphic = graphic
+    self.shortname = shortname
     self.passiveUptime = passiveUptime
     self.superposition = config['hertaSuperpositions']
 
