@@ -43,7 +43,7 @@ def visualize(CharacterDict:dict, EffectDict:dict, Configuration):
     for bar, character in zip(bars, characters):
         img_data = urlopen(character.graphic).read()
         img = plt.imread(io.BytesIO(img_data), format='png')  # You might need to adjust the format based on the image type
-        img = OffsetImage(img, zoom=0.2)  # Adjust the zoom factor as needed
+        img = OffsetImage(img, zoom=0.5)  # Adjust the zoom factor as needed
         ab1 = AnnotationBbox(img, (bar.get_width() - RIGHT_OFFSET, bar.get_y() + bar.get_height()/2), frameon=False)
 
         ax.add_artist(ab1)

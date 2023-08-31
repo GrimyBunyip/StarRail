@@ -4,9 +4,6 @@ from baseClasses.BaseLightCone import BaseLightCone
 from baseClasses.BaseEffect import BaseEffect
 from baseClasses.RelicSet import RelicSet
 from baseClasses.RelicStats import RelicStats
-from lightCones.CruisingInTheStellarSea import CruisingInTheStellarSea
-from relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
-from relicSets.SpaceSealingStation import SpaceSealingStation
 
 class Yanqing(BaseCharacter):
 
@@ -16,10 +13,9 @@ class Yanqing(BaseCharacter):
                relicsettwo:RelicSet,
                planarset:RelicSet,
                relicstats:RelicStats,
-               name:str='Yanqing',
                graphic:str = 'https://static.wikia.nocookie.net/houkai-star-rail/images/5/57/Character_Yanqing_Icon.png',
                soulsteelUptime = 1.0,
-               searingStingUptime = 1.0,
+               e4Uptime = 1.0,
                rainingBlissUptime = 0.25,
                **config):
     super().__init__()
@@ -30,15 +26,18 @@ class Yanqing(BaseCharacter):
     self.relicstats = relicstats
 
     self.soulsteelUptime = soulsteelUptime
-    self.searingStingUptime = searingStingUptime
+    self.e4Uptime = e4Uptime
     self.rainingBlissUptime = rainingBlissUptime
-
-    self.name = name
     self.graphic = graphic
     self.config = config
     self.eidolon = config['fivestarEidolons']
 
     self.element = 'ice'
+
+    self.name = 'Yanqing E{} {} S{}\n{} + {} + {}\nSoulsteel Uptime: {}\nUltimate Uptime: {}'.format(self.eidolon, self.lightcone.shortname, self.lightcone.superposition,
+                                                                                          relicsetone.shortname, relicsettwo.shortname, planarset.shortname,
+                                                                                          self.soulsteelUptime,
+                                                                                          self.rainingBlissUptime)
 
     # Base Stats
 
@@ -55,7 +54,7 @@ class Yanqing(BaseCharacter):
     self.percHP += 0.06 + 0.04 # Ascensions
 
     self.ER += 0.10 * self.soulsteelUptime if self.eidolon >= 2 else 0.0
-    self.resPen += 0.12 * self.searingStingUptime if self.eidolon >= 4 else 0.0
+    self.resPen += 0.12 * self.e4Uptime if self.eidolon >= 4 else 0.0
 
     #soulsteel
     self.CR += self.soulsteelUptime * ( 0.22 if self.eidolon >= 5 else 0.20 )
@@ -102,7 +101,6 @@ class Yanqing(BaseCharacter):
     retval.skillpoints = 0.0
     return retval
 
-
   def useTalent(self):
     retval = BaseEffect()
     retval.damage = self.getTotalAtk()
@@ -117,23 +115,7 @@ class Yanqing(BaseCharacter):
     retval *= 0.62 if self.eidolon >= 5 else 0.6
     return retval
   
-def YanqingV1(Configuration:dict, CharacterDict:dict, EffectDict:dict):
-  relic1 = HunterOfGlacialForest2pc()
-  relic2 = HunterOfGlacialForest4pc()
-  relic3 = SpaceSealingStation()
-  relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
-                          substats = {'percAtk': 8, 'CD': 12})
-  Cone = CruisingInTheStellarSea(passiveUptime = 0.5, **Configuration)
-  character = Yanqing(Cone,
-                relic1,
-                relic2,
-                relic3,
-                relicstats,
-                'Yanqing E0 Cruising S5\n8 ATK% subs, 12 CD subs\n100% soulsteel uptime',
-                soulsteelUptime = 1.0,
-                searingStingUptime = 1.0,
-                rainingBlissUptime = 0.25,
-                **Configuration)
+def YanqingRotation(character:BaseCharacter, Configuration:dict, CharacterDict:dict, EffectDict:dict):
 
   playerTurns = ( Configuration['numRounds'] + 0.5 )  * character.getTotalSpd() / 100
   enemyTurns = ( Configuration['numRounds'] + 0.5 ) * Configuration['enemySpeed'] / 100
@@ -149,10 +131,9 @@ def YanqingV1(Configuration:dict, CharacterDict:dict, EffectDict:dict):
   num_dots = min(enemyTurns * Configuration['numEnemies'], num_breaks)
   totalEffect += character.useBreakDot() * num_dots
   # assume we use an ult proportional to the amount of energy we gained. Ignoring rounding errors and energy from enemy attacks
-  num_ults = totalEffect.energy / character.maxEnergy
+  num_ults = ( totalEffect.energy - (5 + 10 * (0.62 if character.eidolon >= 5 else 0.6) ) * (1 + character.ER) ) / character.maxEnergy
   totalEffect += character.useUltimate() * num_ults
   totalEffect += character.useTalent() * num_ults # apply soul sync as well
-  print(character.CR, character.CD)
   print("Yanqing Effects:")
   totalEffect.print()
 

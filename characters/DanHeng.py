@@ -4,9 +4,6 @@ from baseClasses.BaseLightCone import BaseLightCone
 from baseClasses.BaseEffect import BaseEffect
 from baseClasses.RelicSet import RelicSet
 from baseClasses.RelicStats import RelicStats
-from lightCones.CruisingInTheStellarSea import CruisingInTheStellarSea
-from relicSets.EagleOfTwilightLine import EagleOfTwilightLine2pc, EagleOfTwilightLine4pc
-from relicSets.SpaceSealingStation import SpaceSealingStation
 
 class DanHeng(BaseCharacter):
   def __init__(self,
@@ -32,17 +29,17 @@ class DanHeng(BaseCharacter):
     self.slowUptime = slowUptime
     self.e1Uptime = e1Uptime
     self.fasterThanLightUptime = fasterThanLightUptime
+    self.graphic = graphic
+    self.config = config
+    self.eidolon = config['fourstarEidolons']
+
+    self.element = 'wind'
 
     self.name = 'Dan Heng E{} {} S{}\n{} + {} + {}\nTalent Uptime: {}\nSlow Uptime: {}\n20% Spd Uptime: {}'.format(self.eidolon, self.lightcone.shortname, self.lightcone.superposition,
                                                                                           relicsetone.shortname, relicsettwo.shortname, planarset.shortname,
                                                                                           self.talentUptime,
                                                                                           self.slowUptime,
                                                                                           self.fasterThanLightUptime)
-    self.graphic = graphic
-    self.config = config
-    self.eidolon = config['fourstarEidolons']
-
-    self.element = 'wind'
 
     # Base Stats
 
@@ -64,7 +61,7 @@ class DanHeng(BaseCharacter):
 
     self.CR += 0.12 * self.e1Uptime # The Higher You Fly, the Harder You Fall
 
-    self.resPen += ( 0.396 if self.eidolon >= 5 else 0.36 ) * talentUptime
+    self.resPen += ( 0.396 if self.eidolon >= 5 else 0.36 ) * talentUptime * (0.5 if self.eidolon < 2 else 1.0)
 
     self.equipGear()
     self.balanceCrit()
