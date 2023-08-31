@@ -4,6 +4,13 @@ Configuration = {
     'enemyLevel': 90, # level of enemies
     'enemySpeed': 132, # lvl 86+ enemies have 1.32 speed multiplier. They can have varying base speeds, but let's assume 100
     'enemyType': 'elite', # options are elite or basic
+    
+    'bonusEnergyFlat': 30, # about 3 kills worth over the course of 8 turns
+    'bonusEnergyPerEnemyAttack': 12, # amount of energy each time enemies attack the character
+    
+    'numberEnemyAttacksPerTurn': 0.5, # number of enemy attacks on this character for each turn the enemy takes
+    # I do not factor in character abilities that affect number of enemy attacks
+    # number of enemy attacks is multiplied by taunt / 100
 
     'enemyMaxHP': 250000, # used for calculation of break effects exclusively, it's roughly the HP of an elite
     'enemyToughness': 300, # used for calculation of break effects exclusively, most elites have 300

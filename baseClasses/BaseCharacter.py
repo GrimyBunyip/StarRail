@@ -1,21 +1,32 @@
 from baseClasses.BaseEffect import BaseEffect
+import pandas as pd
+
+STATS_FILEPATH = 'characterStats\characterStats.csv'
 
 class BaseCharacter(object):
-  def __init__(self):
-    self.element = ''
-
+  def __init__(self, lightcone, relicsetone, relicsettwo, planarset, relicstats, config:dict):
+    self.__dict__.update(config)
+    
     self.name = ''
+    self.longName = ''
     self.graphic = ''
-    self.cone = None
-    self.relicsetone = None
-    self.relicsettwo = None
-    self.planarset = None
-    self.relicstats = None
+
+    self.element = ''
+    self.rarity = 4
+    self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
+    
+    self.lightcone = lightcone
+    self.relicsetone = relicsetone
+    self.relicsettwo = relicsettwo
+    self.planarset = planarset
+    self.relicstats = relicstats
 
     self.baseAtk = 0.0
     self.baseDef = 0.0
     self.baseHP = 0.0
     self.baseSpd = 100.0
+    self.maxEnergy = 100.0
+    self.taunt = 100.0
 
     self.percAtk = 0.0
     self.percDef = 0.0
@@ -36,6 +47,7 @@ class BaseCharacter(object):
     self.Break = 0.0
     self.Heal = 0.0
 
+    self.Dmg = 0.0
     self.windDmg = 0.0
     self.fireDmg = 0.0
     self.iceDmg = 0.0
@@ -54,8 +66,13 @@ class BaseCharacter(object):
     self.resPen = 0.0
 
     self.eidolon = 0
-
-    self.config = {}
+    
+  def loadCharacterStats(self, name:str):
+    df = pd.read_csv(STATS_FILEPATH)
+    rows = df.iloc[:, 0]
+    for column in df.columns:
+        data = df.loc[rows[rows == name].index,column].values[0]
+        self.__dict__[column] = data
 
   def equipGear(self):
     self.lightcone.equipTo(self)
@@ -122,8 +139,8 @@ class BaseCharacter(object):
         'imaginary': 0.5,
     }
 
-    baseDotDamage = self.config['breakLevelMultiplier']
-    baseDotDamage *= 0.5 + self.config['enemyToughness'] / 120
+    baseDotDamage = self.breakLevelMultiplier
+    baseDotDamage *= 0.5 + self.enemyToughness / 120
     baseDotDamage *= breakMultipliers[self.element]
     baseDotDamage *= 1.0 + self.Break
     baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
@@ -136,24 +153,24 @@ class BaseCharacter(object):
     baseDotDamage = 0.0
 
     if self.element == 'physical':
-      baseDotDamage = 2.0 *self.config['breakLevelMultiplier']
-      baseDotDamage *= 0.5 + self.config['enemyToughness'] / 120
-      if self.config['enemyType'] == 'elite':
-        bleedDamage = 0.07 * self.config['enemyMaxHP']
+      baseDotDamage = 2.0 *self.breakLevelMultiplier
+      baseDotDamage *= 0.5 + self.enemyToughness / 120
+      if self.enemyType == 'elite':
+        bleedDamage = 0.07 * self.enemyMaxHP
       else:
-        bleedDamage = 0.16 * self.config['enemyMaxHP']
+        bleedDamage = 0.16 * self.enemyMaxHP
       baseDotDamage = min(baseDotDamage, bleedDamage)
     elif self.element == 'fire':
-      baseDotDamage = self.config['breakLevelMultiplier']
+      baseDotDamage = self.breakLevelMultiplier
     elif self.element == 'ice':
-      baseDotDamage = self.config['breakLevelMultiplier']
+      baseDotDamage = self.breakLevelMultiplier
     elif self.element == 'lightning':
-      baseDotDamage = 2.0 * self.config['breakLevelMultiplier']
+      baseDotDamage = 2.0 * self.breakLevelMultiplier
     elif self.element == 'wind': #assume 3 stacks
-      baseDotDamage = 3.0 * self.config['breakLevelMultiplier']
+      baseDotDamage = 3.0 * self.breakLevelMultiplier
     elif self.element == 'quantum': #assume 3 stacks
-      baseDotDamage = 0.6 * 3 * self.config['breakLevelMultiplier']
-      baseDotDamage *= 0.5 + self.config['enemyToughness'] / 120
+      baseDotDamage = 0.6 * 3 * self.breakLevelMultiplier
+      baseDotDamage *= 0.5 + self.enemyToughness / 120
 
     baseDotDamage *= 1.0 + self.Break
     baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
@@ -163,7 +180,7 @@ class BaseCharacter(object):
 
   def applyDamageMultipliers(self, baseDamage:float) -> float:
     damage = baseDamage
-    damage *= (80 + 20 ) / ( ( self.config['enemyLevel'] + 20 ) * ( 1 - self.defShred ) + 80 + 20 )
-    damage *= max(min(1 - self.config['enemyRes'] + self.resPen, 2.0), 0.1)
-    damage *= self.config['brokenMultiplier']
+    damage *= (80 + 20 ) / ( ( self.enemyLevel + 20 ) * ( 1 - self.defShred ) + 80 + 20 )
+    damage *= max(min(1 - self.enemyRes + self.resPen, 2.0), 0.1)
+    damage *= self.brokenMultiplier
     return damage

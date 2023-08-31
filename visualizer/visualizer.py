@@ -49,7 +49,7 @@ def visualize(CharacterDict:dict, EffectDict:dict, Configuration):
         ax.add_artist(ab1)
         ax.text(x = LEFT_OFFSET,
                 y = bar.get_y() + bar.get_height() * 2 / 4,
-                s = character.name, 
+                s = character.longName, 
                 va = 'center', 
                 color = 'white')
 

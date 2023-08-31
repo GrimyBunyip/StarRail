@@ -13,39 +13,21 @@ class Yanqing(BaseCharacter):
                relicsettwo:RelicSet,
                planarset:RelicSet,
                relicstats:RelicStats,
-               graphic:str = 'https://static.wikia.nocookie.net/houkai-star-rail/images/5/57/Character_Yanqing_Icon.png',
                soulsteelUptime = 1.0,
                e4Uptime = 1.0,
                rainingBlissUptime = 0.25,
                **config):
-    super().__init__()
-    self.lightcone = lightcone
-    self.relicsetone = relicsetone
-    self.relicsettwo = relicsettwo
-    self.planarset = planarset
-    self.relicstats = relicstats
+    super().__init__(lightcone, relicsetone, relicsettwo, planarset, relicstats, config)
+    self.loadCharacterStats('Yanqing')
 
     self.soulsteelUptime = soulsteelUptime
     self.e4Uptime = e4Uptime
     self.rainingBlissUptime = rainingBlissUptime
-    self.graphic = graphic
-    self.config = config
-    self.eidolon = config['fivestarEidolons']
 
-    self.element = 'ice'
-
-    self.name = 'Yanqing E{} {} S{}\n{} + {} + {}\nSoulsteel Uptime: {}\nUltimate Uptime: {}'.format(self.eidolon, self.lightcone.shortname, self.lightcone.superposition,
+    self.longName = 'Yanqing E{} {} S{}\n{} + {} + {}\nSoulsteel Uptime: {}\nUltimate Uptime: {}'.format(self.eidolon, self.lightcone.shortname, self.lightcone.superposition,
                                                                                           relicsetone.shortname, relicsettwo.shortname, planarset.shortname,
                                                                                           self.soulsteelUptime,
                                                                                           self.rainingBlissUptime)
-
-    # Base Stats
-
-    self.baseAtk = 679.14
-    self.baseDef = 412.34
-    self.baseHP = 893.00
-    self.baseSpd = 109
-    self.maxEnergy = 140
 
     # Talents
 
@@ -61,6 +43,7 @@ class Yanqing(BaseCharacter):
     self.CD += self.soulsteelUptime * ( 0.33 if self.eidolon >= 5 else 0.30 )
     self.bliss_cr = 0.6
     self.bliss_cd = 0.54 if self.eidolon >= 5 else 0.5
+    self.taunt *= 0.4
 
     self.equipGear()
     #self.balanceCrit() do not balance crit on yanqing
@@ -70,7 +53,7 @@ class Yanqing(BaseCharacter):
     retval.damage = self.getTotalAtk()
     retval.damage *= ( 1.1 if self.eidolon >= 3 else 1.0 ) + ( 0.6 if self.eidolon >= 1 else 0.0 )
     retval.damage *= 1.0 + min(self.CR + self.bliss_cr * self.rainingBlissUptime, 1.0) * (self.CD + self.bliss_cd * self.rainingBlissUptime)
-    retval.damage *= 1.0 + self.iceDmg + self.basicDmg
+    retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.basicDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.BreakEff)
     retval.energy = 20.0 * (1.0 + self.ER)
@@ -82,7 +65,7 @@ class Yanqing(BaseCharacter):
     retval.damage = self.getTotalAtk()
     retval.damage *= ( 2.42 if self.eidolon >= 3 else 2.2 ) + ( 0.6 if self.eidolon >= 1 else 0.0 )
     retval.damage *= 1.0 + min(self.CR + self.bliss_cr * self.rainingBlissUptime, 1.0) * (self.CD + self.bliss_cd * self.rainingBlissUptime)
-    retval.damage *= 1.0 + self.iceDmg + self.skillDmg
+    retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.skillDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * (1.0 + self.BreakEff)
     retval.energy = 30.0 * (1.0 + self.ER)
@@ -94,7 +77,7 @@ class Yanqing(BaseCharacter):
     retval.damage = self.getTotalAtk()
     retval.damage *= ( 3.78 if self.eidolon >= 5 else 3.5 ) + ( 0.6 if self.eidolon >= 1 else 0.0 )
     retval.damage *= 1.0 + min(self.CR + self.bliss_cr, 1.0) * (self.CD + self.bliss_cd)
-    retval.damage *= 1.0 + self.iceDmg + self.ultDmg
+    retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.ultDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 90.0 * (1.0 + self.BreakEff)
     retval.energy = 5.0 * (1.0 + self.ER)
@@ -106,7 +89,7 @@ class Yanqing(BaseCharacter):
     retval.damage = self.getTotalAtk()
     retval.damage *= 0.55 if self.eidolon >= 5 else 0.5
     retval.damage *= 1.0 + min(self.CR + self.bliss_cr * self.rainingBlissUptime, 1.0) * (self.CD + self.bliss_cd * self.rainingBlissUptime)
-    retval.damage *= 1.0 + self.iceDmg + self.followupDmg
+    retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.followupDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.BreakEff)
     retval.energy = 10.0 * (1.0 + self.ER)
@@ -115,25 +98,34 @@ class Yanqing(BaseCharacter):
     retval *= 0.62 if self.eidolon >= 5 else 0.6
     return retval
   
-def YanqingRotation(character:BaseCharacter, Configuration:dict, CharacterDict:dict, EffectDict:dict):
+def YanqingEstimationV1(character:BaseCharacter, Configuration:dict, CharacterDict:dict, EffectDict:dict):
 
   playerTurns = ( Configuration['numRounds'] + 0.5 )  * character.getTotalSpd() / 100
   enemyTurns = ( Configuration['numRounds'] + 0.5 ) * Configuration['enemySpeed'] / 100
+  enemyAttacks = enemyTurns * Configuration['numberEnemyAttacksPerTurn'] * character.taunt / 100.0
 
   totalEffect = BaseEffect()
+  totalEffect.energy += Configuration['bonusEnergyFlat']
+  totalEffect.energy += Configuration['bonusEnergyPerEnemyAttack'] * enemyAttacks
+  
   # assume we spam skill every single turn
   totalEffect += playerTurns * character.useSkill()
-  totalEffect += playerTurns * character.useTalent() # apply soul sync as well
+  totalEffect += playerTurns * character.useTalent()
+  
   # assume we apply break a number of times proportional to our gauge output and enemy toughness
   num_breaks = totalEffect.gauge / Configuration['enemyToughness']
   totalEffect += character.useBreak() * num_breaks
+  
   # apply a number of break dots proportional to the amount of breaks we applied, up to the number of enemy turns
   num_dots = min(enemyTurns * Configuration['numEnemies'], num_breaks)
   totalEffect += character.useBreakDot() * num_dots
+  
   # assume we use an ult proportional to the amount of energy we gained. Ignoring rounding errors and energy from enemy attacks
   num_ults = ( totalEffect.energy - (5 + 10 * (0.62 if character.eidolon >= 5 else 0.6) ) * (1 + character.ER) ) / character.maxEnergy
-  totalEffect += character.useUltimate() * num_ults
-  totalEffect += character.useTalent() * num_ults # apply soul sync as well
+  
+  totalEffect += num_ults * character.useUltimate()
+  totalEffect += num_ults * character.useTalent() # apply soul sync as well
+  
   print("Yanqing Effects:")
   totalEffect.print()
 

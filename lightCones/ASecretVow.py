@@ -18,13 +18,5 @@ class ASecretVow(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    char.basicDmg += 0.40
-    char.skillDmg += 0.40
-    char.ultDmg += 0.40
-    char.followupDmg += 0.40
-    char.dotDmg += 0.40
-    char.basicDmg += 0.40 * self.passiveUptime
-    char.skillDmg += 0.40 * self.passiveUptime
-    char.ultDmg += 0.40 * self.passiveUptime
-    char.followupDmg += 0.40 * self.passiveUptime
-    char.dotDmg += 0.40 * self.passiveUptime
+    char.Dmg += 0.40
+    char.Dmg += 0.40 * self.passiveUptime
