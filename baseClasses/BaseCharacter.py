@@ -30,8 +30,6 @@ class BaseCharacter(object):
   def __init__(self, lightcone, relicsetone, relicsettwo, planarset, relicstats, config:dict):
     self.__dict__.update(config)
     
-    self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
-    
     self.lightcone = lightcone
     self.relicsetone = relicsetone
     self.relicsettwo = relicsettwo
@@ -80,6 +78,8 @@ class BaseCharacter(object):
     for column in df.columns:
         data = df.loc[rows[rows == name].index,column].values[0]
         self.__dict__[column] = data
+        
+    self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
 
   def equipGear(self):
     self.lightcone.equipTo(self)
