@@ -3,7 +3,7 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from urllib.request import urlopen
 import io
 
-def visualize(CharacterDict:dict, EffectDict:dict, Configuration, filename='sample.png'):
+def visualize(CharacterDict:dict, EffectDict:dict, Configuration):
     color_dict = {
         'wind': 'green',
         'fire': 'red',
