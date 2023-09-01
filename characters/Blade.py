@@ -31,9 +31,6 @@ class Blade(BaseCharacter):
 
     # Talents
 
-    self.CR += 0.027 + 0.04 + 0.053 # Ascensions
-    self.percHP += 0.04 + 0.06 + 0.06 + 0.08 + 0.04 # Ascensions
-    self.Res += 0.04 + 0.06 # Ascensions
     self.followupDmg += 0.20 # Ascensions
     
     self.CR += 0.15 * self.hellscapeUptime if self.eidolon >= 2 else 0.0

@@ -31,10 +31,6 @@ class Yanqing(BaseCharacter):
 
     # Talents
 
-    self.percAtk += 0.04 + 0.06 + 0.08 + 0.04 + 0.06 # Ascensions
-    self.iceDmg += 0.032 + 0.048 + 0.064 # Ascensions
-    self.percHP += 0.06 + 0.04 # Ascensions
-
     self.ER += 0.10 * self.soulsteelUptime if self.eidolon >= 2 else 0.0
     self.resPen += 0.12 * self.e4Uptime if self.eidolon >= 4 else 0.0
 
@@ -105,6 +101,8 @@ def YanqingEstimationV1(character:BaseCharacter, Configuration:dict, CharacterDi
   enemyAttacks = enemyTurns * Configuration['numberEnemyAttacksPerTurn'] * character.taunt / 100.0
 
   totalEffect = BaseEffect()
+  
+  # bonus energy from kills and getting hit
   totalEffect.energy += Configuration['bonusEnergyFlat']
   totalEffect.energy += Configuration['bonusEnergyPerEnemyAttack'] * enemyAttacks
   

@@ -35,9 +35,6 @@ class DanHeng(BaseCharacter):
 
     # Talents
 
-    self.percAtk += 0.04 + 0.06 + 0.08 # Ascensions
-    self.windDmg += 0.032 + 0.048 + 0.064 + 0.032 + 0.048# Ascensions
-    self.percDef += 0.075 + 0.05# Ascensions
     self.percSpd += 0.20 * self.fasterThanLightUptime # Faster Than Light
     self.basicDmg += 0.40 * self.slowUptime # High Gale
 

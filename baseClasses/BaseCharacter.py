@@ -10,6 +10,19 @@ class BaseCharacter(object):
   baseSpd:float
   taunt:float
   maxEnergy:float
+  
+  percAtk:float
+  percDef:float
+  percHP:float
+  EHR:float
+  Res:float
+  windDmg:float
+  fireDmg:float
+  iceDmg:float
+  lighDmg:float
+  physDmg:float
+  quanDmg:float
+  imagDmg:float
 
   # define information we would pull from the configuration dictionary and might use
   # helps with autocomplete in vs code
@@ -36,9 +49,6 @@ class BaseCharacter(object):
     self.planarset = planarset
     self.relicstats = relicstats
 
-    self.percAtk = 0.0
-    self.percDef = 0.0
-    self.percHP = 0.0
     self.percSpd = 0.0
     self.flatAtk = 0.0
     self.flatDef = 0.0
@@ -49,20 +59,10 @@ class BaseCharacter(object):
     self.BreakEffect = 0.0
     self.BreakEfficiency = 0.0
 
-    self.EHR = 0.0
-    self.Res = 0.0
     self.Break = 0.0
     self.Heal = 0.0
 
     self.Dmg = 0.0
-    self.windDmg = 0.0
-    self.fireDmg = 0.0
-    self.iceDmg = 0.0
-    self.lighDmg = 0.0
-    self.physDmg = 0.0
-    self.quanDmg = 0.0
-    self.imagDmg = 0.0
-
     self.basicDmg = 0.0
     self.skillDmg = 0.0
     self.ultDmg = 0.0
