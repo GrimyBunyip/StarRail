@@ -13,6 +13,7 @@ class BaseCharacter(object):
   CD:float
   
   taunt:float
+  initialEnergy:float
   maxEnergy:float
   path:str
   
@@ -99,6 +100,7 @@ class BaseCharacter(object):
         data = df.loc[rows[rows == name].index,column].values[0]
         self.__dict__[column] = data
         
+    self.initialEnergy += self.maxEnergy * 0.5
     self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
 
   def equipGear(self):
