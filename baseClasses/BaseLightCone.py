@@ -1,14 +1,35 @@
 from baseClasses.BaseCharacter import BaseCharacter
+import pandas as pd
+
+STATS_FILEPATH = 'stats\ConeStats.csv'
 
 class BaseLightCone(object):
-  graphic = ''
-
-  baseAtk = 0.0
-  baseDef = 0.0
-  baseHp = 0.0
-  superposition = 1
-  shortname = ''
-
+  baseAtk:float
+  baseDef:float
+  baseHP:float
+  superposition:int
+  rarity:int
+  herta:bool
+  name:str
+    
+  def loadConeStats(self, name:str):
+    df = pd.read_csv(STATS_FILEPATH)
+    rows = df.iloc[:, 0]
+    for column in df.columns:
+        data = df.loc[rows[rows == name].index,column].values[0]
+        self.__dict__[column] = data
+        
+  def setSuperposition(self, config:dict):
+    if self.rarity == 3:
+      self.superposition = config['threestarSuperpositions']
+    elif self.rarity == 4:
+      self.superposition = config['fourstarSuperpositions']
+    elif self.rarity == 5:
+      if self.herta:
+        self.superposition = config['fivestarSuperpositions']
+      else:
+        self.superposition = config['hertaSuperpositions']
+        
   def addBaseStats(self, char:BaseCharacter):
     char.baseAtk += self.baseAtk
     char.baseDef += self.baseDef
@@ -17,3 +38,7 @@ class BaseLightCone(object):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
+    
+  def print(self):
+    for key, value in self.__dict__.items():
+      print(key, value)

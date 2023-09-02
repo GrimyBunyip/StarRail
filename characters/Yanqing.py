@@ -37,8 +37,8 @@ class Yanqing(BaseCharacter):
     #soulsteel
     self.CR += self.soulsteelUptime * ( 0.22 if self.eidolon >= 5 else 0.20 )
     self.CD += self.soulsteelUptime * ( 0.33 if self.eidolon >= 5 else 0.30 )
-    self.bliss_cr = 0.6
-    self.bliss_cd = 0.54 if self.eidolon >= 5 else 0.5
+    self.blissCR = 0.6
+    self.blissCD = 0.54 if self.eidolon >= 5 else 0.5
     self.taunt *= 0.4
 
     self.equipGear()
@@ -48,7 +48,7 @@ class Yanqing(BaseCharacter):
     retval = BaseEffect()
     retval.damage = self.getTotalAtk()
     retval.damage *= ( 1.1 if self.eidolon >= 3 else 1.0 ) + ( 0.6 if self.eidolon >= 1 else 0.0 )
-    retval.damage *= 1.0 + min(self.CR + self.bliss_cr * self.rainingBlissUptime, 1.0) * (self.CD + self.bliss_cd * self.rainingBlissUptime)
+    retval.damage *= 1.0 + min(self.CR + self.basicCR + self.blissCR * self.rainingBlissUptime, 1.0) * (self.CD + self.basicCD + self.blissCD * self.rainingBlissUptime)
     retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.basicDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
@@ -60,7 +60,7 @@ class Yanqing(BaseCharacter):
     retval = BaseEffect()
     retval.damage = self.getTotalAtk()
     retval.damage *= ( 2.42 if self.eidolon >= 3 else 2.2 ) + ( 0.6 if self.eidolon >= 1 else 0.0 )
-    retval.damage *= 1.0 + min(self.CR + self.bliss_cr * self.rainingBlissUptime, 1.0) * (self.CD + self.bliss_cd * self.rainingBlissUptime)
+    retval.damage *= 1.0 + min(self.CR + self.skillCR + self.blissCR * self.rainingBlissUptime, 1.0) * (self.CD + self.skillCD + self.blissCD * self.rainingBlissUptime)
     retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.skillDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * (1.0 + self.BreakEfficiency)
@@ -72,7 +72,7 @@ class Yanqing(BaseCharacter):
     retval = BaseEffect()
     retval.damage = self.getTotalAtk()
     retval.damage *= ( 3.78 if self.eidolon >= 5 else 3.5 ) + ( 0.6 if self.eidolon >= 1 else 0.0 )
-    retval.damage *= 1.0 + min(self.CR + self.bliss_cr, 1.0) * (self.CD + self.bliss_cd)
+    retval.damage *= 1.0 + min(self.CR + self.ultimateCR + self.blissCR, 1.0) * (self.CD + self.ultimateCD + self.blissCD)
     retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.ultDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 90.0 * (1.0 + self.BreakEfficiency)
@@ -84,7 +84,7 @@ class Yanqing(BaseCharacter):
     retval = BaseEffect()
     retval.damage = self.getTotalAtk()
     retval.damage *= 0.55 if self.eidolon >= 5 else 0.5
-    retval.damage *= 1.0 + min(self.CR + self.bliss_cr * self.rainingBlissUptime, 1.0) * (self.CD + self.bliss_cd * self.rainingBlissUptime)
+    retval.damage *= 1.0 + min(self.CR + self.blissCR * self.rainingBlissUptime, 1.0) * (self.CD + self.blissCD * self.rainingBlissUptime)
     retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.followupDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)

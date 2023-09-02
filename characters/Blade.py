@@ -42,7 +42,7 @@ class Blade(BaseCharacter):
     retval = BaseEffect()
     retval.damage = self.getTotalAtk()
     retval.damage *= 1.1 if self.eidolon >= 3 else 1.0
-    retval.damage *= 1.0 + min(self.CR, 1.0) * self.CD
+    retval.damage *= 1.0 + min(self.CR + self.basicCR, 1.0) * (self.CD + self.basicCD)
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.basicDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
@@ -57,7 +57,7 @@ class Blade(BaseCharacter):
     retval.damage += self.getTotalHP() * ( 1.10 if self.eidolon >= 3 else 1.0 )
     retval.damage += self.getTotalAtk() * ( 0.176 if self.eidolon >= 3 else 0.16 ) * num_adjacents
     retval.damage += self.getTotalHP() * ( 0.440 if self.eidolon >= 3 else 0.40 ) * num_adjacents
-    retval.damage *= 1.0 + min(self.CR, 1.0) * self.CD
+    retval.damage *= 1.0 + min(self.CR + self.basicCR, 1.0) * (self.CD + self.basicCD)
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.basicDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.BreakEfficiency)
@@ -82,7 +82,7 @@ class Blade(BaseCharacter):
     retval.damage += self.getTotalHP() * ( 0.432 if self.eidolon >= 5 else 0.40 ) * num_adjacents
     retval.damage += self.getTotalHP() * ( 1.08 * self.hpLossTally if self.eidolon >= 3 else 1.0 * self.hpLossTally )
     retval.damage += self.getTotalHP() * ( 0.432 * self.hpLossTally if self.eidolon >= 3 else 0.40 * self.hpLossTally ) * num_adjacents
-    retval.damage *= 1.0 + min(self.CR, 1.0) * self.CD
+    retval.damage *= 1.0 + min(self.CR + self.ultimateCR, 1.0) * (self.CD + self.ultimateCD)
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.ultDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 60.0 + 60.0 * num_adjacents ) * (1.0 + self.BreakEfficiency)
@@ -94,7 +94,7 @@ class Blade(BaseCharacter):
     retval = BaseEffect()
     retval.damage = self.getTotalAtk() * ( 0.484 if self.eidolon >= 5 else 0.44 ) * self.numEnemies
     retval.damage += self.getTotalHP() * ( 1.21 if self.eidolon >= 5 else 1.1 ) * self.numEnemies
-    retval.damage *= 1.0 + min(self.CR, 1.0) * self.CD
+    retval.damage *= 1.0 + min(self.CR + self.followupCR, 1.0) * (self.CD + self.followupCD)
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.followupDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 30.0 * self.numEnemies ) * (1.0 + self.BreakEfficiency)

@@ -1,16 +1,16 @@
 from copy import copy
-from lightCones.ASecretVow import ASecretVow
-
-from lightCones.CruisingInTheStellarSea import CruisingInTheStellarSea
-from relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
-from relicSets.EagleOfTwilightLine import EagleOfTwilightLine2pc, EagleOfTwilightLine4pc
-from relicSets.InertSalsotto import InertSalsotto
-from relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
-from relicSets.SpaceSealingStation import SpaceSealingStation
 from baseClasses.RelicStats import RelicStats
+from characters.Serval import Serval, ServalEstimationV1
 from characters.Blade import Blade, BladeEstimationsV1
-from characters.DanHeng import DanHengEstimationV1, DanHeng
-from characters.Yanqing import YanqingEstimationV1, Yanqing
+from characters.DanHeng import DanHeng, DanHengEstimationV1
+from characters.Yanqing import Yanqing, YanqingEstimationV1
+from lightCones.destruction.ASecretVow import ASecretVow
+from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
+from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
+from relicSets.relicSets.EagleOfTwilightLine import EagleOfTwilightLine2pc, EagleOfTwilightLine4pc
+from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
+from relicSets.planarSets.InertSalsotto import InertSalsotto
+from relicSets.planarSets.SpaceSealingStation import SpaceSealingStation
 from settings.BaseConfiguration import Configuration
 from visualizer.visualizer import visualize
 
@@ -20,7 +20,17 @@ if __name__ == '__main__':
     
     config = copy(Configuration)
     
-    DanHengCharacter = DanHeng(lightcone = CruisingInTheStellarSea(passiveUptime = 0.5, **config),
+    ServalCharacter = Serval(lightcone = CruisingInTheStellarSea(uptime = 0.5, **config),
+                relicsetone = EagleOfTwilightLine2pc(),
+                relicsettwo = EagleOfTwilightLine4pc(),
+                planarset = SpaceSealingStation(),
+                relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
+                            substats = {'CR': 10, 'CD': 10}),
+                **config)
+    
+    ServalEstimationV1(ServalCharacter, Configuration, CharacterDict, EffectDict)
+    
+    DanHengCharacter = DanHeng(lightcone = CruisingInTheStellarSea(uptime = 0.5, **config),
                 relicsetone = EagleOfTwilightLine2pc(),
                 relicsettwo = EagleOfTwilightLine4pc(),
                 planarset = SpaceSealingStation(),
@@ -33,7 +43,7 @@ if __name__ == '__main__':
     
     DanHengEstimationV1(DanHengCharacter, Configuration, CharacterDict, EffectDict)
     
-    YanqingCharacter = Yanqing(CruisingInTheStellarSea(passiveUptime = 0.5, **config),
+    YanqingCharacter = Yanqing(CruisingInTheStellarSea(uptime = 0.5, **config),
                     HunterOfGlacialForest2pc(),
                     HunterOfGlacialForest4pc(),
                     SpaceSealingStation(),
@@ -46,7 +56,7 @@ if __name__ == '__main__':
     
     YanqingEstimationV1(YanqingCharacter, Configuration, CharacterDict, EffectDict)
 
-    bladeCharacter = Blade(ASecretVow(passiveUptime = 0.5, **Configuration),
+    bladeCharacter = Blade(ASecretVow(uptime = 0.5, **Configuration),
                 LongevousDisciple2pc(),
                 LongevousDisciple4pc(),
                 InertSalsotto(),

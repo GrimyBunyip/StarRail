@@ -1,15 +1,20 @@
 from baseClasses.BaseEffect import BaseEffect
 import pandas as pd
 
-STATS_FILEPATH = 'characterStats\characterStats.csv'
+STATS_FILEPATH = 'stats\CharacterStats.csv'
 
 class BaseCharacter(object):
   baseAtk:float
   baseDef:float
   baseHP:float
   baseSpd:float
+  
+  CR:float
+  CD:float
+  
   taunt:float
   maxEnergy:float
+  path:str
   
   percAtk:float
   percDef:float
@@ -68,6 +73,16 @@ class BaseCharacter(object):
     self.ultDmg = 0.0
     self.dotDmg = 0.0
     self.followupDmg = 0.0
+    
+    self.basicCR = 0.0
+    self.skillCR = 0.0
+    self.followupCR = 0.0
+    self.ultimateCR = 0.0
+    
+    self.basicCD = 0.0
+    self.skillCD = 0.0
+    self.followupCD = 0.0
+    self.ultimateCD = 0.0
 
     self.defShred = 0.0
     self.resPen = 0.0

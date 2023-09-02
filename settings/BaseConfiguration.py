@@ -25,4 +25,5 @@ Configuration = {
     'fivestarSuperpositions': 1, #number of superpositions on fivestar light cones
     'hertaSuperpositions': 5, #number of superpositions on herta light cones, ignores 'fivestarSuperposition
     'fourstarSuperpositions': 5, #number of superpositions on fourstar light cones
+    'threestarSuperpositions': 5, #number of superpositions on threestar light cones
 }
