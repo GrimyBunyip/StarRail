@@ -51,7 +51,7 @@ class DanHeng(BaseCharacter):
 
   def useBasic(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk()
+    retval.damage = self.getTotalAtk() + self.baseAtk * self.basicPercAtk
     retval.damage *= 1.1 if self.eidolon >= 3 else 1.0
     retval.damage *= 1.0 + min(self.CR + self.basicCR, 1.0) * (self.CD + self.basicCD)
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.basicDmg
@@ -63,7 +63,7 @@ class DanHeng(BaseCharacter):
 
   def useSkill(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk()
+    retval.damage = self.getTotalAtk() + self.baseAtk * self.skillPercAtk
     retval.damage *= 2.86 if self.eidolon >= 3 else 2.6
     retval.damage *= 1.0 + min(self.CR + self.skillCR, 1.0) * (self.CD + self.skillCD)
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.skillDmg
@@ -75,7 +75,7 @@ class DanHeng(BaseCharacter):
 
   def useUltimate(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk()
+    retval.damage = self.getTotalAtk() + self.baseAtk * self.ultPercAtk
     retval.damage *= 4.32 if self.eidolon >= 5 else 4.0
     retval.damage *= 1.0 + min(self.CR + self.ultimateCR, 1.0) * (self.CD + self.ultimateCD)
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.ultDmg

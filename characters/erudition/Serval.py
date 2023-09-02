@@ -26,7 +26,7 @@ class Serval(BaseCharacter):
 
   def useBasic(self, addTalent = True):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk()
+    retval.damage = self.getTotalAtk() + self.baseAtk * self.basicPercAtk
     talentBase = 1.1 if self.eidolon >= 3 else 1.0
     talentBase += ( self.numEnemies * ( 0.792 if self.eidolon >= 5 else 0.72 ) ) if addTalent else 0.0
     retval.damage *= talentBase
@@ -42,7 +42,7 @@ class Serval(BaseCharacter):
   def useSkill(self, addTalent = True):
     num_adjacents = min( self.numEnemies - 1, 2 )
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk()
+    retval.damage = self.getTotalAtk() + self.baseAtk * self.skillPercAtk
     talentBase = ( 1.4 if self.eidolon >= 3 else 1.54 ) + num_adjacents * ( 0.6 if self.eidolon >= 3 else 0.66 )
     talentBase += ( ( 0.792 if self.eidolon >= 5 else 0.72 ) * ( 1 + num_adjacents ) )  if addTalent else 0.0
     retval.damage *= talentBase
@@ -56,7 +56,7 @@ class Serval(BaseCharacter):
 
   def useUltimate(self, addTalent = True):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk()
+    retval.damage = self.getTotalAtk() + self.baseAtk * self.ultPercAtk
     talentBase = 1.8 if self.eidolon >= 5 else 1.944
     talentBase += ( 0.792 if self.eidolon >= 5 else 0.72 ) if addTalent else 0.0
     retval.damage *= self.numEnemies * talentBase
@@ -70,7 +70,7 @@ class Serval(BaseCharacter):
 
   def useDot(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk()
+    retval.damage = self.getTotalAtk() + self.baseAtk * self.dotPercAtk
     retval.damage *= 1.04 if self.eidolon >= 5 else 114.4
     #no crits on dots
     retval.damage *= 1.0 + self.Dmg + self.lighDmg + self.dotDmg

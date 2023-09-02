@@ -46,7 +46,7 @@ class Yanqing(BaseCharacter):
 
   def useBasic(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk()
+    retval.damage = self.getTotalAtk() + self.baseAtk * self.basicPercAtk
     retval.damage *= ( 1.1 if self.eidolon >= 3 else 1.0 ) + ( 0.6 if self.eidolon >= 1 else 0.0 )
     retval.damage *= 1.0 + min(self.CR + self.basicCR + self.blissCR * self.rainingBlissUptime, 1.0) * (self.CD + self.basicCD + self.blissCD * self.rainingBlissUptime)
     retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.basicDmg
@@ -58,7 +58,7 @@ class Yanqing(BaseCharacter):
 
   def useSkill(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk()
+    retval.damage = self.getTotalAtk() + self.baseAtk * self.skillPercAtk
     retval.damage *= ( 2.42 if self.eidolon >= 3 else 2.2 ) + ( 0.6 if self.eidolon >= 1 else 0.0 )
     retval.damage *= 1.0 + min(self.CR + self.skillCR + self.blissCR * self.rainingBlissUptime, 1.0) * (self.CD + self.skillCD + self.blissCD * self.rainingBlissUptime)
     retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.skillDmg
@@ -70,7 +70,7 @@ class Yanqing(BaseCharacter):
 
   def useUltimate(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk()
+    retval.damage = self.getTotalAtk() + self.baseAtk * self.ultPercAtk
     retval.damage *= ( 3.78 if self.eidolon >= 5 else 3.5 ) + ( 0.6 if self.eidolon >= 1 else 0.0 )
     retval.damage *= 1.0 + min(self.CR + self.ultimateCR + self.blissCR, 1.0) * (self.CD + self.ultimateCD + self.blissCD)
     retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.ultDmg
@@ -82,7 +82,7 @@ class Yanqing(BaseCharacter):
 
   def useTalent(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk()
+    retval.damage = self.getTotalAtk() + self.baseAtk * self.followupPercAtk
     retval.damage *= 0.55 if self.eidolon >= 5 else 0.5
     retval.damage *= 1.0 + min(self.CR + self.blissCR * self.rainingBlissUptime, 1.0) * (self.CD + self.blissCD * self.rainingBlissUptime)
     retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.followupDmg

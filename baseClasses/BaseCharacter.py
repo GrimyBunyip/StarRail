@@ -68,6 +68,12 @@ class BaseCharacter(object):
     self.Break = 0.0
     self.Heal = 0.0
 
+    self.basicPercAtk = 0.0
+    self.skillPercAtk = 0.0
+    self.ultPercAtk = 0.0
+    self.followupPercAtk = 0.0
+    self.dotPercAtk = 0.0
+    
     self.Dmg = 0.0
     self.basicDmg = 0.0
     self.skillDmg = 0.0

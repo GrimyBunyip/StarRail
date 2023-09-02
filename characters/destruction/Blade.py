@@ -40,7 +40,7 @@ class Blade(BaseCharacter):
 
   def useBasic(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk()
+    retval.damage = self.getTotalAtk() + self.baseAtk * self.basicPercAtk
     retval.damage *= 1.1 if self.eidolon >= 3 else 1.0
     retval.damage *= 1.0 + min(self.CR + self.basicCR, 1.0) * (self.CD + self.basicCD)
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.basicDmg
@@ -53,9 +53,9 @@ class Blade(BaseCharacter):
   def useEnhancedBasic(self):
     num_adjacents = min( self.numEnemies - 1, 2 )
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk() * ( 0.44 if self.eidolon >= 3 else 0.4 )
+    retval.damage = ( self.getTotalAtk() + self.baseAtk * self.basicPercAtk ) * ( 0.44 if self.eidolon >= 3 else 0.4 )
     retval.damage += self.getTotalHP() * ( 1.10 if self.eidolon >= 3 else 1.0 )
-    retval.damage += self.getTotalAtk() * ( 0.176 if self.eidolon >= 3 else 0.16 ) * num_adjacents
+    retval.damage += ( self.getTotalAtk() + self.baseAtk * self.basicPercAtk ) * ( 0.176 if self.eidolon >= 3 else 0.16 ) * num_adjacents
     retval.damage += self.getTotalHP() * ( 0.440 if self.eidolon >= 3 else 0.40 ) * num_adjacents
     retval.damage *= 1.0 + min(self.CR + self.basicCR, 1.0) * (self.CD + self.basicCD)
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.basicDmg
@@ -76,9 +76,9 @@ class Blade(BaseCharacter):
   def useUltimate(self):
     num_adjacents = min( self.numEnemies - 1, 2 )
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk() * ( 0.432 if self.eidolon >= 5 else 0.4 )
+    retval.damage = ( self.getTotalAtk() + self.baseAtk * self.ultPercAtk ) * ( 0.432 if self.eidolon >= 5 else 0.4 )
     retval.damage += self.getTotalHP() * ( 1.08 if self.eidolon >= 5 else 1.0 )
-    retval.damage += self.getTotalAtk() * ( 0.1728 if self.eidolon >= 5 else 0.16 ) * num_adjacents
+    retval.damage += ( self.getTotalAtk() + self.baseAtk * self.ultPercAtk ) * ( 0.1728 if self.eidolon >= 5 else 0.16 ) * num_adjacents
     retval.damage += self.getTotalHP() * ( 0.432 if self.eidolon >= 5 else 0.40 ) * num_adjacents
     retval.damage += self.getTotalHP() * ( 1.08 * self.hpLossTally if self.eidolon >= 3 else 1.0 * self.hpLossTally )
     retval.damage += self.getTotalHP() * ( 0.432 * self.hpLossTally if self.eidolon >= 3 else 0.40 * self.hpLossTally ) * num_adjacents
@@ -92,7 +92,7 @@ class Blade(BaseCharacter):
 
   def useTalent(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk() * ( 0.484 if self.eidolon >= 5 else 0.44 ) * self.numEnemies
+    retval.damage = ( self.getTotalAtk() + self.baseAtk * self.followupPercAtk ) * ( 0.484 if self.eidolon >= 5 else 0.44 ) * self.numEnemies
     retval.damage += self.getTotalHP() * ( 1.21 if self.eidolon >= 5 else 1.1 ) * self.numEnemies
     retval.damage *= 1.0 + min(self.CR + self.followupCR, 1.0) * (self.CD + self.followupCD)
     retval.damage *= 1.0 + self.Dmg + self.windDmg + self.followupDmg
