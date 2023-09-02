@@ -1,6 +1,7 @@
 *.pyc
 /.vscode
 
+StarRail/
 Lib/
 Scripts/
 *.cfg
