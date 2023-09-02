@@ -35,7 +35,7 @@ class Serval(BaseCharacter):
     retval.damage *= 1.0 + self.Dmg + self.lighDmg + self.basicDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 30.0 * self.numEnemies if addTalent else 30.0 ) * (1.0 + self.BreakEfficiency)
-    retval.energy = 20.0 * (1.0 + self.ER)
+    retval.energy = ( 20.0 + self.bonusEnergyBasic ) * (1.0 + self.ER)
     retval.skillpoints = 1.0
     return retval
 
@@ -50,7 +50,7 @@ class Serval(BaseCharacter):
     retval.damage *= 1.0 + self.Dmg + self.lighDmg + self.skillDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.BreakEfficiency)
-    retval.energy = 30.0 * (1.0 + self.ER)
+    retval.energy = ( 30.0 + self.bonusEnergySkill ) * (1.0 + self.ER)
     retval.skillpoints = -1.0
     return retval
 
@@ -64,7 +64,7 @@ class Serval(BaseCharacter):
     retval.damage *= 1.0 + self.Dmg + self.lighDmg + self.ultDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * self.numEnemies * (1.0 + self.BreakEfficiency)
-    retval.energy = 5.0 * (1.0 + self.ER)
+    retval.energy = ( 5.0 + self.bonusEnergyUlt ) * (1.0 + self.ER)
     retval.skillpoints = 0.0
     return retval
 

@@ -87,6 +87,11 @@ class BaseCharacter(object):
     self.defShred = 0.0
     self.resPen = 0.0
     
+    self.bonusEnergyBasic = 0.0
+    self.bonusEnergySkill = 0.0
+    self.bonusEnergyUlt = 0.0
+    self.bonusEnergyTalent = 0.0
+    
   def loadCharacterStats(self, name:str):
     df = pd.read_csv(STATS_FILEPATH)
     rows = df.iloc[:, 0]

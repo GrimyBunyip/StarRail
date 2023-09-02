@@ -20,7 +20,7 @@ if __name__ == '__main__':
     
     config = copy(Configuration)
     
-    ServalCharacter = Serval(lightcone = CruisingInTheStellarSea(uptime = 0.5, **config),
+    ServalCharacter = Serval(lightcone = CruisingInTheStellarSea(uptimeHP = 0.5, **config),
                 relicsetone = EagleOfTwilightLine2pc(),
                 relicsettwo = EagleOfTwilightLine4pc(),
                 planarset = SpaceSealingStation(),
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     
     ServalEstimationV1(ServalCharacter, Configuration, CharacterDict, EffectDict)
     
-    DanHengCharacter = DanHeng(lightcone = CruisingInTheStellarSea(uptime = 0.5, **config),
+    DanHengCharacter = DanHeng(lightcone = CruisingInTheStellarSea(uptimeHP=0.5, uptimeDefeat=1.0, **config),
                 relicsetone = EagleOfTwilightLine2pc(),
                 relicsettwo = EagleOfTwilightLine4pc(),
                 planarset = SpaceSealingStation(),
@@ -43,7 +43,7 @@ if __name__ == '__main__':
     
     DanHengEstimationV1(DanHengCharacter, Configuration, CharacterDict, EffectDict)
     
-    YanqingCharacter = Yanqing(CruisingInTheStellarSea(uptime = 0.5, **config),
+    YanqingCharacter = Yanqing(CruisingInTheStellarSea(uptimeHP=0.5, uptimeDefeat=1.0, **config),
                     HunterOfGlacialForest2pc(),
                     HunterOfGlacialForest4pc(),
                     SpaceSealingStation(),

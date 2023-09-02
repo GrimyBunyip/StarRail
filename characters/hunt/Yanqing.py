@@ -52,7 +52,7 @@ class Yanqing(BaseCharacter):
     retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.basicDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
-    retval.energy = 20.0 * (1.0 + self.ER)
+    retval.energy = ( 20.0 + self.bonusEnergyBasic ) * (1.0 + self.ER)
     retval.skillpoints = 1.0
     return retval
 
@@ -64,7 +64,7 @@ class Yanqing(BaseCharacter):
     retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.skillDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * (1.0 + self.BreakEfficiency)
-    retval.energy = 30.0 * (1.0 + self.ER)
+    retval.energy = ( 30.0 + self.bonusEnergySkill ) * (1.0 + self.ER)
     retval.skillpoints = -1.0
     return retval
 
@@ -76,7 +76,7 @@ class Yanqing(BaseCharacter):
     retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.ultDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 90.0 * (1.0 + self.BreakEfficiency)
-    retval.energy = 5.0 * (1.0 + self.ER)
+    retval.energy = ( 5.0 + self.bonusEnergyUlt ) * (1.0 + self.ER)
     retval.skillpoints = 0.0
     return retval
 
@@ -88,7 +88,7 @@ class Yanqing(BaseCharacter):
     retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.followupDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
-    retval.energy = 10.0 * (1.0 + self.ER)
+    retval.energy = ( 10.0 + self.bonusEnergyTalent ) * (1.0 + self.ER)
     retval.skillpoints = 0.0
     
     retval *= 0.62 if self.eidolon >= 5 else 0.6
