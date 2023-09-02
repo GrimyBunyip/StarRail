@@ -1,9 +1,9 @@
 from copy import copy
 from baseClasses.RelicStats import RelicStats
-from characters.Serval import Serval, ServalEstimationV1
-from characters.Blade import Blade, BladeEstimationsV1
-from characters.DanHeng import DanHeng, DanHengEstimationV1
-from characters.Yanqing import Yanqing, YanqingEstimationV1
+from characters.erudition.Serval import Serval, ServalEstimationV1
+from characters.destruction.Blade import Blade, BladeEstimationsV1
+from characters.hunt.DanHeng import DanHeng, DanHengEstimationV1
+from characters.hunt.Yanqing import Yanqing, YanqingEstimationV1
 from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
