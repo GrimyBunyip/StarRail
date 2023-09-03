@@ -1,7 +1,10 @@
+import os
 import pandas as pd
 from baseClasses.BaseEffect import BaseEffect
 
 STATS_FILEPATH = 'stats\CharacterStats.csv'
+if os.name == 'posix':
+  STATS_FILEPATH = STATS_FILEPATH.replace('\\','/')
 
 class BaseCharacter(object):
   baseAtk:float
