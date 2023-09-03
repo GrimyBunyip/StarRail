@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from baseClasses.BaseEffect import BaseEffect
 
-STATS_FILEPATH = 'stats\CharacterStats.csv'
+STATS_FILEPATH = 'settings\CharacterStats.csv'
 if os.name == 'posix':
   STATS_FILEPATH = STATS_FILEPATH.replace('\\','/')
 
@@ -178,8 +178,8 @@ class BaseCharacter(object):
 
   def balanceCrit(self):
     totalCV = self.CR * 2 + self.CD
-    self.CR = totalCV / 4.0
-    self.CD = totalCV / 2.0
+    self.CD = max(0.5, totalCV / 2.0)
+    self.CR = (totalCV - self.CD) / 2.0
     
   def getTotalTaunt(self):
     return self.taunt * (1 + self.percTaunt)

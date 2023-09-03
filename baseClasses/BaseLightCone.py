@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from baseClasses.BaseCharacter import BaseCharacter
 
-STATS_FILEPATH = 'stats\ConeStats.csv'
+STATS_FILEPATH = 'settings\ConeStats.csv'
 if os.name == 'posix':
   STATS_FILEPATH = STATS_FILEPATH.replace('\\','/')
 

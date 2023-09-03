@@ -32,7 +32,7 @@ def visualize(CharacterDict:dict, EffectDict:dict, **config):
     sorted_data = sorted(combined_data, key=lambda x:x[1])
     categories, values, characters, colors = zip(*sorted_data)
 
-    fig, ax = plt.subplots(figsize=(20,2*len(characters)))
+    fig, ax = plt.subplots(figsize=(22,2*len(characters)))
 
     # Create the bar chart
     bars = ax.barh(categories, values, color = colors)
@@ -50,7 +50,7 @@ def visualize(CharacterDict:dict, EffectDict:dict, **config):
 
         effect = EffectDict[rotationName]
         speed = CharacterDict[rotationName].getTotalSpd()
-        cycles = effect.actionvalue * 100.0 / speed
+        cycles = effect.actionvalue * 100.0 / speed # action value = # of turns kafka took, cycles = # of cycles that passed during this rotation
 
         ax.add_artist(ab1)
         ax.text(x = LEFT_OFFSET,

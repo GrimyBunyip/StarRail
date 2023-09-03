@@ -42,6 +42,15 @@ class BaseEffect:
     actionvalue = self.actionvalue * value
 
     return BaseEffect(damage, gauge, energy, skillpoints, actionvalue)
+  
+  def __truediv__(self, value:float):
+    damage = self.damage / value
+    gauge = self.gauge / value
+    energy = self.energy / value
+    skillpoints = self.skillpoints / value
+    actionvalue = self.actionvalue / value
+
+    return BaseEffect(damage, gauge, energy, skillpoints, actionvalue)
 
   def __radd__(self, value:float):
     return self.__add__(value)
@@ -57,3 +66,6 @@ class BaseEffect:
 
   def __imul__(self, value:float):
     return self.__mul__(value)
+
+  def __itruediv__(self, value:float):
+    return self.__truediv__(value)

@@ -10,7 +10,7 @@ class Fermata(BaseLightCone):
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
     if char.path == 'nihility':
-      char.BreakEffect += 0.12 + 0.04 * self.superposition
+      char.breakEffect += 0.12 + 0.04 * self.superposition
       char.Dmg += 0.12 + 0.04 * self.superposition
       
 if __name__ == '__main__':

@@ -1,4 +1,3 @@
-from copy import copy
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
 from baseClasses.BaseEffect import BaseEffect
@@ -22,7 +21,7 @@ class Serval(BaseCharacter):
     self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=1.4, eidolonThreshold=3, eidolonBonus=0.14),
                                      BaseMV(type='skill',area='adjacent', stat='atk', value=0.6, eidolonThreshold=3, eidolonBonus=0.06)]
     self.motionValueDict['dot'] = [BaseMV(type=['dot','skill'],area='all', stat='atk', value=1.04, eidolonThreshold=3, eidolonBonus=1.144)]
-    self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=1.8, eidolonThreshold=5, eidolonBonus=0.144)]
+    self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=1.8, eidolonThreshold=5, eidolonBonus=0.144)]
     self.motionValueDict['shockedBasic'] = [BaseMV(type='basic',area='all', stat='atk', value=0.72, eidolonThreshold=5, eidolonBonus=0.072)]
     self.motionValueDict['shockedSkill'] = [BaseMV(type='skill',area='all', stat='atk', value=0.72, eidolonThreshold=5, eidolonBonus=0.072)]
     self.motionValueDict['shockedUltimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=0.72, eidolonThreshold=5, eidolonBonus=0.072)]

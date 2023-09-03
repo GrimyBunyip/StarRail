@@ -16,7 +16,7 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
   totalEffect += char.useBreak() * num_breaks
   if breakDotMode == 'limited':
     totalEffect += char.useBreakDot() * num_breaks
-    if char.element in ['physical', 'fire', 'wind', 'imaginary']:
+    if char.element in ['physical', 'fire', 'lightning', 'wind']:
       totalEffect += char.useBreakDot() * num_breaks # these four elements tick twice
   
   # apply a number of dot ticks proportional to enemy speed, this does not count kafka procs
@@ -28,7 +28,6 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
     totalEffect += char.useBreakDot() * num_enemy_turns * min(3, char.numEnemies)
   elif breakDotMode == 'alwaysAll':
     totalEffect += char.useBreakDot() * num_enemy_turns * char.numEnemies
-    
 
   CharacterDict[rotationName] = copy(char)
   EffectDict[rotationName] = copy(totalEffect)

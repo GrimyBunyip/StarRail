@@ -1,4 +1,3 @@
-from copy import copy
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
 from baseClasses.BaseEffect import BaseEffect
