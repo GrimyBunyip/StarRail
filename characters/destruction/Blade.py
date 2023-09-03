@@ -6,8 +6,6 @@ from baseClasses.RelicSet import RelicSet
 from baseClasses.RelicStats import RelicStats
 from baseClasses.BaseMV import BaseMV
 
-# Lazy, haven't implemented E1 or E4 or E6
-
 class Blade(BaseCharacter):
 
   def __init__(self,
@@ -18,12 +16,14 @@ class Blade(BaseCharacter):
                planarset:RelicSet=None,
                hpLossTally:float = 0.9,
                hellscapeUptime:float = 1.0,
+               rejectedByDeathUptime:float = 1.0,
                **config):
     super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
     self.loadCharacterStats('Blade')
     
     self.hpLossTally = hpLossTally
     self.hellscapeUptime = hellscapeUptime
+    self.rejectedByDeathUptime = rejectedByDeathUptime
 
     # Motion Values should be set before talents or gear
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
@@ -47,7 +47,10 @@ class Blade(BaseCharacter):
     self.DmgType['followup'] += 0.20
     
     # Eidolons
-    self.CR += 0.15 * self.hellscapeUptime if self.eidolon >= 2 else 0.0
+    self.CR += ( 0.15 * self.hellscapeUptime ) if self.eidolon >= 2 else 0.0
+    self.percHP += ( 0.40 * self.rejectedByDeathUptime ) if self.eidolon >= 4 else 0.0
+    if self.eidolon >= 1:
+      self.motionValueDict['ultimate'][4].value = 1.5*self.hpLossTally
 
     # Gear
     self.equipGear()

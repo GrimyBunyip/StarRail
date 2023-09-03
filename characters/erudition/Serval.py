@@ -30,6 +30,8 @@ class Serval(BaseCharacter):
     # Talents
     
     # Eidolons
+    if self.eidolon >= 1 and self.numEnemies >= 2:
+      self.motionValueDict['basic'].append(BaseMV(type='basic',area='single', stat='atk', value=0.6))
     
     # Gear
     self.equipGear()
@@ -40,12 +42,12 @@ class Serval(BaseCharacter):
     retval.damage = self.getTotalMotionValue('basic')
     retval.damage += self.getTotalMotionValue('shockedBasic') if shocked else 0.0
     retval.damage *= self.getTotalCrit('basic')
-    retval.damage *= self.getTotalDmg('basic')
+    retval.damage *= self.getTotalDmg('basic') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
     
     retval.damage *= 1.1 if self.eidolon >= 3 else 1.0
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 30.0 * self.numEnemies if shocked else 30.0 ) * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 20.0 + self.bonusEnergyType['basic'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     return retval
 
@@ -55,10 +57,10 @@ class Serval(BaseCharacter):
     retval.damage = self.getTotalMotionValue('skill')
     retval.damage += self.getTotalMotionValue('shockedSkill') if shocked else 0.0
     retval.damage *= self.getTotalCrit('skill')
-    retval.damage *= self.getTotalDmg('skill')
+    retval.damage *= self.getTotalDmg('skill') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 30.0 + self.bonusEnergyType['skill'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     return retval
 
@@ -67,17 +69,17 @@ class Serval(BaseCharacter):
     retval.damage = self.getTotalMotionValue('ultimate')
     retval.damage += self.getTotalMotionValue('shockedUltimate') if shocked else 0.0
     retval.damage *= self.getTotalCrit('ultimate')
-    retval.damage *= self.getTotalDmg('ultimate')
+    retval.damage *= self.getTotalDmg('ultimate') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * self.numEnemies * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
     return retval
 
-  def useDot(self):
+  def useDot(self, shocked = True):
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('dot')
     # no crits on dots
-    retval.damage *= self.getTotalDmg('ultimate')
+    retval.damage *= self.getTotalDmg('dot') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.energy = ( 0.0 + self.bonusEnergyType['dot'] ) * ( 1.0 + self.ER )
     return retval

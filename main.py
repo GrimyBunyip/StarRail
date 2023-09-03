@@ -5,6 +5,7 @@ from characters.destruction.Blade import Blade, BladeEstimationsV1
 from characters.hunt.DanHeng import DanHeng, DanHengEstimationV1
 from characters.hunt.Yanqing import Yanqing, YanqingEstimationV1
 from lightCones.destruction.ASecretVow import ASecretVow
+from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
 from relicSets.relicSets.EagleOfTwilightLine import EagleOfTwilightLine2pc
@@ -23,7 +24,7 @@ if __name__ == '__main__':
     
     ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
                             substats = {'CR': 10, 'CD': 10}),
-                lightcone = CruisingInTheStellarSea(uptimeHP = 0.5, **config),
+                lightcone = TheSeriousnessOfBreakfast(stacks=3,**config),
                 relicsetone = ThiefOfShootingMeteor2pc(),
                 relicsettwo = ThiefOfShootingMeteor4pc(),
                 planarset = SpaceSealingStation(),
