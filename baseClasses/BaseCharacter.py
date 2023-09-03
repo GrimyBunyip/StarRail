@@ -138,6 +138,15 @@ class BaseCharacter(object):
       'followup':0.0,
       'dot':0.0,
     }
+    
+    self.advanceForwardType = {
+      'basic':0.0,
+      'skill':0.0,
+      'ultimate':0.0,
+      'talent':0.0,
+      'followup':0.0,
+      'dot':0.0,
+    }
 
     self.defShred = 0.0
     self.resPen = 0.0

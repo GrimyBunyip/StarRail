@@ -49,6 +49,7 @@ class Serval(BaseCharacter):
     retval.gauge = ( 30.0 * self.numEnemies if shocked else 30.0 ) * (1.0 + self.BreakEfficiency)
     retval.energy = ( 20.0 + self.bonusEnergyType['basic'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
+    retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     return retval
 
   def useSkill(self, shocked = True):
@@ -62,6 +63,7 @@ class Serval(BaseCharacter):
     retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.BreakEfficiency)
     retval.energy = ( 30.0 + self.bonusEnergyType['skill'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
+    retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     return retval
 
   def useUltimate(self, shocked = True):
@@ -73,6 +75,7 @@ class Serval(BaseCharacter):
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * self.numEnemies * (1.0 + self.BreakEfficiency)
     retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
+    retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     return retval
 
   def useDot(self, shocked = True):
@@ -82,35 +85,5 @@ class Serval(BaseCharacter):
     retval.damage *= self.getTotalDmg('dot') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.energy = ( 0.0 + self.bonusEnergyType['dot'] ) * ( 1.0 + self.ER )
+    retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['dot'])
     return retval
-  
-def ServalEstimationV1(character:BaseCharacter, Configuration:dict, CharacterDict:dict, EffectDict:dict):
-  
-  playerTurns = ( Configuration['numRounds'] + 0.5 )  * character.getTotalSpd() / 100
-  enemyTurns = ( Configuration['numRounds'] + 0.5 ) * Configuration['enemySpeed'] / 100
-  enemyAttacks = enemyTurns * Configuration['numberEnemyAttacksPerTurn'] * character.taunt / 100.0
-
-  totalEffect = BaseEffect()
-  totalEffect.energy += Configuration['bonusEnergyFlat']
-  totalEffect.energy += Configuration['bonusEnergyPerEnemyAttack'] * enemyAttacks
-  
-  # assume we spam skill every single turn
-  totalEffect += playerTurns * character.useSkill()
-  
-  # assume we apply break a number of times proportional to our gauge output and enemy toughness
-  num_breaks = totalEffect.gauge / Configuration['enemyToughness']
-  totalEffect += character.useBreak() * num_breaks
-  
-  # apply a number of break dots proportional to the amount of breaks we applied, up to the number of enemy turns
-  num_dots = min(enemyTurns * Configuration['numEnemies'], num_breaks * 2)
-  totalEffect += character.useBreakDot() * num_dots
-  
-  # assume we use an ult proportional to the amount of energy we gained. Ignoring rounding errors and energy from enemy attacks
-  num_ults = ( totalEffect.energy - 5 * (1 + character.ER) ) / character.maxEnergy
-  totalEffect += num_ults * character.useUltimate()
-  
-  print("Serval Effects:")
-  totalEffect.print()
-
-  CharacterDict[character.name] = copy(character)
-  EffectDict[character.name] = copy(totalEffect)

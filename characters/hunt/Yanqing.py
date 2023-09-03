@@ -64,6 +64,7 @@ class Yanqing(BaseCharacter):
     retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
     retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
+    retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     return retval
 
   def useSkill(self):
@@ -75,6 +76,7 @@ class Yanqing(BaseCharacter):
     retval.gauge = 60.0 * (1.0 + self.BreakEfficiency)
     retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
+    retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     return retval
 
   def useUltimate(self):
@@ -85,6 +87,7 @@ class Yanqing(BaseCharacter):
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 90.0 * (1.0 + self.BreakEfficiency)
     retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
+    retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     return retval
 
   def useTalent(self):
@@ -95,43 +98,8 @@ class Yanqing(BaseCharacter):
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
     retval.energy = ( 10.0 + self.bonusEnergyType['talent'] + self.bonusEnergyType['followup'] ) * ( 1.0 + self.ER )
+    retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['talent'] - self.advanceForwardType['followup'])
     
     procrate = 0.62 if self.eidolon >= 5 else 0.6
     retval *= procrate
     return retval
-  
-def YanqingEstimationV1(character:BaseCharacter, Configuration:dict, CharacterDict:dict, EffectDict:dict):
-
-  playerTurns = ( Configuration['numRounds'] + 0.5 )  * character.getTotalSpd() / 100
-  enemyTurns = ( Configuration['numRounds'] + 0.5 ) * Configuration['enemySpeed'] / 100
-  enemyAttacks = enemyTurns * Configuration['numberEnemyAttacksPerTurn'] * character.taunt / 100.0
-
-  totalEffect:BaseEffect = BaseEffect()
-  
-  # bonus energy from kills and getting hit
-  totalEffect.energy += Configuration['bonusEnergyFlat']
-  totalEffect.energy += Configuration['bonusEnergyPerEnemyAttack'] * enemyAttacks
-  
-  # assume we spam skill every single turn
-  totalEffect += playerTurns * character.useSkill()
-  totalEffect += playerTurns * character.useTalent()
-  
-  # assume we apply break a number of times proportional to our gauge output and enemy toughness
-  num_breaks = totalEffect.gauge / Configuration['enemyToughness']
-  totalEffect += character.useBreak() * num_breaks
-  
-  # apply a number of break dots proportional to the amount of breaks we applied, up to the number of enemy turns
-  num_dots = min(enemyTurns * Configuration['numEnemies'], num_breaks)
-  totalEffect += character.useBreakDot() * num_dots
-  
-  # assume we use an ult proportional to the amount of energy we gained. Ignoring rounding errors and energy from enemy attacks
-  num_ults = ( totalEffect.energy - (5 + 10 * (0.62 if character.eidolon >= 5 else 0.6) ) * (1 + character.ER) ) / character.maxEnergy
-  
-  totalEffect += num_ults * character.useUltimate()
-  totalEffect += num_ults * character.useTalent() # apply soul sync as well
-  
-  print("Yanqing Effects:")
-  totalEffect.print()
-
-  CharacterDict[character.name] = copy(character)
-  EffectDict[character.name] = copy(totalEffect)
