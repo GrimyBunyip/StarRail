@@ -199,7 +199,7 @@ class BaseCharacter(object):
     if isinstance(type, list):
       crBonuses = sum([self.CRType[x] for x in type])
       cdBonuses = sum([self.CDType[x] for x in type])
-      return 1.0 + min(1,0, self.CR + crBonuses) * (self.CD + cdBonuses)
+      return 1.0 + min(1.0, self.CR + crBonuses) * (self.CD + cdBonuses)
     else:
       return 1.0 + min(1.0, self.CR + self.CRType[type]) * (self.CD + self.CDType[type])
     

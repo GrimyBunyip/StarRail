@@ -3,7 +3,7 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from urllib.request import urlopen
 import io
 
-def visualize(CharacterDict:dict, EffectDict:dict, Configuration):
+def visualize(CharacterDict:dict, EffectDict:dict, **config):
     color_dict = {
         'wind': 'green',
         'fire': 'red',
@@ -30,7 +30,7 @@ def visualize(CharacterDict:dict, EffectDict:dict, Configuration):
     sorted_data = sorted(combined_data, key=lambda x:x[1])
     categories, values, characters, colors = zip(*sorted_data)
 
-    fig, ax = plt.subplots(figsize=(15,2*len(characters)))
+    fig, ax = plt.subplots(figsize=(20,2*len(characters)))
 
     # Create the bar chart
     bars = ax.barh(categories, values, color = colors)
@@ -64,6 +64,6 @@ def visualize(CharacterDict:dict, EffectDict:dict, Configuration):
     plt.axis("off")
     plt.xticks([])
     plt.yticks([])
-    plt.title('Star Rail DPS Rankings | {} targets | {} rounds | 20 substats'.format(Configuration['numEnemies'], Configuration['numRounds']))
+    plt.title('Star Rail DPS Rankings | {} targets | {} rounds | 20 substats'.format(config['numEnemies'], config['numRounds']))
     plt.tight_layout()
     plt.show()

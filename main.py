@@ -29,7 +29,7 @@ if __name__ == '__main__':
                 planarset = SpaceSealingStation(),
                 **config)
     
-    ServalEstimationV1(ServalCharacter, Configuration, CharacterDict, EffectDict)
+    ServalEstimationV1(ServalCharacter, config, CharacterDict, EffectDict)
     
     DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'windDmg'],
                             substats = {'CR': 10, 'CD': 10}),
@@ -41,7 +41,7 @@ if __name__ == '__main__':
                 fasterThanLightUptime = 1.0,
                 **config)
     
-    DanHengEstimationV1(DanHengCharacter, Configuration, CharacterDict, EffectDict)
+    DanHengEstimationV1(DanHengCharacter, config, CharacterDict, EffectDict)
     
     YanqingCharacter = Yanqing(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
                             substats = {'percAtk': 8, 'CD': 12}),
@@ -54,17 +54,17 @@ if __name__ == '__main__':
                     rainingBlissUptime = 0.25,
                     **config)
     
-    YanqingEstimationV1(YanqingCharacter, Configuration, CharacterDict, EffectDict)
+    YanqingEstimationV1(YanqingCharacter, config, CharacterDict, EffectDict)
 
     bladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CR', 'windDmg'],
                             substats = {'CR': 7, 'CD': 7, 'flatSpd': 6}),
-                lightcone = ASecretVow(uptime = 0.5, **Configuration),
+                lightcone = ASecretVow(uptime = 0.5, **config),
                 relicsetone = LongevousDisciple2pc(),
                 relicsettwo = LongevousDisciple4pc(),
                 planarset = InertSalsotto(),
                 hpLossTally=0.5,
-                **Configuration)
+                **config)
         
-    BladeEstimationsV1(bladeCharacter, Configuration, CharacterDict, EffectDict)
+    BladeEstimationsV1(bladeCharacter, config, CharacterDict, EffectDict)
 
-    visualize(CharacterDict, EffectDict, Configuration)
+    visualize(CharacterDict, EffectDict, **config)
