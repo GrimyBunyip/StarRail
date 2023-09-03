@@ -8,18 +8,18 @@ from baseClasses.RelicStats import RelicStats
 
 class DanHeng(BaseCharacter):
   def __init__(self,
-               lightcone:BaseLightCone,
-               relicsetone:RelicSet,
-               relicsettwo:RelicSet,
-               planarset:RelicSet,
                relicstats:RelicStats,
+               lightcone:BaseLightCone=None,
+               relicsetone:RelicSet=None,
+               relicsettwo:RelicSet=None,
+               planarset:RelicSet=None,
                talentUptime:float = 0.25,
                slowUptime:float = 1.0,
                fasterThanLightUptime:float = 1.0,
                hiddenDragonUptime:float = 0.0,
                e1Uptime:float = 0.5,
                **config):
-    super().__init__(lightcone, relicsetone, relicsettwo, planarset, relicstats, config)
+    super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
     self.loadCharacterStats('Dan Heng')
     
     self.talentUptime = talentUptime
@@ -27,12 +27,6 @@ class DanHeng(BaseCharacter):
     self.e1Uptime = e1Uptime
     self.fasterThanLightUptime = fasterThanLightUptime
     self.hiddenDragonUptime = hiddenDragonUptime
-
-    self.longName = 'Dan Heng E{} {} S{}\n{} + {} + {}\nTalent Uptime: {}\nSlow Uptime: {}\n20% Spd Uptime: {}'.format(self.eidolon, self.lightcone.name, self.lightcone.superposition,
-                                                                                          relicsetone.shortname, relicsettwo.shortname, planarset.shortname,
-                                                                                          self.talentUptime,
-                                                                                          self.slowUptime,
-                                                                                          self.fasterThanLightUptime)
 
     # Motion Values should be set before talents or gear
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]

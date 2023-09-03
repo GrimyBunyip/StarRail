@@ -11,24 +11,19 @@ from baseClasses.BaseMV import BaseMV
 class Blade(BaseCharacter):
 
   def __init__(self,
-               lightcone:BaseLightCone,
-               relicsetone:RelicSet,
-               relicsettwo:RelicSet,
-               planarset:RelicSet,
                relicstats:RelicStats,
+               lightcone:BaseLightCone=None,
+               relicsetone:RelicSet=None,
+               relicsettwo:RelicSet=None,
+               planarset:RelicSet=None,
                hpLossTally:float = 0.9,
                hellscapeUptime:float = 1.0,
                **config):
-    super().__init__(lightcone, relicsetone, relicsettwo, planarset, relicstats, config)
+    super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
     self.loadCharacterStats('Blade')
     
     self.hpLossTally = hpLossTally
     self.hellscapeUptime = hellscapeUptime
-
-    self.longName = 'Blade E{} {} S{}\n{} + {} + {}\nhpLossTally Uptime: {}\nHellscape Uptime: {}'.format(self.eidolon, self.lightcone.name, self.lightcone.superposition,
-                                                                                          relicsetone.shortname, relicsettwo.shortname, planarset.shortname,
-                                                                                          self.hpLossTally,
-                                                                                          self.hellscapeUptime)
 
     # Motion Values should be set before talents or gear
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]

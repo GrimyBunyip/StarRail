@@ -8,18 +8,15 @@ from baseClasses.RelicStats import RelicStats
 
 class Serval(BaseCharacter):
   def __init__(self,
-               lightcone:BaseLightCone,
-               relicsetone:RelicSet,
-               relicsettwo:RelicSet,
-               planarset:RelicSet,
                relicstats:RelicStats,
+               lightcone:BaseLightCone=None,
+               relicsetone:RelicSet=None,
+               relicsettwo:RelicSet=None,
+               planarset:RelicSet=None,
                **config):
-    super().__init__(lightcone, relicsetone, relicsettwo, planarset, relicstats, config)
+    super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
     self.loadCharacterStats('Serval')
     
-    self.longName = 'Serval E{} {} S{}\n{} + {} + {}'.format(self.eidolon, self.lightcone.name, self.lightcone.superposition,
-                                                                                          relicsetone.shortname, relicsettwo.shortname, planarset.shortname,)
-
     # Motion Values should be set before talents or gear
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
     self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=1.4, eidolonThreshold=3, eidolonBonus=0.14),

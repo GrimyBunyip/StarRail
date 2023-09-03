@@ -9,27 +9,22 @@ from baseClasses.RelicStats import RelicStats
 class Yanqing(BaseCharacter):
 
   def __init__(self,
-               lightcone:BaseLightCone,
-               relicsetone:RelicSet,
-               relicsettwo:RelicSet,
-               planarset:RelicSet,
                relicstats:RelicStats,
+               lightcone:BaseLightCone=None,
+               relicsetone:RelicSet=None,
+               relicsettwo:RelicSet=None,
+               planarset:RelicSet=None,
                soulsteelUptime = 1.0,
                e4Uptime = 1.0,
                rainingBlissUptime = 0.25,
                **config):
-    super().__init__(lightcone, relicsetone, relicsettwo, planarset, relicstats, config)
+    super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
     self.loadCharacterStats('Yanqing')
 
     self.soulsteelUptime = soulsteelUptime
     self.e4Uptime = e4Uptime
     self.rainingBlissUptime = rainingBlissUptime
-
-    self.longName = 'Yanqing E{} {} S{}\n{} + {} + {}\nSoulsteel Uptime: {}\nUltimate Uptime: {}'.format(self.eidolon, self.lightcone.name, self.lightcone.superposition,
-                                                                                          relicsetone.shortname, relicsettwo.shortname, planarset.shortname,
-                                                                                          self.soulsteelUptime,
-                                                                                          self.rainingBlissUptime)
-
+    
     # Motion Values should be set before talents or gear
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1),
                                      BaseMV(type='basic',area='single', stat='atk', value=0.0, eidolonThreshold=1, eidolonBonus=0.6)]

@@ -48,7 +48,7 @@ class BaseCharacter(object):
   enemyRes:float
   brokenMultiplier:float
 
-  def __init__(self, lightcone, relicsetone, relicsettwo, planarset, relicstats, config:dict):
+  def __init__(self, relicstats, lightcone=None, relicsetone=None, relicsettwo=None, planarset=None, **config):
     self.__dict__.update(config)
     
     self.lightcone = lightcone
@@ -153,13 +153,18 @@ class BaseCharacter(object):
         
     self.initialEnergy = self.maxEnergy * 0.5
     self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
+    
+    self.longName = '{} E{} {} S{}\n{}{}{}'.format(self.name, self.eidolon, self.lightcone.name, self.lightcone.superposition,
+                                                          "" if self.relicsetone is None else self.relicsetone.shortname, 
+                                                          "" if self.relicsettwo is None else (" + " + self.relicsettwo.shortname), 
+                                                          "" if self.planarset is None else (" + " + self.planarset.shortname))
 
   def equipGear(self):
-    self.lightcone.equipTo(self)
-    self.relicsetone.equipTo(self)
-    self.relicsettwo.equipTo(self)
-    self.planarset.equipTo(self)
-    self.relicstats.equipTo(self)
+    if self.lightcone is not None: self.lightcone.equipTo(self)
+    if self.relicsetone is not None: self.relicsetone.equipTo(self)
+    if self.relicsettwo is not None: self.relicsettwo.equipTo(self)
+    if self.planarset is not None: self.planarset.equipTo(self)
+    if self.relicstats is not None: self.relicstats.equipTo(self)
 
   def balanceCrit(self):
     totalCV = self.CR * 2 + self.CD
