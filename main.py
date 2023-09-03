@@ -21,10 +21,17 @@ if __name__ == '__main__':
     CharacterDict = {} # store character information here
     EffectDict = {} # store dps metrics here
     
-    config = copy(Configuration)
+    # Reminder not to use this as a true DPS comparison
+    # SP and Energy surplus/deficits are not balanced
+    # I haven't spent time optimizing builds either
+    # This is mostly just a tutorial to show you how to use the calculator
     
-    ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
-                            substats = {'CR': 10, 'CD': 10}),
+    config = copy(Configuration)
+    config['numEnemies'] = 1
+    
+    # Serval
+    ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['breakEffect', 'flatSpd', 'percAtk', 'lighDmg'],
+                            substats = {'breakEffect': 10, 'percAtk': 8, 'flatSpd': 2}),
                 lightcone = TheSeriousnessOfBreakfast(stacks=3,**config),
                 relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SpaceSealingStation(),
                 **config)
@@ -34,8 +41,9 @@ if __name__ == '__main__':
             ServalCharacter.useSkill(shocked=True) * 2,
             ServalCharacter.useUltimate(shocked=True),
     ]
-    DefaultEstimator('Rotation: 1N 3E 1Q', ServalRotation, ServalCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Serval: 1N 2E 1Q', ServalRotation, ServalCharacter, config, CharacterDict, EffectDict, breakDotMode='alwaysAll')
     
+    # Dan Heng
     DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'windDmg'],
                             substats = {'CR': 10, 'CD': 10}),
                 lightcone = CruisingInTheStellarSea(uptimeHP=0.5, uptimeDefeat=1.0, **config),
@@ -48,15 +56,9 @@ if __name__ == '__main__':
             DanHengCharacter.useSkill() * 3,
             DanHengCharacter.useUltimate(slowed=True),
     ]
-    DefaultEstimator('Serval: 3E 1Q', DanHengRotation, DanHengCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Dan Heng: 3E 1Q', DanHengRotation, DanHengCharacter, config, CharacterDict, EffectDict)
     
-    DanHengRotation = [
-            DanHengCharacter.useBasic() * 2,
-            DanHengCharacter.useSkill() * 2,
-            DanHengCharacter.useUltimate(slowed=True),
-    ]
-    DefaultEstimator('Dan Heng: 2N 2E 1Q', DanHengRotation, DanHengCharacter, config, CharacterDict, EffectDict)
-    
+    #Yanqing
     YanqingCharacter = Yanqing(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
                             substats = {'percAtk': 8, 'CD': 12}),
                     lightcone = CruisingInTheStellarSea(uptimeHP=0.5, uptimeDefeat=1.0, **config),
@@ -67,13 +69,13 @@ if __name__ == '__main__':
                     **config)
     
     YanqingRotation = [
-            YanqingCharacter.useSkill() * 3,
+            YanqingCharacter.useSkill() * 4,
             YanqingCharacter.useTalent() * 5,
-            YanqingCharacter.useBasic(),
             YanqingCharacter.useUltimate(),
     ]
-    DefaultEstimator('Yanqing: 3E 1N 1Q 5T', YanqingRotation, YanqingCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Yanqing: 4E 1Q 5T', YanqingRotation, YanqingCharacter, config, CharacterDict, EffectDict)
     
+    # Blade
     bladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CR', 'windDmg'],
                             substats = {'CR': 7, 'CD': 7, 'flatSpd': 6}),
                 lightcone = ASecretVow(uptime = 0.5, **config),

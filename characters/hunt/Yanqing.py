@@ -61,7 +61,7 @@ class Yanqing(BaseCharacter):
     retval.damage *= self.getTotalCrit(['basic','bliss'])
     retval.damage *= self.getTotalDmg('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
+    retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
@@ -73,7 +73,7 @@ class Yanqing(BaseCharacter):
     retval.damage *= self.getTotalCrit(['skill','bliss'])
     retval.damage *= self.getTotalDmg('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = 60.0 * (1.0 + self.BreakEfficiency)
+    retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
@@ -85,7 +85,7 @@ class Yanqing(BaseCharacter):
     retval.damage *= self.getTotalCrit(['ultimate','blissUlt'])
     retval.damage *= self.getTotalDmg('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = 90.0 * (1.0 + self.BreakEfficiency)
+    retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     return retval
@@ -96,7 +96,7 @@ class Yanqing(BaseCharacter):
     retval.damage *= self.getTotalCrit(['followup','talent','bliss'])
     retval.damage *= self.getTotalDmg(['followup','talent'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
+    retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 10.0 + self.bonusEnergyType['talent'] + self.bonusEnergyType['followup'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['talent'] - self.advanceForwardType['followup'])
     

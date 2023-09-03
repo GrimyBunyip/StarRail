@@ -38,7 +38,7 @@ RELIC_MAINSTATS = {
   'Heal': RELIC_HEAL_MAINSTAT,
   'EHR': RELIC_EHR_MAINSTAT,
   'flatSpd': RELIC_SPD_MAINSTAT,
-  'Break': RELIC_BREAK_MAINSTAT,
+  'breakEffect': RELIC_BREAK_MAINSTAT,
   'ER': RELIC_ER_MAINSTAT,
   'windDmg': RELIC_DMG_MAINSTAT,
   'fireDmg': RELIC_DMG_MAINSTAT,
@@ -61,7 +61,7 @@ RELIC_SUBSTATS = {
   'EHR': RELIC_EHR_SUBSTAT,
   'Res': RELIC_RES_SUBSTAT,
   'flatSpd': RELIC_SPD_SUBSTAT,
-  'Break': RELIC_BREAK_SUBSTAT,
+  'breakEffect': RELIC_BREAK_SUBSTAT,
 }
 
 def average(substats:list):

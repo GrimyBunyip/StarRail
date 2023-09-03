@@ -43,10 +43,8 @@ class Serval(BaseCharacter):
     retval.damage += self.getTotalMotionValue('shockedBasic') if shocked else 0.0
     retval.damage *= self.getTotalCrit('basic')
     retval.damage *= self.getTotalDmg('basic') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
-    
-    retval.damage *= 1.1 if self.eidolon >= 3 else 1.0
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = ( 30.0 * self.numEnemies if shocked else 30.0 ) * (1.0 + self.BreakEfficiency)
+    retval.gauge = ( 30.0 * self.numEnemies if shocked else 30.0 ) * (1.0 + self.breakEfficiency)
     retval.energy = ( 20.0 + self.bonusEnergyType['basic'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
@@ -60,7 +58,7 @@ class Serval(BaseCharacter):
     retval.damage *= self.getTotalCrit('skill')
     retval.damage *= self.getTotalDmg('skill') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.BreakEfficiency)
+    retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.breakEfficiency)
     retval.energy = ( 30.0 + self.bonusEnergyType['skill'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
@@ -73,7 +71,7 @@ class Serval(BaseCharacter):
     retval.damage *= self.getTotalCrit('ultimate')
     retval.damage *= self.getTotalDmg('ultimate') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = 60.0 * self.numEnemies * (1.0 + self.BreakEfficiency)
+    retval.gauge = 60.0 * self.numEnemies * (1.0 + self.breakEfficiency)
     retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     return retval

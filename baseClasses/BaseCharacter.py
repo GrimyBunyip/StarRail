@@ -64,10 +64,8 @@ class BaseCharacter(object):
     self.flatSpd = 0.0
 
     self.ER = 0.0
-    self.BreakEffect = 0.0
-    self.BreakEfficiency = 0.0
-
-    self.Break = 0.0
+    self.breakEffect = 0.0
+    self.breakEfficiency = 0.0
     self.Heal = 0.0
     
     self.allRes = 0.0
@@ -244,14 +242,14 @@ class BaseCharacter(object):
 
   def useBasic(self):
     retval = BaseEffect()
-    retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
+    retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
     retval.energy = 20.0 * (1.0 + self.ER)
     retval.skillpoints = 1.0
     return retval
 
   def useSkill(self):
     retval = BaseEffect()
-    retval.gauge = 60.0 * (1.0 + self.BreakEfficiency)
+    retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
     retval.energy = 30.0 * (1.0 + self.ER)
     retval.skillpoints = -1.0
     return retval
@@ -286,7 +284,7 @@ class BaseCharacter(object):
     baseDotDamage = self.breakLevelMultiplier
     baseDotDamage *= 0.5 + self.enemyToughness / 120
     baseDotDamage *= breakMultipliers[self.element]
-    baseDotDamage *= 1.0 + self.Break
+    baseDotDamage *= 1.0 + self.breakEffect
     baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
 
     retval.damage = baseDotDamage
@@ -316,7 +314,7 @@ class BaseCharacter(object):
       baseDotDamage = 0.6 * 3 * self.breakLevelMultiplier
       baseDotDamage *= 0.5 + self.enemyToughness / 120
 
-    baseDotDamage *= 1.0 + self.Break
+    baseDotDamage *= 1.0 + self.breakEffect
     baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
 
     retval.damage = baseDotDamage

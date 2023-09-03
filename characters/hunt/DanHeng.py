@@ -49,7 +49,7 @@ class DanHeng(BaseCharacter):
     retval.damage *= self.getTotalCrit('basic')
     retval.damage *= self.getTotalDmg('basic') + ( 0.40 if slowed else 0.0 ) #  High Gale
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
+    retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
@@ -61,7 +61,7 @@ class DanHeng(BaseCharacter):
     retval.damage *= self.getTotalCrit('skill')
     retval.damage *= self.getTotalDmg('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = 60.0 * (1.0 + self.BreakEfficiency)
+    retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
@@ -73,7 +73,7 @@ class DanHeng(BaseCharacter):
     retval.damage *= self.getTotalCrit('ultimate')
     retval.damage *= self.getTotalDmg('ultimate') + (1.296 if self.eidolon >= 5 else 1.2)
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = 90.0 * (1.0 + self.BreakEfficiency)
+    retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     return retval
