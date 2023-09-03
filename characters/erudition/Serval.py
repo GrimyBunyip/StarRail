@@ -2,6 +2,7 @@ from copy import copy
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
 from baseClasses.BaseEffect import BaseEffect
+from baseClasses.BaseMV import BaseMV
 from baseClasses.RelicSet import RelicSet
 from baseClasses.RelicStats import RelicStats
 
@@ -19,65 +20,69 @@ class Serval(BaseCharacter):
     self.longName = 'Serval E{} {} S{}\n{} + {} + {}'.format(self.eidolon, self.lightcone.name, self.lightcone.superposition,
                                                                                           relicsetone.shortname, relicsettwo.shortname, planarset.shortname,)
 
+    # Motion Values should be set before talents or gear
+    self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+    self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=1.4, eidolonThreshold=3, eidolonBonus=0.14),
+                                     BaseMV(type='skill',area='adjacent', stat='atk', value=0.6, eidolonThreshold=3, eidolonBonus=0.06)]
+    self.motionValueDict['dot'] = [BaseMV(type=['dot','skill'],area='all', stat='atk', value=1.04, eidolonThreshold=3, eidolonBonus=1.144)]
+    self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=1.8, eidolonThreshold=5, eidolonBonus=0.144)]
+    self.motionValueDict['shockedBasic'] = [BaseMV(type='basic',area='all', stat='atk', value=0.72, eidolonThreshold=5, eidolonBonus=0.072)]
+    self.motionValueDict['shockedSkill'] = [BaseMV(type='skill',area='all', stat='atk', value=0.72, eidolonThreshold=5, eidolonBonus=0.072)]
+    self.motionValueDict['shockedUltimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=0.72, eidolonThreshold=5, eidolonBonus=0.072)]
+    
     # Talents
-
+    
+    # Eidolons
+    
+    # Gear
     self.equipGear()
     self.balanceCrit()
 
-  def useBasic(self, addTalent = True):
+  def useBasic(self, shocked = True):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk() + self.baseAtk * self.basicPercAtk
-    talentBase = 1.1 if self.eidolon >= 3 else 1.0
-    talentBase += ( self.numEnemies * ( 0.792 if self.eidolon >= 5 else 0.72 ) ) if addTalent else 0.0
-    retval.damage *= talentBase
+    retval.damage = self.getTotalMotionValue('basic')
+    retval.damage += self.getTotalMotionValue('shockedBasic') if shocked else 0.0
+    retval.damage *= self.getTotalCrit('basic')
+    retval.damage *= self.getTotalDmg('basic')
+    
     retval.damage *= 1.1 if self.eidolon >= 3 else 1.0
-    retval.damage *= 1.0 + min(self.CR + self.basicCR, 1.0) * (self.CD + self.basicCD)
-    retval.damage *= 1.0 + self.Dmg + self.lighDmg + self.basicDmg
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = ( 30.0 * self.numEnemies if addTalent else 30.0 ) * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 20.0 + self.bonusEnergyBasic ) * (1.0 + self.ER)
+    retval.gauge = ( 30.0 * self.numEnemies if shocked else 30.0 ) * (1.0 + self.BreakEfficiency)
+    retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     return retval
 
-  def useSkill(self, addTalent = True):
+  def useSkill(self, shocked = True):
     num_adjacents = min( self.numEnemies - 1, 2 )
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk() + self.baseAtk * self.skillPercAtk
-    talentBase = ( 1.4 if self.eidolon >= 3 else 1.54 ) + num_adjacents * ( 0.6 if self.eidolon >= 3 else 0.66 )
-    talentBase += ( ( 0.792 if self.eidolon >= 5 else 0.72 ) * ( 1 + num_adjacents ) )  if addTalent else 0.0
-    retval.damage *= talentBase
-    retval.damage *= 1.0 + min(self.CR + self.skillCR, 1.0) * (self.CD + self.skillCD)
-    retval.damage *= 1.0 + self.Dmg + self.lighDmg + self.skillDmg
+    retval.damage = self.getTotalMotionValue('skill')
+    retval.damage += self.getTotalMotionValue('shockedSkill') if shocked else 0.0
+    retval.damage *= self.getTotalCrit('skill')
+    retval.damage *= self.getTotalDmg('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 30.0 + self.bonusEnergySkill ) * (1.0 + self.ER)
+    retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     return retval
 
-  def useUltimate(self, addTalent = True):
+  def useUltimate(self, shocked = True):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk() + self.baseAtk * self.ultPercAtk
-    talentBase = 1.8 if self.eidolon >= 5 else 1.944
-    talentBase += ( 0.792 if self.eidolon >= 5 else 0.72 ) if addTalent else 0.0
-    retval.damage *= self.numEnemies * talentBase
-    retval.damage *= 1.0 + min(self.CR + self.ultimateCR, 1.0) * (self.CD + self.ultimateCD)
-    retval.damage *= 1.0 + self.Dmg + self.lighDmg + self.ultDmg
+    retval.damage = self.getTotalMotionValue('ultimate')
+    retval.damage += self.getTotalMotionValue('shockedUltimate') if shocked else 0.0
+    retval.damage *= self.getTotalCrit('ultimate')
+    retval.damage *= self.getTotalDmg('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * self.numEnemies * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 5.0 + self.bonusEnergyUlt ) * (1.0 + self.ER)
-    retval.skillpoints = 0.0
+    retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
     return retval
 
   def useDot(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk() + self.baseAtk * self.dotPercAtk
-    retval.damage *= 1.04 if self.eidolon >= 5 else 114.4
-    #no crits on dots
-    retval.damage *= 1.0 + self.Dmg + self.lighDmg + self.dotDmg
+    retval.damage = self.getTotalMotionValue('dot')
+    # no crits on dots
+    retval.damage *= self.getTotalDmg('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.gauge = 0.0
-    retval.energy = 0.0
-    retval.skillpoints = 0.0
+    retval.energy = ( 0.0 + self.bonusEnergyType['dot'] ) * ( 1.0 + self.ER )
     return retval
   
 def ServalEstimationV1(character:BaseCharacter, Configuration:dict, CharacterDict:dict, EffectDict:dict):

@@ -1,25 +1,29 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.RelicSet import RelicSet
 
-class MusketeerOfWildWheat2pc(RelicSet):
+class WastelanderOfBanditryDesert2pc(RelicSet):
   def __init__(self,
                graphic:str='',
-               shortname:str='Wildwheat 2pc',
+               shortname:str = 'Wastelander 2pc',
                **config):
     self.graphic = graphic
     self.shortname = shortname
 
   def equipTo(self, char:BaseCharacter):
-    char.percAtk += 0.12
-
-class MusketeerOfWildWheat4pc(RelicSet):
+    char.imagDmg += 0.16
+    
+class WastelanderOfBanditryDesert4pc(RelicSet):
   def __init__(self,
                graphic:str='',
-               shortname:str='Wildwheat 4pc',
+               shortname:str = 'Wastelander 4pc',
+               uptimeCR:float = 1.0,
+               uptimeCD:float = 0.25,
                **config):
     self.graphic = graphic
     self.shortname = shortname
+    self.uptimeCR = uptimeCR
+    self.uptimeCD = uptimeCD
 
   def equipTo(self, char:BaseCharacter):
-    char.percSpd += 0.06
-    char.DmgType['Basic'] += 0.10
+    char.CR += 0.10 * self.uptimeCR
+    char.CD += 0.20 * self.uptimeCD

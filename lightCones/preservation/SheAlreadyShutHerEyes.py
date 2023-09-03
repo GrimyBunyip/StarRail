@@ -1,21 +1,21 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
 
-class SolitaryHealing(BaseLightCone):
+class SheAlreadyShutHerEyes(BaseLightCone):
   def __init__(self,
                uptime:float=1.0,
                **config):
-    self.loadConeStats('Solitary Healing')
+    self.loadConeStats('She Already Shut Her Eyes')
     self.setSuperposition(config)
-    self.uptime = uptime
+    self.uptime=uptime
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'nihility':
-      char.BreakEffect += 0.15 + 0.05 * self.superposition
-      char.DmgType['dot'] += ( 0.18 + 0.06 * self.superposition ) * self.uptime
-      # on kill energy not factored in
+    if char.path == 'preservation':
+      char.percHP += 0.2 + 0.04 * self.superposition
+      char.ER += 0.1 + 0.02 * self.superposition
+      char.Dmg += ( 0.075 + 0.015 * self.superposition ) * self.uptime
       
 if __name__ == '__main__':
   from settings.BaseConfiguration import Configuration
-  SolitaryHealing(**Configuration).print()
+  SheAlreadyShutHerEyes(**Configuration).print()

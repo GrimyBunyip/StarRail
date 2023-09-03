@@ -1,21 +1,21 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
 
-class SolitaryHealing(BaseLightCone):
+class MomentOfVictory(BaseLightCone):
   def __init__(self,
                uptime:float=1.0,
                **config):
-    self.loadConeStats('Solitary Healing')
+    self.loadConeStats('Moment of Victory')
     self.setSuperposition(config)
-    self.uptime = uptime
+    self.uptime=uptime
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'nihility':
-      char.BreakEffect += 0.15 + 0.05 * self.superposition
-      char.DmgType['dot'] += ( 0.18 + 0.06 * self.superposition ) * self.uptime
-      # on kill energy not factored in
+    if char.path == 'preservation':
+      char.percTaunt += 2.0
+      char.percDef += 0.2 + 0.04 * self.superposition
+      char.percDef += ( 0.2 + 0.04 * self.superposition ) * self.uptime
       
 if __name__ == '__main__':
   from settings.BaseConfiguration import Configuration
-  SolitaryHealing(**Configuration).print()
+  MomentOfVictory(**Configuration).print()

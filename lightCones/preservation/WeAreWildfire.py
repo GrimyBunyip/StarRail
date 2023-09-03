@@ -1,20 +1,20 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
 
-class TheBirthOfTheSelf(BaseLightCone):
+class WeAreWildfire(BaseLightCone):
   def __init__(self,
-               uptime:float=0.5,
+               uptime:float=1.0,
                **config):
-    self.loadConeStats('The Birth of the Self')
+    self.loadConeStats('We Are Wildfire')
     self.setSuperposition(config)
     self.uptime = uptime
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'erudition':
-      char.DmgType['followup'] += 0.24 + 0.06 * self.superposition
-      char.DmgType['followup'] += ( 0.24 + 0.06 * self.superposition ) * self.uptime
-    
+    if char.path == 'preservation':
+      char.dmgReduction += ( 0.06 + 0.02 * self.superposition ) * self.uptime
+      # not implemented: immediate heal
+      
 if __name__ == '__main__':
   from settings.BaseConfiguration import Configuration
-  TheBirthOfTheSelf(**Configuration).print()
+  WeAreWildfire(**Configuration).print()

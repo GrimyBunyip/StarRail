@@ -16,11 +16,11 @@ class LongevousDisciple4pc(RelicSet):
   def __init__(self,
                graphic:str='',
                shortname:str='Longevous 4pc',
-               passiveUptime = 1.0,
+               uptime = 1.0,
                **config):
     self.graphic = graphic
     self.shortname = shortname
-    self.passiveUptime = passiveUptime
+    self.uptime = uptime
 
   def equipTo(self, char:BaseCharacter):
-    char.CR += 0.16 * self.passiveUptime
+    char.CR += 0.16 * self.uptime

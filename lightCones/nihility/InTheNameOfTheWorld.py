@@ -13,7 +13,7 @@ class InTheNameOfTheWorld(BaseLightCone):
     self.addBaseStats(char)
     if char.path == 'nihility':
       char.Dmg += ( 0.20 + 0.04 * self.superposition ) * self.uptime
-      char.skillPercAtk += 0.20 + 0.04 * self.superposition
+      char.percAtkType['skill'] += 0.20 + 0.04 * self.superposition
       # also boosts skill EHR, but not implementing that atm
       
 if __name__ == '__main__':

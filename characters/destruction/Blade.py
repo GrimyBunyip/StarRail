@@ -4,6 +4,7 @@ from baseClasses.BaseLightCone import BaseLightCone
 from baseClasses.BaseEffect import BaseEffect
 from baseClasses.RelicSet import RelicSet
 from baseClasses.RelicStats import RelicStats
+from baseClasses.BaseMV import BaseMV
 
 # Lazy, haven't implemented E1 or E4 or E6
 
@@ -24,82 +25,87 @@ class Blade(BaseCharacter):
     self.hpLossTally = hpLossTally
     self.hellscapeUptime = hellscapeUptime
 
-    self.longName = 'Blade E{} {} S{}\n{} + {} + {}\nhpLossTally Uptime: {}\nHellscape Uptime: {}'.format(self.eidolon, self.lightcone.shortname, self.lightcone.superposition,
+    self.longName = 'Blade E{} {} S{}\n{} + {} + {}\nhpLossTally Uptime: {}\nHellscape Uptime: {}'.format(self.eidolon, self.lightcone.name, self.lightcone.superposition,
                                                                                           relicsetone.shortname, relicsettwo.shortname, planarset.shortname,
                                                                                           self.hpLossTally,
                                                                                           self.hellscapeUptime)
 
-    # Talents
+    # Motion Values should be set before talents or gear
+    self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
 
-    self.followupDmg += 0.20 # Ascensions
+    self.motionValueDict['enhancedBasic'] = [BaseMV(type='basic',area='single', stat='atk', value=0.4, eidolonThreshold=3, eidolonBonus=0.04),
+                                             BaseMV(type='basic',area='single', stat='hp', value=1.0, eidolonThreshold=3, eidolonBonus=0.1),
+                                             BaseMV(type='basic',area='adjacent', stat='atk', value=0.16, eidolonThreshold=3, eidolonBonus=0.016),
+                                             BaseMV(type='basic',area='adjacent', stat='hp', value=0.4, eidolonThreshold=3, eidolonBonus=0.04)]
+
+    self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=0.4, eidolonThreshold=5, eidolonBonus=0.032),
+                                        BaseMV(type='ultimate',area='adjacent', stat='atk', value=0.16, eidolonThreshold=5, eidolonBonus=0.0128),
+                                        BaseMV(type='ultimate',area='single', stat='hp', value=1.0, eidolonThreshold=5, eidolonBonus=0.08),
+                                        BaseMV(type='ultimate',area='adjacent', stat='hp', value=0.40, eidolonThreshold=5, eidolonBonus=0.032),
+                                        BaseMV(type='ultimate',area='single', stat='hp', value=1.0*self.hpLossTally, eidolonThreshold=5, eidolonBonus=0.08*self.hpLossTally),
+                                        BaseMV(type='ultimate',area='adjacent', stat='hp', value=0.40*self.hpLossTally, eidolonThreshold=5, eidolonBonus=0.032*self.hpLossTally)]
     
+    self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='all', stat='atk', value=0.44, eidolonThreshold=5, eidolonBonus=0.044),
+                                      BaseMV(type=['talent','followup'],area='all', stat='hp', value=1.1, eidolonThreshold=5, eidolonBonus=0.11)]
+    
+    # Talents
+    self.DmgType['followup'] += 0.20
+    
+    # Eidolons
     self.CR += 0.15 * self.hellscapeUptime if self.eidolon >= 2 else 0.0
 
+    # Gear
     self.equipGear()
     self.balanceCrit()
+    
 
   def useBasic(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk() + self.baseAtk * self.basicPercAtk
-    retval.damage *= 1.1 if self.eidolon >= 3 else 1.0
-    retval.damage *= 1.0 + min(self.CR + self.basicCR, 1.0) * (self.CD + self.basicCD)
-    retval.damage *= 1.0 + self.Dmg + self.windDmg + self.basicDmg
+    retval.damage = self.getTotalMotionValue('basic')
+    retval.damage *= self.getTotalCrit('basic')
+    retval.damage *= self.getTotalDmg('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 20.0 + self.bonusEnergyBasic ) * (1.0 + self.ER)
+    retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     return retval
 
   def useEnhancedBasic(self):
     num_adjacents = min( self.numEnemies - 1, 2 )
     retval = BaseEffect()
-    retval.damage = ( self.getTotalAtk() + self.baseAtk * self.basicPercAtk ) * ( 0.44 if self.eidolon >= 3 else 0.4 )
-    retval.damage += self.getTotalHP() * ( 1.10 if self.eidolon >= 3 else 1.0 )
-    retval.damage += ( self.getTotalAtk() + self.baseAtk * self.basicPercAtk ) * ( 0.176 if self.eidolon >= 3 else 0.16 ) * num_adjacents
-    retval.damage += self.getTotalHP() * ( 0.440 if self.eidolon >= 3 else 0.40 ) * num_adjacents
-    retval.damage *= 1.0 + min(self.CR + self.basicCR, 1.0) * (self.CD + self.basicCD)
-    retval.damage *= 1.0 + self.Dmg + self.windDmg + self.basicDmg
+    retval.damage = self.getTotalMotionValue('enhancedBasic')
+    retval.damage *= self.getTotalCrit('basic')
+    retval.damage *= self.getTotalDmg('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 30.0 + self.bonusEnergyBasic ) * (1.0 + self.ER)
+    retval.energy = ( 30.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
     retval.skillpoints = - 1.0 / 3 # just gonna estimate it by tweaking this here
     return retval
 
   def useSkill(self):
     retval = BaseEffect()
-    retval.damage = 0.0
-    retval.gauge = 0.0
-    retval.energy = 0.0
     retval.skillpoints = -1.0
     return retval
 
   def useUltimate(self):
     num_adjacents = min( self.numEnemies - 1, 2 )
     retval = BaseEffect()
-    retval.damage = ( self.getTotalAtk() + self.baseAtk * self.ultPercAtk ) * ( 0.432 if self.eidolon >= 5 else 0.4 )
-    retval.damage += self.getTotalHP() * ( 1.08 if self.eidolon >= 5 else 1.0 )
-    retval.damage += ( self.getTotalAtk() + self.baseAtk * self.ultPercAtk ) * ( 0.1728 if self.eidolon >= 5 else 0.16 ) * num_adjacents
-    retval.damage += self.getTotalHP() * ( 0.432 if self.eidolon >= 5 else 0.40 ) * num_adjacents
-    retval.damage += self.getTotalHP() * ( 1.08 * self.hpLossTally if self.eidolon >= 3 else 1.0 * self.hpLossTally )
-    retval.damage += self.getTotalHP() * ( 0.432 * self.hpLossTally if self.eidolon >= 3 else 0.40 * self.hpLossTally ) * num_adjacents
-    retval.damage *= 1.0 + min(self.CR + self.ultimateCR, 1.0) * (self.CD + self.ultimateCD)
-    retval.damage *= 1.0 + self.Dmg + self.windDmg + self.ultDmg
+    retval.damage = self.getTotalMotionValue('ultimate')
+    retval.damage *= self.getTotalCrit('ultimate')
+    retval.damage *= self.getTotalDmg('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 60.0 + 60.0 * num_adjacents ) * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 5.0 + self.bonusEnergyUlt ) * (1.0 + self.ER)
-    retval.skillpoints = 0
+    retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
     return retval
 
   def useTalent(self):
     retval = BaseEffect()
-    retval.damage = ( self.getTotalAtk() + self.baseAtk * self.followupPercAtk ) * ( 0.484 if self.eidolon >= 5 else 0.44 ) * self.numEnemies
-    retval.damage += self.getTotalHP() * ( 1.21 if self.eidolon >= 5 else 1.1 ) * self.numEnemies
-    retval.damage *= 1.0 + min(self.CR + self.followupCR, 1.0) * (self.CD + self.followupCD)
-    retval.damage *= 1.0 + self.Dmg + self.windDmg + self.followupDmg
+    retval.damage = self.getTotalMotionValue('talent')
+    retval.damage *= self.getTotalCrit(['followup','talent'])
+    retval.damage *= self.getTotalDmg(['followup','talent'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 30.0 * self.numEnemies ) * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 10.0 + self.bonusEnergyTalent ) * (1.0 + self.ER)
-    retval.skillpoints = 0
+    retval.energy = ( 10.0 + self.bonusEnergyType['followup'] + self.bonusEnergyType['talent'] ) * ( 1.0 + self.ER )
     return retval
   
 def BladeEstimationsV1(character:BaseCharacter, Configuration:dict, CharacterDict:dict, EffectDict:dict):
@@ -108,7 +114,7 @@ def BladeEstimationsV1(character:BaseCharacter, Configuration:dict, CharacterDic
   enemyTurns = ( Configuration['numRounds'] + 0.5 ) * Configuration['enemySpeed'] / 100
   enemyAttacks = enemyTurns * Configuration['numberEnemyAttacksPerTurn'] * character.taunt / 100.0
 
-  totalEffect = BaseEffect()
+  totalEffect:BaseEffect = BaseEffect()
   totalEffect.energy += Configuration['bonusEnergyFlat']
   totalEffect.energy += Configuration['bonusEnergyPerEnemyAttack'] * enemyAttacks
   

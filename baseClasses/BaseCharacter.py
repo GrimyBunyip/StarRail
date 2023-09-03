@@ -1,5 +1,5 @@
-from baseClasses.BaseEffect import BaseEffect
 import pandas as pd
+from baseClasses.BaseEffect import BaseEffect
 
 STATS_FILEPATH = 'stats\CharacterStats.csv'
 
@@ -8,15 +8,17 @@ class BaseCharacter(object):
   baseDef:float
   baseHP:float
   baseSpd:float
-  
+
   CR:float
   CD:float
-  
+
   taunt:float
   initialEnergy:float
   maxEnergy:float
   path:str
-  
+  element:str
+  name:str
+
   percAtk:float
   percDef:float
   percHP:float
@@ -45,7 +47,7 @@ class BaseCharacter(object):
   breakLevelMultiplier:float
   enemyRes:float
   brokenMultiplier:float
-  
+
   def __init__(self, lightcone, relicsetone, relicsettwo, planarset, relicstats, config:dict):
     self.__dict__.update(config)
     
@@ -67,37 +69,80 @@ class BaseCharacter(object):
 
     self.Break = 0.0
     self.Heal = 0.0
-
-    self.basicPercAtk = 0.0
-    self.skillPercAtk = 0.0
-    self.ultPercAtk = 0.0
-    self.followupPercAtk = 0.0
-    self.dotPercAtk = 0.0
+    
+    self.allRes = 0.0
+    self.dmgReduction = 0.0
+    self.percTaunt = 0.0
+    self.percShield = 0.0
     
     self.Dmg = 0.0
-    self.basicDmg = 0.0
-    self.skillDmg = 0.0
-    self.ultDmg = 0.0
-    self.dotDmg = 0.0
-    self.followupDmg = 0.0
+    self.DmgType = {
+      'basic':0.0,
+      'skill':0.0,
+      'ultimate':0.0,
+      'talent':0.0,
+      'followup':0.0,
+      'dot':0.0,
+    }
     
-    self.basicCR = 0.0
-    self.skillCR = 0.0
-    self.followupCR = 0.0
-    self.ultimateCR = 0.0
+    self.CRType = {
+      'basic':0.0,
+      'skill':0.0,
+      'ultimate':0.0,
+      'talent':0.0,
+      'followup':0.0,
+      'dot':0.0,
+    }
     
-    self.basicCD = 0.0
-    self.skillCD = 0.0
-    self.followupCD = 0.0
-    self.ultimateCD = 0.0
+    self.CDType = {
+      'basic':0.0,
+      'skill':0.0,
+      'ultimate':0.0,
+      'talent':0.0,
+      'followup':0.0,
+      'dot':0.0,
+    }
+
+    self.percAtkType = {
+      'basic':0.0,
+      'skill':0.0,
+      'ultimate':0.0,
+      'talent':0.0,
+      'followup':0.0,
+      'dot':0.0,
+    }
+
+    self.percDefType = {
+      'basic':0.0,
+      'skill':0.0,
+      'ultimate':0.0,
+      'talent':0.0,
+      'followup':0.0,
+      'dot':0.0,
+    }
+
+    self.percHPType = {
+      'basic':0.0,
+      'skill':0.0,
+      'ultimate':0.0,
+      'talent':0.0,
+      'followup':0.0,
+      'dot':0.0,
+    }
+    
+    self.bonusEnergyType = {
+      'basic':0.0,
+      'skill':0.0,
+      'ultimate':0.0,
+      'talent':0.0,
+      'followup':0.0,
+      'dot':0.0,
+    }
 
     self.defShred = 0.0
     self.resPen = 0.0
     
-    self.bonusEnergyBasic = 0.0
-    self.bonusEnergySkill = 0.0
-    self.bonusEnergyUlt = 0.0
-    self.bonusEnergyTalent = 0.0
+    self.motionValueDict = {}
     
   def loadCharacterStats(self, name:str):
     df = pd.read_csv(STATS_FILEPATH)
@@ -106,7 +151,7 @@ class BaseCharacter(object):
         data = df.loc[rows[rows == name].index,column].values[0]
         self.__dict__[column] = data
         
-    self.initialEnergy += self.maxEnergy * 0.5
+    self.initialEnergy = self.maxEnergy * 0.5
     self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
 
   def equipGear(self):
@@ -120,18 +165,68 @@ class BaseCharacter(object):
     totalCV = self.CR * 2 + self.CD
     self.CR = totalCV / 4.0
     self.CD = totalCV / 2.0
+    
+  def getTotalTaunt(self):
+    return self.taunt * (1 + self.percTaunt)
 
-  def getTotalAtk(self):
-    return self.baseAtk * ( 1 + self.percAtk ) + self.flatAtk
+  def getTotalAtk(self, type='None'):
+    if isinstance(type, list):
+      bonuses = sum([self.percAtkType[x] for x in type])
+      return self.baseAtk * ( 1 + self.percAtk + bonuses ) + self.flatAtk
+    else:
+      return self.baseAtk * ( 1 + self.percAtk + self.percAtkType[type] ) + self.flatAtk
 
-  def getTotalDef(self):
-    return self.baseDef * ( 1 + self.percDef ) + self.flatDef
+  def getTotalDef(self, type='None'):
+    if isinstance(type, list):
+      bonuses = sum([self.percDefType[x] for x in type])
+      return self.baseDef * ( 1 + self.percDef + bonuses ) + self.flatDef
+    else:
+      return self.baseDef * ( 1 + self.percDef + self.percDefType[type] ) + self.flatDef
 
-  def getTotalHP(self):
-    return self.baseHP * ( 1 + self.percHP ) + self.flatHP
+  def getTotalHP(self, type='None'):
+    if isinstance(type, list):
+      bonuses = sum([self.percHPType[x] for x in type])
+      return self.baseHP * ( 1 + self.percHP + bonuses ) + self.flatHP
+    else:
+      return self.baseHP * ( 1 + self.percHP + self.percHPType[type] ) + self.flatHP
+  
+  def getTotalCrit(self, type='None'):
+    if isinstance(type, list):
+      crBonuses = sum([self.CRType[x] for x in type])
+      cdBonuses = sum([self.CDType[x] for x in type])
+      return 1.0 + min(1,0, self.CR + crBonuses) * (self.CD + cdBonuses)
+    else:
+      return 1.0 + min(1.0, self.CR + self.CRType[type]) * (self.CD + self.CDType[type])
+    
+  def getTotalDmg(self, type='None'):
+    elementDmg = {
+      'wind': self.windDmg,
+      'ice': self.iceDmg,
+      'fire': self.fireDmg,
+      'lightning': self.lighDmg,
+      'physical': self.physDmg,
+      'quantum': self.quanDmg,
+      'imaginary': self.imagDmg,
+    }
+    
+    if isinstance(type, list):
+      bonuses = sum([self.DmgType[x] for x in type])
+      return 1.0 + self.Dmg + elementDmg[self.element] + bonuses
+    else:
+      return 1.0 + self.Dmg + elementDmg[self.element] + self.DmgType[type]
 
   def getTotalSpd(self):
     return self.baseSpd * ( 1 + self.percSpd ) + self.flatSpd
+  
+  def getTotalMotionValue(self, type:str):
+    total = 0.0
+    for key, value in self.motionValueDict.items():
+      if key == type:
+        if isinstance(value, list):
+          total += sum(x.calculate(self) for x in value)
+        else:
+          total += value.calculate(self)
+    return total
 
   def useBasic(self):
     retval = BaseEffect()

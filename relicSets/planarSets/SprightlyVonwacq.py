@@ -1,13 +1,14 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.RelicSet import RelicSet
 
-class EagleOfTwilightLine2pc(RelicSet):
+class SprightlyVonwacq(RelicSet):
   def __init__(self,
-               graphic:str='https://static.wikia.nocookie.net/houkai-star-rail/images/3/3f/Item_Eagle_of_Twilight_Line.png',
-               shortname:str='Eagle 2pc',
+               graphic:str='',
+               shortname:str='Sprightly Vonwacq',
                **config):
     self.graphic = graphic
     self.shortname = shortname
 
   def equipTo(self, char:BaseCharacter):
-    char.windDmg += 0.10
+    char.ER += 0.05
+    # second effect not implemented

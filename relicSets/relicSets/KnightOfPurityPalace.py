@@ -1,25 +1,24 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.RelicSet import RelicSet
 
-class MusketeerOfWildWheat2pc(RelicSet):
+class KnightOfPurityPalace2pc(RelicSet):
   def __init__(self,
                graphic:str='',
-               shortname:str='Wildwheat 2pc',
+               shortname:str='Knight 2pc',
                **config):
     self.graphic = graphic
     self.shortname = shortname
 
   def equipTo(self, char:BaseCharacter):
-    char.percAtk += 0.12
+    char.percDef += 0.15
 
-class MusketeerOfWildWheat4pc(RelicSet):
+class KnightOfPurityPalace4pc(RelicSet):
   def __init__(self,
                graphic:str='',
-               shortname:str='Wildwheat 4pc',
+               shortname:str='Knight 4pc',
                **config):
     self.graphic = graphic
     self.shortname = shortname
 
   def equipTo(self, char:BaseCharacter):
-    char.percSpd += 0.06
-    char.DmgType['Basic'] += 0.10
+    char.percShield += 0.20

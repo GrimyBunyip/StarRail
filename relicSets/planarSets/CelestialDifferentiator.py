@@ -1,13 +1,16 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.RelicSet import RelicSet
 
-class EagleOfTwilightLine2pc(RelicSet):
+class CelestialDifferentiator(RelicSet):
   def __init__(self,
-               graphic:str='https://static.wikia.nocookie.net/houkai-star-rail/images/3/3f/Item_Eagle_of_Twilight_Line.png',
-               shortname:str='Eagle 2pc',
+               graphic:str='',
+               shortname:str='Celestial Differentiator',
+               uptime:float = 0.0,
                **config):
     self.graphic = graphic
     self.shortname = shortname
+    self.uptime = uptime
 
   def equipTo(self, char:BaseCharacter):
-    char.windDmg += 0.10
+    char.CD += 0.16
+    char.CR += 0.6 * self.uptime

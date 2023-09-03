@@ -13,9 +13,9 @@ class BeforeDawn(BaseLightCone):
     self.addBaseStats(char)
     if char.path == 'erudition':
       char.CD += 0.30 + 0.06 * self.superposition
-      char.skillDmg += 0.15 + 0.03 * self.superposition
-      char.ultDmg += 0.15 + 0.03 * self.superposition
-      char.followupDmg += ( 0.40 + 0.08 * self. superposition ) * self.uptime
+      char.DmgType['skill'] += 0.15 + 0.03 * self.superposition
+      char.DmgType['ultimate'] += 0.15 + 0.03 * self.superposition
+      char.DmgType['followup'] += ( 0.40 + 0.08 * self. superposition ) * self.uptime
       
 if __name__ == '__main__':
   from settings.BaseConfiguration import Configuration

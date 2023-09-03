@@ -2,6 +2,7 @@ from copy import copy
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
 from baseClasses.BaseEffect import BaseEffect
+from baseClasses.BaseMV import BaseMV
 from baseClasses.RelicSet import RelicSet
 from baseClasses.RelicStats import RelicStats
 
@@ -24,74 +25,84 @@ class Yanqing(BaseCharacter):
     self.e4Uptime = e4Uptime
     self.rainingBlissUptime = rainingBlissUptime
 
-    self.longName = 'Yanqing E{} {} S{}\n{} + {} + {}\nSoulsteel Uptime: {}\nUltimate Uptime: {}'.format(self.eidolon, self.lightcone.shortname, self.lightcone.superposition,
+    self.longName = 'Yanqing E{} {} S{}\n{} + {} + {}\nSoulsteel Uptime: {}\nUltimate Uptime: {}'.format(self.eidolon, self.lightcone.name, self.lightcone.superposition,
                                                                                           relicsetone.shortname, relicsettwo.shortname, planarset.shortname,
                                                                                           self.soulsteelUptime,
                                                                                           self.rainingBlissUptime)
 
+    # Motion Values should be set before talents or gear
+    self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1),
+                                     BaseMV(type='basic',area='single', stat='atk', value=0.0, eidolonThreshold=1, eidolonBonus=0.6)]
+    self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.2, eidolonThreshold=3, eidolonBonus=0.22),
+                                     BaseMV(type='skill',area='single', stat='atk', value=0.0, eidolonThreshold=1, eidolonBonus=0.6)]
+    self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.5, eidolonThreshold=5, eidolonBonus=0.28),
+                                        BaseMV(type='ultimate',area='single', stat='atk', value=0.0, eidolonThreshold=1, eidolonBonus=0.6)]
+    self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
+    
     # Talents
-
     self.ER += 0.10 * self.soulsteelUptime if self.eidolon >= 2 else 0.0
     self.resPen += 0.12 * self.e4Uptime if self.eidolon >= 4 else 0.0
 
-    #soulsteel
+    # Soulsteel
     self.CR += self.soulsteelUptime * ( 0.22 if self.eidolon >= 5 else 0.20 )
     self.CD += self.soulsteelUptime * ( 0.33 if self.eidolon >= 5 else 0.30 )
-    self.blissCR = 0.6
-    self.blissCD = 0.54 if self.eidolon >= 5 else 0.5
-    self.taunt *= 0.4
+    self.CRType['bliss'] = 0.6 * self.rainingBlissUptime
+    self.CDType['bliss'] = ( 0.54 if self.eidolon >= 5 else 0.5 ) * self.rainingBlissUptime
+    
+    # Bliss is always up for Ult
+    self.CRType['blissUlt'] = 0.6
+    self.CDType['blissUlt'] = 0.54 if self.eidolon >= 5 else 0.5
+    self.percTaunt -= 0.6 * self.soulsteelUptime
 
+    # Eidolons
+    
+    # Gear
     self.equipGear()
     #self.balanceCrit() do not balance crit on yanqing
 
   def useBasic(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk() + self.baseAtk * self.basicPercAtk
-    retval.damage *= ( 1.1 if self.eidolon >= 3 else 1.0 ) + ( 0.6 if self.eidolon >= 1 else 0.0 )
-    retval.damage *= 1.0 + min(self.CR + self.basicCR + self.blissCR * self.rainingBlissUptime, 1.0) * (self.CD + self.basicCD + self.blissCD * self.rainingBlissUptime)
-    retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.basicDmg
+    retval.damage = self.getTotalMotionValue('basic')
+    retval.damage *= self.getTotalCrit(['basic','bliss'])
+    retval.damage *= self.getTotalDmg('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 20.0 + self.bonusEnergyBasic ) * (1.0 + self.ER)
+    retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     return retval
 
   def useSkill(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk() + self.baseAtk * self.skillPercAtk
-    retval.damage *= ( 2.42 if self.eidolon >= 3 else 2.2 ) + ( 0.6 if self.eidolon >= 1 else 0.0 )
-    retval.damage *= 1.0 + min(self.CR + self.skillCR + self.blissCR * self.rainingBlissUptime, 1.0) * (self.CD + self.skillCD + self.blissCD * self.rainingBlissUptime)
-    retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.skillDmg
+    retval.damage = self.getTotalMotionValue('skill')
+    retval.damage *= self.getTotalCrit(['skill','bliss'])
+    retval.damage *= self.getTotalDmg('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 30.0 + self.bonusEnergySkill ) * (1.0 + self.ER)
+    retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     return retval
 
   def useUltimate(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk() + self.baseAtk * self.ultPercAtk
-    retval.damage *= ( 3.78 if self.eidolon >= 5 else 3.5 ) + ( 0.6 if self.eidolon >= 1 else 0.0 )
-    retval.damage *= 1.0 + min(self.CR + self.ultimateCR + self.blissCR, 1.0) * (self.CD + self.ultimateCD + self.blissCD)
-    retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.ultDmg
+    retval.damage = self.getTotalMotionValue('ultimate')
+    retval.damage *= self.getTotalCrit(['ultimate','blissUlt'])
+    retval.damage *= self.getTotalDmg('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 90.0 * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 5.0 + self.bonusEnergyUlt ) * (1.0 + self.ER)
-    retval.skillpoints = 0.0
+    retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
     return retval
 
   def useTalent(self):
     retval = BaseEffect()
-    retval.damage = self.getTotalAtk() + self.baseAtk * self.followupPercAtk
-    retval.damage *= 0.55 if self.eidolon >= 5 else 0.5
-    retval.damage *= 1.0 + min(self.CR + self.blissCR * self.rainingBlissUptime, 1.0) * (self.CD + self.blissCD * self.rainingBlissUptime)
-    retval.damage *= 1.0 + self.Dmg + self.iceDmg + self.followupDmg
+    retval.damage = self.getTotalMotionValue('talent')
+    retval.damage *= self.getTotalCrit(['followup','talent','bliss'])
+    retval.damage *= self.getTotalDmg(['followup','talent'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.BreakEfficiency)
-    retval.energy = ( 10.0 + self.bonusEnergyTalent ) * (1.0 + self.ER)
-    retval.skillpoints = 0.0
+    retval.energy = ( 10.0 + self.bonusEnergyType['talent'] + self.bonusEnergyType['followup'] ) * ( 1.0 + self.ER )
     
-    retval *= 0.62 if self.eidolon >= 5 else 0.6
+    procrate = 0.62 if self.eidolon >= 5 else 0.6
+    retval *= procrate
     return retval
   
 def YanqingEstimationV1(character:BaseCharacter, Configuration:dict, CharacterDict:dict, EffectDict:dict):
@@ -100,7 +111,7 @@ def YanqingEstimationV1(character:BaseCharacter, Configuration:dict, CharacterDi
   enemyTurns = ( Configuration['numRounds'] + 0.5 ) * Configuration['enemySpeed'] / 100
   enemyAttacks = enemyTurns * Configuration['numberEnemyAttacksPerTurn'] * character.taunt / 100.0
 
-  totalEffect = BaseEffect()
+  totalEffect:BaseEffect = BaseEffect()
   
   # bonus energy from kills and getting hit
   totalEffect.energy += Configuration['bonusEnergyFlat']

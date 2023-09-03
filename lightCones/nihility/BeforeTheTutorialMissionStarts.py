@@ -13,10 +13,10 @@ class BeforeTheTutorialMissionStarts(BaseLightCone):
     self.addBaseStats(char)
     if char.path == 'nihility':
       char.EHR += 0.15 + 0.05 * self.superposition
-      char.bonusEnergyBasic += ( 3.0+ 1.0 * self.superposition ) * self.uptime
-      char.bonusEnergySkill += ( 3.0+ 1.0 * self.superposition ) * self.uptime
-      char.bonusEnergyUlt += ( 3.0+ 1.0 * self.superposition ) * self.uptime
-      char.bonusEnergyTalent += ( 3.0+ 1.0 * self.superposition ) * self.uptime
+      char.bonusEnergyType['basic'] += ( 3.0+ 1.0 * self.superposition ) * self.uptime
+      char.bonusEnergyType['skill'] += ( 3.0+ 1.0 * self.superposition ) * self.uptime
+      char.bonusEnergyType['ultimate'] += ( 3.0+ 1.0 * self.superposition ) * self.uptime
+      char.bonusEnergyType['talent'] += ( 3.0+ 1.0 * self.superposition ) * self.uptime
       
 if __name__ == '__main__':
   from settings.BaseConfiguration import Configuration

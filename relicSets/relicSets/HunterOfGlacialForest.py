@@ -16,11 +16,11 @@ class HunterOfGlacialForest4pc(RelicSet):
   def __init__(self,
                graphic:str='',
                shortname:str = 'Glacial 4pc',
-               passiveUptime = 1.0,
+               uptime = 1.0,
                **config):
     self.graphic = graphic
     self.shortname = shortname
-    self.passiveUptime = passiveUptime
+    self.uptime = uptime
 
   def equipTo(self, char:BaseCharacter):
-    char.CD += 0.25 * self.passiveUptime
+    char.CD += 0.25 * self.uptime

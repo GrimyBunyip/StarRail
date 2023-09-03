@@ -1,10 +1,10 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.RelicSet import RelicSet
 
-class InertSalsotto(RelicSet):
+class BelobogOfTheArchitects(RelicSet):
   def __init__(self,
                graphic:str='',
-               shortname:str='Inert Salsotto',
+               shortname:str='Belobog of the Architects',
                uptime:float = 1.0,
                **config):
     self.graphic = graphic
@@ -12,6 +12,5 @@ class InertSalsotto(RelicSet):
     self.uptime = uptime
 
   def equipTo(self, char:BaseCharacter):
-    char.CR += 0.08
-    char.DmgType['ultimate'] += 0.15 * self.uptime
-    char.DmgType['followup'] += 0.15 * self.uptime
+    char.percDef += 0.15
+    char.percDef += 0.15 * self.uptime

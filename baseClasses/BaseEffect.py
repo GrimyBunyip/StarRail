@@ -1,8 +1,8 @@
 class BaseEffect:
-  damage = 0.0
-  gauge = 0.0
-  energy = 0.0
-  skillpoints = 0.0
+  damage:float
+  gauge:float
+  energy:float
+  skillpoints:float
 
   def __init__(self, damage:float=0.0, gauge:float=0.0, energy:float=0.0, skillpoints:float=0.0):
     self.damage = damage
