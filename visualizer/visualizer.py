@@ -10,8 +10,8 @@ def visualize(CharacterDict:dict, EffectDict:dict, **config):
         'ice': 'blue',
         'lightning': 'purple',
         'physical': 'grey',
-        'quantum': 'magenta',
-        'imaginary': 'yellow',
+        'quantum': 'darkslateblue',
+        'imaginary': 'darkgoldenrod',
     }
 
     # Sample data

@@ -1,5 +1,6 @@
 from copy import copy
-from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
+from characters.hunt.Seele import Seele
+from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc
 from settings.BaseConfiguration import Configuration
 from baseClasses.RelicStats import RelicStats
 from estimator.DefaultEstimator import DefaultEstimator
@@ -9,6 +10,7 @@ from characters.destruction.Blade import Blade
 from characters.destruction.Clara import Clara
 from characters.hunt.DanHeng import DanHeng
 from characters.nihility.Kafka import Kafka
+from characters.destruction.Lunae import Lunae
 from characters.erudition.Serval import Serval
 from characters.hunt.Yanqing import Yanqing
 
@@ -16,6 +18,7 @@ from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.nihility.Fermata import Fermata
+from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 
 from relicSets.relicSets.BandOfSizzlingThunder import BandOfSizzlingThunder2pc, BandOfSizzlingThunder4pc
@@ -24,8 +27,10 @@ from relicSets.relicSets.EagleOfTwilightLine import EagleOfTwilightLine2pc, Eagl
 from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
+from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
 from relicSets.planarSets.InertSalsotto import InertSalsotto
+from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.planarSets.SpaceSealingStation import SpaceSealingStation
 
 if __name__ == '__main__':
@@ -77,7 +82,7 @@ if __name__ == '__main__':
     # Clara
     ClaraCharacter = Clara(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'physDmg'],
                             substats = {'CR': 10, 'CD': 10}),
-                lightcone = OnTheFallOfAnAeon(uptime = 0.0, stacks=5.0, **config),
+                lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=5.0, **config),
                 relicsetone = ChampionOfStreetwiseBoxing2pc(),
                 relicsettwo = ChampionOfStreetwiseBoxing4pc(),
                 planarset = InertSalsotto(),
@@ -93,6 +98,37 @@ if __name__ == '__main__':
     ]
     DefaultEstimator('Clara: 3E 3T 1Q', ClaraRotation, ClaraCharacter, config, CharacterDict, EffectDict)
     
+    # Lunae
+    LunaeCharacter = Lunae(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'imagDmg'],
+                            substats = {'CR': 10, 'CD': 10}),
+                lightcone = OnTheFallOfAnAeon(uptime = 0.5, stacks=5.0, **config),
+                relicsetone = WastelanderOfBanditryDesert2pc(),
+                relicsettwo = WastelanderOfBanditryDesert4pc(),
+                planarset = RutilantArena(),
+                hpLossTally=0.5,
+                **config)
+    
+    LunaeRotation = [  # 140 energy needed
+                LunaeCharacter.useSkill()*3,
+                LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
+                LunaeCharacter.endTurn(),
+                
+                LunaeCharacter.useBasic(), # 1 SP, 20 energy
+                LunaeCharacter.endTurn(),
+                
+                LunaeCharacter.useBasic(), # 1 SP, 20 energy
+                LunaeCharacter.endTurn(),
+                
+                LunaeCharacter.useBasic(), # 1 SP, 20 energy
+                LunaeCharacter.endTurn(),
+                
+                LunaeCharacter.useSkill()*3,
+                LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
+                LunaeCharacter.useUltimate(), # +2 SP, 5 energy
+                LunaeCharacter.endTurn()
+    ]
+    DefaultEstimator('Lunae: 3N 2N^3 1Q', LunaeRotation, LunaeCharacter, config, CharacterDict, EffectDict)
+    
     # Serval
     ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['breakEffect', 'flatSpd', 'percAtk', 'lighDmg'],
                             substats = {'breakEffect': 10, 'percAtk': 8, 'flatSpd': 2}),
@@ -106,6 +142,28 @@ if __name__ == '__main__':
             ServalCharacter.useUltimate(shocked=True),
     ]
     DefaultEstimator('Serval: 1N 2E 1Q', ServalRotation, ServalCharacter, config, CharacterDict, EffectDict, breakDotMode='alwaysAll')
+    
+    # Seele
+    SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'quanDmg'],
+                            substats = {'CR': 10, 'CD': 10}),
+                lightcone = CruisingInTheStellarSea(uptimeHP=0.5, uptimeDefeat=1.0, **config),
+                relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo=GeniusOfBrilliantStars4pc(), planarset = SpaceSealingStation(),
+                **config)
+    
+    SeeleRotation = [
+            SeeleCharacter.useSkill() * 3,
+            SeeleCharacter.useResurgence(),
+            SeeleCharacter.useSkill(),
+            SeeleCharacter.useUltimate(),
+            SeeleCharacter.endTurn(),
+    ]
+    DefaultEstimator('Seele: 3E Resurgence(1E1Q)', SeeleRotation, SeeleCharacter, config, CharacterDict, EffectDict)
+    
+    SeeleRotation = [
+            SeeleCharacter.useSkill() * 4,
+            SeeleCharacter.useUltimate(),
+    ]
+    DefaultEstimator('Seele: 4 1Q No Resurgence', SeeleRotation, SeeleCharacter, config, CharacterDict, EffectDict)
     
     # Dan Heng
     DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'windDmg'],
