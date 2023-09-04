@@ -16,18 +16,17 @@ class BaseMV:
     self.eidolonBonus = eidolonBonus
     
   def calculate(self, char:BaseCharacter):
+    mv = self.value +  ( self.eidolonBonus if char.eidolon > self.eidolonThreshold else 0.0 )
+
     if self.stat == 'atk':
-      amount = self.value * char.getTotalAtk(type=self.type)
+      amount = mv * char.getTotalAtk(type=self.type)
     elif self.stat == 'def':
-      amount = self.value * char.getTotalDef(type=self.type)
+      amount = mv * char.getTotalDef(type=self.type)
     elif self.stat == 'hp':
-      amount = self.value * char.getTotalHP(type=self.type)
+      amount = mv * char.getTotalHP(type=self.type)
     else:
       raise ValueError('invalid stat selected for BaseMV')
-    
-    if char.eidolon >= self.eidolonThreshold:
-      amount += self.eidolonBonus
-    
+        
     if self.area == 'single': # no need to modify amount here
       pass 
     elif self.area == 'adjacent': # adjacent can only affect up to 2 targets, and only if there are enough enemies
