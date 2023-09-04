@@ -25,6 +25,7 @@ class Yanqing(BaseCharacter):
     self.rainingBlissUptime = rainingBlissUptime
     
     # Motion Values should be set before talents or gear
+    self.motionValueDict['icing'] = [BaseMV(type='basic',area='single', stat='atk', value=0.3)]
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1),
                                      BaseMV(type='basic',area='single', stat='atk', value=0.0, eidolonThreshold=1, eidolonBonus=0.6)]
     self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.2, eidolonThreshold=3, eidolonBonus=0.22),
@@ -54,9 +55,9 @@ class Yanqing(BaseCharacter):
     self.equipGear()
     #self.balanceCrit() do not balance crit on yanqing
 
-  def useBasic(self):
+  def useBasic(self, icing=True):
     retval = BaseEffect()
-    retval.damage = self.getTotalMotionValue('basic')
+    retval.damage = self.getTotalMotionValue('basic') + self.getTotalMotionValue('icing') if icing else 0.0
     retval.damage *= self.getTotalCrit(['basic','bliss'])
     retval.damage *= self.getTotalDmg('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
@@ -66,9 +67,9 @@ class Yanqing(BaseCharacter):
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     return retval
 
-  def useSkill(self):
+  def useSkill(self, icing=True):
     retval = BaseEffect()
-    retval.damage = self.getTotalMotionValue('skill')
+    retval.damage = self.getTotalMotionValue('skill') + self.getTotalMotionValue('icing') if icing else 0.0
     retval.damage *= self.getTotalCrit(['skill','bliss'])
     retval.damage *= self.getTotalDmg('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
@@ -78,9 +79,9 @@ class Yanqing(BaseCharacter):
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     return retval
 
-  def useUltimate(self):
+  def useUltimate(self, icing=True):
     retval = BaseEffect()
-    retval.damage = self.getTotalMotionValue('ultimate')
+    retval.damage = self.getTotalMotionValue('ultimate') + self.getTotalMotionValue('icing') if icing else 0.0
     retval.damage *= self.getTotalCrit(['ultimate','blissUlt'])
     retval.damage *= self.getTotalDmg('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
