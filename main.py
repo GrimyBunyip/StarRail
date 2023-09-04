@@ -1,14 +1,16 @@
 from copy import copy
+from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from settings.BaseConfiguration import Configuration
 from baseClasses.RelicStats import RelicStats
 from estimator.DefaultEstimator import DefaultEstimator
 from visualizer.visualizer import visualize
 
-from characters.erudition.Serval import Serval
 from characters.destruction.Blade import Blade
+from characters.destruction.Clara import Clara
 from characters.hunt.DanHeng import DanHeng
-from characters.hunt.Yanqing import Yanqing
 from characters.nihility.Kafka import Kafka
+from characters.erudition.Serval import Serval
+from characters.hunt.Yanqing import Yanqing
 
 from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
@@ -17,8 +19,9 @@ from lightCones.nihility.Fermata import Fermata
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 
 from relicSets.relicSets.BandOfSizzlingThunder import BandOfSizzlingThunder2pc, BandOfSizzlingThunder4pc
-from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
+from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
 from relicSets.relicSets.EagleOfTwilightLine import EagleOfTwilightLine2pc, EagleOfTwilightLine4pc
+from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
@@ -51,6 +54,44 @@ if __name__ == '__main__':
             KafkaCharacter.useUltimate(),
     ]
     DefaultEstimator('Kafka: 3E 3T 1Q', KafkaRotation, KafkaCharacter, config, CharacterDict, EffectDict)
+    
+    # Blade
+    bladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CD', 'windDmg'],
+                            substats = {'CR': 7, 'CD': 7, 'flatSpd': 6}),
+                lightcone = ASecretVow(uptime = 0.5, **config),
+                relicsetone = LongevousDisciple2pc(),
+                relicsettwo = LongevousDisciple4pc(),
+                planarset = InertSalsotto(),
+                hpLossTally=0.5,
+                **config)
+    
+    BladeRotation = [ # 130 max energy
+            bladeCharacter.useSkill() * 0.5, # 5 energy, 0.5 charges, only need half a usage per ult or so
+            bladeCharacter.useEnhancedBasic() * 2, # 80 energy, 2 charge
+            bladeCharacter.useTalent() * 0.9, # 30 energy, requires 5 charges if e0
+            bladeCharacter.takeDamage(), # 10 energy, 1 charge, assume we get once
+            bladeCharacter.useUltimate(), # 15 energy, 1 charge
+    ]
+    DefaultEstimator('Blade: 0.5S 2N 0.9T 1Q, get hit once', BladeRotation, bladeCharacter, config, CharacterDict, EffectDict)
+    
+    # Clara
+    ClaraCharacter = Clara(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'physDmg'],
+                            substats = {'CR': 10, 'CD': 10}),
+                lightcone = OnTheFallOfAnAeon(uptime = 0.0, stacks=5.0, **config),
+                relicsetone = ChampionOfStreetwiseBoxing2pc(),
+                relicsettwo = ChampionOfStreetwiseBoxing4pc(),
+                planarset = InertSalsotto(),
+                hpLossTally=0.5,
+                **config)
+    
+    ClaraRotation = [ # 110 max energy
+            ClaraCharacter.useSkill() * 3,
+            ClaraCharacter.useMarkOfSvarog() * 3, # these are 3 instances of single target bonus damage
+            ClaraCharacter.useTalent(enhanced=False), # 1 additional clara hit on top
+            ClaraCharacter.useTalent(enhanced=True) * 3, # 2 reactions from ultimate
+            ClaraCharacter.useUltimate(),
+    ]
+    DefaultEstimator('Clara: 3E 3T 1Q', ClaraRotation, ClaraCharacter, config, CharacterDict, EffectDict)
     
     # Serval
     ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['breakEffect', 'flatSpd', 'percAtk', 'lighDmg'],
@@ -97,24 +138,5 @@ if __name__ == '__main__':
             YanqingCharacter.useUltimate(),
     ]
     DefaultEstimator('Yanqing: 4E 1Q 5T', YanqingRotation, YanqingCharacter, config, CharacterDict, EffectDict)
-    
-    # Blade
-    bladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CD', 'windDmg'],
-                            substats = {'CR': 7, 'CD': 7, 'flatSpd': 6}),
-                lightcone = ASecretVow(uptime = 0.5, **config),
-                relicsetone = LongevousDisciple2pc(),
-                relicsettwo = LongevousDisciple4pc(),
-                planarset = InertSalsotto(),
-                hpLossTally=0.5,
-                **config)
-    
-    BladeRotation = [ # 130 max energy
-            bladeCharacter.useSkill() * 0.5, # 5 energy, 0.5 charges, only need half a usage per ult or so
-            bladeCharacter.useEnhancedBasic() * 2, # 80 energy, 2 charge
-            bladeCharacter.useTalent() * 0.9, # 30 energy, requires 5 charges if e0
-            bladeCharacter.takeDamage(), # 10 energy, 1 charge, assume we get once
-            bladeCharacter.useUltimate(), # 15 energy, 1 charge
-    ]
-    DefaultEstimator('Blade: 0.5S 2N 0.9T 1Q, get hit once', BladeRotation, bladeCharacter, config, CharacterDict, EffectDict)
         
     visualize(CharacterDict, EffectDict, **config)

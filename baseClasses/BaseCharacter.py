@@ -275,7 +275,7 @@ class BaseCharacter(object):
     retval = BaseEffect()
 
     breakMultipliers = {
-        'wind': 2.0,
+        'physical': 2.0,
         'fire': 2.0,
         'ice': 1.0,
         'lightning': 1.0,

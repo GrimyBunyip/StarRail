@@ -59,7 +59,8 @@ class Kafka(BaseCharacter):
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     
     # the dot explosion only applies to the main target, but our Dot implementation is AoE
-    dotExplosion = self.useDot() / self.numEnemies + self.useBreakDot()
+    # dividing the break dot as well because I assume we'll spread our break dots out
+    dotExplosion = ( self.useDot() + self.useBreakDot() ) / self.numEnemies
     dotExplosion *= 0.78 if self.eidolon >= 3 else 0.75
     
     retval += dotExplosion
@@ -75,8 +76,8 @@ class Kafka(BaseCharacter):
     retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     
-    # need to multiply useBreakDot() with num enemies, because useBreakDot() is single target
-    dotExplosion = self.useDot() + self.useBreakDot() * self.numEnemies
+    # no need to multiply break dot, I assume we're spreading break dots out
+    dotExplosion = self.useDot() + self.useBreakDot()
     dotExplosion *= 1.0 if self.eidolon >= 5 else 1.04
     
     retval += dotExplosion
