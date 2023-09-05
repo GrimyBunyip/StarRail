@@ -1,4 +1,5 @@
 from copy import copy
+from characters.destruction.Jingliu import Jingliu
 from characters.hunt.Seele import Seele
 from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc
 from settings.BaseConfiguration import Configuration
@@ -59,6 +60,24 @@ if __name__ == '__main__':
             KafkaCharacter.useUltimate(),
     ]
     DefaultEstimator('Kafka: 3E 3T 1Q', KafkaRotation, KafkaCharacter, config, CharacterDict, EffectDict)
+    
+    # Jingliu
+    JingliuCharacter = Jingliu(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
+                            substats = {'CR': 8, 'CD': 8, 'flatSpd': 4}),
+                lightcone = ASecretVow(uptime = 0.5, **config),
+                relicsetone = HunterOfGlacialForest2pc(),
+                relicsettwo = HunterOfGlacialForest4pc(),
+                planarset = RutilantArena(),
+                transmigrationPercAtk=1.5,
+                **config)
+    
+    JingliuRotation = [ # 140 max energy
+            JingliuCharacter.useSkill() * 2, # 60 energy, 2 stack
+            JingliuCharacter.useEnhancedSkill() * 3, # 60 energy, -3 stacks
+            JingliuCharacter.useUltimate(), # 5 energy, 1 stack
+            JingliuCharacter.extraTurn()*1.5,
+    ]
+    DefaultEstimator('Jingliu 2E 3Moon 1Q', JingliuRotation, JingliuCharacter, config, CharacterDict, EffectDict)
     
     # Blade
     bladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CD', 'windDmg'],

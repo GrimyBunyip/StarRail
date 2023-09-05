@@ -1,6 +1,5 @@
 from baseClasses.BaseCharacter import BaseCharacter
 
-
 class BaseMV:
   def __init__(self, type, area, stat, value:float, eidolonThreshold:int = 5, eidolonBonus:float = 0.0):
     if area not in ['single', 'adjacent', 'blast', 'all']:

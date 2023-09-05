@@ -12,6 +12,6 @@ class RutilantArena(RelicSet):
     self.uptime = uptime
 
   def equipTo(self, char:BaseCharacter):
-    char.CR += 8
+    char.CR += 0.08
     char.DmgType['basic'] += 0.20 * self.uptime
     char.DmgType['skill'] += 0.20 * self.uptime
