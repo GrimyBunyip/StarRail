@@ -22,4 +22,4 @@ class MusketeerOfWildWheat4pc(RelicSet):
 
   def equipTo(self, char:BaseCharacter):
     char.percSpd += 0.06
-    char.DmgType['Basic'] += 0.10
+    char.DmgType['basic'] += 0.10

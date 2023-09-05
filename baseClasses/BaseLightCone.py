@@ -29,9 +29,9 @@ class BaseLightCone(object):
       self.superposition = config['fourstarSuperpositions']
     elif self.rarity == 5:
       if self.herta:
-        self.superposition = config['fivestarSuperpositions']
-      else:
         self.superposition = config['hertaSuperpositions']
+      else:
+        self.superposition = config['fivestarSuperpositions']
         
   def addBaseStats(self, char:BaseCharacter):
     char.baseAtk += self.baseAtk

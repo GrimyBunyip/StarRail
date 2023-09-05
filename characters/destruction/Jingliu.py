@@ -13,12 +13,15 @@ class Jingliu(BaseCharacter):
                relicsetone:RelicSet=None,
                relicsettwo:RelicSet=None,
                planarset:RelicSet=None,
-               transmigrationPercAtk:float=1.0,
+               transmigrationPercAtk:float=1.2,
+               speedBoostUptime:float=0.5,
                **config):
     super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
     self.loadCharacterStats('Jingliu')
     
     self.percAtkType['enhancedSkill'] = transmigrationPercAtk
+    self.percAtkType['ultimate'] = transmigrationPercAtk
+    self.spdBoostUptime = speedBoostUptime
 
     # Motion Values should be set before talents or gear
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
@@ -32,6 +35,7 @@ class Jingliu(BaseCharacter):
                                         BaseMV(type='ultimate',area='adjacent', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.12)]
     
     # Talents
+    self.percSpd += 0.10 * self.spdBoostUptime
     self.DmgType['transmigration'] = 0.10 # Ascension
     if self.eidolon >= 2:
       self.DmgType['ultimate'] = 0.30
@@ -92,7 +96,7 @@ class Jingliu(BaseCharacter):
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('ultimate')
     retval.damage *= self.getTotalCrit('ultimate')
-    retval.damage *= self.getTotalDmg('ultimate')
+    retval.damage *= self.getTotalDmg(['ultimate','transmigration'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * blastEnemies * (1.0 + self.breakEfficiency)
     retval.energy = ( 5.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )

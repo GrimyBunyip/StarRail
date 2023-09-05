@@ -21,10 +21,10 @@ class Lunae(BaseCharacter):
     self.joltAnewUptime = joltAnewUptime
     self.heartStacks = 0
     self.outroarStacks = 0
+    self.reignStacks = reignStacks
     self.DmgType['heartStacks'] = 0.0
     self.CRType['outroarStacks'] = 0.0 # Doesn't do anything. Suppresses error messages that notify me of misnamed dictionary keys
     self.CDType['outroarStacks'] = 0.0
-    self.reignStacks = 3.0
 
     # Motion Values should be set before talents or gear
     self.motionValueDict['basic_1'] = [BaseMV(type='basic',area='single', stat='atk', value=0.3, eidolonThreshold=3, eidolonBonus=0.03)]
@@ -65,7 +65,7 @@ class Lunae(BaseCharacter):
 
     # Gear
     self.equipGear()
-    self.balanceCrit()
+    #self.balanceCrit() # do not balance crit on Lunae
 
   def useBasic(self, hitNum:int=None):
     retval = BaseEffect()
@@ -176,7 +176,7 @@ class Lunae(BaseCharacter):
     else:
       self.heartStacks += 1
       self.heartStacks = min(6,self.heartStacks)
-    self.DmgType['heartStacks'] = self.heartStacks * 0.125
+    self.DmgType['heartStacks'] = self.heartStacks * ( 0.11 if self.eidolon >= 5 else 0.1 )
   
   def addRoar(self):
     self.outroarStacks += 1
@@ -188,6 +188,6 @@ class Lunae(BaseCharacter):
     self.heartStacks= 0
     if self.eidolon < 4:
       self.outroarStacks = 0
-    self.DmgType['heartStacks'] = self.heartStacks * 0.125
+    self.DmgType['heartStacks'] = self.heartStacks * ( 0.11 if self.eidolon >= 5 else 0.1 )
     self.CDType['outroarStacks'] = self.outroarStacks * ( 0.132 if self.eidolon >= 3 else 0.12 )
     return retval

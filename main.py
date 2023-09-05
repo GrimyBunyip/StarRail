@@ -1,7 +1,4 @@
 from copy import copy
-from characters.destruction.Jingliu import Jingliu
-from characters.hunt.Seele import Seele
-from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc
 from settings.BaseConfiguration import Configuration
 from baseClasses.RelicStats import RelicStats
 from estimator.DefaultEstimator import DefaultEstimator
@@ -10,8 +7,10 @@ from visualizer.visualizer import visualize
 from characters.destruction.Blade import Blade
 from characters.destruction.Clara import Clara
 from characters.hunt.DanHeng import DanHeng
+from characters.destruction.Jingliu import Jingliu
 from characters.nihility.Kafka import Kafka
 from characters.destruction.Lunae import Lunae
+from characters.hunt.Seele import Seele
 from characters.erudition.Serval import Serval
 from characters.hunt.Yanqing import Yanqing
 
@@ -25,8 +24,10 @@ from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from relicSets.relicSets.BandOfSizzlingThunder import BandOfSizzlingThunder2pc, BandOfSizzlingThunder4pc
 from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
 from relicSets.relicSets.EagleOfTwilightLine import EagleOfTwilightLine2pc, EagleOfTwilightLine4pc
+from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc
 from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
+from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc, MusketeerOfWildWheat4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
@@ -106,7 +107,8 @@ if __name__ == '__main__':
                 relicsetone = HunterOfGlacialForest2pc(),
                 relicsettwo = HunterOfGlacialForest4pc(),
                 planarset = RutilantArena(),
-                transmigrationPercAtk=1.5,
+                transmigrationPercAtk=1.2,
+                speedBoostUptime=0.5,
                 **config)
     
     JingliuRotation = [ # 140 max energy
@@ -116,13 +118,13 @@ if __name__ == '__main__':
             JingliuCharacter.extraTurn()*1.5,
     ]
     DefaultEstimator('Jingliu 2E 3Moon 1Q', JingliuRotation, JingliuCharacter, config, CharacterDict, EffectDict)
-    
+
     # Lunae
-    LunaeCharacter = Lunae(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'imagDmg'],
-                            substats = {'CR': 8, 'CD': 9, 'flatSpd':3}),
+    LunaeCharacter = Lunae(RelicStats(mainstats = ['percAtk', 'percAtk', 'CR', 'imagDmg'],
+                            substats = {'CR': 10, 'CD': 10}),
                 lightcone = OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config),
-                relicsetone = WastelanderOfBanditryDesert2pc(),
-                relicsettwo = WastelanderOfBanditryDesert4pc(),
+                relicsetone = MusketeerOfWildWheat2pc(),
+                relicsettwo = MusketeerOfWildWheat4pc(),
                 planarset = RutilantArena(),
                 **config)
     
@@ -146,15 +148,6 @@ if __name__ == '__main__':
                 LunaeCharacter.endTurn()
     ]
     DefaultEstimator('Lunae: 3N 2N^3 1Q', LunaeRotation, LunaeCharacter, config, CharacterDict, EffectDict)
-    
-    # Lunae
-    LunaeCharacter = Lunae(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'imagDmg'],
-                            substats = {'CR': 8, 'CD': 9, 'flatSpd':3}),
-                lightcone = OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config),
-                relicsetone = WastelanderOfBanditryDesert2pc(),
-                relicsettwo = WastelanderOfBanditryDesert4pc(),
-                planarset = RutilantArena(),
-                **config)
     
     LunaeRotation = [  # 140 energy needed
                 LunaeCharacter.useSkill()*3,
