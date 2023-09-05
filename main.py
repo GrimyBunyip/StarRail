@@ -61,24 +61,6 @@ if __name__ == '__main__':
     ]
     DefaultEstimator('Kafka: 3E 3T 1Q', KafkaRotation, KafkaCharacter, config, CharacterDict, EffectDict)
     
-    # Jingliu
-    JingliuCharacter = Jingliu(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
-                            substats = {'CR': 8, 'CD': 8, 'flatSpd': 4}),
-                lightcone = ASecretVow(uptime = 0.5, **config),
-                relicsetone = HunterOfGlacialForest2pc(),
-                relicsettwo = HunterOfGlacialForest4pc(),
-                planarset = RutilantArena(),
-                transmigrationPercAtk=1.5,
-                **config)
-    
-    JingliuRotation = [ # 140 max energy
-            JingliuCharacter.useSkill() * 2, # 60 energy, 2 stack
-            JingliuCharacter.useEnhancedSkill() * 3, # 60 energy, -3 stacks
-            JingliuCharacter.useUltimate(), # 5 energy, 1 stack
-            JingliuCharacter.extraTurn()*1.5,
-    ]
-    DefaultEstimator('Jingliu 2E 3Moon 1Q', JingliuRotation, JingliuCharacter, config, CharacterDict, EffectDict)
-    
     # Blade
     bladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CD', 'windDmg'],
                             substats = {'CR': 7, 'CD': 7, 'flatSpd': 6}),
@@ -117,14 +99,31 @@ if __name__ == '__main__':
     ]
     DefaultEstimator('Clara: 3E 3T 1Q', ClaraRotation, ClaraCharacter, config, CharacterDict, EffectDict)
     
+    # Jingliu
+    JingliuCharacter = Jingliu(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
+                            substats = {'CR': 8, 'CD': 8, 'flatSpd': 4}),
+                lightcone = ASecretVow(uptime = 0.5, **config),
+                relicsetone = HunterOfGlacialForest2pc(),
+                relicsettwo = HunterOfGlacialForest4pc(),
+                planarset = RutilantArena(),
+                transmigrationPercAtk=1.5,
+                **config)
+    
+    JingliuRotation = [ # 140 max energy
+            JingliuCharacter.useSkill() * 2, # 60 energy, 2 stack
+            JingliuCharacter.useEnhancedSkill() * 3, # 60 energy, -3 stacks
+            JingliuCharacter.useUltimate(), # 5 energy, 1 stack
+            JingliuCharacter.extraTurn()*1.5,
+    ]
+    DefaultEstimator('Jingliu 2E 3Moon 1Q', JingliuRotation, JingliuCharacter, config, CharacterDict, EffectDict)
+    
     # Lunae
     LunaeCharacter = Lunae(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'imagDmg'],
-                            substats = {'CR': 10, 'CD': 10}),
-                lightcone = OnTheFallOfAnAeon(uptime = 0.5, stacks=5.0, **config),
+                            substats = {'CR': 8, 'CD': 9, 'flatSpd':3}),
+                lightcone = OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config),
                 relicsetone = WastelanderOfBanditryDesert2pc(),
                 relicsettwo = WastelanderOfBanditryDesert4pc(),
                 planarset = RutilantArena(),
-                hpLossTally=0.5,
                 **config)
     
     LunaeRotation = [  # 140 energy needed
@@ -147,6 +146,30 @@ if __name__ == '__main__':
                 LunaeCharacter.endTurn()
     ]
     DefaultEstimator('Lunae: 3N 2N^3 1Q', LunaeRotation, LunaeCharacter, config, CharacterDict, EffectDict)
+    
+    # Lunae
+    LunaeCharacter = Lunae(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'imagDmg'],
+                            substats = {'CR': 8, 'CD': 9, 'flatSpd':3}),
+                lightcone = OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config),
+                relicsetone = WastelanderOfBanditryDesert2pc(),
+                relicsettwo = WastelanderOfBanditryDesert4pc(),
+                planarset = RutilantArena(),
+                **config)
+    
+    LunaeRotation = [  # 140 energy needed
+                LunaeCharacter.useSkill()*3,
+                LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
+                LunaeCharacter.endTurn(),
+                LunaeCharacter.useSkill()*3,
+                LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
+                LunaeCharacter.endTurn(),
+                
+                LunaeCharacter.useSkill()*3,
+                LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
+                LunaeCharacter.useUltimate(), # +2 SP, 5 energy
+                LunaeCharacter.endTurn()
+    ]
+    DefaultEstimator('Lunae: 3N^3 1Q', LunaeRotation, LunaeCharacter, config, CharacterDict, EffectDict)
     
     # Serval
     ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['breakEffect', 'flatSpd', 'percAtk', 'lighDmg'],
