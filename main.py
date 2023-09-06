@@ -223,15 +223,17 @@ if __name__ == '__main__':
                     lightcone = CruisingInTheStellarSea(uptimeHP=0.5, uptimeDefeat=1.0, **config),
                     relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(), planarset = SpaceSealingStation(),
                     soulsteelUptime = 1.0,
-                    searingStingUptime = 1.0,
-                    rainingBlissUptime = 0.25,
                     **config)
     
     YanqingRotation = [
-            YanqingCharacter.useSkill() * 4,
-            YanqingCharacter.useTalent() * 5,
+            YanqingCharacter.useSkill() * 3,
+            YanqingCharacter.useTalent() * 3,
+            YanqingCharacter.useBliss(),
             YanqingCharacter.useUltimate(),
+            YanqingCharacter.useSkill(),
+            YanqingCharacter.useTalent() * 2,
+            YanqingCharacter.endTurn(),
     ]
-    DefaultEstimator('Yanqing: 4E 1Q 5T', YanqingRotation, YanqingCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Yanqing: 3E3T Bliss(1E 1Q 2T)', YanqingRotation, YanqingCharacter, config, CharacterDict, EffectDict)
         
     visualize(CharacterDict, EffectDict, **config)

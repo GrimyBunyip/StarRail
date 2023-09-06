@@ -173,7 +173,6 @@ YanqingCharacter = Yanqing(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', '
                 lightcone = CruisingInTheStellarSea(uptimeHP=0.0, uptimeDefeat=0.0, **config),
                 relicsetone = HunterOfGlacialForest2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SpaceSealingStation(),
                 soulsteelUptime = 1.0,
-                rainingBlissUptime = 0.0,
                 **config)
 
 print('Atk - Mine: {} - Grimro: {}'.format(YanqingCharacter.getTotalAtk('basic'),3420.24359))

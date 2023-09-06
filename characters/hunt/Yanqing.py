@@ -15,7 +15,6 @@ class Yanqing(BaseCharacter):
                planarset:RelicSet=None,
                soulsteelUptime:float = 1.0,
                e4Uptime:float = 1.0,
-               rainingBlissUptime:float = 0.25,
                freezeChance:float = 0.5,
                **config):
     super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
@@ -23,8 +22,8 @@ class Yanqing(BaseCharacter):
 
     self.soulsteelUptime = soulsteelUptime
     self.e4Uptime = e4Uptime
-    self.rainingBlissUptime = rainingBlissUptime
     self.freezeChance = freezeChance
+    self.bliss=False
     
     # Motion Values should be set before talents or gear
     self.motionValueDict['icing'] = [BaseMV(type='basic',area='single', stat='atk', value=0.3)]
@@ -44,12 +43,8 @@ class Yanqing(BaseCharacter):
     # Soulsteel
     self.CR += self.soulsteelUptime * ( 0.22 if self.eidolon >= 5 else 0.20 )
     self.CD += self.soulsteelUptime * ( 0.33 if self.eidolon >= 5 else 0.30 )
-    self.CRType['bliss'] = 0.6 * self.rainingBlissUptime
-    self.CDType['bliss'] = ( 0.54 if self.eidolon >= 5 else 0.5 ) * self.rainingBlissUptime
     
     # Bliss is always up for Ult
-    self.CRType['blissUlt'] = 0.6
-    self.CDType['blissUlt'] = 0.54 if self.eidolon >= 5 else 0.5
     self.percTaunt -= 0.6 * self.soulsteelUptime
 
     # Eidolons
@@ -61,7 +56,7 @@ class Yanqing(BaseCharacter):
   def useBasic(self, icing=True):
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('basic') + self.getTotalMotionValue('icing') if icing else 0.0
-    retval.damage *= self.getTotalCrit(['basic','bliss'])
+    retval.damage *= self.getTotalCrit(['basic'])
     retval.damage *= self.getTotalDmg('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
@@ -73,7 +68,7 @@ class Yanqing(BaseCharacter):
   def useSkill(self, icing=True):
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('skill') + self.getTotalMotionValue('icing') if icing else 0.0
-    retval.damage *= self.getTotalCrit(['skill','bliss'])
+    retval.damage *= self.getTotalCrit(['skill'])
     retval.damage *= self.getTotalDmg('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
@@ -85,7 +80,7 @@ class Yanqing(BaseCharacter):
   def useUltimate(self, icing=True):
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('ultimate') + self.getTotalMotionValue('icing') if icing else 0.0
-    retval.damage *= self.getTotalCrit(['ultimate','blissUlt'])
+    retval.damage *= self.getTotalCrit(['ultimate'])
     retval.damage *= self.getTotalDmg('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
@@ -96,7 +91,7 @@ class Yanqing(BaseCharacter):
   def useTalent(self, icing=True):
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('talent') + self.getTotalMotionValue('icing') if icing else 0.0
-    retval.damage *= self.getTotalCrit(['followup','talent','bliss'])
+    retval.damage *= self.getTotalCrit(['followup','talent'])
     retval.damage *= self.getTotalDmg(['followup','talent'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
@@ -112,10 +107,26 @@ class Yanqing(BaseCharacter):
   def useFreezeDot(self):
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('dot')
-    retval.damage *= self.getTotalCrit(['dot','talent','bliss'])
+    retval.damage *= self.getTotalCrit(['dot','talent'])
     retval.damage *= self.getTotalDmg(['dot','talent'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     
     procrate = 0.62 if self.eidolon >= 5 else 0.6
     retval *= procrate * self.freezeChance
     return retval
+  
+  def useBliss(self):
+    retval = BaseEffect()
+    self.bliss=True
+    self.CR += 0.6
+    self.CD += 0.54 if self.eidolon >= 5 else 0.5
+    return retval
+    
+  def endTurn(self):
+    retval = BaseEffect()
+    if self.bliss==True:
+      self.CR -= 0.6
+      self.CD -= 0.54 if self.eidolon >= 5 else 0.5
+      self.bliss = False
+    return retval
+    
