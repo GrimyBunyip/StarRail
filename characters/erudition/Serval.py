@@ -20,7 +20,7 @@ class Serval(BaseCharacter):
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
     self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=1.4, eidolonThreshold=3, eidolonBonus=0.14),
                                      BaseMV(type='skill',area='adjacent', stat='atk', value=0.6, eidolonThreshold=3, eidolonBonus=0.06)]
-    self.motionValueDict['dot'] = [BaseMV(type=['dot','skill'],area='all', stat='atk', value=1.04, eidolonThreshold=3, eidolonBonus=1.144)]
+    self.motionValueDict['dot'] = [BaseMV(type=['dot','skill'],area='all', stat='atk', value=1.04, eidolonThreshold=3, eidolonBonus=0.104)]
     self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=1.8, eidolonThreshold=5, eidolonBonus=0.144)]
     self.motionValueDict['shockedBasic'] = [BaseMV(type='basic',area='all', stat='atk', value=0.72, eidolonThreshold=5, eidolonBonus=0.072)]
     self.motionValueDict['shockedSkill'] = [BaseMV(type='skill',area='all', stat='atk', value=0.72, eidolonThreshold=5, eidolonBonus=0.072)]
@@ -34,7 +34,6 @@ class Serval(BaseCharacter):
     
     # Gear
     self.equipGear()
-    self.balanceCrit()
 
   def useBasic(self, shocked = True):
     retval = BaseEffect()
@@ -79,7 +78,7 @@ class Serval(BaseCharacter):
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('dot')
     # no crits on dots
-    retval.damage *= self.getTotalDmg('dot') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
+    retval.damage *= self.getTotalDmg('dot') + ( 0.3 if (shocked and self.eidolon >= 6) else 0.0 )
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.energy = ( 0.0 + self.bonusEnergyType['dot'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['dot'])

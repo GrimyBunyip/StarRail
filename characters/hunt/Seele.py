@@ -21,7 +21,7 @@ class Seele(BaseCharacter):
     self.resurgence = False
 
     # Motion Values should be set before talents or gear
-    self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+    self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
     self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.2, eidolonThreshold=3, eidolonBonus=0.22)]
     self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=4.25, eidolonThreshold=5, eidolonBonus=0.34)]
 
@@ -32,7 +32,6 @@ class Seele(BaseCharacter):
     
     # Gear
     self.equipGear()
-    self.balanceCrit()
     
   def useBasic(self):
     retval = BaseEffect()
@@ -75,13 +74,13 @@ class Seele(BaseCharacter):
     retval.energy = ( 15.0 if self.eidolon >= 4 else 0.0 ) * ( 1.0 + self.ER )
     self.resurgence = True
     self.resPen += 0.20 # res pen from buffed state
-    self.Dmg += 1.0 # resurgence buff
+    self.Dmg += 0.88 if self.eidolon >=3 else 0.8 # resurgence buff
     return retval
 
   def endTurn(self):
     retval = BaseEffect()
     if self.resurgence:
       self.resPen -= 0.20 # reset res pen from buffed state
-      self.Dmg -= 1.0 # resurgence buff
+      self.Dmg -= 0.88 if self.eidolon >=3 else 0.8 # resurgence buff
       self.resurgence = False
     return retval

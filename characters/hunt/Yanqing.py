@@ -13,9 +13,10 @@ class Yanqing(BaseCharacter):
                relicsetone:RelicSet=None,
                relicsettwo:RelicSet=None,
                planarset:RelicSet=None,
-               soulsteelUptime = 1.0,
-               e4Uptime = 1.0,
-               rainingBlissUptime = 0.25,
+               soulsteelUptime:float = 1.0,
+               e4Uptime:float = 1.0,
+               rainingBlissUptime:float = 0.25,
+               freezeChance:float = 0.5,
                **config):
     super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
     self.loadCharacterStats('Yanqing')
@@ -23,6 +24,7 @@ class Yanqing(BaseCharacter):
     self.soulsteelUptime = soulsteelUptime
     self.e4Uptime = e4Uptime
     self.rainingBlissUptime = rainingBlissUptime
+    self.freezeChance = freezeChance
     
     # Motion Values should be set before talents or gear
     self.motionValueDict['icing'] = [BaseMV(type='basic',area='single', stat='atk', value=0.3)]
@@ -33,6 +35,7 @@ class Yanqing(BaseCharacter):
     self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.5, eidolonThreshold=5, eidolonBonus=0.28),
                                         BaseMV(type='ultimate',area='single', stat='atk', value=0.0, eidolonThreshold=1, eidolonBonus=0.6)]
     self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
+    self.motionValueDict['freezeDot'] = [BaseMV(type=['talent','dot'],area='single', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
     
     # Talents
     self.ER += 0.10 * self.soulsteelUptime if self.eidolon >= 2 else 0.0
@@ -90,9 +93,9 @@ class Yanqing(BaseCharacter):
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     return retval
 
-  def useTalent(self):
+  def useTalent(self, icing=True):
     retval = BaseEffect()
-    retval.damage = self.getTotalMotionValue('talent')
+    retval.damage = self.getTotalMotionValue('talent') + self.getTotalMotionValue('icing') if icing else 0.0
     retval.damage *= self.getTotalCrit(['followup','talent','bliss'])
     retval.damage *= self.getTotalDmg(['followup','talent'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
@@ -102,4 +105,17 @@ class Yanqing(BaseCharacter):
     
     procrate = 0.62 if self.eidolon >= 5 else 0.6
     retval *= procrate
+    
+    retval += self.useFreezeDot()
+    return retval
+  
+  def useFreezeDot(self):
+    retval = BaseEffect()
+    retval.damage = self.getTotalMotionValue('dot')
+    retval.damage *= self.getTotalCrit(['dot','talent','bliss'])
+    retval.damage *= self.getTotalDmg(['dot','talent'])
+    retval.damage = self.applyDamageMultipliers(retval.damage)
+    
+    procrate = 0.62 if self.eidolon >= 5 else 0.6
+    retval *= procrate * self.freezeChance
     return retval

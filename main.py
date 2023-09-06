@@ -64,12 +64,12 @@ if __name__ == '__main__':
     
     # Blade
     bladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CD', 'windDmg'],
-                            substats = {'CR': 7, 'CD': 7, 'flatSpd': 6}),
+                            substats = {'CR': 10, 'CD': 4, 'flatSpd': 6}),
                 lightcone = ASecretVow(uptime = 0.5, **config),
                 relicsetone = LongevousDisciple2pc(),
                 relicsettwo = LongevousDisciple4pc(),
                 planarset = InertSalsotto(),
-                hpLossTally=0.5,
+                hpLossTally=1.0,
                 **config)
     
     BladeRotation = [ # 130 max energy
@@ -179,8 +179,8 @@ if __name__ == '__main__':
     DefaultEstimator('Serval: 1N 2E 1Q', ServalRotation, ServalCharacter, config, CharacterDict, EffectDict, breakDotMode='alwaysAll')
     
     # Seele
-    SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'quanDmg'],
-                            substats = {'CR': 10, 'CD': 10}),
+    SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'quanDmg'],
+                            substats = {'CR': 17, 'CD': 3}),
                 lightcone = CruisingInTheStellarSea(uptimeHP=0.5, uptimeDefeat=1.0, **config),
                 relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo=GeniusOfBrilliantStars4pc(), planarset = SpaceSealingStation(),
                 **config)
@@ -198,18 +198,20 @@ if __name__ == '__main__':
             SeeleCharacter.useSkill() * 4,
             SeeleCharacter.useUltimate(),
     ]
-    DefaultEstimator('Seele: 4 1Q No Resurgence', SeeleRotation, SeeleCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Seele: 4E 1Q No Resurgence', SeeleRotation, SeeleCharacter, config, CharacterDict, EffectDict)
     
     # Dan Heng
-    DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'windDmg'],
-                            substats = {'CR': 10, 'CD': 10}),
+    DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'windDmg'],
+                            substats = {'CR': 14, 'CD': 6}),
                 lightcone = CruisingInTheStellarSea(uptimeHP=0.5, uptimeDefeat=1.0, **config),
                 relicsetone = EagleOfTwilightLine2pc(), relicsettwo=EagleOfTwilightLine4pc(), planarset = SpaceSealingStation(),
                 talentUptime = 0.0,
                 fasterThanLightUptime = 0.8,
+                e1Uptime=0.5,
                 **config)
     
     DanHengRotation = [
+            #DanHengCharacter.useBasic(slowed=True) * 2,
             DanHengCharacter.useSkill() * 3,
             DanHengCharacter.useUltimate(slowed=True),
     ]

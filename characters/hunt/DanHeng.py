@@ -27,8 +27,10 @@ class DanHeng(BaseCharacter):
 
     # Motion Values should be set before talents or gear
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+    self.motionValueDict['basicSlowed'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0+0.4, eidolonThreshold=3, eidolonBonus=0.1)]
     self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.6, eidolonThreshold=3, eidolonBonus=0.26)]
     self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=4.0, eidolonThreshold=5, eidolonBonus=0.32)]
+    self.motionValueDict['ultimateSlowed'] = [BaseMV(type='ultimate',area='single', stat='atk', value=4.0+1.2, eidolonThreshold=5, eidolonBonus=0.32+0.096)]
 
     # Talents
     self.percSpd += 0.20 * self.fasterThanLightUptime # Faster Than Light
@@ -40,11 +42,10 @@ class DanHeng(BaseCharacter):
     
     # Gear
     self.equipGear()
-    self.balanceCrit()
     
   def useBasic(self, slowed = True):
     retval = BaseEffect()
-    retval.damage = self.getTotalMotionValue('basic')
+    retval.damage = self.getTotalMotionValue('basicSlowed') if slowed else self.getTotalMotionValue('basic')
     retval.damage *= self.getTotalCrit('basic')
     retval.damage *= self.getTotalDmg('basic') + ( 0.40 if slowed else 0.0 ) #  High Gale
     retval.damage = self.applyDamageMultipliers(retval.damage)
@@ -68,9 +69,9 @@ class DanHeng(BaseCharacter):
 
   def useUltimate(self, slowed = True):
     retval = BaseEffect()
-    retval.damage = self.getTotalMotionValue('ultimate')
+    retval.damage = self.getTotalMotionValue('ultimateSlowed') if slowed else self.getTotalMotionValue('ultimate')
     retval.damage *= self.getTotalCrit('ultimate')
-    retval.damage *= self.getTotalDmg('ultimate') + (1.296 if self.eidolon >= 5 else 1.2)
+    retval.damage *= self.getTotalDmg('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
