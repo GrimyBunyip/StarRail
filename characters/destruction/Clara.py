@@ -26,13 +26,11 @@ class Clara(BaseCharacter):
     
     self.motionValueDict['markOfSvarog'] = [BaseMV(type='skill',area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
     
-    self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.16)]
-    self.motionValueDict['enhancedTalent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.16),
-                                              BaseMV(type=['talent','followup'],area='adjacent', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.08),]
-    # technically I just halved the MV's, could be weird if something buffs Clara's MVs
+    #I believe the revenge ascension is an MV buff
+    self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.16)]    
     
     # Talents
-    self.DmgType['followup'] += 0.30 # Revenge Talent
+    self.DmgType['followup'] += 0.3
     
     # Eidolons
     # handle handle e1 manually, by using the argument in the useSkill call
@@ -82,12 +80,10 @@ class Clara(BaseCharacter):
     return retval
 
   def useTalent(self, enhanced=False):
+    num_adjacent = min(2, self.numEnemies-1)
     retval = BaseEffect()
-    if enhanced:
-      retval.damage = self.getTotalMotionValue('enhancedTalent')
-    else:
-      retval.damage = self.getTotalMotionValue('talent')
-      
+    retval.damage = self.getTotalMotionValue('talent')
+    retval.damage *= ( 1.0 + num_adjacent / 2.0 ) if enhanced else 1.0    
     retval.damage *= self.getTotalCrit(['followup','talent'])
     retval.damage *= self.getTotalDmg(['followup','talent']) + ( (1.728 if self.eidolon >= 5 else 1.6) if enhanced else 0.0)
     retval.damage = self.applyDamageMultipliers(retval.damage)

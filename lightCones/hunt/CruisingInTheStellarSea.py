@@ -4,7 +4,7 @@ from baseClasses.BaseLightCone import BaseLightCone
 class CruisingInTheStellarSea(BaseLightCone):
   def __init__(self,
                uptimeHP:float = 0.5,
-               uptimeDefeat:float = 1.0,
+               uptimeDefeat:float = 0.5,
                **config):
     self.loadConeStats('Cruising in the Stellar Sea')
     self.setSuperposition(config)

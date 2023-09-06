@@ -188,3 +188,19 @@ talent = YanqingCharacter.useTalent()
 freezeDot = YanqingCharacter.useFreezeDot()
 talent -= freezeDot
 print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,4000.932983*0.95*0.6)) # 0.95 to factor in toughness multiplier
+
+print('##### Clara #####')
+ClaraCharacter = Clara(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'physDmg'],
+                        substats = {'CR': 10, 'CD': 10}),
+            lightcone = OnTheFallOfAnAeon(uptime = 0.0, stacks=5.0, **config),
+            relicsetone = ChampionOfStreetwiseBoxing2pc(),
+            relicsettwo = ChampionOfStreetwiseBoxing4pc(),
+            planarset = InertSalsotto(),
+            **config)
+
+skill = ClaraCharacter.useSkill()
+print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,"None")) # 0.95 to factor in toughness multiplier
+talent = ClaraCharacter.useTalent()
+print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,"None")) # 0.95 to factor in toughness multiplier
+enhancedTalent = ClaraCharacter.useTalent(enhanced=True)
+print('Enhanced Talent Damage - Mine: {} - Grimro: {}'.format(enhancedTalent.damage,"None")) # 0.95 to factor in toughness multiplier

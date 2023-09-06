@@ -12,28 +12,82 @@ from characters.nihility.Kafka import Kafka
 from characters.destruction.Lunae import Lunae
 from characters.hunt.Seele import Seele
 from characters.erudition.Serval import Serval
+from characters.hunt.Topaz import Topaz
 from characters.hunt.Yanqing import Yanqing
 
 from lightCones.destruction.ASecretVow import ASecretVow
-from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
-from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
-from lightCones.nihility.Fermata import Fermata
+from lightCones.destruction.BrighterThanTheSun import BrighterThanTheSun
+from lightCones.destruction.IShallBeMyOwnSword import IShallBeMyOwnSword
+from lightCones.destruction.NowhereToRun import NowhereToRun
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
+from lightCones.destruction.SomethingIrreplaceable import SomethingIrreplaceable
+from lightCones.destruction.TheMolesWelcomeYou import TheMolesWelcomeYou
+from lightCones.destruction.TheUnreachableSide import TheUnreachableSide
+from lightCones.destruction.UnderTheBlueSky import UnderTheBlueSky
+from lightCones.destruction.WoofWalkTime import WoofWalkTime
+
+from lightCones.erudition.BeforeDawn import BeforeDawn
+from lightCones.erudition.GeniusesRepose import GeniusesRepose
+from lightCones.erudition.MakeTheWorldClamor import MakeTheWorldClamor
+from lightCones.erudition.NightOnTheMilkyWay import NightOnTheMilkyWay
+from lightCones.erudition.TheBirthOfTheSelf import TheBirthOfTheSelf
+from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
+from lightCones.erudition.TodayIsAnotherPeacefulDay import TodayIsAnotherPeacefulDay
+
+from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
+from lightCones.hunt.InTheNight import InTheNight
+from lightCones.hunt.OnlySilenceRemains import OnlySilenceRemains
+from lightCones.hunt.ReturnToDarkness import ReturnToDarkness
+from lightCones.hunt.RiverFlowsInSpring import RiverFlowsInSpring
+from lightCones.hunt.SleepLikeTheDead import SleepLikeTheDead
+from lightCones.hunt.Swordplay import Swordplay
+from lightCones.hunt.WorrisomeBlissful import WorrisomeBlissful
+
+from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
+from lightCones.nihility.EyesOfThePrey import EyesOfThePrey
+from lightCones.nihility.Fermata import Fermata
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
+from lightCones.nihility.InTheNameOfTheWorld import InTheNameOfTheWorld
+from lightCones.nihility.IncessantRain import IncessantRain
+from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
+from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
+from lightCones.nihility.SolitaryHealing import SolitaryHealing
+from lightCones.nihility.WeWillMeetAgain import WeWillMeetAgain
+
+from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
+from lightCones.preservation.LandausChoice import LandausChoice
+from lightCones.preservation.MomentOfVictory import MomentOfVictory
+from lightCones.preservation.SheAlreadyShutHerEyes import SheAlreadyShutHerEyes
+from lightCones.preservation.TextureOfMemories import TextureOfMemories
+from lightCones.preservation.ThisIsMe import ThisIsMe
+from lightCones.preservation.TrendOfTheUniversalMarket import TrendOfTheUniversalMarket
+from lightCones.preservation.WeAreWildfire import WeAreWildfire
 
 from relicSets.relicSets.BandOfSizzlingThunder import BandOfSizzlingThunder2pc, BandOfSizzlingThunder4pc
 from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
 from relicSets.relicSets.EagleOfTwilightLine import EagleOfTwilightLine2pc, EagleOfTwilightLine4pc
+from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc, FiresmithOfLavaForging4pc
 from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc
+from relicSets.relicSets.GuardOfWutheringSnow import GuardOfWutheringSnow2pc
 from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
+from relicSets.relicSets.KnightOfPurityPalace import KnightOfPurityPalace2pc, KnightOfPurityPalace4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc, MusketeerOfWildWheat4pc
+from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
+from relicSets.planarSets.BelobogOfTheArchitects import BelobogOfTheArchitects
+from relicSets.planarSets.BrokenKeel import BrokenKeel
+from relicSets.planarSets.CelestialDifferentiator import CelestialDifferentiator
+from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.planarSets.InertSalsotto import InertSalsotto
+from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
 from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.planarSets.SpaceSealingStation import SpaceSealingStation
+from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
+from relicSets.planarSets.TaliaKingdomOfBanditry import TaliaKingdomOfBanditry
 
 if __name__ == '__main__':
     CharacterDict = {} # store character information here
@@ -88,67 +142,28 @@ if __name__ == '__main__':
                 relicsetone = ChampionOfStreetwiseBoxing2pc(),
                 relicsettwo = ChampionOfStreetwiseBoxing4pc(),
                 planarset = InertSalsotto(),
-                hpLossTally=0.5,
                 **config)
     
     ClaraRotation = [ # 110 max energy
-            ClaraCharacter.useSkill() * 3,
-            ClaraCharacter.useMarkOfSvarog() * 3, # these are 3 instances of single target bonus damage
+            ClaraCharacter.useSkill() * 2.5,
+            ClaraCharacter.useMarkOfSvarog() * 2.5, # these are 3 instances of single target bonus damage
             ClaraCharacter.useTalent(enhanced=False), # 1 additional clara hit on top
-            ClaraCharacter.useTalent(enhanced=True) * 3, # 2 reactions from ultimate
+            ClaraCharacter.useTalent(enhanced=True) * 2, # 2 reactions from ultimate
             ClaraCharacter.useUltimate(),
     ]
-    DefaultEstimator('Clara: 3E 3T 1Q', ClaraRotation, ClaraCharacter, config, CharacterDict, EffectDict)
-    
-    # Jingliu
-    JingliuCharacter = Jingliu(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
-                            substats = {'CR': 8, 'CD': 8, 'flatSpd': 4}),
-                lightcone = ASecretVow(uptime = 0.5, **config),
-                relicsetone = HunterOfGlacialForest2pc(),
-                relicsettwo = HunterOfGlacialForest4pc(),
-                planarset = RutilantArena(),
-                transmigrationPercAtk=1.2,
-                speedBoostUptime=0.5,
-                **config)
-    
-    JingliuRotation = [ # 140 max energy
-            JingliuCharacter.useSkill() * 2, # 60 energy, 2 stack
-            JingliuCharacter.useEnhancedSkill() * 3, # 60 energy, -3 stacks
-            JingliuCharacter.useUltimate(), # 5 energy, 1 stack
-            JingliuCharacter.extraTurn()*1.5,
-    ]
-    DefaultEstimator('Jingliu 2E 3Moon 1Q', JingliuRotation, JingliuCharacter, config, CharacterDict, EffectDict)
+    # 2.5E as clara probably can't consistently pull off a 2E rotation depending on how much
+    # energy enemies give when they hit her
+    DefaultEstimator('Clara: 2.5E 3T 1Q', ClaraRotation, ClaraCharacter, config, CharacterDict, EffectDict)
 
     # Lunae
     LunaeCharacter = Lunae(RelicStats(mainstats = ['percAtk', 'percAtk', 'CR', 'imagDmg'],
                             substats = {'CR': 10, 'CD': 10}),
-                lightcone = OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config),
+                lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
                 relicsetone = MusketeerOfWildWheat2pc(),
                 relicsettwo = MusketeerOfWildWheat4pc(),
                 planarset = RutilantArena(),
                 **config)
-    
-    LunaeRotation = [  # 140 energy needed
-                LunaeCharacter.useSkill()*3,
-                LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
-                LunaeCharacter.endTurn(),
-                
-                LunaeCharacter.useBasic(), # 1 SP, 20 energy
-                LunaeCharacter.endTurn(),
-                
-                LunaeCharacter.useBasic(), # 1 SP, 20 energy
-                LunaeCharacter.endTurn(),
-                
-                LunaeCharacter.useBasic(), # 1 SP, 20 energy
-                LunaeCharacter.endTurn(),
-                
-                LunaeCharacter.useSkill()*3,
-                LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
-                LunaeCharacter.useUltimate(), # +2 SP, 5 energy
-                LunaeCharacter.endTurn()
-    ]
-    DefaultEstimator('Lunae: 3N 2N^3 1Q', LunaeRotation, LunaeCharacter, config, CharacterDict, EffectDict)
-    
+     
     LunaeRotation = [  # 140 energy needed
                 LunaeCharacter.useSkill()*3,
                 LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
@@ -179,9 +194,9 @@ if __name__ == '__main__':
     DefaultEstimator('Serval: 1N 2E 1Q', ServalRotation, ServalCharacter, config, CharacterDict, EffectDict, breakDotMode='alwaysAll')
     
     # Seele
-    SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'quanDmg'],
+    SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['percAtk', 'percAtk', 'CD', 'quanDmg'],
                             substats = {'CR': 17, 'CD': 3}),
-                lightcone = CruisingInTheStellarSea(uptimeHP=0.5, uptimeDefeat=1.0, **config),
+                lightcone = CruisingInTheStellarSea(uptimeHP=0.5, **config),
                 relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo=GeniusOfBrilliantStars4pc(), planarset = SpaceSealingStation(),
                 **config)
     
@@ -203,7 +218,7 @@ if __name__ == '__main__':
     # Dan Heng
     DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'windDmg'],
                             substats = {'CR': 14, 'CD': 6}),
-                lightcone = CruisingInTheStellarSea(uptimeHP=0.5, uptimeDefeat=1.0, **config),
+                lightcone = CruisingInTheStellarSea(uptimeHP=0.5, **config),
                 relicsetone = EagleOfTwilightLine2pc(), relicsettwo=EagleOfTwilightLine4pc(), planarset = SpaceSealingStation(),
                 talentUptime = 0.0,
                 fasterThanLightUptime = 0.8,
@@ -220,7 +235,7 @@ if __name__ == '__main__':
     #Yanqing
     YanqingCharacter = Yanqing(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
                             substats = {'percAtk': 8, 'CD': 12}),
-                    lightcone = CruisingInTheStellarSea(uptimeHP=0.5, uptimeDefeat=1.0, **config),
+                    lightcone = CruisingInTheStellarSea(uptimeHP=0.5, **config),
                     relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(), planarset = SpaceSealingStation(),
                     soulsteelUptime = 1.0,
                     **config)
@@ -235,5 +250,46 @@ if __name__ == '__main__':
             YanqingCharacter.endTurn(),
     ]
     DefaultEstimator('Yanqing: 3E3T Bliss(1E 1Q 2T)', YanqingRotation, YanqingCharacter, config, CharacterDict, EffectDict)
+    
+    # Jingliu
+    JingliuCharacter = Jingliu(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
+                            substats = {'CR': 8, 'CD': 8, 'flatSpd': 4}),
+                lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
+                relicsetone = HunterOfGlacialForest2pc(),
+                relicsettwo = HunterOfGlacialForest4pc(),
+                planarset = RutilantArena(),
+                transmigrationPercAtk=1.2,
+                speedBoostUptime=0.5,
+                **config)
+    
+    JingliuRotation = [ # 140 max energy
+            JingliuCharacter.useSkill() * 2, # 60 energy, 2 stack
+            JingliuCharacter.useEnhancedSkill() * 3, # 60 energy, -3 stacks
+            JingliuCharacter.useUltimate(), # 5 energy, 1 stack
+            JingliuCharacter.extraTurn()*1.5,
+    ]
+    DefaultEstimator('Jingliu 2E 3Moon 1Q', JingliuRotation, JingliuCharacter, config, CharacterDict, EffectDict)
+    
+    # Topaz
+    TopazCharacter = Topaz(RelicStats(mainstats = ['percAtk', 'percAtk', 'CD', 'fireDmg'],
+                            substats = {'CR': 10, 'CD': 10}),
+                lightcone = CruisingInTheStellarSea(**config),
+                relicsetone = FiresmithOfLavaForging2pc(),
+                relicsettwo = MusketeerOfWildWheat2pc(),
+                planarset = InertSalsotto(),
+                **config)
+    
+    TopazRotation = [ # 130 max energy
+            TopazCharacter.useSkill() * 3, 
+            TopazCharacter.useUltimate(),
+            TopazCharacter.useTalent(windfall=True) * 2, # two talents from windfall
+    ]
+    
+    topazTurns = sum([x.actionvalue for x in TopazRotation])
+    numbyTurns = topazTurns * 80 / TopazCharacter.getTotalSpd()
+    
+    TopazRotation.append(TopazCharacter.useTalent(windfall=False) * numbyTurns)
+    
+    DefaultEstimator('Topaz 4E 2.2T Q Windfall(2T)', TopazRotation, TopazCharacter, config, CharacterDict, EffectDict)
         
     visualize(CharacterDict, EffectDict, **config)

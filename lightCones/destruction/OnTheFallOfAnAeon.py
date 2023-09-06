@@ -3,7 +3,7 @@ from baseClasses.BaseLightCone import BaseLightCone
 
 class OnTheFallOfAnAeon(BaseLightCone):
   def __init__(self,
-               uptime:float = 0.5,
+               uptime:float = 0.25,
                stacks:float = 4.0,
                **config):
     self.loadConeStats('On the Fall of an Aeon')
