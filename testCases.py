@@ -16,6 +16,7 @@ from characters.destruction.Jingliu import Jingliu
 from characters.erudition.JingYuan import JingYuan
 from characters.nihility.Kafka import Kafka
 from characters.destruction.Lunae import Lunae
+from characters.nihility.Sampo import Sampo
 from characters.hunt.Seele import Seele
 from characters.erudition.Serval import Serval
 from characters.hunt.Yanqing import Yanqing
@@ -258,3 +259,20 @@ enhancedSkill = HookCharacter.useEnhancedSkill()
 print('Enhanced Skill Damage - Mine: {} - Grimro: {}'.format(enhancedSkill.damage,(30500.3661+16813.3843)*0.95)) # 0.95 to factor in toughness multiplier
 ultimate = HookCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,(22010.24854+16813.3843)*0.95)) # 0.95 to factor in toughness multiplier
+
+print('##### Sampo #####')
+SampoCharacter = Sampo(RelicStats(mainstats = ['percAtk', 'percAtk', 'percAtk', 'windDmg'],
+                        substats = {'percAtk': 12, 'flatSpd': 8, 'EHR': 4}),
+            lightcone = GoodNightAndSleepWell(**config),
+            relicsetone = EagleOfTwilightLine2pc(),
+            relicsettwo = MusketeerOfWildWheat2pc(),
+            planarset = SpaceSealingStation(),
+            ultUptime=1.0,
+            **config)
+
+skill = SampoCharacter.useSkill()
+print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,(16234.03438+9801.510376)*0.95)) # 0.95 to factor in toughness multiplier
+dot = SampoCharacter.useDot() * config['numEnemies']
+print('Dot Damage - Mine: {} - Grimro: {}'.format(dot.damage,61259.43985*0.95)) # 0.95 to factor in toughness multiplier
+ultimate = SampoCharacter.useUltimate()
+print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,22769.81446*0.95)) # 0.95 to factor in toughness multiplier

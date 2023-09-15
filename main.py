@@ -15,6 +15,7 @@ from characters.destruction.Jingliu import Jingliu
 from characters.erudition.JingYuan import JingYuan
 from characters.nihility.Kafka import Kafka
 from characters.destruction.Lunae import Lunae
+from characters.nihility.Sampo import Sampo
 from characters.hunt.Seele import Seele
 from characters.erudition.Serval import Serval
 from characters.hunt.Topaz import Topaz
@@ -106,7 +107,7 @@ if __name__ == '__main__':
     
     config = copy(Configuration)
     config['numEnemies'] = 2
-    config['enemySpeed'] = 132
+    config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
     
     # Kafka
     KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'lighDmg'],
@@ -383,5 +384,38 @@ if __name__ == '__main__':
     ]
     
     DefaultEstimator('Hook 1Enh 2E 1Q', HookRotation, HookCharacter, config, CharacterDict, EffectDict, dotMode='alwaysBlast')
+    
+    # Sampo
+    SampoCharacter = Sampo(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'windDmg'],
+                            substats = {'percAtk': 7, 'flatSpd': 3, 'EHR': 10}),
+                lightcone = GoodNightAndSleepWell(**config),
+                relicsetone = EagleOfTwilightLine2pc(),
+                relicsettwo = MusketeerOfWildWheat2pc(),
+                planarset = PanCosmicCommercialEnterprise(),
+                **config)
+    
+    SampoRotation = [ # 
+            SampoCharacter.useSkill() * 3,
+            SampoCharacter.useUltimate(),
+    ]
+    
+    DefaultEstimator('Sampo 2x5 Stacks 3E 1Q', SampoRotation, SampoCharacter, config, CharacterDict, EffectDict, dotMode='alwaysBlast')
+    
+    # Sampo
+    SampoCharacter = Sampo(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'windDmg'],
+                            substats = {'percAtk': 7, 'flatSpd': 3, 'EHR': 10}),
+                lightcone = GoodNightAndSleepWell(**config),
+                relicsetone = EagleOfTwilightLine2pc(),
+                relicsettwo = MusketeerOfWildWheat2pc(),
+                planarset = PanCosmicCommercialEnterprise(),
+                windshearStacks=3.0,
+                **config)
+    
+    SampoRotation = [ # 
+            SampoCharacter.useSkill() * 3,
+            SampoCharacter.useUltimate(),
+    ]
+    
+    DefaultEstimator('Sampo 2x3 Stacks 3E 1Q', SampoRotation, SampoCharacter, config, CharacterDict, EffectDict, dotMode='alwaysBlast')
         
     visualize(CharacterDict, EffectDict, **config)

@@ -87,6 +87,16 @@ class BaseCharacter(object):
       'followup':0.0,
       'dot':0.0,
     }
+    self.VulnerabilityType = {
+      'basic':0.0,
+      'enhancedBasic':0.0,
+      'skill':0.0,
+      'enhancedSkill':0.0,
+      'ultimate':0.0,
+      'talent':0.0,
+      'followup':0.0,
+      'dot':0.0,
+    }
     
     self.CRType = {
       'basic':0.0,
@@ -245,6 +255,13 @@ class BaseCharacter(object):
       return 1.0 + self.Dmg + elementDmg[self.element] + bonuses
     else:
       return 1.0 + self.Dmg + elementDmg[self.element] + self.DmgType[type]
+
+  def getVulnerabilityType(self, type='None'):
+    if isinstance(type, list):
+      bonuses = sum([self.VulnerabilityType[x] for x in type])
+      return 1.0 + bonuses
+    else:
+      return 1.0 + self.VulnerabilityType[type]
 
   def getTotalSpd(self):
     return self.baseSpd * ( 1 + self.percSpd ) + self.flatSpd
