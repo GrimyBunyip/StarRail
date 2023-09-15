@@ -11,6 +11,7 @@ from characters.destruction.Blade import Blade
 from characters.destruction.Clara import Clara
 from characters.hunt.DanHeng import DanHeng
 from characters.destruction.Jingliu import Jingliu
+from characters.erudition.JingYuan import JingYuan
 from characters.nihility.Kafka import Kafka
 from characters.destruction.Lunae import Lunae
 from characters.hunt.Seele import Seele
@@ -204,3 +205,19 @@ talent = ClaraCharacter.useTalent()
 print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,"None")) # 0.95 to factor in toughness multiplier
 enhancedTalent = ClaraCharacter.useTalent(enhanced=True)
 print('Enhanced Talent Damage - Mine: {} - Grimro: {}'.format(enhancedTalent.damage,"None")) # 0.95 to factor in toughness multiplier
+
+print('##### Jing Yuan #####')
+JingYuanCharacter = JingYuan(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
+                        substats = {'CR': 7, 'CD': 12, 'flatSpd': 5}),
+            lightcone = TheSeriousnessOfBreakfast(stacks=3.0, **config),
+            relicsetone = BandOfSizzlingThunder2pc(),
+            relicsettwo = BandOfSizzlingThunder4pc(),
+            planarset = InertSalsotto(),
+            **config)
+
+skill = JingYuanCharacter.useSkill()
+print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,14611.98532*0.95)) # 0.95 to factor in toughness multiplier
+ultimate = JingYuanCharacter.useUltimate()
+print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,31759.59534*0.95)) # 0.95 to factor in toughness multiplier
+talent = JingYuanCharacter.useTalent()
+print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,5156.021606*0.95)) # 0.95 to factor in toughness multiplier

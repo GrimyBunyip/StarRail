@@ -13,7 +13,7 @@ class Jingliu(BaseCharacter):
                relicsetone:RelicSet=None,
                relicsettwo:RelicSet=None,
                planarset:RelicSet=None,
-               transmigrationPercAtk:float=1.2,
+               transmigrationPercAtk:float=1.8,
                speedBoostUptime:float=0.5,
                **config):
     super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
@@ -28,14 +28,16 @@ class Jingliu(BaseCharacter):
     
     self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.2)]
     
-    self.motionValueDict['enhancedSkill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.4, eidolonThreshold=3, eidolonBonus=0.24),
-                                             BaseMV(type='skill',area='adjacent', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
+    self.motionValueDict['enhancedSkill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.5, eidolonThreshold=3, eidolonBonus=0.25),
+                                             BaseMV(type='skill',area='adjacent', stat='atk', value=1.25, eidolonThreshold=3, eidolonBonus=0.125)]
     
     self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.0, eidolonThreshold=5, eidolonBonus=0.24),
                                         BaseMV(type='ultimate',area='adjacent', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.12)]
     
     # Talents
     self.percSpd += 0.10 * self.spdBoostUptime
+    self.CRType['transmigration'] = 0.50 # 
+    self.CDType['transmigration'] = 0.0 # keep this empty
     self.DmgType['transmigration'] = 0.10 # Ascension
     if self.eidolon >= 2:
       self.DmgType['ultimate'] = 0.30
@@ -48,7 +50,7 @@ class Jingliu(BaseCharacter):
 
     # Gear
     self.equipGear()
-    self.balanceCrit()
+    #self.balanceCrit()
 
   def useBasic(self):
     retval = BaseEffect()
@@ -83,7 +85,7 @@ class Jingliu(BaseCharacter):
     num_adjacents = min( self.numEnemies - 1, 2 )
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('enhancedSkill')
-    retval.damage *= self.getTotalCrit('skill')
+    retval.damage *= self.getTotalCrit(['skill','transmigration'])
     retval.damage *= self.getTotalDmg(['skill','transmigration'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.breakEfficiency)
@@ -95,7 +97,7 @@ class Jingliu(BaseCharacter):
     blastEnemies = min(3,self.numEnemies)
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('ultimate')
-    retval.damage *= self.getTotalCrit('ultimate')
+    retval.damage *= self.getTotalCrit(['skill','transmigration'])
     retval.damage *= self.getTotalDmg(['ultimate','transmigration'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * blastEnemies * (1.0 + self.breakEfficiency)

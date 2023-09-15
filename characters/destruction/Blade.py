@@ -111,6 +111,6 @@ class Blade(BaseCharacter):
     retval.damage *= self.getTotalDmg(['followup','talent'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 30.0 * self.numEnemies ) * (1.0 + self.breakEfficiency)
-    retval.energy = ( 30.0 + self.bonusEnergyType['followup'] + self.bonusEnergyType['talent'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 10.0 + self.bonusEnergyType['followup'] + self.bonusEnergyType['talent'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['talent'] - self.advanceForwardType['followup'])
     return retval

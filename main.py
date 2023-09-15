@@ -1,4 +1,6 @@
 from copy import copy
+
+import numpy as np
 from settings.BaseConfiguration import Configuration
 from baseClasses.RelicStats import RelicStats
 from estimator.DefaultEstimator import DefaultEstimator
@@ -7,12 +9,15 @@ from visualizer.visualizer import visualize
 from characters.destruction.Blade import Blade
 from characters.destruction.Clara import Clara
 from characters.hunt.DanHeng import DanHeng
+from characters.erudition.Himeko import Himeko
 from characters.destruction.Jingliu import Jingliu
+from characters.erudition.JingYuan import JingYuan
 from characters.nihility.Kafka import Kafka
 from characters.destruction.Lunae import Lunae
 from characters.hunt.Seele import Seele
 from characters.erudition.Serval import Serval
 from characters.hunt.Topaz import Topaz
+from characters.erudition.Qingque import Qingque
 from characters.hunt.Yanqing import Yanqing
 
 from lightCones.destruction.ASecretVow import ASecretVow
@@ -182,7 +187,7 @@ if __name__ == '__main__':
     # Serval
     ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['breakEffect', 'flatSpd', 'percAtk', 'lighDmg'],
                             substats = {'breakEffect': 10, 'percAtk': 8, 'flatSpd': 2}),
-                lightcone = TheSeriousnessOfBreakfast(stacks=3,**config),
+                lightcone = TheSeriousnessOfBreakfast(**config),
                 relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SpaceSealingStation(),
                 **config)
     
@@ -192,6 +197,31 @@ if __name__ == '__main__':
             ServalCharacter.useUltimate(shocked=True),
     ]
     DefaultEstimator('Serval: 1N 2E 1Q', ServalRotation, ServalCharacter, config, CharacterDict, EffectDict, breakDotMode='alwaysAll')
+    
+    # Jing Yuan
+    JingYuanCharacter = JingYuan(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
+                            substats = {'CD': 13, 'CR': 2, 'flatSpd': 5}),
+                lightcone = TheSeriousnessOfBreakfast(stacks=3,**config),
+                relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = InertSalsotto(),
+                **config)
+    
+    
+    numSkills = 4
+    numUltimates = 1
+    jingSpeed = JingYuanCharacter.getTotalSpd()
+    # estimate lord's max speed given this rotation
+    lordBaseSpeed = 0.6
+    lordBonusSpeed = 0.1
+    lordSpeed = 100.0 * ( lordBaseSpeed + np.sqrt(lordBaseSpeed * lordBaseSpeed + 4 * lordBonusSpeed * (2 * numSkills + 3 * numUltimates) / numSkills ) ) / 2
+    
+    numTalents = ( 3 * numSkills * lordSpeed / jingSpeed )  + 2 * numSkills + 3 * numUltimates
+
+    JingYuanRotation = [
+            JingYuanCharacter.useSkill() * numSkills, # 4 * 2 lord actions
+            JingYuanCharacter.useUltimate() * numUltimates, # 3 lord actions
+            JingYuanCharacter.useTalent() * numTalents, # hits generated from skill and ultimate
+    ]
+    DefaultEstimator('JingYuan: 4E 1Q 19T', JingYuanRotation, JingYuanCharacter, config, CharacterDict, EffectDict)
     
     # Seele
     SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['percAtk', 'percAtk', 'CD', 'quanDmg'],
@@ -253,12 +283,11 @@ if __name__ == '__main__':
     
     # Jingliu
     JingliuCharacter = Jingliu(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
-                            substats = {'CR': 8, 'CD': 8, 'flatSpd': 4}),
+                            substats = {'CR': 13, 'CD': 7}),
                 lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
                 relicsetone = HunterOfGlacialForest2pc(),
                 relicsettwo = HunterOfGlacialForest4pc(),
                 planarset = RutilantArena(),
-                transmigrationPercAtk=1.2,
                 speedBoostUptime=0.5,
                 **config)
     
@@ -291,5 +320,47 @@ if __name__ == '__main__':
     TopazRotation.append(TopazCharacter.useTalent(windfall=False) * numbyTurns)
     
     DefaultEstimator('Topaz 4E 2.2T Q Windfall(2T)', TopazRotation, TopazCharacter, config, CharacterDict, EffectDict)
+
+    # Qingque
+    QingqueCharacter = Qingque(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'quanDmg'],
+                            substats = {'CR': 6, 'CD': 13, 'flatSpd': 1}),
+                lightcone = TheSeriousnessOfBreakfast(**config),
+                relicsetone = GeniusOfBrilliantStars2pc(),
+                relicsettwo = GeniusOfBrilliantStars4pc(),
+                planarset = RutilantArena(),
+                **config)
+    
+    QingqueRotation = [ # expect 2.3 SP used per basic
+            QingqueCharacter.useSkill(),
+            QingqueCharacter.useSkill(),
+            QingqueCharacter.useSkill(),
+            QingqueCharacter.useEnhancedBasic(), 
+            QingqueCharacter.useSkill(),
+            QingqueCharacter.useSkill(),
+            QingqueCharacter.useEnhancedBasic(), 
+            QingqueCharacter.useSkill(), 
+            QingqueCharacter.useSkill(),
+            QingqueCharacter.useEnhancedBasic(),
+            QingqueCharacter.useUltimate(),
+    ]
+    
+    DefaultEstimator('Qingque 7E 3N 1Q', QingqueRotation, QingqueCharacter, config, CharacterDict, EffectDict)
+    
+    # Himeko
+    HimekoCharacter = Himeko(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'fireDmg'],
+                            substats = {'CR': 3, 'CD': 11, 'flatSpd': 6}),
+                lightcone = TheSeriousnessOfBreakfast(**config),
+                relicsetone = FiresmithOfLavaForging2pc(),
+                relicsettwo = MusketeerOfWildWheat2pc(),
+                planarset = SpaceSealingStation(),
+                **config)
+    
+    HimekoRotation = [ # 
+            HimekoCharacter.useSkill() * 3,
+            HimekoCharacter.useTalent() * 2,
+            HimekoCharacter.useUltimate(),
+    ]
+    
+    DefaultEstimator('Himeko 3E 2T 1Q', HimekoRotation, HimekoCharacter, config, CharacterDict, EffectDict)
         
     visualize(CharacterDict, EffectDict, **config)

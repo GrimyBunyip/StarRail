@@ -79,6 +79,7 @@ class BaseCharacter(object):
     self.Dmg = 0.0
     self.DmgType = {
       'basic':0.0,
+      'enhancedBasic':0.0,
       'skill':0.0,
       'ultimate':0.0,
       'talent':0.0,
@@ -88,6 +89,7 @@ class BaseCharacter(object):
     
     self.CRType = {
       'basic':0.0,
+      'enhancedBasic':0.0,
       'skill':0.0,
       'ultimate':0.0,
       'talent':0.0,
@@ -97,6 +99,7 @@ class BaseCharacter(object):
     
     self.CDType = {
       'basic':0.0,
+      'enhancedBasic':0.0,
       'skill':0.0,
       'ultimate':0.0,
       'talent':0.0,
@@ -106,6 +109,7 @@ class BaseCharacter(object):
 
     self.percAtkType = {
       'basic':0.0,
+      'enhancedBasic':0.0,
       'skill':0.0,
       'ultimate':0.0,
       'talent':0.0,
@@ -115,6 +119,7 @@ class BaseCharacter(object):
 
     self.percDefType = {
       'basic':0.0,
+      'enhancedBasic':0.0,
       'skill':0.0,
       'ultimate':0.0,
       'talent':0.0,
@@ -124,6 +129,7 @@ class BaseCharacter(object):
 
     self.percHPType = {
       'basic':0.0,
+      'enhancedBasic':0.0,
       'skill':0.0,
       'ultimate':0.0,
       'talent':0.0,
@@ -133,6 +139,7 @@ class BaseCharacter(object):
     
     self.bonusEnergyType = {
       'basic':0.0,
+      'enhancedBasic':0.0,
       'skill':0.0,
       'ultimate':0.0,
       'talent':0.0,
@@ -142,6 +149,7 @@ class BaseCharacter(object):
     
     self.advanceForwardType = {
       'basic':0.0,
+      'enhancedBasic':0.0,
       'skill':0.0,
       'ultimate':0.0,
       'talent':0.0,
