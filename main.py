@@ -10,6 +10,7 @@ from characters.destruction.Blade import Blade
 from characters.destruction.Clara import Clara
 from characters.hunt.DanHeng import DanHeng
 from characters.erudition.Himeko import Himeko
+from characters.destruction.Hook import Hook
 from characters.destruction.Jingliu import Jingliu
 from characters.erudition.JingYuan import JingYuan
 from characters.nihility.Kafka import Kafka
@@ -119,7 +120,8 @@ if __name__ == '__main__':
             KafkaCharacter.useTalent() * 3,
             KafkaCharacter.useUltimate(),
     ]
-    DefaultEstimator('Kafka: 3E 3T 1Q', KafkaRotation, KafkaCharacter, config, CharacterDict, EffectDict)
+    
+    DefaultEstimator('Kafka: 3E 3T 1Q', KafkaRotation, KafkaCharacter, config, CharacterDict, EffectDict, dotMode='alwaysAll')
     
     # Blade
     bladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CD', 'windDmg'],
@@ -196,7 +198,7 @@ if __name__ == '__main__':
             ServalCharacter.useSkill(shocked=True) * 2,
             ServalCharacter.useUltimate(shocked=True),
     ]
-    DefaultEstimator('Serval: 1N 2E 1Q', ServalRotation, ServalCharacter, config, CharacterDict, EffectDict, breakDotMode='alwaysAll')
+    DefaultEstimator('Serval: 1N 2E 1Q', ServalRotation, ServalCharacter, config, CharacterDict, EffectDict, breakDotMode='alwaysAll', dotMode='alwaysAll')
     
     # Jing Yuan
     JingYuanCharacter = JingYuan(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
@@ -364,5 +366,22 @@ if __name__ == '__main__':
     ]
     
     DefaultEstimator('Himeko 3E 2T 1Q', HimekoRotation, HimekoCharacter, config, CharacterDict, EffectDict)
+    
+    # Hook
+    HookCharacter = Hook(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'fireDmg'],
+                            substats = {'CR': 4, 'CD': 9, 'flatSpd': 7}),
+                lightcone = OnTheFallOfAnAeon(**config),
+                relicsetone = FiresmithOfLavaForging2pc(),
+                relicsettwo = MusketeerOfWildWheat2pc(),
+                planarset = RutilantArena(),
+                **config)
+    
+    HookRotation = [ # 
+            HookCharacter.useEnhancedSkill() * 1,
+            HookCharacter.useSkill() * 2,
+            HookCharacter.useUltimate(),
+    ]
+    
+    DefaultEstimator('Hook 1Enh 2E 1Q', HookRotation, HookCharacter, config, CharacterDict, EffectDict, dotMode='alwaysBlast')
         
     visualize(CharacterDict, EffectDict, **config)

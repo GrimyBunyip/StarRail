@@ -79,4 +79,5 @@ def visualize(CharacterDict:dict, EffectDict:dict, **config):
     plt.yticks([])
     plt.title('Star Rail Damage per Cycle Calculator | 20 substats\n {} targets: {} with {} HP and {} Toughness'.format(config['numEnemies'], config['enemyType'], config['enemyMaxHP'], config['enemyToughness']))
     plt.tight_layout()
+    plt.savefig('visualizer\\visual.png')
     plt.show()

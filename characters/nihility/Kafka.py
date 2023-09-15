@@ -20,7 +20,7 @@ class Kafka(BaseCharacter):
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
     self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=1.6, eidolonThreshold=3, eidolonBonus=0.16),
                                      BaseMV(type='skill',area='adjacent', stat='atk', value=0.6, eidolonThreshold=3, eidolonBonus=0.06)]
-    self.motionValueDict['dot'] = [BaseMV(type=['dot','ultimate'],area='all', stat='atk', value=2.90, eidolonThreshold=5, eidolonBonus=0.2828)]
+    self.motionValueDict['dot'] = [BaseMV(type=['dot','ultimate'],area='single', stat='atk', value=2.90, eidolonThreshold=5, eidolonBonus=0.2828)]
     self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.064)]
     self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=1.4, eidolonThreshold=5, eidolonBonus=0.196)]
     
@@ -77,7 +77,7 @@ class Kafka(BaseCharacter):
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     
     # no need to multiply break dot, I assume we're spreading break dots out
-    dotExplosion = self.useDot() + self.useBreakDot()
+    dotExplosion = self.useDot() * self.numEnemies + self.useBreakDot()
     dotExplosion *= 1.0 if self.eidolon >= 5 else 1.04
     
     retval += dotExplosion

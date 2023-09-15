@@ -10,6 +10,8 @@ from visualizer.visualizer import visualize
 from characters.destruction.Blade import Blade
 from characters.destruction.Clara import Clara
 from characters.hunt.DanHeng import DanHeng
+from characters.erudition.Himeko import Himeko
+from characters.destruction.Hook import Hook
 from characters.destruction.Jingliu import Jingliu
 from characters.erudition.JingYuan import JingYuan
 from characters.nihility.Kafka import Kafka
@@ -19,6 +21,7 @@ from characters.erudition.Serval import Serval
 from characters.hunt.Yanqing import Yanqing
 
 from lightCones.destruction.ASecretVow import ASecretVow
+from lightCones.destruction.WoofWalkTime import WoofWalkTime
 from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.nihility.Fermata import Fermata
@@ -28,6 +31,7 @@ from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from relicSets.relicSets.BandOfSizzlingThunder import BandOfSizzlingThunder2pc, BandOfSizzlingThunder4pc
 from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
 from relicSets.relicSets.EagleOfTwilightLine import EagleOfTwilightLine2pc, EagleOfTwilightLine4pc
+from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc, FiresmithOfLavaForging4pc
 from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc
 from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
@@ -118,13 +122,13 @@ print('CD - Mine: {} - Grimro: {}'.format(KafkaCharacter.CD,0.50))
 print('Dmg - Mine: {} - Grimro: {}'.format(KafkaCharacter.getTotalDmg('basic')-1.0,1.208803))
 
 dot = KafkaCharacter.useDot()
-print('Dot Damage - Mine: {} - Grimro: {}'.format(dot.damage,35481.29433*0.95)) # 0.95 to factor in toughness multiplier
+print('Dot Damage - Mine: {} - Grimro: {}'.format(dot.damage*config['numEnemies'],35481.29433*0.95)) # 0.95 to factor in toughness multiplier
 skill = KafkaCharacter.useSkill()
 breakDot = KafkaCharacter.useBreakDot()
 skill -= ( dot + breakDot ) * ( 0.78 if KafkaCharacter.eidolon >= 3 else 0.75 ) / KafkaCharacter.numEnemies
 print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,11704.74882*0.95)) # 0.95 to factor in toughness multiplier
 ultimate = KafkaCharacter.useUltimate()
-ultimate -= ( dot + breakDot ) * ( 1.0 if KafkaCharacter.eidolon >= 5 else 1.04)
+ultimate -= ( dot * config['numEnemies'] + breakDot ) * ( 1.0 if KafkaCharacter.eidolon >= 5 else 1.04)
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,10032.64184*0.95)) # 0.95 to factor in toughness multiplier
 talent = KafkaCharacter.useTalent()
 print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,5852.374409*0.95)) # 0.95 to factor in toughness multiplier
@@ -132,7 +136,7 @@ print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,5852.374409*0
 print('##### Serval #####')
 ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
                         substats = {'CR': 7, 'percAtk': 4, 'CD': 12}),
-            lightcone = TheSeriousnessOfBreakfast(stacks=3,**config),
+            lightcone = TheSeriousnessOfBreakfast(**config),
             relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = SpaceSealingStation(),
             **config)
 
@@ -209,7 +213,7 @@ print('Enhanced Talent Damage - Mine: {} - Grimro: {}'.format(enhancedTalent.dam
 print('##### Jing Yuan #####')
 JingYuanCharacter = JingYuan(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
                         substats = {'CR': 7, 'CD': 12, 'flatSpd': 5}),
-            lightcone = TheSeriousnessOfBreakfast(stacks=3.0, **config),
+            lightcone = TheSeriousnessOfBreakfast(**config),
             relicsetone = BandOfSizzlingThunder2pc(),
             relicsettwo = BandOfSizzlingThunder4pc(),
             planarset = InertSalsotto(),
@@ -221,3 +225,36 @@ ultimate = JingYuanCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,31759.59534*0.95)) # 0.95 to factor in toughness multiplier
 talent = JingYuanCharacter.useTalent()
 print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,5156.021606*0.95)) # 0.95 to factor in toughness multiplier
+
+print('##### Himeko #####')
+HimekoCharacter = Himeko(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'fireDmg'],
+                        substats = {'CR': 12, 'CD': 12}),
+            lightcone = TheSeriousnessOfBreakfast(**config),
+            relicsetone = FiresmithOfLavaForging2pc(),
+            relicsettwo = MusketeerOfWildWheat2pc(),
+            planarset = SpaceSealingStation(),
+            **config)
+
+skill = HimekoCharacter.useSkill()
+print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,23287.76966*0.95)) # 0.95 to factor in toughness multiplier
+ultimate = HimekoCharacter.useUltimate()
+print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,44634.89184*0.95)) # 0.95 to factor in toughness multiplier
+talent = HimekoCharacter.useTalent()
+print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,27169.0646*0.95)) # 0.95 to factor in toughness multiplier
+
+print('##### Hook #####')
+HookCharacter = Hook(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'fireDmg'],
+                        substats = {'CR': 10, 'CD': 12, 'flatSpd': 2}),
+            lightcone = OnTheFallOfAnAeon(**config),
+            relicsetone = FiresmithOfLavaForging2pc(),
+            relicsettwo = MusketeerOfWildWheat2pc(),
+            planarset = RutilantArena(),
+            burnedUptime=1.0,
+            **config)
+
+skill = HookCharacter.useSkill()
+print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,(15043.63538+16813.3843)*0.95)) # 0.95 to factor in toughness multiplier
+enhancedSkill = HookCharacter.useEnhancedSkill()
+print('Enhanced Skill Damage - Mine: {} - Grimro: {}'.format(enhancedSkill.damage,(30500.3661+16813.3843)*0.95)) # 0.95 to factor in toughness multiplier
+ultimate = HookCharacter.useUltimate()
+print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,(22010.24854+16813.3843)*0.95)) # 0.95 to factor in toughness multiplier
