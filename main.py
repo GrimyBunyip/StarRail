@@ -200,28 +200,30 @@ if __name__ == '__main__':
     
     # Jing Yuan
     JingYuanCharacter = JingYuan(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
-                            substats = {'CD': 13, 'CR': 2, 'flatSpd': 5}),
+                            substats = {'CD': 12, 'CR': 1, 'flatSpd': 7}),
                 lightcone = TheSeriousnessOfBreakfast(stacks=3,**config),
                 relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = InertSalsotto(),
                 **config)
     
-    
     numSkills = 4
     numUltimates = 1
+    ''' Formula we can use, but it's admittedly very generous. Easier to use the 140 speed estimate for solo.
     jingSpeed = JingYuanCharacter.getTotalSpd()
     # estimate lord's max speed given this rotation
     lordBaseSpeed = 0.6
     lordBonusSpeed = 0.1
     lordSpeed = 100.0 * ( lordBaseSpeed + np.sqrt(lordBaseSpeed * lordBaseSpeed + 4 * lordBonusSpeed * (2 * numSkills + 3 * numUltimates) / numSkills ) ) / 2
     
-    numTalents = ( 3 * numSkills * lordSpeed / jingSpeed )  + 2 * numSkills + 3 * numUltimates
-
+    numTalents = ( 3 * numSkills * lordSpeed / jingSpeed )  + 2 * numSkills + 3 * numUltimates'''
+    
+    numTalents = ( 3 * numSkills / 2 )  + 2 * numSkills + 3 * numUltimates
+    
     JingYuanRotation = [
             JingYuanCharacter.useSkill() * numSkills, # 4 * 2 lord actions
             JingYuanCharacter.useUltimate() * numUltimates, # 3 lord actions
             JingYuanCharacter.useTalent() * numTalents, # hits generated from skill and ultimate
     ]
-    DefaultEstimator('JingYuan: 4E 1Q 19T', JingYuanRotation, JingYuanCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('JingYuan: 4E 1Q 17T', JingYuanRotation, JingYuanCharacter, config, CharacterDict, EffectDict)
     
     # Seele
     SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['percAtk', 'percAtk', 'CD', 'quanDmg'],
