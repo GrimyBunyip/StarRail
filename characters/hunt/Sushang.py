@@ -13,7 +13,7 @@ class Sushang(BaseCharacter):
                relicsetone:RelicSet=None,
                relicsettwo:RelicSet=None,
                planarset:RelicSet=None,
-               weaknessBrokenUptime:float=0.5,
+               weaknessBrokenUptime:float = 0.5,
                weaknessBrokenStacks:float=2.0,
                ripostedStacks:float=10.0,
                **config):
@@ -34,7 +34,7 @@ class Sushang(BaseCharacter):
     # Talents
     self.percAtkType['swordStance'] = 0.0 # need this to suppress an error message
     self.percSpd += (0.21 if self.eidolon >= 5 else 0.2) * self.weaknessBrokenUptime * (weaknessBrokenStacks if self.eidolon >= 6 else 1.0)
-    self.DmgType['swordStance'] = 0.02 * self.riposteStacks # is this 2% or 2.5%? I think honey and prydwen have old numbers at 2.5% here
+    self.DmgType['swordStance'] = 0.0249999996740371 * self.riposteStacks # number from datamine?
     self.advanceForwardType['basic'] += 0.15 * self.weaknessBrokenUptime
     self.advanceForwardType['skill'] += 0.15 * self.weaknessBrokenUptime
     self.advanceForwardType['ultimate'] += 1.0

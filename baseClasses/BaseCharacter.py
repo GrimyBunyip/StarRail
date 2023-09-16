@@ -49,7 +49,7 @@ class BaseCharacter(object):
   enemyToughness:float
   breakLevelMultiplier:float
   enemyRes:float
-  brokenMultiplier:float
+  weaknessBrokenUptime:float
 
   def __init__(self, relicstats, lightcone=None, relicsetone=None, relicsettwo=None, planarset=None, **config):
     self.__dict__.update(config)
@@ -362,5 +362,5 @@ class BaseCharacter(object):
     damage = baseDamage
     damage *= (80 + 20 ) / ( ( self.enemyLevel + 20 ) * ( 1 - self.defShred ) + 80 + 20 )
     damage *= max(min(1 - self.enemyRes + self.resPen, 2.0), 0.1)
-    damage *= self.brokenMultiplier
+    damage *= 0.9 + 0.1 * self.weaknessBrokenUptime
     return damage

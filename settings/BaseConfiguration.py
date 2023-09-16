@@ -10,7 +10,8 @@ Configuration = {
     'breakLevelMultiplier': 3767.5533, # base level multiplier for break effects
 
     'enemyRes': 0.0, # assume you aren't fighting enemies that are resistant to you
-    'brokenMultiplier': 0.95, # enemies take 1.0 damage if toughness is broken, 0.9 otherwise. I like to assume 0.95 here
+    'weaknessBrokenUptime': 0.5, # percentage of time enemies spent with their weakness broken, affects 0.9 vs 1.0 toughness broken multiplier, and characters like sushang
+    #'brokenMultiplier': 0.95, # enemies take 1.0 damage if toughness is broken, 0.9 otherwise. I like to assume 0.95 here
 
     'fivestarEidolons': 0, #number of eidolons on fivestar characters
     'fourstarEidolons': 6, #number of eidolons on fourstar characters

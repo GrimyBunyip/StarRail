@@ -99,8 +99,11 @@ from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.planarSets.TaliaKingdomOfBanditry import TaliaKingdomOfBanditry
 
 if __name__ == '__main__':
-    CharacterDict = {} # store character information here
-    EffectDict = {} # store dps metrics here
+    VisualizationDict = {}
+    VisualizationDict['CharacterDict'] = {} # store character information here
+    VisualizationDict['EffectDict'] = {} # store dps metrics here, not including breaks or constantly ticking dots. May include limited dots like Yanqing
+    VisualizationDict['DotDict'] = {} # store dot damage here, not including dot detonations
+    VisualizationDict['BreakDict'] = {} # store break damage here, not including dot detonations
     
     # Reminder not to use this as a true DPS comparison
     # SP and Energy surplus/deficits are not balanced
@@ -124,7 +127,7 @@ if __name__ == '__main__':
             KafkaCharacter.useUltimate(),
     ]
     
-    DefaultEstimator('Kafka: 3E 3T 1Q', KafkaRotation, KafkaCharacter, config, CharacterDict, EffectDict, dotMode='alwaysAll')
+    DefaultEstimator('Kafka: 3E 3T 1Q', KafkaRotation, KafkaCharacter, config, VisualizationDict, dotMode='alwaysAll')
     
     # Blade
     bladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CD', 'windDmg'],
@@ -143,7 +146,7 @@ if __name__ == '__main__':
             bladeCharacter.takeDamage(), # 10 energy, 1 charge, assume we get once
             bladeCharacter.useUltimate(), # 15 energy, 1 charge
     ]
-    DefaultEstimator('Blade: 0.5S 2N 0.9T 1Q, get hit once', BladeRotation, bladeCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Blade: 0.5S 2N 0.9T 1Q, get hit once', BladeRotation, bladeCharacter, config, VisualizationDict)
     
     # Clara
     ClaraCharacter = Clara(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'physDmg'],
@@ -163,7 +166,7 @@ if __name__ == '__main__':
     ]
     # 2.5E as clara probably can't consistently pull off a 2E rotation depending on how much
     # energy enemies give when they hit her
-    DefaultEstimator('Clara: 2.5E 3T 1Q', ClaraRotation, ClaraCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Clara: 2.5E 3T 1Q', ClaraRotation, ClaraCharacter, config, VisualizationDict)
 
     # Lunae
     LunaeCharacter = Lunae(RelicStats(mainstats = ['percAtk', 'percAtk', 'CR', 'imagDmg'],
@@ -187,7 +190,7 @@ if __name__ == '__main__':
                 LunaeCharacter.useUltimate(), # +2 SP, 5 energy
                 LunaeCharacter.endTurn()
     ]
-    DefaultEstimator('Lunae: 3N^3 1Q', LunaeRotation, LunaeCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Lunae: 3N^3 1Q', LunaeRotation, LunaeCharacter, config, VisualizationDict)
     
     # Serval
     ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['breakEffect', 'flatSpd', 'percAtk', 'lighDmg'],
@@ -201,7 +204,7 @@ if __name__ == '__main__':
             ServalCharacter.useSkill(shocked=True) * 2,
             ServalCharacter.useUltimate(shocked=True),
     ]
-    DefaultEstimator('Serval: 1N 2E 1Q', ServalRotation, ServalCharacter, config, CharacterDict, EffectDict, breakDotMode='alwaysAll', dotMode='alwaysAll')
+    DefaultEstimator('Serval: 1N 2E 1Q', ServalRotation, ServalCharacter, config, VisualizationDict, breakDotMode='alwaysAll', dotMode='alwaysAll')
     
     # Jing Yuan
     JingYuanCharacter = JingYuan(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
@@ -228,7 +231,7 @@ if __name__ == '__main__':
             JingYuanCharacter.useUltimate() * numUltimates, # 3 lord actions
             JingYuanCharacter.useTalent() * numTalents, # hits generated from skill and ultimate
     ]
-    DefaultEstimator('JingYuan: 4E 1Q 17T', JingYuanRotation, JingYuanCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('JingYuan: 4E 1Q 17T', JingYuanRotation, JingYuanCharacter, config, VisualizationDict)
     
     # Seele
     SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['percAtk', 'percAtk', 'CD', 'quanDmg'],
@@ -244,13 +247,13 @@ if __name__ == '__main__':
             SeeleCharacter.useUltimate(),
             SeeleCharacter.endTurn(),
     ]
-    DefaultEstimator('Seele: 3E Resurgence(1E1Q)', SeeleRotation, SeeleCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Seele: 3E Resurgence(1E1Q)', SeeleRotation, SeeleCharacter, config, VisualizationDict)
     
     SeeleRotation = [
             SeeleCharacter.useSkill() * 4,
             SeeleCharacter.useUltimate(),
     ]
-    DefaultEstimator('Seele: 4E 1Q No Resurgence', SeeleRotation, SeeleCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Seele: 4E 1Q No Resurgence', SeeleRotation, SeeleCharacter, config, VisualizationDict)
     
     # Dan Heng
     DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'windDmg'],
@@ -267,7 +270,7 @@ if __name__ == '__main__':
             DanHengCharacter.useSkill() * 3,
             DanHengCharacter.useUltimate(slowed=True),
     ]
-    DefaultEstimator('Dan Heng: 3E 1Q', DanHengRotation, DanHengCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Dan Heng: 3E 1Q', DanHengRotation, DanHengCharacter, config, VisualizationDict)
     
     #Yanqing
     YanqingCharacter = Yanqing(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
@@ -286,7 +289,7 @@ if __name__ == '__main__':
             YanqingCharacter.useTalent() * 2,
             YanqingCharacter.endTurn(),
     ]
-    DefaultEstimator('Yanqing: 3E3T Bliss(1E 1Q 2T)', YanqingRotation, YanqingCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Yanqing: 3E3T Bliss(1E 1Q 2T)', YanqingRotation, YanqingCharacter, config, VisualizationDict)
     
     # Jingliu
     JingliuCharacter = Jingliu(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
@@ -304,7 +307,7 @@ if __name__ == '__main__':
             JingliuCharacter.useUltimate(), # 5 energy, 1 stack
             JingliuCharacter.extraTurn()*1.5,
     ]
-    DefaultEstimator('Jingliu 2E 3Moon 1Q', JingliuRotation, JingliuCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Jingliu 2E 3Moon 1Q', JingliuRotation, JingliuCharacter, config, VisualizationDict)
     
     # Topaz
     TopazCharacter = Topaz(RelicStats(mainstats = ['percAtk', 'percAtk', 'CD', 'fireDmg'],
@@ -326,7 +329,7 @@ if __name__ == '__main__':
     
     TopazRotation.append(TopazCharacter.useTalent(windfall=False) * numbyTurns)
     
-    DefaultEstimator('Topaz 4E 2.2T Q Windfall(2T)', TopazRotation, TopazCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Topaz 4E 2.2T Q Windfall(2T)', TopazRotation, TopazCharacter, config, VisualizationDict)
 
     # Qingque
     QingqueCharacter = Qingque(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'quanDmg'],
@@ -351,7 +354,7 @@ if __name__ == '__main__':
             QingqueCharacter.useUltimate(),
     ]
     
-    DefaultEstimator('Qingque 7E 3N 1Q', QingqueRotation, QingqueCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Qingque 7E 3N 1Q', QingqueRotation, QingqueCharacter, config, VisualizationDict)
     
     # Himeko
     HimekoCharacter = Himeko(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'fireDmg'],
@@ -368,7 +371,7 @@ if __name__ == '__main__':
             HimekoCharacter.useUltimate(),
     ]
     
-    DefaultEstimator('Himeko 3E 2T 1Q', HimekoRotation, HimekoCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Himeko 3E 2T 1Q', HimekoRotation, HimekoCharacter, config, VisualizationDict)
     
     # Hook
     HookCharacter = Hook(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'fireDmg'],
@@ -385,7 +388,7 @@ if __name__ == '__main__':
             HookCharacter.useUltimate(),
     ]
     
-    DefaultEstimator('Hook 1Enh 2E 1Q', HookRotation, HookCharacter, config, CharacterDict, EffectDict, dotMode='alwaysBlast')
+    DefaultEstimator('Hook 1Enh 2E 1Q', HookRotation, HookCharacter, config, VisualizationDict, dotMode='alwaysBlast')
     
     # Sampo
     SampoCharacter = Sampo(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'windDmg'],
@@ -401,7 +404,7 @@ if __name__ == '__main__':
             SampoCharacter.useUltimate(),
     ]
     
-    DefaultEstimator('Sampo 2x5 Stacks 3E 1Q', SampoRotation, SampoCharacter, config, CharacterDict, EffectDict, dotMode='alwaysBlast')
+    DefaultEstimator('Sampo 2x5 Stacks 3.5E 1Q', SampoRotation, SampoCharacter, config, VisualizationDict, dotMode='alwaysBlast')
     
     # Sampo
     SampoCharacter = Sampo(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'windDmg'],
@@ -418,7 +421,7 @@ if __name__ == '__main__':
             SampoCharacter.useUltimate(),
     ]
     
-    DefaultEstimator('Sampo 2x3 Stacks 3E 1Q', SampoRotation, SampoCharacter, config, CharacterDict, EffectDict, dotMode='alwaysBlast')
+    DefaultEstimator('Sampo 2x3 Stacks 3.5E 1N 1Q', SampoRotation, SampoCharacter, config, VisualizationDict, dotMode='alwaysBlast')
 
     # Luka
     LukaCharacter = Luka(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'physDmg'],
@@ -435,7 +438,7 @@ if __name__ == '__main__':
             LukaCharacter.useUltimate(), # +2 Fighting Will
     ]
     
-    DefaultEstimator('Luka 3EB 2S 1Q', LukaRotation, LukaCharacter, config, CharacterDict, EffectDict, dotMode='alwaysBlast')
+    DefaultEstimator('Luka 3EB 2S 1Q', LukaRotation, LukaCharacter, config, VisualizationDict, dotMode='alwaysBlast')
 
     # Sushang
     SushangCharacter = Sushang(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'physDmg'],
@@ -454,25 +457,6 @@ if __name__ == '__main__':
             SushangCharacter.useSkill(),
     ]
     
-    DefaultEstimator('Sushang 4E 1Q with 50% Toughness Broken', SushangRotation, SushangCharacter, config, CharacterDict, EffectDict)
-    
-    SushangCharacter = Sushang(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'physDmg'],
-                        substats = {'CR': 13, 'CD': 7}),
-                        lightcone = CruisingInTheStellarSea(**config),
-                        relicsetone = ChampionOfStreetwiseBoxing2pc(),
-                        relicsettwo = ChampionOfStreetwiseBoxing4pc(),
-                        planarset = RutilantArena(),
-                        weaknessBrokenUptime=0.0,
-                        **config)
-    
-    SushangRotation = [ # do not multiply here, repeat entries as these uses factor in end turn and ultimate buff
-            SushangCharacter.useUltimate(),
-            SushangCharacter.useSkill(),
-            SushangCharacter.useSkill(),
-            SushangCharacter.useSkill(),
-            SushangCharacter.useSkill(),
-    ]
-    
-    DefaultEstimator('Sushang 4E 1Q with 0% toughness broken', SushangRotation, SushangCharacter, config, CharacterDict, EffectDict)
+    DefaultEstimator('Sushang 4E 1Q', SushangRotation, SushangCharacter, config, VisualizationDict)
 
-    visualize(CharacterDict, EffectDict, **config)
+    visualize(VisualizationDict, **config)
