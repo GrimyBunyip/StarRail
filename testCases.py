@@ -9,24 +9,26 @@ from visualizer.visualizer import visualize
 
 from characters.destruction.Blade import Blade
 from characters.destruction.Clara import Clara
-from characters.hunt.DanHeng import DanHeng
-from characters.erudition.Himeko import Himeko
 from characters.destruction.Hook import Hook
 from characters.destruction.Jingliu import Jingliu
-from characters.erudition.JingYuan import JingYuan
-from characters.nihility.Kafka import Kafka
 from characters.destruction.Lunae import Lunae
-from characters.nihility.Sampo import Sampo
-from characters.hunt.Seele import Seele
+from characters.erudition.Himeko import Himeko
+from characters.erudition.JingYuan import JingYuan
 from characters.erudition.Serval import Serval
+from characters.hunt.DanHeng import DanHeng
+from characters.hunt.Seele import Seele
+from characters.hunt.Sushang import Sushang
 from characters.hunt.Yanqing import Yanqing
+from characters.nihility.Kafka import Kafka
+from characters.nihility.Luka import Luka
+from characters.nihility.Sampo import Sampo
 
 from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.destruction.WoofWalkTime import WoofWalkTime
+from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.nihility.Fermata import Fermata
-from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 
 from relicSets.relicSets.BandOfSizzlingThunder import BandOfSizzlingThunder2pc, BandOfSizzlingThunder4pc
@@ -276,3 +278,37 @@ dot = SampoCharacter.useDot() * config['numEnemies']
 print('Dot Damage - Mine: {} - Grimro: {}'.format(dot.damage,61259.43985*0.95)) # 0.95 to factor in toughness multiplier
 ultimate = SampoCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,22769.81446*0.95)) # 0.95 to factor in toughness multiplier
+
+print('##### Luka #####')
+LukaCharacter = Luka(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'physDmg'],
+                        substats = {'percAtk': 10, 'flatSpd': 6, 'EHR': 8}),
+            lightcone = GoodNightAndSleepWell(**config),
+            relicsetone = ChampionOfStreetwiseBoxing2pc(),
+            relicsettwo = ChampionOfStreetwiseBoxing4pc(),
+            planarset = SpaceSealingStation(),
+            **config)
+
+enhancedBasic = LukaCharacter.useEnhancedBasic()
+print('Enhanced Basic Damage - Mine: {} - Grimro: {}'.format(enhancedBasic.damage,30644.0875*0.95)) # 0.95 to factor in toughness multiplier
+skill = LukaCharacter.useSkill()
+print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,6337.789357*0.95)) # 0.95 to factor in toughness multiplier
+dot = LukaCharacter.useDot()
+print('Dot Damage - Mine: {} - Grimro: {}'.format(dot.damage,17416.03905*0.95)) # 0.95 to factor in toughness multiplier
+ultimate = LukaCharacter.useUltimate()
+print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,17112.03126*0.95)) # 0.95 to factor in toughness multiplier
+
+print('##### Sushang #####')
+SushangCharacter = Sushang(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'physDmg'],
+                        substats = {'CR': 7, 'CD': 12, 'percAtk': 5}),
+                        lightcone = CruisingInTheStellarSea(uptimeHP=0.0, uptimeDefeat=0.0, **config),
+                        relicsetone = ChampionOfStreetwiseBoxing2pc(),
+                        relicsettwo = ChampionOfStreetwiseBoxing4pc(),
+                        planarset = RutilantArena(),
+                        **config)
+
+skill = SushangCharacter.useSkill()
+print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,9980.537896*0.95)) # 0.95 to factor in toughness multiplier
+swordStance = SushangCharacter.useSwordStance()
+print('Sword Stance Damage - Mine: {} - Grimro: {}'.format(swordStance.damage,4752.637094*0.95)) # 0.95 to factor in toughness multiplier
+ultimate = SushangCharacter.useUltimate()
+print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,13163.57782*0.95)) # 0.95 to factor in toughness multiplier

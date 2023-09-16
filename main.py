@@ -15,9 +15,11 @@ from characters.destruction.Jingliu import Jingliu
 from characters.erudition.JingYuan import JingYuan
 from characters.nihility.Kafka import Kafka
 from characters.destruction.Lunae import Lunae
+from characters.nihility.Luka import Luka
 from characters.nihility.Sampo import Sampo
 from characters.hunt.Seele import Seele
 from characters.erudition.Serval import Serval
+from characters.hunt.Sushang import Sushang
 from characters.hunt.Topaz import Topaz
 from characters.erudition.Qingque import Qingque
 from characters.hunt.Yanqing import Yanqing
@@ -417,5 +419,60 @@ if __name__ == '__main__':
     ]
     
     DefaultEstimator('Sampo 2x3 Stacks 3E 1Q', SampoRotation, SampoCharacter, config, CharacterDict, EffectDict, dotMode='alwaysBlast')
-        
+
+    # Luka
+    LukaCharacter = Luka(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'physDmg'],
+                        substats = {'percAtk': 4, 'flatSpd': 3, 'EHR': 13}),
+                lightcone = GoodNightAndSleepWell(**config),
+                relicsetone = ChampionOfStreetwiseBoxing2pc(),
+                relicsettwo = ChampionOfStreetwiseBoxing4pc(),
+                planarset = SpaceSealingStation(),
+                **config)
+    
+    LukaRotation = [ # 
+            LukaCharacter.useEnhancedBasic() * 3, # -6 Fighting Will
+            LukaCharacter.useSkill() * 2, # +4 Fighting Will
+            LukaCharacter.useUltimate(), # +2 Fighting Will
+    ]
+    
+    DefaultEstimator('Luka 3EB 2S 1Q', LukaRotation, LukaCharacter, config, CharacterDict, EffectDict, dotMode='alwaysBlast')
+
+    # Sushang
+    SushangCharacter = Sushang(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'physDmg'],
+                        substats = {'CR': 13, 'CD': 7}),
+                        lightcone = CruisingInTheStellarSea(**config),
+                        relicsetone = ChampionOfStreetwiseBoxing2pc(),
+                        relicsettwo = ChampionOfStreetwiseBoxing4pc(),
+                        planarset = RutilantArena(),
+                        **config)
+    
+    SushangRotation = [ # do not multiply here, repeat entries as these uses factor in end turn and ultimate buff
+            SushangCharacter.useUltimate(),
+            SushangCharacter.useSkill(),
+            SushangCharacter.useSkill(),
+            SushangCharacter.useSkill(),
+            SushangCharacter.useSkill(),
+    ]
+    
+    DefaultEstimator('Sushang 4E 1Q with 50% Toughness Broken', SushangRotation, SushangCharacter, config, CharacterDict, EffectDict)
+    
+    SushangCharacter = Sushang(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'physDmg'],
+                        substats = {'CR': 13, 'CD': 7}),
+                        lightcone = CruisingInTheStellarSea(**config),
+                        relicsetone = ChampionOfStreetwiseBoxing2pc(),
+                        relicsettwo = ChampionOfStreetwiseBoxing4pc(),
+                        planarset = RutilantArena(),
+                        weaknessBrokenUptime=0.0,
+                        **config)
+    
+    SushangRotation = [ # do not multiply here, repeat entries as these uses factor in end turn and ultimate buff
+            SushangCharacter.useUltimate(),
+            SushangCharacter.useSkill(),
+            SushangCharacter.useSkill(),
+            SushangCharacter.useSkill(),
+            SushangCharacter.useSkill(),
+    ]
+    
+    DefaultEstimator('Sushang 4E 1Q with 0% toughness broken', SushangRotation, SushangCharacter, config, CharacterDict, EffectDict)
+
     visualize(CharacterDict, EffectDict, **config)
