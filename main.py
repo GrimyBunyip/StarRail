@@ -114,7 +114,7 @@ if __name__ == '__main__':
     # Kafka
     KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'lighDmg'],
                             substats = {'EHR': 5, 'percAtk': 3, 'flatSpd': 12}),
-                lightcone = GoodNightAndSleepWell(stacks=3,**config),
+                lightcone = SolitaryHealing(**config),
                 relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = SpaceSealingStation(),
                 **config)
     
@@ -406,7 +406,7 @@ if __name__ == '__main__':
     # Sampo
     SampoCharacter = Sampo(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'windDmg'],
                             substats = {'percAtk': 7, 'flatSpd': 3, 'EHR': 10}),
-                lightcone = GoodNightAndSleepWell(**config),
+                lightcone = SolitaryHealing(**config),
                 relicsetone = EagleOfTwilightLine2pc(),
                 relicsettwo = MusketeerOfWildWheat2pc(),
                 planarset = PanCosmicCommercialEnterprise(),
@@ -423,7 +423,7 @@ if __name__ == '__main__':
     # Luka
     LukaCharacter = Luka(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'physDmg'],
                         substats = {'percAtk': 4, 'flatSpd': 3, 'EHR': 13}),
-                lightcone = GoodNightAndSleepWell(**config),
+                lightcone = SolitaryHealing(**config),
                 relicsetone = ChampionOfStreetwiseBoxing2pc(),
                 relicsettwo = ChampionOfStreetwiseBoxing4pc(),
                 planarset = SpaceSealingStation(),
