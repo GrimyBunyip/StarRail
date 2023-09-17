@@ -44,7 +44,6 @@ class Hook(BaseCharacter):
 
     # Gear
     self.equipGear()
-    #self.balanceCrit()
 
   def useBasic(self):
     retval = BaseEffect()

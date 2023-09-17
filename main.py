@@ -6,11 +6,13 @@ from baseClasses.RelicStats import RelicStats
 from estimator.DefaultEstimator import DefaultEstimator
 from visualizer.visualizer import visualize
 
+from characters.destruction.Arlan import Arlan
 from characters.destruction.Blade import Blade
 from characters.destruction.Clara import Clara
 from characters.destruction.Hook import Hook
 from characters.destruction.Jingliu import Jingliu
 from characters.destruction.Lunae import Lunae
+from characters.erudition.Herta import Herta
 from characters.erudition.Himeko import Himeko
 from characters.erudition.JingYuan import JingYuan
 from characters.erudition.Serval import Serval
@@ -152,7 +154,7 @@ if __name__ == '__main__':
     
     # Clara
     ClaraCharacter = Clara(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'physDmg'],
-                            substats = {'CR': 10, 'CD': 10}),
+                            substats = {'CR': 7, 'CD': 13}),
                 lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=5.0, **config),
                 relicsetone = ChampionOfStreetwiseBoxing2pc(),
                 relicsettwo = ChampionOfStreetwiseBoxing4pc(),
@@ -452,5 +454,37 @@ if __name__ == '__main__':
     ]
     
     DefaultEstimator('SilverWolf 2E 1Q', SilverWolfRotation, SilverWolfCharacter, config, VisualizationDict)
+    
+    # Herta
+    HertaCharacter = Herta(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'iceDmg'],
+                        substats = {'CR':6,'CD':14}),
+                lightcone = TheSeriousnessOfBreakfast(**config),
+                relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(), planarset = SpaceSealingStation(),
+                **config)
+    
+    HertaRotation = [ # 
+            HertaCharacter.useSkill() * 2,
+            HertaCharacter.useTalent(),
+            HertaCharacter.useUltimate(),
+            HertaCharacter.useSkill(),
+            HertaCharacter.useTalent(),
+            HertaCharacter.endTurn(),
+    ]
+    
+    DefaultEstimator('Herta 3E 2T 1Q', HertaRotation, HertaCharacter, config, VisualizationDict)
+    
+    # Arlan
+    ArlanCharacter = Arlan(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
+                        substats = {'CR':7,'CD':13}),
+                lightcone = ASecretVow(**config),
+                relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = RutilantArena(),
+                **config)
+    
+    ArlanRotation = [ # 
+            ArlanCharacter.useSkill() * 3.5,
+            ArlanCharacter.useUltimate(),
+    ]
+    
+    DefaultEstimator('Arlan 3.5E 1Q', ArlanRotation, ArlanCharacter, config, VisualizationDict)
 
     visualize(VisualizationDict, **config)

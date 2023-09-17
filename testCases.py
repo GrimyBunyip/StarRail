@@ -7,11 +7,13 @@ from baseClasses.RelicStats import RelicStats
 from estimator.DefaultEstimator import DefaultEstimator
 from visualizer.visualizer import visualize
 
+from characters.destruction.Arlan import Arlan
 from characters.destruction.Blade import Blade
 from characters.destruction.Clara import Clara
 from characters.destruction.Hook import Hook
 from characters.destruction.Jingliu import Jingliu
 from characters.destruction.Lunae import Lunae
+from characters.erudition.Herta import Herta
 from characters.erudition.Himeko import Himeko
 from characters.erudition.JingYuan import JingYuan
 from characters.erudition.Serval import Serval
@@ -379,3 +381,36 @@ print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,10035.72419*0.9
 ultimate = SilverWolfCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,19457.01629*0.95)) # 0.95 to factor in toughness multiplier
 
+print('##### Herta #####')
+HertaCharacter = Herta(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'iceDmg'],
+                        substats = {'flatSpd': 2, 'CR': 10, 'CD': 12}),
+                        lightcone = TheSeriousnessOfBreakfast(**config),
+                        relicsetone = HunterOfGlacialForest2pc(),
+                        relicsettwo = MusketeerOfWildWheat2pc(),
+                        planarset = SpaceSealingStation(),
+                        hpThresholdUptime=0.0,
+                        frozenUptime=0.0,
+                        e2Stacks=5.0,
+                        e4Stacks=1.0,
+                        **config)
+
+skill = HertaCharacter.useSkill()
+print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,15817.83837*0.95)) # 0.95 to factor in toughness multiplier
+talent = HertaCharacter.useTalent()
+print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,6499.975867*0.95)) # 0.95 to factor in toughness multiplier
+ultimate = HertaCharacter.useUltimate()
+print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,31060.48263*0.95)) # 0.95 to factor in toughness multiplier
+
+print('##### Arlan #####')
+ArlanCharacter = Arlan(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
+                        substats = {'flatSpd': 2, 'CR': 10, 'CD': 12}),
+                        lightcone = OnTheFallOfAnAeon(uptime = 0.0, stacks=4.0, **config),
+                        relicsetone = BandOfSizzlingThunder2pc(),
+                        relicsettwo = BandOfSizzlingThunder4pc(),
+                        planarset = RutilantArena(),
+                        **config)
+
+skill = ArlanCharacter.useSkill()
+print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,16828.36764*0.95)) # 0.95 to factor in toughness multiplier
+ultimate = ArlanCharacter.useUltimate()
+print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,63064.6214*0.95)) # 0.95 to factor in toughness multiplier
