@@ -11,13 +11,14 @@ Configuration = {
 
     'enemyRes': 0.0, # assume you aren't fighting enemies that are resistant to you
     'weaknessBrokenUptime': 0.5, # percentage of time enemies spent with their weakness broken, affects 0.9 vs 1.0 toughness broken multiplier, and characters like sushang
-    #'brokenMultiplier': 0.95, # enemies take 1.0 damage if toughness is broken, 0.9 otherwise. I like to assume 0.95 here
 
     'fivestarEidolons': 0, #number of eidolons on fivestar characters
     'fourstarEidolons': 6, #number of eidolons on fourstar characters
 
+    'hertaSuperpositions': 5, #number of superpositions on herta light cones
+    'forgottenHallSuperpositions': 5, #number of superpositions on forgotten hall
+    'battlePassSuperpositions': 1, #number of superpositions on battlepass lightcones
     'fivestarSuperpositions': 1, #number of superpositions on fivestar light cones
-    'hertaSuperpositions': 5, #number of superpositions on herta light cones, ignores 'fivestarSuperposition
     'fourstarSuperpositions': 5, #number of superpositions on fourstar light cones
     'threestarSuperpositions': 5, #number of superpositions on threestar light cones
 }

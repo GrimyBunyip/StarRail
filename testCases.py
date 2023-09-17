@@ -22,29 +22,81 @@ from characters.hunt.Yanqing import Yanqing
 from characters.nihility.Kafka import Kafka
 from characters.nihility.Luka import Luka
 from characters.nihility.Sampo import Sampo
+from characters.nihility.SilverWolf import SilverWolf
 
 from lightCones.destruction.ASecretVow import ASecretVow
-from lightCones.destruction.WoofWalkTime import WoofWalkTime
+from lightCones.destruction.BrighterThanTheSun import BrighterThanTheSun
+from lightCones.destruction.IShallBeMyOwnSword import IShallBeMyOwnSword
+from lightCones.destruction.NowhereToRun import NowhereToRun
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
+from lightCones.destruction.SomethingIrreplaceable import SomethingIrreplaceable
+from lightCones.destruction.TheMolesWelcomeYou import TheMolesWelcomeYou
+from lightCones.destruction.TheUnreachableSide import TheUnreachableSide
+from lightCones.destruction.UnderTheBlueSky import UnderTheBlueSky
+from lightCones.destruction.WoofWalkTime import WoofWalkTime
+
+from lightCones.erudition.BeforeDawn import BeforeDawn
+from lightCones.erudition.GeniusesRepose import GeniusesRepose
+from lightCones.erudition.MakeTheWorldClamor import MakeTheWorldClamor
+from lightCones.erudition.NightOnTheMilkyWay import NightOnTheMilkyWay
+from lightCones.erudition.TheBirthOfTheSelf import TheBirthOfTheSelf
 from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
+from lightCones.erudition.TodayIsAnotherPeacefulDay import TodayIsAnotherPeacefulDay
+
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
+from lightCones.hunt.InTheNight import InTheNight
+from lightCones.hunt.OnlySilenceRemains import OnlySilenceRemains
+from lightCones.hunt.ReturnToDarkness import ReturnToDarkness
+from lightCones.hunt.RiverFlowsInSpring import RiverFlowsInSpring
+from lightCones.hunt.SleepLikeTheDead import SleepLikeTheDead
+from lightCones.hunt.Swordplay import Swordplay
+from lightCones.hunt.WorrisomeBlissful import WorrisomeBlissful
+
+from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
+from lightCones.nihility.EyesOfThePrey import EyesOfThePrey
 from lightCones.nihility.Fermata import Fermata
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
+from lightCones.nihility.InTheNameOfTheWorld import InTheNameOfTheWorld
+from lightCones.nihility.IncessantRain import IncessantRain
+from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
+from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
+from lightCones.nihility.SolitaryHealing import SolitaryHealing
+from lightCones.nihility.WeWillMeetAgain import WeWillMeetAgain
+
+from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
+from lightCones.preservation.LandausChoice import LandausChoice
+from lightCones.preservation.MomentOfVictory import MomentOfVictory
+from lightCones.preservation.SheAlreadyShutHerEyes import SheAlreadyShutHerEyes
+from lightCones.preservation.TextureOfMemories import TextureOfMemories
+from lightCones.preservation.ThisIsMe import ThisIsMe
+from lightCones.preservation.TrendOfTheUniversalMarket import TrendOfTheUniversalMarket
+from lightCones.preservation.WeAreWildfire import WeAreWildfire
 
 from relicSets.relicSets.BandOfSizzlingThunder import BandOfSizzlingThunder2pc, BandOfSizzlingThunder4pc
 from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
 from relicSets.relicSets.EagleOfTwilightLine import EagleOfTwilightLine2pc, EagleOfTwilightLine4pc
 from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc, FiresmithOfLavaForging4pc
 from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc
+from relicSets.relicSets.GuardOfWutheringSnow import GuardOfWutheringSnow2pc
 from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
+from relicSets.relicSets.KnightOfPurityPalace import KnightOfPurityPalace2pc, KnightOfPurityPalace4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc, MusketeerOfWildWheat4pc
+from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
+from relicSets.planarSets.BelobogOfTheArchitects import BelobogOfTheArchitects
+from relicSets.planarSets.BrokenKeel import BrokenKeel
+from relicSets.planarSets.CelestialDifferentiator import CelestialDifferentiator
+from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.planarSets.InertSalsotto import InertSalsotto
+from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
 from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.planarSets.SpaceSealingStation import SpaceSealingStation
+from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
+from relicSets.planarSets.TaliaKingdomOfBanditry import TaliaKingdomOfBanditry
 
 config = copy(Configuration)
 config['numEnemies'] = 3 # Going to compare my numbers vs Grimro's 3 target numbers
@@ -312,3 +364,18 @@ swordStance = SushangCharacter.useSwordStance()
 print('Sword Stance Damage - Mine: {} - Grimro: {}'.format(swordStance.damage,4752.637094*0.95)) # 0.95 to factor in toughness multiplier
 ultimate = SushangCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,13163.57782*0.95)) # 0.95 to factor in toughness multiplier
+
+print('##### SilverWolf #####')
+SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'quanDmg'],
+                        substats = {'flatSpd': 4, 'CR': 4, 'CD': 8, 'EHR': 8}),
+                        lightcone = BeforeTheTutorialMissionStarts(**config),
+                        relicsetone = GeniusOfBrilliantStars2pc(),
+                        relicsettwo = GeniusOfBrilliantStars4pc(),
+                        planarset = PanCosmicCommercialEnterprise(),
+                        **config)
+
+skill = SilverWolfCharacter.useSkill()
+print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,10035.72419*0.95)) # 0.95 to factor in toughness multiplier
+ultimate = SilverWolfCharacter.useUltimate()
+print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,19457.01629*0.95)) # 0.95 to factor in toughness multiplier
+

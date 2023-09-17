@@ -198,11 +198,11 @@ class BaseCharacter(object):
                                                           "" if self.planarset is None else (" + " + self.planarset.shortname))
 
   def equipGear(self):
+    if self.relicstats is not None: self.relicstats.equipTo(self)
     if self.lightcone is not None: self.lightcone.equipTo(self)
     if self.relicsetone is not None: self.relicsetone.equipTo(self)
     if self.relicsettwo is not None: self.relicsettwo.equipTo(self)
     if self.planarset is not None: self.planarset.equipTo(self)
-    if self.relicstats is not None: self.relicstats.equipTo(self)
 
   def balanceCrit(self):
     totalCV = self.CR * 2 + self.CD

@@ -3,7 +3,7 @@ from baseClasses.BaseLightCone import BaseLightCone
 
 class SolitaryHealing(BaseLightCone):
   def __init__(self,
-               uptime:float=1.0,
+               uptime:float=0.5,
                **config):
     self.loadConeStats('Solitary Healing')
     self.setSuperposition(config)

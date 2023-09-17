@@ -11,8 +11,7 @@ class BaseLightCone(object):
   baseDef:float
   baseHP:float
   superposition:int
-  rarity:int
-  herta:bool
+  rarity:str
   name:str
     
   def loadConeStats(self, name:str):
@@ -23,15 +22,18 @@ class BaseLightCone(object):
         self.__dict__[column] = data
         
   def setSuperposition(self, config:dict):
-    if self.rarity == 3:
+    if self.rarity == '3':
       self.superposition = config['threestarSuperpositions']
-    elif self.rarity == 4:
+    elif self.rarity == '4':
       self.superposition = config['fourstarSuperpositions']
-    elif self.rarity == 5:
-      if self.herta:
-        self.superposition = config['hertaSuperpositions']
-      else:
-        self.superposition = config['fivestarSuperpositions']
+    elif self.rarity == '5':
+      self.superposition = config['fivestarSuperpositions']
+    elif self.rarity == 'Herta':
+      self.superposition = config['hertaSuperpositions']
+    elif self.rarity == 'Forgottenhall':
+      self.superposition = config['forgottenHallSuperpositions']
+    elif self.rarity == 'Battlepass':
+      self.superposition = config['battlePassSuperpositions']
         
   def addBaseStats(self, char:BaseCharacter):
     char.baseAtk += self.baseAtk

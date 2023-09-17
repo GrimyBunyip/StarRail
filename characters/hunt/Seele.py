@@ -13,12 +13,14 @@ class Seele(BaseCharacter):
                relicsettwo:RelicSet=None,
                planarset:RelicSet=None,
                sheathedBladeUptime:float=1.0,
+               e1Uptime:float=0.8,
                **config):
     super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
     self.loadCharacterStats('Seele')
     
     self.sheathedBladeUptime = sheathedBladeUptime
     self.resurgence = False
+    self.e1Uptime = e1Uptime
 
     # Motion Values should be set before talents or gear
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
@@ -29,6 +31,8 @@ class Seele(BaseCharacter):
     self.percSpd += ( 0.25 * self.sheathedBladeUptime ) * (2.0 if self.eidolon >= 2 else 1.0)
 
     # Eidolons
+    self.CR += (0.15 * self.e1Uptime) if self.eidolon >= 1 else 0.0
+    # e6 not yet implemented
     
     # Gear
     self.equipGear()

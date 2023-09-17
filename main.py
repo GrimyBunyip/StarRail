@@ -8,21 +8,23 @@ from visualizer.visualizer import visualize
 
 from characters.destruction.Blade import Blade
 from characters.destruction.Clara import Clara
-from characters.hunt.DanHeng import DanHeng
-from characters.erudition.Himeko import Himeko
 from characters.destruction.Hook import Hook
 from characters.destruction.Jingliu import Jingliu
-from characters.erudition.JingYuan import JingYuan
-from characters.nihility.Kafka import Kafka
 from characters.destruction.Lunae import Lunae
-from characters.nihility.Luka import Luka
-from characters.nihility.Sampo import Sampo
-from characters.hunt.Seele import Seele
+from characters.erudition.Himeko import Himeko
+from characters.erudition.JingYuan import JingYuan
 from characters.erudition.Serval import Serval
+from characters.erudition.Qingque import Qingque
+from characters.hunt.DanHeng import DanHeng
+from characters.hunt.Seele import Seele
 from characters.hunt.Sushang import Sushang
 from characters.hunt.Topaz import Topaz
-from characters.erudition.Qingque import Qingque
 from characters.hunt.Yanqing import Yanqing
+from characters.nihility.Kafka import Kafka
+from characters.nihility.Luka import Luka
+from characters.nihility.Sampo import Sampo
+from characters.nihility.SilverWolf import SilverWolf
+from characters.nihility.Welt import Welt
 
 from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.destruction.BrighterThanTheSun import BrighterThanTheSun
@@ -117,7 +119,7 @@ if __name__ == '__main__':
     # Kafka
     KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'lighDmg'],
                             substats = {'EHR': 5, 'percAtk': 3, 'flatSpd': 12}),
-                lightcone = SolitaryHealing(**config),
+                lightcone = GoodNightAndSleepWell(**config),
                 relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = SpaceSealingStation(),
                 **config)
     
@@ -158,8 +160,8 @@ if __name__ == '__main__':
                 **config)
     
     ClaraRotation = [ # 110 max energy
-            ClaraCharacter.useSkill() * 2.5,
-            ClaraCharacter.useMarkOfSvarog() * 2.5, # these are 3 instances of single target bonus damage
+            ClaraCharacter.useSkill() * 3,
+            ClaraCharacter.useMarkOfSvarog() * 3, # these are 3 instances of single target bonus damage
             ClaraCharacter.useTalent(enhanced=False), # 1 additional clara hit on top
             ClaraCharacter.useTalent(enhanced=True) * 2, # 2 reactions from ultimate
             ClaraCharacter.useUltimate(),
@@ -208,8 +210,8 @@ if __name__ == '__main__':
     
     # Jing Yuan
     JingYuanCharacter = JingYuan(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
-                            substats = {'CD': 12, 'CR': 1, 'flatSpd': 7}),
-                lightcone = TheSeriousnessOfBreakfast(stacks=3,**config),
+                            substats = {'CD': 8, 'CR': 5, 'flatSpd': 7}),
+                lightcone = GeniusesRepose(**config),
                 relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = InertSalsotto(),
                 **config)
     
@@ -234,9 +236,9 @@ if __name__ == '__main__':
     DefaultEstimator('JingYuan: 4E 1Q 17T', JingYuanRotation, JingYuanCharacter, config, VisualizationDict)
     
     # Seele
-    SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['percAtk', 'percAtk', 'CD', 'quanDmg'],
-                            substats = {'CR': 17, 'CD': 3}),
-                lightcone = CruisingInTheStellarSea(uptimeHP=0.5, **config),
+    SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['percAtk', 'percAtk', 'CR', 'quanDmg'],
+                            substats = {'CR': 10, 'CD': 10}),
+                lightcone = Swordplay(**config),
                 relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo=GeniusOfBrilliantStars4pc(), planarset = SpaceSealingStation(),
                 **config)
     
@@ -256,13 +258,10 @@ if __name__ == '__main__':
     DefaultEstimator('Seele: 4E 1Q No Resurgence', SeeleRotation, SeeleCharacter, config, VisualizationDict)
     
     # Dan Heng
-    DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'windDmg'],
-                            substats = {'CR': 14, 'CD': 6}),
-                lightcone = CruisingInTheStellarSea(uptimeHP=0.5, **config),
+    DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'windDmg'],
+                            substats = {'CR': 7, 'CD': 13}),
+                lightcone = Swordplay(**config),
                 relicsetone = EagleOfTwilightLine2pc(), relicsettwo=EagleOfTwilightLine4pc(), planarset = SpaceSealingStation(),
-                talentUptime = 0.0,
-                fasterThanLightUptime = 0.8,
-                e1Uptime=0.5,
                 **config)
     
     DanHengRotation = [
@@ -274,30 +273,28 @@ if __name__ == '__main__':
     
     #Yanqing
     YanqingCharacter = Yanqing(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
-                            substats = {'percAtk': 8, 'CD': 12}),
-                    lightcone = CruisingInTheStellarSea(uptimeHP=0.5, **config),
+                            substats = {'CR': 5, 'CD': 15}),
+                    lightcone = Swordplay(uptimeHP=0.5, **config),
                     relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(), planarset = SpaceSealingStation(),
                     soulsteelUptime = 1.0,
                     **config)
     
     YanqingRotation = [
-            YanqingCharacter.useSkill() * 3,
-            YanqingCharacter.useTalent() * 3,
+            YanqingCharacter.useSkill() * 2.5,
+            YanqingCharacter.useTalent() * 2.5,
             YanqingCharacter.useBliss(),
             YanqingCharacter.useUltimate(),
             YanqingCharacter.useSkill(),
             YanqingCharacter.useTalent() * 2,
             YanqingCharacter.endTurn(),
     ]
-    DefaultEstimator('Yanqing: 3E3T Bliss(1E 1Q 2T)', YanqingRotation, YanqingCharacter, config, VisualizationDict)
+    DefaultEstimator('Yanqing: 2E2T Bliss(1E 1Q 2T)', YanqingRotation, YanqingCharacter, config, VisualizationDict)
     
     # Jingliu
     JingliuCharacter = Jingliu(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
                             substats = {'CR': 13, 'CD': 7}),
                 lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
-                relicsetone = HunterOfGlacialForest2pc(),
-                relicsettwo = HunterOfGlacialForest4pc(),
-                planarset = RutilantArena(),
+                relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(), planarset = RutilantArena(),
                 speedBoostUptime=0.5,
                 **config)
     
@@ -310,12 +307,10 @@ if __name__ == '__main__':
     DefaultEstimator('Jingliu 2E 3Moon 1Q', JingliuRotation, JingliuCharacter, config, VisualizationDict)
     
     # Topaz
-    TopazCharacter = Topaz(RelicStats(mainstats = ['percAtk', 'percAtk', 'CD', 'fireDmg'],
-                            substats = {'CR': 10, 'CD': 10}),
-                lightcone = CruisingInTheStellarSea(**config),
-                relicsetone = FiresmithOfLavaForging2pc(),
-                relicsettwo = MusketeerOfWildWheat2pc(),
-                planarset = InertSalsotto(),
+    TopazCharacter = Topaz(RelicStats(mainstats = ['percAtk', 'percAtk', 'CR', 'fireDmg'],
+                            substats = {'CR': 6, 'CD': 14}),
+                lightcone = Swordplay(**config),
+                relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = InertSalsotto(),
                 **config)
     
     TopazRotation = [ # 130 max energy
@@ -335,9 +330,7 @@ if __name__ == '__main__':
     QingqueCharacter = Qingque(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'quanDmg'],
                             substats = {'CR': 6, 'CD': 13, 'flatSpd': 1}),
                 lightcone = TheSeriousnessOfBreakfast(**config),
-                relicsetone = GeniusOfBrilliantStars2pc(),
-                relicsettwo = GeniusOfBrilliantStars4pc(),
-                planarset = RutilantArena(),
+                relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = RutilantArena(),
                 **config)
     
     QingqueRotation = [ # expect 2.3 SP used per basic
@@ -360,9 +353,7 @@ if __name__ == '__main__':
     HimekoCharacter = Himeko(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'fireDmg'],
                             substats = {'CR': 3, 'CD': 11, 'flatSpd': 6}),
                 lightcone = TheSeriousnessOfBreakfast(**config),
-                relicsetone = FiresmithOfLavaForging2pc(),
-                relicsettwo = MusketeerOfWildWheat2pc(),
-                planarset = SpaceSealingStation(),
+                relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SpaceSealingStation(),
                 **config)
     
     HimekoRotation = [ # 
@@ -377,9 +368,7 @@ if __name__ == '__main__':
     HookCharacter = Hook(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'fireDmg'],
                             substats = {'CR': 4, 'CD': 9, 'flatSpd': 7}),
                 lightcone = OnTheFallOfAnAeon(**config),
-                relicsetone = FiresmithOfLavaForging2pc(),
-                relicsettwo = MusketeerOfWildWheat2pc(),
-                planarset = RutilantArena(),
+                relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = RutilantArena(),
                 **config)
     
     HookRotation = [ # 
@@ -394,42 +383,21 @@ if __name__ == '__main__':
     SampoCharacter = Sampo(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'windDmg'],
                             substats = {'percAtk': 7, 'flatSpd': 3, 'EHR': 10}),
                 lightcone = GoodNightAndSleepWell(**config),
-                relicsetone = EagleOfTwilightLine2pc(),
-                relicsettwo = MusketeerOfWildWheat2pc(),
-                planarset = PanCosmicCommercialEnterprise(),
+                relicsetone = EagleOfTwilightLine2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = PanCosmicCommercialEnterprise(),
                 **config)
     
     SampoRotation = [ # 
-            SampoCharacter.useSkill() * 3,
+            SampoCharacter.useSkill() * 3.5,
             SampoCharacter.useUltimate(),
     ]
     
     DefaultEstimator('Sampo 2x5 Stacks 3.5E 1Q', SampoRotation, SampoCharacter, config, VisualizationDict, dotMode='alwaysBlast')
     
-    # Sampo
-    SampoCharacter = Sampo(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'windDmg'],
-                            substats = {'percAtk': 7, 'flatSpd': 3, 'EHR': 10}),
-                lightcone = SolitaryHealing(**config),
-                relicsetone = EagleOfTwilightLine2pc(),
-                relicsettwo = MusketeerOfWildWheat2pc(),
-                planarset = PanCosmicCommercialEnterprise(),
-                windshearStacks=3.0,
-                **config)
-    
-    SampoRotation = [ # 
-            SampoCharacter.useSkill() * 3,
-            SampoCharacter.useUltimate(),
-    ]
-    
-    DefaultEstimator('Sampo 2x3 Stacks 3.5E 1N 1Q', SampoRotation, SampoCharacter, config, VisualizationDict, dotMode='alwaysBlast')
-
     # Luka
     LukaCharacter = Luka(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'physDmg'],
                         substats = {'percAtk': 4, 'flatSpd': 3, 'EHR': 13}),
-                lightcone = SolitaryHealing(**config),
-                relicsetone = ChampionOfStreetwiseBoxing2pc(),
-                relicsettwo = ChampionOfStreetwiseBoxing4pc(),
-                planarset = SpaceSealingStation(),
+                lightcone = GoodNightAndSleepWell(**config),
+                relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = ChampionOfStreetwiseBoxing4pc(), planarset = SpaceSealingStation(),
                 **config)
     
     LukaRotation = [ # 
@@ -443,10 +411,8 @@ if __name__ == '__main__':
     # Sushang
     SushangCharacter = Sushang(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'physDmg'],
                         substats = {'CR': 13, 'CD': 7}),
-                        lightcone = CruisingInTheStellarSea(**config),
-                        relicsetone = ChampionOfStreetwiseBoxing2pc(),
-                        relicsettwo = ChampionOfStreetwiseBoxing4pc(),
-                        planarset = RutilantArena(),
+                        lightcone = Swordplay(**config),
+                        relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = ChampionOfStreetwiseBoxing4pc(), planarset = RutilantArena(),
                         **config)
     
     SushangRotation = [ # do not multiply here, repeat entries as these uses factor in end turn and ultimate buff
@@ -458,5 +424,33 @@ if __name__ == '__main__':
     ]
     
     DefaultEstimator('Sushang 4E 1Q', SushangRotation, SushangCharacter, config, VisualizationDict)
+    
+    # Welt
+    WeltCharacter = Welt(RelicStats(mainstats = ['ER', 'flatSpd', 'CR', 'percAtk'],
+                        substats = {'CD': 11, 'CR': 6, 'flatSpd':3}),
+                lightcone = GoodNightAndSleepWell(**config),
+                relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = SpaceSealingStation(),
+                **config)
+    
+    WeltRotation = [ # 
+            WeltCharacter.useSkill() * 2, #
+            WeltCharacter.useUltimate(), #
+    ]
+    
+    DefaultEstimator('Welt 2E 1Q', WeltRotation, WeltCharacter, config, VisualizationDict)
+    
+    # SilverWolf
+    SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'flatSpd', 'EHR', 'breakEffect'],
+                        substats = {'flatSpd':12,'breakEffect':8}),
+                lightcone = BeforeTheTutorialMissionStarts(**config),
+                relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars2pc(), planarset = SprightlyVonwacq(),
+                **config)
+    
+    SilverWolfRotation = [ # 
+            SilverWolfCharacter.useSkill() * 2, #
+            SilverWolfCharacter.useUltimate(), #
+    ]
+    
+    DefaultEstimator('SilverWolf 2E 1Q', SilverWolfRotation, SilverWolfCharacter, config, VisualizationDict)
 
     visualize(VisualizationDict, **config)
