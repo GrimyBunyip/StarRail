@@ -181,7 +181,7 @@ if __name__ == '__main__':
                 planarset = RutilantArena(),
                 **config)
      
-    LunaeRotation = [  # 140 energy needed
+    LunaeRotation = [  # 140 energy needed. EndTurn needed to factor in his buffs
                 LunaeCharacter.useSkill()*3,
                 LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
                 LunaeCharacter.endTurn(),
@@ -244,7 +244,7 @@ if __name__ == '__main__':
                 relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo=GeniusOfBrilliantStars4pc(), planarset = SpaceSealingStation(),
                 **config)
     
-    SeeleRotation = [
+    SeeleRotation = [ # endTurn needed to factor in resurgence buff
             SeeleCharacter.useSkill() * 3,
             SeeleCharacter.useResurgence(),
             SeeleCharacter.useSkill(),
@@ -281,7 +281,7 @@ if __name__ == '__main__':
                     soulsteelUptime = 1.0,
                     **config)
     
-    YanqingRotation = [
+    YanqingRotation = [ # endTurn needed to factor in limited buffs
             YanqingCharacter.useSkill() * 2.5,
             YanqingCharacter.useTalent() * 2.5,
             YanqingCharacter.useBliss(),
@@ -462,7 +462,7 @@ if __name__ == '__main__':
                 relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(), planarset = SpaceSealingStation(),
                 **config)
     
-    HertaRotation = [ # 
+    HertaRotation = [ # sequencing and end turn mechanic exists her to factor in her ult buff
             HertaCharacter.useSkill() * 2,
             HertaCharacter.useTalent(),
             HertaCharacter.useUltimate(),

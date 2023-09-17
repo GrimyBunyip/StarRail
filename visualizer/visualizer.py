@@ -6,7 +6,7 @@ import io
 
 from baseClasses.BaseEffect import BaseEffect
 
-def visualize(VisualizationDict:dict, **config):
+def visualize(VisualizationDict:dict, visualizerPath:str='visualizer\\visual.png',  **config):
     color_dict = {
         'wind': 'green',
         'fire': 'red',
@@ -100,5 +100,5 @@ def visualize(VisualizationDict:dict, **config):
     plt.yticks([])
     plt.title('Star Rail Damage per Cycle Calculator | 20 substats\n {} targets: {} with {} HP, {} Toughness, {:.2f} speed'.format(config['numEnemies'], config['enemyType'], config['enemyMaxHP'], config['enemyToughness'], config['enemySpeed']))
     plt.tight_layout()
-    plt.savefig('visualizer\\visual.png')
+    plt.savefig(visualizerPath)
     plt.show()

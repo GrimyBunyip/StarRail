@@ -1,6 +1,6 @@
 Configuration = {
     'numEnemies': 2, # number of enemies we are
-    'numRounds': 8, # number of rounds simulated
+    'numRounds': 8, # number of rounds simulated, not currently used
     'enemyLevel': 90, # level of enemies
     'enemySpeed': 132, # lvl 86+ enemies have 1.32 speed multiplier. Used for calculating Dot Damage
     'enemyType': 'elite', # options are elite or basic
