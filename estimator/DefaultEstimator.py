@@ -2,7 +2,14 @@ from copy import copy
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseEffect import BaseEffect
 
-def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config:dict, VisualizationDict:dict,
+class VisualizationInfo():
+  name:str
+  character:BaseCharacter
+  effect:BaseEffect
+  breakEffect:BaseEffect
+  dotEffect:BaseEffect
+
+def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config:dict,
                      breakDotMode:str = 'limited', dotMode:str = 'alwaysSingle'):
   
   totalEffect:BaseEffect = BaseEffect()
@@ -36,7 +43,11 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
   elif breakDotMode == 'alwaysAll':
     breakEffect += char.useBreakDot() * num_enemy_turns * char.numEnemies
 
-  VisualizationDict['CharacterDict'][rotationName] = copy(char)
-  VisualizationDict['EffectDict'][rotationName] = copy(totalEffect)
-  VisualizationDict['BreakDict'][rotationName] = copy(breakEffect)
-  VisualizationDict['DotDict'][rotationName] = copy(dotEffect)
+  retval = VisualizationInfo()
+  retval.name = rotationName
+  retval.character = copy(char)
+  retval.effect = copy(totalEffect)
+  retval.breakEffect = copy(breakEffect)
+  retval.dotEffect = copy(dotEffect)
+  
+  return retval

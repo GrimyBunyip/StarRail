@@ -15,6 +15,7 @@ class BaseLightCone(object):
   name:str
     
   def loadConeStats(self, name:str):
+    self.name = name
     df = pd.read_csv(STATS_FILEPATH)
     rows = df.iloc[:, 0]
     for column in df.columns:

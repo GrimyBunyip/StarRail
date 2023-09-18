@@ -3,10 +3,12 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from matplotlib.colors import to_rgba
 from urllib.request import urlopen
 import io
+from baseClasses.BaseCharacter import BaseCharacter
 
+from estimator.DefaultEstimator import VisualizationInfo
 from baseClasses.BaseEffect import BaseEffect
 
-def visualize(VisualizationDict:dict, visualizerPath:str='visualizer\\visual.png',  **config):
+def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.png',  **config):
     color_dict = {
         'wind': 'green',
         'fire': 'red',
@@ -28,68 +30,70 @@ def visualize(VisualizationDict:dict, visualizerPath:str='visualizer\\visual.png
         color_dict[key] = [rgba1, rgba2, rgba3]
 
     # Sample data
-    categories = []
+    rotationNames = []
     values = []
     characters = []
     colors = []
-    for rotationName, value in VisualizationDict['EffectDict'].items():
-        value:BaseEffect
-        breakValue:BaseEffect = VisualizationDict['BreakDict'][rotationName]
-        dotValue:BaseEffect = VisualizationDict['DotDict'][rotationName]
+    for info in visInfo:
+        info:VisualizationInfo
+        rotationName:str = info.name
+        actionEffect:BaseEffect = info.effect
+        breakValue:BaseEffect = info.breakEffect
+        dotValue:BaseEffect = info.dotEffect
+        char:BaseCharacter = info.character
         
-        speed = VisualizationDict['CharacterDict'][rotationName].getTotalSpd()
-        cycles = value.actionvalue * 100.0 / speed
-        values.append([(value.damage) / cycles, 
-                       (value.damage + dotValue.damage) / cycles, 
-                       (value.damage + dotValue.damage + breakValue.damage) / cycles])
-        categories.append(rotationName)
-        characters.append(VisualizationDict['CharacterDict'][rotationName])
-        colors.append(color_dict[VisualizationDict['CharacterDict'][rotationName].element])
+        speed = char.getTotalSpd()
+        cycles = actionEffect.actionvalue * 100.0 / speed
+        values.append([(actionEffect.damage) / cycles, 
+                       (actionEffect.damage + dotValue.damage) / cycles, 
+                       (actionEffect.damage + dotValue.damage + breakValue.damage) / cycles])
+        rotationNames.append(rotationName)
+        characters.append(char)
+        colors.append(color_dict[char.element])
 
     # sort the data from highest at the top
-    combined_data = list(zip(categories, values, characters, colors))
+    combined_data = list(zip(rotationNames, values, characters, colors))
     sorted_data = sorted(combined_data, key=lambda x:x[1][2])
-    categories, values, characters, colors = zip(*sorted_data)
+    rotationNames, values, characters, colors = zip(*sorted_data)
 
     fig, ax = plt.subplots(figsize=(22,2*len(characters)))
 
     # Create the bar chart
-    bars = ax.barh(categories, [x[0] for x in values], color = [x[0] for x in colors])
-    bars = ax.barh(categories, [x[1] for x in values], color = [x[1] for x in colors])
-    bars = ax.barh(categories, [x[2] for x in values], color = [x[2] for x in colors])
+    bars = ax.barh([x for x in range(len(rotationNames))], [x[0] for x in values], color = [x[0] for x in colors])
+    bars = ax.barh([x for x in range(len(rotationNames))], [x[1] for x in values], color = [x[1] for x in colors])
+    bars = ax.barh([x for x in range(len(rotationNames))], [x[2] for x in values], color = [x[2] for x in colors])
 
     # define left and right offsets
     LEFT_OFFSET = 1000
     RIGHT_OFFSET = 2500
 
     # Download images and inlay them on the bars as annotations
-    for bar, character, rotationName in zip(bars, characters, categories):
-        img_data = urlopen(character.graphic).read()
+    for bar, char, rotationName in zip(bars, characters, rotationNames):
+        img_data = urlopen(char.graphic).read()
         img = plt.imread(io.BytesIO(img_data), format='png')  # You might need to adjust the format based on the image type
         img = OffsetImage(img, zoom=0.5)  # Adjust the zoom factor as needed
         ab1 = AnnotationBbox(img, (bar.get_width() - RIGHT_OFFSET, bar.get_y() + bar.get_height()/2), frameon=False)
 
-        effect = VisualizationDict['EffectDict'][rotationName]
-        speed = VisualizationDict['CharacterDict'][rotationName].getTotalSpd()
-        effectHitRate = VisualizationDict['CharacterDict'][rotationName].EHR
-        cycles = effect.actionvalue * 100.0 / speed # action value = # of turns kafka took, cycles = # of cycles that passed during this rotation
+        speed = char.getTotalSpd()
+        effectHitRate = char.EHR
+        cycles = actionEffect.actionvalue * 100.0 / speed # action value = # of turns kafka took, cycles = # of cycles that passed during this rotation
 
         ax.add_artist(ab1)
         ax.text(x = LEFT_OFFSET,
                 y = bar.get_y() + bar.get_height() * 2 / 4,
-                s = character.longName + 
+                s = char.longName + 
                     '\nSpd: ' + str(round(speed, 2)) + '    EHR: ' + str(round(effectHitRate, 2)) + 
                     '\nRotation Cycles: ' + str(round(cycles, 2)),
                 va = 'center', 
                 color = 'white')
 
-        energySurplus = VisualizationDict['EffectDict'][rotationName].energy - character.maxEnergy
+        energySurplus = actionEffect.energy - char.maxEnergy
         ax.text(x = bar.get_x() + bar.get_width() * 1 / 2,
                 y = bar.get_y() + bar.get_height() * 2 / 4,
                 s = rotationName + 
-                    '\nDamage per Cycle: ' + str(int(effect.damage / cycles)) + 
-                    '\nGauge per Cycle: ' + str(round(effect.gauge / cycles, 1)) + 
-                    '\nSP per Cycle: ' + str(round(-effect.skillpoints / cycles, 2)) + 
+                    '\nDamage per Cycle: ' + str(int(actionEffect.damage / cycles)) + 
+                    '\nGauge per Cycle: ' + str(round(actionEffect.gauge / cycles, 1)) + 
+                    '\nSP per Cycle: ' + str(round(-actionEffect.skillpoints / cycles, 2)) + 
                     '\nEnergy Surplus per Rotation: ' + str(round(energySurplus, 2)),
                 va = 'center', 
                 color = 'white')

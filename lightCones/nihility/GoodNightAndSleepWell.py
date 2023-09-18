@@ -4,6 +4,7 @@ from baseClasses.BaseLightCone import BaseLightCone
 class GoodNightAndSleepWell(BaseLightCone):
   def __init__(self,
                stacks:float=3.0,
+               superposition = None,
                **config):
     self.loadConeStats('Good Night and Sleep Well')
     self.setSuperposition(config)

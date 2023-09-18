@@ -6,7 +6,7 @@ class PatienceIsAllYouNeed(BaseLightCone):
   def __init__(self,
                stacks:float=3.0,
                **config):
-    self.loadConeStats('Patience is All You Need')
+    self.loadConeStats('Patience Is All You Need')
     self.setSuperposition(config)
     self.stacks = stacks
 

@@ -17,6 +17,7 @@ class IncessantRain(BaseLightCone):
       char.EHR += 0.20 + 0.04 * self.superposition
       char.CR += ( 0.10 + 0.02 * self.superposition ) * self.uptime
       char.Dmg += ( 0.10 + 0.02 * self.superposition ) * self.uptimeAether
+      char.Vulnerability += 0.1 + 0.02 * self.superposition
       
 if __name__ == '__main__':
   from settings.BaseConfiguration import Configuration
