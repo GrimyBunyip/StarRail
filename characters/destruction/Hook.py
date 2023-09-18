@@ -33,10 +33,10 @@ class Hook(BaseCharacter):
     
     # Talents
     self.advanceForwardType['ultimate'] += 0.20 # ascension
-    self.bonusEnergyType['ultimate'] += 5.0
-    self.bonusEnergyType['basic'] += 5.0 * self.burnedUptime
-    self.bonusEnergyType['skill'] += 5.0 * self.burnedUptime
-    self.bonusEnergyType['ultimate'] += 5.0 * self.burnedUptime
+    self.bonusEnergyAttack['ultimate'] += 5.0
+    self.bonusEnergyAttack['basic'] += 5.0 * self.burnedUptime
+    self.bonusEnergyAttack['skill'] += 5.0 * self.burnedUptime
+    self.bonusEnergyAttack['ultimate'] += 5.0 * self.burnedUptime
     
     # Eidolons
     self.DmgType['enhancedSkill'] += 0.20 if self.eidolon >= 1 else 0.0
@@ -52,7 +52,7 @@ class Hook(BaseCharacter):
     retval.damage *= self.getTotalDmg('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     return retval
@@ -64,7 +64,7 @@ class Hook(BaseCharacter):
     retval.damage *= self.getTotalDmg('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     return retval
@@ -77,7 +77,7 @@ class Hook(BaseCharacter):
     retval.damage *= self.getTotalDmg(['skill','enhancedSkill'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.breakEfficiency)
-    retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     return retval
@@ -89,7 +89,7 @@ class Hook(BaseCharacter):
     retval.damage *= self.getTotalDmg('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     return retval
   

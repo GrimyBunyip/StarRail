@@ -56,7 +56,7 @@ class Sushang(BaseCharacter):
     retval.damage *= self.getVulnerabilityType('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     self.endTurn()
@@ -74,7 +74,7 @@ class Sushang(BaseCharacter):
     retval.damage *= self.getVulnerabilityType('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0 + (self.weaknessBrokenUptime if self.eidolon >= 1 else 0.0)
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     self.endTurn()
@@ -97,7 +97,7 @@ class Sushang(BaseCharacter):
     retval.damage *= self.getVulnerabilityType('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     self.ultBuffCooldown = 2
     self.percAtk += (0.324 if self.eidolon >= 5 else 0.3)
@@ -111,7 +111,7 @@ class Sushang(BaseCharacter):
     retval.damage *= self.getVulnerabilityType(['followup','talent'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 10.0 + self.bonusEnergyType['talent'] + self.bonusEnergyType['followup'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 10.0 + self.bonusEnergyAttack['talent'] + self.bonusEnergyAttack['followup'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['talent'] - self.advanceForwardType['followup'])
     return retval
   

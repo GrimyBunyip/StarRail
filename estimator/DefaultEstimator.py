@@ -2,7 +2,6 @@ from copy import copy
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseEffect import BaseEffect
 
-
 def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config:dict, VisualizationDict:dict,
                      breakDotMode:str = 'limited', dotMode:str = 'alwaysSingle'):
   

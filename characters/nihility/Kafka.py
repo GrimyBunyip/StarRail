@@ -40,7 +40,7 @@ class Kafka(BaseCharacter):
     retval.damage *= self.getTotalDmg('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     return retval
@@ -53,7 +53,7 @@ class Kafka(BaseCharacter):
     retval.damage *= self.getTotalDmg('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.breakEfficiency)
-    retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     
@@ -70,7 +70,7 @@ class Kafka(BaseCharacter):
     retval.damage *= self.getTotalDmg('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * self.numEnemies * (1.0 + self.breakEfficiency)
-    retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     
     # assume breakDot single target, usualDot AOE
@@ -87,7 +87,7 @@ class Kafka(BaseCharacter):
     retval.damage *= self.getTotalDmg('talent')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 10.0 + self.bonusEnergyType['talent'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 10.0 + self.bonusEnergyAttack['talent'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 0.0
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['talent'])
     return retval
@@ -98,6 +98,6 @@ class Kafka(BaseCharacter):
     # no crits on dots
     retval.damage *= self.getTotalDmg('dot') + (1.56 if self.eidolon >= 6 else 0.0)
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.energy = ( 0.0 + self.bonusEnergyType['dot'] + (2.0 if self.eidolon >= 4 else 0.0) ) * ( 1.0 + self.ER )
+    retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] + (2.0 if self.eidolon >= 4 else 0.0) ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['dot'])
     return retval

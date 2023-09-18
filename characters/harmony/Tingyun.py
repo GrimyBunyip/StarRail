@@ -27,8 +27,7 @@ class Tingyun(BaseCharacter):
     # Talents
     self.percSpd += 0.20 * self.speedUptime
     self.DmgType['basic'] += 0.40
-    self.bonusEnergyType['basic'] += 5.0 if self.eidolon >= 2 else 0.0
-    self.bonusEnergyType['skill'] += 5.0 if self.eidolon >= 2 else 0.0
+    self.bonusEnergyAttack['turn'] += 5.0 if self.eidolon >= 2 else 0.0
 
     # Eidolons
     
@@ -42,7 +41,7 @@ class Tingyun(BaseCharacter):
     retval.damage *= self.getTotalDmg('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     
@@ -51,14 +50,14 @@ class Tingyun(BaseCharacter):
 
   def useSkill(self):
     retval = BaseEffect()
-    retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 30.0 + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     return retval
 
   def useUltimate(self):
     retval = BaseEffect()
-    retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
+    retval.energy = 5.0 * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     return retval
   

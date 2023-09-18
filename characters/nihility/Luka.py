@@ -39,9 +39,9 @@ class Luka(BaseCharacter):
     
     # Talents
     self.Vulnerability += (0.216 if self.eidolon >= 5 else 0.2) * self.ultDebuffUptime
-    self.bonusEnergyType['ultimate'] += 6.0 # cycle braking
-    self.bonusEnergyType['basic'] += 3.0 # cycle braking
-    self.bonusEnergyType['skill'] += 3.0 + 3.0 * self.e2uptime # cycle braking and e2
+    self.bonusEnergyAttack['ultimate'] += 6.0 # cycle braking
+    self.bonusEnergyAttack['basic'] += 3.0 # cycle braking
+    self.bonusEnergyAttack['skill'] += 3.0 + 3.0 * self.e2uptime # cycle braking and e2
     
     # Eidolons
     self.Dmg += 0.15 * self.bleedUptime # e1
@@ -58,7 +58,7 @@ class Luka(BaseCharacter):
     retval.damage *= self.getVulnerabilityType('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     return retval
@@ -71,7 +71,7 @@ class Luka(BaseCharacter):
     retval.damage *= self.getVulnerabilityType('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 20.0 + self.bonusEnergyType['enhancedBasic'] ) * ( 1.0 + self.ER ) # enhanced basic doesn't benefit from cycle braking, change energy tag here
+    retval.energy = ( 20.0 + self.bonusEnergyAttack['enhancedBasic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER ) # enhanced basic doesn't benefit from cycle braking, change energy tag here
     retval.skillpoints = 1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     
@@ -88,7 +88,7 @@ class Luka(BaseCharacter):
     retval.damage *= self.getVulnerabilityType('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     return retval
@@ -101,7 +101,7 @@ class Luka(BaseCharacter):
     retval.damage *= self.getVulnerabilityType('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     return retval
 

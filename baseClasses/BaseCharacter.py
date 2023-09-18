@@ -155,7 +155,7 @@ class BaseCharacter(object):
       'dot':0.0,
     }
     
-    self.bonusEnergyType = {
+    self.bonusEnergyAttack = {
       'basic':0.0,
       'enhancedBasic':0.0,
       'skill':0.0,
@@ -164,6 +164,7 @@ class BaseCharacter(object):
       'talent':0.0,
       'followup':0.0,
       'dot':0.0,
+      'turn':0.0,
     }
     
     self.advanceForwardType = {

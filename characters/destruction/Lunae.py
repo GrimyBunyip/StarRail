@@ -72,7 +72,7 @@ class Lunae(BaseCharacter):
     if hitNum is None:
       for i in range(2):
         retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
+        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     elif hitNum > 0:
@@ -90,7 +90,7 @@ class Lunae(BaseCharacter):
       for i in range(3):
         retval += self.useEnhancedBasic1(hitNum=i+1)
       retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-      retval.energy = ( 30.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
+      retval.energy = ( 30.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
       retval.skillpoints = 0.0
       retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     elif hitNum > 0: # individual hits
@@ -110,7 +110,7 @@ class Lunae(BaseCharacter):
       for i in range(5):
         retval += self.useEnhancedBasic2(hitNum=i+1)
       retval.gauge = ( 90.0 + 30.0 * num_adjacents ) * (1.0 + self.breakEfficiency)
-      retval.energy = ( 35.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
+      retval.energy = ( 35.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
       retval.skillpoints = 0.0
       retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     elif hitNum > 0: # individual hits
@@ -131,7 +131,7 @@ class Lunae(BaseCharacter):
       for i in range(7):
         retval += self.useEnhancedBasic3(hitNum=i+1)
       retval.gauge = ( 120.0 + 60.0 * num_adjacents ) * (1.0 + self.breakEfficiency)
-      retval.energy = ( 40.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
+      retval.energy = ( 40.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
       retval.skillpoints = 0.0
       retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     elif hitNum > 0: # individual hits
@@ -157,7 +157,7 @@ class Lunae(BaseCharacter):
       for i in range(3):
         retval += self.useUltimate(hitNum=i+1)
       retval.gauge = ( 60.0 * numBlast ) * (1.0 + self.breakEfficiency)
-      retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
+      retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
       retval.skillpoints = 3.0 if self.eidolon >= 2 else 2.0
       retval.actionvalue = -1.0 if self.eidolon >= 2 else 0.0
     elif hitNum > 0: # individual hits

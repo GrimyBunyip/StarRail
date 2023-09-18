@@ -46,7 +46,7 @@ class SilverWolf(BaseCharacter):
     self.enemySpeed /= 1.0 - (0.06 if self.eidolon >= 3 else 0.066) * self.talentSpdUptime
     
     # Eidolons
-    self.bonusEnergyType['ultimate'] += (7.0 * min(5.0,self.numDebuffs)) if self.eidolon >= 1 else 0.0
+    self.bonusEnergyAttack['ultimate'] += (7.0 * min(5.0,self.numDebuffs)) if self.eidolon >= 1 else 0.0
     self.motionValueDict['ultimate'][0].value += (0.20 * min(5.0,self.numDebuffs)) if self.eidolon >= 4 else 0.0
     self.Dmg += (0.20 * min(5.0,self.numDebuffs)) if self.eidolon >= 6 else 0.0
     
@@ -61,7 +61,7 @@ class SilverWolf(BaseCharacter):
     retval.damage *= self.getVulnerabilityType('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 20.0 + self.bonusEnergyType['basic'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     return retval
@@ -74,7 +74,7 @@ class SilverWolf(BaseCharacter):
     retval.damage *= self.getVulnerabilityType('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-    retval.energy = ( 30.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     return retval
@@ -87,6 +87,6 @@ class SilverWolf(BaseCharacter):
     retval.damage *= self.getVulnerabilityType('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 90.0 * self.numEnemies * (1.0 + self.breakEfficiency)
-    retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     return retval

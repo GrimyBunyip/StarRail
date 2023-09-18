@@ -71,13 +71,14 @@ def visualize(VisualizationDict:dict, visualizerPath:str='visualizer\\visual.png
 
         effect = VisualizationDict['EffectDict'][rotationName]
         speed = VisualizationDict['CharacterDict'][rotationName].getTotalSpd()
+        effectHitRate = VisualizationDict['CharacterDict'][rotationName].EHR
         cycles = effect.actionvalue * 100.0 / speed # action value = # of turns kafka took, cycles = # of cycles that passed during this rotation
 
         ax.add_artist(ab1)
         ax.text(x = LEFT_OFFSET,
                 y = bar.get_y() + bar.get_height() * 2 / 4,
                 s = character.longName + 
-                    '\nSpd: ' + str(round(speed, 2)) + 
+                    '\nSpd: ' + str(round(speed, 2)) + '    EHR: ' + str(round(effectHitRate, 2)) + 
                     '\nRotation Cycles: ' + str(round(cycles, 2)),
                 va = 'center', 
                 color = 'white')

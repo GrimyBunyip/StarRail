@@ -43,7 +43,7 @@ class Serval(BaseCharacter):
     retval.damage *= self.getTotalDmg('basic') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 30.0 * self.numEnemies if shocked else 30.0 ) * (1.0 + self.breakEfficiency)
-    retval.energy = ( 20.0 + self.bonusEnergyType['basic'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
+    retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     return retval
@@ -57,7 +57,7 @@ class Serval(BaseCharacter):
     retval.damage *= self.getTotalDmg('skill') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.breakEfficiency)
-    retval.energy = ( 30.0 + self.bonusEnergyType['skill'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
+    retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     return retval
@@ -70,7 +70,7 @@ class Serval(BaseCharacter):
     retval.damage *= self.getTotalDmg('ultimate') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * self.numEnemies * (1.0 + self.breakEfficiency)
-    retval.energy = ( 5.0 + self.bonusEnergyType['ultimate'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
+    retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     return retval
 
@@ -80,6 +80,6 @@ class Serval(BaseCharacter):
     # no crits on dots
     retval.damage *= self.getTotalDmg('dot') + ( 0.3 if (shocked and self.eidolon >= 6) else 0.0 )
     retval.damage = self.applyDamageMultipliers(retval.damage)
-    retval.energy = ( 0.0 + self.bonusEnergyType['dot'] ) * ( 1.0 + self.ER )
+    retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['dot'])
     return retval

@@ -14,7 +14,7 @@ class IShallBeMyOwnSword(BaseLightCone):
     if char.path == 'destruction':
       char.DmgType['skill'] += 0.25 + 0.05 * self.superposition
       char.CD += 0.3 + 0.06 * self.superposition
-      char.bonusEnergyType['ultimate'] += 10.0 + 2.0 * self.superposition
+      char.bonusEnergyAttack['ultimate'] += 10.0 + 2.0 * self.superposition
     
 if __name__ == '__main__':
   from settings.BaseConfiguration import Configuration

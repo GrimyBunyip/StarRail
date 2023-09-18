@@ -1,6 +1,5 @@
 from copy import copy
 
-import numpy as np
 from settings.BaseConfiguration import Configuration
 from baseClasses.RelicStats import RelicStats
 from estimator.DefaultEstimator import DefaultEstimator
