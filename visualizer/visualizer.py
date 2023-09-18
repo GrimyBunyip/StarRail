@@ -34,27 +34,29 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
     values = []
     characters = []
     colors = []
+    totalEffects = []
     for info in visInfo:
         info:VisualizationInfo
         rotationName:str = info.name
         actionEffect:BaseEffect = info.effect
-        breakValue:BaseEffect = info.breakEffect
-        dotValue:BaseEffect = info.dotEffect
+        breakEffect:BaseEffect = info.breakEffect
+        dotEffect:BaseEffect = info.dotEffect
         char:BaseCharacter = info.character
         
         speed = char.getTotalSpd()
         cycles = actionEffect.actionvalue * 100.0 / speed
         values.append([(actionEffect.damage) / cycles, 
-                       (actionEffect.damage + dotValue.damage) / cycles, 
-                       (actionEffect.damage + dotValue.damage + breakValue.damage) / cycles])
+                       (actionEffect.damage + dotEffect.damage) / cycles, 
+                       (actionEffect.damage + dotEffect.damage + breakEffect.damage) / cycles])
+        totalEffects.append(actionEffect + dotEffect + breakEffect)
         rotationNames.append(rotationName)
         characters.append(char)
         colors.append(color_dict[char.element])
 
     # sort the data from highest at the top
-    combined_data = list(zip(rotationNames, values, characters, colors))
+    combined_data = list(zip(rotationNames, values, characters, colors, totalEffects))
     sorted_data = sorted(combined_data, key=lambda x:x[1][2])
-    rotationNames, values, characters, colors = zip(*sorted_data)
+    rotationNames, values, characters, colors, totalEffects = zip(*sorted_data)
 
     fig, ax = plt.subplots(figsize=(22,2*len(characters)))
 
@@ -68,7 +70,8 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
     RIGHT_OFFSET = 2500
 
     # Download images and inlay them on the bars as annotations
-    for bar, char, rotationName in zip(bars, characters, rotationNames):
+    for bar, char, rotationName, totalEffect in zip(bars, characters, rotationNames, totalEffects):
+        totalEffect:BaseEffect
         img_data = urlopen(char.graphic).read()
         img = plt.imread(io.BytesIO(img_data), format='png')  # You might need to adjust the format based on the image type
         img = OffsetImage(img, zoom=0.5)  # Adjust the zoom factor as needed
@@ -76,7 +79,7 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
 
         speed = char.getTotalSpd()
         effectHitRate = char.EHR
-        cycles = actionEffect.actionvalue * 100.0 / speed # action value = # of turns kafka took, cycles = # of cycles that passed during this rotation
+        cycles = totalEffect.actionvalue * 100.0 / speed # action value = # of turns kafka took, cycles = # of cycles that passed during this rotation
 
         ax.add_artist(ab1)
         ax.text(x = LEFT_OFFSET,
@@ -87,13 +90,13 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
                 va = 'center', 
                 color = 'white')
 
-        energySurplus = actionEffect.energy - char.maxEnergy
+        energySurplus = totalEffect.energy - char.maxEnergy
         ax.text(x = bar.get_x() + bar.get_width() * 1 / 2,
                 y = bar.get_y() + bar.get_height() * 2 / 4,
                 s = rotationName + 
-                    '\nDamage per Cycle: ' + str(int(actionEffect.damage / cycles)) + 
-                    '\nGauge per Cycle: ' + str(round(actionEffect.gauge / cycles, 1)) + 
-                    '\nSP per Cycle: ' + str(round(-actionEffect.skillpoints / cycles, 2)) + 
+                    '\nDamage per Cycle: ' + str(int((totalEffect.damage) / cycles)) + 
+                    '\nGauge per Cycle: ' + str(round(totalEffect.gauge / cycles, 1)) + 
+                    '\nSP per Cycle: ' + str(round(-totalEffect.skillpoints / cycles, 2)) + 
                     '\nEnergy Surplus per Rotation: ' + str(round(energySurplus, 2)),
                 va = 'center', 
                 color = 'white')
