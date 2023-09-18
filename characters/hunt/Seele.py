@@ -61,7 +61,7 @@ class Seele(BaseCharacter):
     retval.actionvalue = 1.0 - 0.2 - min(1.0,self.advanceForwardType['skill']) # advance forward 0.2 from passive
     return retval
 
-  def useUltimate(self, slowed = True):
+  def useUltimate(self):
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('ultimate')
     retval.damage *= self.getTotalCrit('ultimate')

@@ -216,6 +216,8 @@ class BaseCharacter(object):
     if isinstance(type, list):
       bonuses = sum([self.percAtkType[x] for x in type])
       return self.baseAtk * ( 1 + self.percAtk + bonuses ) + self.flatAtk
+    elif type == 'None':
+      return self.baseAtk * ( 1 + self.percAtk ) + self.flatAtk
     else:
       return self.baseAtk * ( 1 + self.percAtk + self.percAtkType[type] ) + self.flatAtk
 
@@ -223,6 +225,8 @@ class BaseCharacter(object):
     if isinstance(type, list):
       bonuses = sum([self.percDefType[x] for x in type])
       return self.baseDef * ( 1 + self.percDef + bonuses ) + self.flatDef
+    elif type == 'None':
+      return self.baseDef * ( 1 + self.percDef ) + self.flatDef
     else:
       return self.baseDef * ( 1 + self.percDef + self.percDefType[type] ) + self.flatDef
 
@@ -230,6 +234,8 @@ class BaseCharacter(object):
     if isinstance(type, list):
       bonuses = sum([self.percHPType[x] for x in type])
       return self.baseHP * ( 1 + self.percHP + bonuses ) + self.flatHP
+    elif type == 'None':
+      return self.baseHP * ( 1 + self.percHP ) + self.flatHP
     else:
       return self.baseHP * ( 1 + self.percHP + self.percHPType[type] ) + self.flatHP
   
@@ -238,10 +244,12 @@ class BaseCharacter(object):
       crBonuses = sum([self.CRType[x] for x in type])
       cdBonuses = sum([self.CDType[x] for x in type])
       return 1.0 + min(1.0, self.CR + crBonuses) * (self.CD + cdBonuses)
+    elif type == 'None':
+      return 1.0 + min(1.0, self.CR) * self.CD
     else:
       return 1.0 + min(1.0, self.CR + self.CRType[type]) * (self.CD + self.CDType[type])
     
-  def getTotalDmg(self, type='None'):
+  def getTotalDmg(self, type='None', element='None'):
     elementDmg = {
       'wind': self.windDmg,
       'ice': self.iceDmg,
@@ -252,16 +260,22 @@ class BaseCharacter(object):
       'imaginary': self.imagDmg,
     }
     
+    myElement = self.element if element == 'None' else element
+    
     if isinstance(type, list):
       bonuses = sum([self.DmgType[x] for x in type])
-      return 1.0 + self.Dmg + elementDmg[self.element] + bonuses
+      return 1.0 + self.Dmg + elementDmg[myElement] + bonuses
+    elif type == 'None':
+      return 1.0 + self.Dmg + elementDmg[myElement]
     else:
-      return 1.0 + self.Dmg + elementDmg[self.element] + self.DmgType[type]
+      return 1.0 + self.Dmg + elementDmg[myElement] + self.DmgType[type]
 
   def getVulnerabilityType(self, type='None'):
     if isinstance(type, list):
       bonuses = sum([self.VulnerabilityType[x] for x in type])
       return 1.0 + self.Vulnerability + bonuses
+    elif type == 'None':
+      return 1.0 + self.Vulnerability
     else:
       return 1.0 + self.Vulnerability + self.VulnerabilityType[type]
 

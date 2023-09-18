@@ -19,9 +19,10 @@ class Welt(BaseCharacter):
     self.loadCharacterStats('Welt')
     self.ultUptime = ultUptime
     self.slowUptime = slowUptime
+    self.e6Count = 0
     
     # Motion Values should be set before talents or gear
-    self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]    
+    self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
     self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=0.72, eidolonThreshold=3, eidolonBonus=0.072)]
     self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.12)]
     self.motionValueDict['talent'] = [BaseMV(type='talent',area='single', stat='atk', value=0.6, eidolonThreshold=5, eidolonBonus=0.06)]
@@ -32,7 +33,6 @@ class Welt(BaseCharacter):
     self.Dmg += 0.20 * config['weaknessBrokenUptime']
     
     # Eidolons
-    # ignoring e1 for now
     self.bonusEnergyType['talent'] += 3.0 if self.eidolon >= 2 else 0.0
     
     # Gear
@@ -41,6 +41,7 @@ class Welt(BaseCharacter):
   def useBasic(self):
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('basic')
+    retval.damage *= 1.5 if self.eidolon >= 6 else 1.0
     retval.damage *= self.getTotalCrit('basic')
     retval.damage *= self.getTotalDmg('basic')
     retval.damage *= self.getVulnerabilityType('basic')
@@ -51,10 +52,12 @@ class Welt(BaseCharacter):
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     
     retval += self.useTalent() * self.slowUptime
+    self.e6Count = max(0,self.e6Count-1)
     return retval
 
   def useSkill(self):
     num_hits = 4.0 if self.eidolon >= 6 else 3.0
+    num_hits += 0.8 if self.eidolon >= 1 else 0.0
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('skill') * num_hits
     retval.damage *= self.getTotalCrit('skill')
@@ -67,6 +70,7 @@ class Welt(BaseCharacter):
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     
     retval += self.useTalent() * num_hits * self.slowUptime
+    self.e6Count = max(0,self.e6Count-1)
     return retval
 
   def useUltimate(self):
@@ -81,6 +85,7 @@ class Welt(BaseCharacter):
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     
     retval += self.useTalent() * self.numEnemies * self.slowUptime
+    self.e6Count += 2
     return retval
 
   def useTalent(self):

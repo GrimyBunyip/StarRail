@@ -297,7 +297,6 @@ if __name__ == '__main__':
                             substats = {'CR': 13, 'CD': 7}),
                 lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
                 relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(), planarset = RutilantArena(),
-                speedBoostUptime=0.5,
                 **config)
     
     JingliuRotation = [ # 140 max energy

@@ -14,14 +14,12 @@ class Jingliu(BaseCharacter):
                relicsettwo:RelicSet=None,
                planarset:RelicSet=None,
                transmigrationPercAtk:float=1.8,
-               speedBoostUptime:float=0.5,
                **config):
     super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
     self.loadCharacterStats('Jingliu')
     
     self.percAtkType['enhancedSkill'] = transmigrationPercAtk
     self.percAtkType['ultimate'] = transmigrationPercAtk
-    self.spdBoostUptime = speedBoostUptime
 
     # Motion Values should be set before talents or gear
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
@@ -35,7 +33,6 @@ class Jingliu(BaseCharacter):
                                         BaseMV(type='ultimate',area='adjacent', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.12)]
     
     # Talents
-    self.percSpd += 0.10 * self.spdBoostUptime
     self.CRType['transmigration'] = 0.50 # 
     self.CDType['transmigration'] = 0.0 # keep this empty
     self.DmgType['transmigration'] = 0.10 # Ascension
@@ -73,7 +70,7 @@ class Jingliu(BaseCharacter):
     retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 20.0 + self.bonusEnergyType['skill'] ) * ( 1.0 + self.ER )
     retval.skillpoints = -1.0
-    retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+    retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill']) - 0.10 # advance forward from passive
     return retval
   
   def extraTurn(self):
