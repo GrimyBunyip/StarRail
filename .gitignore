@@ -1,7 +1,7 @@
 *.pyc
 *.png
 *Comparison.py
-*.ipynb
+notes_*
 /.vscode
 
 StarRail/
