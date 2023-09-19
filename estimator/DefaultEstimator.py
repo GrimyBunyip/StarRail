@@ -8,9 +8,10 @@ class VisualizationInfo():
   effect:BaseEffect
   breakEffect:BaseEffect
   dotEffect:BaseEffect
+  extraImage:str
 
 def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config:dict,
-                     breakDotMode:str = 'limited', dotMode:str = 'alwaysSingle'):
+                     breakDotMode:str = 'limited', dotMode:str = 'alwaysSingle', extraImage:str=None):
   
   totalEffect:BaseEffect = BaseEffect()
   breakEffect:BaseEffect = BaseEffect()
@@ -49,5 +50,6 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
   retval.effect = copy(totalEffect)
   retval.breakEffect = copy(breakEffect)
   retval.dotEffect = copy(dotEffect)
+  retval.extraImage = extraImage
   
   return retval

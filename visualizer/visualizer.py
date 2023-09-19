@@ -35,6 +35,7 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
     characters = []
     colors = []
     totalEffects = []
+    extraImages = []
     for info in visInfo:
         info:VisualizationInfo
         rotationName:str = info.name
@@ -42,6 +43,7 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
         breakEffect:BaseEffect = info.breakEffect
         dotEffect:BaseEffect = info.dotEffect
         char:BaseCharacter = info.character
+        extraImage:str = info.extraImage
         
         speed = char.getTotalSpd()
         cycles = actionEffect.actionvalue * 100.0 / speed
@@ -52,11 +54,12 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
         rotationNames.append(rotationName)
         characters.append(char)
         colors.append(color_dict[char.element])
+        extraImages.append(extraImage)
 
     # sort the data from highest at the top
-    combined_data = list(zip(rotationNames, values, characters, colors, totalEffects))
+    combined_data = list(zip(rotationNames, values, characters, colors, totalEffects, extraImages))
     sorted_data = sorted(combined_data, key=lambda x:x[1][2])
-    rotationNames, values, characters, colors, totalEffects = zip(*sorted_data)
+    rotationNames, values, characters, colors, totalEffects, extraImages = zip(*sorted_data)
 
     fig, ax = plt.subplots(figsize=(22,2*len(characters)))
 
@@ -66,22 +69,30 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
     bars = ax.barh([x for x in range(len(rotationNames))], [x[2] for x in values], color = [x[2] for x in colors])
 
     # define left and right offsets
+    PICTURE_SIZE = 9000
     LEFT_OFFSET = 1000
     RIGHT_OFFSET = 2500
 
     # Download images and inlay them on the bars as annotations
-    for bar, char, rotationName, totalEffect in zip(bars, characters, rotationNames, totalEffects):
+    for bar, char, rotationName, totalEffect, extraImage in zip(bars, characters, rotationNames, totalEffects, extraImages):
         totalEffect:BaseEffect
         img_data = urlopen(char.graphic).read()
         img = plt.imread(io.BytesIO(img_data), format='png')  # You might need to adjust the format based on the image type
         img = OffsetImage(img, zoom=0.5)  # Adjust the zoom factor as needed
         ab1 = AnnotationBbox(img, (bar.get_width() - RIGHT_OFFSET, bar.get_y() + bar.get_height()/2), frameon=False)
-
+        ax.add_artist(ab1)
+        
+        if extraImage is not None:
+            img_data = urlopen(extraImage).read()
+            img = plt.imread(io.BytesIO(img_data), format='png')  # You might need to adjust the format based on the image type
+            img = OffsetImage(img, zoom=0.5)  # Adjust the zoom factor as needed
+            ab2 = AnnotationBbox(img, (bar.get_width() - RIGHT_OFFSET + PICTURE_SIZE, bar.get_y() + bar.get_height()/2), frameon=False)
+            ax.add_artist(ab2)
+            
         speed = char.getTotalSpd()
         effectHitRate = char.EHR
         cycles = totalEffect.actionvalue * 100.0 / speed # action value = # of turns kafka took, cycles = # of cycles that passed during this rotation
 
-        ax.add_artist(ab1)
         ax.text(x = LEFT_OFFSET,
                 y = bar.get_y() + bar.get_height() * 2 / 4,
                 s = char.longName + 

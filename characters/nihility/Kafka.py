@@ -38,6 +38,7 @@ class Kafka(BaseCharacter):
     retval.damage = self.getTotalMotionValue('basic')
     retval.damage *= self.getTotalCrit('basic')
     retval.damage *= self.getTotalDmg('basic')
+    retval.damage *= self.getVulnerabilityType('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
@@ -45,12 +46,13 @@ class Kafka(BaseCharacter):
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
     return retval
 
-  def useSkill(self):
+  def useSkill(self, extraDots:list=None):
     num_adjacents = min( self.numEnemies - 1, 2 )
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('skill')
     retval.damage *= self.getTotalCrit('skill')
     retval.damage *= self.getTotalDmg('skill')
+    retval.damage *= self.getVulnerabilityType('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.breakEfficiency)
     retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
@@ -58,16 +60,20 @@ class Kafka(BaseCharacter):
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     
     dotExplosion = self.useDot() + self.useBreakDot()
+    if extraDots is not None:
+      for extraDot in extraDots:
+        dotExplosion += extraDot
     dotExplosion *= 0.78 if self.eidolon >= 3 else 0.75
     
     retval += dotExplosion
     return retval
 
-  def useUltimate(self):
+  def useUltimate(self, extraDots:list=None):
     retval = BaseEffect()
     retval.damage = self.getTotalMotionValue('ultimate')
     retval.damage *= self.getTotalCrit('ultimate')
     retval.damage *= self.getTotalDmg('ultimate')
+    retval.damage *= self.getVulnerabilityType('ultimate')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * self.numEnemies * (1.0 + self.breakEfficiency)
     retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
@@ -75,6 +81,9 @@ class Kafka(BaseCharacter):
     
     # assume breakDot single target, usualDot AOE
     dotExplosion = self.useDot() * self.numEnemies + self.useBreakDot()
+    if extraDots is not None:
+      for extraDot in extraDots:
+        dotExplosion += extraDot
     dotExplosion *= 1.0 if self.eidolon >= 5 else 1.04
     
     retval += dotExplosion
@@ -85,6 +94,7 @@ class Kafka(BaseCharacter):
     retval.damage = self.getTotalMotionValue('talent')
     retval.damage *= self.getTotalCrit('talent')
     retval.damage *= self.getTotalDmg('talent')
+    retval.damage *= self.getVulnerabilityType('talent')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 10.0 + self.bonusEnergyAttack['talent'] ) * ( 1.0 + self.ER )
@@ -97,6 +107,7 @@ class Kafka(BaseCharacter):
     retval.damage = self.getTotalMotionValue('dot')
     # no crits on dots
     retval.damage *= self.getTotalDmg('dot') + (1.56 if self.eidolon >= 6 else 0.0)
+    retval.damage *= self.getVulnerabilityType('dot')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] + (2.0 if self.eidolon >= 4 else 0.0) ) * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['dot'])

@@ -110,11 +110,11 @@ if __name__ == '__main__':
     
     # Kafka
     KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'lighDmg'],
-                            substats = {'EHR': 5, 'percAtk': 3, 'flatSpd': 12}),
+                            substats = {'EHR': 3, 'percAtk': 5, 'flatSpd': 12}),
                 lightcone = GoodNightAndSleepWell(**config),
                 relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = SpaceSealingStation(),
                 **config)
-    
+
     KafkaRotation = [
             KafkaCharacter.useSkill() * 3,
             KafkaCharacter.useTalent() * 3,
@@ -397,7 +397,7 @@ if __name__ == '__main__':
             LukaCharacter.useUltimate(), # +2 Fighting Will
     ]
     
-    visualizationList.append(DefaultEstimator('Luka 3EB 2S 1Q', LukaRotation, LukaCharacter, config, dotMode='alwaysBlast'))
+    visualizationList.append(DefaultEstimator('Luka 3Enh 2S 1Q', LukaRotation, LukaCharacter, config, dotMode='alwaysBlast'))
 
     # Sushang
     SushangCharacter = Sushang(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'physDmg'],
@@ -476,4 +476,4 @@ if __name__ == '__main__':
     
     visualizationList.append(DefaultEstimator('Arlan 3.5E 1Q', ArlanRotation, ArlanCharacter, config))
 
-    visualize(visualizationList, **config)
+    visualize(visualizationList, visualizerPath='visualizer\SoloVisual.png', **config)

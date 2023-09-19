@@ -5,29 +5,25 @@ from baseClasses.BaseMV import BaseMV
 from baseClasses.RelicSet import RelicSet
 from baseClasses.RelicStats import RelicStats
 
-class Tingyun(BaseCharacter):
+class Bronya(BaseCharacter):
   def __init__(self,
                relicstats:RelicStats,
                lightcone:BaseLightCone=None,
                relicsetone:RelicSet=None,
                relicsettwo:RelicSet=None,
                planarset:RelicSet=None,
-               allyAttack:float=2500.0,
-               speedUptime:float=1.0/3.0,
                **config):
     super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
-    self.loadCharacterStats('Tingyun')
-    
-    self.allyAttack = allyAttack
-    self.speedUptime = speedUptime
+    self.loadCharacterStats('Bronya')
 
     # Motion Values should be set before talents or gear
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+    self.motionValueDict['followup'] = [BaseMV(type='followup',area='single', stat='atk', value=0.8)]
 
     # Talents
-    self.percSpd += 0.20 * self.speedUptime
-    self.DmgType['basic'] += 0.40
-    self.bonusEnergyAttack['turn'] += 5.0 if self.eidolon >= 2 else 0.0
+    self.advanceForwardType['basic'] = 0.33 if self.eidolon >= 3 else 0.3
+    self.CRType['basic'] =+ 1.0 # Ascension 2
+    self.Dmg += 0.10 # Ascension 6
 
     # Eidolons
     
@@ -44,41 +40,32 @@ class Tingyun(BaseCharacter):
     retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
     retval.skillpoints = 1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
-    
-    retval += self.useTalent()
     return retval
 
   def useSkill(self):
     retval = BaseEffect()
     retval.energy = ( 30.0 + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
-    retval.skillpoints = -1.0
+    retval.skillpoints = -1.0 + (0.5 if self.eidolon >= 1 else 0.0)
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     return retval
 
-  def useUltimate(self):
+  def useUltimate(self, targetCharacter:BaseCharacter = None):
     retval = BaseEffect()
     retval.energy = 5.0 * ( 1.0 + self.ER )
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     return retval
-  
-  def useTalent(self):
+    
+  def useFollowup(self):
     retval = BaseEffect()
-    retval.damage = 0.66 if self.eidolon >= 5 else 0.6
-    retval.damage *= self.allyAttack
+    retval.damage = self.getTotalMotionValue('basic') * 0.8
     retval.damage *= self.getTotalCrit('basic')
     retval.damage *= self.getTotalDmg('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
+    retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
+    retval.energy = ( 5.0 + self.bonusEnergyAttack['followup'] ) * ( 1.0 + self.ER )
     return retval
   
-  def useBenediction(self, targetCharacter:BaseCharacter, type):
+  def useAdvanceForward(self, advanceAmount:float=1.0):
     retval = BaseEffect()
-    retval.damage = targetCharacter.getTotalAtk(type) * (0.44 if self.eidolon >= 5 else 0.4)
-    retval.damage *= targetCharacter.getTotalCrit(type)
-    retval.damage *= targetCharacter.getTotalDmg(type,'lightning')
-    retval.damage = targetCharacter.applyDamageMultipliers(retval.damage)
-    return retval
-  
-  def giveUltEnergy(self):
-    retval = BaseEffect()
-    retval.energy = 60.0 if self.eidolon >= 6 else 50.0
+    retval.actionvalue = max(-1.0,-advanceAmount)
     return retval

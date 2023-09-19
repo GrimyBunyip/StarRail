@@ -10,6 +10,7 @@ class ButTheBattleIsntOver(BaseLightCone):
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
     if char.path == 'harmony':
+      char.ER += 0.08 + 0.02 * self.superposition
       pass #harmony cones not yet implemented fully
       
 if __name__ == '__main__':

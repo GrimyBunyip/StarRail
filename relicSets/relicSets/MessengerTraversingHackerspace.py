@@ -16,7 +16,7 @@ class MessengerTraversingHackerspace4pc(RelicSet):
   def __init__(self,
                graphic:str='',
                shortname:str='Messenger 4pc',
-               uptime = 0.25,
+               uptime = 1.0/3.0,
                **config):
     self.graphic = graphic
     self.shortname = shortname

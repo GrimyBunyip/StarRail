@@ -217,35 +217,35 @@ class BaseCharacter(object):
 
   def getTotalAtk(self, type=None):
     if isinstance(type, list):
-      bonuses = sum([self.percAtkType[x] for x in type])
+      bonuses = sum([(self.percAtkType[x] if x in self.percAtkType else 0.0) for x in type])
       return self.baseAtk * ( 1 + self.percAtk + bonuses ) + self.flatAtk
-    elif type is None:
+    elif type is None or type not in self.percAtkType:
       return self.baseAtk * ( 1 + self.percAtk ) + self.flatAtk
     else:
       return self.baseAtk * ( 1 + self.percAtk + self.percAtkType[type] ) + self.flatAtk
 
   def getTotalDef(self, type=None):
     if isinstance(type, list):
-      bonuses = sum([self.percDefType[x] for x in type])
+      bonuses = sum([(self.percDefType[x] if x in self.percDefType else 0.0) for x in type])
       return self.baseDef * ( 1 + self.percDef + bonuses ) + self.flatDef
-    elif type is None:
+    elif type is None or type not in self.percDefType:
       return self.baseDef * ( 1 + self.percDef ) + self.flatDef
     else:
       return self.baseDef * ( 1 + self.percDef + self.percDefType[type] ) + self.flatDef
 
   def getTotalHP(self, type=None):
     if isinstance(type, list):
-      bonuses = sum([self.percHPType[x] for x in type])
+      bonuses = sum([(self.percHPType[x] if x in self.percHPType else 0.0) for x in type])
       return self.baseHP * ( 1 + self.percHP + bonuses ) + self.flatHP
-    elif type is None:
+    elif type is None or type not in self.percHPType:
       return self.baseHP * ( 1 + self.percHP ) + self.flatHP
     else:
       return self.baseHP * ( 1 + self.percHP + self.percHPType[type] ) + self.flatHP
   
   def getTotalCrit(self, type=None):
     if isinstance(type, list):
-      crBonuses = sum([self.CRType[x] for x in type])
-      cdBonuses = sum([self.CDType[x] for x in type])
+      crBonuses = sum([(self.CRType[x] if x in self.CRType else 0.0) for x in type])
+      cdBonuses = sum([(self.CDType[x] if x in self.CDType else 0.0) for x in type])
       return 1.0 + min(1.0, self.CR + crBonuses) * (self.CD + cdBonuses)
     elif type is None:
       return 1.0 + min(1.0, self.CR) * self.CD
@@ -266,18 +266,18 @@ class BaseCharacter(object):
     myElement = self.element if element is None else element
     
     if isinstance(type, list):
-      bonuses = sum([self.DmgType[x] for x in type])
+      bonuses = sum([(self.DmgType[x] if x in self.DmgType else 0.0) for x in type])
       return 1.0 + self.Dmg + elementDmg[myElement] + bonuses
-    elif type is None:
+    elif type is None or type not in self.DmgType:
       return 1.0 + self.Dmg + elementDmg[myElement]
     else:
       return 1.0 + self.Dmg + elementDmg[myElement] + self.DmgType[type]
 
   def getVulnerabilityType(self, type=None):
     if isinstance(type, list):
-      bonuses = sum([self.VulnerabilityType[x] for x in type])
+      bonuses = sum([(self.VulnerabilityType[x] if x in self.VulnerabilityType else 0.0) for x in type])
       return 1.0 + self.Vulnerability + bonuses
-    elif type is None:
+    elif type is None or type not in self.VulnerabilityType:
       return 1.0 + self.Vulnerability
     else:
       return 1.0 + self.Vulnerability + self.VulnerabilityType[type]
