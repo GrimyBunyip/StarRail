@@ -11,7 +11,7 @@ class TheSeriousnessOfBreakfast(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'erudition':
+    if char.path == self.path:
       char.Dmg += 0.09 + 0.03 * self.superposition
       char.percAtk += ( 0.03 + 0.01 * self.superposition ) * self.stacks
     

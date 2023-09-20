@@ -9,7 +9,7 @@ class OnlySilenceRemains(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'hunt':
+    if char.path == self.path:
       char.percAtk += 0.12 + 0.04 * self.superposition
       char.CR += ( 0.09 + 0.03 * self.superposition ) if char.numEnemies <= 2 else 0.0
     

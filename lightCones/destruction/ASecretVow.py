@@ -11,7 +11,7 @@ class ASecretVow(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'destruction':
+    if char.path == self.path:
       char.Dmg += 0.15 + 0.05 * self.superposition
       char.Dmg += ( 0.15 + 0.05 * self.superposition ) * self.uptime
     

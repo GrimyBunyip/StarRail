@@ -12,7 +12,7 @@ class GoodNightAndSleepWell(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'nihility':
+    if char.path == self.path:
       char.Dmg += ( 0.09 + 0.03 * self.superposition ) * self.stacks
       
 if __name__ == '__main__':

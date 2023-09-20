@@ -12,7 +12,7 @@ class PatienceIsAllYouNeed(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'nihility':
+    if char.path == self.path:
       char.Dmg += 0.20 + 0.04 * self.superposition
       char.percSpd += ( 0.04 + 0.008 * self.superposition ) * self.stacks
       char.motionValueDict['dot'] = [BaseMV(type='dot',area='all', stat='atk', value=0.5+0.1*self.superposition)] + char.motionValueDict['dot'] if 'dot' in char.motionValueDict else []

@@ -11,7 +11,7 @@ class TheUnreachableSide(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'destruction':
+    if char.path == self.path:
       char.CR += 0.15 + 0.03 * self.superposition
       char.percHP += 0.15 + 0.03 * self.superposition
       char.Dmg += ( 0.20 + 0.04 * self.superposition ) * self.uptime

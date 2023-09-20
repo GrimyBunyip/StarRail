@@ -13,7 +13,7 @@ class IncessantRain(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'nihility':
+    if char.path == self.path:
       char.EHR += 0.20 + 0.04 * self.superposition
       char.CR += ( 0.10 + 0.02 * self.superposition ) * self.uptime
       char.Dmg += ( 0.10 + 0.02 * self.superposition ) * self.uptimeAether

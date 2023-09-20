@@ -11,7 +11,7 @@ class SomethingIrreplaceable(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'destruction':
+    if char.path == self.path:
       char.percAtk += 0.20 + 0.04 * self.superposition
       char.Dmg += ( 0.20 + 0.04 * self.superposition ) * self.uptime
     

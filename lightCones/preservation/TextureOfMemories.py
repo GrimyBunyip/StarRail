@@ -11,7 +11,7 @@ class TextureOfMemories(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'preservation':
+    if char.path == self.path:
       char.Res += 0.06 + 0.02 * self.superposition
       char.dmgReduction += ( 0.09 + 0.03 * self.superposition ) * self.uptime
       

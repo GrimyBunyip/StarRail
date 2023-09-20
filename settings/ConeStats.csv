@@ -1,79 +1,79 @@
-name,baseAtk,baseDef,baseHP,rarity
-Adversarial,370.44,264.6,740.88,3
-Amber,264.6,330.75,846.72,3
-Arrows,317.52,264.6,846.72,3
-Chorus,317.52,264.6,846.72,3
-Collapsing Sky,370.44,198.45,846.72,3
-Cornucopia,264.6,264.6,952.56,3
-Darting Arrow,370.44,264.6,740.88,3
-Data Bank,370.44,264.6,740.88,3
-Defense,264.6,264.6,952.56,3
-Fine Fruit,317.52,198.45,952.56,3
-Hidden Shadow,317.52,264.6,846.72,3
-Loop,317.52,264.6,846.72,3
-Mediation,317.52,264.6,846.72,3
-Meshing Cogs,317.52,264.6,846.72,3
-Multiplication,317.52,198.45,952.56,3
-Mutual Demise,370.44,198.45,846.72,3
-Passkey,370.44,264.6,740.88,3
-Pioneering,264.6,264.6,952.56,3
-Sagacity,370.44,264.6,740.88,3
-Shattered Home,370.44,198.45,846.72,3
-Void,317.52,264.6,846.72,3
-A Secret Vow,476.28,264.6,1058.4,4
-Before the Tutorial Mission Starts,476.28,330.75,952.56,4
-Dance! Dance! Dance!,423.36,396.9,952.56,4
-Day One of My New Life,370.44,463.05,952.56,4
-Eyes of the Prey,476.28,330.75,952.56,4
-Geniuses' Repose,476.28,396.9,846.72,4
-Good Night and Sleep Well,476.28,330.75,952.56,4
-Landau's Choice,423.36,396.9,952.56,4
-Make the World Clamor,476.28,396.9,846.72,4
-Memories of the Past,423.36,396.9,952.56,4
-Only Silence Remains,476.28,330.75,952.56,4
-Perfect Timing,423.36,396.9,952.56,4
-Planetary Rendezvous,423.36,330.75,1058.4,4
-Post-Op Conversation,423.36,330.75,1058.4,4
-Resolution Shines As Pearls of Sweat,476.28,330.75,952.56,4
-Shared Feeling,423.36,396.9,952.56,4
-Subscribe for More!,476.28,330.75,952.56,4
-Swordplay,476.28,330.75,952.56,4
-The Birth of the Self,476.28,330.75,952.56,4
-The Moles Welcome You,476.28,264.6,1058.4,4
-Trend of the Universal Market,370.44,396.9,1058.4,4
-Under the Blue Sky,476.28,330.75,952.56,4
-Before Dawn,582.12,463.05,1058.4,5
-Brighter Than the Sun,635.04,396.9,1058.4,5
-But the Battle Isn't Over,529.2,463.05,1164.24,5
-Echoes of the Coffin,582.12,396.9,1164.24,5
-I Shall Be My Own Sword,635.04,330.75,1164.24,5
-In the Name of the World,582.12,463.05,1058.4,5
-In the Night,582.12,463.05,1058.4,5
-Incessant Rain,582.12,463.05,1058.4,5
-Moment of Victory,476.28,595.35,1058.4,5
-Night on the Milky Way,582.12,396.9,1164.24,5
-Patience Is All You Need,582.12,463.05,1058.4,5
-She Already Shut Her Eyes,423.36,529.2,1270.08,5
-Sleep Like the Dead,582.12,463.05,1058.4,5
-Something Irreplaceable,582.12,396.9,1164.24,5
-The Unreachable Side,582.12,330.75,1270.08,5
-Time Waits for No One,476.28,463.05,1270.08,5
-"Worrisome, Blissful",582.12,463.05,1058.4,5
-"Carve the Moon, Weave the Clouds",476.28,330.75,952.56,Battlepass
-Nowhere to Run,529.2,264.6,952.56,Battlepass
-Return to Darkness,529.2,330.75,846.72,Battlepass
-This Is Me!,370.44,529.2,846.72,Battlepass
-Today Is Another Peaceful Day,529.2,330.75,846.72,Battlepass
-Warmth Shortens Cold Nights,370.44,396.9,1058.4,Battlepass
-We Will Meet Again,529.2,330.75,846.72,Battlepass
-Fermata,476.28,330.75,952.56,Forgottenhall
-Past and Future,423.36,396.9,952.56,Forgottenhall
-Quid Pro Quo,423.36,396.9,952.56,Forgottenhall
-River Flows in Spring,476.28,396.9,846.72,Forgottenhall
-The Seriousness of Breakfast,476.28,396.9,846.72,Forgottenhall
-We Are Wildfire,476.28,463.05,740.88,Forgottenhall
-Woof! Walk Time!,476.28,330.75,952.56,Forgottenhall
-Cruising in the Stellar Sea,529.2,463.05,952.56,Herta
-On the Fall of an Aeon,529.2,396.9,1058.4,Herta
-Solitary Healing,529.2,396.9,1058.4,Herta
-Texture of Memories,423.36,529.2,1058.4,Herta
+name,baseAtk,baseDef,baseHP,rarity,path
+Adversarial,370.44,264.6,740.88,3,hunt
+Amber,264.6,330.75,846.72,3,preservation
+Arrows,317.52,264.6,846.72,3,hunt
+Chorus,317.52,264.6,846.72,3,harmony
+Collapsing Sky,370.44,198.45,846.72,3,destruction
+Cornucopia,264.6,264.6,952.56,3,abundance
+Darting Arrow,370.44,264.6,740.88,3,hunt
+Data Bank,370.44,264.6,740.88,3,erudition
+Defense,264.6,264.6,952.56,3,preservation
+Fine Fruit,317.52,198.45,952.56,3,abundance
+Hidden Shadow,317.52,264.6,846.72,3,nihility
+Loop,317.52,264.6,846.72,3,nihility
+Mediation,317.52,264.6,846.72,3,harmony
+Meshing Cogs,317.52,264.6,846.72,3,harmony
+Multiplication,317.52,198.45,952.56,3,abundance
+Mutual Demise,370.44,198.45,846.72,3,destruction
+Passkey,370.44,264.6,740.88,3,erudition
+Pioneering,264.6,264.6,952.56,3,preservation
+Sagacity,370.44,264.6,740.88,3,erudition
+Shattered Home,370.44,198.45,846.72,3,destruction
+Void,317.52,264.6,846.72,3,nihility
+A Secret Vow,476.28,264.6,1058.4,4,destruction
+Before the Tutorial Mission Starts,476.28,330.75,952.56,4,nihility
+Dance! Dance! Dance!,423.36,396.9,952.56,4,harmony
+Day One of My New Life,370.44,463.05,952.56,4,preservation
+Eyes of the Prey,476.28,330.75,952.56,4,nihility
+Geniuses' Repose,476.28,396.9,846.72,4,erudition
+Good Night and Sleep Well,476.28,330.75,952.56,4,nihility
+Landau's Choice,423.36,396.9,952.56,4,preservation
+Make the World Clamor,476.28,396.9,846.72,4,erudition
+Memories of the Past,423.36,396.9,952.56,4,harmony
+Only Silence Remains,476.28,330.75,952.56,4,hunt
+Perfect Timing,423.36,396.9,952.56,4,abundance
+Planetary Rendezvous,423.36,330.75,1058.4,4,harmony
+Post-Op Conversation,423.36,330.75,1058.4,4,abundance
+Resolution Shines As Pearls of Sweat,476.28,330.75,952.56,4,nihility
+Shared Feeling,423.36,396.9,952.56,4,abundance
+Subscribe for More!,476.28,330.75,952.56,4,hunt
+Swordplay,476.28,330.75,952.56,4,hunt
+The Birth of the Self,476.28,330.75,952.56,4,erudition
+The Moles Welcome You,476.28,264.6,1058.4,4,destruction
+Trend of the Universal Market,370.44,396.9,1058.4,4,preservation
+Under the Blue Sky,476.28,330.75,952.56,4,destruction
+Before Dawn,582.12,463.05,1058.4,5,erudition
+Brighter Than the Sun,635.04,396.9,1058.4,5,destruction
+But the Battle Isn't Over,529.2,463.05,1164.24,5,harmony
+Echoes of the Coffin,582.12,396.9,1164.24,5,abundance
+I Shall Be My Own Sword,635.04,330.75,1164.24,5,destruction
+In the Name of the World,582.12,463.05,1058.4,5,nihility
+In the Night,582.12,463.05,1058.4,5,hunt
+Incessant Rain,582.12,463.05,1058.4,5,nihility
+Moment of Victory,476.28,595.35,1058.4,5,preservation
+Night on the Milky Way,582.12,396.9,1164.24,5,erudition
+Patience Is All You Need,582.12,463.05,1058.4,5,nihility
+She Already Shut Her Eyes,423.36,529.2,1270.08,5,preservation
+Sleep Like the Dead,582.12,463.05,1058.4,5,hunt
+Something Irreplaceable,582.12,396.9,1164.24,5,destruction
+The Unreachable Side,582.12,330.75,1270.08,5,destruction
+Time Waits for No One,476.28,463.05,1270.08,5,abundance
+"Worrisome, Blissful",582.12,463.05,1058.4,5,hunt
+"Carve the Moon, Weave the Clouds",476.28,330.75,952.56,Battlepass,harmony
+Nowhere to Run,529.2,264.6,952.56,Battlepass,destruction
+Return to Darkness,529.2,330.75,846.72,Battlepass,hunt
+This Is Me!,370.44,529.2,846.72,Battlepass,preservation
+Today Is Another Peaceful Day,529.2,330.75,846.72,Battlepass,erudition
+Warmth Shortens Cold Nights,370.44,396.9,1058.4,Battlepass,abundance
+We Will Meet Again,529.2,330.75,846.72,Battlepass,nihility
+Fermata,476.28,330.75,952.56,Forgottenhall,nihility
+Past and Future,423.36,396.9,952.56,Forgottenhall,harmony
+Quid Pro Quo,423.36,396.9,952.56,Forgottenhall,abundance
+River Flows in Spring,476.28,396.9,846.72,Forgottenhall,hunt
+The Seriousness of Breakfast,476.28,396.9,846.72,Forgottenhall,erudition
+We Are Wildfire,476.28,463.05,740.88,Forgottenhall,preservation
+Woof! Walk Time!,476.28,330.75,952.56,Forgottenhall,destruction
+Cruising in the Stellar Sea,529.2,463.05,952.56,Herta,hunt
+On the Fall of an Aeon,529.2,396.9,1058.4,Herta,destruction
+Solitary Healing,529.2,396.9,1058.4,Herta,nihility
+Texture of Memories,423.36,529.2,1058.4,Herta,preservation

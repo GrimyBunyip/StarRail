@@ -9,7 +9,7 @@ class LandausChoice(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'preservation':
+    if char.path == self.path:
       char.percTaunt += 2.0
       char.dmgReduction += 0.14 + 0.02 * self.superposition
       

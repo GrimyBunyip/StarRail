@@ -11,7 +11,7 @@ class ResolutionShinesAsPearlsOfSweat(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'nihility':
+    if char.path == self.path:
       char.defShred += ( 0.11 + 0.01 * self.superposition ) * self.uptime
       
 if __name__ == '__main__':

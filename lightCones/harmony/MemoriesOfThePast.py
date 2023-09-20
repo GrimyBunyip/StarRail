@@ -9,7 +9,7 @@ class MemoriesOfThePast(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'harmony':
+    if char.path == self.path:
       char.bonusEnergyAttack['basic'] += 3.0 + 1.0 * self.superposition
       char.bonusEnergyAttack['skill'] += 3.0 + 1.0 * self.superposition
       char.bonusEnergyAttack['ultimate'] += 3.0 + 1.0 * self.superposition

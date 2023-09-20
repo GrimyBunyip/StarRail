@@ -10,7 +10,7 @@ class ThisIsMe(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'preservation':
+    if char.path == self.path:
       char.percDef += 0.12 + 0.04 * self.superposition
       
       # the area of this MV should equate to the area of the ultimate

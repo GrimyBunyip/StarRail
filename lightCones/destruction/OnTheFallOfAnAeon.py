@@ -13,7 +13,7 @@ class OnTheFallOfAnAeon(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'destruction':
+    if char.path == self.path:
       char.percAtk += ( 0.06 + 0.02 * self.superposition ) * self.stacks
       char.Dmg += ( 0.09 + 0.03 * self.superposition ) * self.uptime
     

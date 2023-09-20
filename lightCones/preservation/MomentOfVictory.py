@@ -11,7 +11,7 @@ class MomentOfVictory(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'preservation':
+    if char.path == self.path:
       char.percTaunt += 2.0
       char.percDef += 0.2 + 0.04 * self.superposition
       char.percDef += ( 0.2 + 0.04 * self.superposition ) * self.uptime

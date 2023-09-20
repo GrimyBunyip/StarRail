@@ -11,7 +11,7 @@ class InTheNameOfTheWorld(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'nihility':
+    if char.path == self.path:
       char.Dmg += ( 0.20 + 0.04 * self.superposition ) * self.uptime
       char.percAtkType['skill'] += 0.20 + 0.04 * self.superposition
       # also boosts skill EHR, but not implementing that atm

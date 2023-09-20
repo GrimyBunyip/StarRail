@@ -11,7 +11,7 @@ class IShallBeMyOwnSword(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'destruction':
+    if char.path == self.path:
       char.DmgType['skill'] += 0.25 + 0.05 * self.superposition
       char.CD += 0.3 + 0.06 * self.superposition
       char.bonusEnergyAttack['ultimate'] += 10.0 + 2.0 * self.superposition

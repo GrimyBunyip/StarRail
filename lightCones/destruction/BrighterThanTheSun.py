@@ -13,7 +13,7 @@ class BrighterThanTheSun(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'destruction':
+    if char.path == self.path:
       char.CR += 0.15 + 0.03 * self.superposition
       char.percAtk += ( 0.15 + 0.03 * self.superposition ) * self.stacks * self.uptime
       char.ER += ( 0.05 + 0.01 * self.superposition ) * self.stacks * self.uptime

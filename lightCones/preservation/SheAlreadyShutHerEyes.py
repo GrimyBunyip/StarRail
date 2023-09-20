@@ -11,7 +11,7 @@ class SheAlreadyShutHerEyes(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'preservation':
+    if char.path == self.path:
       char.percHP += 0.2 + 0.04 * self.superposition
       char.ER += 0.1 + 0.02 * self.superposition
       char.Dmg += ( 0.075 + 0.015 * self.superposition ) * self.uptime

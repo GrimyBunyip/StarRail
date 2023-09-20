@@ -11,7 +11,7 @@ class WorrisomeBlissful(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'hunt':
+    if char.path == self.path:
       char.CR += 0.15 + 0.03 * self.superposition
       char.DmgType['followup'] += 0.25 + 0.05 * self.superposition
       char.CD += ( 0.10 + 0.02 * self.superposition ) * self.stacks

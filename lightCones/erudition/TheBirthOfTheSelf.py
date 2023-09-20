@@ -11,7 +11,7 @@ class TheBirthOfTheSelf(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'erudition':
+    if char.path == self.path:
       char.DmgType['followup'] += 0.24 + 0.06 * self.superposition
       char.DmgType['followup'] += ( 0.24 + 0.06 * self.superposition ) * self.uptime
     

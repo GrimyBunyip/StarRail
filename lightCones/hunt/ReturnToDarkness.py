@@ -9,7 +9,7 @@ class ReturnToDarkness(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'hunt':
+    if char.path == self.path:
       char.CR += 0.09 + 0.03 * self.superposition
     
 if __name__ == '__main__':

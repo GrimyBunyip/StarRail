@@ -13,7 +13,7 @@ class CruisingInTheStellarSea(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'hunt':
+    if char.path == self.path:
       char.CR += 0.06 + 0.02 * self.superposition
       char.CR += (0.06 + 0.02 * self.superposition) * self.uptimeHP
       char.percAtk += (0.15 + 0.05 * self.superposition) * self.uptimeDefeat

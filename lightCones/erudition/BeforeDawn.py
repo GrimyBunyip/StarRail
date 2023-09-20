@@ -11,7 +11,7 @@ class BeforeDawn(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'erudition':
+    if char.path == self.path:
       char.CD += 0.30 + 0.06 * self.superposition
       char.DmgType['skill'] += 0.15 + 0.03 * self.superposition
       char.DmgType['ultimate'] += 0.15 + 0.03 * self.superposition

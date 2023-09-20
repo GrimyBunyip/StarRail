@@ -10,7 +10,7 @@ class InTheNight(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'hunt':
+    if char.path == self.path:
       char.CR += 0.15 + 0.03 * self.superposition
       num_stacks = math.floor( ( char.getTotalSpd() - 100.0 ) / 10.0 )
       num_stacks = min(num_stacks, 6)

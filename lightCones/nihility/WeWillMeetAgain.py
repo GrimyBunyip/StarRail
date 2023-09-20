@@ -10,7 +10,7 @@ class WeWillMeetAgain(BaseLightCone):
     
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'nihility':
+    if char.path == self.path:
       char.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=0.36+0.12*self.superposition)] + char.motionValueDict['basic'] if 'basic' in char.motionValueDict else []
       char.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=0.36+0.12*self.superposition)] + char.motionValueDict['skill'] if 'skill' in char.motionValueDict else []
       

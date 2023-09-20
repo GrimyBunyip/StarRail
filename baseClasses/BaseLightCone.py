@@ -13,6 +13,7 @@ class BaseLightCone(object):
   superposition:int
   rarity:str
   name:str
+  path:str
     
   def loadConeStats(self, name:str):
     self.name = name

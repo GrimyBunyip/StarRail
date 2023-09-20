@@ -9,7 +9,7 @@ class CarveTheMoonWeaveTheClouds(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'harmony':
+    if char.path == self.path:
       pass #harmony cones not yet implemented fully
       
 if __name__ == '__main__':

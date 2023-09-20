@@ -11,7 +11,7 @@ class WeAreWildfire(BaseLightCone):
 
   def equipTo(self, char:BaseCharacter):
     self.addBaseStats(char)
-    if char.path == 'preservation':
+    if char.path == self.path:
       char.dmgReduction += ( 0.06 + 0.02 * self.superposition ) * self.uptime
       # not implemented: immediate heal
       
