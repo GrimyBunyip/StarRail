@@ -298,24 +298,27 @@ if __name__ == '__main__':
     visualizationList.append(DefaultEstimator('Jingliu 2E 3Moon 1Q', JingliuRotation, JingliuCharacter, config))
     
     # Topaz
-    TopazCharacter = Topaz(RelicStats(mainstats = ['percAtk', 'percAtk', 'CR', 'fireDmg'],
+    TopazCharacter = Topaz(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'fireDmg'],
                             substats = {'CR': 6, 'CD': 14}),
                 lightcone = Swordplay(**config),
                 relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = InertSalsotto(),
                 **config)
     
+    spd = TopazCharacter.getTotalSpd()
+    
     TopazRotation = [ # 130 max energy
-            TopazCharacter.useSkill() * 3, 
+            TopazCharacter.useBasic() * 4,
+            TopazCharacter.useSkill(),
             TopazCharacter.useUltimate(),
             TopazCharacter.useTalent(windfall=True) * 2, # two talents from windfall
+            TopazCharacter.useTalent(windfall=False) * 5, # about 1 talent per basic/skill
     ]
     
-    topazTurns = sum([x.actionvalue for x in TopazRotation])
-    numbyTurns = topazTurns * 80 / TopazCharacter.getTotalSpd()
+    #topazTurns = sum([x.actionvalue for x in TopazRotation])
+    #numbyTurns = topazTurns * 80 / TopazCharacter.getTotalSpd()
+    #numbyAdvanceForwards = 6 * 3 / 8 # 4 skill usages, treat each 50% advance forward as 37.5% of an advance forward    
     
-    TopazRotation.append(TopazCharacter.useTalent(windfall=False) * numbyTurns)
-    
-    visualizationList.append(DefaultEstimator('Topaz 4E 2.2T Q Windfall(2T)', TopazRotation, TopazCharacter, config))
+    visualizationList.append(DefaultEstimator('Topaz 1E 4N 5T Q Windfall(2T)', TopazRotation, TopazCharacter, config))
 
     # Qingque
     QingqueCharacter = Qingque(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'quanDmg'],

@@ -23,8 +23,8 @@ class Topaz(BaseCharacter):
     
     # Talents
     self.Dmg += 0.15 # Financial Turmoil
-    self.DmgType['followup'] += 0.55 if self.eidolon >= 3 else 0.5
-    self.DmgType['followup'] += 0.5 if self.eidolon >= 1 else 0.0
+    self.VulnerabilityType['followup'] += 0.55 if self.eidolon >= 3 else 0.5
+    self.CDType['followup'] += 0.5 if self.eidolon >= 1 else 0.0
     self.DmgType['windfall'] = 1.65 if self.eidolon >= 5 else 1.5
     self.CRType['windfall'] = 0.0
     self.CDType['windfall'] = 0.25
@@ -39,6 +39,7 @@ class Topaz(BaseCharacter):
     retval.damage = self.getTotalMotionValue('basic')
     retval.damage *= self.getTotalCrit(['basic','followup'])
     retval.damage *= self.getTotalDmg(['basic','followup'])
+    retval.damage *= self.getVulnerabilityType(['basic','followup'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
@@ -51,6 +52,7 @@ class Topaz(BaseCharacter):
     retval.damage = self.getTotalMotionValue('skill')
     retval.damage *= self.getTotalCrit(['skill','followup'])
     retval.damage *= self.getTotalDmg(['skill','followup'])
+    retval.damage *= self.getVulnerabilityType(['skill','followup'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
@@ -72,6 +74,7 @@ class Topaz(BaseCharacter):
     else:
       retval.damage *= self.getTotalCrit(['talent','followup'])
       retval.damage *= self.getTotalDmg(['talent','followup'])
+    retval.damage *= self.getVulnerabilityType(['talent','followup'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 
