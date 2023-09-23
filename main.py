@@ -16,6 +16,7 @@ from characters.erudition.Himeko import Himeko
 from characters.erudition.JingYuan import JingYuan
 from characters.erudition.Serval import Serval
 from characters.erudition.Qingque import Qingque
+from characters.harmony.Yukong import Yukong
 from characters.hunt.DanHeng import DanHeng
 from characters.hunt.Seele import Seele
 from characters.hunt.Sushang import Sushang
@@ -46,6 +47,8 @@ from lightCones.erudition.NightOnTheMilkyWay import NightOnTheMilkyWay
 from lightCones.erudition.TheBirthOfTheSelf import TheBirthOfTheSelf
 from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
 from lightCones.erudition.TodayIsAnotherPeacefulDay import TodayIsAnotherPeacefulDay
+
+from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.hunt.InTheNight import InTheNight
@@ -493,5 +496,22 @@ if __name__ == '__main__':
     ]
     
     visualizationList.append(DefaultEstimator('Guinaifen 3E 1Q', GuinaifenRotation, GuinaifenCharacter, config, dotMode='alwaysBlast'))
+    
+    # Yukong
+    # YukongCharacter = Yukong(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'imagDmg'],
+    #                        substats = {'CR': 4, 'CD': 7, 'flatSpd': 9}),
+    #            lightcone = MemoriesOfThePast(**config),
+    #            relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SpaceSealingStation(),
+    #            **config)
+    
+    #spd = YukongCharacter.getTotalSpd()
+    
+    #YukongRotation = [ # 
+    #        YukongCharacter.useEnhancedBasic() * 2,
+    #        YukongCharacter.useSkill() * 2,
+    #        YukongCharacter.useUltimate(),
+    #]
+    
+    #visualizationList.append(DefaultEstimator('Yukong 2 Enh 2S 1Q', YukongRotation, YukongCharacter, config))
 
     visualize(visualizationList, visualizerPath='visualizer\SoloVisual.png', **config)

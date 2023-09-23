@@ -3,7 +3,7 @@ from baseClasses.BaseLightCone import BaseLightCone
 
 class TextureOfMemories(BaseLightCone):
   def __init__(self,
-               uptime:float,
+               uptime:float=1.0,
                **config):
     self.loadConeStats('TextureOfMemories')
     self.setSuperposition(config)
