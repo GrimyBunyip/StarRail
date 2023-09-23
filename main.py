@@ -497,21 +497,23 @@ if __name__ == '__main__':
     
     visualizationList.append(DefaultEstimator('Guinaifen 3E 1Q', GuinaifenRotation, GuinaifenCharacter, config, dotMode='alwaysBlast'))
     
-    # Yukong
-    # YukongCharacter = Yukong(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'imagDmg'],
-    #                        substats = {'CR': 4, 'CD': 7, 'flatSpd': 9}),
-    #            lightcone = MemoriesOfThePast(**config),
-    #            relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SpaceSealingStation(),
-    #            **config)
+    #Yukong
+    '''
+    YukongCharacter = Yukong(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'imagDmg'],
+                            substats = {'CR': 4, 'CD': 7, 'flatSpd': 9}),
+                lightcone = MemoriesOfThePast(**config),
+                relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SpaceSealingStation(),
+                **config)
     
-    #spd = YukongCharacter.getTotalSpd()
+    spd = YukongCharacter.getTotalSpd()
     
-    #YukongRotation = [ # 
-    #        YukongCharacter.useEnhancedBasic() * 2,
-    #        YukongCharacter.useSkill() * 2,
-    #        YukongCharacter.useUltimate(),
-    #]
+    YukongRotation = [ # 
+            YukongCharacter.useEnhancedBasic() * 2,
+            YukongCharacter.useSkill() * 2,
+            YukongCharacter.useUltimate(),
+    ]
     
-    #visualizationList.append(DefaultEstimator('Yukong 2 Enh 2S 1Q', YukongRotation, YukongCharacter, config))
+    visualizationList.append(DefaultEstimator('Yukong 2 Enh 2S 1Q', YukongRotation, YukongCharacter, config))
+    '''
 
     visualize(visualizationList, visualizerPath='visualizer\SoloVisual.png', **config)

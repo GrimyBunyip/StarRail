@@ -23,15 +23,15 @@ class Yukong(BaseCharacter):
 
     # Motion Values should be set before talents or gear
     self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-    self.motionValueDict['enhancedBasic'] = [BaseMV(type=['enhancedBasic','basic'],area='single', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.08)]
+    self.motionValueDict['enhancedBasic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1),
+                                             BaseMV(type=['enhancedBasic','basic'],area='single', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.08)]
     self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
 
     # Talents
     self.CRType['ultimate'] += 0.294 if self.eidolon >= 5 else 0.28
     self.CDType['ultimate'] += 0.702 if self.eidolon >= 5 else 0.65
     self.Dmg += 0.12 # Ascension 4
-    self.bonusEnergyAttack['basic'] += 2.0
-    self.bonusEnergyAttack['ultimate'] += 2.0
+    self.bonusEnergyAttack['ultimate'] += 2.0 # 2 bonus energy from ascension 6, but it could be more
 
     # Eidolons
     self.bonusEnergyAttack['ultimate'] += 15.0 if self.eidolon >= 2 else 0.0
@@ -66,7 +66,7 @@ class Yukong(BaseCharacter):
 
   def useSkill(self):
     retval = BaseEffect()
-    retval.energy = 30.0 * ( 1.0 + self.ER )
+    retval.energy = (30.0 + 4.0) * ( 1.0 + self.ER ) # 4 bonus energy from ascension 6, but it could be more
     retval.skillpoints = -1.0 + (0.5 if self.eidolon >= 1 else 0.0)
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     return retval
