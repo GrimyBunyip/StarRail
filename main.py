@@ -21,6 +21,7 @@ from characters.hunt.Seele import Seele
 from characters.hunt.Sushang import Sushang
 from characters.hunt.Topaz import Topaz
 from characters.hunt.Yanqing import Yanqing
+from characters.nihility.Guinaifen import Guinaifen
 from characters.nihility.Kafka import Kafka
 from characters.nihility.Luka import Luka
 from characters.nihility.Sampo import Sampo
@@ -307,11 +308,11 @@ if __name__ == '__main__':
     spd = TopazCharacter.getTotalSpd()
     
     TopazRotation = [ # 130 max energy
-            TopazCharacter.useBasic() * 4,
+            TopazCharacter.useBasic() * 5,
             TopazCharacter.useSkill(),
             TopazCharacter.useUltimate(),
             TopazCharacter.useTalent(windfall=True) * 2, # two talents from windfall
-            TopazCharacter.useTalent(windfall=False) * 5, # about 1 talent per basic/skill
+            TopazCharacter.useTalent(windfall=False) * 6, # about 1 talent per basic/skill
     ]
     
     #topazTurns = sum([x.actionvalue for x in TopazRotation])
@@ -478,5 +479,19 @@ if __name__ == '__main__':
     ]
     
     visualizationList.append(DefaultEstimator('Arlan 3.5E 1Q', ArlanRotation, ArlanCharacter, config))
+    
+    # Guinaifen
+    GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'fireDmg'],
+                            substats = {'percAtk': 12, 'flatSpd': 4, 'EHR': 4}),
+                lightcone = GoodNightAndSleepWell(**config),
+                relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SpaceSealingStation(),
+                **config)
+    
+    GuinaifenRotation = [ # 
+            GuinaifenCharacter.useSkill() * 3,
+            GuinaifenCharacter.useUltimate(),
+    ]
+    
+    visualizationList.append(DefaultEstimator('Guinaifen 3E 1Q', GuinaifenRotation, GuinaifenCharacter, config, dotMode='alwaysBlast'))
 
     visualize(visualizationList, visualizerPath='visualizer\SoloVisual.png', **config)

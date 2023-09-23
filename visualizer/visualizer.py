@@ -107,7 +107,7 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
                 s = rotationName + 
                     '\nDamage per Cycle: ' + str(int((totalEffect.damage) / cycles)) + 
                     '\nGauge per Cycle: ' + str(round(totalEffect.gauge / cycles, 1)) + 
-                    '\nSP per Cycle: ' + str(round(-totalEffect.skillpoints / cycles, 2)) + 
+                    '\nSP per Cycle: ' + str(round(totalEffect.skillpoints / cycles, 2)) + 
                     '\nEnergy Surplus per Rotation: ' + str(round(energySurplus, 2)),
                 va = 'center', 
                 color = 'white')

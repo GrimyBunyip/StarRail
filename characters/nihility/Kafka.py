@@ -84,7 +84,7 @@ class Kafka(BaseCharacter):
     if extraDots is not None:
       for extraDot in extraDots:
         dotExplosion += extraDot
-    dotExplosion *= 1.0 if self.eidolon >= 5 else 1.04
+    dotExplosion.damage *= 1.0 if self.eidolon >= 5 else 1.04
     
     retval += dotExplosion
     return retval

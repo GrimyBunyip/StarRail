@@ -66,7 +66,7 @@ class Sampo(BaseCharacter):
     
     # assume we hit up to 3 enemies
     dotExplosion = self.useDot() * num_hits
-    dotExplosion *= 0.08 if self.eidolon >= 4 else 0.0
+    dotExplosion.damage *= 0.08 if self.eidolon >= 4 else 0.0
     retval += dotExplosion
     return retval
 

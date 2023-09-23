@@ -16,7 +16,7 @@ class FiresmithOfLavaForging4pc(RelicSet):
   def __init__(self,
                graphic:str='',
                shortname:str = 'Firesmith 4pc',
-               uptime:float = 0.25,
+               uptime:float = 1.0/3.0,
                **config):
     self.graphic = graphic
     self.shortname = shortname
