@@ -155,16 +155,22 @@ if __name__ == '__main__':
                 planarset = InertSalsotto(),
                 **config)
     
+    # assume each elite performs 1 single target attack per turn
+    # times 2 as the rotation is 2 of her turns long
+    numEnemyAttacks = ClaraCharacter.enemySpeed * ClaraCharacter.numEnemies * 2 / ClaraCharacter.getTotalSpd()
+    numEnhancedTalents = 2
+    numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*5) / (5*5 + 4 + 4 + 4) # assume 4 average threat teammates
+    numSvarogCounters = numEnemyAttacks * (5*5) / (5*5 + 4 + 4 + 4)
+        
     ClaraRotation = [ # 110 max energy
-            ClaraCharacter.useSkill() * 3,
-            ClaraCharacter.useMarkOfSvarog() * 3, # these are 3 instances of single target bonus damage
-            ClaraCharacter.useTalent(enhanced=False), # 1 additional clara hit on top
-            ClaraCharacter.useTalent(enhanced=True) * 2, # 2 reactions from ultimate
+            ClaraCharacter.useSkill() * 2,
+            ClaraCharacter.useMarkOfSvarog() * numSvarogCounters,
+            ClaraCharacter.useTalent(enhanced=False) * numUnenhancedTalents, 
+            ClaraCharacter.useTalent(enhanced=True) * numEnhancedTalents,
             ClaraCharacter.useUltimate(),
     ]
-    # 2.5E as clara probably can't consistently pull off a 2E rotation depending on how much
-    # energy enemies give when they hit her
-    visualizationList.append(DefaultEstimator('Clara: 2.5E 3T 1Q', ClaraRotation, ClaraCharacter, config))
+    
+    visualizationList.append(DefaultEstimator('Clara: 2E {:.1f}T 1Q'.format(numSvarogCounters), ClaraRotation, ClaraCharacter, config))
 
     # Lunae
     LunaeCharacter = Lunae(RelicStats(mainstats = ['percAtk', 'percAtk', 'CR', 'imagDmg'],
@@ -308,21 +314,19 @@ if __name__ == '__main__':
                 relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = InertSalsotto(),
                 **config)
     
-    spd = TopazCharacter.getTotalSpd()
-    
     TopazRotation = [ # 130 max energy
             TopazCharacter.useBasic() * 5,
             TopazCharacter.useSkill(),
             TopazCharacter.useUltimate(),
             TopazCharacter.useTalent(windfall=True) * 2, # two talents from windfall
-            TopazCharacter.useTalent(windfall=False) * 6, # about 1 talent per basic/skill
     ]
     
-    #topazTurns = sum([x.actionvalue for x in TopazRotation])
-    #numbyTurns = topazTurns * 80 / TopazCharacter.getTotalSpd()
-    #numbyAdvanceForwards = 6 * 3 / 8 # 4 skill usages, treat each 50% advance forward as 37.5% of an advance forward    
+    topazTurns = sum([x.actionvalue for x in TopazRotation])
+    numbyTurns = topazTurns * 80 / TopazCharacter.getTotalSpd()
+    numbyAdvanceForwards = 6 * 3 / 8 # 4 skill usages, treat each 50% advance forward as 37.5% of an advance forward    
+    TopazRotation.append(TopazCharacter.useTalent(windfall=False) * (numbyTurns + numbyAdvanceForwards)) # about 1 talent per basic/skill
     
-    visualizationList.append(DefaultEstimator('Topaz 1E 4N 5T Q Windfall(2T)', TopazRotation, TopazCharacter, config))
+    visualizationList.append(DefaultEstimator('Topaz 1E 4N {:.1f}T Q Windfall(2T)'.format((numbyTurns + numbyAdvanceForwards)), TopazRotation, TopazCharacter, config))
 
     # Qingque
     QingqueCharacter = Qingque(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'quanDmg'],

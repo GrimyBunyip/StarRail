@@ -45,6 +45,7 @@ class Clara(BaseCharacter):
     retval.damage = self.getTotalMotionValue('basic')
     retval.damage *= self.getTotalCrit('basic')
     retval.damage *= self.getTotalDmg('basic')
+    retval.damage *= self.getVulnerabilityType('basic')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
     retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn']) * ( 1.0 + self.ER )
@@ -57,6 +58,7 @@ class Clara(BaseCharacter):
     retval.damage = self.getTotalMotionValue('skill')
     retval.damage *= self.getTotalCrit('skill')
     retval.damage *= self.getTotalDmg('skill')
+    retval.damage *= self.getVulnerabilityType('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = 30.0 * self.numEnemies * (1.0 + self.breakEfficiency)
     retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
@@ -69,6 +71,7 @@ class Clara(BaseCharacter):
     retval.damage = self.getTotalMotionValue('markOfSvarog')
     retval.damage *= self.getTotalCrit('skill')
     retval.damage *= self.getTotalDmg('skill')
+    retval.damage *= self.getVulnerabilityType('skill')
     retval.damage = self.applyDamageMultipliers(retval.damage)
     return retval
 
@@ -85,6 +88,7 @@ class Clara(BaseCharacter):
     retval.damage *= ( 1.0 + num_adjacent / 2.0 ) if enhanced else 1.0    
     retval.damage *= self.getTotalCrit(['followup','talent'])
     retval.damage *= self.getTotalDmg(['followup','talent']) + ( (1.728 if self.eidolon >= 5 else 1.6) if enhanced else 0.0)
+    retval.damage *= self.getVulnerabilityType(['followup','talent'])
     retval.damage = self.applyDamageMultipliers(retval.damage)
     retval.gauge = ( ( 30.0 * min(3,self.numEnemies) ) if enhanced else 30.0 ) * (1.0 + self.breakEfficiency)
     retval.energy = ( 5.0 + self.bonusEnergyAttack['followup'] + self.bonusEnergyAttack['talent'] ) * ( 1.0 + self.ER )
