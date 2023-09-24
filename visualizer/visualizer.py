@@ -1,12 +1,15 @@
+import io
+import multiprocessing
+
+from urllib.request import urlopen
+
 import matplotlib.pyplot as plt
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from matplotlib.colors import to_rgba
-from urllib.request import urlopen
-import io
-from baseClasses.BaseCharacter import BaseCharacter
 
-from estimator.DefaultEstimator import VisualizationInfo
+from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseEffect import BaseEffect
+from estimator.DefaultEstimator import VisualizationInfo
 
 def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.png',  **config):
     color_dict = {

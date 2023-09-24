@@ -108,6 +108,8 @@ from relicSets.planarSets.TaliaKingdomOfBanditry import TaliaKingdomOfBanditry
 if __name__ == '__main__':
     visualizationList = []
     
+    processes = []
+    
     config = copy(Configuration)
     config['numEnemies'] = 2
     config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
