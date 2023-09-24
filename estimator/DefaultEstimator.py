@@ -9,9 +9,19 @@ class VisualizationInfo():
   breakEffect:BaseEffect
   dotEffect:BaseEffect
   extraImage:str
+  
+def DotEstimator(rotation:list, char:BaseCharacter, config:dict, dotMode:str = 'alwaysSingle'):
+  # apply a number of dot ticks proportional to enemy speed, this does not count kafka procs
+  num_enemy_turns = sum([x.actionvalue for x in rotation]) * char.enemySpeed / char.getTotalSpd()
+  if dotMode == 'alwaysSingle':
+    return num_enemy_turns
+  elif dotMode == 'alwaysBlast':
+    return num_enemy_turns * min(3, char.numEnemies)
+  elif dotMode == 'alwaysAll':
+    return num_enemy_turns * char.numEnemies
+  return 0.0
 
-def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config:dict,
-                     breakDotMode:str = 'limited', dotMode:str = 'alwaysSingle', dotUptime:float=1.0, extraImage:str=None):
+def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config:dict, breakDotMode:str = 'limited', numDot:float=0.0, extraImage:str=None):
   
   totalEffect:BaseEffect = BaseEffect()
   breakEffect:BaseEffect = BaseEffect()
@@ -27,16 +37,10 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
     breakEffect += char.useBreakDot() * num_breaks
     if char.element in ['physical', 'fire', 'lightning', 'wind']:
       breakEffect += char.useBreakDot() * num_breaks # these four elements tick twice
+      
+  dotEffect += char.useDot() * numDot
   
-  # apply a number of dot ticks proportional to enemy speed, this does not count kafka procs
   num_enemy_turns = totalEffect.actionvalue * char.enemySpeed / char.getTotalSpd()
-  if dotMode == 'alwaysSingle':
-    dotEffect += char.useDot() * num_enemy_turns * dotUptime
-  elif dotMode == 'alwaysBlast':
-    dotEffect += char.useDot() * num_enemy_turns * min(3, char.numEnemies) * dotUptime
-  elif dotMode == 'alwaysAll':
-    dotEffect += char.useDot() * num_enemy_turns * char.numEnemies * dotUptime
-  
   if breakDotMode == 'alwaysSingle':
     breakEffect += char.useBreakDot() * num_enemy_turns
   elif breakDotMode == 'alwaysBlast':
