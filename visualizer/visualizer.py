@@ -13,9 +13,9 @@ from estimator.DefaultEstimator import VisualizationInfo
 
 def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.png',  **config):
     color_dict = {
-        'wind': 'green',
-        'fire': 'red',
-        'ice': 'blue',
+        'wind': 'forestgreen',
+        'fire': 'firebrick',
+        'ice': 'royalblue',
         'lightning': 'purple',
         'physical': 'grey',
         'quantum': 'darkslateblue',

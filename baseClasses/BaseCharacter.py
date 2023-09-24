@@ -340,6 +340,7 @@ class BaseCharacter(object):
     baseDotDamage *= 0.5 + self.enemyToughness / 120
     baseDotDamage *= breakMultipliers[self.element]
     baseDotDamage *= 1.0 + self.breakEffect
+    baseDotDamage *= self.getVulnerabilityType()
     baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
 
     retval.damage = baseDotDamage
@@ -363,13 +364,14 @@ class BaseCharacter(object):
       baseDotDamage = self.breakLevelMultiplier
     elif self.element == 'lightning':
       baseDotDamage = 2.0 * self.breakLevelMultiplier
-    elif self.element == 'wind': #assume 3 stacks
-      baseDotDamage = 3.0 * self.breakLevelMultiplier
+    elif self.element == 'wind': #assume 3 stacks to elites, 1 stack otherwise
+      baseDotDamage = (3.0 if self.enemyType == 'elite' else 1.0) * self.breakLevelMultiplier
     elif self.element == 'quantum': #assume 3 stacks
       baseDotDamage = 0.6 * 3 * self.breakLevelMultiplier
       baseDotDamage *= 0.5 + self.enemyToughness / 120
 
     baseDotDamage *= 1.0 + self.breakEffect
+    baseDotDamage *= self.getVulnerabilityType('dot')
     baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
 
     retval.damage = baseDotDamage

@@ -59,11 +59,11 @@ class Kafka(BaseCharacter):
     retval.skillpoints = -1.0
     retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
     
-    dotExplosion = self.useDot() + self.useBreakDot()
+    dotExplosion = self.useDot()
     if extraDots is not None:
       for extraDot in extraDots:
         dotExplosion += extraDot
-    dotExplosion *= 0.78 if self.eidolon >= 3 else 0.75
+    dotExplosion.damage *= 0.78 if self.eidolon >= 3 else 0.75
     
     retval += dotExplosion
     return retval
@@ -80,7 +80,7 @@ class Kafka(BaseCharacter):
     retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
     
     # assume breakDot single target, usualDot AOE
-    dotExplosion = self.useDot() * self.numEnemies + self.useBreakDot()
+    dotExplosion = self.useDot() * self.numEnemies
     if extraDots is not None:
       for extraDot in extraDots:
         dotExplosion += extraDot

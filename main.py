@@ -133,6 +133,13 @@ if __name__ == '__main__':
 
         numDot = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
         numDot = min(numDot, 2 * numUlt * KafkaCharacter.numEnemies + 2 * numTalent)
+        
+        #num_breaks = sum([x.gauge for x in KafkaRotation]) * config['weaknessBrokenUptime'] / config['enemyToughness']
+        #breakDotUptime = 2.0 * num_breaks * KafkaCharacter.getTotalSpd() / KafkaCharacter.enemySpeed / sum([x.actionvalue for x in KafkaRotation])
+        
+        # change the skills to include break dots in dot explosions
+        #KafkaRotation[0] = KafkaCharacter.useSkill(extraDots=[KafkaCharacter.useBreakDot() * breakDotUptime]) * numSkill
+        #KafkaRotation[2] = KafkaCharacter.useUltimate(extraDots=[KafkaCharacter.useBreakDot() * breakDotUptime]) * numUlt
 
         visualizationList.append(DefaultEstimator('Kafka: {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDot), 
                                                         KafkaRotation, KafkaCharacter, config, numDot=numDot))
