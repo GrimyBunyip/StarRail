@@ -130,7 +130,7 @@ if __name__ == '__main__':
     visualizationList.append(DefaultEstimator('Kafka: 3E 3T 1Q', KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll'))
     
     # Blade
-    bladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CD', 'windDmg'],
+    BladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CD', 'windDmg'],
                             substats = {'CR': 10, 'CD': 4, 'flatSpd': 6}),
                 lightcone = ASecretVow(uptime = 0.5, **config),
                 relicsetone = LongevousDisciple2pc(),
@@ -139,14 +139,21 @@ if __name__ == '__main__':
                 hpLossTally=1.0,
                 **config)
     
-    BladeRotation = [ # 130 max energy
-            bladeCharacter.useSkill() * 0.5, # 5 energy, 0.5 charges, only need half a usage per ult or so
-            bladeCharacter.useEnhancedBasic() * 2, # 80 energy, 2 charge
-            bladeCharacter.useTalent() * 0.9, # 30 energy, requires 5 charges if e0
-            bladeCharacter.takeDamage(), # 10 energy, 1 charge, assume we get once
-            bladeCharacter.useUltimate(), # 15 energy, 1 charge
+    numBasic = 3.0
+    
+    BladeRotation = [ # 130 max energy, Assume 3 enhanced basics per ultimate
+            BladeCharacter.useSkill() * numBasic / 4.0,
+            BladeCharacter.useEnhancedBasic() * numBasic,
+            BladeCharacter.useUltimate(), # 15 energy, 1 charge
     ]
-    visualizationList.append(DefaultEstimator('Blade: 0.5S 2N 0.9T 1Q, get hit once', BladeRotation, bladeCharacter, config))
+
+    # assume each elite performs 1 single target attack per turn
+    numEnemyAttacks = BladeCharacter.enemySpeed * BladeCharacter.numEnemies * sum([x.actionvalue for x in BladeRotation]) / BladeCharacter.getTotalSpd()
+    numHitsTaken = numEnemyAttacks * 5 / (5 + 4 + 4 + 4) # assume 4 average threat teammates
+    numTalent = (0.75 + 3 + 1 + numHitsTaken) / 5.0
+    BladeRotation.append(BladeCharacter.useTalent() * numTalent)
+    
+    visualizationList.append(DefaultEstimator('Blade: {:.1f}N {:.1f}T 1Q'.format(numBasic, numTalent), BladeRotation, BladeCharacter, config))
     
     # Clara
     ClaraCharacter = Clara(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'physDmg'],
@@ -161,8 +168,8 @@ if __name__ == '__main__':
     # times 2 as the rotation is 2 of her turns long
     numEnemyAttacks = ClaraCharacter.enemySpeed * ClaraCharacter.numEnemies * 2 / ClaraCharacter.getTotalSpd()
     numEnhancedTalents = 2
-    numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*5) / (5*5 + 4 + 4 + 4) # assume 4 average threat teammates
-    numSvarogCounters = numEnemyAttacks * (5*5) / (5*5 + 4 + 4 + 4)
+    numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*6) / (5*6 + 4 + 4 + 4) # assume 4 average threat teammates
+    numSvarogCounters = numEnemyAttacks * (5*6) / (5*6 + 4 + 4 + 4)
         
     ClaraRotation = [ # 110 max energy
             ClaraCharacter.useSkill() * 2,
