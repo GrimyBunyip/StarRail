@@ -6,6 +6,7 @@ from urllib.request import urlopen
 import matplotlib.pyplot as plt
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from matplotlib.colors import to_rgba
+#import mplcursors
 
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseEffect import BaseEffect
@@ -70,6 +71,15 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
     bars = ax.barh([x for x in range(len(rotationNames))], [x[0] for x in values], color = [x[0] for x in colors])
     bars = ax.barh([x for x in range(len(rotationNames))], [x[1] for x in values], color = [x[1] for x in colors])
     bars = ax.barh([x for x in range(len(rotationNames))], [x[2] for x in values], color = [x[2] for x in colors])
+    
+    '''cursor = mplcursors.cursor(hover=True)
+    @cursor.connect('add')
+    def on_add(sel):
+        x, y, width, height = sel.artist[sel.target.index].get_bbox().bounds
+        sel.annotation.set(text='hello',
+                        position=(10, 0), anncoords="offset points")
+        sel.annotation.xy = (x + width / 2, y + height / 2)
+        sel.annotation.get_bbox_patch().set(alpha=0.8)'''
 
     # define left and right offsets
     PICTURE_SIZE = 9000

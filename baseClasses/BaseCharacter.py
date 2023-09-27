@@ -4,382 +4,382 @@ from baseClasses.BaseEffect import BaseEffect
 
 STATS_FILEPATH = 'settings\CharacterStats.csv'
 if os.name == 'posix':
-  STATS_FILEPATH = STATS_FILEPATH.replace('\\','/')
+    STATS_FILEPATH = STATS_FILEPATH.replace('\\','/')
 
 class BaseCharacter(object):
-  graphic:str
-  
-  baseAtk:float
-  baseDef:float
-  baseHP:float
-  baseSpd:float
-
-  CR:float
-  CD:float
-
-  taunt:float
-  initialEnergy:float
-  maxEnergy:float
-  path:str
-  element:str
-  name:str
-
-  percAtk:float
-  percDef:float
-  percHP:float
-  EHR:float
-  Res:float
-  windDmg:float
-  fireDmg:float
-  iceDmg:float
-  lighDmg:float
-  physDmg:float
-  quanDmg:float
-  imagDmg:float
-
-  # define information we would pull from the configuration dictionary and might use
-  # helps with autocomplete in vs code
-  numEnemies:int
-  numRounds:float
-  enemyLevel:int
-  enemySpeed:float
-  enemyType:str  
-  bonusEnergyFlat:float
-  bonusEnergyPerEnemyAttack:float
-  numberEnemyAttacksPerTurn:float
-  enemyMaxHP:float
-  enemyToughness:float
-  breakLevelMultiplier:float
-  enemyRes:float
-  weaknessBrokenUptime:float
-
-  def __init__(self, relicstats, lightcone=None, relicsetone=None, relicsettwo=None, planarset=None, **config):
-    self.__dict__.update(config)
+    graphic:str
     
-    self.lightcone = lightcone
-    self.relicsetone = relicsetone
-    self.relicsettwo = relicsettwo
-    self.planarset = planarset
-    self.relicstats = relicstats
+    baseAtk:float
+    baseDef:float
+    baseHP:float
+    baseSpd:float
 
-    self.percSpd = 0.0
-    self.flatAtk = 0.0
-    self.flatDef = 0.0
-    self.flatHP = 0.0
-    self.flatSpd = 0.0
+    CR:float
+    CD:float
 
-    self.ER = 0.0
-    self.breakEffect = 0.0
-    self.breakEfficiency = 0.0
-    self.Heal = 0.0
-    
-    self.allRes = 0.0
-    self.dmgReduction = 0.0
-    self.percTaunt = 0.0
-    self.percShield = 0.0
-    
-    self.Dmg = 0.0
-    self.DmgType = {
-      'basic':0.0,
-      'enhancedBasic':0.0,
-      'skill':0.0,
-      'enhancedSkill':0.0,
-      'ultimate':0.0,
-      'talent':0.0,
-      'followup':0.0,
-      'dot':0.0,
-    }
-    
-    self.Vulnerability = 0.0
-    self.VulnerabilityType = {
-      'basic':0.0,
-      'enhancedBasic':0.0,
-      'skill':0.0,
-      'enhancedSkill':0.0,
-      'ultimate':0.0,
-      'talent':0.0,
-      'followup':0.0,
-      'dot':0.0,
-    }
-    
-    self.CRType = {
-      'basic':0.0,
-      'enhancedBasic':0.0,
-      'skill':0.0,
-      'enhancedSkill':0.0,
-      'ultimate':0.0,
-      'talent':0.0,
-      'followup':0.0,
-      'dot':0.0,
-    }
-    
-    self.CDType = {
-      'basic':0.0,
-      'enhancedBasic':0.0,
-      'skill':0.0,
-      'enhancedSkill':0.0,
-      'ultimate':0.0,
-      'talent':0.0,
-      'followup':0.0,
-      'dot':0.0,
-    }
+    taunt:float
+    initialEnergy:float
+    maxEnergy:float
+    path:str
+    element:str
+    name:str
 
-    self.percAtkType = {
-      'basic':0.0,
-      'enhancedBasic':0.0,
-      'skill':0.0,
-      'enhancedSkill':0.0,
-      'ultimate':0.0,
-      'talent':0.0,
-      'followup':0.0,
-      'dot':0.0,
-    }
+    percAtk:float
+    percDef:float
+    percHP:float
+    EHR:float
+    Res:float
+    windDmg:float
+    fireDmg:float
+    iceDmg:float
+    lighDmg:float
+    physDmg:float
+    quanDmg:float
+    imagDmg:float
 
-    self.percDefType = {
-      'basic':0.0,
-      'enhancedBasic':0.0,
-      'skill':0.0,
-      'enhancedSkill':0.0,
-      'ultimate':0.0,
-      'talent':0.0,
-      'followup':0.0,
-      'dot':0.0,
-    }
+    # define information we would pull from the configuration dictionary and might use
+    # helps with autocomplete in vs code
+    numEnemies:int
+    numRounds:float
+    enemyLevel:int
+    enemySpeed:float
+    enemyType:str    
+    bonusEnergyFlat:float
+    bonusEnergyPerEnemyAttack:float
+    numberEnemyAttacksPerTurn:float
+    enemyMaxHP:float
+    enemyToughness:float
+    breakLevelMultiplier:float
+    enemyRes:float
+    weaknessBrokenUptime:float
 
-    self.percHPType = {
-      'basic':0.0,
-      'enhancedBasic':0.0,
-      'skill':0.0,
-      'enhancedSkill':0.0,
-      'ultimate':0.0,
-      'talent':0.0,
-      'followup':0.0,
-      'dot':0.0,
-    }
-    
-    self.bonusEnergyAttack = {
-      'basic':0.0,
-      'enhancedBasic':0.0,
-      'skill':0.0,
-      'enhancedSkill':0.0,
-      'ultimate':0.0,
-      'talent':0.0,
-      'followup':0.0,
-      'dot':0.0,
-      'turn':0.0,
-    }
-    
-    self.advanceForwardType = {
-      'basic':0.0,
-      'enhancedBasic':0.0,
-      'skill':0.0,
-      'enhancedSkill':0.0,
-      'ultimate':0.0,
-      'talent':0.0,
-      'followup':0.0,
-      'dot':0.0,
-    }
-
-    self.defShred = 0.0
-    self.resPen = 0.0
-    
-    self.motionValueDict = {}
-    
-  def loadCharacterStats(self, name:str):
-    df = pd.read_csv(STATS_FILEPATH)
-    rows = df.iloc[:, 0]
-    for column in df.columns:
-        data = df.loc[rows[rows == name].index,column].values[0]
-        self.__dict__[column] = data
+    def __init__(self, relicstats, lightcone=None, relicsetone=None, relicsettwo=None, planarset=None, **config):
+        self.__dict__.update(config)
         
-    self.initialEnergy = self.maxEnergy * 0.5
-    self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
-    
-    self.longName = '{} E{} {} S{}\n{}{}{}'.format(self.name, self.eidolon, self.lightcone.name, self.lightcone.superposition,
-                                                          "" if self.relicsetone is None else self.relicsetone.shortname, 
-                                                          "" if self.relicsettwo is None else (" + " + self.relicsettwo.shortname), 
-                                                          "" if self.planarset is None else (" + " + self.planarset.shortname))
+        self.lightcone = lightcone
+        self.relicsetone = relicsetone
+        self.relicsettwo = relicsettwo
+        self.planarset = planarset
+        self.relicstats = relicstats
 
-  def equipGear(self):
-    if self.relicstats is not None: self.relicstats.equipTo(self)
-    if self.lightcone is not None: self.lightcone.equipTo(self)
-    if self.relicsetone is not None: self.relicsetone.equipTo(self)
-    if self.relicsettwo is not None: self.relicsettwo.equipTo(self)
-    if self.planarset is not None: self.planarset.equipTo(self)
+        self.percSpd = 0.0
+        self.flatAtk = 0.0
+        self.flatDef = 0.0
+        self.flatHP = 0.0
+        self.flatSpd = 0.0
 
-  def balanceCrit(self):
-    totalCV = self.CR * 2 + self.CD
-    self.CD = max(0.5, totalCV / 2.0)
-    self.CR = (totalCV - self.CD) / 2.0
-    
-  def getTotalTaunt(self):
-    return self.taunt * (1 + self.percTaunt)
+        self.ER = 0.0
+        self.breakEffect = 0.0
+        self.breakEfficiency = 0.0
+        self.Heal = 0.0
+        
+        self.allRes = 0.0
+        self.dmgReduction = 0.0
+        self.percTaunt = 0.0
+        self.percShield = 0.0
+        
+        self.Dmg = 0.0
+        self.DmgType = {
+            'basic':0.0,
+            'enhancedBasic':0.0,
+            'skill':0.0,
+            'enhancedSkill':0.0,
+            'ultimate':0.0,
+            'talent':0.0,
+            'followup':0.0,
+            'dot':0.0,
+        }
+        
+        self.Vulnerability = 0.0
+        self.VulnerabilityType = {
+            'basic':0.0,
+            'enhancedBasic':0.0,
+            'skill':0.0,
+            'enhancedSkill':0.0,
+            'ultimate':0.0,
+            'talent':0.0,
+            'followup':0.0,
+            'dot':0.0,
+        }
+        
+        self.CRType = {
+            'basic':0.0,
+            'enhancedBasic':0.0,
+            'skill':0.0,
+            'enhancedSkill':0.0,
+            'ultimate':0.0,
+            'talent':0.0,
+            'followup':0.0,
+            'dot':0.0,
+        }
+        
+        self.CDType = {
+            'basic':0.0,
+            'enhancedBasic':0.0,
+            'skill':0.0,
+            'enhancedSkill':0.0,
+            'ultimate':0.0,
+            'talent':0.0,
+            'followup':0.0,
+            'dot':0.0,
+        }
 
-  def getTotalAtk(self, type=None):
-    if isinstance(type, list):
-      bonuses = sum([(self.percAtkType[x] if x in self.percAtkType else 0.0) for x in type])
-      return self.baseAtk * ( 1 + self.percAtk + bonuses ) + self.flatAtk
-    elif type is None or type not in self.percAtkType:
-      return self.baseAtk * ( 1 + self.percAtk ) + self.flatAtk
-    else:
-      return self.baseAtk * ( 1 + self.percAtk + self.percAtkType[type] ) + self.flatAtk
+        self.percAtkType = {
+            'basic':0.0,
+            'enhancedBasic':0.0,
+            'skill':0.0,
+            'enhancedSkill':0.0,
+            'ultimate':0.0,
+            'talent':0.0,
+            'followup':0.0,
+            'dot':0.0,
+        }
 
-  def getTotalDef(self, type=None):
-    if isinstance(type, list):
-      bonuses = sum([(self.percDefType[x] if x in self.percDefType else 0.0) for x in type])
-      return self.baseDef * ( 1 + self.percDef + bonuses ) + self.flatDef
-    elif type is None or type not in self.percDefType:
-      return self.baseDef * ( 1 + self.percDef ) + self.flatDef
-    else:
-      return self.baseDef * ( 1 + self.percDef + self.percDefType[type] ) + self.flatDef
+        self.percDefType = {
+            'basic':0.0,
+            'enhancedBasic':0.0,
+            'skill':0.0,
+            'enhancedSkill':0.0,
+            'ultimate':0.0,
+            'talent':0.0,
+            'followup':0.0,
+            'dot':0.0,
+        }
 
-  def getTotalHP(self, type=None):
-    if isinstance(type, list):
-      bonuses = sum([(self.percHPType[x] if x in self.percHPType else 0.0) for x in type])
-      return self.baseHP * ( 1 + self.percHP + bonuses ) + self.flatHP
-    elif type is None or type not in self.percHPType:
-      return self.baseHP * ( 1 + self.percHP ) + self.flatHP
-    else:
-      return self.baseHP * ( 1 + self.percHP + self.percHPType[type] ) + self.flatHP
-  
-  def getTotalCrit(self, type=None):
-    if isinstance(type, list):
-      crBonuses = sum([(self.CRType[x] if x in self.CRType else 0.0) for x in type])
-      cdBonuses = sum([(self.CDType[x] if x in self.CDType else 0.0) for x in type])
-      return 1.0 + min(1.0, self.CR + crBonuses) * (self.CD + cdBonuses)
-    elif type is None:
-      return 1.0 + min(1.0, self.CR) * self.CD
-    else:
-      return 1.0 + min(1.0, self.CR + self.CRType[type]) * (self.CD + self.CDType[type])
-    
-  def getTotalDmg(self, type=None, element=None):
-    elementDmg = {
-      'wind': self.windDmg,
-      'ice': self.iceDmg,
-      'fire': self.fireDmg,
-      'lightning': self.lighDmg,
-      'physical': self.physDmg,
-      'quantum': self.quanDmg,
-      'imaginary': self.imagDmg,
-    }
-    
-    myElement = self.element if element is None else element
-    
-    if isinstance(type, list):
-      bonuses = sum([(self.DmgType[x] if x in self.DmgType else 0.0) for x in type])
-      return 1.0 + self.Dmg + elementDmg[myElement] + bonuses
-    elif type is None or type not in self.DmgType:
-      return 1.0 + self.Dmg + elementDmg[myElement]
-    else:
-      return 1.0 + self.Dmg + elementDmg[myElement] + self.DmgType[type]
+        self.percHPType = {
+            'basic':0.0,
+            'enhancedBasic':0.0,
+            'skill':0.0,
+            'enhancedSkill':0.0,
+            'ultimate':0.0,
+            'talent':0.0,
+            'followup':0.0,
+            'dot':0.0,
+        }
+        
+        self.bonusEnergyAttack = {
+            'basic':0.0,
+            'enhancedBasic':0.0,
+            'skill':0.0,
+            'enhancedSkill':0.0,
+            'ultimate':0.0,
+            'talent':0.0,
+            'followup':0.0,
+            'dot':0.0,
+            'turn':0.0,
+        }
+        
+        self.advanceForwardType = {
+            'basic':0.0,
+            'enhancedBasic':0.0,
+            'skill':0.0,
+            'enhancedSkill':0.0,
+            'ultimate':0.0,
+            'talent':0.0,
+            'followup':0.0,
+            'dot':0.0,
+        }
 
-  def getVulnerabilityType(self, type=None):
-    if isinstance(type, list):
-      bonuses = sum([(self.VulnerabilityType[x] if x in self.VulnerabilityType else 0.0) for x in type])
-      return 1.0 + self.Vulnerability + bonuses
-    elif type is None or type not in self.VulnerabilityType:
-      return 1.0 + self.Vulnerability
-    else:
-      return 1.0 + self.Vulnerability + self.VulnerabilityType[type]
+        self.defShred = 0.0
+        self.resPen = 0.0
+        
+        self.motionValueDict = {}
+        
+    def loadCharacterStats(self, name:str):
+        df = pd.read_csv(STATS_FILEPATH)
+        rows = df.iloc[:, 0]
+        for column in df.columns:
+                data = df.loc[rows[rows == name].index,column].values[0]
+                self.__dict__[column] = data
+                
+        self.initialEnergy = self.maxEnergy * 0.5
+        self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
+        
+        self.longName = '{} E{} {} S{}\n{}{}{}'.format(self.name, self.eidolon, self.lightcone.name, self.lightcone.superposition,
+                                                                                                                    "" if self.relicsetone is None else self.relicsetone.shortname, 
+                                                                                                                    "" if self.relicsettwo is None else (" + " + self.relicsettwo.shortname), 
+                                                                                                                    "" if self.planarset is None else (" + " + self.planarset.shortname))
 
-  def getTotalSpd(self):
-    return self.baseSpd * ( 1 + self.percSpd ) + self.flatSpd
-  
-  def getTotalMotionValue(self, type:str):
-    total = 0.0
-    for key, value in self.motionValueDict.items():
-      if key == type:
-        if isinstance(value, list):
-          total += sum(x.calculate(self) for x in value)
+    def equipGear(self):
+        if self.relicstats is not None: self.relicstats.equipTo(self)
+        if self.lightcone is not None: self.lightcone.equipTo(self)
+        if self.relicsetone is not None: self.relicsetone.equipTo(self)
+        if self.relicsettwo is not None: self.relicsettwo.equipTo(self)
+        if self.planarset is not None: self.planarset.equipTo(self)
+
+    def balanceCrit(self):
+        totalCV = self.CR * 2 + self.CD
+        self.CD = max(0.5, totalCV / 2.0)
+        self.CR = (totalCV - self.CD) / 2.0
+        
+    def getTotalTaunt(self):
+        return self.taunt * (1 + self.percTaunt)
+
+    def getTotalAtk(self, type=None):
+        if isinstance(type, list):
+            bonuses = sum([(self.percAtkType[x] if x in self.percAtkType else 0.0) for x in type])
+            return self.baseAtk * ( 1 + self.percAtk + bonuses ) + self.flatAtk
+        elif type is None or type not in self.percAtkType:
+            return self.baseAtk * ( 1 + self.percAtk ) + self.flatAtk
         else:
-          total += value.calculate(self)
-    return total
+            return self.baseAtk * ( 1 + self.percAtk + self.percAtkType[type] ) + self.flatAtk
 
-  def useBasic(self):
-    retval = BaseEffect()
-    retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-    retval.energy = 20.0 * (1.0 + self.ER)
-    retval.skillpoints = 1.0
-    return retval
+    def getTotalDef(self, type=None):
+        if isinstance(type, list):
+            bonuses = sum([(self.percDefType[x] if x in self.percDefType else 0.0) for x in type])
+            return self.baseDef * ( 1 + self.percDef + bonuses ) + self.flatDef
+        elif type is None or type not in self.percDefType:
+            return self.baseDef * ( 1 + self.percDef ) + self.flatDef
+        else:
+            return self.baseDef * ( 1 + self.percDef + self.percDefType[type] ) + self.flatDef
 
-  def useSkill(self):
-    retval = BaseEffect()
-    retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-    retval.energy = 30.0 * (1.0 + self.ER)
-    retval.skillpoints = -1.0
-    return retval
+    def getTotalHP(self, type=None):
+        if isinstance(type, list):
+            bonuses = sum([(self.percHPType[x] if x in self.percHPType else 0.0) for x in type])
+            return self.baseHP * ( 1 + self.percHP + bonuses ) + self.flatHP
+        elif type is None or type not in self.percHPType:
+            return self.baseHP * ( 1 + self.percHP ) + self.flatHP
+        else:
+            return self.baseHP * ( 1 + self.percHP + self.percHPType[type] ) + self.flatHP
+    
+    def getTotalCrit(self, type=None):
+        if isinstance(type, list):
+            crBonuses = sum([(self.CRType[x] if x in self.CRType else 0.0) for x in type])
+            cdBonuses = sum([(self.CDType[x] if x in self.CDType else 0.0) for x in type])
+            return 1.0 + min(1.0, self.CR + crBonuses) * (self.CD + cdBonuses)
+        elif type is None:
+            return 1.0 + min(1.0, self.CR) * self.CD
+        else:
+            return 1.0 + min(1.0, self.CR + self.CRType[type]) * (self.CD + self.CDType[type])
+        
+    def getTotalDmg(self, type=None, element=None):
+        elementDmg = {
+            'wind': self.windDmg,
+            'ice': self.iceDmg,
+            'fire': self.fireDmg,
+            'lightning': self.lighDmg,
+            'physical': self.physDmg,
+            'quantum': self.quanDmg,
+            'imaginary': self.imagDmg,
+        }
+        
+        myElement = self.element if element is None else element
+        
+        if isinstance(type, list):
+            bonuses = sum([(self.DmgType[x] if x in self.DmgType else 0.0) for x in type])
+            return 1.0 + self.Dmg + elementDmg[myElement] + bonuses
+        elif type is None or type not in self.DmgType:
+            return 1.0 + self.Dmg + elementDmg[myElement]
+        else:
+            return 1.0 + self.Dmg + elementDmg[myElement] + self.DmgType[type]
 
-  def useUltimate(self):
-    retval = BaseEffect()
-    retval.energy = 5.0 * (1.0 + self.ER)
-    return retval
+    def getVulnerabilityType(self, type=None):
+        if isinstance(type, list):
+            bonuses = sum([(self.VulnerabilityType[x] if x in self.VulnerabilityType else 0.0) for x in type])
+            return 1.0 + self.Vulnerability + bonuses
+        elif type is None or type not in self.VulnerabilityType:
+            return 1.0 + self.Vulnerability
+        else:
+            return 1.0 + self.Vulnerability + self.VulnerabilityType[type]
 
-  def useTalent(self):
-    return BaseEffect()
+    def getTotalSpd(self):
+        return self.baseSpd * ( 1 + self.percSpd ) + self.flatSpd
+    
+    def getTotalMotionValue(self, type:str):
+        total = 0.0
+        for key, value in self.motionValueDict.items():
+            if key == type:
+                if isinstance(value, list):
+                    total += sum(x.calculate(self) for x in value)
+                else:
+                    total += value.calculate(self)
+        return total
 
-  def useEnhancedBasic(self):
-    return BaseEffect()
+    def useBasic(self):
+        retval = BaseEffect()
+        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
+        retval.energy = 20.0 * (1.0 + self.ER)
+        retval.skillpoints = 1.0
+        return retval
 
-  def useDot(self):
-    return BaseEffect()
+    def useSkill(self):
+        retval = BaseEffect()
+        retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
+        retval.energy = 30.0 * (1.0 + self.ER)
+        retval.skillpoints = -1.0
+        return retval
 
-  def useBreak(self):
-    retval = BaseEffect()
+    def useUltimate(self):
+        retval = BaseEffect()
+        retval.energy = 5.0 * (1.0 + self.ER)
+        return retval
 
-    breakMultipliers = {
-        'physical': 2.0,
-        'fire': 2.0,
-        'ice': 1.0,
-        'lightning': 1.0,
-        'wind': 1.5,
-        'quantum': 0.5,
-        'imaginary': 0.5,
-    }
+    def useTalent(self):
+        return BaseEffect()
 
-    baseDotDamage = self.breakLevelMultiplier
-    baseDotDamage *= 0.5 + self.enemyToughness / 120
-    baseDotDamage *= breakMultipliers[self.element]
-    baseDotDamage *= 1.0 + self.breakEffect
-    baseDotDamage *= self.getVulnerabilityType()
-    baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
+    def useEnhancedBasic(self):
+        return BaseEffect()
 
-    retval.damage = baseDotDamage
-    return retval
+    def useDot(self):
+        return BaseEffect()
 
-  def useBreakDot(self):
-    retval = BaseEffect()
-    baseDotDamage = 0.0
+    def useBreak(self):
+        retval = BaseEffect()
 
-    if self.element == 'physical':
-      baseDotDamage = 2.0 *self.breakLevelMultiplier
-      baseDotDamage *= 0.5 + self.enemyToughness / 120
-      if self.enemyType == 'elite':
-        bleedDamage = 0.07 * self.enemyMaxHP
-      else:
-        bleedDamage = 0.16 * self.enemyMaxHP
-      baseDotDamage = min(baseDotDamage, bleedDamage)
-    elif self.element == 'fire':
-      baseDotDamage = self.breakLevelMultiplier
-    elif self.element == 'ice':
-      baseDotDamage = self.breakLevelMultiplier
-    elif self.element == 'lightning':
-      baseDotDamage = 2.0 * self.breakLevelMultiplier
-    elif self.element == 'wind': #assume 3 stacks to elites, 1 stack otherwise
-      baseDotDamage = (3.0 if self.enemyType == 'elite' else 1.0) * self.breakLevelMultiplier
-    elif self.element == 'quantum': #assume 3 stacks
-      baseDotDamage = 0.6 * 3 * self.breakLevelMultiplier
-      baseDotDamage *= 0.5 + self.enemyToughness / 120
+        breakMultipliers = {
+            'physical': 2.0,
+            'fire': 2.0,
+            'ice': 1.0,
+            'lightning': 1.0,
+            'wind': 1.5,
+            'quantum': 0.5,
+            'imaginary': 0.5,
+        }
 
-    baseDotDamage *= 1.0 + self.breakEffect
-    baseDotDamage *= self.getVulnerabilityType('dot')
-    baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
+        baseDotDamage = self.breakLevelMultiplier
+        baseDotDamage *= 0.5 + self.enemyToughness / 120
+        baseDotDamage *= breakMultipliers[self.element]
+        baseDotDamage *= 1.0 + self.breakEffect
+        baseDotDamage *= self.getVulnerabilityType()
+        baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
 
-    retval.damage = baseDotDamage
-    return retval
+        retval.damage = baseDotDamage
+        return retval
 
-  def applyDamageMultipliers(self, baseDamage:float) -> float:
-    damage = baseDamage
-    damage *= (80 + 20 ) / ( ( self.enemyLevel + 20 ) * ( 1 - self.defShred ) + 80 + 20 )
-    damage *= max(min(1 - self.enemyRes + self.resPen, 2.0), 0.1)
-    damage *= 0.9 + 0.1 * self.weaknessBrokenUptime
-    return damage
+    def useBreakDot(self):
+        retval = BaseEffect()
+        baseDotDamage = 0.0
+
+        if self.element == 'physical':
+            baseDotDamage = 2.0 *self.breakLevelMultiplier
+            baseDotDamage *= 0.5 + self.enemyToughness / 120
+            if self.enemyType == 'elite':
+                bleedDamage = 0.07 * self.enemyMaxHP
+            else:
+                bleedDamage = 0.16 * self.enemyMaxHP
+            baseDotDamage = min(baseDotDamage, bleedDamage)
+        elif self.element == 'fire':
+            baseDotDamage = self.breakLevelMultiplier
+        elif self.element == 'ice':
+            baseDotDamage = self.breakLevelMultiplier
+        elif self.element == 'lightning':
+            baseDotDamage = 2.0 * self.breakLevelMultiplier
+        elif self.element == 'wind': #assume 3 stacks to elites, 1 stack otherwise
+            baseDotDamage = (3.0 if self.enemyType == 'elite' else 1.0) * self.breakLevelMultiplier
+        elif self.element == 'quantum': #assume 3 stacks
+            baseDotDamage = 0.6 * 3 * self.breakLevelMultiplier
+            baseDotDamage *= 0.5 + self.enemyToughness / 120
+
+        baseDotDamage *= 1.0 + self.breakEffect
+        baseDotDamage *= self.getVulnerabilityType('dot')
+        baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
+
+        retval.damage = baseDotDamage
+        return retval
+
+    def applyDamageMultipliers(self, baseDamage:float) -> float:
+        damage = baseDamage
+        damage *= (80 + 20 ) / ( ( self.enemyLevel + 20 ) * ( 1 - self.defShred ) + 80 + 20 )
+        damage *= max(min(1 - self.enemyRes + self.resPen, 2.0), 0.1)
+        damage *= 0.9 + 0.1 * self.weaknessBrokenUptime
+        return damage

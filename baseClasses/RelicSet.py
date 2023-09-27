@@ -1,3 +1,3 @@
 class RelicSet(object):
-  graphic = ''
-  shortname = ''
+    graphic = ''
+    shortname = ''

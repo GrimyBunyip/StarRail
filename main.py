@@ -341,7 +341,7 @@ if __name__ == '__main__':
 
         # Jingliu
         JingliuCharacter = Jingliu(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
-                                substats = {'CR': 13, 'CD': 7}),
+                                substats = {'CR': 12, 'CD': 6, 'flatSpd': 2}),
                 lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
                 relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(), planarset = RutilantArena(),
                 **config)
@@ -354,7 +354,7 @@ if __name__ == '__main__':
                 JingliuCharacter.useSkill() * numSkill, # 60 energy, 2 stack
                 JingliuCharacter.useEnhancedSkill() * numEnhanced, # 60 energy, -3 stacks
                 JingliuCharacter.useUltimate() * numUlt, # 5 energy, 1 stack
-                JingliuCharacter.extraTurn() * numEnhanced / 2.0,
+                JingliuCharacter.extraTurn() * 0.9 * numEnhanced / 2.0, # multiply by 0.9 because it tends to overlap with skill advances
         ]
         visualizationList.append(DefaultEstimator('Jingliu {:.0f}E {:.0f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
                                                   JingliuRotation, JingliuCharacter, config))
@@ -366,7 +366,7 @@ if __name__ == '__main__':
                 relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = InertSalsotto(),
                 **config)
         
-        numBasic = 5.0
+        numBasic = 4.0
         numSkill = 1.0
         numUlt = 1.0
 
@@ -537,20 +537,22 @@ if __name__ == '__main__':
 
         # Welt
         WeltCharacter = Welt(RelicStats(mainstats = ['ER', 'flatSpd', 'CR', 'percAtk'],
-                        substats = {'CD': 11, 'CR': 6, 'flatSpd':3}),
+                        substats = {'CD': 12, 'CR': 5, 'flatSpd':3}),
                 lightcone = GoodNightAndSleepWell(**config),
-                relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = SpaceSealingStation(),
+                relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = RutilantArena(),
                 **config)
         
+        numBasic = 1.0
         numSkill = 2.0
         numUlt = 1.0
 
         WeltRotation = [ # 
+                WeltCharacter.useBasic() * numBasic, #
                 WeltCharacter.useSkill() * numSkill, #
                 WeltCharacter.useUltimate() * numUlt, #
         ]
 
-        visualizationList.append(DefaultEstimator('Welt {:.0f}E {:.0f}Q'.format(numSkill, numUlt), WeltRotation, WeltCharacter, config))
+        visualizationList.append(DefaultEstimator('Welt {:.0f}N {:.0f}E {:.0f}Q'.format(numBasic, numSkill, numUlt), WeltRotation, WeltCharacter, config))
 
         # SilverWolf
         SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'flatSpd', 'EHR', 'breakEffect'],
