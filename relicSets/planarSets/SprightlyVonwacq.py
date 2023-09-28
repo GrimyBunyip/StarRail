@@ -11,5 +11,6 @@ class SprightlyVonwacq(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.ER += 0.05
+        char.stats['ER'].append(BuffEffect(description=self.shortname,
+                                amount=0.05))
         # second effect not implemented

@@ -13,5 +13,10 @@ class SpaceSealingStation(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.percAtk += 0.12
-        char.percAtk += 0.12 * self.uptime
+        char.stats['ATK'].append(BuffEffect(description=self.shortname,
+                                amount=0.12,
+                                mathType='percent'))
+        char.stats['ATK'].append(BuffEffect(description=self.shortname,
+                                amount=0.12,
+                                mathType='percent',
+                                uptime=self.uptime))

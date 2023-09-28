@@ -11,7 +11,9 @@ class MusketeerOfWildWheat2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.percAtk += 0.12
+        char.stats['ATK'].append(BuffEffect(description=self.shortname,
+                                amount=0.12,
+                                mathType='percent'))
 
 class MusketeerOfWildWheat4pc(RelicSet):
     def __init__(self,
@@ -22,5 +24,9 @@ class MusketeerOfWildWheat4pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.percSpd += 0.06
-        char.DmgType['basic'] += 0.10
+        char.stats['SPD'].append(BuffEffect(description=self.shortname,
+                                amount=0.06,
+                                mathType='percent'))
+        char.stats['DMG'].append(BuffEffect(description=self.shortname,
+                                amount=0.10,
+                                type='basic'))

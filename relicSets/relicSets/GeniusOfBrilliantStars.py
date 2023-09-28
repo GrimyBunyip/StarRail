@@ -11,7 +11,9 @@ class GeniusOfBrilliantStars2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.quanDmg += 0.10
+        char.stats['DMG'].append(BuffEffect(description=self.shortname,
+                                amount=0.10,
+                                type='quantum'))
         
 class GeniusOfBrilliantStars4pc(RelicSet):
     def __init__(self,
@@ -24,5 +26,8 @@ class GeniusOfBrilliantStars4pc(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.defShred += 0.10
-        char.defShred += 0.10 * self.uptime
+        char.stats['DefShred'].append(BuffEffect(description=self.shortname,
+                                    amount=0.10))
+        char.stats['DefShred'].append(BuffEffect(description=self.shortname,
+                                    amount=0.10,
+                                    uptime=self.uptime))

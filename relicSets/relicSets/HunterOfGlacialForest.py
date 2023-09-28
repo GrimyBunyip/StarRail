@@ -11,7 +11,9 @@ class HunterOfGlacialForest2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.iceDmg += 0.10
+        char.stats['DMG'].append(BuffEffect(description=self.shortname,
+                                amount=0.10,
+                                type='ice'))
         
 class HunterOfGlacialForest4pc(RelicSet):
     def __init__(self,
@@ -24,4 +26,6 @@ class HunterOfGlacialForest4pc(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.CD += 0.25 * self.uptime
+        char.stats['CD'].append(BuffEffect(description=self.shortname,
+                                amount=0.25,
+                                uptime=self.uptime))

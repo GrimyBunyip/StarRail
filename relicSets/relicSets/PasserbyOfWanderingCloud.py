@@ -11,4 +11,5 @@ class PasserbyOfWanderingCloud2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.Heal += 0.10
+        char.stats['Heal'].append(BuffEffect(description=self.shortname,
+                                amount=0.10))

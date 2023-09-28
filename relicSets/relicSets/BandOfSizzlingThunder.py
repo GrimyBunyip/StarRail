@@ -11,7 +11,9 @@ class BandOfSizzlingThunder2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.lighDmg += 0.10
+        char.stats['DMG'].append(BuffEffect(description=self.shortname,
+                                amount=0.10,
+                                type='lightning'))
         
 class BandOfSizzlingThunder4pc(RelicSet):
     def __init__(self,
@@ -24,4 +26,7 @@ class BandOfSizzlingThunder4pc(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.percAtk += 0.20 * self.uptime
+        char.stats['ATK'].append(BuffEffect(description=self.shortname,
+                                amount=0.20,
+                                mathType='percent',
+                                uptime=self.uptime))

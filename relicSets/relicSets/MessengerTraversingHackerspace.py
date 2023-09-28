@@ -11,7 +11,9 @@ class MessengerTraversingHackerspace2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.percSpd += 0.06
+        char.stats['SPD'].append(BuffEffect(description=self.shortname,
+                                amount=0.06,
+                                mathType='percent'))
         
 class MessengerTraversingHackerspace4pc(RelicSet):
     def __init__(self,
@@ -24,4 +26,7 @@ class MessengerTraversingHackerspace4pc(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.percSpd += 0.12 * self.uptime
+        char.stats['SPD'].append(BuffEffect(description=self.shortname,
+                                amount=0.12,
+                                mathType='percent',
+                                uptime=self.uptime))

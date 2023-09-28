@@ -11,7 +11,9 @@ class EagleOfTwilightLine2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.windDmg += 0.10
+        char.stats['DMG'].append(BuffEffect(description=self.shortname,
+                                amount=0.10,
+                                type='wind'))
 
 class EagleOfTwilightLine4pc(RelicSet):
     def __init__(self,
@@ -22,4 +24,6 @@ class EagleOfTwilightLine4pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.advanceForwardType['ultimate'] = 0.25
+        char.stats['AdvanceForward'].append(BuffEffect(description=self.shortname,
+                                amount=0.25,
+                                type='ultimate'))

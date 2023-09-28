@@ -11,7 +11,9 @@ class KnightOfPurityPalace2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.percDef += 0.15
+        char.stats['DEF'].append(BuffEffect(description=self.shortname,
+                                amount=0.15,
+                                mathType='percent'))
 
 class KnightOfPurityPalace4pc(RelicSet):
     def __init__(self,
@@ -22,4 +24,6 @@ class KnightOfPurityPalace4pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.percShield += 0.20
+        char.stats['Shield'].append(BuffEffect(description=self.shortname,
+                                    amount=0.20,
+                                    mathType='percent'))
