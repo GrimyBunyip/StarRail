@@ -13,8 +13,8 @@ class TaliaKingdomOfBanditry(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['BreakEffect'].append(BuffEffect(description=self.shortname,
-                                        amount=0.16))
-        char.stats['BreakEffect'].append(BuffEffect(description=self.shortname,
+        char.addStat('BreakEffect',description=self.shortname,
+                                        amount=0.16)
+        char.addStat('BreakEffect',description=self.shortname,
                                         amount=0.2,
-                                        uptime=self.uptime))
+                                        uptime=self.uptime)

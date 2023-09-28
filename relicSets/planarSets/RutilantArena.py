@@ -13,13 +13,13 @@ class RutilantArena(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['CR'].append(BuffEffect(description=self.shortname,
-                                amount=0.08))
-        char.stats['Dmg'].append(BuffEffect(description=self.shortname,
+        char.addStat('CR',description=self.shortname,
+                                amount=0.08)
+        char.addStat('DMG',description=self.shortname,
                                 amount=0.20,
                                 type='basic',
-                                uptime=self.uptime))
-        char.stats['Dmg'].append(BuffEffect(description=self.shortname,
+                                uptime=self.uptime)
+        char.addStat('DMG',description=self.shortname,
                                 amount=0.20,
                                 type='skill',
-                                uptime=self.uptime))
+                                uptime=self.uptime)

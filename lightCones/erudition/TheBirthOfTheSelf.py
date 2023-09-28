@@ -13,13 +13,13 @@ class TheBirthOfTheSelf(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.stats['DMG'].append(BuffEffect(description=self.name,
+            char.addStat('DMG',description=self.name,
                                     amount=0.24 + 0.06 * self.superposition,
-                                    type='followup'))
-            char.stats['DMG'].append(BuffEffect(description=self.name,
+                                    type='followup')
+            char.addStat('DMG',description=self.name,
                                     amount=0.24 + 0.06 * self.superposition,
                                     type='followup',
-                                    uptime=self.uptime))
+                                    uptime=self.uptime)
 
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

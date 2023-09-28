@@ -11,5 +11,5 @@ class GuardOfWutheringSnow2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['DmgReduction'].append(BuffEffect(description=self.shortname,
-                                amount=0.08))
+        char.addStat('DmgReduction',description=self.shortname,
+                                amount=0.08)

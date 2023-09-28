@@ -13,15 +13,15 @@ class InTheNameOfTheWorld(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.stats['DMG'].append(BuffEffect(description=self.name,
+            char.addStat('DMG',description=self.name,
                                     amount=0.20 + 0.04 * self.superposition,
-                                    uptime=self.uptime))
-            char.stats['ATK'].append(BuffEffect(description=self.name,
+                                    uptime=self.uptime)
+            char.addStat('ATK',description=self.name,
                                     amount=0.20 + 0.04 * self.superposition,
-                                    mathType='percent'))
-            char.stats['EHR'].append(BuffEffect(description=self.name,
+                                    mathType='percent')
+            char.addStat('EHR',description=self.name,
                                     amount=0.15 + 0.03 * self.superposition,
-                                    type='skill'))
+                                    type='skill')
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

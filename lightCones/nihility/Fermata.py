@@ -11,10 +11,10 @@ class Fermata(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.stats['BreakEffect'].append(BuffEffect(description=self.name,
-                                            amount=0.12 + 0.04 * self.superposition))
-            char.stats['DMG'].append(BuffEffect(description=self.name,
-                                    amount=0.12 + 0.04 * self.superposition))
+            char.addStat('BreakEffect',description=self.name,
+                                            amount=0.12 + 0.04 * self.superposition)
+            char.addStat('DMG',description=self.name,
+                                    amount=0.12 + 0.04 * self.superposition)
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

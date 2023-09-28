@@ -13,8 +13,8 @@ class BrokenKeel(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['RES'].append(BuffEffect(description=self.shortname,
-                                amount=0.10))
-        char.stats['CD'].append(BuffEffect(description=self.shortname,
-                                amount=0.10))
+        char.addStat('RES',description=self.shortname,
+                                amount=0.10)
+        char.addStat('CD',description=self.shortname,
+                                amount=0.10)
         # party wide buffs not yet implemented

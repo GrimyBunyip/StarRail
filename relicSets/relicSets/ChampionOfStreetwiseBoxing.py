@@ -11,9 +11,9 @@ class ChampionOfStreetwiseBoxing2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['DMG'].append(BuffEffect(description=self.shortname,
+        char.addStat('DMG',description=self.shortname,
                                 amount=0.10,
-                                type='physical'))
+                                type='physical')
         
 class ChampionOfStreetwiseBoxing4pc(RelicSet):
     def __init__(self,
@@ -26,7 +26,7 @@ class ChampionOfStreetwiseBoxing4pc(RelicSet):
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['ATK'].append(BuffEffect(description=self.shortname,
+        char.addStat('ATK',description=self.shortname,
                                 amount=0.05,
                                 mathType='percent',
-                                stacks=self.stacks))
+                                stacks=self.stacks)

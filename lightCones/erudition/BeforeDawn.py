@@ -13,18 +13,18 @@ class BeforeDawn(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.stats['CD'].append(BuffEffect(description=self.name,
-                                    amount=0.30 + 0.06 * self.superposition))
-            char.stats['DMG'].append(BuffEffect(description=self.name,
+            char.addStat('CD',description=self.name,
+                                    amount=0.30 + 0.06 * self.superposition)
+            char.addStat('DMG',description=self.name,
                                     amount=0.15 + 0.03 * self.superposition,
-                                    type='skill'))
-            char.stats['DMG'].append(BuffEffect(description=self.name,
+                                    type='skill')
+            char.addStat('DMG',description=self.name,
                                     amount=0.15 + 0.03 * self.superposition,
-                                    type='ultimate'))
-            char.stats['DMG'].append(BuffEffect(description=self.name,
+                                    type='ultimate')
+            char.addStat('DMG',description=self.name,
                                     amount=0.40 + 0.08 * self. superposition,
                                     type='followup',
-                                    uptime=self.uptime))
+                                    uptime=self.uptime)
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

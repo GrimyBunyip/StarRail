@@ -11,9 +11,9 @@ class WastelanderOfBanditryDesert2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['DMG'].append(BuffEffect(description=self.shortname,
+        char.addStat('DMG',description=self.shortname,
                                 amount=0.10,
-                                type='imaginary'))
+                                type='imaginary')
         
 class WastelanderOfBanditryDesert4pc(RelicSet):
     def __init__(self,
@@ -28,9 +28,9 @@ class WastelanderOfBanditryDesert4pc(RelicSet):
         self.uptimeCD = uptimeCD
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['CR'].append(BuffEffect(description=self.shortname,
+        char.addStat('CR',description=self.shortname,
                                 amount=0.10,
-                                uptime=self.uptimeCR))
-        char.stats['CD'].append(BuffEffect(description=self.shortname,
+                                uptime=self.uptimeCR)
+        char.addStat('CD',description=self.shortname,
                                 amount=0.20,
-                                uptime=self.uptimeCD))
+                                uptime=self.uptimeCD)

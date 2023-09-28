@@ -13,10 +13,10 @@ class BelobogOfTheArchitects(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['DEF'].append(BuffEffect(description=self.shortname,
+        char.addStat('DEF',description=self.shortname,
                                 amount=0.15,
-                                mathType='percent'))
-        char.stats['DEF'].append(BuffEffect(description=self.shortname,
+                                mathType='percent')
+        char.addStat('DEF',description=self.shortname,
                                 amount=0.15,
                                 mathType='percent',
-                                uptime=self.uptime))
+                                uptime=self.uptime)

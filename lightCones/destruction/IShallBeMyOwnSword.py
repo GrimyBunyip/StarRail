@@ -15,15 +15,15 @@ class IShallBeMyOwnSword(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.stats['CD'].append(BuffEffect(description=self.name,
-                                    amount=0.17 + 0.03 * self.superposition))
-            char.stats['ATK'].append(BuffEffect(description=self.name,
+            char.addStat('CD',description=self.name,
+                                    amount=0.17 + 0.03 * self.superposition)
+            char.addStat('ATK',description=self.name,
                                     amount=0.115 + 0.025 * self.superposition,
                                     stacks=self.atkStacks,
-                                    mathType='percent'))
-            char.stats['DefShred'].append(BuffEffect(description=self.name,
+                                    mathType='percent')
+            char.addStat('DefShred',description=self.name,
                                     amount=0.1 + 0.02 * self.superposition,
-                                    uptime=self.defShredUptime))
+                                    uptime=self.defShredUptime)
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

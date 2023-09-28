@@ -13,10 +13,10 @@ class TheMolesWelcomeYou(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.stats['ATK'].append(BuffEffect(description=self.name,
+            char.addStat('ATK',description=self.name,
                                     amount=0.09 + 0.03 * self.superposition,
                                     stacks=self.stacks,
-                                    mathType='percent'))
+                                    mathType='percent')
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

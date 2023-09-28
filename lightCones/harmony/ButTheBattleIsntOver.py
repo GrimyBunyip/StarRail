@@ -11,8 +11,8 @@ class ButTheBattleIsntOver(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.stats['ER'].append(BuffEffect(description=self.name,
-                                    amount=0.08 + 0.02 * self.superposition))
+            char.addStat('ER',description=self.name,
+                                    amount=0.08 + 0.02 * self.superposition)
             pass #harmony cones not yet implemented fully
             
 if __name__ == '__main__':

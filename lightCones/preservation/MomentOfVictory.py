@@ -13,16 +13,16 @@ class MomentOfVictory(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.stats['Taunt'].append(BuffEffect(description=self.name,
+            char.addStat('Taunt',description=self.name,
                                         amount=2.0,
-                                        mathType='percent'))
-            char.stats['DEF'].append(BuffEffect(description=self.name,
+                                        mathType='percent')
+            char.addStat('DEF',description=self.name,
                                     amount=0.2 + 0.04 * self.superposition,
-                                    mathType='percent'))
-            char.stats['DEF'].append(BuffEffect(description=self.name,
+                                    mathType='percent')
+            char.addStat('DEF',description=self.name,
                                     amount=0.2 + 0.04 * self.superposition,
                                     mathType='percent',
-                                    uptime=self.uptime))
+                                    uptime=self.uptime)
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

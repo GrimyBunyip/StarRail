@@ -15,17 +15,17 @@ class BrighterThanTheSun(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.stats['CR'].append(BuffEffect(description=self.name,
-                                    amount=0.15 + 0.03 * self.superposition))
-            char.stats['ATK'].append(BuffEffect(description=self.name,
+            char.addStat('CR',description=self.name,
+                                    amount=0.15 + 0.03 * self.superposition)
+            char.addStat('ATK',description=self.name,
                                     amount=0.15 + 0.03 * self.superposition,
                                     stacks=self.stacks,
                                     uptime=self.uptime,
-                                    mathType='percent'))
-            char.stats['ER'].append(BuffEffect(description=self.name,
+                                    mathType='percent')
+            char.addStat('ER',description=self.name,
                                     amount=0.05 + 0.01 * self.superposition,
                                     stacks=self.stacks,
-                                    uptime=self.uptime))
+                                    uptime=self.uptime)
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

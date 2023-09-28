@@ -13,13 +13,13 @@ class InertSalsotto(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['CR'].append(BuffEffect(description=self.shortname,
-                                amount=0.08))
-        char.stats['DMG'].append(BuffEffect(description=self.shortname,
+        char.addStat('CR',description=self.shortname,
+                                amount=0.08)
+        char.addStat('DMG',description=self.shortname,
                                 amount=0.15,
                                 type='ultimate',
-                                uptime=self.uptime))
-        char.stats['DMG'].append(BuffEffect(description=self.shortname,
+                                uptime=self.uptime)
+        char.addStat('DMG',description=self.shortname,
                                 amount=0.15,
                                 type='followup',
-                                uptime=self.uptime))
+                                uptime=self.uptime)

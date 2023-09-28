@@ -89,6 +89,9 @@ class BaseCharacter(object):
                                                         "" if self.relicsettwo is None else (" + " + self.relicsettwo.shortname), 
                                                         "" if self.planarset is None else (" + " + self.planarset.shortname))
 
+    def addStat(self, name:str, description:str, amount:float, type:str=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base'):
+        self.stats[name].append(name=name, description=description, amount=amount, type=type, stacks=stacks, uptime=uptime, mathType=mathType)
+
     def equipGear(self):
         if self.relicstats is not None: self.relicstats.equipTo(self)
         if self.lightcone is not None: self.lightcone.equipTo(self)

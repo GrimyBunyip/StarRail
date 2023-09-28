@@ -12,9 +12,9 @@ class ThisIsMe(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.stats['DEF'].append(BuffEffect(description=self.name,
+            char.addStat('DEF',description=self.name,
                                     amount=0.12 + 0.04 * self.superposition,
-                                    mathType='percent'))
+                                    mathType='percent')
 
             # the area of this MV should equate to the area of the ultimate
             areas = [x.area for x in char.motionValueDict['ultimate']]

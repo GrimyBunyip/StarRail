@@ -13,11 +13,11 @@ class SleepLikeTheDead(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.stats['CD'].append(BuffEffect(description=self.name,
-                                    amount=0.25 + 0.05 * self.superposition))
-            char.stats['CR'].append(BuffEffect(description=self.name,
+            char.addStat('CD',description=self.name,
+                                    amount=0.25 + 0.05 * self.superposition)
+            char.addStat('CR',description=self.name,
                                     amount=0.30 + 0.06 * self.superposition,
-                                    uptime=self.uptime))
+                                    uptime=self.uptime)
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

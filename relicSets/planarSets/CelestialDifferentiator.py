@@ -13,8 +13,8 @@ class CelestialDifferentiator(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['CD'].append(BuffEffect(description=self.shortname,
-                                amount=0.16))
-        char.stats['CR'].append(BuffEffect(description=self.shortname,
+        char.addStat('CD',description=self.shortname,
+                                amount=0.16)
+        char.addStat('CR',description=self.shortname,
                                 amount=0.60,
-                                uptime=self.uptime))
+                                uptime=self.uptime)

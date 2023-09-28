@@ -11,9 +11,9 @@ class FiresmithOfLavaForging2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['DMG'].append(BuffEffect(description=self.shortname,
+        char.addStat('DMG',description=self.shortname,
                                 amount=0.10,
-                                type='fire'))
+                                type='fire')
         
 class FiresmithOfLavaForging4pc(RelicSet):
     def __init__(self,
@@ -26,10 +26,10 @@ class FiresmithOfLavaForging4pc(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['DMG'].append(BuffEffect(description=self.shortname,
+        char.addStat('DMG',description=self.shortname,
                                 amount=0.12,
-                                type='skill'))
-        char.stats['DMG'].append(BuffEffect(description=self.shortname,
+                                type='skill')
+        char.addStat('DMG',description=self.shortname,
                                 amount=0.12,
                                 type='fire',
-                                uptime=self.uptime))
+                                uptime=self.uptime)

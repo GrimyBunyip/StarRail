@@ -11,9 +11,9 @@ class LongevousDisciple2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['HP'].append(BuffEffect(description=self.shortname,
+        char.addStat('HP',description=self.shortname,
                                 amount=0.12,
-                                mathType='percent'))
+                                mathType='percent')
         
 class LongevousDisciple4pc(RelicSet):
     def __init__(self,
@@ -26,6 +26,6 @@ class LongevousDisciple4pc(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.stats['CR'].append(BuffEffect(description=self.shortname,
+        char.addStat('CR',description=self.shortname,
                                 amount=0.16,
-                                uptime=self.uptime))
+                                uptime=self.uptime)
