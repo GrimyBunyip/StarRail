@@ -13,7 +13,10 @@ class WeAreWildfire(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.dmgReduction += ( 0.06 + 0.02 * self.superposition ) * self.uptime
+            char.stats['DmgReduction'].append(BuffEffect(description=self.name,
+                                        amount=0.06 + 0.02 * self.superposition,
+                                        mathType='reductionMult',
+                                        uptime=self.uptime))
             # not implemented: immediate heal
             
 if __name__ == '__main__':

@@ -11,8 +11,10 @@ class OnlySilenceRemains(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.percAtk += 0.12 + 0.04 * self.superposition
-            char.CR += ( 0.09 + 0.03 * self.superposition ) if char.numEnemies <= 2 else 0.0
+            char.stats['CR'].append(BuffEffect(description=self.name,
+                                    amount=( 0.09 + 0.03 * self.superposition ) if char.numEnemies <= 2 else 0.0))
+            char.stats['ATK'].append(BuffEffect(description=self.name,
+                                    amount=0.12 + 0.04 * self.superposition))
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

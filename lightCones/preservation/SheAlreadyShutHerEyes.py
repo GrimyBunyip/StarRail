@@ -13,9 +13,14 @@ class SheAlreadyShutHerEyes(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.percHP += 0.2 + 0.04 * self.superposition
-            char.ER += 0.1 + 0.02 * self.superposition
-            char.Dmg += ( 0.075 + 0.015 * self.superposition ) * self.uptime
+            char.stats['HP'].append(BuffEffect(description=self.name,
+                                    amount=0.2 + 0.04 * self.superposition,
+                                    mathType='percent'))
+            char.stats['ER'].append(BuffEffect(description=self.name,
+                                    amount=0.1 + 0.02 * self.superposition))
+            char.stats['DMG'].append(BuffEffect(description=self.name,
+                                    amount=0.075 + 0.015 * self.superposition,
+                                    uptime=self.uptime))
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

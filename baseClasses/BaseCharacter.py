@@ -19,8 +19,8 @@ EMPTY_STATS = {  # character stats
                 'ER':[], 'BonusEnergyAttack':[],
                 # action stats
                 'SPD':[], 'AdvanceForward':[],
-                # gauge stats
-                'BreakEffect':[], 'BreakEfficiency':[],
+                # effect stats
+                'EHR':[], 'BreakEffect':[], 'BreakEfficiency':[],
                 }
 
 STATS_FILEPATH = 'settings\CharacterStats.csv'
@@ -31,6 +31,7 @@ class BaseCharacter(object):
     stats:dict
 
     graphic:str
+    initialEnergy:float
     maxEnergy:float
     path:str
     element:str
@@ -80,7 +81,7 @@ class BaseCharacter(object):
             else:
                 self.__dict__[column] = data
                 
-        #self.initialEnergy = self.maxEnergy * 0.5
+        self.initialEnergy = self.maxEnergy * 0.5
         self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
         
         self.longName = '{} E{} {} S{}\n{}{}{}'.format(self.name, self.eidolon, self.lightcone.name, self.lightcone.superposition,

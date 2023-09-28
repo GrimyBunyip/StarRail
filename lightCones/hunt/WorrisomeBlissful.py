@@ -13,10 +13,14 @@ class WorrisomeBlissful(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.CR += 0.15 + 0.03 * self.superposition
-            char.DmgType['followup'] += 0.25 + 0.05 * self.superposition
-            char.CD += ( 0.10 + 0.02 * self.superposition ) * self.stacks
-            
+            char.stats['CR'].append(BuffEffect(description=self.name,
+                                    amount=0.15 + 0.03 * self.superposition))
+            char.stats['CD'].append(BuffEffect(description=self.name,
+                                    amount=0.10 + 0.02 * self.superposition,
+                                    stacks=self.stacks))
+            char.stats['DMG'].append(BuffEffect(description=self.name,
+                                    amount=0.25 + 0.05 * self.superposition,
+                                    type='followup'))
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

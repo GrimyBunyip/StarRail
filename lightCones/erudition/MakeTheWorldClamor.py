@@ -11,7 +11,9 @@ class MakeTheWorldClamor(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.percAtk += 0.24 + 0.08 * self.superposition
+            char.stats['ATK'].append(BuffEffect(description=self.name,
+                                    amount=0.24 + 0.08 * self.superposition,
+                                    mathType='percent'))
             char.initialEnergy += 17.0 + 3.0 * self.superposition
             
 if __name__ == '__main__':

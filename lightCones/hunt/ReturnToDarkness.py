@@ -11,7 +11,8 @@ class ReturnToDarkness(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.CR += 0.09 + 0.03 * self.superposition
+            char.stats['CR'].append(BuffEffect(description=self.name,
+                                    amount=0.09 + 0.03 * self.superposition))
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

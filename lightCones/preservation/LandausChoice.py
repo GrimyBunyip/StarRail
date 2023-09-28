@@ -11,8 +11,12 @@ class LandausChoice(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.percTaunt += 2.0
-            char.dmgReduction += 0.14 + 0.02 * self.superposition
+            char.stats['Taunt'].append(BuffEffect(description=self.name,
+                                        amount=2.0,
+                                        mathType='percent'))
+            char.stats['DmgReduction'].append(BuffEffect(description=self.name,
+                                        amount=0.14 + 0.02 * self.superposition,
+                                        mathType='reductionMult'))
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

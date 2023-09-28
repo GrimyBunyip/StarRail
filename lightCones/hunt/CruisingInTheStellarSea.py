@@ -15,9 +15,14 @@ class CruisingInTheStellarSea(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.CR += 0.06 + 0.02 * self.superposition
-            char.CR += (0.06 + 0.02 * self.superposition) * self.uptimeHP
-            char.percAtk += (0.15 + 0.05 * self.superposition) * self.uptimeDefeat
+            char.stats['CR'].append(BuffEffect(description=self.name,
+                                    amount=0.06 + 0.02 * self.superposition))
+            char.stats['CR'].append(BuffEffect(description=self.name,
+                                    amount=0.06 + 0.02 * self.superposition,
+                                    uptime=self.uptimeHP))
+            char.stats['ATK'].append(BuffEffect(description=self.name,
+                                    amount=0.15 + 0.05 * self.superposition,
+                                    uptime=self.uptimeDefeat))
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

@@ -15,10 +15,16 @@ class IncessantRain(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.EHR += 0.20 + 0.04 * self.superposition
-            char.CR += ( 0.10 + 0.02 * self.superposition ) * self.uptime
-            char.Dmg += ( 0.10 + 0.02 * self.superposition ) * self.uptimeAether
-            char.Vulnerability += 0.1 + 0.02 * self.superposition
+            char.stats['EHR'].append(BuffEffect(description=self.name,
+                                    amount=0.20 + 0.04 * self.superposition))
+            char.stats['CR'].append(BuffEffect(description=self.name,
+                                    amount=0.10 + 0.02 * self.superposition,
+                                    uptime=self.uptime))
+            char.stats['DMG'].append(BuffEffect(description=self.name,
+                                    amount=0.10 + 0.02 * self.superposition,
+                                    uptime=self.uptimeAether))
+            char.stats['Vulnerability'].append(BuffEffect(description=self.name,
+                                                amount=0.1 + 0.02 * self.superposition))
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

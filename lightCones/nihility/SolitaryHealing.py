@@ -13,8 +13,12 @@ class SolitaryHealing(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.breakEffect += 0.15 + 0.05 * self.superposition
-            char.DmgType['dot'] += ( 0.18 + 0.06 * self.superposition ) * self.uptime
+            char.stats['BreakEffect'].append(BuffEffect(description=self.name,
+                                        amount=0.15 + 0.05 * self.superposition))
+            char.stats['Dmg'].append(BuffEffect(description=self.name,
+                                    amount=0.18 + 0.06 * self.superposition,
+                                    uptime=self.uptime,
+                                    type='dot'))
             # on kill energy not factored in
             
 if __name__ == '__main__':

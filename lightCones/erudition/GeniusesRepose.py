@@ -13,8 +13,12 @@ class GeniusesRepose(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.percAtk += 0.12 + 0.04 * self.superposition
-            char.CD += ( 0.18 + 0.06 * self. superposition ) * self.uptime
+            char.stats['ATK'].append(BuffEffect(description=self.name,
+                                    amount=0.12 + 0.04 * self.superposition,
+                                    mathType='percent'))
+            char.stats['CD'].append(BuffEffect(description=self.name,
+                                    amount=0.18 + 0.06 * self. superposition,
+                                    uptime=self.uptime))
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

@@ -11,7 +11,8 @@ class TodayIsAnotherPeacefulDay(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.Dmg += ( 0.0015 + 0.0005 * self.superposition ) * min(160.0, char.maxEnergy)
+            char.stats['DMG'].append(BuffEffect(description=self.name,
+                                    amount=(0.0015 + 0.0005 * self.superposition) * min(160.0, char.maxEnergy)))
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

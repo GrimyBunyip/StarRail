@@ -13,8 +13,10 @@ class GoodNightAndSleepWell(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.Dmg += ( 0.09 + 0.03 * self.superposition ) * self.stacks
-            
+            char.stats['DMG'].append(BuffEffect(description=self.name,
+                                    amount=0.09 + 0.03 * self.superposition,
+                                    stacks=self.stacks))
+
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration
     GoodNightAndSleepWell(**Configuration).print()

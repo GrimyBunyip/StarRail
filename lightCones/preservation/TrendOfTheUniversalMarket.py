@@ -12,7 +12,9 @@ class TrendOfTheUniversalMarket(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.percDef += 0.12 + 0.04 * self.superposition
+            char.stats['DEF'].append(BuffEffect(description=self.name,
+                                    amount=0.12 + 0.04 * self.superposition,
+                                    mathType='percent'))
             char.motionValueDict['dot'] = [BaseMV(type='dot',area='single', stat='def', value=0.3+0.1*self.superposition)] + char.motionValueDict['dot'] if 'dot' in char.motionValueDict else []
             
 if __name__ == '__main__':

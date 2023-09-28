@@ -13,8 +13,13 @@ class NightOnTheMilkyWay(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.percAtk += ( 0.075 + 0.0015 * self.superposition ) * char.numEnemies
-            char.Dmg += ( 0.25 + 0.05 * self.superposition ) * self.uptime
+            char.stats['ATK'].append(BuffEffect(description=self.name,
+                                    amount=0.075 + 0.0015 * self.superposition,
+                                    stacks=char.numEnemies,
+                                    mathType='percent'))
+            char.stats['DMG'].append(BuffEffect(description=self.name,
+                                    amount=0.25 + 0.05 * self.superposition,
+                                    uptime=self.uptime))
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration
