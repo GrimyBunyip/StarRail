@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.RelicSet import RelicSet
+from baseClasses.BuffEffect import BuffEffect
 
 class BelobogOfTheArchitects(RelicSet):
     def __init__(self,
@@ -12,5 +13,10 @@ class BelobogOfTheArchitects(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.percDef += 0.15
-        char.percDef += 0.15 * self.uptime
+        char.stats['DEF'].append(BuffEffect(description=self.shortname,
+                                amount=0.15,
+                                mathType='percent'))
+        char.stats['DEF'].append(BuffEffect(description=self.shortname,
+                                amount=0.15,
+                                mathType='percent',
+                                uptime=self.uptime))

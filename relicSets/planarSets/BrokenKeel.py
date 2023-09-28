@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.RelicSet import RelicSet
+from baseClasses.BuffEffect import BuffEffect
 
 class BrokenKeel(RelicSet):
     def __init__(self,
@@ -12,6 +13,8 @@ class BrokenKeel(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.Res += 0.10
-        char.CD += 0.10
+        char.stats['RES'].append(BuffEffect(description=self.shortname,
+                                amount=0.10))
+        char.stats['CD'].append(BuffEffect(description=self.shortname,
+                                amount=0.10))
         # party wide buffs not yet implemented

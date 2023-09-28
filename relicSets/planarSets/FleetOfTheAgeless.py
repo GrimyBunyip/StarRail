@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.RelicSet import RelicSet
+from baseClasses.BuffEffect import BuffEffect
 
 class FleetOfTheAgeless(RelicSet):
     def __init__(self,
@@ -12,5 +13,9 @@ class FleetOfTheAgeless(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.percHP += 0.12
-        char.percAtk += 0.08 * self.uptime
+        char.stats['HP'].append(BuffEffect(description=self.shortname,
+                                amount=0.12,
+                                mathType='percent'))
+        char.stats['ATK'].append(BuffEffect(description=self.shortname,
+                                amount=0.08,
+                                mathType='percent'))
