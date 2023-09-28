@@ -1,4 +1,4 @@
-name,baseAtk,baseDef,baseHP,rarity,path
+name,ATK.base,DEF.base,HP.base,rarity,path
 Adversarial,370.44,264.6,740.88,3,hunt
 Amber,264.6,330.75,846.72,3,preservation
 Arrows,317.52,264.6,846.72,3,hunt

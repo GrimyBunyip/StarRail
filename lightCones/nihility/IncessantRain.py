@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class IncessantRain(BaseLightCone):
     def __init__(self,
@@ -12,7 +13,7 @@ class IncessantRain(BaseLightCone):
         self.uptimeAether = uptimeAether
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.EHR += 0.20 + 0.04 * self.superposition
             char.CR += ( 0.10 + 0.02 * self.superposition ) * self.uptime

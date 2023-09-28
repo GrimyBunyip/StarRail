@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class SheAlreadyShutHerEyes(BaseLightCone):
     def __init__(self,
@@ -10,7 +11,7 @@ class SheAlreadyShutHerEyes(BaseLightCone):
         self.uptime=uptime
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.percHP += 0.2 + 0.04 * self.superposition
             char.ER += 0.1 + 0.02 * self.superposition

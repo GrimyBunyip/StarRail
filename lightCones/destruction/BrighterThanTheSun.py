@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class BrighterThanTheSun(BaseLightCone):
     def __init__(self,
@@ -12,11 +13,19 @@ class BrighterThanTheSun(BaseLightCone):
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
-            char.CR += 0.15 + 0.03 * self.superposition
-            char.percAtk += ( 0.15 + 0.03 * self.superposition ) * self.stacks * self.uptime
-            char.ER += ( 0.05 + 0.01 * self.superposition ) * self.stacks * self.uptime
+            char.stats['CR'].append(BuffEffect(description=self.name,
+                                    amount=0.15 + 0.03 * self.superposition))
+            char.stats['ATK'].append(BuffEffect(description=self.name,
+                                    amount=0.15 + 0.03 * self.superposition,
+                                    stacks=self.stacks,
+                                    uptime=self.uptime,
+                                    mathType='percent'))
+            char.stats['ER'].append(BuffEffect(description=self.name,
+                                    amount=0.05 + 0.01 * self.superposition,
+                                    stacks=self.stacks,
+                                    uptime=self.uptime))
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

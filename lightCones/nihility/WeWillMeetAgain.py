@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 from baseClasses.BaseMV import BaseMV
 
 class WeWillMeetAgain(BaseLightCone):
@@ -9,7 +10,7 @@ class WeWillMeetAgain(BaseLightCone):
         self.setSuperposition(config)
         
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=0.36+0.12*self.superposition)] + char.motionValueDict['basic'] if 'basic' in char.motionValueDict else []
             char.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=0.36+0.12*self.superposition)] + char.motionValueDict['skill'] if 'skill' in char.motionValueDict else []

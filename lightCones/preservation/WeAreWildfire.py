@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class WeAreWildfire(BaseLightCone):
     def __init__(self,
@@ -10,7 +11,7 @@ class WeAreWildfire(BaseLightCone):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.dmgReduction += ( 0.06 + 0.02 * self.superposition ) * self.uptime
             # not implemented: immediate heal

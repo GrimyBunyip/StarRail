@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class BeforeTheTutorialMissionStarts(BaseLightCone):
     def __init__(self,
@@ -10,7 +11,7 @@ class BeforeTheTutorialMissionStarts(BaseLightCone):
         self.uptime=uptime
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.EHR += 0.15 + 0.05 * self.superposition
             # this implementation could be tricky if some of these skills are not attacks

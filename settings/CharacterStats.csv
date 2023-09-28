@@ -1,4 +1,4 @@
-name,baseAtk,baseDef,baseHP,baseSpd,CR,CD,taunt,maxEnergy,element,path,rarity,graphic,percAtk,percDef,percHP,EHR,Res,windDmg,fireDmg,iceDmg,lighDmg,physDmg,quanDmg,imagDmg,breakEffect
+name,ATK.base,DEF.base,HP.base,SPD.base,CR.base,CD.base,Taunt.base,maxEnergy,element,path,rarity,graphic,ATK.percent,DEF.percent,HP.percent,EHR,Res,DMG.wind,DMG.fire,DMG.ice,DMG.lightning,DMG.physical,DMG.quantum,DMG.imaginary,breakEffect
 March 7th,511.56,573.3,1058.4,101,0.05,0.5,150,120,ice,preservation,4,https://static.wikia.nocookie.net/houkai-star-rail/images/d/d3/Character_March_7th_Icon.png,0,0.225,0,0,0.067,0,0,0.224,0,0,0,0,0
 Dan Heng,546.84,396.9,882,110,0.05,0.5,75,100,wind,hunt,4,https://static.wikia.nocookie.net/houkai-star-rail/images/1/1a/Character_Dan_Heng_Icon.png,0.18,0.125,0,0,0,0.224,0,0,0,0,0,0,0
 Himeko,756.76,436.59,1047.82,96,0.05,0.5,75,120,fire,erudition,5,https://static.wikia.nocookie.net/houkai-star-rail/images/0/00/Character_Himeko_Icon.png/,0.18,0,0,0,0.067,0,0.224,0,0,0,0,0,0

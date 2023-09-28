@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class GeniusesRepose(BaseLightCone):
     def __init__(self,
@@ -10,7 +11,7 @@ class GeniusesRepose(BaseLightCone):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.percAtk += 0.12 + 0.04 * self.superposition
             char.CD += ( 0.18 + 0.06 * self. superposition ) * self.uptime

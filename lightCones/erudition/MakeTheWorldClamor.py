@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class MakeTheWorldClamor(BaseLightCone):
     def __init__(self,
@@ -8,7 +9,7 @@ class MakeTheWorldClamor(BaseLightCone):
         self.setSuperposition(config)
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.percAtk += 0.24 + 0.08 * self.superposition
             char.initialEnergy += 17.0 + 3.0 * self.superposition

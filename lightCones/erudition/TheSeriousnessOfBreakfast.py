@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class TheSeriousnessOfBreakfast(BaseLightCone):
     def __init__(self,
@@ -10,7 +11,7 @@ class TheSeriousnessOfBreakfast(BaseLightCone):
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.Dmg += 0.09 + 0.03 * self.superposition
             char.percAtk += ( 0.03 + 0.01 * self.superposition ) * self.stacks

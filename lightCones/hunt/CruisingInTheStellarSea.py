@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class CruisingInTheStellarSea(BaseLightCone):
     def __init__(self,
@@ -12,7 +13,7 @@ class CruisingInTheStellarSea(BaseLightCone):
         self.uptimeDefeat = uptimeDefeat
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.CR += 0.06 + 0.02 * self.superposition
             char.CR += (0.06 + 0.02 * self.superposition) * self.uptimeHP

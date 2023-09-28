@@ -1,20 +1,29 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class IShallBeMyOwnSword(BaseLightCone):
     def __init__(self,
-                uptime:float = 1.0,
+                atkStacks = 2.0,
+                defShredUptime:float = 1.0/3.0,
                 **config):
         self.loadConeStats('I Shall Be My Own Sword')
         self.setSuperposition(config)
-        self.uptime = uptime
+        self.atkStacks = atkStacks
+        self.defShredUptime = defShredUptime
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
-            char.DmgType['skill'] += 0.25 + 0.05 * self.superposition
-            char.CD += 0.3 + 0.06 * self.superposition
-            char.bonusEnergyAttack['ultimate'] += 10.0 + 2.0 * self.superposition
+            char.stats['CD'].append(BuffEffect(description=self.name,
+                                    amount=0.17 + 0.03 * self.superposition))
+            char.stats['ATK'].append(BuffEffect(description=self.name,
+                                    amount=0.115 + 0.025 * self.superposition,
+                                    stacks=self.atkStacks,
+                                    mathType='percent'))
+            char.stats['DefShred'].append(BuffEffect(description=self.name,
+                                    amount=0.1 + 0.02 * self.superposition,
+                                    uptime=self.defShredUptime))
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

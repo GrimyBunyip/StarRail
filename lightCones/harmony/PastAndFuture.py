@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class PastAndFuture(BaseLightCone):
     def __init__(self,
@@ -8,7 +9,7 @@ class PastAndFuture(BaseLightCone):
         self.setSuperposition(config)
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             pass #harmony cones not yet implemented fully
             

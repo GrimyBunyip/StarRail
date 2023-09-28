@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class NowhereToRun(BaseLightCone):
     def __init__(self,
@@ -8,9 +9,11 @@ class NowhereToRun(BaseLightCone):
         self.setSuperposition(config)
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
-            char.percAtk += 0.24 + 0.06 * self.superposition
+            char.stats['ATK'].append(BuffEffect(description=self.name,
+                                    amount=0.24 + 0.06 * self.superposition,
+                                    mathType='percent'))
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

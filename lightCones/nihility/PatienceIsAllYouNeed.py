@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 from baseClasses.BaseMV import BaseMV
 
 class PatienceIsAllYouNeed(BaseLightCone):
@@ -11,7 +12,7 @@ class PatienceIsAllYouNeed(BaseLightCone):
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.Dmg += 0.20 + 0.04 * self.superposition
             char.percSpd += ( 0.04 + 0.008 * self.superposition ) * self.stacks

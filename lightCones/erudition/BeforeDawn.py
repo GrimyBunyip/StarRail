@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class BeforeDawn(BaseLightCone):
     def __init__(self,
@@ -10,7 +11,7 @@ class BeforeDawn(BaseLightCone):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.CD += 0.30 + 0.06 * self.superposition
             char.DmgType['skill'] += 0.15 + 0.03 * self.superposition

@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class InTheNameOfTheWorld(BaseLightCone):
     def __init__(self,
@@ -10,7 +11,7 @@ class InTheNameOfTheWorld(BaseLightCone):
         self.uptime=uptime
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.Dmg += ( 0.20 + 0.04 * self.superposition ) * self.uptime
             char.percAtkType['skill'] += 0.20 + 0.04 * self.superposition

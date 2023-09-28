@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class TheBirthOfTheSelf(BaseLightCone):
     def __init__(self,
@@ -10,7 +11,7 @@ class TheBirthOfTheSelf(BaseLightCone):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.DmgType['followup'] += 0.24 + 0.06 * self.superposition
             char.DmgType['followup'] += ( 0.24 + 0.06 * self.superposition ) * self.uptime

@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class LandausChoice(BaseLightCone):
     def __init__(self,
@@ -8,7 +9,7 @@ class LandausChoice(BaseLightCone):
         self.setSuperposition(config)
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.percTaunt += 2.0
             char.dmgReduction += 0.14 + 0.02 * self.superposition

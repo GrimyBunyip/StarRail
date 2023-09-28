@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 from baseClasses.BaseMV import BaseMV
 
 class ThisIsMe(BaseLightCone):
@@ -9,7 +10,7 @@ class ThisIsMe(BaseLightCone):
         self.setSuperposition(config)
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.percDef += 0.12 + 0.04 * self.superposition
             

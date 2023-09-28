@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class DayOneOfMyNewLife(BaseLightCone):
     def __init__(self,
@@ -8,7 +9,7 @@ class DayOneOfMyNewLife(BaseLightCone):
         self.setSuperposition(config)
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.percDef += 0.14 + 0.02 * self.superposition
             char.allRes += 0.07 + 0.01 * self.superposition

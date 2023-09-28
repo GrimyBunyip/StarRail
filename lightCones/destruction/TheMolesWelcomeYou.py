@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class TheMolesWelcomeYou(BaseLightCone):
     def __init__(self,
@@ -10,9 +11,12 @@ class TheMolesWelcomeYou(BaseLightCone):
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
-            char.percAtk += ( 0.09 + 0.03 * self.superposition ) * self.stacks
+            char.stats['ATK'].append(BuffEffect(description=self.name,
+                                    amount=0.09 + 0.03 * self.superposition,
+                                    stacks=self.stacks,
+                                    mathType='percent'))
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

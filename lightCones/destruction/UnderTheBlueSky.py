@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class UnderTheBlueSky(BaseLightCone):
     def __init__(self,
@@ -10,10 +11,14 @@ class UnderTheBlueSky(BaseLightCone):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
-            char.percAtk += 0.12 + 0.04 * self.superposition
-            char.CR += ( 0.09 + 0.03 * self.superposition ) * self.uptime
+            char.stats['CR'].append(BuffEffect(description=self.name,
+                                    amount=0.09 + 0.03 * self.superposition,
+                                    uptime=self.uptime))
+            char.stats['ATK'].append(BuffEffect(description=self.name,
+                                    amount=0.12 + 0.04 * self.superposition,
+                                    mathType='percent'))
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

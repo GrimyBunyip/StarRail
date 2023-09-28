@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 import math
 
 class InTheNight(BaseLightCone):
@@ -9,7 +10,7 @@ class InTheNight(BaseLightCone):
         self.setSuperposition(config)
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.CR += 0.15 + 0.03 * self.superposition
             num_stacks = math.floor( ( char.getTotalSpd() - 100.0 ) / 10.0 )

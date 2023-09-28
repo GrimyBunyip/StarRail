@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class WorrisomeBlissful(BaseLightCone):
     def __init__(self,
@@ -10,7 +11,7 @@ class WorrisomeBlissful(BaseLightCone):
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.CR += 0.15 + 0.03 * self.superposition
             char.DmgType['followup'] += 0.25 + 0.05 * self.superposition

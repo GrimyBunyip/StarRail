@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class ReturnToDarkness(BaseLightCone):
     def __init__(self, 
@@ -8,7 +9,7 @@ class ReturnToDarkness(BaseLightCone):
         self.setSuperposition(config)
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
             char.CR += 0.09 + 0.03 * self.superposition
         

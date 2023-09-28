@@ -1,5 +1,6 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
+from baseClasses.BuffEffect import BuffEffect
 
 class OnTheFallOfAnAeon(BaseLightCone):
     def __init__(self,
@@ -12,10 +13,15 @@ class OnTheFallOfAnAeon(BaseLightCone):
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):
-        self.addBaseStats(char)
+        self.addStats(char)
         if char.path == self.path:
-            char.percAtk += ( 0.06 + 0.02 * self.superposition ) * self.stacks
-            char.Dmg += ( 0.09 + 0.03 * self.superposition ) * self.uptime
+            char.stats['ATK'].append(BuffEffect(description=self.name,
+                                    amount=0.06 + 0.02 * self.superposition,
+                                    stacks=self.stacks,
+                                    mathType='percent'))
+            char.stats['DMG'].append(BuffEffect(description=self.name,
+                                    amount=0.09 + 0.03 * self.superposition,
+                                    uptime=self.uptime))
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

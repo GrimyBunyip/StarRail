@@ -1,41 +1,40 @@
 import os
+from copy import copy
 import pandas as pd
 from baseClasses.BaseEffect import BaseEffect
+from baseClasses.BuffEffect import BuffEffect
+
+EMPTY_STATS = {  # character stats
+                'ATK':[], 'DEF':[], 'HP':[],
+                'DMG':[], 'CR':[], 'CD':[],
+                # defensive stats
+                'DmgReduction':[], 'AllRes':[],
+                'Shield':[], 'Heal':[],
+                'Taunt':[],
+                # offensive stats
+                'Vulnerability':[],
+                'DefShred':[],
+                'ResPen':[],
+                # energy stats
+                'ER':[], 'BonusEnergyAttack':[],
+                # action stats
+                'SPD':[], 'AdvanceForward':[],
+                # gauge stats
+                'BreakEffect':[], 'BreakEfficiency':[],
+                }
 
 STATS_FILEPATH = 'settings\CharacterStats.csv'
 if os.name == 'posix':
     STATS_FILEPATH = STATS_FILEPATH.replace('\\','/')
 
 class BaseCharacter(object):
+    stats:dict
+
     graphic:str
-    
-    baseAtk:float
-    baseDef:float
-    baseHP:float
-    baseSpd:float
-
-    CR:float
-    CD:float
-
-    taunt:float
-    initialEnergy:float
     maxEnergy:float
     path:str
     element:str
     name:str
-
-    percAtk:float
-    percDef:float
-    percHP:float
-    EHR:float
-    Res:float
-    windDmg:float
-    fireDmg:float
-    iceDmg:float
-    lighDmg:float
-    physDmg:float
-    quanDmg:float
-    imagDmg:float
 
     # define information we would pull from the configuration dictionary and might use
     # helps with autocomplete in vs code
@@ -55,133 +54,13 @@ class BaseCharacter(object):
 
     def __init__(self, relicstats, lightcone=None, relicsetone=None, relicsettwo=None, planarset=None, **config):
         self.__dict__.update(config)
+        self.stats = EMPTY_STATS
         
         self.lightcone = lightcone
         self.relicsetone = relicsetone
         self.relicsettwo = relicsettwo
         self.planarset = planarset
         self.relicstats = relicstats
-
-        self.percSpd = 0.0
-        self.flatAtk = 0.0
-        self.flatDef = 0.0
-        self.flatHP = 0.0
-        self.flatSpd = 0.0
-
-        self.ER = 0.0
-        self.breakEffect = 0.0
-        self.breakEfficiency = 0.0
-        self.Heal = 0.0
-        
-        self.allRes = 0.0
-        self.dmgReduction = 0.0
-        self.percTaunt = 0.0
-        self.percShield = 0.0
-        
-        self.Dmg = 0.0
-        self.DmgType = {
-            'basic':0.0,
-            'enhancedBasic':0.0,
-            'skill':0.0,
-            'enhancedSkill':0.0,
-            'ultimate':0.0,
-            'talent':0.0,
-            'followup':0.0,
-            'dot':0.0,
-        }
-        
-        self.Vulnerability = 0.0
-        self.VulnerabilityType = {
-            'basic':0.0,
-            'enhancedBasic':0.0,
-            'skill':0.0,
-            'enhancedSkill':0.0,
-            'ultimate':0.0,
-            'talent':0.0,
-            'followup':0.0,
-            'dot':0.0,
-        }
-        
-        self.CRType = {
-            'basic':0.0,
-            'enhancedBasic':0.0,
-            'skill':0.0,
-            'enhancedSkill':0.0,
-            'ultimate':0.0,
-            'talent':0.0,
-            'followup':0.0,
-            'dot':0.0,
-        }
-        
-        self.CDType = {
-            'basic':0.0,
-            'enhancedBasic':0.0,
-            'skill':0.0,
-            'enhancedSkill':0.0,
-            'ultimate':0.0,
-            'talent':0.0,
-            'followup':0.0,
-            'dot':0.0,
-        }
-
-        self.percAtkType = {
-            'basic':0.0,
-            'enhancedBasic':0.0,
-            'skill':0.0,
-            'enhancedSkill':0.0,
-            'ultimate':0.0,
-            'talent':0.0,
-            'followup':0.0,
-            'dot':0.0,
-        }
-
-        self.percDefType = {
-            'basic':0.0,
-            'enhancedBasic':0.0,
-            'skill':0.0,
-            'enhancedSkill':0.0,
-            'ultimate':0.0,
-            'talent':0.0,
-            'followup':0.0,
-            'dot':0.0,
-        }
-
-        self.percHPType = {
-            'basic':0.0,
-            'enhancedBasic':0.0,
-            'skill':0.0,
-            'enhancedSkill':0.0,
-            'ultimate':0.0,
-            'talent':0.0,
-            'followup':0.0,
-            'dot':0.0,
-        }
-        
-        self.bonusEnergyAttack = {
-            'basic':0.0,
-            'enhancedBasic':0.0,
-            'skill':0.0,
-            'enhancedSkill':0.0,
-            'ultimate':0.0,
-            'talent':0.0,
-            'followup':0.0,
-            'dot':0.0,
-            'turn':0.0,
-        }
-        
-        self.advanceForwardType = {
-            'basic':0.0,
-            'enhancedBasic':0.0,
-            'skill':0.0,
-            'enhancedSkill':0.0,
-            'ultimate':0.0,
-            'talent':0.0,
-            'followup':0.0,
-            'dot':0.0,
-        }
-
-        self.defShred = 0.0
-        self.resPen = 0.0
         
         self.motionValueDict = {}
         
@@ -189,16 +68,25 @@ class BaseCharacter(object):
         df = pd.read_csv(STATS_FILEPATH)
         rows = df.iloc[:, 0]
         for column in df.columns:
-                data = df.loc[rows[rows == name].index,column].values[0]
+            split_column = column.split('.')
+            data = df.loc[rows[rows == name].index,column].values[0]
+            if len(split_column) > 1:
+                column_key, column_type = split_column[0], split_column[1]
+                if column_type in ['base','percent','flat']:
+                    effect = BuffEffect(column_key,'Character Stats',data,mathType=column_type)
+                else:
+                    effect = BuffEffect(column_key,'Character Stats',data,type=column_type)
+                self.stats[column_key].append(effect)
+            else:
                 self.__dict__[column] = data
                 
-        self.initialEnergy = self.maxEnergy * 0.5
+        #self.initialEnergy = self.maxEnergy * 0.5
         self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
         
         self.longName = '{} E{} {} S{}\n{}{}{}'.format(self.name, self.eidolon, self.lightcone.name, self.lightcone.superposition,
-                                                                                                                    "" if self.relicsetone is None else self.relicsetone.shortname, 
-                                                                                                                    "" if self.relicsettwo is None else (" + " + self.relicsettwo.shortname), 
-                                                                                                                    "" if self.planarset is None else (" + " + self.planarset.shortname))
+                                                        "" if self.relicsetone is None else self.relicsetone.shortname, 
+                                                        "" if self.relicsettwo is None else (" + " + self.relicsettwo.shortname), 
+                                                        "" if self.planarset is None else (" + " + self.planarset.shortname))
 
     def equipGear(self):
         if self.relicstats is not None: self.relicstats.equipTo(self)
