@@ -51,7 +51,6 @@ class Yanqing(BaseCharacter):
         
         # Gear
         self.equipGear()
-        #self.balanceCrit() do not balance crit on yanqing
 
     def useBasic(self, icing=True):
         retval = BaseEffect()

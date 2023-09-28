@@ -65,7 +65,6 @@ class Lunae(BaseCharacter):
 
         # Gear
         self.equipGear()
-        #self.balanceCrit() # do not balance crit on Lunae
 
     def useBasic(self, hitNum:int=None):
         retval = BaseEffect()

@@ -45,7 +45,6 @@ class Jingliu(BaseCharacter):
 
         # Gear
         self.equipGear()
-        #self.balanceCrit()
 
     def useBasic(self):
         retval = BaseEffect()

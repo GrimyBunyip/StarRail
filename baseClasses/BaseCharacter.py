@@ -29,6 +29,7 @@ if os.name == 'posix':
 
 class BaseCharacter(object):
     stats:dict
+    tempStats:dict
 
     graphic:str
     initialEnergy:float
@@ -55,7 +56,8 @@ class BaseCharacter(object):
 
     def __init__(self, relicstats, lightcone=None, relicsetone=None, relicsettwo=None, planarset=None, **config):
         self.__dict__.update(config)
-        self.stats = EMPTY_STATS
+        self.stats = copy(EMPTY_STATS)
+        self.tempStats = copy(EMPTY_STATS)
         
         self.lightcone = lightcone
         self.relicsetone = relicsetone
@@ -98,11 +100,6 @@ class BaseCharacter(object):
         if self.relicsetone is not None: self.relicsetone.equipTo(self)
         if self.relicsettwo is not None: self.relicsettwo.equipTo(self)
         if self.planarset is not None: self.planarset.equipTo(self)
-
-    def balanceCrit(self):
-        totalCV = self.CR * 2 + self.CD
-        self.CD = max(0.5, totalCV / 2.0)
-        self.CR = (totalCV - self.CD) / 2.0
     
     def getTotalStat(self, stat:str, type:[str,list]=None):
         typeTotal = {'base': 0.0,
