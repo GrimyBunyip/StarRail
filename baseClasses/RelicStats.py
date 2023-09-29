@@ -7,11 +7,12 @@ class RelicStats(object):
         self.substats = substats
 
     def equipTo(self, char:BaseCharacter):
-        char.flatAtk += RELIC_ATK_MAINSTAT
-        char.flatHP += RELIC_HP_MAINSTAT
+        # always add flat ATK and HP, we don't ask the user to input these manually
+        char.addStat('ATK.flat',description='Relic Mainstat',amount=RELIC_ATK_MAINSTAT)
+        char.addStat('HP.flat',description='Relic Mainstat',amount=RELIC_HP_MAINSTAT)
 
         for mainstat in self.mainstats:
-            char.__dict__[mainstat] += RELIC_MAINSTATS[mainstat]
+            char.addStat(mainstat,description='Relic Mainstat',amount=RELIC_MAINSTATS[mainstat])
 
         for substat, num in self.substats.items():
-            char.__dict__[substat] += average(RELIC_SUBSTATS[substat]) * num
+            char.addStat(mainstat,description='Relic Substat',amount=average(RELIC_SUBSTATS[substat]),stacks=num)
