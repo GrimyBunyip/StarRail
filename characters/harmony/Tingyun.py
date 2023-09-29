@@ -27,7 +27,7 @@ class Tingyun(BaseCharacter):
         # Talents
         self.percSpd += 0.20 * self.speedUptime
         self.DmgType['basic'] += 0.40
-        self.bonusEnergyAttack['turn'] += 5.0 if self.eidolon >= 2 else 0.0
+        self.getBonusEnergyTurn(type) += 5.0 if self.eidolon >= 2 else 0.0
 
         # Eidolons
         
@@ -36,38 +36,41 @@ class Tingyun(BaseCharacter):
         
     def useBasic(self):
         retval = BaseEffect()
+        type = 'basic'
         retval.damage = self.getTotalMotionValue('basic')
-        retval.damage *= self.getTotalCrit('basic')
-        retval.damage *= self.getTotalDmg('basic')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         
         retval += self.useTalent()
         return retval
 
     def useSkill(self):
         retval = BaseEffect()
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        type = 'skill'
+        retval.energy = ( 30.0 + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
-        retval.energy = 5.0 * ( 1.0 + self.ER )
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
+        type = 'ultimate'
+        retval.energy = 5.0 * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval
     
     def useTalent(self):
         retval = BaseEffect()
         retval.damage = 0.66 if self.eidolon >= 5 else 0.6
         retval.damage *= self.allyAttack
-        retval.damage *= self.getTotalCrit('basic')
-        retval.damage *= self.getTotalDmg('basic')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
         return retval
     
     def useBenediction(self, targetCharacter:BaseCharacter, type):

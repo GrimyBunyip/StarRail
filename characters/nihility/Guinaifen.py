@@ -42,41 +42,43 @@ class Guinaifen(BaseCharacter):
 
     def useBasic(self):
         retval = BaseEffect()
+        type = 'basic'
         retval.damage = self.getTotalMotionValue('basic')
-        retval.damage *= self.getTotalCrit('basic')
-        retval.damage *= self.getTotalDmg('basic')
-        retval.damage *= self.getVulnerabilityType('basic')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useSkill(self):
         num_adjacent = min(2.0, self.numEnemies - 1.0)
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('skill')
-        retval.damage *= self.getTotalCrit('skill')
-        retval.damage *= self.getTotalDmg('skill')
-        retval.damage *= self.getVulnerabilityType('skill')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = ( 60.0 + 30.0 * num_adjacent ) * (1.0 + self.breakEfficiency)
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = ( 60.0 + 30.0 * num_adjacent ) * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
+        type = 'ultimate'
         retval.damage = self.getTotalMotionValue('ultimate')
-        retval.damage *= self.getTotalCrit('ultimate')
-        retval.damage *= self.getTotalDmg('ultimate')
-        retval.damage *= self.getVulnerabilityType('ultimate')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * self.numEnemies * (1.0 + self.breakEfficiency)
-        retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.numEnemies * self.getBreakEfficiency(type)
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         
         # assume we hit up to 3 enemies
         dotExplosion = self.useDot()
@@ -86,11 +88,12 @@ class Guinaifen(BaseCharacter):
 
     def useDot(self):
         retval = BaseEffect()
+        type = 'dot'
         retval.damage = self.getTotalMotionValue('dot')
         # no crits on dots
-        retval.damage *= self.getTotalDmg('dot')
-        retval.damage *= self.getVulnerabilityType('dot')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] ) * self.getER(type)
         retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['dot'])
         return retval

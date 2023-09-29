@@ -39,43 +39,46 @@ class Seele(BaseCharacter):
         
     def useBasic(self):
         retval = BaseEffect()
+        type = 'basic'
         retval.damage = self.getTotalMotionValue('basic')
-        retval.damage *= self.getTotalCrit('basic')
-        retval.damage *= self.getTotalDmg('basic')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useSkill(self):
         retval = BaseEffect()
+        type = 'skill'
         retval.damage = self.getTotalMotionValue('skill')
-        retval.damage *= self.getTotalCrit('skill')
-        retval.damage *= self.getTotalDmg('skill')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - 0.2 - min(1.0,self.advanceForwardType['skill']) # advance forward 0.2 from passive
+        retval.actionvalue = 1.0 - 0.2 - min(1.0,self.getTotalStat('AdvanceForward','skill')) # advance forward 0.2 from passive
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
+        type = 'ultimate'
         retval.damage = self.getTotalMotionValue('ultimate')
-        retval.damage *= self.getTotalCrit('ultimate')
-        retval.damage *= self.getTotalDmg('ultimate')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate']) # too lazy to implement seele e6, who cares
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 90.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type) # too lazy to implement seele e6, who cares
         return retval
     
     def useResurgence(self):
         retval = BaseEffect()
         retval.actionvalue = -1.0
-        retval.energy = ( 15.0 if self.eidolon >= 4 else 0.0 ) * ( 1.0 + self.ER )
+        retval.energy = ( 15.0 if self.eidolon >= 4 else 0.0 ) * self.getER(type)
         self.resurgence = True
         self.resPen += 0.20 # res pen from buffed state
         self.Dmg += 0.88 if self.eidolon >=3 else 0.8 # resurgence buff

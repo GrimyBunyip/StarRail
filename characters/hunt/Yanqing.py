@@ -37,7 +37,7 @@ class Yanqing(BaseCharacter):
         self.motionValueDict['freezeDot'] = [BaseMV(type=['talent','dot'],area='single', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
         
         # Talents
-        self.ER += 0.10 * self.soulsteelUptime if self.eidolon >= 2 else 0.0
+        self.getTotalStat('ER') += 0.10 * self.soulsteelUptime if self.eidolon >= 2 else 0.0
         self.resPen += 0.12 * self.e4Uptime if self.eidolon >= 4 else 0.0
 
         # Soulsteel
@@ -56,46 +56,46 @@ class Yanqing(BaseCharacter):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('basic') + self.getTotalMotionValue('icing') if icing else 0.0
         retval.damage *= self.getTotalCrit(['basic'])
-        retval.damage *= self.getTotalDmg('basic')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useSkill(self, icing=True):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('skill') + self.getTotalMotionValue('icing') if icing else 0.0
         retval.damage *= self.getTotalCrit(['skill'])
-        retval.damage *= self.getTotalDmg('skill')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useUltimate(self, icing=True):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('ultimate') + self.getTotalMotionValue('icing') if icing else 0.0
         retval.damage *= self.getTotalCrit(['ultimate'])
-        retval.damage *= self.getTotalDmg('ultimate')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 90.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval
 
     def useTalent(self, icing=True):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('talent') + self.getTotalMotionValue('icing') if icing else 0.0
-        retval.damage *= self.getTotalCrit(['followup','talent'])
-        retval.damage *= self.getTotalDmg(['followup','talent'])
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 10.0 + self.bonusEnergyAttack['talent'] + self.bonusEnergyAttack['followup'] ) * ( 1.0 + self.ER )
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['talent'] - self.advanceForwardType['followup'])
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 10.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.actionvalue = 0.0 - self.getAdvanceForward(type)
         
         procrate = 0.62 if self.eidolon >= 5 else 0.6
         retval *= procrate
@@ -108,7 +108,7 @@ class Yanqing(BaseCharacter):
         retval.damage = self.getTotalMotionValue('dot')
         retval.damage *= self.getTotalCrit(['dot','talent'])
         retval.damage *= self.getTotalDmg(['dot','talent'])
-        retval.damage = self.applyDamageMultipliers(retval.damage)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
         
         procrate = 0.62 if self.eidolon >= 5 else 0.6
         retval *= procrate * self.freezeChance

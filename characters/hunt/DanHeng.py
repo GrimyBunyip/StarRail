@@ -45,34 +45,35 @@ class DanHeng(BaseCharacter):
     def useBasic(self, slowed = True):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('basic')
-        retval.damage *= self.getTotalCrit('basic')
-        retval.damage *= self.getTotalDmg('basic') + ( 0.40 if slowed else 0.0 ) #    High Gale
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type) + ( 0.40 if slowed else 0.0 ) #    High Gale
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useSkill(self):
         retval = BaseEffect()
+        type = 'skill'
         retval.damage = self.getTotalMotionValue('skill')
-        retval.damage *= self.getTotalCrit('skill')
-        retval.damage *= self.getTotalDmg('skill')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useUltimate(self, slowed = True):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('ultimateSlowed') if slowed else self.getTotalMotionValue('ultimate')
-        retval.damage *= self.getTotalCrit('ultimate')
-        retval.damage *= self.getTotalDmg('ultimate')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 90.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval

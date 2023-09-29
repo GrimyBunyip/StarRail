@@ -29,27 +29,28 @@ class Welt(BaseCharacter):
         
         # Talents
         self.Vulnerability += 0.12 * self.ultUptime
-        self.bonusEnergyAttack['ultimate'] += 10.0
+        self.getBonusEnergyAttack(type) += 10.0
         self.Dmg += 0.20 * config['weaknessBrokenUptime']
         
         # Eidolons
-        self.bonusEnergyAttack['talent'] += 3.0 if self.eidolon >= 2 else 0.0
+        self.getBonusEnergyAttack(type) += 3.0 if self.eidolon >= 2 else 0.0
         
         # Gear
         self.equipGear()
 
     def useBasic(self):
         retval = BaseEffect()
+        type = 'basic'
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= 1.5 if self.eidolon >= 6 else 1.0
-        retval.damage *= self.getTotalCrit('basic')
-        retval.damage *= self.getTotalDmg('basic')
-        retval.damage *= self.getVulnerabilityType('basic')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         
         retval += self.useTalent() * self.slowUptime
         self.e6Count = max(0,self.e6Count-1)
@@ -60,14 +61,14 @@ class Welt(BaseCharacter):
         num_hits += 0.8 if self.eidolon >= 1 else 0.0
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('skill') * num_hits
-        retval.damage *= self.getTotalCrit('skill')
-        retval.damage *= self.getTotalDmg('skill')
-        retval.damage *= self.getVulnerabilityType('skill')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 90.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         
         retval += self.useTalent() * num_hits * self.slowUptime
         self.e6Count = max(0,self.e6Count-1)
@@ -75,14 +76,15 @@ class Welt(BaseCharacter):
 
     def useUltimate(self):
         retval = BaseEffect()
+        type = 'ultimate'
         retval.damage = self.getTotalMotionValue('ultimate')
-        retval.damage *= self.getTotalCrit('ultimate')
-        retval.damage *= self.getTotalDmg('ultimate')
-        retval.damage *= self.getVulnerabilityType('ultimate')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * self.numEnemies * (1.0 + self.breakEfficiency)
-        retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER ) # unclear if this bonus energy is affected by ER
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.numEnemies * self.getBreakEfficiency(type)
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type) # unclear if this bonus energy is affected by ER
+        retval.actionvalue = self.getAdvanceForward(type)
         
         retval += self.useTalent() * self.numEnemies * self.slowUptime
         self.e6Count += 2
@@ -91,9 +93,9 @@ class Welt(BaseCharacter):
     def useTalent(self):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('talent')
-        retval.damage *= self.getTotalCrit('talent') # hmm, is this additive MV? fix this later
-        retval.damage *= self.getTotalDmg('talent')
-        retval.damage *= self.getVulnerabilityType('talent')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.energy = self.bonusEnergyAttack['talent'] * ( 1.0 + self.ER ) # unclear if this bhonus energy is affected by ER
+        retval.damage *= self.getTotalCrit(type) # hmm, is this additive MV? fix this later
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.energy = self.getBonusEnergyAttack(type) * self.getER(type) # unclear if this bhonus energy is affected by ER
         return retval

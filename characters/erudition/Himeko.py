@@ -48,54 +48,57 @@ class Himeko(BaseCharacter):
 
     def useBasic(self):
         retval = BaseEffect()
+        type = 'basic'
         retval.damage = self.getTotalMotionValue('basic')
-        retval.damage *= self.getTotalCrit('basic')
-        retval.damage *= self.getTotalDmg('basic')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return 
 
     def useSkill(self):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('skill')
-        retval.damage *= self.getTotalCrit('skill')
-        retval.damage *= self.getTotalDmg('skill')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.breakEfficiency)
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
+        type = 'ultimate'
         retval.damage = self.getTotalMotionValue('ultimate') * ((1.8 * retval.damage / self.numEnemies) if self.eidolon >= 6 else 1.0)
-        retval.damage *= self.getTotalCrit('ultimate')
-        retval.damage *= self.getTotalDmg('ultimate')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * self.numEnemies * (1.0 + self.breakEfficiency)
-        retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.numEnemies * self.getBreakEfficiency(type)
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval
 
     def useTalent(self):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('talent')
-        retval.damage *= self.getTotalCrit(['followup','talent'])
-        retval.damage *= self.getTotalDmg(['followup','talent'])
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = ( 30.0 * self.numEnemies ) * (1.0 + self.breakEfficiency)
-        retval.energy = ( 10.0 + self.bonusEnergyAttack['followup'] + self.bonusEnergyAttack['talent'] ) * ( 1.0 + self.ER )
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['talent'] - self.advanceForwardType['followup'])
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = ( 30.0 * self.numEnemies ) * self.getBreakEfficiency(type)
+        retval.energy = ( 10.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.actionvalue = 0.0 - self.getAdvanceForward(type)
         return retval
     
     def useDot(self):
         retval = BaseEffect()
+        type = 'dot'
         retval.damage = self.getTotalMotionValue('dot')
-        retval.damage *= self.getTotalDmg('dot')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
         return retval

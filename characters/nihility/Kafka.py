@@ -35,29 +35,30 @@ class Kafka(BaseCharacter):
 
     def useBasic(self):
         retval = BaseEffect()
+        type = 'basic'
         retval.damage = self.getTotalMotionValue('basic')
-        retval.damage *= self.getTotalCrit('basic')
-        retval.damage *= self.getTotalDmg('basic')
-        retval.damage *= self.getVulnerabilityType('basic')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useSkill(self, extraDots:list=None):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('skill')
-        retval.damage *= self.getTotalCrit('skill')
-        retval.damage *= self.getTotalDmg('skill')
-        retval.damage *= self.getVulnerabilityType('skill')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.breakEfficiency)
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         
         dotExplosion = self.useDot()
         if extraDots is not None:
@@ -71,13 +72,13 @@ class Kafka(BaseCharacter):
     def useUltimate(self, extraDots:list=None):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('ultimate')
-        retval.damage *= self.getTotalCrit('ultimate')
-        retval.damage *= self.getTotalDmg('ultimate')
-        retval.damage *= self.getVulnerabilityType('ultimate')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * self.numEnemies * (1.0 + self.breakEfficiency)
-        retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.numEnemies * self.getBreakEfficiency(type)
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         
         # assume breakDot single target, usualDot AOE
         dotExplosion = self.useDot() * self.numEnemies
@@ -92,23 +93,24 @@ class Kafka(BaseCharacter):
     def useTalent(self):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('talent')
-        retval.damage *= self.getTotalCrit('talent')
-        retval.damage *= self.getTotalDmg('talent')
-        retval.damage *= self.getVulnerabilityType('talent')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 10.0 + self.bonusEnergyAttack['talent'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 10.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.skillpoints = 0.0
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['talent'])
+        retval.actionvalue = 0.0 - min(1.0,self.getTotalStat('AdvanceForward','talent'))
         return retval
 
     def useDot(self):
         retval = BaseEffect()
+        type = 'dot'
         retval.damage = self.getTotalMotionValue('dot')
         # no crits on dots
-        retval.damage *= self.getTotalDmg('dot') + (1.56 if self.eidolon >= 6 else 0.0)
-        retval.damage *= self.getVulnerabilityType('dot')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] + (2.0 if self.eidolon >= 4 else 0.0) ) * ( 1.0 + self.ER )
+        retval.damage *= self.getDmg(type) + (1.56 if self.eidolon >= 6 else 0.0)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] + (2.0 if self.eidolon >= 4 else 0.0) ) * self.getER(type)
         retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['dot'])
         return retval

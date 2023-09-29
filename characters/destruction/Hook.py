@@ -32,71 +32,75 @@ class Hook(BaseCharacter):
         self.motionValueDict['talent'] = [BaseMV(type='talent',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
         
         # Talents
-        self.advanceForwardType['ultimate'] += 0.20 # ascension
-        self.bonusEnergyAttack['ultimate'] += 5.0
-        self.bonusEnergyAttack['basic'] += 5.0 * self.burnedUptime
-        self.bonusEnergyAttack['skill'] += 5.0 * self.burnedUptime
-        self.bonusEnergyAttack['ultimate'] += 5.0 * self.burnedUptime
+        self.addStat('AdvanceForward',description='trace',type='ultimate',amount=0.2)
+        self.addStat('BonusEnergyAttack',description='trace',amount=5.0, uptime=self.burnedUptime)
         
         # Eidolons
-        self.DmgType['enhancedSkill'] += 0.20 if self.eidolon >= 1 else 0.0
-        self.Dmg += (0.20 * self.burnedUptime) if self.eidolon >= 6 else 0.0
+        if self.eidolon >= 1:
+            self.addStat('DMG',description='e1',type='enhancedSkill',amount=0.2)
+        if self.eidolon >= 6:
+            self.addStat('DMG',description='e6',amount=0.2,uptime=self.burnedUptime)
 
         # Gear
         self.equipGear()
 
     def useBasic(self):
         retval = BaseEffect()
+        type = 'basic'
         retval.damage = self.getTotalMotionValue('basic') + self.getTotalMotionValue('talent') * self.burnedUptime
-        retval.damage *= self.getTotalCrit('basic')
-        retval.damage *= self.getTotalDmg('basic')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useSkill(self):
         retval = BaseEffect()
+        type = 'skill'
         retval.damage = self.getTotalMotionValue('skill') + self.getTotalMotionValue('talent') * self.burnedUptime
-        retval.damage *= self.getTotalCrit('skill')
-        retval.damage *= self.getTotalDmg('skill')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useEnhancedSkill(self):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
+        type = ['skill','enhancedSkill']
         retval.damage = self.getTotalMotionValue('enhancedSkill') + self.getTotalMotionValue('talent') * self.burnedUptime
-        retval.damage *= self.getTotalCrit(['skill','enhancedSkill'])
-        retval.damage *= self.getTotalDmg(['skill','enhancedSkill'])
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.breakEfficiency)
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
+        type = 'ultimate'
         retval.damage = self.getTotalMotionValue('ultimate') + self.getTotalMotionValue('talent') * self.burnedUptime
-        retval.damage *= self.getTotalCrit('ultimate')
-        retval.damage *= self.getTotalDmg('ultimate')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 90.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval
     
     def useDot(self):
         retval = BaseEffect()
+        type = 'dot'
         retval.damage = self.getTotalMotionValue('dot')
         # no crits on dots
-        retval.damage *= self.getTotalDmg('dot')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
         return retval

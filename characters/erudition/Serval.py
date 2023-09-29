@@ -39,13 +39,13 @@ class Serval(BaseCharacter):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage += self.getTotalMotionValue('shockedBasic') if shocked else 0.0
-        retval.damage *= self.getTotalCrit('basic')
-        retval.damage *= self.getTotalDmg('basic') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = ( 30.0 * self.numEnemies if shocked else 30.0 ) * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type) + 0.3 if (shocked and self.eidolon >= 6) else 0.0
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = ( 30.0 * self.numEnemies if shocked else 30.0 ) * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useSkill(self, shocked = True):
@@ -53,33 +53,33 @@ class Serval(BaseCharacter):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage += self.getTotalMotionValue('shockedSkill') if shocked else 0.0
-        retval.damage *= self.getTotalCrit('skill')
-        retval.damage *= self.getTotalDmg('skill') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * (1.0 + self.breakEfficiency)
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type) + 0.3 if (shocked and self.eidolon >= 6) else 0.0
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useUltimate(self, shocked = True):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('ultimate')
         retval.damage += self.getTotalMotionValue('shockedUltimate') if shocked else 0.0
-        retval.damage *= self.getTotalCrit('ultimate')
-        retval.damage *= self.getTotalDmg('ultimate') + 0.3 if (shocked and self.eidolon >= 6) else 0.0
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * self.numEnemies * (1.0 + self.breakEfficiency)
-        retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * ( 1.0 + self.ER )
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type) + 0.3 if (shocked and self.eidolon >= 6) else 0.0
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.numEnemies * self.getBreakEfficiency(type)
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval
 
     def useDot(self, shocked = True):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('dot')
         # no crits on dots
-        retval.damage *= self.getTotalDmg('dot') + ( 0.3 if (shocked and self.eidolon >= 6) else 0.0 )
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getDmg(type) + ( 0.3 if (shocked and self.eidolon >= 6) else 0.0 )
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] ) * self.getER(type)
         retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['dot'])
         return retval

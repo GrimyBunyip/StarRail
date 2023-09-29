@@ -16,7 +16,7 @@ EMPTY_STATS = {  # character stats
                 'DefShred':[],
                 'ResPen':[],
                 # energy stats
-                'ER':[], 'BonusEnergyAttack':[],
+                'ER':[], 'BonusEnergyAttack':[], 'BonusEnergyTurn': [],
                 # action stats
                 'SPD':[], 'AdvanceForward':[],
                 # effect stats
@@ -94,6 +94,22 @@ class BaseCharacter(object):
     def addStat(self, name:str, description:str, amount:float, type:str=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base'):
         self.stats[name].append(name=name, description=description, amount=amount, type=type, stacks=stacks, uptime=uptime, mathType=mathType)
 
+    def addTempStat(self, name:str, description:str, amount:float, type:str=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base'):
+        self.tempStats[name].append(name=name, description=description, amount=amount, type=type, stacks=stacks, uptime=uptime, mathType=mathType)
+        
+    def clearTempBuffs(self):
+        self.tempStats = copy(EMPTY_STATS)
+        
+    def endTurn(self):
+        for _, value in self.tempStats.items():
+            value:list
+            for tempStat in value:
+                tempStat:BuffEffect
+                if tempStat.duration is not None:
+                    tempStat.duration -= 1
+                if tempStat.duration <= 0:
+                    value.remove(tempStat)
+
     def equipGear(self):
         if self.relicstats is not None: self.relicstats.equipTo(self)
         if self.lightcone is not None: self.lightcone.equipTo(self)
@@ -112,15 +128,31 @@ class BaseCharacter(object):
             
         return typeTotal['base'] * (1.0 + typeTotal['percent']) + typeTotal['flat']
     
-    def getTotalCrit(self, type=None):
-        if isinstance(type, list):
-            crBonuses = sum([(self.CRType[x] if x in self.CRType else 0.0) for x in type])
-            cdBonuses = sum([(self.CDType[x] if x in self.CDType else 0.0) for x in type])
-            return 1.0 + min(1.0, self.CR + crBonuses) * (self.CD + cdBonuses)
-        elif type is None:
-            return 1.0 + min(1.0, self.CR) * self.CD
-        else:
-            return 1.0 + min(1.0, self.CR + self.CRType[type]) * (self.CD + self.CDType[type])
+    def getTotalCrit(self, type:[str,list]=None):
+        totalCR = self.getTotalStat('CR',type)
+        totalCD = self.getTotalStat('CD',type)
+        return 1.0 + min(1.0, totalCR) * totalCD
+    
+    def getDmg(self,type:[str,list]=None):
+        return self.getDmg(type)
+    
+    def getVulnerability(self,type:[str,list]=None):
+        return self.getVulnerability(type)
+    
+    def getBreakEfficiency(self,type:[str,list]=None):
+        return self.getBreakEfficiency(type)
+    
+    def getER(self,type:[str,list]=None):
+        return self.getER(type)
+    
+    def getAdvanceForward(self,type:[str,list]=None):
+        return 0.0 - min(1.0,self.getTotalStat('AdvanceForward',type))
+    
+    def getBonusEnergyAttack(self,type:[str,list]=None):
+        return self.getTotalStat('BonusEnergyAttack',type)
+    
+    def getBonusEnergyTurn(self,type:[str,list]=None):
+        return self.getTotalStat('BonusEnergyTurn',type)
     
     def getTotalMotionValue(self, type:str):
         total = 0.0
@@ -134,21 +166,24 @@ class BaseCharacter(object):
 
     def useBasic(self):
         retval = BaseEffect()
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = 20.0 * (1.0 + self.ER)
+        type = 'basic'
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = 20.0 * (self.getER(type))
         retval.skillpoints = 1.0
         return retval
 
     def useSkill(self):
         retval = BaseEffect()
-        retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-        retval.energy = 30.0 * (1.0 + self.ER)
+        type = 'skill'
+        retval.gauge = 60.0 * self.getBreakEfficiency(type)
+        retval.energy = 30.0 * (self.getER(type))
         retval.skillpoints = -1.0
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
-        retval.energy = 5.0 * (1.0 + self.ER)
+        type = 'ultimate'
+        retval.energy = 5.0 * (self.getER(type))
         return retval
 
     def useTalent(self):
@@ -176,8 +211,8 @@ class BaseCharacter(object):
         baseDotDamage = self.breakLevelMultiplier
         baseDotDamage *= 0.5 + self.enemyToughness / 120
         baseDotDamage *= breakMultipliers[self.element]
-        baseDotDamage *= 1.0 + self.breakEffect
-        baseDotDamage *= self.getVulnerabilityType()
+        baseDotDamage *= 1.0 + self.getTotalStat('BreakEffect')
+        baseDotDamage *= 1.0 + self.getTotalStat('Vulnerability')
         baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
 
         retval.damage = baseDotDamage
@@ -207,16 +242,16 @@ class BaseCharacter(object):
             baseDotDamage = 0.6 * 3 * self.breakLevelMultiplier
             baseDotDamage *= 0.5 + self.enemyToughness / 120
 
-        baseDotDamage *= 1.0 + self.breakEffect
-        baseDotDamage *= self.getVulnerabilityType('dot')
+        baseDotDamage *= 1.0 + self.getTotalStat('BreakEffect')
+        baseDotDamage *= self.getVulnerability(type)
         baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
 
         retval.damage = baseDotDamage
         return retval
 
-    def applyDamageMultipliers(self, baseDamage:float) -> float:
+    def applyDamageMultipliers(self, baseDamage:float, type:[str,list]=None) -> float:
         damage = baseDamage
-        damage *= (80 + 20 ) / ( ( self.enemyLevel + 20 ) * ( 1 - self.defShred ) + 80 + 20 )
-        damage *= max(min(1 - self.enemyRes + self.resPen, 2.0), 0.1)
+        damage *= (80 + 20 ) / ( ( self.enemyLevel + 20 ) * ( 1 - self.getTotalStat('DefShred',type) ) + 80 + 20 )
+        damage *= max(min(1 - self.enemyRes + self.getTotalStat('ResPen',type), 2.0), 0.1)
         damage *= 0.9 + 0.1 * self.weaknessBrokenUptime
         return damage

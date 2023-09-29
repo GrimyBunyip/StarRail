@@ -39,9 +39,9 @@ class Luka(BaseCharacter):
         
         # Talents
         self.Vulnerability += (0.216 if self.eidolon >= 5 else 0.2) * self.ultDebuffUptime
-        self.bonusEnergyAttack['ultimate'] += 6.0 # cycle braking
-        self.bonusEnergyAttack['basic'] += 3.0 # cycle braking
-        self.bonusEnergyAttack['skill'] += 3.0 + 3.0 * self.e2uptime # cycle braking and e2
+        self.getBonusEnergyAttack(type) += 6.0 # cycle braking
+        self.getBonusEnergyAttack(type) += 3.0 # cycle braking
+        self.getBonusEnergyAttack(type) += 3.0 + 3.0 * self.e2uptime # cycle braking and e2
         
         # Eidolons
         self.Dmg += 0.15 * self.bleedUptime # e1
@@ -52,28 +52,29 @@ class Luka(BaseCharacter):
 
     def useBasic(self):
         retval = BaseEffect()
+        type = 'basic'
         retval.damage = self.getTotalMotionValue('basic')
-        retval.damage *= self.getTotalCrit('basic')
-        retval.damage *= self.getTotalDmg('basic')
-        retval.damage *= self.getVulnerabilityType('basic')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useEnhancedBasic(self):
         retval = BaseEffect()
         retval.damage = self.getTotalMotionValue('enhancedBasic')
-        retval.damage *= self.getTotalCrit('basic')
-        retval.damage *= self.getTotalDmg('basic')
-        retval.damage *= self.getVulnerabilityType('basic')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['enhancedBasic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER ) # enhanced basic doesn't benefit from cycle braking, change energy tag here
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.bonusEnergyAttack['enhancedBasic'] + self.getBonusEnergyTurn(type) ) * self.getER(type) # enhanced basic doesn't benefit from cycle braking, change energy tag here
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         
         dotExplosion = self.useDot()
         dotExplosion.damage *= ( 0.884 if self.eidolon >= 3 else 0.85 ) + ( 0.08 * 3 * 1.5 if self.eidolon >= 6 else 0.0 )
@@ -82,34 +83,36 @@ class Luka(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
+        type = 'skill'
         retval.damage = self.getTotalMotionValue('skill')
-        retval.damage *= self.getTotalCrit('skill')
-        retval.damage *= self.getTotalDmg('skill')
-        retval.damage *= self.getVulnerabilityType('skill')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
+        type = 'ultimate'
         retval.damage = self.getTotalMotionValue('ultimate')
-        retval.damage *= self.getTotalCrit('ultimate')
-        retval.damage *= self.getTotalDmg('ultimate')
-        retval.damage *= self.getVulnerabilityType('ultimate')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 90.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['ultimate'])
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 90.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval
 
     def useDot(self):
         bleedHP = self.enemyMaxHP * 0.24
         retval = BaseEffect()
         retval.damage = min(bleedHP, self.getTotalMotionValue('dot'))
-        retval.damage *= self.getTotalDmg('dot')
-        retval.damage *= self.getVulnerabilityType('dot')
-        retval.damage = self.applyDamageMultipliers(retval.damage)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
         return retval

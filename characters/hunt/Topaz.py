@@ -36,33 +36,36 @@ class Topaz(BaseCharacter):
         
     def useBasic(self):
         retval = BaseEffect()
+        type = 'basic'
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(['basic','followup'])
         retval.damage *= self.getTotalDmg(['basic','followup'])
         retval.damage *= self.getVulnerabilityType(['basic','followup'])
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 30.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['basic'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['basic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useSkill(self):
         retval = BaseEffect()
+        type = 'skill'
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage *= self.getTotalCrit(['skill','followup'])
         retval.damage *= self.getTotalDmg(['skill','followup'])
         retval.damage *= self.getVulnerabilityType(['skill','followup'])
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
-        retval.energy = ( 30.0 + self.bonusEnergyAttack['skill'] + self.bonusEnergyAttack['turn'] ) * ( 1.0 + self.ER )
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - min(1.0,self.advanceForwardType['skill'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
-        retval.energy = ( 5.0 + self.bonusEnergyAttack['ultimate'] ) * ( 1.0 + self.ER )
+        type = 'ultimate'
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         return retval
 
     def useTalent(self, windfall=False):
@@ -75,12 +78,12 @@ class Topaz(BaseCharacter):
             retval.damage *= self.getTotalCrit(['talent','followup'])
             retval.damage *= self.getTotalDmg(['talent','followup'])
         retval.damage *= self.getVulnerabilityType(['talent','followup'])
-        retval.damage = self.applyDamageMultipliers(retval.damage)
-        retval.gauge = 60.0 * (1.0 + self.breakEfficiency)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.getBreakEfficiency(type)
         retval.energy = ( 
                                          ( 10.0 if windfall else 0.0 ) + 
                                          ( 5.0 if self.eidolon >= 2 else 0.0 ) + 
-                                         self.bonusEnergyAttack['talent'] 
-                                        ) * ( 1.0 + self.ER )
+                                         self.getBonusEnergyAttack(type) 
+                                        ) * self.getER(type)
         retval.actionvalue = -0.2 if self.eidolon >= 4 else 0.0
         return retval
