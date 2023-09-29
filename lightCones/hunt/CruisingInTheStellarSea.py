@@ -20,7 +20,7 @@ class CruisingInTheStellarSea(BaseLightCone):
             char.addStat('CR',description=self.name,
                                     amount=0.06 + 0.02 * self.superposition,
                                     uptime=self.uptimeHP)
-            char.addStat('ATK',description=self.name,
+            char.addStat('ATK.percent',description=self.name,
                                     amount=0.15 + 0.05 * self.superposition,
                                     uptime=self.uptimeDefeat)
         

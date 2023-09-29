@@ -30,8 +30,10 @@ class Sampo(BaseCharacter):
         self.motionValueDict['dote6'] = [BaseMV(type=['talent','dot'],area='single', stat='atk', value=0.52+0.15, eidolonThreshold=5, eidolonBonus=0.052)]
         
         # Talents
-        self.VulnerabilityType['dot'] += (0.32 if self.eidolon >= 5 else 0.3) * self.ultUptime
-        self.getBonusEnergyAttack(type) += 10.0
+        self.addStat('Vulnerability',description='ultimate',
+                     amount=0.32 if self.eidolon >= 5 else 0.3,
+                     uptime=self.ultUptime)
+        self.addStat('BonusEnergyAttack',description='trace',amount=10.0,type=['ultimate'])
         
         # Eidolons
         
@@ -55,6 +57,7 @@ class Sampo(BaseCharacter):
     def useSkill(self):
         num_hits = 6.0 if self.eidolon else 5.0
         retval = BaseEffect()
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill') * num_hits
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -93,6 +96,6 @@ class Sampo(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] ) * self.getER(type)
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['dot'])
+        retval.energy = self.getBonusEnergyAttack(type) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval

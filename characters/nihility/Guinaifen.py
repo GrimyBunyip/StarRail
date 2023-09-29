@@ -60,6 +60,7 @@ class Guinaifen(BaseCharacter):
     def useSkill(self):
         num_adjacent = min(2.0, self.numEnemies - 1.0)
         retval = BaseEffect()
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

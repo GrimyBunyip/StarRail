@@ -29,7 +29,7 @@ class Qingque(BaseCharacter):
         self.addStat('SPD.percent',description='trace',amount=0.1,uptime=self.winningHandUptime)
         self.addStat('ATK.percent',description='talent',
                      amount=0.792 if self.eidolon >= 3 else 0.72,
-                     type='enhancedBasic')
+                     type=['enhancedBasic'])
         
         # Eidolons
         if self.eidolon >= 1:

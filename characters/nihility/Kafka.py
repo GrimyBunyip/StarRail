@@ -27,8 +27,10 @@ class Kafka(BaseCharacter):
         # Talents
         
         # Eidolons
-        self.DmgType['dot'] += 0.25 if self.eidolon >= 2 else 0.0
-        self.DmgType['dot'] += 0.30 / self.numEnemies if self.eidolon >= 1 else 0.0
+        if self.eidolon >= 1:
+            self.addStat('DMG',description='e1',amount=0.30,type=['dot'],uptime=1.0 / self.numEnemies)
+        if self.eidolon >= 2:
+            self.addStat('DMG',description='e2',amount=0.25,type=['dot'])
         
         # Gear
         self.equipGear()
@@ -50,6 +52,7 @@ class Kafka(BaseCharacter):
     def useSkill(self, extraDots:list=None):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -71,6 +74,7 @@ class Kafka(BaseCharacter):
 
     def useUltimate(self, extraDots:list=None):
         retval = BaseEffect()
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -92,6 +96,7 @@ class Kafka(BaseCharacter):
 
     def useTalent(self):
         retval = BaseEffect()
+        type = ['talent','followup']
         retval.damage = self.getTotalMotionValue('talent')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -111,6 +116,6 @@ class Kafka(BaseCharacter):
         retval.damage *= self.getDmg(type) + (1.56 if self.eidolon >= 6 else 0.0)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] + (2.0 if self.eidolon >= 4 else 0.0) ) * self.getER(type)
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['dot'])
+        retval.energy = ( self.getBonusEnergyAttack(type) + (2.0 if self.eidolon >= 4 else 0.0) ) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval

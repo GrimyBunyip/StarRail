@@ -38,17 +38,29 @@ class SilverWolf(BaseCharacter):
         self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
         
         # Talents
-        self.resPen += 0.20 * self.dmgResUptime
-        self.resPen += (0.105 if self.eidolon >= 3 else 0.10) * self.allResUptime
-        self.defShred += (0.468 if self.eidolon >= 5 else 0.45) * self.defShredUptime
-        self.defShred += (0.088 if self.eidolon >= 3 else 0.08) * self.talentDefUptime
-        self.defShred += 0.03 * self.a6Uptime
+        #self.addStat('ResPen',description='talent',amount=0.20,uptime=self.dmgResUptime) # ignore this, we assume we hit for weakness
+        self.addStat('ResPen',description='skill',
+                     amount=0.105 if self.eidolon >= 3 else 0.10,
+                     uptime=self.allResUptime)
+        self.addStat('DefShred',description='ultimate',
+                     amount=0.468 if self.eidolon >= 5 else 0.45,
+                     uptime=defShredUptime)
+        self.addStat('DefShred',description='talent',
+                     amount=0.088 if self.eidolon >= 3 else 0.08,
+                     uptime=self.talentDefUptime)
+        self.addStat('ResPen',description='trace',amount=0.03,uptime=self.a6Uptime)
         self.enemySpeed /= 1.0 - (0.06 if self.eidolon >= 3 else 0.066) * self.talentSpdUptime
         
         # Eidolons
-        self.getBonusEnergyAttack(type) += (7.0 * min(5.0,self.numDebuffs)) if self.eidolon >= 1 else 0.0
+        if self.eidolon >= 1:
+            self.addStat('BonusEnergyAttack',description='e1',
+                        amount=7.0,type=['ultimate'],
+                        stacks=min(5.0,self.numDebuffs))
+        if self.eidolon >= 6:
+            self.addStat('DMG',description='e6',
+                         amount=0.20,
+                         stacks=min(5.0,self.numDebuffs))
         self.motionValueDict['ultimate'][0].value += (0.20 * min(5.0,self.numDebuffs)) if self.eidolon >= 4 else 0.0
-        self.Dmg += (0.20 * min(5.0,self.numDebuffs)) if self.eidolon >= 6 else 0.0
         
         # Gear
         self.equipGear()

@@ -54,11 +54,11 @@ class Lunae(BaseCharacter):
                                             BaseMV(type=['ultimate'],area='adjacent', stat='atk', value=1.4*0.4, eidolonThreshold=5, eidolonBonus=0.112*0.4),]
         
         # Talents
-        self.addStat('CD',description='trace',type='transmigration',amount=0.24,uptime=self.joltAnewUptime)
+        self.addStat('CD',description='trace',type=['transmigration'],amount=0.24,uptime=self.joltAnewUptime)
         
         # Eidolons
         if self.eidolon >= 6:
-            self.addStat('ResPen',description='e6',type='transmigration',amount=0.2,stacks=self.reignStacks)
+            self.addStat('ResPen',description='e6',type=['transmigration'],amount=0.2,stacks=self.reignStacks)
 
         # Gear
         self.equipGear()

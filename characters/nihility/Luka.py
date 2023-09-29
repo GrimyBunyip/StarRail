@@ -38,14 +38,21 @@ class Luka(BaseCharacter):
         self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.3, eidolonThreshold=5, eidolonBonus=0.264)]
         
         # Talents
-        self.Vulnerability += (0.216 if self.eidolon >= 5 else 0.2) * self.ultDebuffUptime
-        self.getBonusEnergyAttack(type) += 6.0 # cycle braking
-        self.getBonusEnergyAttack(type) += 3.0 # cycle braking
-        self.getBonusEnergyAttack(type) += 3.0 + 3.0 * self.e2uptime # cycle braking and e2
+        self.addStat('Vulnerability',description='ultimate',
+                     amount=0.216 if self.eidolon >= 5 else 0.2,
+                     uptime=self.ultDebuffUptime)
+        
+        self.addStat('BonusEnergyAttack',description='trace',amount=6.0,type=['ultimate'])
+        self.addStat('BonusEnergyAttack',description='trace',amount=3.0,type=['basic'])
+        self.addStat('BonusEnergyAttack',description='trace',amount=-3.0,type=['enhancedBasic']) # enhanced basic does not proc cycle braking
+        self.addStat('BonusEnergyAttack',description='trace',amount=3.0,type=['skill'])
+        self.addStat('BonusEnergyAttack',description='trace',amount=3.0,type=['skill'],uptime=self.e2uptime)
         
         # Eidolons
-        self.Dmg += 0.15 * self.bleedUptime # e1
-        self.percAtk += 0.05 * self.e4stacks * self.e4uptime
+        if self.eidolon >= 1:
+            self.addStat('DMG',description='e1',amount=0.15,uptime=self.bleedUptime)
+        if self.eidolon >+ 4:
+            self.addStat('ATK.percent',description='e4',amount=0.05,stacks=self.e4stacks,uptime=self.e4uptime)
         
         # Gear
         self.equipGear()
@@ -66,13 +73,14 @@ class Luka(BaseCharacter):
 
     def useEnhancedBasic(self):
         retval = BaseEffect()
+        type = ['basic','enhancedBasic']
         retval.damage = self.getTotalMotionValue('enhancedBasic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
-        retval.energy = ( 20.0 + self.bonusEnergyAttack['enhancedBasic'] + self.getBonusEnergyTurn(type) ) * self.getER(type) # enhanced basic doesn't benefit from cycle braking, change energy tag here
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type) # enhanced basic doesn't benefit from cycle braking, change energy tag here
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         
@@ -111,6 +119,7 @@ class Luka(BaseCharacter):
     def useDot(self):
         bleedHP = self.enemyMaxHP * 0.24
         retval = BaseEffect()
+        type = ['dot']
         retval.damage = min(bleedHP, self.getTotalMotionValue('dot'))
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)

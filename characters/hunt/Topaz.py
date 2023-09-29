@@ -27,12 +27,12 @@ class Topaz(BaseCharacter):
         # Talents
         self.addStat('DMG',description='trace',amount=0.15) # Financial Turmoil
         self.addStat('Vulnerability',description='skill',amount=0.55 if self.eidolon >= 3 else 0.5)
-        self.addStat('BonusEnergyAttack',description='trace',amount=10.0,type='windfall')
+        self.addStat('BonusEnergyAttack',description='trace',amount=10.0,type=['windfall'])
         
         self.addStat('DMG',description='windfall',
                      amount=1.65 if self.eidolon >= 5 else 1.5,
-                     type='windfall')
-        self.addStat('CD',description='windfall',amount=0.25,type='windfall')
+                     type=['windfall'])
+        self.addStat('CD',description='windfall',amount=0.25,type=['windfall'])
 
         # Eidolons
         if self.eidolon >= 1:

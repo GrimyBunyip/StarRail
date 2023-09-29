@@ -37,7 +37,7 @@ class Hook(BaseCharacter):
         
         # Eidolons
         if self.eidolon >= 1:
-            self.addStat('DMG',description='e1',type='enhancedSkill',amount=0.2)
+            self.addStat('DMG',description='e1',type=['enhancedSkill'],amount=0.2)
         if self.eidolon >= 6:
             self.addStat('DMG',description='e6',amount=0.2,uptime=self.burnedUptime)
 

@@ -19,7 +19,6 @@ class Welt(BaseCharacter):
         self.loadCharacterStats('Welt')
         self.ultUptime = ultUptime
         self.slowUptime = slowUptime
-        self.e6Count = 0
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
@@ -28,12 +27,13 @@ class Welt(BaseCharacter):
         self.motionValueDict['talent'] = [BaseMV(type=['talent'],area='single', stat='atk', value=0.6, eidolonThreshold=5, eidolonBonus=0.06)]
         
         # Talents
-        self.Vulnerability += 0.12 * self.ultUptime
-        self.getBonusEnergyAttack(type) += 10.0
-        self.Dmg += 0.20 * config['weaknessBrokenUptime']
+        self.addStat('Vulnerability',description='ultimate',amount=0.12,uptime=self.ultUptime)
+        self.addStat('BonusEnergyAttack',description='trace',amount=10.0,type=['ultimate'])
+        self.addStat('DMG',description='trace',amount=0.20,uptime=config['weaknessBrokenUptime'])
         
         # Eidolons
-        self.getBonusEnergyAttack(type) += 3.0 if self.eidolon >= 2 else 0.0
+        if self.eidolon >= 2:
+            self.addStat('BonusEnergyAttack',description='e2',amount=3.0,type=['talent'])
         
         # Gear
         self.equipGear()
@@ -52,15 +52,13 @@ class Welt(BaseCharacter):
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         
-        retval += self.useTalent() * self.slowUptime
-        self.e6Count = max(0,self.e6Count-1)
+        retval += self.useTalent(type) * self.slowUptime
         return retval
 
     def useSkill(self):
         num_hits = 4.0 if self.eidolon >= 6 else 3.0
-        num_hits += 0.8 if self.eidolon >= 1 else 0.0
         retval = BaseEffect()
-        retval.damage = self.getTotalMotionValue('skill') * num_hits
+        retval.damage = self.getTotalMotionValue('skill') * (num_hits + 0.8 if self.eidolon >= 1 else 0.0)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -70,8 +68,7 @@ class Welt(BaseCharacter):
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         
-        retval += self.useTalent() * num_hits * self.slowUptime
-        self.e6Count = max(0,self.e6Count-1)
+        retval += self.useTalent(type) * num_hits * self.slowUptime
         return retval
 
     def useUltimate(self):
@@ -86,12 +83,12 @@ class Welt(BaseCharacter):
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type) # unclear if this bonus energy is affected by ER
         retval.actionvalue = self.getAdvanceForward(type)
         
-        retval += self.useTalent() * self.numEnemies * self.slowUptime
-        self.e6Count += 2
+        retval += self.useTalent(type) * self.numEnemies * self.slowUptime
         return retval
 
-    def useTalent(self):
+    def useTalent(self, type:list):
         retval = BaseEffect()
+        type = type + ['talent']
         retval.damage = self.getTotalMotionValue('talent')
         retval.damage *= self.getTotalCrit(type) # hmm, is this additive MV? fix this later
         retval.damage *= self.getDmg(type)
