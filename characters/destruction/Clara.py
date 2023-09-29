@@ -35,7 +35,7 @@ class Clara(BaseCharacter):
         # Eidolons
         # handle handle e1 manually, by using the argument in the useSkill call
         if self.eidolon >= 2.0:
-            self.addStat('ATK',description='e2',mathType='percent',amount=0.30,uptime=self.aTightEmbraceUptime)
+            self.addStat('ATK.percent',description='e2',amount=0.30,uptime=self.aTightEmbraceUptime)
         # better to handle e6 manually
 
         # Gear
@@ -43,7 +43,7 @@ class Clara(BaseCharacter):
 
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -57,7 +57,7 @@ class Clara(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -80,7 +80,7 @@ class Clara(BaseCharacter):
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
         return retval

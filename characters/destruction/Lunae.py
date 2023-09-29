@@ -147,7 +147,7 @@ class Lunae(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.skillpoints = -1.0
         return retval
 
@@ -179,7 +179,8 @@ class Lunae(BaseCharacter):
         else:
             self.addTempStat('DMG',description='Righteous Heart',
                              amount=0.11 if self.eidolon >= 5 else 0.1,
-                             stacks=2 if self.eidolon >= 1 else 1)
+                             stacks=2 if self.eidolon >= 1 else 1,
+                             duration=1)
     
     def addRoar(self):
         tempStat:BuffEffect = next(x for x in self.tempStats['CD'] if x.description == 'Outroar')
@@ -188,4 +189,4 @@ class Lunae(BaseCharacter):
         else:
             self.addTempStat('CD',description='Outroar',
                              amount=0.132 if self.eidolon >= 3 else 0.12,
-                             stacks=1)
+                             stacks=1, duration=1)

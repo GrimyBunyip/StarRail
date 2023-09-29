@@ -14,12 +14,15 @@ class JingYuan(BaseCharacter):
                 planarset:RelicSet=None,
                 battaliaCrushUptime:float=1.0,
                 warMarshalUptime:float=1.0,
-                e6uptime:float=1.0,
+                e2Uptime:float=0.5,
+                e6Uptime:float=1.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Jing Yuan')
         self.battaliaCrushUptime = battaliaCrushUptime
         self.warMarshalUptime = warMarshalUptime
+        self.e2Uptime = e2Uptime
+        self.e6Uptime = e6Uptime
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
@@ -28,22 +31,21 @@ class JingYuan(BaseCharacter):
         self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=0.66, eidolonThreshold=5, eidolonBonus=0.066)]
         
         # Talents
-        self.CR += 0.1 * self.warMarshalUptime
-        self.CRType['talent'] = 0.0
-        self.CDType['talent'] = self.battaliaCrushUptime * 0.25
+        self.addStat('CR',description='trace',amount=0.1,uptime=self.warMarshalUptime)
+        self.addStat('CD',description='trace',amount=0.25,type='talent',uptime=self.battaliaCrushUptime)
         
         # Eidolons
-        self.DmgType['basic'] += 0.2 if self.eidolon >= 2 else 0.0
-        self.DmgType['skill'] += 0.2 if self.eidolon >= 2 else 0.0
-        self.DmgType['ultimate'] += 0.2 if self.eidolon >= 2 else 0.0
-        self.Dmg += ( 0.36 * self.e6uptime ) if self.eidolon >= 6 else 0.0
+        self.addStat('DMG',description='e2',amount=0.2,type='basic',uptime=self.e2Uptime)
+        self.addStat('DMG',description='e2',amount=0.2,type='skill',uptime=self.e2Uptime)
+        self.addStat('DMG',description='e2',amount=0.2,type='ultimate',uptime=self.e2Uptime)
+        self.addStat('DMG',description='e6',amount=0.36,uptime=self.e6Uptime)
         
         # Gear
         self.equipGear()
 
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -56,7 +58,7 @@ class JingYuan(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -69,7 +71,7 @@ class JingYuan(BaseCharacter):
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

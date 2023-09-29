@@ -46,7 +46,7 @@ class Hook(BaseCharacter):
 
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic') + self.getTotalMotionValue('talent') * self.burnedUptime
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -59,7 +59,7 @@ class Hook(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill') + self.getTotalMotionValue('talent') * self.burnedUptime
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -86,7 +86,7 @@ class Hook(BaseCharacter):
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate') + self.getTotalMotionValue('talent') * self.burnedUptime
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -98,7 +98,7 @@ class Hook(BaseCharacter):
     
     def useDot(self):
         retval = BaseEffect()
-        type = 'dot'
+        type = ['dot']
         retval.damage = self.getTotalMotionValue('dot')
         # no crits on dots
         retval.damage *= self.getDmg(type)

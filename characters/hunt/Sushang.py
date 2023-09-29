@@ -50,7 +50,7 @@ class Sushang(BaseCharacter):
 
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(['basic'])
         retval.damage *= self.getDmg(type)
@@ -92,7 +92,7 @@ class Sushang(BaseCharacter):
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate')
         retval.damage *= self.getTotalCrit(['ultimate'])
         retval.damage *= self.getDmg(type)

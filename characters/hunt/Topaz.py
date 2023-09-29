@@ -36,7 +36,7 @@ class Topaz(BaseCharacter):
         
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(['basic','followup'])
         retval.damage *= self.getTotalDmg(['basic','followup'])
@@ -50,7 +50,7 @@ class Topaz(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage *= self.getTotalCrit(['skill','followup'])
         retval.damage *= self.getTotalDmg(['skill','followup'])
@@ -64,7 +64,7 @@ class Topaz(BaseCharacter):
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         return retval
 

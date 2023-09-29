@@ -33,19 +33,21 @@ class Herta(BaseCharacter):
         self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='all', stat='atk', value=0.40, eidolonThreshold=5, eidolonBonus=0.03)]
         
         # Talents
-        self.DmgType['ultimate'] += 0.20 * self.frozenUptime
-        self.DmgType['skill'] += 0.45 * self.hpThresholdUptime
-        self.DmgType['talent'] += 0.10 * self.e4Stacks
-        self.CR += 0.03 * self.e2Stacks
+        self.addStat('DMG',description='trace',amount=0.2,type='ultimate',uptime=self.frozenUptime)
+        self.addStat('DMG',description='trace',amount=0.45,type='skill',uptime=self.hpThresholdUptime)
         
         # Eidolons
+        if self.eidolon >= 2:
+            self.addStat('CR',description='e2',amount=0.03,stacks=self.e2Stacks)
+        if self.eidolon >= 4:
+            self.addStat('DMG',description='e4',amount=0.1,type='talent',stacks=self.e4Stacks)
         
         # Gear
         self.equipGear()
 
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic') + ( self.getTotalMotionValue('basicE1') if self.eidolon >= 1 else 0.0 )
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -58,7 +60,7 @@ class Herta(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -71,7 +73,7 @@ class Herta(BaseCharacter):
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

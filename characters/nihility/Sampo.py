@@ -40,7 +40,7 @@ class Sampo(BaseCharacter):
 
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -73,7 +73,7 @@ class Sampo(BaseCharacter):
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -86,7 +86,7 @@ class Sampo(BaseCharacter):
 
     def useDot(self):
         retval = BaseEffect()
-        type = 'dot'
+        type = ['dot']
         retval.damage = self.getTotalMotionValue('dote6') if self.eidolon >= 6 else self.getTotalMotionValue('dot')
         # no crits on dots
         retval.damage *= self.windshearStacks * self.windshearUptime

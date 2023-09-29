@@ -40,7 +40,7 @@ class Welt(BaseCharacter):
 
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= 1.5 if self.eidolon >= 6 else 1.0
         retval.damage *= self.getTotalCrit(type)
@@ -76,7 +76,7 @@ class Welt(BaseCharacter):
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

@@ -12,31 +12,32 @@ class Tingyun(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                allyAttack:float=2500.0,
+                benedictionTarget:BaseCharacter=None,
                 speedUptime:float=1.0/3.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Tingyun')
         
-        self.allyAttack = allyAttack
+        self.benedictionTarget = benedictionTarget
         self.speedUptime = speedUptime
 
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
 
         # Talents
-        self.percSpd += 0.20 * self.speedUptime
-        self.DmgType['basic'] += 0.40
-        self.getBonusEnergyTurn(type) += 5.0 if self.eidolon >= 2 else 0.0
+        self.addStat('SPD.percent',description='trace',amount=0.20,uptime=self.speedUptime)
+        self.addStat('DMG',description='trace',amount=0.40,type='basic')
 
         # Eidolons
+        if self.eidolon >= 2:
+            self.addStat('BonusEnergyTurn',description='trace',amount=5.0)
         
         # Gear
         self.equipGear()
         
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -51,7 +52,7 @@ class Tingyun(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.energy = ( 30.0 + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
@@ -59,26 +60,27 @@ class Tingyun(BaseCharacter):
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.energy = 5.0 * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
         return retval
     
     def useTalent(self):
         retval = BaseEffect()
+        type = ['basic','talent']
         retval.damage = 0.66 if self.eidolon >= 5 else 0.6
-        retval.damage *= self.allyAttack
-        retval.damage *= self.getTotalCrit(type)
-        retval.damage *= self.getDmg(type)
-        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.damage *= self.benedictionTarget.getTotalStat('ATK',type,self.element)
+        retval.damage *= self.benedictionTarget.getTotalCrit(type,self.element)
+        retval.damage *= self.benedictionTarget.getDmg(type,self.element)
+        retval.damage = self.benedictionTarget.applyDamageMultipliers(retval.damage,type,self.element)
         return retval
     
-    def useBenediction(self, targetCharacter:BaseCharacter, type):
+    def useBenediction(self, type):
         retval = BaseEffect()
-        retval.damage = targetCharacter.getTotalAtk(type) * (0.44 if self.eidolon >= 5 else 0.4)
-        retval.damage *= targetCharacter.getTotalCrit(type)
-        retval.damage *= targetCharacter.getTotalDmg(type,'lightning')
-        retval.damage = targetCharacter.applyDamageMultipliers(retval.damage)
+        retval.damage = self.benedictionTarget.getTotalStat('ATK',type,self.element) * (0.44 if self.eidolon >= 5 else 0.4)
+        retval.damage *= self.benedictionTarget.getTotalCrit(type,self.element)
+        retval.damage *= 1.0 + self.benedictionTarget.getTotalStat('DMG',type,self.element)
+        retval.damage = self.benedictionTarget.applyDamageMultipliers(retval.damage,type,self.element)
         return retval
     
     def giveUltEnergy(self):

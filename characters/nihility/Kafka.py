@@ -35,7 +35,7 @@ class Kafka(BaseCharacter):
 
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -105,7 +105,7 @@ class Kafka(BaseCharacter):
 
     def useDot(self):
         retval = BaseEffect()
-        type = 'dot'
+        type = ['dot']
         retval.damage = self.getTotalMotionValue('dot')
         # no crits on dots
         retval.damage *= self.getDmg(type) + (1.56 if self.eidolon >= 6 else 0.0)

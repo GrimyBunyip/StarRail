@@ -33,7 +33,7 @@ class Jingliu(BaseCharacter):
         
         # Talents
         self.transmigrationPercAtk = min(1.98 if self.eidolon >= 3 else 1.8,transmigrationPercAtk) + (0.3 if self.eidolon >= 4 else 0.0)
-        self.addStat('ATK',description='talent',type='transmigration',amount=self.transmigrationPercAtk)
+        self.addStat('ATK.percent',description='talent',type='transmigration',amount=self.transmigrationPercAtk)
         self.addStat('CR',description='talent',type='transmigration',amount=0.5)
         self.addStat('DMG',description='trace',type='ultimate',amount=0.2)
         self.addStat('AdvanceForward',description='trace',type='skill',amount=0.1)
@@ -51,7 +51,7 @@ class Jingliu(BaseCharacter):
 
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -64,7 +64,7 @@ class Jingliu(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

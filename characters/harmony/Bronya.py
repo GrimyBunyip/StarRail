@@ -21,9 +21,11 @@ class Bronya(BaseCharacter):
         self.motionValueDict['followup'] = [BaseMV(type='followup',area='single', stat='atk', value=0.8)]
 
         # Talents
-        self.getTotalStat('AdvanceForward','basic') = 0.33 if self.eidolon >= 3 else 0.3
-        self.CRType['basic'] =+ 1.0 # Ascension 2
-        self.Dmg += 0.10 # Ascension 6
+        self.addStat('AdvanceForward',description='talent',
+                     amount=0.33 if self.eidolon >= 3 else 0.3,
+                     type='basic')
+        self.addStat('CR',description='trace',amount=1.0,type='basic')
+        self.addStat('DMG',description='trace',amount=1.0)
 
         # Eidolons
         
@@ -32,7 +34,7 @@ class Bronya(BaseCharacter):
         
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -45,7 +47,7 @@ class Bronya(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.energy = ( 30.0 + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0 + (0.5 if self.eidolon >= 1 else 0.0)
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
@@ -53,12 +55,14 @@ class Bronya(BaseCharacter):
 
     def useUltimate(self, targetCharacter:BaseCharacter = None):
         retval = BaseEffect()
+        type = ['ultimate']
         retval.energy = 5.0 * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
         return retval
         
     def useFollowup(self):
         retval = BaseEffect()
+        type = ['basic','followup']
         retval.damage = self.getTotalMotionValue('basic') * 0.8
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

@@ -14,12 +14,14 @@ class Yukong(BaseCharacter):
                 planarset:RelicSet=None,
                 bowstringUptime:float=2.0/3.0,
                 ultUptime:float=1.0/3.0,
+                majestaProcs:float=2.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Yukong')
         
         self.bowstringUptime = bowstringUptime
         self.ultUptime = ultUptime
+        self.majestaprocs = majestaProcs
 
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
@@ -28,21 +30,27 @@ class Yukong(BaseCharacter):
         self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
 
         # Talents
-        self.CRType['ultimate'] += 0.294 if self.eidolon >= 5 else 0.28
-        self.CDType['ultimate'] += 0.702 if self.eidolon >= 5 else 0.65
-        self.Dmg += 0.12 # Ascension 4
-        self.getBonusEnergyAttack(type) += 2.0 # 2 bonus energy from ascension 6, but it could be more
+        self.addStat('CR',description='ultimate',
+                     amount=0.294 if self.eidolon >= 5 else 0.28,
+                     type='ultimate')
+        self.addStat('CD',description='ultimate',
+                     amount=0.702 if self.eidolon >= 5 else 0.65,
+                     type='ultimate')
+        self.addStat('DMG',description='trace',amount=0.12)
+        self.addStat('BonusEnergyTurn',description='trace',amount=2.0,type='skill',stacks=self.majestaprocs)
 
         # Eidolons
-        self.getBonusEnergyAttack(type) += 15.0 if self.eidolon >= 2 else 0.0
-        self.Dmg += 0.3 * self.bowstringUptime
+        if self.eidolon >= 2:
+            self.addStat('BonusEnergyTurn',description='e2',amount=5.0,stacks=3.0)
+        if self.eidolon >= 4:
+            self.addStat('DMG',description='e4',amount=0.3,uptime=self.bowstringUptime)
         
         # Gear
         self.equipGear()
         
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -55,27 +63,28 @@ class Yukong(BaseCharacter):
         
     def useEnhancedBasic(self):
         retval = BaseEffect()
+        type = ['enhancedBasic','basic']
         retval.damage = self.getTotalMotionValue('enhancedBasic')
         retval.damage *= self.getTotalCrit(['enhancedBasic','basic'])
-        retval.damage *= self.getTotalDmg(['enhancedBasic','basic'])
+        retval.damage *= self.getDmg(['enhancedBasic','basic'])
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
-        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.bonusEnergyAttack['enhancedBasic'] + self.getBonusEnergyTurn(type) ) * self.getER(type)
+        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 + self.getAdvanceForward(type) - min(1.0,self.advanceForwardType['enhancedBasic'])
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
-        retval.energy = (30.0 + 4.0) * self.getER(type) # 4 bonus energy from ascension 6, but it could be more
+        type = ['skill']
+        retval.energy = (30.0 + self.getBonusEnergyTurn(type)) * self.getER(type) # 4 bonus energy from ascension 6, but it could be more
         retval.skillpoints = -1.0 + (0.5 if self.eidolon >= 1 else 0.0)
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

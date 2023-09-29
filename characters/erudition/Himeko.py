@@ -36,19 +36,21 @@ class Himeko(BaseCharacter):
         self.motionValueDict['dot'] = [BaseMV(type=['dot'],area='all', stat='atk', value=0.3)]
 
         # Talents
-        self.Dmg += 0.2 * self.magmaUptime
-        self.CR += 0.15 * self.benchmarkUptime
+        self.addStat('DMG',description='trace',amount=0.2,uptime=self.magmaUptime)
+        self.addStat('CR',description='trace',amount=0.15,uptime=self.benchmarkUptime)
         
         # Eidolons
-        self.percSpd += (0.2 * self.e1Uptime) if self.eidolon >= 1 else 0.0
-        self.Dmg += (0.15 * self.e2Uptime) if self.eidolon >= 2 else 0.0
+        if self.eidolon >= 1:
+            self.addStat('SPD.percent',description='e1',amount=0.2,uptime=self.e1Uptime)
+        if self.eidolon >= 2:
+            self.addStat('DMG',description='e2',amount=0.15,uptime=e2Uptime)
         
         # Gear
         self.equipGear()
 
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -74,7 +76,7 @@ class Himeko(BaseCharacter):
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate') * ((1.8 * retval.damage / self.numEnemies) if self.eidolon >= 6 else 1.0)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -97,7 +99,7 @@ class Himeko(BaseCharacter):
     
     def useDot(self):
         retval = BaseEffect()
-        type = 'dot'
+        type = ['dot']
         retval.damage = self.getTotalMotionValue('dot')
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)

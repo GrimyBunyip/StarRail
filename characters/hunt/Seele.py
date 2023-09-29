@@ -19,7 +19,6 @@ class Seele(BaseCharacter):
         self.loadCharacterStats('Seele')
         
         self.sheathedBladeUptime = sheathedBladeUptime
-        self.resurgence = False
         self.e1Uptime = e1Uptime
 
         # Motion Values should be set before talents or gear
@@ -28,10 +27,13 @@ class Seele(BaseCharacter):
         self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=4.25, eidolonThreshold=5, eidolonBonus=0.34)]
 
         # Talents
-        self.percSpd += ( 0.25 * self.sheathedBladeUptime ) * (2.0 if self.eidolon >= 2 else 1.0)
+        self.addStat('SPD.percent',description='trace',amount=0.25,uptime=self.sheathedBladeUptime)
 
         # Eidolons
-        self.CR += (0.15 * self.e1Uptime) if self.eidolon >= 1 else 0.0
+        if self.eidolon >= 1:
+            self.addStat('CR',description='e1',amount=0.15,uptime=self.e1Uptime)
+        if self.eidolon >= 2:
+            self.addStat('SPD.percent',description='e2',amount=0.25,uptime=self.sheathedBladeUptime)
         # e6 not yet implemented
         
         # Gear
@@ -39,7 +41,7 @@ class Seele(BaseCharacter):
         
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -52,7 +54,7 @@ class Seele(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -65,7 +67,7 @@ class Seele(BaseCharacter):
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -77,17 +79,9 @@ class Seele(BaseCharacter):
     
     def useResurgence(self):
         retval = BaseEffect()
+        type = ['talent']
         retval.actionvalue = -1.0
         retval.energy = ( 15.0 if self.eidolon >= 4 else 0.0 ) * self.getER(type)
-        self.resurgence = True
-        self.resPen += 0.20 # res pen from buffed state
-        self.Dmg += 0.88 if self.eidolon >=3 else 0.8 # resurgence buff
-        return retval
-
-    def endTurn(self):
-        retval = BaseEffect()
-        if self.resurgence:
-            self.resPen -= 0.20 # reset res pen from buffed state
-            self.Dmg -= 0.88 if self.eidolon >=3 else 0.8 # resurgence buff
-            self.resurgence = False
+        self.addTempStat('ResPen',description='Resurgence',amount=0.20,duration=1)
+        self.addTempStat('DMG',description='Resurgence',amount=0.88 if self.eidolon >=3 else 0.8,duration=1)
         return retval

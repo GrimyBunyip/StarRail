@@ -37,6 +37,7 @@ class Serval(BaseCharacter):
 
     def useBasic(self, shocked = True):
         retval = BaseEffect()
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage += self.getTotalMotionValue('shockedBasic') if shocked else 0.0
         retval.damage *= self.getTotalCrit(type)
@@ -51,6 +52,7 @@ class Serval(BaseCharacter):
     def useSkill(self, shocked = True):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage += self.getTotalMotionValue('shockedSkill') if shocked else 0.0
         retval.damage *= self.getTotalCrit(type)
@@ -64,6 +66,7 @@ class Serval(BaseCharacter):
 
     def useUltimate(self, shocked = True):
         retval = BaseEffect()
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate')
         retval.damage += self.getTotalMotionValue('shockedUltimate') if shocked else 0.0
         retval.damage *= self.getTotalCrit(type)
@@ -76,10 +79,11 @@ class Serval(BaseCharacter):
 
     def useDot(self, shocked = True):
         retval = BaseEffect()
+        type = ['dot']
         retval.damage = self.getTotalMotionValue('dot')
         # no crits on dots
         retval.damage *= self.getDmg(type) + ( 0.3 if (shocked and self.eidolon >= 6) else 0.0 )
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] ) * self.getER(type)
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['dot'])
+        retval.energy = ( 0.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.actionvalue = 0.0 - self.getAdvanceForward(type)
         return retval

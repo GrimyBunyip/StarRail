@@ -54,14 +54,14 @@ class Blade(BaseCharacter):
         if self.eidolon >= 2:
             self.addStat('CR',description='e2',type='followup',amount=0.15,uptime=self.hellscapeUptime)
         if self.eidolon >= 4:
-            self.addStat('HP',description='e4',type='followup',mathType='percent',amount=0.40,uptime=self.rejectedByDeathUptime)
+            self.addStat('HP.percent',description='e4',type='followup',amount=0.40,uptime=self.rejectedByDeathUptime)
 
         # Gear
         self.equipGear()
 
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -90,14 +90,14 @@ class Blade(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.skillpoints = -1.0
         return retval
 
     def useUltimate(self):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

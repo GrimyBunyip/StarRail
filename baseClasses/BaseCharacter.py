@@ -94,8 +94,8 @@ class BaseCharacter(object):
     def addStat(self, name:str, description:str, amount:float, type:str=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base'):
         self.stats[name].append(name=name, description=description, amount=amount, type=type, stacks=stacks, uptime=uptime, mathType=mathType)
 
-    def addTempStat(self, name:str, description:str, amount:float, type:str=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base'):
-        self.tempStats[name].append(name=name, description=description, amount=amount, type=type, stacks=stacks, uptime=uptime, mathType=mathType)
+    def addTempStat(self, name:str, description:str, amount:float, type:str=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base', duration:int=None):
+        self.tempStats[name].append(name=name, description=description, amount=amount, type=type, stacks=stacks, uptime=uptime, mathType=mathType, duration=duration)
         
     def clearTempBuffs(self):
         self.tempStats = copy(EMPTY_STATS)
@@ -109,6 +109,7 @@ class BaseCharacter(object):
                     tempStat.duration -= 1
                 if tempStat.duration <= 0:
                     value.remove(tempStat)
+        return BaseEffect()
 
     def equipGear(self):
         if self.relicstats is not None: self.relicstats.equipTo(self)
@@ -117,42 +118,49 @@ class BaseCharacter(object):
         if self.relicsettwo is not None: self.relicsettwo.equipTo(self)
         if self.planarset is not None: self.planarset.equipTo(self)
     
-    def getTotalStat(self, stat:str, type:[str,list]=None):
+    def getTotalStat(self, stat:str, type:list=[], element:str=None):
         typeTotal = {'base': 0.0,
                      'percent':0.0,
                      'flat':0.0,}
+        type.append(self.element if element is None else element)
         for entry in self.stats[stat]:
             entry:BuffEffect
-            if type is None or (isinstance(type,str) and entry.type == type) or (isinstance(type,list) and entry.type in type):
+            if entry.type is None or entry.type in type:
                 typeTotal[entry.mathType] += entry.amount * entry.stacks * entry.uptime
             
         return typeTotal['base'] * (1.0 + typeTotal['percent']) + typeTotal['flat']
     
-    def getTotalCrit(self, type:[str,list]=None):
-        totalCR = self.getTotalStat('CR',type)
-        totalCD = self.getTotalStat('CD',type)
+    def getTotalCrit(self, type:list=[], element:str=None):
+        totalCR = self.getTotalStat('CR',type,element)
+        totalCD = self.getTotalStat('CD',type,element)
         return 1.0 + min(1.0, totalCR) * totalCD
     
-    def getDmg(self,type:[str,list]=None):
-        return self.getDmg(type)
+    def getDmg(self,type:list=[], element:str=None):
+        return 1.0 + self.getTotalStat('DMG',type,element)
     
-    def getVulnerability(self,type:[str,list]=None):
-        return self.getVulnerability(type)
+    def getVulnerability(self,type:list=[], element:str=None):
+        return 1.0 + self.getTotalStat('Vulnerability',type,element)
     
-    def getBreakEfficiency(self,type:[str,list]=None):
-        return self.getBreakEfficiency(type)
+    def getBreakEfficiency(self,type:list=[], element:str=None):
+        return 1.0 + self.getTotalStat('BreakEfficiency',type,element)
     
-    def getER(self,type:[str,list]=None):
-        return self.getER(type)
+    def getER(self,type:list=[], element:str=None):
+        return 1.0 + self.getTotalStat('ER',type,element)
     
-    def getAdvanceForward(self,type:[str,list]=None):
-        return 0.0 - min(1.0,self.getTotalStat('AdvanceForward',type))
+    def getAdvanceForward(self,type:list=[], element:str=None):
+        return 0.0 - min(1.0,self.getTotalStat('AdvanceForward',type,element))
     
-    def getBonusEnergyAttack(self,type:[str,list]=None):
-        return self.getTotalStat('BonusEnergyAttack',type)
+    def getBonusEnergyAttack(self,type:list=[], element:str=None):
+        return self.getTotalStat('BonusEnergyAttack',type,element)
     
-    def getBonusEnergyTurn(self,type:[str,list]=None):
-        return self.getTotalStat('BonusEnergyTurn',type)
+    def getBonusEnergyTurn(self,type:list=[], element:str=None):
+        return self.getTotalStat('BonusEnergyTurn',type,element)
+    
+    def getDefShred(self,type:list=[], element:str=None):
+        return self.getTotalStat('DefShred',type,element)
+    
+    def getResPen(self,type:list=[], element:str=None):
+        return self.getTotalStat('ResPen',type,element)
     
     def getTotalMotionValue(self, type:str):
         total = 0.0
@@ -166,7 +174,7 @@ class BaseCharacter(object):
 
     def useBasic(self):
         retval = BaseEffect()
-        type = 'basic'
+        type = ['basic']
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = 20.0 * (self.getER(type))
         retval.skillpoints = 1.0
@@ -174,7 +182,7 @@ class BaseCharacter(object):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
         retval.energy = 30.0 * (self.getER(type))
         retval.skillpoints = -1.0
@@ -182,7 +190,7 @@ class BaseCharacter(object):
 
     def useUltimate(self):
         retval = BaseEffect()
-        type = 'ultimate'
+        type = ['ultimate']
         retval.energy = 5.0 * (self.getER(type))
         return retval
 
@@ -211,8 +219,8 @@ class BaseCharacter(object):
         baseDotDamage = self.breakLevelMultiplier
         baseDotDamage *= 0.5 + self.enemyToughness / 120
         baseDotDamage *= breakMultipliers[self.element]
-        baseDotDamage *= 1.0 + self.getTotalStat('BreakEffect')
-        baseDotDamage *= 1.0 + self.getTotalStat('Vulnerability')
+        baseDotDamage *= 1.0 + self.getBreakEfficiency()
+        baseDotDamage *= 1.0 + self.getVulnerability()
         baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
 
         retval.damage = baseDotDamage
@@ -249,9 +257,9 @@ class BaseCharacter(object):
         retval.damage = baseDotDamage
         return retval
 
-    def applyDamageMultipliers(self, baseDamage:float, type:[str,list]=None) -> float:
+    def applyDamageMultipliers(self, baseDamage:float, type:list=None) -> float:
         damage = baseDamage
-        damage *= (80 + 20 ) / ( ( self.enemyLevel + 20 ) * ( 1 - self.getTotalStat('DefShred',type) ) + 80 + 20 )
-        damage *= max(min(1 - self.enemyRes + self.getTotalStat('ResPen',type), 2.0), 0.1)
+        damage *= (80 + 20 ) / ( ( self.enemyLevel + 20 ) * ( 1 - self.getDefShred(type) ) + 80 + 20 )
+        damage *= max(min(1 - self.enemyRes + self.getResPen(type), 2.0), 0.1)
         damage *= 0.9 + 0.1 * self.weaknessBrokenUptime
         return damage

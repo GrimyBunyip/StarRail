@@ -32,18 +32,22 @@ class DanHeng(BaseCharacter):
         self.motionValueDict['ultimateSlowed'] = [BaseMV(type='ultimate',area='single', stat='atk', value=4.0+1.2, eidolonThreshold=5, eidolonBonus=0.32+0.096)]
 
         # Talents
-        self.percSpd += 0.20 * self.fasterThanLightUptime # Faster Than Light
-        self.CR += 0.12 * self.e1Uptime # The Higher You Fly, the Harder You Fall
-        self.percTaunt -= 0.5 * self.hiddenDragonUptime # A2 ascension
-        self.resPen += ( 0.396 if self.eidolon >= 5 else 0.36 ) * talentUptime * (0.5 if self.eidolon < 2 else 1.0)
+        self.addStat('SPD.percent',description='trace',amount=0.20,uptime=self.fasterThanLightUptime)
+        self.addStat('Taunt',description='trace',amount=-0.5,uptime=self.hiddenDragonUptime)
+        self.addStat('ResPen',description='talent',
+                    amount=0.396 if self.eidolon >= 5 else 0.36,
+                    uptime=self.talentUptime)
 
         # Eidolons
+        if self.eidolon >= 1:
+            self.addStat('CR',description='e1',amount=0.12,uptime=self.e1Uptime)
         
         # Gear
         self.equipGear()
         
     def useBasic(self, slowed = True):
         retval = BaseEffect()
+        type = ['basic']
         retval.damage = self.getTotalMotionValue('basic')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type) + ( 0.40 if slowed else 0.0 ) #    High Gale
@@ -56,7 +60,7 @@ class DanHeng(BaseCharacter):
 
     def useSkill(self):
         retval = BaseEffect()
-        type = 'skill'
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -69,6 +73,7 @@ class DanHeng(BaseCharacter):
 
     def useUltimate(self, slowed = True):
         retval = BaseEffect()
+        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimateSlowed') if slowed else self.getTotalMotionValue('ultimate')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
