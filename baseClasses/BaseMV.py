@@ -1,7 +1,7 @@
 from baseClasses.BaseCharacter import BaseCharacter
 
 class BaseMV:
-    def __init__(self, type, area, stat, value:float, eidolonThreshold:int = 5, eidolonBonus:float = 0.0):
+    def __init__(self, type:list, area:str, stat:str, value:float, eidolonThreshold:int = 5, eidolonBonus:float = 0.0):
         if area not in ['single', 'adjacent', 'blast', 'all']:
             raise ValueError('invalid area selected for BaseMV')
         if stat not in ['atk','def','hp']:
@@ -18,11 +18,11 @@ class BaseMV:
         mv = self.value +    ( self.eidolonBonus if char.eidolon > self.eidolonThreshold else 0.0 )
 
         if self.stat == 'atk':
-            amount = mv * char.getTotalAtk(type=self.type)
+            amount = mv * char.getTotalStat('ATK',type=self.type)
         elif self.stat == 'def':
-            amount = mv * char.getTotalDef(type=self.type)
+            amount = mv * char.getTotalStat('DEF',type=self.type)
         elif self.stat == 'hp':
-            amount = mv * char.getTotalHP(type=self.type)
+            amount = mv * char.getTotalStat('HP',type=self.type)
         else:
             raise ValueError('invalid stat selected for BaseMV')
                 

@@ -26,10 +26,10 @@ class DanHeng(BaseCharacter):
         self.hiddenDragonUptime = hiddenDragonUptime
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.6, eidolonThreshold=3, eidolonBonus=0.26)]
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=4.0, eidolonThreshold=5, eidolonBonus=0.32)]
-        self.motionValueDict['ultimateSlowed'] = [BaseMV(type='ultimate',area='single', stat='atk', value=4.0+1.2, eidolonThreshold=5, eidolonBonus=0.32+0.096)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.6, eidolonThreshold=3, eidolonBonus=0.26)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=4.0, eidolonThreshold=5, eidolonBonus=0.32)]
+        self.motionValueDict['ultimateSlowed'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=4.0+1.2, eidolonThreshold=5, eidolonBonus=0.32+0.096)]
 
         # Talents
         self.addStat('SPD.percent',description='trace',amount=0.20,uptime=self.fasterThanLightUptime)

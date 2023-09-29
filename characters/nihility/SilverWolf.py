@@ -33,9 +33,9 @@ class SilverWolf(BaseCharacter):
         self.numDebuffs = numDebuffs
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]        
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=1.96, eidolonThreshold=3, eidolonBonus=0.196)]
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]        
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=1.96, eidolonThreshold=3, eidolonBonus=0.196)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
         
         # Talents
         self.resPen += 0.20 * self.dmgResUptime

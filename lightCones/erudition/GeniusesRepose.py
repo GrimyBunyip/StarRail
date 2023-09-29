@@ -13,9 +13,8 @@ class GeniusesRepose(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.addStat('ATK',description=self.name,
-                                    amount=0.12 + 0.04 * self.superposition,
-                                    mathType='percent')
+            char.addStat('ATK.percent',description=self.name,
+                                    amount=0.12 + 0.04 * self.superposition)
             char.addStat('CD',description=self.name,
                                     amount=0.18 + 0.06 * self. superposition,
                                     uptime=self.uptime)

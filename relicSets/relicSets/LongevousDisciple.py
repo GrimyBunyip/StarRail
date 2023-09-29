@@ -11,9 +11,8 @@ class LongevousDisciple2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('HP',description=self.shortname,
-                                amount=0.12,
-                                mathType='percent')
+        char.addStat('HP.percent',description=self.shortname,
+                                amount=0.12)
         
 class LongevousDisciple4pc(RelicSet):
     def __init__(self,

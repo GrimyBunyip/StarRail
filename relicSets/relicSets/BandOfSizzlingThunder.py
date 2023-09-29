@@ -13,7 +13,7 @@ class BandOfSizzlingThunder2pc(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('DMG',description=self.shortname,
                                 amount=0.10,
-                                type='lightning')
+                                type=['lightning'])
         
 class BandOfSizzlingThunder4pc(RelicSet):
     def __init__(self,
@@ -26,7 +26,6 @@ class BandOfSizzlingThunder4pc(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('ATK',description=self.shortname,
+        char.addStat('ATK.percent',description=self.shortname,
                                 amount=0.20,
-                                mathType='percent',
                                 uptime=self.uptime)

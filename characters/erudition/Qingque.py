@@ -20,10 +20,10 @@ class Qingque(BaseCharacter):
         self.averageAutarky = 0.0
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['enhancedBasic'] = [BaseMV(type='basic',area='single', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.24),
-                                                BaseMV(type='basic',area='adjacent', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.16)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['enhancedBasic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.24),
+                                                BaseMV(type=['basic'],area='adjacent', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='all', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.16)]
         
         # Talents
         self.addStat('SPD.percent',description='trace',amount=0.1,uptime=self.winningHandUptime)
@@ -33,7 +33,7 @@ class Qingque(BaseCharacter):
         
         # Eidolons
         if self.eidolon >= 1:
-            self.addStat('DMG',description='e1',amount=0.1,type='ultimate')
+            self.addStat('DMG',description='e1',amount=0.1,type=['ultimate'])
         
         # Gear
         self.equipGear()

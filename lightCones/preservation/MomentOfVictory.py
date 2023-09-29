@@ -13,15 +13,12 @@ class MomentOfVictory(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.addStat('Taunt',description=self.name,
-                                        amount=2.0,
-                                        mathType='percent')
-            char.addStat('DEF',description=self.name,
+            char.addStat('Taunt.percent',description=self.name,
+                                        amount=2.0)
+            char.addStat('DEF.percent',description=self.name,
+                                    amount=0.2 + 0.04 * self.superposition)
+            char.addStat('DEF.percent',description=self.name,
                                     amount=0.2 + 0.04 * self.superposition,
-                                    mathType='percent')
-            char.addStat('DEF',description=self.name,
-                                    amount=0.2 + 0.04 * self.superposition,
-                                    mathType='percent',
                                     uptime=self.uptime)
             
 if __name__ == '__main__':

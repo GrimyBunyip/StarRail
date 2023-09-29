@@ -15,10 +15,9 @@ class OnTheFallOfAnAeon(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.addStat('ATK',description=self.name,
+            char.addStat('ATK.percent',description=self.name,
                                     amount=0.06 + 0.02 * self.superposition,
-                                    stacks=self.stacks,
-                                    mathType='percent')
+                                    stacks=self.stacks)
             char.addStat('DMG',description=self.name,
                                     amount=0.09 + 0.03 * self.superposition,
                                     uptime=self.uptime)

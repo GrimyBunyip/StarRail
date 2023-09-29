@@ -11,9 +11,8 @@ class MusketeerOfWildWheat2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('ATK',description=self.shortname,
-                                amount=0.12,
-                                mathType='percent')
+        char.addStat('ATK.percent',description=self.shortname,
+                                amount=0.12)
 
 class MusketeerOfWildWheat4pc(RelicSet):
     def __init__(self,
@@ -24,9 +23,8 @@ class MusketeerOfWildWheat4pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('SPD',description=self.shortname,
-                                amount=0.06,
-                                mathType='percent')
+        char.addStat('SPD.percent',description=self.shortname,
+                                amount=0.06)
         char.addStat('DMG',description=self.shortname,
                                 amount=0.10,
-                                type='basic')
+                                type=['basic'])

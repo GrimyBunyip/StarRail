@@ -23,35 +23,35 @@ class Lunae(BaseCharacter):
         self.reignStacks = reignStacks
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic_1'] = [BaseMV(type='basic',area='single', stat='atk', value=0.3, eidolonThreshold=3, eidolonBonus=0.03)]
-        self.motionValueDict['basic_2'] = [BaseMV(type='basic',area='single', stat='atk', value=0.7, eidolonThreshold=3, eidolonBonus=0.07)]
+        self.motionValueDict['basic_1'] = [BaseMV(type=['basic'],area='single', stat='atk', value=0.3, eidolonThreshold=3, eidolonBonus=0.03)]
+        self.motionValueDict['basic_2'] = [BaseMV(type=['basic'],area='single', stat='atk', value=0.7, eidolonThreshold=3, eidolonBonus=0.07)]
         
-        self.motionValueDict['enhancedBasic1_1'] = [BaseMV(type='basic',area='single', stat='atk', value=2.6*0.33, eidolonThreshold=3, eidolonBonus=2.86*0.33)]
+        self.motionValueDict['enhancedBasic1_1'] = [BaseMV(type=['basic'],area='single', stat='atk', value=2.6*0.33, eidolonThreshold=3, eidolonBonus=2.86*0.33)]
         self.motionValueDict['enhancedBasic1_2'] = self.motionValueDict['enhancedBasic1_1']
-        self.motionValueDict['enhancedBasic1_3'] = [BaseMV(type='basic',area='single', stat='atk', value=2.6*0.34, eidolonThreshold=3, eidolonBonus=2.86*0.34)]
+        self.motionValueDict['enhancedBasic1_3'] = [BaseMV(type=['basic'],area='single', stat='atk', value=2.6*0.34, eidolonThreshold=3, eidolonBonus=2.86*0.34)]
 
-        self.motionValueDict['enhancedBasic2_1'] = [BaseMV(type='basic',area='single', stat='atk', value=3.8*0.2, eidolonThreshold=3, eidolonBonus=0.38*0.2)]
+        self.motionValueDict['enhancedBasic2_1'] = [BaseMV(type=['basic'],area='single', stat='atk', value=3.8*0.2, eidolonThreshold=3, eidolonBonus=0.38*0.2)]
         self.motionValueDict['enhancedBasic2_2'] = self.motionValueDict['enhancedBasic2_1']
         self.motionValueDict['enhancedBasic2_3'] = self.motionValueDict['enhancedBasic2_1']
-        self.motionValueDict['enhancedBasic2_4'] = [BaseMV(type='basic',area='single', stat='atk', value=3.8*0.2, eidolonThreshold=3, eidolonBonus=0.38*0.2),
-                                                    BaseMV(type='basic',area='adjacent', stat='atk', value=0.6*0.5, eidolonThreshold=3, eidolonBonus=0.06*0.5),]
+        self.motionValueDict['enhancedBasic2_4'] = [BaseMV(type=['basic'],area='single', stat='atk', value=3.8*0.2, eidolonThreshold=3, eidolonBonus=0.38*0.2),
+                                                    BaseMV(type=['basic'],area='adjacent', stat='atk', value=0.6*0.5, eidolonThreshold=3, eidolonBonus=0.06*0.5),]
         self.motionValueDict['enhancedBasic2_5'] = self.motionValueDict['enhancedBasic2_4']
 
-        self.motionValueDict['enhancedBasic3_1'] = [BaseMV(type='basic',area='single', stat='atk', value=5.0*0.142, eidolonThreshold=3, eidolonBonus=0.5*0.142)]
+        self.motionValueDict['enhancedBasic3_1'] = [BaseMV(type=['basic'],area='single', stat='atk', value=5.0*0.142, eidolonThreshold=3, eidolonBonus=0.5*0.142)]
         self.motionValueDict['enhancedBasic3_2'] = self.motionValueDict['enhancedBasic3_1']
         self.motionValueDict['enhancedBasic3_3'] = self.motionValueDict['enhancedBasic3_1']
-        self.motionValueDict['enhancedBasic3_4'] = [BaseMV(type='basic',area='single', stat='atk', value=5.0*0.142, eidolonThreshold=3, eidolonBonus=0.5*0.142),
-                                                    BaseMV(type='basic',area='adjacent', stat='atk', value=1.8*0.25, eidolonThreshold=3, eidolonBonus=0.18*0.25),]
+        self.motionValueDict['enhancedBasic3_4'] = [BaseMV(type=['basic'],area='single', stat='atk', value=5.0*0.142, eidolonThreshold=3, eidolonBonus=0.5*0.142),
+                                                    BaseMV(type=['basic'],area='adjacent', stat='atk', value=1.8*0.25, eidolonThreshold=3, eidolonBonus=0.18*0.25),]
         self.motionValueDict['enhancedBasic3_5'] = self.motionValueDict['enhancedBasic3_4']
         self.motionValueDict['enhancedBasic3_6'] = self.motionValueDict['enhancedBasic3_4']
-        self.motionValueDict['enhancedBasic3_7'] = [BaseMV(type='basic',area='single', stat='atk', value=5.0*0.148, eidolonThreshold=3, eidolonBonus=0.5*0.148),
-                                                    BaseMV(type='basic',area='adjacent', stat='atk', value=1.8*0.25, eidolonThreshold=3, eidolonBonus=0.18*0.25),]
+        self.motionValueDict['enhancedBasic3_7'] = [BaseMV(type=['basic'],area='single', stat='atk', value=5.0*0.148, eidolonThreshold=3, eidolonBonus=0.5*0.148),
+                                                    BaseMV(type=['basic'],area='adjacent', stat='atk', value=1.8*0.25, eidolonThreshold=3, eidolonBonus=0.18*0.25),]
         
-        self.motionValueDict['ultimate_1'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.0*0.3, eidolonThreshold=5, eidolonBonus=0.24*0.3),
-                                            BaseMV(type='ultimate',area='adjacent', stat='atk', value=1.4*0.3, eidolonThreshold=5, eidolonBonus=0.112*0.3),]
+        self.motionValueDict['ultimate_1'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.0*0.3, eidolonThreshold=5, eidolonBonus=0.24*0.3),
+                                            BaseMV(type=['ultimate'],area='adjacent', stat='atk', value=1.4*0.3, eidolonThreshold=5, eidolonBonus=0.112*0.3),]
         self.motionValueDict['ultimate_2'] = self.motionValueDict['ultimate_1']
-        self.motionValueDict['ultimate_3'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.0*0.4, eidolonThreshold=5, eidolonBonus=0.24*0.4),
-                                            BaseMV(type='ultimate',area='adjacent', stat='atk', value=1.4*0.4, eidolonThreshold=5, eidolonBonus=0.112*0.4),]
+        self.motionValueDict['ultimate_3'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.0*0.4, eidolonThreshold=5, eidolonBonus=0.24*0.4),
+                                            BaseMV(type=['ultimate'],area='adjacent', stat='atk', value=1.4*0.4, eidolonThreshold=5, eidolonBonus=0.112*0.4),]
         
         # Talents
         self.addStat('CD',description='trace',type='transmigration',amount=0.24,uptime=self.joltAnewUptime)

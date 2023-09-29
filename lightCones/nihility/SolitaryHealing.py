@@ -18,7 +18,7 @@ class SolitaryHealing(BaseLightCone):
             char.addStat('DMG',description=self.name,
                                     amount=0.18 + 0.06 * self.superposition,
                                     uptime=self.uptime,
-                                    type='dot')
+                                    type=['dot'])
             # on kill energy not factored in
             
 if __name__ == '__main__':

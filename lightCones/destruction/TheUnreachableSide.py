@@ -15,9 +15,8 @@ class TheUnreachableSide(BaseLightCone):
         if char.path == self.path:
             char.addStat('CR',description=self.name,
                                     amount=0.15 + 0.03 * self.superposition)
-            char.addStat('HP',description=self.name,
-                                    amount=0.15 + 0.03 * self.superposition,
-                                    mathType='percent')
+            char.addStat('HP.percent',description=self.name,
+                                    amount=0.15 + 0.03 * self.superposition)
             char.addStat('DMG',description=self.name,
                                     amount=0.20 + 0.04 * self.superposition,
                                     uptime=self.uptime)

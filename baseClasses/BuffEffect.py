@@ -1,14 +1,14 @@
 class BuffEffect:
     name:str
     description:str
-    type:str
+    type:list
     amount:float
     stacks:float
     uptime:float
     mathType:str
     duration:int
 
-    def __init__(self, name:str, description:str, amount:float, type:str=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base',duration:int=None):
+    def __init__(self, name:str, description:str, amount:float, type:list=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base',duration:int=None):
         if len(name.split('.')) > 1:
             self.name = name.split('.')[0]
             self.mathType = name.split('.')[1]

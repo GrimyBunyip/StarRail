@@ -21,30 +21,30 @@ class Jingliu(BaseCharacter):
         self.e2Uptime = e2Uptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
         
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.0, eidolonThreshold=5, eidolonBonus=0.2)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.0, eidolonThreshold=5, eidolonBonus=0.2)]
         
-        self.motionValueDict['enhancedSkill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.5, eidolonThreshold=5, eidolonBonus=0.25),
-                                                BaseMV(type='skill',area='adjacent', stat='atk', value=1.25, eidolonThreshold=5, eidolonBonus=0.125)]
+        self.motionValueDict['enhancedSkill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.5, eidolonThreshold=5, eidolonBonus=0.25),
+                                                BaseMV(type=['skill'],area='adjacent', stat='atk', value=1.25, eidolonThreshold=5, eidolonBonus=0.125)]
         
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.0, eidolonThreshold=3, eidolonBonus=0.24),
-                                            BaseMV(type='ultimate',area='adjacent', stat='atk', value=1.5, eidolonThreshold=3, eidolonBonus=0.12)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.0, eidolonThreshold=3, eidolonBonus=0.24),
+                                            BaseMV(type=['ultimate'],area='adjacent', stat='atk', value=1.5, eidolonThreshold=3, eidolonBonus=0.12)]
         
         # Talents
         self.transmigrationPercAtk = min(1.98 if self.eidolon >= 3 else 1.8,transmigrationPercAtk) + (0.3 if self.eidolon >= 4 else 0.0)
-        self.addStat('ATK.percent',description='talent',type='transmigration',amount=self.transmigrationPercAtk)
-        self.addStat('CR',description='talent',type='transmigration',amount=0.5)
-        self.addStat('DMG',description='trace',type='ultimate',amount=0.2)
-        self.addStat('AdvanceForward',description='trace',type='skill',amount=0.1)
+        self.addStat('ATK.percent',description='talent',type=['transmigration'],amount=self.transmigrationPercAtk)
+        self.addStat('CR',description='talent',type=['transmigration'],amount=0.5)
+        self.addStat('DMG',description='trace',type=['ultimate'],amount=0.2)
+        self.addStat('AdvanceForward',description='trace',type=['skill'],amount=0.1)
         
         # Eidolons
         if self.eidolon >= 1:
-            self.addStat('CD',description='e1',type='transmigration',amount=0.24)
+            self.addStat('CD',description='e1',type=['transmigration'],amount=0.24)
         if self.eidolon >= 2:
-            self.addStat('DMG',description='e2',type='enhancedSkill',amount=0.8,uptime=self.e2Uptime)
+            self.addStat('DMG',description='e2',type=['enhancedSkill'],amount=0.8,uptime=self.e2Uptime)
         if self.eidolon >= 6:
-            self.addStat('CD',description='e6',type='transmigration',amount=0.50)
+            self.addStat('CD',description='e6',type=['transmigration'],amount=0.50)
 
         # Gear
         self.equipGear()

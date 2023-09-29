@@ -13,7 +13,7 @@ class FiresmithOfLavaForging2pc(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('DMG',description=self.shortname,
                                 amount=0.10,
-                                type='fire')
+                                type=['fire'])
         
 class FiresmithOfLavaForging4pc(RelicSet):
     def __init__(self,
@@ -28,8 +28,8 @@ class FiresmithOfLavaForging4pc(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('DMG',description=self.shortname,
                                 amount=0.12,
-                                type='skill')
+                                type=['skill'])
         char.addStat('DMG',description=self.shortname,
                                 amount=0.12,
-                                type='fire',
+                                type=['fire'],
                                 uptime=self.uptime)

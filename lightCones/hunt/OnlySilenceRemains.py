@@ -12,8 +12,8 @@ class OnlySilenceRemains(BaseLightCone):
         self.addStats(char)
         if char.path == self.path:
             char.addStat('CR',description=self.name,
-                                    amount=( 0.09 + 0.03 * self.superposition ) if char.numEnemies <= 2 else 0.0))
-            char.addStat('ATK',description=self.name,
+                                    amount=( 0.09 + 0.03 * self.superposition ) if char.numEnemies <= 2 else 0.0)
+            char.addStat('ATK.percent',description=self.name,
                                     amount=0.12 + 0.04 * self.superposition)
         
 if __name__ == '__main__':

@@ -13,10 +13,8 @@ class SpaceSealingStation(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('ATK',description=self.shortname,
+        char.addStat('ATK.percent',description=self.shortname,
+                                amount=0.12)
+        char.addStat('ATK.percent',description=self.shortname,
                                 amount=0.12,
-                                mathType='percent')
-        char.addStat('ATK',description=self.shortname,
-                                amount=0.12,
-                                mathType='percent',
                                 uptime=self.uptime)

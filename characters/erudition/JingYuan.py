@@ -25,19 +25,19 @@ class JingYuan(BaseCharacter):
         self.e6Uptime = e6Uptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='all', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.16)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='all', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='all', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.16)]
         self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=0.66, eidolonThreshold=5, eidolonBonus=0.066)]
         
         # Talents
         self.addStat('CR',description='trace',amount=0.1,uptime=self.warMarshalUptime)
-        self.addStat('CD',description='trace',amount=0.25,type='talent',uptime=self.battaliaCrushUptime)
+        self.addStat('CD',description='trace',amount=0.25,type=['talent'],uptime=self.battaliaCrushUptime)
         
         # Eidolons
-        self.addStat('DMG',description='e2',amount=0.2,type='basic',uptime=self.e2Uptime)
-        self.addStat('DMG',description='e2',amount=0.2,type='skill',uptime=self.e2Uptime)
-        self.addStat('DMG',description='e2',amount=0.2,type='ultimate',uptime=self.e2Uptime)
+        self.addStat('DMG',description='e2',amount=0.2,type=['basic'],uptime=self.e2Uptime)
+        self.addStat('DMG',description='e2',amount=0.2,type=['skill'],uptime=self.e2Uptime)
+        self.addStat('DMG',description='e2',amount=0.2,type=['ultimate'],uptime=self.e2Uptime)
         self.addStat('DMG',description='e6',amount=0.36,uptime=self.e6Uptime)
         
         # Gear

@@ -21,21 +21,24 @@ class Guinaifen(BaseCharacter):
         self.burnUptime = burnUptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12),
-                                        BaseMV(type='skill',area='adjacent', stat='atk', value=0.40, eidolonThreshold=3, eidolonBonus=0.04),]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12),
+                                        BaseMV(type=['skill'],area='adjacent', stat='atk', value=0.40, eidolonThreshold=3, eidolonBonus=0.04),]
         self.motionValueDict['dot'] = [BaseMV(type=['skill','dot'],area='single', stat='atk', value=2.1821, eidolonThreshold=3, eidolonBonus=0.21821)]
         
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.096)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='all', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.096)]
         
         # Talents
-        self.Vulnerability += min(self.firekissStacks * ( 0.076 if self.eidolon >= 5 else 0.07 ), 4.0 if self.eidolon >= 6 else 3.0)
-        self.Dmg += 0.2 * self.burnUptime
+        self.addStat('Vulnerability',description='firekiss',
+                     amount=0.076 if self.eidolon >= 5 else 0.07,
+                     stacks=min(self.firekissStacks, 4.0 if self.eidolon >= 6 else 3.0))
+        self.addStat('DMG',description='trace',amount=0.2,uptime=self.burnUptime)
         
         # Eidolons
-        self.bonusEnergyAttack['dot'] += 2.0 if self.eidolon >= 4 else 0.0
         if self.eidolon >= 2:
             self.motionValueDict['dot'][0].value += 0.4
+        if self.eidolon >= 4:
+            self.addStat('BonusEnergyAttack',description='e2',amount=2.0,type=['dot'])
         
         # Gear
         self.equipGear()

@@ -13,7 +13,7 @@ class GeniusOfBrilliantStars2pc(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('DMG',description=self.shortname,
                                 amount=0.10,
-                                type='quantum')
+                                type=['quantum'])
         
 class GeniusOfBrilliantStars4pc(RelicSet):
     def __init__(self,

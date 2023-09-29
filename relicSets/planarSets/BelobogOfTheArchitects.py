@@ -13,10 +13,8 @@ class BelobogOfTheArchitects(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('DEF',description=self.shortname,
+        char.addStat('DEF.percent',description=self.shortname,
+                                amount=0.15)
+        char.addStat('DEF.percent',description=self.shortname,
                                 amount=0.15,
-                                mathType='percent')
-        char.addStat('DEF',description=self.shortname,
-                                amount=0.15,
-                                mathType='percent',
                                 uptime=self.uptime)

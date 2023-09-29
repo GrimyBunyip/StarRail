@@ -27,15 +27,15 @@ class Luka(BaseCharacter):
         self.e4uptime = e4uptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
         
         crushMV = 0.8 + 0.2 * 3 * 1.5 # Crush Fighting Will
-        self.motionValueDict['enhancedBasic'] = [BaseMV(type='basic',area='single', stat='atk', value=crushMV, eidolonThreshold=5, eidolonBonus=crushMV/10)]
+        self.motionValueDict['enhancedBasic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=crushMV, eidolonThreshold=5, eidolonBonus=crushMV/10)]
 
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
         self.motionValueDict['dot'] = [BaseMV(type=['skill','dot'],area='single', stat='atk', value=3.38, eidolonThreshold=3, eidolonBonus=0.338)]
 
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.3, eidolonThreshold=5, eidolonBonus=0.264)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.3, eidolonThreshold=5, eidolonBonus=0.264)]
         
         # Talents
         self.Vulnerability += (0.216 if self.eidolon >= 5 else 0.2) * self.ultDebuffUptime

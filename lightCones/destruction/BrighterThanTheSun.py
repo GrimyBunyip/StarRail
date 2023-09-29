@@ -17,11 +17,10 @@ class BrighterThanTheSun(BaseLightCone):
         if char.path == self.path:
             char.addStat('CR',description=self.name,
                                     amount=0.15 + 0.03 * self.superposition)
-            char.addStat('ATK',description=self.name,
+            char.addStat('ATK.percent',description=self.name,
                                     amount=0.15 + 0.03 * self.superposition,
                                     stacks=self.stacks,
-                                    uptime=self.uptime,
-                                    mathType='percent')
+                                    uptime=self.uptime)
             char.addStat('ER',description=self.name,
                                     amount=0.05 + 0.01 * self.superposition,
                                     stacks=self.stacks,

@@ -13,9 +13,8 @@ class WoofWalkTime(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.addStat('ATK',description=self.name,
-                                    amount=0.075 + 0.025 * self.superposition,
-                                    mathType='percent')
+            char.addStat('ATK.percent',description=self.name,
+                                    amount=0.075 + 0.025 * self.superposition)
             char.addStat('DMG',description=self.name,
                                     amount=0.12 + 0.04 * self.superpositio,
                                     uptime=self.uptime)

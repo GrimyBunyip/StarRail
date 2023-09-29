@@ -13,10 +13,9 @@ class RiverFlowsInSpring(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.addStat('SPD',description=self.name,
+            char.addStat('SPD.percent',description=self.name,
                                     amount=0.07 + 0.01 * self.superposition,
-                                    uptime=self.uptime,
-                                    mathType='percent')
+                                    uptime=self.uptime)
             char.addStat('DMG',description=self.name,
                                     amount=0.09 + 0.03 * self.superposition,
                                     uptime=self.uptime)

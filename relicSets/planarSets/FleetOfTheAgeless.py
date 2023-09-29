@@ -13,9 +13,7 @@ class FleetOfTheAgeless(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('HP',description=self.shortname,
-                                amount=0.12,
-                                mathType='percent')
-        char.addStat('ATK',description=self.shortname,
-                                amount=0.08,
-                                mathType='percent')
+        char.addStat('HP.percent',description=self.shortname,
+                                amount=0.12)
+        char.addStat('ATK.percent',description=self.shortname,
+                                amount=0.08)

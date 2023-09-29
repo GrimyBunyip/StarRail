@@ -26,24 +26,26 @@ class Sushang(BaseCharacter):
         self.ultBuffCooldown = 0
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.1, eidolonThreshold=3, eidolonBonus=0.21)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.1, eidolonThreshold=3, eidolonBonus=0.21)]
         self.motionValueDict['swordStance'] = [BaseMV(type=['skill','swordStance'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256)]
         
         # Talents
-        self.percAtkType['swordStance'] = 0.0 # need this to suppress an error message
-        self.percSpd += (0.21 if self.eidolon >= 5 else 0.2) * self.weaknessBrokenUptime * (weaknessBrokenStacks if self.eidolon >= 6 else 1.0)
-        self.DmgType['swordStance'] = 0.0249999996740371 * self.riposteStacks # number from datamine?
-        self.getTotalStat('AdvanceForward','basic') += 0.15 * self.weaknessBrokenUptime
-        self.getTotalStat('AdvanceForward','skill') += 0.15 * self.weaknessBrokenUptime
-        self.getTotalStat('AdvanceForward','ultimate') += 1.0
-        
-        # Bliss is always up for Ult
+        self.addStat('SPD.percent',description='talent',
+                     amount=0.21 if self.eidolon >= 5 else 0.2,
+                     stacks=weaknessBrokenStacks if self.eidolon >= 6 else 1.0,
+                     uptime=self.weaknessBrokenUptime)
+        self.addStat('DMG',description='trace',amount=0.0249999996740371,stacks=self.riposteStacks)
+        self.addStat('AdvanceForward',description='trace',amount=0.15,type=['basic'],uptime=self.weaknessBrokenUptime)
+        self.addStat('AdvanceForward',description='trace',amount=0.15,type=['skill'],uptime=self.weaknessBrokenUptime)
+        self.addStat('AdvanceForward',description='ultimate',amount=1.0,type=['ultimate'])
 
         # Eidolons
-        self.dmgReduction += 0.20 if self.eidolon >= 2 else 0.0
-        self.breakEffect += 0.40 if self.eidolon >= 4 else 0.0
+        if self.eidolon >= 2:
+            self.addStat('DmgReduction',description='e2',amount=0.2)
+        if self.eidolon >= 4:
+            self.addStat('BreakEffect',description='e4',amount=0.40)
         
         # Gear
         self.equipGear()
@@ -69,8 +71,9 @@ class Sushang(BaseCharacter):
             stanceChance *= 2 # 2 more chances at half damage, is essentially 1 more full chance
         
         retval = BaseEffect()
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill') + stanceChance * self.getTotalMotionValue('swordStance')
-        retval.damage *= self.getTotalCrit(['skill'])
+        retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -83,9 +86,10 @@ class Sushang(BaseCharacter):
 
     def useSwordStance(self):
         retval = BaseEffect()
+        type = ['skill','swordStance']
         retval.damage = self.getTotalMotionValue('swordStance')
         retval.damage *= self.getTotalCrit(type)
-        retval.damage *= self.getTotalDmg(['skill','swordStance'])
+        retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         return retval
@@ -101,8 +105,10 @@ class Sushang(BaseCharacter):
         retval.gauge = 90.0 * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
-        self.ultBuffCooldown = 2
-        self.percAtk += (0.324 if self.eidolon >= 5 else 0.3)
+        
+        self.addTempStat('ATK.percent',description='ultimate',
+                         amount=0.324 if self.eidolon >= 5 else 0.3,
+                         duration=2)
         return retval
 
     def useTalent(self):
@@ -116,9 +122,4 @@ class Sushang(BaseCharacter):
         retval.energy = ( 10.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = 0.0 - self.getAdvanceForward(type)
         return retval
-    
-    def endTurn(self):
-        self.ultBuffCooldown -= 1
-        if self.ultBuffCooldown == 0:
-            self.percAtk -= (0.324 if self.eidolon >= 5 else 0.3)
         

@@ -13,7 +13,7 @@ class EagleOfTwilightLine2pc(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('DMG',description=self.shortname,
                                 amount=0.10,
-                                type='wind')
+                                type=['wind'])
 
 class EagleOfTwilightLine4pc(RelicSet):
     def __init__(self,
@@ -26,4 +26,4 @@ class EagleOfTwilightLine4pc(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('AdvanceForward',description=self.shortname,
                                 amount=0.25,
-                                type='ultimate')
+                                type=['ultimate'])

@@ -11,9 +11,8 @@ class MakeTheWorldClamor(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.addStat('ATK',description=self.name,
-                                    amount=0.24 + 0.08 * self.superposition,
-                                    mathType='percent')
+            char.addStat('ATK.percent',description=self.name,
+                                    amount=0.24 + 0.08 * self.superposition)
             char.initialEnergy += 17.0 + 3.0 * self.superposition
             
 if __name__ == '__main__':

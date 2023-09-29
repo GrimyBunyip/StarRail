@@ -22,9 +22,9 @@ class Seele(BaseCharacter):
         self.e1Uptime = e1Uptime
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.2, eidolonThreshold=3, eidolonBonus=0.22)]
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=4.25, eidolonThreshold=5, eidolonBonus=0.34)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.2, eidolonThreshold=3, eidolonBonus=0.22)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=4.25, eidolonThreshold=5, eidolonBonus=0.34)]
 
         # Talents
         self.addStat('SPD.percent',description='trace',amount=0.25,uptime=self.sheathedBladeUptime)

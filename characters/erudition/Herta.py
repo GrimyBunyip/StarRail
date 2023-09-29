@@ -26,21 +26,21 @@ class Herta(BaseCharacter):
         self.ultBuff = False
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['basicE1'] = [BaseMV(type='basic',area='single', stat='atk', value=0.4)]
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='all', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=2.0, eidolonThreshold=5, eidolonBonus=0.16)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['basicE1'] = [BaseMV(type=['basic'],area='single', stat='atk', value=0.4)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='all', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='all', stat='atk', value=2.0, eidolonThreshold=5, eidolonBonus=0.16)]
         self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='all', stat='atk', value=0.40, eidolonThreshold=5, eidolonBonus=0.03)]
         
         # Talents
-        self.addStat('DMG',description='trace',amount=0.2,type='ultimate',uptime=self.frozenUptime)
-        self.addStat('DMG',description='trace',amount=0.45,type='skill',uptime=self.hpThresholdUptime)
+        self.addStat('DMG',description='trace',amount=0.2,type=['ultimate'],uptime=self.frozenUptime)
+        self.addStat('DMG',description='trace',amount=0.45,type=['skill'],uptime=self.hpThresholdUptime)
         
         # Eidolons
         if self.eidolon >= 2:
             self.addStat('CR',description='e2',amount=0.03,stacks=self.e2Stacks)
         if self.eidolon >= 4:
-            self.addStat('DMG',description='e4',amount=0.1,type='talent',stacks=self.e4Stacks)
+            self.addStat('DMG',description='e4',amount=0.1,type=['talent'],stacks=self.e4Stacks)
         
         # Gear
         self.equipGear()

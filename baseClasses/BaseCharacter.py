@@ -8,7 +8,7 @@ EMPTY_STATS = {  # character stats
                 'ATK':[], 'DEF':[], 'HP':[],
                 'DMG':[], 'CR':[], 'CD':[],
                 # defensive stats
-                'DmgReduction':[], 'AllRes':[],
+                'DmgReduction':[], 'AllRes':[],'RES':[],
                 'Shield':[], 'Heal':[],
                 'Taunt':[],
                 # offensive stats
@@ -91,10 +91,10 @@ class BaseCharacter(object):
                                                         "" if self.relicsettwo is None else (" + " + self.relicsettwo.shortname), 
                                                         "" if self.planarset is None else (" + " + self.planarset.shortname))
 
-    def addStat(self, name:str, description:str, amount:float, type:str=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base'):
+    def addStat(self, name:str, description:str, amount:float, type:list=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base'):
         self.stats[name].append(name=name, description=description, amount=amount, type=type, stacks=stacks, uptime=uptime, mathType=mathType)
 
-    def addTempStat(self, name:str, description:str, amount:float, type:str=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base', duration:int=None):
+    def addTempStat(self, name:str, description:str, amount:float, type:list=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base', duration:int=None):
         self.tempStats[name].append(name=name, description=description, amount=amount, type=type, stacks=stacks, uptime=uptime, mathType=mathType, duration=duration)
         
     def clearTempBuffs(self):
@@ -162,10 +162,10 @@ class BaseCharacter(object):
     def getResPen(self,type:list=[], element:str=None):
         return self.getTotalStat('ResPen',type,element)
     
-    def getTotalMotionValue(self, type:str):
+    def getTotalMotionValue(self, type:list):
         total = 0.0
         for key, value in self.motionValueDict.items():
-            if key == type:
+            if key in type:
                 if isinstance(value, list):
                     total += sum(x.calculate(self) for x in value)
                 else:
@@ -176,7 +176,7 @@ class BaseCharacter(object):
         retval = BaseEffect()
         type = ['basic']
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
-        retval.energy = 20.0 * (self.getER(type))
+        retval.energy = 20.0 * self.getER(type)
         retval.skillpoints = 1.0
         return retval
 
@@ -184,14 +184,14 @@ class BaseCharacter(object):
         retval = BaseEffect()
         type = ['skill']
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
-        retval.energy = 30.0 * (self.getER(type))
+        retval.energy = 30.0 * self.getER(type)
         retval.skillpoints = -1.0
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.energy = 5.0 * (self.getER(type))
+        retval.energy = 5.0 * self.getER(type)
         return retval
 
     def useTalent(self):

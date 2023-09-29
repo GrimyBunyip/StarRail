@@ -15,10 +15,10 @@ class TheBirthOfTheSelf(BaseLightCone):
         if char.path == self.path:
             char.addStat('DMG',description=self.name,
                                     amount=0.24 + 0.06 * self.superposition,
-                                    type='followup')
+                                    type=['followup'])
             char.addStat('DMG',description=self.name,
                                     amount=0.24 + 0.06 * self.superposition,
-                                    type='followup',
+                                    type=['followup'],
                                     uptime=self.uptime)
 
 if __name__ == '__main__':

@@ -18,18 +18,18 @@ class InTheNight(BaseLightCone):
             num_stacks = math.floor( ( char.getTotalSpd() - 100.0 ) / 10.0 )
             num_stacks = min(num_stacks, 6)
             
-            char.addStat('ATK',description=self.name,
+            char.addStat('ATK.percent',description=self.name,
                                     amount=0.05 + 0.01 * self.superposition,
                                     stacks=num_stacks,
-                                    type='basic')
-            char.addStat('ATK',description=self.name,
+                                    type=['basic'])
+            char.addStat('ATK.percent',description=self.name,
                                     amount=0.05 + 0.01 * self.superposition,
                                     stacks=num_stacks,
-                                    type='skill')
+                                    type=['skill'])
             char.addStat('CD',description=self.name,
                                     amount=0.10 + 0.02 * self.superposition,
                                     stacks=num_stacks,
-                                    type='ultimate')
+                                    type=['ultimate'])
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

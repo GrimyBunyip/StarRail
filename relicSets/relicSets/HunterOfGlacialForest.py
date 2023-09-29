@@ -13,7 +13,7 @@ class HunterOfGlacialForest2pc(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('DMG',description=self.shortname,
                                 amount=0.10,
-                                type='ice')
+                                type=['ice'])
         
 class HunterOfGlacialForest4pc(RelicSet):
     def __init__(self,

@@ -13,7 +13,7 @@ class WastelanderOfBanditryDesert2pc(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('DMG',description=self.shortname,
                                 amount=0.10,
-                                type='imaginary')
+                                type=['imaginary'])
         
 class WastelanderOfBanditryDesert4pc(RelicSet):
     def __init__(self,

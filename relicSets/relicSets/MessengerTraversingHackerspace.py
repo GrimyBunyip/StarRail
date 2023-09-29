@@ -11,9 +11,8 @@ class MessengerTraversingHackerspace2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('SPD',description=self.shortname,
-                                amount=0.06,
-                                mathType='percent')
+        char.addStat('SPD.percent',description=self.shortname,
+                                amount=0.06)
         
 class MessengerTraversingHackerspace4pc(RelicSet):
     def __init__(self,
@@ -26,7 +25,6 @@ class MessengerTraversingHackerspace4pc(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('SPD',description=self.shortname,
+        char.addStat('SPD.percent',description=self.shortname,
                                 amount=0.12,
-                                mathType='percent',
                                 uptime=self.uptime)

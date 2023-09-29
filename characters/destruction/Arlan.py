@@ -22,12 +22,12 @@ class Arlan(BaseCharacter):
         self.hpUptime = hpUptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.4, eidolonThreshold=3, eidolonBonus=0.24)]
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256),
-                                            BaseMV(type='ultimate',area='adjacent', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.128)]
-        self.motionValueDict['ultimateE6'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256),
-                                            BaseMV(type='ultimate',area='adjacent', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.4, eidolonThreshold=3, eidolonBonus=0.24)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256),
+                                            BaseMV(type=['ultimate'],area='adjacent', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.128)]
+        self.motionValueDict['ultimateE6'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256),
+                                            BaseMV(type=['ultimate'],area='adjacent', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256)]
         
         # Talents
         self.addStat('DMG',description='trace',
@@ -35,9 +35,9 @@ class Arlan(BaseCharacter):
         
         # Eidolons
         if self.eidolon >= 1.0:
-            self.addStat('DMG',description='e1',type='skill',amount=0.10,uptime=self.hpUptime)
+            self.addStat('DMG',description='e1',type=['skill'],amount=0.10,uptime=self.hpUptime)
         if self.eidolon >= 6.0:
-            self.addStat('DMG',description='e6',type='ultimate',amount=0.20,uptime=self.hpUptime)
+            self.addStat('DMG',description='e6',type=['ultimate'],amount=0.20,uptime=self.hpUptime)
 
         # Gear
         self.equipGear()

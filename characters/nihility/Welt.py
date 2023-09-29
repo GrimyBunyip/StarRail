@@ -22,10 +22,10 @@ class Welt(BaseCharacter):
         self.e6Count = 0
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=0.72, eidolonThreshold=3, eidolonBonus=0.072)]
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.12)]
-        self.motionValueDict['talent'] = [BaseMV(type='talent',area='single', stat='atk', value=0.6, eidolonThreshold=5, eidolonBonus=0.06)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=0.72, eidolonThreshold=3, eidolonBonus=0.072)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='all', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.12)]
+        self.motionValueDict['talent'] = [BaseMV(type=['talent'],area='single', stat='atk', value=0.6, eidolonThreshold=5, eidolonBonus=0.06)]
         
         # Talents
         self.Vulnerability += 0.12 * self.ultUptime

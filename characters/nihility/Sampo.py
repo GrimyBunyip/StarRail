@@ -23,9 +23,9 @@ class Sampo(BaseCharacter):
         self.windshearStacks = windshearStacks
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=0.56, eidolonThreshold=3, eidolonBonus=0.056)]
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.128)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=0.56, eidolonThreshold=3, eidolonBonus=0.056)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='all', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.128)]
         self.motionValueDict['dot'] = [BaseMV(type=['talent','dot'],area='single', stat='atk', value=0.52, eidolonThreshold=5, eidolonBonus=0.052)]
         self.motionValueDict['dote6'] = [BaseMV(type=['talent','dot'],area='single', stat='atk', value=0.52+0.15, eidolonThreshold=5, eidolonBonus=0.052)]
         

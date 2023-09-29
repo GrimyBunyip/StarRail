@@ -17,13 +17,13 @@ class BeforeDawn(BaseLightCone):
                                     amount=0.30 + 0.06 * self.superposition)
             char.addStat('DMG',description=self.name,
                                     amount=0.15 + 0.03 * self.superposition,
-                                    type='skill')
+                                    type=['skill'])
             char.addStat('DMG',description=self.name,
                                     amount=0.15 + 0.03 * self.superposition,
-                                    type='ultimate')
+                                    type=['ultimate'])
             char.addStat('DMG',description=self.name,
                                     amount=0.40 + 0.08 * self. superposition,
-                                    type='followup',
+                                    type=['followup'],
                                     uptime=self.uptime)
             
 if __name__ == '__main__':

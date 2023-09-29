@@ -25,25 +25,25 @@ class Blade(BaseCharacter):
         self.rejectedByDeathUptime = rejectedByDeathUptime
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
 
-        self.motionValueDict['enhancedBasic'] = [BaseMV(type='basic',area='single', stat='atk', value=0.4, eidolonThreshold=5, eidolonBonus=0.04),
-                                                BaseMV(type='basic',area='single', stat='hp', value=1.0, eidolonThreshold=5, eidolonBonus=0.1),
-                                                BaseMV(type='basic',area='adjacent', stat='atk', value=0.16, eidolonThreshold=5, eidolonBonus=0.016),
-                                                BaseMV(type='basic',area='adjacent', stat='hp', value=0.4, eidolonThreshold=5, eidolonBonus=0.04)]
+        self.motionValueDict['enhancedBasic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=0.4, eidolonThreshold=5, eidolonBonus=0.04),
+                                                BaseMV(type=['basic'],area='single', stat='hp', value=1.0, eidolonThreshold=5, eidolonBonus=0.1),
+                                                BaseMV(type=['basic'],area='adjacent', stat='atk', value=0.16, eidolonThreshold=5, eidolonBonus=0.016),
+                                                BaseMV(type=['basic'],area='adjacent', stat='hp', value=0.4, eidolonThreshold=5, eidolonBonus=0.04)]
 
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=0.4, eidolonThreshold=3, eidolonBonus=0.032),
-                                            BaseMV(type='ultimate',area='adjacent', stat='atk', value=0.16, eidolonThreshold=3, eidolonBonus=0.0128),
-                                            BaseMV(type='ultimate',area='single', stat='hp', value=1.0, eidolonThreshold=3, eidolonBonus=0.08),
-                                            BaseMV(type='ultimate',area='adjacent', stat='hp', value=0.40, eidolonThreshold=3, eidolonBonus=0.032),
-                                            BaseMV(type='ultimate',area='single', stat='hp', value=1.0*self.hpLossTally, eidolonThreshold=3, eidolonBonus=0.08*self.hpLossTally),
-                                            BaseMV(type='ultimate',area='adjacent', stat='hp', value=0.40*self.hpLossTally, eidolonThreshold=3, eidolonBonus=0.032*self.hpLossTally)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=0.4, eidolonThreshold=3, eidolonBonus=0.032),
+                                            BaseMV(type=['ultimate'],area='adjacent', stat='atk', value=0.16, eidolonThreshold=3, eidolonBonus=0.0128),
+                                            BaseMV(type=['ultimate'],area='single', stat='hp', value=1.0, eidolonThreshold=3, eidolonBonus=0.08),
+                                            BaseMV(type=['ultimate'],area='adjacent', stat='hp', value=0.40, eidolonThreshold=3, eidolonBonus=0.032),
+                                            BaseMV(type=['ultimate'],area='single', stat='hp', value=1.0*self.hpLossTally, eidolonThreshold=3, eidolonBonus=0.08*self.hpLossTally),
+                                            BaseMV(type=['ultimate'],area='adjacent', stat='hp', value=0.40*self.hpLossTally, eidolonThreshold=3, eidolonBonus=0.032*self.hpLossTally)]
         
         self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='all', stat='atk', value=0.44, eidolonThreshold=3, eidolonBonus=0.044),
                                         BaseMV(type=['talent','followup'],area='all', stat='hp', value=1.1, eidolonThreshold=3, eidolonBonus=0.11)]
         
         # Talents
-        self.addStat('DMG',description='trace',type='followup',amount=0.2)
+        self.addStat('DMG',description='trace',type=['followup'],amount=0.2)
         self.addStat('DMG',description='hellscape',
                      amount=0.456 if self.eidolon >= 3 else 0.40,
                      uptime=self.hellscapeUptime)
@@ -52,9 +52,9 @@ class Blade(BaseCharacter):
         if self.eidolon >= 1:
             self.motionValueDict['ultimate'][4].value = 1.5*self.hpLossTally
         if self.eidolon >= 2:
-            self.addStat('CR',description='e2',type='followup',amount=0.15,uptime=self.hellscapeUptime)
+            self.addStat('CR',description='e2',type=['followup'],amount=0.15,uptime=self.hellscapeUptime)
         if self.eidolon >= 4:
-            self.addStat('HP.percent',description='e4',type='followup',amount=0.40,uptime=self.rejectedByDeathUptime)
+            self.addStat('HP.percent',description='e4',type=['followup'],amount=0.40,uptime=self.rejectedByDeathUptime)
 
         # Gear
         self.equipGear()

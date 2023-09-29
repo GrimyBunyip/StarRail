@@ -25,12 +25,12 @@ class Himeko(BaseCharacter):
         self.e2Uptime = e2Uptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
 
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.0, eidolonThreshold=5, eidolonBonus=0.2),
-                                        BaseMV(type='skill',area='adjacent', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.08)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.0, eidolonThreshold=5, eidolonBonus=0.2),
+                                        BaseMV(type=['skill'],area='adjacent', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.08)]
 
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='all', stat='atk', value=2.3, eidolonThreshold=3, eidolonBonus=0.184)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='all', stat='atk', value=2.3, eidolonThreshold=3, eidolonBonus=0.184)]
 
         self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='all', stat='atk', value=1.4, eidolonThreshold=5, eidolonBonus=0.14)]
         self.motionValueDict['dot'] = [BaseMV(type=['dot'],area='all', stat='atk', value=0.3)]

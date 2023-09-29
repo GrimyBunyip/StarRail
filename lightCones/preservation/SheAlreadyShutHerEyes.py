@@ -13,9 +13,8 @@ class SheAlreadyShutHerEyes(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.addStat('HP',description=self.name,
-                                    amount=0.2 + 0.04 * self.superposition,
-                                    mathType='percent')
+            char.addStat('HP.percent',description=self.name,
+                                    amount=0.2 + 0.04 * self.superposition)
             char.addStat('ER',description=self.name,
                                     amount=0.1 + 0.02 * self.superposition)
             char.addStat('DMG',description=self.name,

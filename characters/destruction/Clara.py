@@ -21,16 +21,16 @@ class Clara(BaseCharacter):
         self.aTightEmbraceUptime = aTightEmbraceUptime
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='all', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='all', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
         
-        self.motionValueDict['markOfSvarog'] = [BaseMV(type='skill',area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
+        self.motionValueDict['markOfSvarog'] = [BaseMV(type=['skill'],area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
         
         #I believe the revenge ascension is an MV buff
         self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.16)]        
         
         # Talents
-        self.addStat('DMG',description='trace',type='followup',amount=0.3)
+        self.addStat('DMG',description='trace',type=['followup'],amount=0.3)
         
         # Eidolons
         # handle handle e1 manually, by using the argument in the useSkill call

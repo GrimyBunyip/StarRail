@@ -11,9 +11,8 @@ class DayOneOfMyNewLife(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.addStat('DEF',description=self.name,
-                                    amount=0.14 + 0.02 * self.superposition,
-                                    mathType='percent')
+            char.addStat('DEF.percent',description=self.name,
+                                    amount=0.14 + 0.02 * self.superposition)
             char.addStat('AllRes',description=self.name,
                                     amount=0.07 + 0.01 * self.superposition)
             

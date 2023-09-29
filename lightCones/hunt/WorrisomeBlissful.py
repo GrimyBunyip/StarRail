@@ -20,7 +20,7 @@ class WorrisomeBlissful(BaseLightCone):
                                     stacks=self.stacks)
             char.addStat('DMG',description=self.name,
                                     amount=0.25 + 0.05 * self.superposition,
-                                    type='followup')
+                                    type=['followup'])
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

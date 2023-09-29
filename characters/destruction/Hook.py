@@ -20,20 +20,20 @@ class Hook(BaseCharacter):
         self.burnedUptime = burnedUptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
         
-        self.motionValueDict['skill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.4, eidolonThreshold=3, eidolonBonus=0.24)]
+        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.4, eidolonThreshold=3, eidolonBonus=0.24)]
         self.motionValueDict['dot'] = [BaseMV(type=['skill','dot'],area='single', stat='atk', value=0.65, eidolonThreshold=3, eidolonBonus=0.065)]
 
-        self.motionValueDict['enhancedSkill'] = [BaseMV(type='skill',area='single', stat='atk', value=2.8, eidolonThreshold=3, eidolonBonus=0.28),
-                                                BaseMV(type='skill',area='adjacent', stat='atk', value=0.8, eidolonThreshold=3, eidolonBonus=0.08)]
+        self.motionValueDict['enhancedSkill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.8, eidolonThreshold=3, eidolonBonus=0.28),
+                                                BaseMV(type=['skill'],area='adjacent', stat='atk', value=0.8, eidolonThreshold=3, eidolonBonus=0.08)]
                 
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=4.0, eidolonThreshold=5, eidolonBonus=0.32)]
-        self.motionValueDict['talent'] = [BaseMV(type='talent',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=4.0, eidolonThreshold=5, eidolonBonus=0.32)]
+        self.motionValueDict['talent'] = [BaseMV(type=['talent'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
         
         # Talents
-        self.addStat('AdvanceForward',description='trace',type='ultimate',amount=0.2)
-        self.addStat('BonusEnergyAttack',description='trace',amount=5.0, uptime=self.burnedUptime)
+        self.addStat('AdvanceForward',description='trace',type=['ultimate'],amount=0.2)
+        self.addStat('BonusEnergyAttack',description='trace',type=['ultimate'],amount=5.0)
         
         # Eidolons
         if self.eidolon >= 1:

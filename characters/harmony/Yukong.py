@@ -24,20 +24,20 @@ class Yukong(BaseCharacter):
         self.majestaprocs = majestaProcs
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['enhancedBasic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1),
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['enhancedBasic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1),
                                                 BaseMV(type=['enhancedBasic','basic'],area='single', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.08)]
-        self.motionValueDict['ultimate'] = [BaseMV(type='ultimate',area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
+        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
 
         # Talents
         self.addStat('CR',description='ultimate',
                      amount=0.294 if self.eidolon >= 5 else 0.28,
-                     type='ultimate')
+                     type=['ultimate'])
         self.addStat('CD',description='ultimate',
                      amount=0.702 if self.eidolon >= 5 else 0.65,
-                     type='ultimate')
+                     type=['ultimate'])
         self.addStat('DMG',description='trace',amount=0.12)
-        self.addStat('BonusEnergyTurn',description='trace',amount=2.0,type='skill',stacks=self.majestaprocs)
+        self.addStat('BonusEnergyTurn',description='trace',amount=2.0,type=['skill'],stacks=self.majestaprocs)
 
         # Eidolons
         if self.eidolon >= 2:

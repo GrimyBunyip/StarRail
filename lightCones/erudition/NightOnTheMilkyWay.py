@@ -13,10 +13,9 @@ class NightOnTheMilkyWay(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.addStat('ATK',description=self.name,
+            char.addStat('ATK.percent',description=self.name,
                                     amount=0.075 + 0.0015 * self.superposition,
-                                    stacks=char.numEnemies,
-                                    mathType='percent')
+                                    stacks=char.numEnemies)
             char.addStat('DMG',description=self.name,
                                     amount=0.25 + 0.05 * self.superposition,
                                     uptime=self.uptime)

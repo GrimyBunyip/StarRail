@@ -13,6 +13,5 @@ class PanCosmicCommercialEnterprise(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('EHR',description=self.shortname,
                                 amount=0.1)
-        char.addStat('ATK',description=self.shortname,
-                                amount=min(0.25, char.getTotalStat('EHR') * 0.25), # be wary of sequencing issues, equipping gear is usually done last fortunately
-                                mathType='percent')
+        char.addStat('ATK.percent',description=self.shortname,
+                                amount=min(0.25, char.getTotalStat('EHR') * 0.25)) # be wary of sequencing issues, equipping gear is usually done last fortunately

@@ -17,14 +17,14 @@ class Bronya(BaseCharacter):
         self.loadCharacterStats('Bronya')
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type='basic',area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['followup'] = [BaseMV(type='followup',area='single', stat='atk', value=0.8)]
+        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['followup'] = [BaseMV(type=['followup'],area='single', stat='atk', value=0.8)]
 
         # Talents
         self.addStat('AdvanceForward',description='talent',
                      amount=0.33 if self.eidolon >= 3 else 0.3,
-                     type='basic')
-        self.addStat('CR',description='trace',amount=1.0,type='basic')
+                     type=['basic'])
+        self.addStat('CR',description='trace',amount=1.0,type=['basic'])
         self.addStat('DMG',description='trace',amount=1.0)
 
         # Eidolons

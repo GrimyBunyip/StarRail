@@ -11,9 +11,8 @@ class KnightOfPurityPalace2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('DEF',description=self.shortname,
-                                amount=0.15,
-                                mathType='percent')
+        char.addStat('DEF.percent',description=self.shortname,
+                                amount=0.15)
 
 class KnightOfPurityPalace4pc(RelicSet):
     def __init__(self,
@@ -24,6 +23,5 @@ class KnightOfPurityPalace4pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('Shield',description=self.shortname,
-                                    amount=0.20,
-                                    mathType='percent')
+        char.addStat('Shield.percent',description=self.shortname,
+                                    amount=0.20)
