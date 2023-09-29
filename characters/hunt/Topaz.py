@@ -22,16 +22,13 @@ class Topaz(BaseCharacter):
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(type=['basic','followup'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
         self.motionValueDict['skill'] = [BaseMV(type=['skill','followup'],area='single', stat='atk', value=1.5, eidolonThreshold=3, eidolonBonus=0.15)]
-        self.motionValueDict['talent'] = [BaseMV(type=['ultimate','followup'],area='single', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.15)]
+        self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.15)]
         
         # Talents
         self.addStat('DMG',description='trace',amount=0.15) # Financial Turmoil
         self.addStat('Vulnerability',description='skill',amount=0.55 if self.eidolon >= 3 else 0.5)
         self.addStat('BonusEnergyAttack',description='trace',amount=10.0,type=['windfall'])
         
-        self.addStat('DMG',description='windfall',
-                     amount=1.65 if self.eidolon >= 5 else 1.5,
-                     type=['windfall'])
         self.addStat('CD',description='windfall',amount=0.25,type=['windfall'])
 
         # Eidolons
@@ -84,7 +81,7 @@ class Topaz(BaseCharacter):
     def useTalent(self, windfall=False):
         retval = BaseEffect()
         type = ['talent','followup'] + ['windfall'] if windfall else []
-        retval.damage = self.getTotalMotionValue('talent')
+        retval.damage = self.getTotalMotionValue('talent') * (2.0 if windfall else 1.0)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
