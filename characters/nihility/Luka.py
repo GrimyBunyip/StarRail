@@ -12,7 +12,7 @@ class Luka(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                ultDebuffUptime:float=0.5,
+                ultDebuffUptime:float=1.0,
                 bleedUptime:float=1.0,
                 e2uptime:float=1.0,
                 e4stacks:float=4.0,

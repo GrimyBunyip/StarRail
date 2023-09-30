@@ -302,9 +302,9 @@ class BaseCharacter(object):
         retval.damage = baseDotDamage
         return retval
 
-    def applyDamageMultipliers(self, baseDamage:float, type:list=[]) -> float:
+    def applyDamageMultipliers(self, baseDamage:float, type:list=[], element:str=None) -> float:
         damage = baseDamage
-        damage *= (80 + 20 ) / ( ( self.enemyLevel + 20 ) * ( 1 - self.getDefShred(type) ) + 80 + 20 )
-        damage *= max(min(1 - self.enemyRes + self.getResPen(type), 2.0), 0.1)
+        damage *= (80 + 20 ) / ( ( self.enemyLevel + 20 ) * ( 1 - self.getDefShred(type,element) ) + 80 + 20 )
+        damage *= max(min(1 - self.enemyRes + self.getResPen(type,element), 2.0), 0.1)
         damage *= 0.9 + 0.1 * self.weaknessBrokenUptime
         return damage

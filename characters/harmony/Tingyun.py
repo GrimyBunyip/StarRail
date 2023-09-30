@@ -75,7 +75,7 @@ class Tingyun(BaseCharacter):
         retval.damage = self.benedictionTarget.applyDamageMultipliers(retval.damage,type,self.element)
         return retval
     
-    def useBenediction(self, type):
+    def useBenediction(self, type:list):
         retval = BaseEffect()
         retval.damage = self.benedictionTarget.getTotalStat('ATK',type,self.element) * (0.44 if self.eidolon >= 5 else 0.4)
         retval.damage *= self.benedictionTarget.getTotalCrit(type,self.element)
