@@ -53,6 +53,7 @@ class Clara(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type)) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
 
     def useSkill(self):
@@ -67,6 +68,7 @@ class Clara(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
 
     def useMarkOfSvarog(self):
@@ -77,6 +79,7 @@ class Clara(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        self.addDebugInfo(retval,type,'Mark of Svarog Damage')
         return retval
 
     def useUltimate(self):
@@ -84,6 +87,7 @@ class Clara(BaseCharacter):
         type = ['ultimate']
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
 
     def useTalent(self, enhanced=False):
@@ -99,4 +103,5 @@ class Clara(BaseCharacter):
         retval.gauge = ( 30.0 + ( 30.0 * num_adjacent if enhanced else 0.0 ) ) * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = 0.0 - self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type,'Clara Talent {}'.format('enhanced' if enhanced else ''))
         return retval

@@ -27,7 +27,7 @@ class BaseLightCone(object):
             if len(split_column) > 1:
                 column_key = split_column[0]
                 if not data == 0.0: # don't bother loading empty stats
-                    effect = BuffEffect(column,'Light Cone  Stats',data)
+                    effect = BuffEffect(column,'Light Cone Stats',data)
                     self.stats[column_key].append(effect)
             else:
                 self.__dict__[column] = data

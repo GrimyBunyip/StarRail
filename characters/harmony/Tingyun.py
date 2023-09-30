@@ -46,6 +46,7 @@ class Tingyun(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         
         retval += self.useTalent()
         return retval
@@ -56,6 +57,7 @@ class Tingyun(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
 
     def useUltimate(self):
@@ -63,6 +65,7 @@ class Tingyun(BaseCharacter):
         type = ['ultimate']
         retval.energy = 5.0 * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
     
     def useTalent(self):
@@ -73,6 +76,7 @@ class Tingyun(BaseCharacter):
         retval.damage *= self.benedictionTarget.getTotalCrit(type,self.element)
         retval.damage *= self.benedictionTarget.getDmg(type,self.element)
         retval.damage = self.benedictionTarget.applyDamageMultipliers(retval.damage,type,self.element)
+        self.addDebugInfo(retval,type,'Tingyun Talent Damage')
         return retval
     
     def useBenediction(self, type:list):
@@ -81,9 +85,11 @@ class Tingyun(BaseCharacter):
         retval.damage *= self.benedictionTarget.getTotalCrit(type,self.element)
         retval.damage *= 1.0 + self.benedictionTarget.getTotalStat('DMG',type,self.element)
         retval.damage = self.benedictionTarget.applyDamageMultipliers(retval.damage,type,self.element)
+        self.addDebugInfo(retval,type,'Tingyun Benediction Damage')
         return retval
     
     def giveUltEnergy(self):
         retval = BaseEffect()
         retval.energy = 60.0 if self.eidolon >= 6 else 50.0
+        self.addDebugInfo(retval,['Tingyun Energy'],'Tingyun Ult Energy')
         return retval

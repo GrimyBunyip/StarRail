@@ -270,6 +270,7 @@ class BaseCharacter(object):
         baseDotDamage = self.applyDamageMultipliers(baseDotDamage,type)
 
         retval.damage = baseDotDamage
+        self.addDebugInfo(retval,type,'Break Damage')
         return retval
 
     def useBreakDot(self):
@@ -302,6 +303,7 @@ class BaseCharacter(object):
         baseDotDamage = self.applyDamageMultipliers(baseDotDamage,type)
 
         retval.damage = baseDotDamage
+        self.addDebugInfo(retval,type,'Break Dot')
         return retval
 
     def applyDamageMultipliers(self, baseDamage:float, type:list=[], element:str=None) -> float:
@@ -329,7 +331,8 @@ class BaseCharacter(object):
         debugEntry.append(effect.actionvalue)
         for stat in ['SPD', 'ATK', 'HP', 'DEF', 'DMG', 'CR', 'CD', 'Vulnerability', 'ResPen', 'DefShred'] :
             debugEntry.append([self.getTotalStat(stat,type),getStatComments(self,stat,type)])
-        effect.debuginfo.append(debugEntry)
+        effect.debugInfo.append(debugEntry)
+        effect.debugCount.append(1)
         
 def getStatComments(character:BaseCharacter,stat:str,type:list=[]):
     retval = ''
@@ -338,14 +341,14 @@ def getStatComments(character:BaseCharacter,stat:str,type:list=[]):
             entry:BuffEffect
             retval += entry.description + ':    '
             retval += str(round(entry.amount,2))
+            if entry.mathType is not None and entry.mathType != 'base':
+                retval += ' ' + entry.mathType
             if entry.stacks is not None and entry.stacks != 1.0:
                 retval += ', ' + str(round(entry.stacks,2)) + ' stacks'
             if entry.uptime is not None and entry.uptime < 1.0:
                 retval += ', ' + str(round(entry.uptime,2)) + ' uptime'
             if entry.duration is not None and entry.duration > 0.0:
                 retval += ', ' + str(round(entry.duration,1)) + ' duration'
-            if entry.mathType is not None and entry.mathType != 'base':
-                retval += ', ' + entry.mathType
             retval += '\n'
             
     return retval

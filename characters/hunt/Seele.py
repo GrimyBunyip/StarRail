@@ -51,6 +51,7 @@ class Seele(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
 
     def useSkill(self):
@@ -64,6 +65,7 @@ class Seele(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 - self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
 
     def useUltimate(self):
@@ -76,6 +78,7 @@ class Seele(BaseCharacter):
         retval.gauge = 90.0 * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type) # too lazy to implement seele e6, who cares
+        self.addDebugInfo(retval,type)
         return retval
     
     def useResurgence(self):
@@ -85,4 +88,5 @@ class Seele(BaseCharacter):
         retval.energy = ( 15.0 if self.eidolon >= 4 else 0.0 ) * self.getER(type)
         self.addTempStat('ResPen',description='Resurgence',amount=0.20,duration=1)
         self.addTempStat('DMG',description='Resurgence',amount=0.88 if self.eidolon >=3 else 0.8,duration=1)
+        self.addDebugInfo(retval,['Resurgence'],'Seele Resurgence')
         return retval

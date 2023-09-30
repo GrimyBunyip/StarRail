@@ -63,8 +63,8 @@ class Kafka(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
-        
         self.addDebugInfo(retval,type)
+        
         dotExplosion = self.useDot()
         if extraDots is not None:
             for extraDot in extraDots:
@@ -86,6 +86,7 @@ class Kafka(BaseCharacter):
         retval.gauge = 60.0 * self.numEnemies * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         
         # assume breakDot single target, usualDot AOE
         dotExplosion = self.useDot() * self.numEnemies
@@ -93,6 +94,7 @@ class Kafka(BaseCharacter):
             for extraDot in extraDots:
                 dotExplosion += extraDot
         dotExplosion.damage *= 1.0 if self.eidolon >= 5 else 1.04
+        self.addDebugInfo(dotExplosion,type,'Ultimate Dot Explosion')
         
         retval += dotExplosion
         return retval
@@ -109,6 +111,7 @@ class Kafka(BaseCharacter):
         retval.energy = ( 10.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.skillpoints = 0.0
         retval.actionvalue = self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
 
     def useDot(self):

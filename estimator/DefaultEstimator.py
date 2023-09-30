@@ -30,17 +30,19 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
     for entry in rotation:
         entry:BaseEffect
         totalEffect += entry
-        totalEffect.debuginfo += entry.debuginfo
     
     # We estimate break damage proportional to the amount of break gauge applied
     num_breaks = totalEffect.gauge * config['weaknessBrokenUptime'] / config['enemyToughness']
     breakEffect += char.useBreak() * num_breaks
     if breakDotMode == 'limited': # limited means we are not able to maintain 100% break dot uptime
-        breakEffect += char.useBreakDot() * num_breaks
         if char.element in ['physical', 'fire', 'lightning', 'wind']:
-            breakEffect += char.useBreakDot() * num_breaks # these four elements tick twice
+            breakEffect += char.useBreakDot() * num_breaks * 2 # these four elements tick twice
+        else:
+            breakEffect += char.useBreakDot() * num_breaks
             
-    dotEffect += char.useDot() * numDot
+    newDot = char.useDot()
+    char.addDebugInfo(newDot,['dot'],'Dot Ticks')
+    dotEffect += newDot * numDot
     
     num_enemy_turns = totalEffect.actionvalue * char.enemySpeed / char.getTotalStat('SPD')
     if breakDotMode == 'alwaysSingle':

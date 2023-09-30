@@ -47,6 +47,7 @@ class Serval(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
 
     def useSkill(self, shocked = True):
@@ -62,6 +63,7 @@ class Serval(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
 
     def useUltimate(self, shocked = True):
@@ -75,6 +77,7 @@ class Serval(BaseCharacter):
         retval.gauge = 60.0 * self.numEnemies * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
 
     def useDot(self, shocked = True):

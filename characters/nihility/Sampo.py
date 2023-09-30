@@ -52,6 +52,7 @@ class Sampo(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
 
     def useSkill(self):
@@ -67,11 +68,13 @@ class Sampo(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         
         # assume we hit up to 3 enemies
         dotExplosion = self.useDot() * num_hits
         dotExplosion.damage *= 0.08 if self.eidolon >= 4 else 0.0
         retval += dotExplosion
+        self.addDebugInfo(dotExplosion,['dot'],'Sampo Dot Explosion')
         return retval
 
     def useUltimate(self):
@@ -85,6 +88,7 @@ class Sampo(BaseCharacter):
         retval.gauge = 60.0 * self.numEnemies * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
         return retval
 
     def useDot(self):

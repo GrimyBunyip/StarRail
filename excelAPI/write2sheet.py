@@ -2,7 +2,7 @@ import json
 
 from openpyxl.workbook.workbook import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
-from openpyxl.styles import Font, PatternFill, Alignment
+from openpyxl.styles import Font, PatternFill, Alignment, NamedStyle
 from openpyxl.comments import Comment
 from openpyxl.utils import get_column_letter
 from baseClasses.BaseCharacter import BaseCharacter, getStatComments
@@ -23,6 +23,7 @@ hex_dict = {
     }
 
 DEBUG_COLUMN_NAMES = [
+    'count',
     'ability',
     'damage',
     'energy',
@@ -40,46 +41,36 @@ def writeVisualizationList(visualizationList:list,path:str):
 
     current_row = 1
     left_align = Alignment(horizontal='left')
+    decimal_format1 = NamedStyle(name='decimal_format1')
+    decimal_format1.number_format = '0.0'
+    decimal_format2 = NamedStyle(name='decimal_format2')
+    decimal_format2.number_format = '0.00'
+    decimal_format3 = NamedStyle(name='decimal_format3')
+    decimal_format3.number_format = '0.000'
     
     # set column widths
     sheet.column_dimensions[get_column_letter(1)].width = 30
     sheet.column_dimensions[get_column_letter(2)].width = 60
-    sheet.column_dimensions[get_column_letter(4)].width = 30
+    sheet.column_dimensions[get_column_letter(5)].width = 30
     
     for info in visualizationList:
         info:VisualizationInfo
         
         rotationName:str = info.name
         character:BaseCharacter = info.character
-        totalEffect:BaseEffect = info.effect
-        breakEffect:BaseEffect = info.breakEffect
-        dotEffect:BaseEffect = info.dotEffect
+        totalEffect:BaseEffect = info.effect + info.breakEffect + info.dotEffect
         
         # write character info and header info
         color = hex_dict[character.element]
-        current_cell = sheet.cell(row=current_row,column=1,value=character.name)
+        current_cell = sheet.cell(row=current_row,column=1,value=rotationName)
         current_cell.font = Font(bold=True)
-        current_cell.fill = PatternFill(start_color=color,end_color=color,fill_type='solid')
-        current_cell.alignment = left_align
         
         for i, column_name in enumerate(DEBUG_COLUMN_NAMES):
             current_cell = sheet.cell(row=current_row, column=4+i, value=column_name)
-            current_cell.fill = PatternFill(start_color=color,end_color=color,fill_type='solid')
-            current_cell.alignment = left_align
+            current_cell.font = Font(bold=True)
         
+        initial_row = current_row
         current_row += 1
-        
-        # fill out character base stats
-        stats = ['SPD','ATK','HP','DEF','CR','CD','DMG']
-        for i, stat in enumerate(stats):
-            current_cell = sheet.cell(row=current_row+i,column=1,value=stat)
-            current_cell.fill = PatternFill(start_color=color,end_color=color,fill_type='solid')
-            current_cell.alignment = left_align
-            
-            current_cell = sheet.cell(row=current_row+i,column=2,value=character.getTotalStat(stat))
-            current_cell.comment = Comment(getStatComments(character,stat),'')
-            current_cell.fill = PatternFill(start_color=color,end_color=color,fill_type='solid')
-            current_cell.alignment = left_align
             
         # fill out character equipment
         equipment = [('Light Cone',character.lightcone.name),
@@ -89,29 +80,50 @@ def writeVisualizationList(visualizationList:list,path:str):
                      ('Mainstats',json.dumps(character.relicstats.mainstats)),
                      ('Substats',json.dumps(character.relicstats.substats))]
         
-        for j, entry in enumerate(equipment):
+        for i, entry in enumerate(equipment):
             name, value = entry
-            current_cell = sheet.cell(row=current_row+i+j,column=1,value=name)
-            current_cell.fill = PatternFill(start_color=color,end_color=color,fill_type='solid')
-            current_cell.alignment = left_align
-            
-            current_cell = sheet.cell(row=current_row+i+j,column=2,value=value)
-            current_cell.fill = PatternFill(start_color=color,end_color=color,fill_type='solid')
-            current_cell.alignment = left_align
+            current_cell = sheet.cell(row=current_row+i,column=1,value=name)
+            current_cell = sheet.cell(row=current_row+i,column=2,value=value)
+        
+        speed = character.getTotalStat('SPD')
+        cycles = totalEffect.actionvalue * 100.0 / speed
+        current_cell = sheet.cell(row=current_row,column=5,value='Total per Cycle')
+        current_cell = sheet.cell(row=current_row,column=6,value=totalEffect.damage / cycles).style = decimal_format1
+        current_cell = sheet.cell(row=current_row,column=8,value=totalEffect.gauge / cycles).style = decimal_format1
+        current_row += 1
+        
+        current_cell = sheet.cell(row=current_row,column=5,value='Total per Rotation')
+        current_cell = sheet.cell(row=current_row,column=6,value=totalEffect.damage).style = decimal_format1
+        current_cell = sheet.cell(row=current_row,column=7,value=totalEffect.energy).style = decimal_format1
+        current_cell = sheet.cell(row=current_row,column=8,value=totalEffect.gauge).style = decimal_format1
+        current_cell = sheet.cell(row=current_row,column=9,value=totalEffect.actionvalue).style = decimal_format3
+        current_row += 1
         
         # fill out rotation details
-        for i, info in enumerate(totalEffect.debuginfo):
+        for i, info in enumerate(totalEffect.debugInfo):
+            current_cell = sheet.cell(row=current_row+i,column=4,value=totalEffect.debugCount[i])
+            current_cell.style = decimal_format2
+            
             for j, entry in enumerate(info):
                 if isinstance(entry,list):
-                    current_cell = sheet.cell(row=current_row+i,column=4+j,value=entry[0])
-                    current_cell.comment = Comment(entry[1],'')               
-                    current_cell.alignment = left_align
+                    current_cell = sheet.cell(row=current_row+i,column=5+j,value=entry[0])
+                    current_cell.comment = Comment(entry[1],'')
                 else:
-                    current_cell = sheet.cell(row=current_row+i,column=4+j,value=entry)
+                    current_cell = sheet.cell(row=current_row+i,column=5+j,value=entry)
+                
+                if isinstance(current_cell.value,float):
+                    if current_cell.value < 10.0:
+                        current_cell.style = decimal_format3
+                    else:
+                        current_cell.style = decimal_format1
+        
+        current_row += max(len(totalEffect.debugInfo),len(equipment)-2)+1
+        
+        for i in range(current_row-initial_row-1):
+            for j in range(19):
+                current_cell = sheet.cell(row=current_row-i-2,column=j+1)
                 current_cell.fill = PatternFill(start_color=color,end_color=color,fill_type='solid')
                 current_cell.alignment = left_align
-        
-        current_row += max(i,len(stats)+len(equipment))+1
     
     workbook.save(path)
     workbook.close()
