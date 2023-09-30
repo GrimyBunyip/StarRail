@@ -79,6 +79,7 @@ class Lunae(BaseCharacter):
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
         
         self.addHeart()
+        self.addDebugInfo(retval, type)
         return retval
 
     def useEnhancedBasic1(self, hitNum:int=None):
@@ -98,6 +99,7 @@ class Lunae(BaseCharacter):
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
         
         self.addHeart()
+        self.addDebugInfo(retval, type)
         return retval
 
     def useEnhancedBasic2(self, hitNum:int):
@@ -121,6 +123,7 @@ class Lunae(BaseCharacter):
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
         
         self.addHeart()
+        self.addDebugInfo(retval, type)
         return retval
 
     def useEnhancedBasic3(self, hitNum:int=None):
@@ -143,12 +146,14 @@ class Lunae(BaseCharacter):
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
         
         self.addHeart()
+        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self):
         retval = BaseEffect()
         type = ['skill']
         retval.skillpoints = -1.0
+        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self, hitNum:int=None):
@@ -169,6 +174,7 @@ class Lunae(BaseCharacter):
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
         
         self.addHeart()
+        self.addDebugInfo(retval, type)
         return retval
     
     def addHeart(self):

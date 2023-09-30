@@ -56,6 +56,7 @@ class Topaz(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self):
@@ -70,12 +71,14 @@ class Topaz(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useTalent(self, windfall=False):
@@ -89,4 +92,5 @@ class Topaz(BaseCharacter):
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
         retval.energy = self.getBonusEnergyAttack(type) * self.getER(type)
         retval.actionvalue = -0.2 if self.eidolon >= 4 else 0.0
+        self.addDebugInfo(retval, type)
         return retval

@@ -54,6 +54,7 @@ class Qingque(BaseCharacter):
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         retval.energy += 1.0 if self.eidolon >= 2 else 0.0
         retval += self.endTurn()
+        self.addDebugInfo(retval, type)
         return retval
 
     def useEnhancedBasic(self):
@@ -73,6 +74,7 @@ class Qingque(BaseCharacter):
         retval.actionvalue = 1.0 - self.getAdvanceForward(type)
         retval.energy += 1.0 if self.eidolon >= 2 else 0.0
         retval += self.endTurn()
+        self.addDebugInfo(retval, type)
         return retval
     
     def endTurn(self):
@@ -97,6 +99,7 @@ class Qingque(BaseCharacter):
             
         retval.energy += 1.0 if self.eidolon >= 2 else 0.0
         
+        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self):
@@ -109,4 +112,5 @@ class Qingque(BaseCharacter):
         retval.gauge = 60.0 * self.numEnemies * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval

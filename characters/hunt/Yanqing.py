@@ -68,6 +68,7 @@ class Yanqing(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self, icing=True):
@@ -81,6 +82,7 @@ class Yanqing(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self, icing=True):
@@ -93,6 +95,7 @@ class Yanqing(BaseCharacter):
         retval.gauge = 90.0 * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useTalent(self, icing=True):
@@ -110,6 +113,7 @@ class Yanqing(BaseCharacter):
         retval *= procrate
         
         retval += self.useFreezeDot()
+        self.addDebugInfo(retval, type)
         return retval
     
     def useFreezeDot(self):
@@ -122,6 +126,7 @@ class Yanqing(BaseCharacter):
         
         procrate = 0.62 if self.eidolon >= 5 else 0.6
         retval *= procrate * self.freezeChance
+        self.addDebugInfo(retval, type)
         return retval
     
     def useBliss(self):

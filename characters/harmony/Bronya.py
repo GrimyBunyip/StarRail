@@ -43,6 +43,7 @@ class Bronya(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self):
@@ -51,6 +52,7 @@ class Bronya(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0 + (0.5 if self.eidolon >= 1 else 0.0)
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self, targetCharacter:BaseCharacter = None):
@@ -58,6 +60,7 @@ class Bronya(BaseCharacter):
         type = ['ultimate']
         retval.energy = 5.0 * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
         
     def useFollowup(self):
@@ -69,9 +72,11 @@ class Bronya(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        self.addDebugInfo(retval, type)
         return retval
     
     def useAdvanceForward(self, advanceAmount:float=1.0):
         retval = BaseEffect()
         retval.actionvalue = max(-1.0,-advanceAmount)
+        self.addDebugInfo(retval, type)
         return retval

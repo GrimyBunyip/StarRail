@@ -3,8 +3,10 @@ class BaseEffect:
     gauge:float
     energy:float
     skillpoints:float
+    actionvalue:float
+    debuginfo:list
 
-    def __init__(self, damage:float=0.0, gauge:float=0.0, energy:float=0.0, skillpoints:float=0.0, actionvalue:float = 0.0):
+    def __init__(self, damage:float=0.0, gauge:float=0.0, energy:float=0.0, skillpoints:float=0.0, actionvalue:float=0.0):
         self.damage = damage
         self.gauge = gauge
         self.energy = energy

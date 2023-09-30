@@ -62,6 +62,7 @@ class Sushang(BaseCharacter):
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.endTurn()
+        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self):
@@ -86,6 +87,7 @@ class Sushang(BaseCharacter):
         retval += stanceChance * self.useSwordStance()
         
         self.endTurn()
+        self.addDebugInfo(retval, type)
         return retval
 
     def useSwordStance(self):
@@ -96,6 +98,7 @@ class Sushang(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self):
@@ -113,6 +116,7 @@ class Sushang(BaseCharacter):
         self.addTempStat('ATK.percent',description='ultimate',
                          amount=0.324 if self.eidolon >= 5 else 0.3,
                          duration=2)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useTalent(self):
@@ -125,5 +129,6 @@ class Sushang(BaseCharacter):
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = ( 10.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = 0.0 - self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
         

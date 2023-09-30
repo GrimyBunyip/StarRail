@@ -61,6 +61,7 @@ class Jingliu(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self):
@@ -74,11 +75,13 @@ class Jingliu(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
     
     def extraTurn(self):
         retval = BaseEffect()
         retval.actionvalue = -1.0
+        self.addDebugInfo(retval, type)
         return retval        
 
     def useEnhancedSkill(self):
@@ -94,6 +97,7 @@ class Jingliu(BaseCharacter):
         retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * self.getBreakEfficiency(type)
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self):
@@ -108,4 +112,5 @@ class Jingliu(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 60.0 * blastEnemies * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        self.addDebugInfo(retval, type)
         return retval

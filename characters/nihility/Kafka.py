@@ -47,6 +47,7 @@ class Kafka(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self, extraDots:list=None):
@@ -70,6 +71,7 @@ class Kafka(BaseCharacter):
         dotExplosion.damage *= 0.78 if self.eidolon >= 3 else 0.75
         
         retval += dotExplosion
+        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self, extraDots:list=None):
@@ -92,6 +94,7 @@ class Kafka(BaseCharacter):
         dotExplosion.damage *= 1.0 if self.eidolon >= 5 else 1.04
         
         retval += dotExplosion
+        self.addDebugInfo(retval, type)
         return retval
 
     def useTalent(self):
@@ -106,6 +109,7 @@ class Kafka(BaseCharacter):
         retval.energy = ( 10.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.skillpoints = 0.0
         retval.actionvalue = self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useDot(self):
@@ -118,4 +122,5 @@ class Kafka(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.energy = ( self.getBonusEnergyAttack(type) + (2.0 if self.eidolon >= 4 else 0.0) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval

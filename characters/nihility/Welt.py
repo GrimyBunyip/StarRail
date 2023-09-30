@@ -53,6 +53,7 @@ class Welt(BaseCharacter):
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         
         retval += self.useTalent(type) * self.slowUptime
+        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self):
@@ -70,6 +71,7 @@ class Welt(BaseCharacter):
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         
         retval += self.useTalent(type) * num_hits * self.slowUptime
+        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self):
@@ -85,6 +87,7 @@ class Welt(BaseCharacter):
         retval.actionvalue = self.getAdvanceForward(type)
         
         retval += self.useTalent(type) * self.numEnemies * self.slowUptime
+        self.addDebugInfo(retval, type)
         return retval
 
     def useTalent(self, type:list):
@@ -96,4 +99,5 @@ class Welt(BaseCharacter):
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.energy = self.getBonusEnergyAttack(type) * self.getER(type) # unclear if this bhonus energy is affected by ER
+        self.addDebugInfo(retval, type)
         return retval

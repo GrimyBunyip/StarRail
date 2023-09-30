@@ -69,6 +69,7 @@ class Luka(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useEnhancedBasic(self):
@@ -87,6 +88,7 @@ class Luka(BaseCharacter):
         dotExplosion = self.useDot()
         dotExplosion.damage *= ( 0.884 if self.eidolon >= 3 else 0.85 ) + ( 0.08 * 3 * 1.5 if self.eidolon >= 6 else 0.0 )
         retval += dotExplosion
+        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self):
@@ -101,6 +103,7 @@ class Luka(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self):
@@ -114,6 +117,7 @@ class Luka(BaseCharacter):
         retval.gauge = 90.0 * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useDot(self):
@@ -124,4 +128,5 @@ class Luka(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        self.addDebugInfo(retval, type)
         return retval

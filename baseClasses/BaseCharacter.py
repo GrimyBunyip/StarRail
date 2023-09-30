@@ -223,6 +223,7 @@ class BaseCharacter(object):
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = 20.0 * self.getER(type)
         retval.skillpoints = 1.0
+        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self):
@@ -231,12 +232,14 @@ class BaseCharacter(object):
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
         retval.energy = 30.0 * self.getER(type)
         retval.skillpoints = -1.0
+        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
         retval.energy = 5.0 * self.getER(type)
+        self.addDebugInfo(retval, type)
         return retval
 
     def useTalent(self):
@@ -269,6 +272,7 @@ class BaseCharacter(object):
         baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
 
         retval.damage = baseDotDamage
+        self.addDebugInfo(retval, type)
         return retval
 
     def useBreakDot(self):
@@ -300,6 +304,7 @@ class BaseCharacter(object):
         baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
 
         retval.damage = baseDotDamage
+        self.addDebugInfo(retval, type)
         return retval
 
     def applyDamageMultipliers(self, baseDamage:float, type:list=[], element:str=None) -> float:
@@ -308,3 +313,27 @@ class BaseCharacter(object):
         damage *= max(min(1 - self.enemyRes + self.getResPen(type,element), 2.0), 0.1)
         damage *= 0.9 + 0.1 * self.weaknessBrokenUptime
         return damage
+
+    def addDebugInfo(self, effect:BaseEffect, type:list, name:str=None):
+        if name is None:
+            name = self.name
+            for typeinfo in type:
+                name += ' ' + typeinfo
+            BaseEffect.debuginfo.append(name)
+        else:
+            BaseEffect.debuginfo.append(name)
+        BaseEffect.debuginfo.append(effect.damage)
+        BaseEffect.debuginfo.append(effect.energy)
+        BaseEffect.debuginfo.append(effect.gauge)
+        BaseEffect.debuginfo.append(effect.actionvalue)
+        BaseEffect.debuginfo.append(self.getTotalStat('SPD',type))
+        BaseEffect.debuginfo.append(self.getTotalStat('ATK',type))
+        BaseEffect.debuginfo.append(self.getTotalStat('HP',type))
+        BaseEffect.debuginfo.append(self.getTotalStat('DEF',type))
+        BaseEffect.debuginfo.append(self.getTotalStat('DMG',type))
+        BaseEffect.debuginfo.append(self.getTotalStat('CR',type))
+        BaseEffect.debuginfo.append(self.getTotalStat('CD',type))
+        BaseEffect.debuginfo.append(self.getTotalStat('Vulnerability',type))
+        BaseEffect.debuginfo.append(self.getTotalStat('ResPen',type))
+        BaseEffect.debuginfo.append(self.getTotalStat('DefShred',type))
+        
