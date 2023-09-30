@@ -21,12 +21,12 @@ class Guinaifen(BaseCharacter):
         self.burnUptime = burnUptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12),
-                                        BaseMV(type=['skill'],area='adjacent', stat='atk', value=0.40, eidolonThreshold=3, eidolonBonus=0.04),]
-        self.motionValueDict['dot'] = [BaseMV(type=['skill','dot'],area='single', stat='atk', value=2.1821, eidolonThreshold=3, eidolonBonus=0.21821)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12),
+                                        BaseMV(area='adjacent', stat='atk', value=0.40, eidolonThreshold=3, eidolonBonus=0.04),]
+        self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=2.1821, eidolonThreshold=3, eidolonBonus=0.21821)]
         
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='all', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.096)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.096)]
         
         # Talents
         self.addStat('Vulnerability',description='firekiss',
@@ -46,7 +46,7 @@ class Guinaifen(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -62,7 +62,7 @@ class Guinaifen(BaseCharacter):
         num_adjacent = min(2.0, self.numEnemies - 1.0)
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill')
+        retval.damage = self.getTotalMotionValue('skill',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -77,7 +77,7 @@ class Guinaifen(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimate')
+        retval.damage = self.getTotalMotionValue('ultimate',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -97,7 +97,7 @@ class Guinaifen(BaseCharacter):
     def useDot(self):
         retval = BaseEffect()
         type = ['dot']
-        retval.damage = self.getTotalMotionValue('dot')
+        retval.damage = self.getTotalMotionValue('dot',type)
         # no crits on dots
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)

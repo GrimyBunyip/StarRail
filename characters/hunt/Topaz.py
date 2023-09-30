@@ -20,9 +20,9 @@ class Topaz(BaseCharacter):
         self.e1Stacks = e1Stacks
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic','followup'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type=['skill','followup'],area='single', stat='atk', value=1.5, eidolonThreshold=3, eidolonBonus=0.15)]
-        self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.15)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.5, eidolonThreshold=3, eidolonBonus=0.15)]
+        self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.15)]
         
         # Talents
         self.addStat('DMG',description='trace',amount=0.15) # Financial Turmoil
@@ -47,7 +47,7 @@ class Topaz(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic','followup']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -62,7 +62,7 @@ class Topaz(BaseCharacter):
     def useSkill(self):
         retval = BaseEffect()
         type = ['skill','followup']
-        retval.damage = self.getTotalMotionValue('skill')
+        retval.damage = self.getTotalMotionValue('skill',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -84,7 +84,7 @@ class Topaz(BaseCharacter):
     def useTalent(self, windfall=False):
         retval = BaseEffect()
         type = ['talent','followup'] + ['windfall'] if windfall else []
-        retval.damage = self.getTotalMotionValue('talent') * (2.0 if windfall else 1.0)
+        retval.damage = self.getTotalMotionValue('talent',type) * (2.0 if windfall else 1.0)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)

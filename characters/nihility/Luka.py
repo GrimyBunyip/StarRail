@@ -27,15 +27,15 @@ class Luka(BaseCharacter):
         self.e4uptime = e4uptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
         
         crushMV = 0.8 + 0.2 * 3 * 1.5 # Crush Fighting Will
-        self.motionValueDict['enhancedBasic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=crushMV, eidolonThreshold=5, eidolonBonus=crushMV/10)]
+        self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=crushMV, eidolonThreshold=5, eidolonBonus=crushMV/10)]
 
-        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
-        self.motionValueDict['dot'] = [BaseMV(type=['skill','dot'],area='single', stat='atk', value=3.38, eidolonThreshold=3, eidolonBonus=0.338)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
+        self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=3.38, eidolonThreshold=3, eidolonBonus=0.338)]
 
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.3, eidolonThreshold=5, eidolonBonus=0.264)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=3.3, eidolonThreshold=5, eidolonBonus=0.264)]
         
         # Talents
         self.addStat('Vulnerability',description='ultimate',
@@ -60,7 +60,7 @@ class Luka(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -75,7 +75,7 @@ class Luka(BaseCharacter):
     def useEnhancedBasic(self):
         retval = BaseEffect()
         type = ['basic','enhancedBasic']
-        retval.damage = self.getTotalMotionValue('enhancedBasic')
+        retval.damage = self.getTotalMotionValue('enhancedBasic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -95,7 +95,7 @@ class Luka(BaseCharacter):
     def useSkill(self):
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill')
+        retval.damage = self.getTotalMotionValue('skill',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -110,7 +110,7 @@ class Luka(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimate')
+        retval.damage = self.getTotalMotionValue('ultimate',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -125,7 +125,7 @@ class Luka(BaseCharacter):
         bleedHP = self.enemyMaxHP * 0.24
         retval = BaseEffect()
         type = ['dot']
-        retval.damage = min(bleedHP, self.getTotalMotionValue('dot'))
+        retval.damage = min(bleedHP, self.getTotalMotionValue('dot',type))
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)

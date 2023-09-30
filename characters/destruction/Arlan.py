@@ -22,12 +22,12 @@ class Arlan(BaseCharacter):
         self.hpUptime = hpUptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.4, eidolonThreshold=3, eidolonBonus=0.24)]
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256),
-                                            BaseMV(type=['ultimate'],area='adjacent', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.128)]
-        self.motionValueDict['ultimateE6'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256),
-                                            BaseMV(type=['ultimate'],area='adjacent', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=2.4, eidolonThreshold=3, eidolonBonus=0.24)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256),
+                                            BaseMV(area='adjacent', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.128)]
+        self.motionValueDict['ultimateE6'] = [BaseMV(area='single', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256),
+                                            BaseMV(area='adjacent', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256)]
         
         # Talents
         self.addStat('DMG',description='trace',
@@ -45,7 +45,7 @@ class Arlan(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -60,7 +60,7 @@ class Arlan(BaseCharacter):
     def useSkill(self):
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill')
+        retval.damage = self.getTotalMotionValue('skill',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -75,7 +75,7 @@ class Arlan(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimateE6') if self.eidolon >= 6 else self.getTotalMotionValue('ultimate')
+        retval.damage = self.getTotalMotionValue('ultimateE6',type) if self.eidolon >= 6 else self.getTotalMotionValue('ultimate',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)

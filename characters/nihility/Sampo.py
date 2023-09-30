@@ -23,11 +23,11 @@ class Sampo(BaseCharacter):
         self.windshearStacks = windshearStacks
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=0.56, eidolonThreshold=3, eidolonBonus=0.056)]
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='all', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.128)]
-        self.motionValueDict['dot'] = [BaseMV(type=['talent','dot'],area='single', stat='atk', value=0.52, eidolonThreshold=5, eidolonBonus=0.052)]
-        self.motionValueDict['dote6'] = [BaseMV(type=['talent','dot'],area='single', stat='atk', value=0.52+0.15, eidolonThreshold=5, eidolonBonus=0.052)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=0.56, eidolonThreshold=3, eidolonBonus=0.056)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.128)]
+        self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=0.52, eidolonThreshold=5, eidolonBonus=0.052)]
+        self.motionValueDict['dote6'] = [BaseMV(area='single', stat='atk', value=0.52+0.15, eidolonThreshold=5, eidolonBonus=0.052)]
         
         # Talents
         self.addStat('Vulnerability',description='ultimate',
@@ -43,7 +43,7 @@ class Sampo(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -59,7 +59,7 @@ class Sampo(BaseCharacter):
         num_hits = 6.0 if self.eidolon else 5.0
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill') * num_hits
+        retval.damage = self.getTotalMotionValue('skill',type) * num_hits
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -80,7 +80,7 @@ class Sampo(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimate')
+        retval.damage = self.getTotalMotionValue('ultimate',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -94,7 +94,7 @@ class Sampo(BaseCharacter):
     def useDot(self):
         retval = BaseEffect()
         type = ['dot']
-        retval.damage = self.getTotalMotionValue('dote6') if self.eidolon >= 6 else self.getTotalMotionValue('dot')
+        retval.damage = self.getTotalMotionValue('dote6',type) if self.eidolon >= 6 else self.getTotalMotionValue('dot',type)
         # no crits on dots
         retval.damage *= self.windshearStacks * self.windshearUptime
         retval.damage *= self.getDmg(type)

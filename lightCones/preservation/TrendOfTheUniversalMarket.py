@@ -14,7 +14,7 @@ class TrendOfTheUniversalMarket(BaseLightCone):
         if char.path == self.path:
             char.addStat('DEF.percent',description=self.name,
                                     amount=0.12 + 0.04 * self.superposition)
-            char.motionValueDict['dot'] = [BaseMV(type=['dot'],area='single', stat='def', value=0.3+0.1*self.superposition)] + char.motionValueDict['dot'] if 'dot' in char.motionValueDict else []
+            char.motionValueDict['dot'] = [BaseMV(area='single', stat='def', value=0.3+0.1*self.superposition)] + char.motionValueDict['dot'] if 'dot' in char.motionValueDict else []
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

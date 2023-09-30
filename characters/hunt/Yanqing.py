@@ -27,15 +27,15 @@ class Yanqing(BaseCharacter):
         self.gentleBladeUptime = gentleBladeUptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['icing'] = [BaseMV(type=['basic'],area='single', stat='atk', value=0.3)]
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1),
-                                        BaseMV(type=['basic'],area='single', stat='atk', value=0.0, eidolonThreshold=1, eidolonBonus=0.6)]
-        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.2, eidolonThreshold=3, eidolonBonus=0.22),
-                                        BaseMV(type=['skill'],area='single', stat='atk', value=0.0, eidolonThreshold=1, eidolonBonus=0.6)]
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.5, eidolonThreshold=5, eidolonBonus=0.28),
-                                            BaseMV(type=['ultimate'],area='single', stat='atk', value=0.0, eidolonThreshold=1, eidolonBonus=0.6)]
-        self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
-        self.motionValueDict['freezeDot'] = [BaseMV(type=['talent','dot'],area='single', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
+        self.motionValueDict['icing'] = [BaseMV(area='single', stat='atk', value=0.3)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1),
+                                        BaseMV(area='single', stat='atk', value=0.0, eidolonThreshold=1, eidolonBonus=0.6)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=2.2, eidolonThreshold=3, eidolonBonus=0.22),
+                                        BaseMV(area='single', stat='atk', value=0.0, eidolonThreshold=1, eidolonBonus=0.6)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=3.5, eidolonThreshold=5, eidolonBonus=0.28),
+                                            BaseMV(area='single', stat='atk', value=0.0, eidolonThreshold=1, eidolonBonus=0.6)]
+        self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
+        self.motionValueDict['freezeDot'] = [BaseMV(area='single', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
         
         # Talents
         self.addStat('SPD.percent',description='trace',amount=0.1,uptime=self.gentleBladeUptime) # Frost Favors the Brave
@@ -60,7 +60,7 @@ class Yanqing(BaseCharacter):
     def useBasic(self, icing=True):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic') + self.getTotalMotionValue('icing') if icing else 0.0
+        retval.damage = self.getTotalMotionValue('basic',type) + self.getTotalMotionValue('icing',type) if icing else 0.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -74,7 +74,7 @@ class Yanqing(BaseCharacter):
     def useSkill(self, icing=True):
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill') + self.getTotalMotionValue('icing') if icing else 0.0
+        retval.damage = self.getTotalMotionValue('skill',type) + self.getTotalMotionValue('icing',type) if icing else 0.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -88,7 +88,7 @@ class Yanqing(BaseCharacter):
     def useUltimate(self, icing=True):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimate') + self.getTotalMotionValue('icing') if icing else 0.0
+        retval.damage = self.getTotalMotionValue('ultimate',type) + self.getTotalMotionValue('icing',type) if icing else 0.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -101,7 +101,7 @@ class Yanqing(BaseCharacter):
     def useTalent(self, icing=True):
         retval = BaseEffect()
         type = ['talent','followup']
-        retval.damage = self.getTotalMotionValue('talent') + self.getTotalMotionValue('icing') if icing else 0.0
+        retval.damage = self.getTotalMotionValue('talent',type) + self.getTotalMotionValue('icing',type) if icing else 0.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -119,7 +119,7 @@ class Yanqing(BaseCharacter):
     def useFreezeDot(self):
         retval = BaseEffect()
         type = ['dot','talent']
-        retval.damage = self.getTotalMotionValue('dot')
+        retval.damage = self.getTotalMotionValue('dot',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)

@@ -24,10 +24,10 @@ class Yukong(BaseCharacter):
         self.majestaprocs = majestaProcs
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['enhancedBasic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1),
-                                                BaseMV(type=['enhancedBasic','basic'],area='single', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.08)]
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1),
+                                                BaseMV(area='single', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.08)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
 
         # Talents
         self.addStat('CR',description='ultimate',
@@ -51,7 +51,7 @@ class Yukong(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -64,7 +64,7 @@ class Yukong(BaseCharacter):
     def useEnhancedBasic(self):
         retval = BaseEffect()
         type = ['enhancedBasic','basic']
-        retval.damage = self.getTotalMotionValue('enhancedBasic')
+        retval.damage = self.getTotalMotionValue('enhancedBasic',type)
         retval.damage *= self.getTotalCrit(['enhancedBasic','basic'])
         retval.damage *= self.getDmg(['enhancedBasic','basic'])
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -85,7 +85,7 @@ class Yukong(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimate')
+        retval.damage = self.getTotalMotionValue('ultimate',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)

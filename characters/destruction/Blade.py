@@ -25,22 +25,22 @@ class Blade(BaseCharacter):
         self.rejectedByDeathUptime = rejectedByDeathUptime
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
 
-        self.motionValueDict['enhancedBasic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=0.4, eidolonThreshold=5, eidolonBonus=0.04),
-                                                BaseMV(type=['basic'],area='single', stat='hp', value=1.0, eidolonThreshold=5, eidolonBonus=0.1),
-                                                BaseMV(type=['basic'],area='adjacent', stat='atk', value=0.16, eidolonThreshold=5, eidolonBonus=0.016),
-                                                BaseMV(type=['basic'],area='adjacent', stat='hp', value=0.4, eidolonThreshold=5, eidolonBonus=0.04)]
+        self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=0.4, eidolonThreshold=5, eidolonBonus=0.04),
+                                                BaseMV(area='single', stat='hp', value=1.0, eidolonThreshold=5, eidolonBonus=0.1),
+                                                BaseMV(area='adjacent', stat='atk', value=0.16, eidolonThreshold=5, eidolonBonus=0.016),
+                                                BaseMV(area='adjacent', stat='hp', value=0.4, eidolonThreshold=5, eidolonBonus=0.04)]
 
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=0.4, eidolonThreshold=3, eidolonBonus=0.032),
-                                            BaseMV(type=['ultimate'],area='adjacent', stat='atk', value=0.16, eidolonThreshold=3, eidolonBonus=0.0128),
-                                            BaseMV(type=['ultimate'],area='single', stat='hp', value=1.0, eidolonThreshold=3, eidolonBonus=0.08),
-                                            BaseMV(type=['ultimate'],area='adjacent', stat='hp', value=0.40, eidolonThreshold=3, eidolonBonus=0.032),
-                                            BaseMV(type=['ultimate'],area='single', stat='hp', value=1.0*self.hpLossTally, eidolonThreshold=3, eidolonBonus=0.08*self.hpLossTally),
-                                            BaseMV(type=['ultimate'],area='adjacent', stat='hp', value=0.40*self.hpLossTally, eidolonThreshold=3, eidolonBonus=0.032*self.hpLossTally)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=0.4, eidolonThreshold=3, eidolonBonus=0.032),
+                                            BaseMV(area='adjacent', stat='atk', value=0.16, eidolonThreshold=3, eidolonBonus=0.0128),
+                                            BaseMV(area='single', stat='hp', value=1.0, eidolonThreshold=3, eidolonBonus=0.08),
+                                            BaseMV(area='adjacent', stat='hp', value=0.40, eidolonThreshold=3, eidolonBonus=0.032),
+                                            BaseMV(area='single', stat='hp', value=1.0*self.hpLossTally, eidolonThreshold=3, eidolonBonus=0.08*self.hpLossTally),
+                                            BaseMV(area='adjacent', stat='hp', value=0.40*self.hpLossTally, eidolonThreshold=3, eidolonBonus=0.032*self.hpLossTally)]
         
-        self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='all', stat='atk', value=0.44, eidolonThreshold=3, eidolonBonus=0.044),
-                                        BaseMV(type=['talent','followup'],area='all', stat='hp', value=1.1, eidolonThreshold=3, eidolonBonus=0.11)]
+        self.motionValueDict['talent'] = [BaseMV(area='all', stat='atk', value=0.44, eidolonThreshold=3, eidolonBonus=0.044),
+                                        BaseMV(area='all', stat='hp', value=1.1, eidolonThreshold=3, eidolonBonus=0.11)]
         
         # Talents
         self.addStat('DMG',description='trace',type=['followup'],amount=0.2)
@@ -62,7 +62,7 @@ class Blade(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -78,7 +78,7 @@ class Blade(BaseCharacter):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
         type = ['basic','enhancedBasic']
-        retval.damage = self.getTotalMotionValue('enhancedBasic')
+        retval.damage = self.getTotalMotionValue('enhancedBasic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -101,7 +101,7 @@ class Blade(BaseCharacter):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimate')
+        retval.damage = self.getTotalMotionValue('ultimate',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -115,7 +115,7 @@ class Blade(BaseCharacter):
     def useTalent(self):
         retval = BaseEffect()
         type = ['followup','talent']
-        retval.damage = self.getTotalMotionValue('talent')
+        retval.damage = self.getTotalMotionValue('talent',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)

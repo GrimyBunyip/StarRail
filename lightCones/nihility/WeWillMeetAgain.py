@@ -13,9 +13,9 @@ class WeWillMeetAgain(BaseLightCone):
         self.addStats(char)
         if char.path == self.path:
             if 'basic' in char.motionValueDict:
-                char.motionValueDict['basic'] += [BaseMV(type=['basic'],area='single', stat='atk', value=0.36+0.12*self.superposition)]
+                char.motionValueDict['basic'] += [BaseMV(area='single', stat='atk', value=0.36+0.12*self.superposition)]
             if 'skill' in char.motionValueDict:
-                char.motionValueDict['skill'] += [BaseMV(type=['skill'],area='single', stat='atk', value=0.36+0.12*self.superposition)]
+                char.motionValueDict['skill'] += [BaseMV(area='single', stat='atk', value=0.36+0.12*self.superposition)]
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

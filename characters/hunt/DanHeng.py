@@ -26,10 +26,10 @@ class DanHeng(BaseCharacter):
         self.hiddenDragonUptime = hiddenDragonUptime
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.6, eidolonThreshold=3, eidolonBonus=0.26)]
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=4.0, eidolonThreshold=5, eidolonBonus=0.32)]
-        self.motionValueDict['ultimateSlowed'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=4.0+1.2, eidolonThreshold=5, eidolonBonus=0.32+0.096)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=2.6, eidolonThreshold=3, eidolonBonus=0.26)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=4.0, eidolonThreshold=5, eidolonBonus=0.32)]
+        self.motionValueDict['ultimateSlowed'] = [BaseMV(area='single', stat='atk', value=4.0+1.2, eidolonThreshold=5, eidolonBonus=0.32+0.096)]
 
         # Talents
         self.addStat('SPD.percent',description='trace',amount=0.20,uptime=self.fasterThanLightUptime)
@@ -48,7 +48,7 @@ class DanHeng(BaseCharacter):
     def useBasic(self, slowed = True):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type) + ( 0.40 if slowed else 0.0 ) #    High Gale
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -62,7 +62,7 @@ class DanHeng(BaseCharacter):
     def useSkill(self):
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill')
+        retval.damage = self.getTotalMotionValue('skill',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -76,7 +76,7 @@ class DanHeng(BaseCharacter):
     def useUltimate(self, slowed = True):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimateSlowed') if slowed else self.getTotalMotionValue('ultimate')
+        retval.damage = self.getTotalMotionValue('ultimateSlowed',type) if slowed else self.getTotalMotionValue('ultimate',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)

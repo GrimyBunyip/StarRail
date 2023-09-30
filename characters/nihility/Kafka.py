@@ -17,12 +17,12 @@ class Kafka(BaseCharacter):
         self.loadCharacterStats('Kafka')
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=1.6, eidolonThreshold=3, eidolonBonus=0.16),
-                                        BaseMV(type=['skill'],area='adjacent', stat='atk', value=0.6, eidolonThreshold=3, eidolonBonus=0.06)]
-        self.motionValueDict['dot'] = [BaseMV(type=['dot','ultimate'],area='single', stat='atk', value=2.90, eidolonThreshold=5, eidolonBonus=0.2828)]
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='all', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.064)]
-        self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=1.4, eidolonThreshold=5, eidolonBonus=0.196)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.6, eidolonThreshold=3, eidolonBonus=0.16),
+                                        BaseMV(area='adjacent', stat='atk', value=0.6, eidolonThreshold=3, eidolonBonus=0.06)]
+        self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=2.90, eidolonThreshold=5, eidolonBonus=0.2828)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.064)]
+        self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=1.4, eidolonThreshold=5, eidolonBonus=0.196)]
         
         # Talents
         
@@ -38,7 +38,7 @@ class Kafka(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -54,7 +54,7 @@ class Kafka(BaseCharacter):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill')
+        retval.damage = self.getTotalMotionValue('skill',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -78,7 +78,7 @@ class Kafka(BaseCharacter):
     def useUltimate(self, extraDots:list=None):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimate')
+        retval.damage = self.getTotalMotionValue('ultimate',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -102,7 +102,7 @@ class Kafka(BaseCharacter):
     def useTalent(self):
         retval = BaseEffect()
         type = ['talent','followup']
-        retval.damage = self.getTotalMotionValue('talent')
+        retval.damage = self.getTotalMotionValue('talent',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -117,7 +117,7 @@ class Kafka(BaseCharacter):
     def useDot(self):
         retval = BaseEffect()
         type = ['dot']
-        retval.damage = self.getTotalMotionValue('dot')
+        retval.damage = self.getTotalMotionValue('dot',type)
         # no crits on dots
         retval.damage *= self.getDmg(type) + (1.56 if self.eidolon >= 6 else 0.0)
         retval.damage *= self.getVulnerability(type)

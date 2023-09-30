@@ -14,12 +14,12 @@ import matplotlib.colors as mcolors
 
 hex_dict = {
         'wind': '2ecc71',
-        'fire': 'e74c3c',
+        'fire': 'c75d5d',
         'ice': '3498db',
         'lightning': 'bc81df',
         'physical': 'bdc3c7',
         'quantum': '767bd4',
-        'imaginary': 'f1c40f',
+        'imaginary': 'dbb25a',
     }
 
 DEBUG_COLUMN_NAMES = [
@@ -27,6 +27,7 @@ DEBUG_COLUMN_NAMES = [
     'ability',
     'damage',
     'energy',
+    'skill points',
     'gauge',
     'action value',
     'SPD', 'ATK', 'HP', 'DEF',
@@ -35,9 +36,10 @@ DEBUG_COLUMN_NAMES = [
     'ResPen', 'DefShred',
 ]
 
-def writeVisualizationList(visualizationList:list,path:str):
+def writeVisualizationList(visualizationList:list,path:str,sheetname:str):
     workbook:Workbook = Workbook()
     sheet:Worksheet = workbook.active
+    sheet.title = sheetname
 
     current_row = 1
     left_align = Alignment(horizontal='left')
@@ -58,7 +60,9 @@ def writeVisualizationList(visualizationList:list,path:str):
         
         rotationName:str = info.name
         character:BaseCharacter = info.character
-        totalEffect:BaseEffect = info.effect + info.breakEffect + info.dotEffect
+        totalEffect:BaseEffect = info.effect + info.breakEffect
+        if sum(info.dotEffect.debugCount) > 0:
+            totalEffect += info.dotEffect
         
         # write character info and header info
         color = hex_dict[character.element]
@@ -89,14 +93,16 @@ def writeVisualizationList(visualizationList:list,path:str):
         cycles = totalEffect.actionvalue * 100.0 / speed
         current_cell = sheet.cell(row=current_row,column=5,value='Total per Cycle')
         current_cell = sheet.cell(row=current_row,column=6,value=totalEffect.damage / cycles).style = decimal_format1
-        current_cell = sheet.cell(row=current_row,column=8,value=totalEffect.gauge / cycles).style = decimal_format1
+        current_cell = sheet.cell(row=current_row,column=8,value=totalEffect.skillpoints / cycles).style = decimal_format2
+        current_cell = sheet.cell(row=current_row,column=9,value=totalEffect.gauge / cycles).style = decimal_format1
         current_row += 1
         
         current_cell = sheet.cell(row=current_row,column=5,value='Total per Rotation')
         current_cell = sheet.cell(row=current_row,column=6,value=totalEffect.damage).style = decimal_format1
         current_cell = sheet.cell(row=current_row,column=7,value=totalEffect.energy).style = decimal_format1
-        current_cell = sheet.cell(row=current_row,column=8,value=totalEffect.gauge).style = decimal_format1
-        current_cell = sheet.cell(row=current_row,column=9,value=totalEffect.actionvalue).style = decimal_format3
+        current_cell = sheet.cell(row=current_row,column=8,value=totalEffect.skillpoints).style = decimal_format2
+        current_cell = sheet.cell(row=current_row,column=9,value=totalEffect.gauge).style = decimal_format1
+        current_cell = sheet.cell(row=current_row,column=10,value=totalEffect.actionvalue).style = decimal_format3
         current_row += 1
         
         # fill out rotation details
@@ -112,7 +118,7 @@ def writeVisualizationList(visualizationList:list,path:str):
                     current_cell = sheet.cell(row=current_row+i,column=5+j,value=entry)
                 
                 if isinstance(current_cell.value,float):
-                    if current_cell.value < 10.0:
+                    if current_cell.value < 10.0 and current_cell.value != 0.0:
                         current_cell.style = decimal_format3
                     else:
                         current_cell.style = decimal_format1
@@ -120,7 +126,7 @@ def writeVisualizationList(visualizationList:list,path:str):
         current_row += max(len(totalEffect.debugInfo),len(equipment)-2)+1
         
         for i in range(current_row-initial_row-1):
-            for j in range(19):
+            for j in range(20):
                 current_cell = sheet.cell(row=current_row-i-2,column=j+1)
                 current_cell.fill = PatternFill(start_color=color,end_color=color,fill_type='solid')
                 current_cell.alignment = left_align

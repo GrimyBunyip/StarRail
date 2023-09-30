@@ -17,8 +17,8 @@ class Bronya(BaseCharacter):
         self.loadCharacterStats('Bronya')
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['followup'] = [BaseMV(type=['followup'],area='single', stat='atk', value=0.8)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['followup'] = [BaseMV(area='single', stat='atk', value=0.8)]
 
         # Talents
         self.addStat('AdvanceForward',description='talent',
@@ -35,7 +35,7 @@ class Bronya(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -66,7 +66,7 @@ class Bronya(BaseCharacter):
     def useFollowup(self):
         retval = BaseEffect()
         type = ['basic','followup']
-        retval.damage = self.getTotalMotionValue('basic') * 0.8
+        retval.damage = self.getTotalMotionValue('basic',type) * 0.8
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)

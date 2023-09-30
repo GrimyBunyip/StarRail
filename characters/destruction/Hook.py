@@ -20,16 +20,16 @@ class Hook(BaseCharacter):
         self.burnedUptime = burnedUptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
         
-        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.4, eidolonThreshold=3, eidolonBonus=0.24)]
-        self.motionValueDict['dot'] = [BaseMV(type=['skill','dot'],area='single', stat='atk', value=0.65, eidolonThreshold=3, eidolonBonus=0.065)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=2.4, eidolonThreshold=3, eidolonBonus=0.24)]
+        self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=0.65, eidolonThreshold=3, eidolonBonus=0.065)]
 
-        self.motionValueDict['enhancedSkill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=2.8, eidolonThreshold=3, eidolonBonus=0.28),
-                                                BaseMV(type=['skill'],area='adjacent', stat='atk', value=0.8, eidolonThreshold=3, eidolonBonus=0.08)]
+        self.motionValueDict['enhancedSkill'] = [BaseMV(area='single', stat='atk', value=2.8, eidolonThreshold=3, eidolonBonus=0.28),
+                                                BaseMV(area='adjacent', stat='atk', value=0.8, eidolonThreshold=3, eidolonBonus=0.08)]
                 
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=4.0, eidolonThreshold=5, eidolonBonus=0.32)]
-        self.motionValueDict['talent'] = [BaseMV(type=['talent'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=4.0, eidolonThreshold=5, eidolonBonus=0.32)]
+        self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
         
         # Talents
         self.addStat('AdvanceForward',description='trace',type=['ultimate'],amount=0.2)
@@ -47,7 +47,7 @@ class Hook(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic') + self.getTotalMotionValue('talent') * self.burnedUptime
+        retval.damage = self.getTotalMotionValue('basic',type) + self.getTotalMotionValue('talent',type) * self.burnedUptime
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -61,7 +61,7 @@ class Hook(BaseCharacter):
     def useSkill(self):
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill') + self.getTotalMotionValue('talent') * self.burnedUptime
+        retval.damage = self.getTotalMotionValue('skill',type) + self.getTotalMotionValue('talent',type) * self.burnedUptime
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -76,7 +76,7 @@ class Hook(BaseCharacter):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
         type = ['skill','enhancedSkill']
-        retval.damage = self.getTotalMotionValue('enhancedSkill') + self.getTotalMotionValue('talent') * self.burnedUptime * (1 + num_adjacents)
+        retval.damage = self.getTotalMotionValue('enhancedSkill',type) + self.getTotalMotionValue('talent',type) * self.burnedUptime * (1 + num_adjacents)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -90,7 +90,7 @@ class Hook(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimate') + self.getTotalMotionValue('talent') * self.burnedUptime
+        retval.damage = self.getTotalMotionValue('ultimate',type) + self.getTotalMotionValue('talent',type) * self.burnedUptime
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -103,7 +103,7 @@ class Hook(BaseCharacter):
     def useDot(self):
         retval = BaseEffect()
         type = ['dot']
-        retval.damage = self.getTotalMotionValue('dot')
+        retval.damage = self.getTotalMotionValue('dot',type)
         # no crits on dots
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)

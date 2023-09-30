@@ -207,14 +207,14 @@ class BaseCharacter(object):
     def getResPen(self,type:list=[], element:str=None):
         return self.getTotalStat('ResPen',type,element)
     
-    def getTotalMotionValue(self, type:list):
+    def getTotalMotionValue(self, mvKey:str, type:list):
         total = 0.0
         for key, value in self.motionValueDict.items():
-            if key == type:
+            if key == mvKey:
                 if isinstance(value, list):
-                    total += sum(x.calculate(self) for x in value)
+                    total += sum(x.calculate(self, type) for x in value)
                 else:
-                    total += value.calculate(self)
+                    total += value.calculate(self, type)
         return total
 
     def useBasic(self):
@@ -327,6 +327,7 @@ class BaseCharacter(object):
             debugEntry.append(name)
         debugEntry.append(effect.damage)
         debugEntry.append(effect.energy)
+        debugEntry.append(effect.skillpoints)
         debugEntry.append(effect.gauge)
         debugEntry.append(effect.actionvalue)
         for stat in ['SPD', 'ATK', 'HP', 'DEF', 'DMG', 'CR', 'CD', 'Vulnerability', 'ResPen', 'DefShred'] :

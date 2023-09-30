@@ -402,8 +402,8 @@ if __name__ == '__main__':
             QingqueCharacter.useEnhancedBasic(), 
             QingqueCharacter.useSkill(), 
             QingqueCharacter.useSkill(),
-            QingqueCharacter.useEnhancedBasic(),
             QingqueCharacter.useUltimate(),
+            QingqueCharacter.useEnhancedBasic(),
     ]
 
     visualizationList.append(DefaultEstimator('Qingque 7E 3N 1Q', QingqueRotation, QingqueCharacter, config))
@@ -628,4 +628,4 @@ if __name__ == '__main__':
     visualize(visualizationList, visualizerPath='visualizer\SoloVisual.png', **config)
     
     from excelAPI.write2sheet import writeVisualizationList
-    writeVisualizationList(visualizationList,path='visualizer\SoloVisual.xlsx')
+    writeVisualizationList(visualizationList,path='visualizer\SoloVisual.xlsx',sheetname='Solo vs Two')

@@ -21,13 +21,13 @@ class Clara(BaseCharacter):
         self.aTightEmbraceUptime = aTightEmbraceUptime
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='all', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(area='all', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
         
-        self.motionValueDict['markOfSvarog'] = [BaseMV(type=['skill'],area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
+        self.motionValueDict['markOfSvarog'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
         
         #I believe the revenge ascension is an MV buff
-        self.motionValueDict['talent'] = [BaseMV(type=['talent','followup'],area='single', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.16)]        
+        self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.16)]        
         
         # Talents
         self.addStat('DMG',description='trace',type=['followup'],amount=0.3)
@@ -44,7 +44,7 @@ class Clara(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -59,7 +59,7 @@ class Clara(BaseCharacter):
     def useSkill(self):
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill')
+        retval.damage = self.getTotalMotionValue('skill',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -74,7 +74,7 @@ class Clara(BaseCharacter):
     def useMarkOfSvarog(self):
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('markOfSvarog')
+        retval.damage = self.getTotalMotionValue('markOfSvarog',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -94,7 +94,7 @@ class Clara(BaseCharacter):
         num_adjacent = min(2, self.numEnemies-1)
         retval = BaseEffect()
         type = ['followup','talent']
-        retval.damage = self.getTotalMotionValue('talent')
+        retval.damage = self.getTotalMotionValue('talent',type)
         retval.damage *= ( 1.0 + num_adjacent / 2.0 ) if enhanced else 1.0        
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type) + ( (1.728 if self.eidolon >= 5 else 1.6) if enhanced else 0.0)

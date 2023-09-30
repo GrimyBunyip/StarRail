@@ -26,7 +26,7 @@ class ThisIsMe(BaseLightCone):
                 area = 'blast'
             
             if 'ultimate' in char.motionValueDict:
-                char.motionValueDict['ultimate'] += [BaseMV(type=['ultimate'],area=area, stat='def', value=0.45+0.15*self.superposition)]
+                char.motionValueDict['ultimate'] += [BaseMV(area=area, stat='def', value=0.45+0.15*self.superposition)]
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

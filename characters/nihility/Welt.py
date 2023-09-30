@@ -21,10 +21,10 @@ class Welt(BaseCharacter):
         self.slowUptime = slowUptime
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=0.72, eidolonThreshold=3, eidolonBonus=0.072)]
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='all', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.12)]
-        self.motionValueDict['talent'] = [BaseMV(type=['talent'],area='single', stat='atk', value=0.6, eidolonThreshold=5, eidolonBonus=0.06)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=0.72, eidolonThreshold=3, eidolonBonus=0.072)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.12)]
+        self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=0.6, eidolonThreshold=5, eidolonBonus=0.06)]
         
         # Talents
         self.addStat('Vulnerability',description='ultimate',amount=0.12,uptime=self.ultUptime)
@@ -41,7 +41,7 @@ class Welt(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= 1.5 if self.eidolon >= 6 else 1.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -60,7 +60,7 @@ class Welt(BaseCharacter):
         num_hits = 4.0 if self.eidolon >= 6 else 3.0
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill') * (num_hits + 0.8 if self.eidolon >= 1 else 0.0)
+        retval.damage = self.getTotalMotionValue('skill',type) * (num_hits + 0.8 if self.eidolon >= 1 else 0.0)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -77,7 +77,7 @@ class Welt(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimate')
+        retval.damage = self.getTotalMotionValue('ultimate',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -93,7 +93,7 @@ class Welt(BaseCharacter):
     def useTalent(self, type:list):
         retval = BaseEffect()
         type = type + ['talent']
-        retval.damage = self.getTotalMotionValue('talent')
+        retval.damage = self.getTotalMotionValue('talent',type)
         retval.damage *= self.getTotalCrit(type) # hmm, is this additive MV? fix this later
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)

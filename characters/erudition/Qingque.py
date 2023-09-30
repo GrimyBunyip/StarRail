@@ -20,10 +20,10 @@ class Qingque(BaseCharacter):
         self.averageAutarky = 0.0
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['enhancedBasic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.24),
-                                                BaseMV(type=['basic'],area='adjacent', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='all', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.16)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.24),
+                                                BaseMV(area='adjacent', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.16)]
         
         # Talents
         self.addStat('SPD.percent',description='trace',amount=0.1,uptime=self.winningHandUptime)
@@ -41,7 +41,7 @@ class Qingque(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -61,7 +61,7 @@ class Qingque(BaseCharacter):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
         type = ['basic','enhancedBasic']
-        retval.damage = self.getTotalMotionValue('enhancedBasic')
+        retval.damage = self.getTotalMotionValue('enhancedBasic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
@@ -73,8 +73,8 @@ class Qingque(BaseCharacter):
         retval.skillpoints = 1.0 if self.eidolon >= 6 else 0.0
         retval.actionvalue = 1.0 - self.getAdvanceForward(type)
         retval.energy += 1.0 if self.eidolon >= 2 else 0.0
-        retval += self.endTurn()
         self.addDebugInfo(retval,type,'Qingque Enhanced Basic')
+        retval += self.endTurn()
         return retval
     
     def endTurn(self):
@@ -106,7 +106,7 @@ class Qingque(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimate')
+        retval.damage = self.getTotalMotionValue('ultimate',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)

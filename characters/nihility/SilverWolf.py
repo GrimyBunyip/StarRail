@@ -33,9 +33,9 @@ class SilverWolf(BaseCharacter):
         self.numDebuffs = numDebuffs
         
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]        
-        self.motionValueDict['skill'] = [BaseMV(type=['skill'],area='single', stat='atk', value=1.96, eidolonThreshold=3, eidolonBonus=0.196)]
-        self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]        
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.96, eidolonThreshold=3, eidolonBonus=0.196)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
         
         # Talents
         self.addStat('ResPen',description='talent',amount=0.20,uptime=self.dmgResUptime)
@@ -68,7 +68,7 @@ class SilverWolf(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic')
+        retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -83,7 +83,7 @@ class SilverWolf(BaseCharacter):
     def useSkill(self):
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill')
+        retval.damage = self.getTotalMotionValue('skill',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -98,7 +98,7 @@ class SilverWolf(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimate')
+        retval.damage = self.getTotalMotionValue('ultimate',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
