@@ -59,7 +59,6 @@ class Yukong(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
-        self.addDebugInfo(retval, type)
         return retval
         
     def useEnhancedBasic(self):
@@ -73,7 +72,6 @@ class Yukong(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
-        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self):
@@ -82,7 +80,6 @@ class Yukong(BaseCharacter):
         retval.energy = (30.0 + self.getBonusEnergyTurn(type)) * self.getER(type) # 4 bonus energy from ascension 6, but it could be more
         retval.skillpoints = -1.0 + (0.5 if self.eidolon >= 1 else 0.0)
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
-        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self):
@@ -95,5 +92,4 @@ class Yukong(BaseCharacter):
         retval.gauge = 90.0 * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
-        self.addDebugInfo(retval, type)
         return retval

@@ -12,26 +12,28 @@ from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseEffect import BaseEffect
 from estimator.DefaultEstimator import VisualizationInfo
 
+COLOR_DICT = {
+    'wind': 'forestgreen',
+    'fire': 'firebrick',
+    'ice': 'royalblue',
+    'lightning': 'purple',
+    'physical': 'grey',
+    'quantum': 'darkslateblue',
+    'imaginary': 'darkgoldenrod',
+}
+
 def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.png',  **config):
-    color_dict = {
-        'wind': 'forestgreen',
-        'fire': 'firebrick',
-        'ice': 'royalblue',
-        'lightning': 'purple',
-        'physical': 'grey',
-        'quantum': 'darkslateblue',
-        'imaginary': 'darkgoldenrod',
-    }
     
     # convert the colors to different opacities for the stacked bar plot
-    for key, value in color_dict.items():
+    rgba_dict = {}
+    for key, value in COLOR_DICT.items():
         rgba1 = list(to_rgba(value))
         rgba2 = list(to_rgba(value))
         rgba3 = list(to_rgba(value))
         rgba1[3] = 1.0 # base damage
         rgba2[3] = 0.5 # base damage + dot
         rgba3[3] = 0.25 # total damage
-        color_dict[key] = [rgba1, rgba2, rgba3]
+        rgba_dict[key] = [rgba1, rgba2, rgba3]
 
     # Sample data
     rotationNames = []
@@ -57,7 +59,7 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
         totalEffects.append(actionEffect + dotEffect + breakEffect)
         rotationNames.append(rotationName)
         characters.append(char)
-        colors.append(color_dict[char.element])
+        colors.append(rgba_dict[char.element])
         extraImages.append(extraImage)
 
     # sort the data from highest at the top

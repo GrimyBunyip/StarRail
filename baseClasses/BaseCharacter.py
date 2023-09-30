@@ -223,7 +223,6 @@ class BaseCharacter(object):
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = 20.0 * self.getER(type)
         retval.skillpoints = 1.0
-        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self):
@@ -232,14 +231,12 @@ class BaseCharacter(object):
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
         retval.energy = 30.0 * self.getER(type)
         retval.skillpoints = -1.0
-        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
         retval.energy = 5.0 * self.getER(type)
-        self.addDebugInfo(retval, type)
         return retval
 
     def useTalent(self):
@@ -253,6 +250,7 @@ class BaseCharacter(object):
 
     def useBreak(self):
         retval = BaseEffect()
+        type = ['break']
 
         breakMultipliers = {
             'physical': 2.0,
@@ -267,16 +265,16 @@ class BaseCharacter(object):
         baseDotDamage = self.breakLevelMultiplier
         baseDotDamage *= 0.5 + self.enemyToughness / 120
         baseDotDamage *= breakMultipliers[self.element]
-        baseDotDamage *= 1.0 + self.getBreakEfficiency()
-        baseDotDamage *= 1.0 + self.getVulnerability()
-        baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
+        baseDotDamage *= 1.0 + self.getBreakEfficiency(type)
+        baseDotDamage *= 1.0 + self.getVulnerability(type)
+        baseDotDamage = self.applyDamageMultipliers(baseDotDamage,type)
 
         retval.damage = baseDotDamage
-        self.addDebugInfo(retval, type)
         return retval
 
     def useBreakDot(self):
         retval = BaseEffect()
+        type = ['break','dot']
         baseDotDamage = 0.0
 
         if self.element == 'physical':
@@ -299,12 +297,11 @@ class BaseCharacter(object):
             baseDotDamage = 0.6 * 3 * self.breakLevelMultiplier
             baseDotDamage *= 0.5 + self.enemyToughness / 120
 
-        baseDotDamage *= 1.0 + self.getTotalStat('BreakEffect')
-        baseDotDamage *= self.getVulnerability()
-        baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
+        baseDotDamage *= 1.0 + self.getTotalStat('BreakEffect',type)
+        baseDotDamage *= self.getVulnerability(type)
+        baseDotDamage = self.applyDamageMultipliers(baseDotDamage,type)
 
         retval.damage = baseDotDamage
-        self.addDebugInfo(retval, type)
         return retval
 
     def applyDamageMultipliers(self, baseDamage:float, type:list=[], element:str=None) -> float:
@@ -315,25 +312,40 @@ class BaseCharacter(object):
         return damage
 
     def addDebugInfo(self, effect:BaseEffect, type:list, name:str=None):
+        # clean out elements from name
+        [type.remove(x) for x in ['fire','ice','wind','lightning','physical','quantum','imaginary'] if x in type]
+        
+        debugEntry = []
         if name is None:
             name = self.name
             for typeinfo in type:
                 name += ' ' + typeinfo
-            BaseEffect.debuginfo.append(name)
+            debugEntry.append(name)
         else:
-            BaseEffect.debuginfo.append(name)
-        BaseEffect.debuginfo.append(effect.damage)
-        BaseEffect.debuginfo.append(effect.energy)
-        BaseEffect.debuginfo.append(effect.gauge)
-        BaseEffect.debuginfo.append(effect.actionvalue)
-        BaseEffect.debuginfo.append(self.getTotalStat('SPD',type))
-        BaseEffect.debuginfo.append(self.getTotalStat('ATK',type))
-        BaseEffect.debuginfo.append(self.getTotalStat('HP',type))
-        BaseEffect.debuginfo.append(self.getTotalStat('DEF',type))
-        BaseEffect.debuginfo.append(self.getTotalStat('DMG',type))
-        BaseEffect.debuginfo.append(self.getTotalStat('CR',type))
-        BaseEffect.debuginfo.append(self.getTotalStat('CD',type))
-        BaseEffect.debuginfo.append(self.getTotalStat('Vulnerability',type))
-        BaseEffect.debuginfo.append(self.getTotalStat('ResPen',type))
-        BaseEffect.debuginfo.append(self.getTotalStat('DefShred',type))
+            debugEntry.append(name)
+        debugEntry.append(effect.damage)
+        debugEntry.append(effect.energy)
+        debugEntry.append(effect.gauge)
+        debugEntry.append(effect.actionvalue)
+        for stat in ['SPD', 'ATK', 'HP', 'DEF', 'DMG', 'CR', 'CD', 'Vulnerability', 'ResPen', 'DefShred'] :
+            debugEntry.append([self.getTotalStat(stat,type),getStatComments(self,stat,type)])
+        effect.debuginfo.append(debugEntry)
         
+def getStatComments(character:BaseCharacter,stat:str,type:list=[]):
+    retval = ''
+    for entry in character.stats[stat] + character.tempStats[stat]:
+        if entry.type is None or any(x in entry.type for x in type):
+            entry:BuffEffect
+            retval += entry.description + ':    '
+            retval += str(round(entry.amount,2))
+            if entry.stacks is not None and entry.stacks != 1.0:
+                retval += ', ' + str(round(entry.stacks,2)) + ' stacks'
+            if entry.uptime is not None and entry.uptime < 1.0:
+                retval += ', ' + str(round(entry.uptime,2)) + ' uptime'
+            if entry.duration is not None and entry.duration > 0.0:
+                retval += ', ' + str(round(entry.duration,1)) + ' duration'
+            if entry.mathType is not None and entry.mathType != 'base':
+                retval += ', ' + entry.mathType
+            retval += '\n'
+            
+    return retval

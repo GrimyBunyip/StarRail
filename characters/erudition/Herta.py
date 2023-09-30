@@ -56,7 +56,6 @@ class Herta(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
-        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self):
@@ -70,7 +69,6 @@ class Herta(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
-        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self):
@@ -86,7 +84,6 @@ class Herta(BaseCharacter):
         
         if self.eidolon >= 6:
             self.addTempStat('ATK.percent',description='e6',amount=0.25,duration=1)
-        self.addDebugInfo(retval, type)
         return retval
 
     def useTalent(self):
@@ -99,5 +96,4 @@ class Herta(BaseCharacter):
         retval.gauge = 15.0 * self.getBreakEfficiency(type)
         retval.energy = 5.0 * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
-        self.addDebugInfo(retval, type)
         return retval

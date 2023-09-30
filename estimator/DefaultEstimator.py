@@ -28,7 +28,9 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
     dotEffect:BaseEffect = BaseEffect()
     
     for entry in rotation:
-            totalEffect += entry
+        entry:BaseEffect
+        totalEffect += entry
+        totalEffect.debuginfo += entry.debuginfo
     
     # We estimate break damage proportional to the amount of break gauge applied
     num_breaks = totalEffect.gauge * config['weaknessBrokenUptime'] / config['enemyToughness']

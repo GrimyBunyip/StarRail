@@ -55,7 +55,6 @@ class Guinaifen(BaseCharacter):
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
-        self.addDebugInfo(retval, type)
         return retval
 
     def useSkill(self):
@@ -71,7 +70,6 @@ class Guinaifen(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
-        self.addDebugInfo(retval, type)
         return retval
 
     def useUltimate(self):
@@ -90,7 +88,6 @@ class Guinaifen(BaseCharacter):
         dotExplosion = self.useDot()
         dotExplosion.damage *= 0.96 if self.eidolon >= 4 else 0.92
         retval += dotExplosion
-        self.addDebugInfo(retval, type)
         return retval
 
     def useDot(self):
@@ -103,5 +100,4 @@ class Guinaifen(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.energy = self.getBonusEnergyAttack(type) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
-        self.addDebugInfo(retval, type)
         return retval
