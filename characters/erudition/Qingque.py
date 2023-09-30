@@ -23,6 +23,9 @@ class Qingque(BaseCharacter):
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
         self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.24),
                                                 BaseMV(area='adjacent', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['autarky'] = [BaseMV(area='single', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
+        self.motionValueDict['enhancedAutarky'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.12),
+                                                BaseMV(area='adjacent', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.16)]
         
         # Talents
@@ -30,6 +33,10 @@ class Qingque(BaseCharacter):
         self.addStat('ATK.percent',description='talent',
                      amount=0.792 if self.eidolon >= 3 else 0.72,
                      type=['enhancedBasic'])
+        # assume QQ can time her atk% with her ultimate
+        self.addStat('ATK.percent',description='talent',
+                     amount=0.792 if self.eidolon >= 3 else 0.72,
+                     type=['ultimate'])
         
         # Eidolons
         if self.eidolon >= 1:
@@ -47,14 +54,13 @@ class Qingque(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
-        
-        retval *= 1.0 + self.averageAutarky
-        
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         retval.energy += 1.0 if self.eidolon >= 2 else 0.0
-        retval += self.endTurn()
         self.addDebugInfo(retval,type)
+        
+        retval += self.useAutarky() * self.averageAutarky
+        retval += self.endTurn()
         return retval
 
     def useEnhancedBasic(self):
@@ -67,14 +73,44 @@ class Qingque(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * self.getBreakEfficiency(type)
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
-        
-        retval *= 1.0 + self.averageAutarky
-        
         retval.skillpoints = 1.0 if self.eidolon >= 6 else 0.0
         retval.actionvalue = 1.0 - self.getAdvanceForward(type)
         retval.energy += 1.0 if self.eidolon >= 2 else 0.0
         self.addDebugInfo(retval,type,'Qingque Enhanced Basic')
+        
+        retval += self.useEnhancedAutarky() * self.averageAutarky
         retval += self.endTurn()
+        return retval
+
+    def useEnhancedAutarky(self):
+        num_adjacents = min( self.numEnemies - 1, 2 )
+        retval = BaseEffect()
+        type = ['followup'] # autarky does not benefit from buffs to basic attacks per kqm evidence vault
+        retval.damage = self.getTotalMotionValue('enhancedAutarky',type)
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * self.getBreakEfficiency(type)        
+        self.addDebugInfo(retval,type,'Qingque Enhanced Autarky')
+        return retval
+
+    def useAutarky(self):
+        num_adjacents = min( self.numEnemies - 1, 2 )
+        retval = BaseEffect()
+        type = ['followup'] # autarky does not benefit from buffs to basic attacks per kqm evidence vault
+        retval.damage = self.getTotalMotionValue('autarky',type)
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 30.0 * self.getBreakEfficiency(type)      
+        self.addDebugInfo(retval,type,'Qingque Enhanced Autarky')
+        return retval
+    
+    def drawTileFromAlly(self):
+        retval = BaseEffect()
+        retval.energy += 1.0 if self.eidolon >= 2 else 0.0
+        retval *= 3
+        self.addDebugInfo(retval,['e2'],'Qingque Draw Tile from Ally')
         return retval
     
     def endTurn(self):
