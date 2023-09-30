@@ -1,5 +1,5 @@
 import os
-from copy import copy
+from copy import deepcopy
 import pandas as pd
 from baseClasses.BaseEffect import BaseEffect
 from baseClasses.BuffEffect import BuffEffect
@@ -56,8 +56,8 @@ class BaseCharacter(object):
 
     def __init__(self, relicstats, lightcone=None, relicsetone=None, relicsettwo=None, planarset=None, **config):
         self.__dict__.update(config)
-        self.stats = copy(EMPTY_STATS)
-        self.tempStats = copy(EMPTY_STATS)
+        self.stats = deepcopy(EMPTY_STATS)
+        self.tempStats = deepcopy(EMPTY_STATS)
         
         self.lightcone = lightcone
         self.relicsetone = relicsetone
@@ -74,12 +74,8 @@ class BaseCharacter(object):
             split_column = column.split('.')
             data = df.loc[rows[rows == name].index,column].values[0]
             if len(split_column) > 1:
-                column_key, column_type = split_column[0], split_column[1]
-                if column_type in ['base','percent','flat']:
-                    effect = BuffEffect(column_key,'Character Stats',data,mathType=column_type)
-                else:
-                    effect = BuffEffect(column_key,'Character Stats',data,type=column_type)
-                self.stats[column_key].append(effect)
+                if not data == 0.0: # don't bother loading empty stats
+                    self.addStat(column,'Character Stats',data)
             else:
                 self.__dict__[column] = data
                 
@@ -91,14 +87,56 @@ class BaseCharacter(object):
                                                         "" if self.relicsettwo is None else (" + " + self.relicsettwo.shortname), 
                                                         "" if self.planarset is None else (" + " + self.planarset.shortname))
 
+    def parseName(self, name:str, type:list=None, mathType:str='base'):
+        splitname = name.split('.')
+        if len(splitname) > 1:
+            name = splitname[0]
+            if splitname[1] in ['base','percent','flat']:
+                mathType = splitname[1]
+            else:
+                type = [splitname[1]]
+        return name, type, mathType
+
     def addStat(self, name:str, description:str, amount:float, type:list=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base'):
-        self.stats[name].append(name=name, description=description, amount=amount, type=type, stacks=stacks, uptime=uptime, mathType=mathType)
+        name, type, mathType = self.parseName(name,type,mathType)
+        self.stats[name].append(BuffEffect(name=name, description=description, amount=amount, type=type, stacks=stacks, uptime=uptime, mathType=mathType))
 
     def addTempStat(self, name:str, description:str, amount:float, type:list=None, stacks:float=1.0, uptime:float=1.0, mathType:str='base', duration:int=None):
-        self.tempStats[name].append(name=name, description=description, amount=amount, type=type, stacks=stacks, uptime=uptime, mathType=mathType, duration=duration)
+        name, type, mathType = self.parseName(name,type,mathType)
+        self.tempStats[name].append(BuffEffect(name=name, description=description, amount=amount, type=type, stacks=stacks, uptime=uptime, mathType=mathType, duration=duration))
+        
+    def getTempBuffDuration(self, description:str):
+        for _, values in self.tempStats.items():
+            for value in values:
+                value:BuffEffect
+                if value.description == description:
+                    return value.duration
+        return None
+    
+    def getTempBuffStacks(self, description:str):
+        for _, values in self.tempStats.items():
+            for value in values:
+                value:BuffEffect
+                if value.description == description:
+                    return value.stacks
+        return None
+            
+    def setTempBuffDuration(self, description:str, duration:int):
+        for _, values in self.tempStats.items():
+            for value in values:
+                value:BuffEffect
+                if value.description == description:
+                    value.duration = duration
+                
+    def setTempBuffStacks(self, description:str, stacks:int):
+        for _, values in self.tempStats.items():
+            for value in values:
+                value:BuffEffect
+                if value.description == description:
+                    value.stacks = stacks
         
     def clearTempBuffs(self):
-        self.tempStats = copy(EMPTY_STATS)
+        self.tempStats = deepcopy(EMPTY_STATS)
         
     def endTurn(self):
         for _, value in self.tempStats.items():
@@ -122,10 +160,17 @@ class BaseCharacter(object):
         typeTotal = {'base': 0.0,
                      'percent':0.0,
                      'flat':0.0,}
-        type.append(self.element if element is None else element)
+        if element is None and self.element not in type:
+            type.append(self.element)
+        
         for entry in self.stats[stat]:
             entry:BuffEffect
-            if entry.type is None or entry.type in type:
+            if entry.type is None or any(x in entry.type for x in type):
+                typeTotal[entry.mathType] += entry.amount * entry.stacks * entry.uptime
+                
+        for entry in self.tempStats[stat]:
+            entry:BuffEffect
+            if entry.type is None or any(x in entry.type for x in type):
                 typeTotal[entry.mathType] += entry.amount * entry.stacks * entry.uptime
             
         return typeTotal['base'] * (1.0 + typeTotal['percent']) + typeTotal['flat']
@@ -165,7 +210,7 @@ class BaseCharacter(object):
     def getTotalMotionValue(self, type:list):
         total = 0.0
         for key, value in self.motionValueDict.items():
-            if key in type:
+            if key == type:
                 if isinstance(value, list):
                     total += sum(x.calculate(self) for x in value)
                 else:
@@ -251,13 +296,13 @@ class BaseCharacter(object):
             baseDotDamage *= 0.5 + self.enemyToughness / 120
 
         baseDotDamage *= 1.0 + self.getTotalStat('BreakEffect')
-        baseDotDamage *= self.getVulnerability(type)
+        baseDotDamage *= self.getVulnerability()
         baseDotDamage = self.applyDamageMultipliers(baseDotDamage)
 
         retval.damage = baseDotDamage
         return retval
 
-    def applyDamageMultipliers(self, baseDamage:float, type:list=None) -> float:
+    def applyDamageMultipliers(self, baseDamage:float, type:list=[]) -> float:
         damage = baseDamage
         damage *= (80 + 20 ) / ( ( self.enemyLevel + 20 ) * ( 1 - self.getDefShred(type) ) + 80 + 20 )
         damage *= max(min(1 - self.enemyRes + self.getResPen(type), 2.0), 0.1)

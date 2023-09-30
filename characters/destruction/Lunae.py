@@ -54,18 +54,18 @@ class Lunae(BaseCharacter):
                                             BaseMV(type=['ultimate'],area='adjacent', stat='atk', value=1.4*0.4, eidolonThreshold=5, eidolonBonus=0.112*0.4),]
         
         # Talents
-        self.addStat('CD',description='trace',type=['transmigration'],amount=0.24,uptime=self.joltAnewUptime)
+        self.addStat('CD',description='trace',amount=0.24,uptime=self.joltAnewUptime)
         
         # Eidolons
         if self.eidolon >= 6:
-            self.addStat('ResPen',description='e6',type=['transmigration'],amount=0.2,stacks=self.reignStacks)
+            self.addStat('ResPen',description='e6',amount=0.2,stacks=self.reignStacks)
 
         # Gear
         self.equipGear()
 
     def useBasic(self, hitNum:int=None):
         retval = BaseEffect()
-        type = ['basic','outroarStacks']
+        type = ['basic']
         if hitNum is None:
             for i in range(2):
                 retval.gauge = 30.0 * self.getBreakEfficiency(type)
@@ -75,7 +75,7 @@ class Lunae(BaseCharacter):
         elif hitNum > 0:
             retval.damage = self.getTotalMotionValue('basic_{}'.format(i+1))
             retval.damage *= self.getTotalCrit(type)
-            retval.damage *= self.getDmg(type) + 0.125 * self.heartStacks
+            retval.damage *= self.getDmg(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
         
         self.addHeart()
@@ -83,7 +83,7 @@ class Lunae(BaseCharacter):
 
     def useEnhancedBasic1(self, hitNum:int=None):
         retval = BaseEffect()
-        type = ['basic','outroarStacks']
+        type = ['basic','enhancedBasic']
         if hitNum is None: #iterate through each subhit then apply energy, SP, and Action Values
             for i in range(3):
                 retval += self.useEnhancedBasic1(hitNum=i+1)
@@ -94,7 +94,7 @@ class Lunae(BaseCharacter):
         elif hitNum > 0: # individual hits
             retval.damage = self.getTotalMotionValue('enhancedBasic1_{}'.format(hitNum))
             retval.damage *= self.getTotalCrit(type)
-            retval.damage *= self.getDmg(type) + 0.125 * self.heartStacks
+            retval.damage *= self.getDmg(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
         
         self.addHeart()
@@ -103,7 +103,7 @@ class Lunae(BaseCharacter):
     def useEnhancedBasic2(self, hitNum:int):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
-        type = ['basic','outroarStacks']
+        type = ['basic','enhancedBasic']
 
         if hitNum is None: #iterate through each subhit then apply energy, SP, and Action Values
             for i in range(5):
@@ -117,7 +117,7 @@ class Lunae(BaseCharacter):
                 self.addRoar()
             retval.damage = self.getTotalMotionValue('enhancedBasic3_{}'.format(hitNum))
             retval.damage *= self.getTotalCrit(type)
-            retval.damage *= self.getDmg(type) + 0.125 * self.heartStacks
+            retval.damage *= self.getDmg(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
         
         self.addHeart()
@@ -126,7 +126,7 @@ class Lunae(BaseCharacter):
     def useEnhancedBasic3(self, hitNum:int=None):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
-        type = ['basic','outroar']
+        type = ['basic','enhancedBasic']
         if hitNum is None: #iterate through each subhit then apply energy, SP, and Action Values
             for i in range(7):
                 retval += self.useEnhancedBasic3(hitNum=i+1)
@@ -154,7 +154,7 @@ class Lunae(BaseCharacter):
     def useUltimate(self, hitNum:int=None):
         numBlast = min(3, self.numEnemies - 1)
         retval = BaseEffect()
-        type = ['ultimate','outroar']
+        type = ['ultimate']
         if hitNum is None: #iterate through each subhit then apply energy, SP, and Action Values
             for i in range(3):
                 retval += self.useUltimate(hitNum=i+1)
@@ -172,21 +172,22 @@ class Lunae(BaseCharacter):
         return retval
     
     def addHeart(self):
-        tempStat:BuffEffect = next(x for x in self.tempStats['DMG'] if x.description == 'Righteous Heart')
-        if tempStat is not None:
-            tempStat.stacks += 2 if self.eidolon >= 1 else 1
-            tempStat.stacks = min(10 if self.eidolon >= 1 else 6,tempStat.stacks)
-        else:
+        stacks = self.getTempBuffStacks('Righteous Heart')
+        if stacks is None:
             self.addTempStat('DMG',description='Righteous Heart',
                              amount=0.11 if self.eidolon >= 5 else 0.1,
                              stacks=2 if self.eidolon >= 1 else 1,
                              duration=1)
+        else:
+            stacks += 2 if self.eidolon >= 1 else 1
+            stacks = min(10 if self.eidolon >= 1 else 6,stacks)
+            self.setTempBuffStacks('Righteous Heart',stacks)
     
     def addRoar(self):
-        tempStat:BuffEffect = next(x for x in self.tempStats['CD'] if x.description == 'Outroar')
-        if tempStat is not None:
-            tempStat.stacks = min(4,tempStat.stacks+1)
-        else:
+        stacks = self.getTempBuffStacks('Outroar')
+        if stacks is None:
             self.addTempStat('CD',description='Outroar',
                              amount=0.132 if self.eidolon >= 3 else 0.12,
                              stacks=1, duration=1)
+        else:
+            self.setTempBuffStacks('Outroar',min(4,stacks+1))

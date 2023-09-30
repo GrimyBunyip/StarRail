@@ -15,9 +15,9 @@ class SilverWolf(BaseCharacter):
                 dmgResUptime:float=0.0, #we are already assuming we're hitting for weakness
                 allResUptime:float=1.0, #might want to decrease this for large numbers of targets
                 defShredUptime:float=1.0,
-                talentAtkUptime:float=0.5,
-                talentDefUptime:float=0.5,
-                talentSpdUptime:float=0.5,
+                talentAtkUptime:float=1.0,
+                talentDefUptime:float=1.0,
+                talentSpdUptime:float=1.0,
                 a6Uptime:float=1.0,
                 numDebuffs:float=5.0,
                 **config):
@@ -38,7 +38,7 @@ class SilverWolf(BaseCharacter):
         self.motionValueDict['ultimate'] = [BaseMV(type=['ultimate'],area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
         
         # Talents
-        #self.addStat('ResPen',description='talent',amount=0.20,uptime=self.dmgResUptime) # ignore this, we assume we hit for weakness
+        self.addStat('ResPen',description='talent',amount=0.20,uptime=self.dmgResUptime)
         self.addStat('ResPen',description='skill',
                      amount=0.105 if self.eidolon >= 3 else 0.10,
                      uptime=self.allResUptime)

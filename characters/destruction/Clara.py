@@ -69,8 +69,9 @@ class Clara(BaseCharacter):
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
-    def useMarkOfSvarog(self, type):
+    def useMarkOfSvarog(self):
         retval = BaseEffect()
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('markOfSvarog')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

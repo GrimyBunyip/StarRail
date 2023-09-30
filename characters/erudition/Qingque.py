@@ -76,18 +76,21 @@ class Qingque(BaseCharacter):
         return retval
     
     def endTurn(self):
-        #self.DmgType['skillBuff'] = 0.0
         self.averageAutarky = 0.0
         return super().endTurn()
 
     def useSkill(self):
         retval = BaseEffect()
-        type = ['skill']
         retval.skillpoints = -1.0
         
         damageBoost = 0.308 if self.eidolon > 5 else 0.28
-        self.DmgType['skillBuff'] += damageBoost
-        self.DmgType['skillBuff'] = min(4*damageBoost,self.DmgType['skillBuff'])
+
+        stacks = self.getTempBuffStacks('skill')
+        if stacks is None:
+            self.addTempStat('DMG',description='skill',amount=damageBoost,stacks=1,duration=1)
+        else:
+            stacks = min(4, stacks+1)
+            self.setTempBuffStacks('skill',stacks)
         
         if self.eidolon >= 4:
             self.averageAutarky += ( 1.0 - self.averageAutarky ) * 0.76

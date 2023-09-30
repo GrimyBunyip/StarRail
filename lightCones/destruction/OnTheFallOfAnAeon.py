@@ -10,7 +10,7 @@ class OnTheFallOfAnAeon(BaseLightCone):
         self.loadConeStats('On the Fall of an Aeon')
         self.setSuperposition(config)
         self.uptime = uptime
-        self.stacks = stacks
+        self.stacks = min(4.0,stacks)
 
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)

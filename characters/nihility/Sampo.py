@@ -32,7 +32,7 @@ class Sampo(BaseCharacter):
         # Talents
         self.addStat('Vulnerability',description='ultimate',
                      amount=0.32 if self.eidolon >= 5 else 0.3,
-                     uptime=self.ultUptime)
+                     type=['dot'],uptime=self.ultUptime)
         self.addStat('BonusEnergyAttack',description='trace',amount=10.0,type=['ultimate'])
         
         # Eidolons

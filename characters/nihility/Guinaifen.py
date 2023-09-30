@@ -98,6 +98,6 @@ class Guinaifen(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.energy = ( 0.0 + self.bonusEnergyAttack['dot'] ) * self.getER(type)
-        retval.actionvalue = 0.0 - min(1.0,self.advanceForwardType['dot'])
+        retval.energy = self.getBonusEnergyAttack(type) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval

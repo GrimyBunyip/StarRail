@@ -15,4 +15,4 @@ class RelicStats(object):
             char.addStat(mainstat,description='Relic Mainstat',amount=RELIC_MAINSTATS[mainstat])
 
         for substat, num in self.substats.items():
-            char.addStat(mainstat,description='Relic Substat',amount=average(RELIC_SUBSTATS[substat]),stacks=num)
+            char.addStat(substat,description='Relic Substat',amount=average(RELIC_SUBSTATS[substat]),stacks=num)

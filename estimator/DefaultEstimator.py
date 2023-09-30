@@ -12,7 +12,7 @@ class VisualizationInfo():
     
 def DotEstimator(rotation:list, char:BaseCharacter, config:dict, dotMode:str = 'alwaysSingle'):
     # apply a number of dot ticks proportional to enemy speed, this does not count kafka procs
-    num_enemy_turns = sum([x.actionvalue for x in rotation]) * char.enemySpeed / char.getTotalSpd()
+    num_enemy_turns = sum([x.actionvalue for x in rotation]) * char.enemySpeed / char.getTotalStat('SPD')
     if dotMode == 'alwaysSingle':
         return num_enemy_turns
     elif dotMode == 'alwaysBlast':
@@ -40,7 +40,7 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
             
     dotEffect += char.useDot() * numDot
     
-    num_enemy_turns = totalEffect.actionvalue * char.enemySpeed / char.getTotalSpd()
+    num_enemy_turns = totalEffect.actionvalue * char.enemySpeed / char.getTotalStat('SPD')
     if breakDotMode == 'alwaysSingle':
         breakEffect += char.useBreakDot() * num_enemy_turns
     elif breakDotMode == 'alwaysBlast':

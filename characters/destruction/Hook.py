@@ -74,7 +74,7 @@ class Hook(BaseCharacter):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
         type = ['skill','enhancedSkill']
-        retval.damage = self.getTotalMotionValue('enhancedSkill') + self.getTotalMotionValue('talent') * self.burnedUptime
+        retval.damage = self.getTotalMotionValue('enhancedSkill') + self.getTotalMotionValue('talent') * self.burnedUptime * (1 + num_adjacents)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)

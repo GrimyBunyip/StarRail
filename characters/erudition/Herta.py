@@ -82,26 +82,18 @@ class Herta(BaseCharacter):
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
         
-        if not self.ultBuff:
-            self.ultBuff = True
-            self.percAtk += 0.25 if self.eidolon >= 6 else 0.0
+        if self.eidolon >= 6:
+            self.addTempStat('ATK.percent',description='e6',amount=0.25,duration=1)
         return retval
 
     def useTalent(self):
         retval = BaseEffect()
+        type = ['talent','followup']
         retval.damage = self.getTotalMotionValue('talent')
-        retval.damage *= self.getTotalCrit(['talent','followup'])
-        retval.damage *= self.getTotalDmg(['talent','followup'])
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 15.0 * self.getBreakEfficiency(type)
         retval.energy = 5.0 * self.getER(type)
-        retval.actionvalue = 0.0 - min(1.0,self.getTotalStat('AdvanceForward','talent'))
-        return retval
-
-    def endTurn(self):
-        retval = BaseEffect()
-        
-        if self.ultBuff:
-            self.ultBuff = False
-            self.percAtk -= 0.25 if self.eidolon >= 6 else 0.0
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval

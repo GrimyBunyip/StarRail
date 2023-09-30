@@ -104,7 +104,7 @@ config = copy(Configuration)
 config['numEnemies'] = 3 # Going to compare my numbers vs Grimro's 3 target numbers
 
 print('##### Lunae #####')
-LunaeCharacter = Lunae(RelicStats(mainstats = ['percAtk', 'percAtk', 'CR', 'imagDmg'],
+LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
                         substats = {'CR': 12, 'CD': 12}),
             lightcone = OnTheFallOfAnAeon(uptime = 0.0, stacks=4.0, **config), # Grimro assumes zero uptime on break
             relicsetone = MusketeerOfWildWheat2pc(),
@@ -112,10 +112,10 @@ LunaeCharacter = Lunae(RelicStats(mainstats = ['percAtk', 'percAtk', 'CR', 'imag
             planarset = RutilantArena(),
             **config)
 
-print('Atk - Mine: {} - Grimro: {}'.format(LunaeCharacter.getTotalAtk('basic'),2788.63616+4*0.16*1227.74))
-print('CR - Mine: {} - Grimro: {}'.format(LunaeCharacter.CR,0.92392))
-print('CD - Mine: {} - Grimro: {}'.format(LunaeCharacter.CD,1.43984))
-print('Dmg - Mine: {} - Grimro: {}'.format(LunaeCharacter.getTotalDmg('basic')-1.0,0.612803+0.3))
+print('Atk - Mine: {} - Grimro: {}'.format(LunaeCharacter.getTotalStat('ATK',['basic']),2788.63616+4*0.16*1227.74))
+print('CR - Mine: {} - Grimro: {}'.format(LunaeCharacter.getTotalStat('CR'),0.92392))
+print('CD - Mine: {} - Grimro: {}'.format(LunaeCharacter.getTotalStat('CD'),1.43984))
+print('Dmg - Mine: {} - Grimro: {}'.format(LunaeCharacter.getDmg(['basic'])-1.0,0.612803+0.3))
 enhancedBasic = LunaeCharacter.useEnhancedBasic3()
 print('Enhanced Basic Damage - Mine: {} - Grimro: {}'.format(enhancedBasic.damage,85045.71*0.95)) # 0.95 to factor in toughness multiplier
 ultimate = LunaeCharacter.useUltimate()
@@ -123,7 +123,7 @@ LunaeCharacter.endTurn() # reset heart stacks
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,60593.375501*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Blade #####')
-bladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CD', 'windDmg'],
+bladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'DMG.wind'],
                         substats = {'CR': 12, 'CD': 12}),
             lightcone = ASecretVow(uptime = 0.5, **config),
             relicsetone = LongevousDisciple2pc(),
@@ -133,11 +133,11 @@ bladeCharacter = Blade(RelicStats(mainstats = ['percHP', 'flatSpd', 'CD', 'windD
             **config)
 
 
-print('Atk - Mine: {} - Grimro: {}'.format(bladeCharacter.getTotalAtk('basic'),1372.3900))
-print('HP - Mine: {} - Grimro: {}'.format(bladeCharacter.getTotalHP('basic'),5132.95776))
-print('CR - Mine: {} - Grimro: {}'.format(bladeCharacter.CR,0.75992))
-print('CD - Mine: {} - Grimro: {}'.format(bladeCharacter.CD,1.84784))
-print('Dmg - Mine: {} - Grimro: {}'.format(bladeCharacter.getTotalDmg('basic')-1.0,0.9880000))
+print('Atk - Mine: {} - Grimro: {}'.format(bladeCharacter.getTotalStat('ATK',['basic']),1372.3900))
+print('HP - Mine: {} - Grimro: {}'.format(bladeCharacter.getTotalStat('HP',['basic']),5132.95776))
+print('CR - Mine: {} - Grimro: {}'.format(bladeCharacter.getTotalStat('CR'),0.75992))
+print('CD - Mine: {} - Grimro: {}'.format(bladeCharacter.getTotalStat('CD'),1.84784))
+print('Dmg - Mine: {} - Grimro: {}'.format(bladeCharacter.getDmg(['basic'])-1.0,0.9880000+0.4))
 enhancedBasic = bladeCharacter.useEnhancedBasic()
 print('Enhanced Basic Damage - Mine: {} - Grimro: {}'.format(enhancedBasic.damage,27970.52941*0.95)) # 0.95 to factor in toughness multiplier
 talent = bladeCharacter.useTalent()
@@ -146,16 +146,16 @@ ultimate = bladeCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,53896.22855*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Seele #####')
-SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['percAtk', 'percAtk', 'CR', 'quanDmg'],
-                        substats = {'CR': 7, 'CD': 12, 'percAtk': 4}),
+SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.quantum'],
+                        substats = {'CR': 7, 'CD': 12, 'ATK.percent': 4}),
             lightcone = CruisingInTheStellarSea(uptimeHP=0.0, uptimeDefeat=0.0, **config), #unclear what uptime 
             relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo=GeniusOfBrilliantStars4pc(), planarset = RutilantArena(),
             **config)
 
-print('Atk - Mine: {} - Grimro: {}'.format(SeeleCharacter.getTotalAtk('basic'),3042.1576))
-print('CR - Mine: {} - Grimro: {}'.format(SeeleCharacter.CR,0.81812))
-print('CD - Mine: {} - Grimro: {}'.format(SeeleCharacter.CD,1.43984))
-print('Dmg - Mine: {} - Grimro: {}'.format(SeeleCharacter.getTotalDmg('basic')-1.0,0.488803))
+print('Atk - Mine: {} - Grimro: {}'.format(SeeleCharacter.getTotalStat('ATK',['basic']),3042.1576))
+print('CR - Mine: {} - Grimro: {}'.format(SeeleCharacter.getTotalStat('CR'),0.81812))
+print('CD - Mine: {} - Grimro: {}'.format(SeeleCharacter.getTotalStat('CD'),1.43984))
+print('Dmg - Mine: {} - Grimro: {}'.format(SeeleCharacter.getDmg(['basic'])-1.0,0.488803))
 skill = SeeleCharacter.useSkill()
 print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,13094.10486*0.95)) # 0.95 to factor in toughness multiplier
 ultimate = SeeleCharacter.useUltimate()
@@ -167,42 +167,41 @@ ultimate = SeeleCharacter.useUltimate()
 print('Resurgence Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,41138.90539*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Kafka #####')
-KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'lighDmg'],
-                        substats = {'EHR': 4, 'percAtk': 12, 'flatSpd': 8}),
+KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
+                        substats = {'EHR': 4, 'ATK.percent': 12, 'SPD.flat': 8}),
             lightcone = GoodNightAndSleepWell(**config),
             relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = SpaceSealingStation(),
             **config)
 
-print('Atk - Mine: {} - Grimro: {}'.format(KafkaCharacter.getTotalAtk('basic'),3877.417024))
-print('CR - Mine: {} - Grimro: {}'.format(KafkaCharacter.CR,0.05))
-print('CD - Mine: {} - Grimro: {}'.format(KafkaCharacter.CD,0.50))
-print('Dmg - Mine: {} - Grimro: {}'.format(KafkaCharacter.getTotalDmg('basic')-1.0,1.208803))
+print('Atk - Mine: {} - Grimro: {}'.format(KafkaCharacter.getTotalStat('ATK',['basic']),3877.417024))
+print('CR - Mine: {} - Grimro: {}'.format(KafkaCharacter.getTotalStat('CR'),0.05))
+print('CD - Mine: {} - Grimro: {}'.format(KafkaCharacter.getTotalStat('CD'),0.50))
+print('Dmg - Mine: {} - Grimro: {}'.format(KafkaCharacter.getDmg(['basic'])-1.0,1.208803))
 
 dot = KafkaCharacter.useDot()
 print('Dot Damage - Mine: {} - Grimro: {}'.format(dot.damage*config['numEnemies'],35481.29433*0.95)) # 0.95 to factor in toughness multiplier
 skill = KafkaCharacter.useSkill()
-breakDot = KafkaCharacter.useBreakDot()
-skill -= ( dot + breakDot ) * ( 0.78 if KafkaCharacter.eidolon >= 3 else 0.75 ) / KafkaCharacter.numEnemies
+skill -= dot * ( 0.78 if KafkaCharacter.eidolon >= 3 else 0.75 )
 print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,11704.74882*0.95)) # 0.95 to factor in toughness multiplier
 ultimate = KafkaCharacter.useUltimate()
-ultimate -= ( dot * config['numEnemies'] + breakDot ) * ( 1.0 if KafkaCharacter.eidolon >= 5 else 1.04)
+ultimate -= ( dot * config['numEnemies'] ) * ( 1.0 if KafkaCharacter.eidolon >= 5 else 1.04)
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,10032.64184*0.95)) # 0.95 to factor in toughness multiplier
 talent = KafkaCharacter.useTalent()
 print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,5852.374409*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Serval #####')
-ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
-                        substats = {'CR': 7, 'percAtk': 4, 'CD': 12}),
+ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.lightning'],
+                        substats = {'CR': 7, 'ATK.percent': 4, 'CD': 12}),
             lightcone = TheSeriousnessOfBreakfast(**config),
             relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = SpaceSealingStation(),
             **config)
 
-print('Atk - Mine: {} - Grimro: {}'.format(ServalCharacter.getTotalAtk('basic'),2912.739379))
-print('CR - Mine: {} - Grimro: {}'.format(ServalCharacter.CR,0.76512))
-print('CD - Mine: {} - Grimro: {}'.format(ServalCharacter.CD,1.19984))
-print('Dmg - Mine: {} - Grimro: {}'.format(ServalCharacter.getTotalDmg('basic')-1.0,0.728803))
+print('Atk - Mine: {} - Grimro: {}'.format(ServalCharacter.getTotalStat('ATK',['basic']),2912.739379))
+print('CR - Mine: {} - Grimro: {}'.format(ServalCharacter.getTotalStat('CR'),0.76512))
+print('CD - Mine: {} - Grimro: {}'.format(ServalCharacter.getTotalStat('CD'),1.19984))
+print('Dmg - Mine: {} - Grimro: {}'.format(ServalCharacter.getDmg(['basic'])-1.0,0.728803))
 
-dot = ServalCharacter.useDot()
+dot = ServalCharacter.useDot() * config['numEnemies']
 print('Dot Damage - Mine: {} - Grimro: {}'.format(dot.damage,9657.606147*0.95)) # 0.95 to factor in toughness multiplier
 skill = ServalCharacter.useSkill()
 print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,(15436.24751+12823.95947)*0.95)) # 0.95 to factor in toughness multiplier
@@ -210,8 +209,8 @@ ultimate = ServalCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,(31476.99142+12823.95947)*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Dan Heng #####')
-DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'windDmg'],
-                        substats = {'CR': 10, 'CD': 12, 'percAtk': 2}),
+DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind'],
+                        substats = {'CR': 10, 'CD': 12, 'ATK.percent': 2}),
             lightcone = CruisingInTheStellarSea(uptimeHP=1.0, uptimeDefeat=0.0, **config),
             relicsetone = EagleOfTwilightLine2pc(), relicsettwo=EagleOfTwilightLine4pc(), planarset = SpaceSealingStation(),
             talentUptime = 0.0,
@@ -219,10 +218,10 @@ DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['percAtk', 'flat
             e1Uptime=0.0,
             **config)
 
-print('Atk - Mine: {} - Grimro: {}'.format(DanHengCharacter.getTotalAtk('basic'),2429.29895))
-print('CR - Mine: {} - Grimro: {}'.format(DanHengCharacter.CR,0.8256))
-print('CD - Mine: {} - Grimro: {}'.format(DanHengCharacter.CD,1.19984))
-print('Dmg - Mine: {} - Grimro: {}'.format(DanHengCharacter.getTotalDmg('basic')-1.0,0.712803))
+print('Atk - Mine: {} - Grimro: {}'.format(DanHengCharacter.getTotalStat('ATK',['basic']),2429.29895))
+print('CR - Mine: {} - Grimro: {}'.format(DanHengCharacter.getTotalStat('CR'),0.8256+0.16))
+print('CD - Mine: {} - Grimro: {}'.format(DanHengCharacter.getTotalStat('CD'),1.19984))
+print('Dmg - Mine: {} - Grimro: {}'.format(DanHengCharacter.getDmg(['basic'])-1.0,0.712803))
 
 skill = DanHengCharacter.useSkill()
 print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,12368.0652*0.95)) # 0.95 to factor in toughness multiplier
@@ -230,31 +229,33 @@ ultimate = DanHengCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,24286.38257*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Yanqing #####')
-YanqingCharacter = Yanqing(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CD', 'iceDmg'],
-                        substats = {'percAtk': 12, 'CD': 12}),
+YanqingCharacter = Yanqing(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
+                        substats = {'ATK.percent': 12, 'CD': 12}),
                 lightcone = CruisingInTheStellarSea(uptimeHP=0.0, uptimeDefeat=0.0, **config),
                 relicsetone = HunterOfGlacialForest2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SpaceSealingStation(),
                 soulsteelUptime = 1.0,
                 **config)
 
-print('Atk - Mine: {} - Grimro: {}'.format(YanqingCharacter.getTotalAtk('basic'),3420.24359))
-print('CR - Mine: {} - Grimro: {}'.format(YanqingCharacter.CR,0.21+0.2))
-print('CD - Mine: {} - Grimro: {}'.format(YanqingCharacter.CD,1.84784+0.3))
-print('Dmg - Mine: {} - Grimro: {}'.format(YanqingCharacter.getTotalDmg('basic')-1.0,0.632803))
+print('Atk - Mine: {} - Grimro: {}'.format(YanqingCharacter.getTotalStat('ATK',['basic']),3420.24359))
+print('CR - Mine: {} - Grimro: {}'.format(YanqingCharacter.getTotalStat('CR'),0.21+0.2))
+print('CD - Mine: {} - Grimro: {}'.format(YanqingCharacter.getTotalStat('CD'),1.84784+0.3))
+print('Dmg - Mine: {} - Grimro: {}'.format(YanqingCharacter.getDmg(['basic'])-1.0,0.632803))
 
 skill = YanqingCharacter.useSkill()
 print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,12502.91557*0.95)) # 0.95 to factor in toughness multiplier
+YanqingCharacter.useBliss()
 ultimate = YanqingCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,36863.01988*0.95)) # 0.95 to factor in toughness multiplier
+YanqingCharacter.endTurn()
 talent = YanqingCharacter.useTalent()
 freezeDot = YanqingCharacter.useFreezeDot()
 talent -= freezeDot
 print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,4000.932983*0.95*0.6)) # 0.95 to factor in toughness multiplier
 
 print('##### Clara #####')
-ClaraCharacter = Clara(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'physDmg'],
+ClaraCharacter = Clara(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.physical'],
                         substats = {'CR': 10, 'CD': 10}),
-            lightcone = OnTheFallOfAnAeon(uptime = 0.0, stacks=5.0, **config),
+            lightcone = OnTheFallOfAnAeon(uptime = 0.0, stacks=4.0, **config),
             relicsetone = ChampionOfStreetwiseBoxing2pc(),
             relicsettwo = ChampionOfStreetwiseBoxing4pc(),
             planarset = InertSalsotto(),
@@ -268,8 +269,8 @@ enhancedTalent = ClaraCharacter.useTalent(enhanced=True)
 print('Enhanced Talent Damage - Mine: {} - Grimro: {}'.format(enhancedTalent.damage,"None")) # 0.95 to factor in toughness multiplier
 
 print('##### Jing Yuan #####')
-JingYuanCharacter = JingYuan(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
-                        substats = {'CR': 7, 'CD': 12, 'flatSpd': 5}),
+JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.lightning'],
+                        substats = {'CR': 7, 'CD': 12, 'SPD.flat': 5}),
             lightcone = TheSeriousnessOfBreakfast(**config),
             relicsetone = BandOfSizzlingThunder2pc(),
             relicsettwo = BandOfSizzlingThunder4pc(),
@@ -284,7 +285,7 @@ talent = JingYuanCharacter.useTalent()
 print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,5156.021606*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Himeko #####')
-HimekoCharacter = Himeko(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'fireDmg'],
+HimekoCharacter = Himeko(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.fire'],
                         substats = {'CR': 12, 'CD': 12}),
             lightcone = TheSeriousnessOfBreakfast(**config),
             relicsetone = FiresmithOfLavaForging2pc(),
@@ -300,25 +301,26 @@ talent = HimekoCharacter.useTalent()
 print('Talent Damage - Mine: {} - Grimro: {}'.format(talent.damage,27169.0646*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Hook #####')
-HookCharacter = Hook(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'fireDmg'],
-                        substats = {'CR': 10, 'CD': 12, 'flatSpd': 2}),
-            lightcone = OnTheFallOfAnAeon(**config),
+HookCharacter = Hook(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.fire'],
+                        substats = {'CR': 10, 'CD': 12, 'SPD.flat': 2}),
+            lightcone = OnTheFallOfAnAeon(uptime = 0.0, stacks=4.0, **config),
             relicsetone = FiresmithOfLavaForging2pc(),
             relicsettwo = MusketeerOfWildWheat2pc(),
             planarset = RutilantArena(),
             burnedUptime=1.0,
             **config)
 
+print('Grimro does not apply skill damage multiplier to talent damage')
 skill = HookCharacter.useSkill()
-print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,(15043.63538+16813.3843)*0.95)) # 0.95 to factor in toughness multiplier
+print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,(15043.63538+5604.461434)*0.95)) # 0.95 to factor in toughness multiplier
 enhancedSkill = HookCharacter.useEnhancedSkill()
-print('Enhanced Skill Damage - Mine: {} - Grimro: {}'.format(enhancedSkill.damage,(30500.3661+16813.3843)*0.95)) # 0.95 to factor in toughness multiplier
+print('Enhanced Skill Damage - Mine: {} - Grimro: {}'.format(enhancedSkill.damage,(30500.3661+5604.461434*3)*0.95)) # 0.95 to factor in toughness multiplier
 ultimate = HookCharacter.useUltimate()
-print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,(22010.24854+16813.3843)*0.95)) # 0.95 to factor in toughness multiplier
+print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,(22010.24854+5604.461434)*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Sampo #####')
-SampoCharacter = Sampo(RelicStats(mainstats = ['percAtk', 'percAtk', 'percAtk', 'windDmg'],
-                        substats = {'percAtk': 12, 'flatSpd': 8, 'EHR': 4}),
+SampoCharacter = Sampo(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'ATK.percent', 'DMG.wind'],
+                        substats = {'ATK.percent': 12, 'SPD.flat': 8, 'EHR': 4}),
             lightcone = GoodNightAndSleepWell(**config),
             relicsetone = EagleOfTwilightLine2pc(),
             relicsettwo = MusketeerOfWildWheat2pc(),
@@ -334,8 +336,8 @@ ultimate = SampoCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,22769.81446*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Luka #####')
-LukaCharacter = Luka(RelicStats(mainstats = ['percAtk', 'flatSpd', 'percAtk', 'physDmg'],
-                        substats = {'percAtk': 10, 'flatSpd': 6, 'EHR': 8}),
+LukaCharacter = Luka(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.physical'],
+                        substats = {'ATK.percent': 10, 'SPD.flat': 6, 'EHR': 8}),
             lightcone = GoodNightAndSleepWell(**config),
             relicsetone = ChampionOfStreetwiseBoxing2pc(),
             relicsettwo = ChampionOfStreetwiseBoxing4pc(),
@@ -352,29 +354,34 @@ ultimate = LukaCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,17112.03126*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Sushang #####')
-SushangCharacter = Sushang(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'physDmg'],
-                        substats = {'CR': 7, 'CD': 12, 'percAtk': 5}),
+SushangCharacter = Sushang(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.physical'],
+                        substats = {'CR': 7, 'CD': 12, 'ATK.percent': 5}),
                         lightcone = CruisingInTheStellarSea(uptimeHP=0.0, uptimeDefeat=0.0, **config),
                         relicsetone = ChampionOfStreetwiseBoxing2pc(),
                         relicsettwo = ChampionOfStreetwiseBoxing4pc(),
                         planarset = RutilantArena(),
                         **config)
 
-skill = SushangCharacter.useSkill()
+skill = SushangCharacter.useSkill() - SushangCharacter.useSwordStance() * (SushangCharacter.weaknessBrokenUptime + (1.0 - SushangCharacter.weaknessBrokenUptime) * 0.33)
 print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,9980.537896*0.95)) # 0.95 to factor in toughness multiplier
 swordStance = SushangCharacter.useSwordStance()
-print('Sword Stance Damage - Mine: {} - Grimro: {}'.format(swordStance.damage,4752.637094*0.95)) # 0.95 to factor in toughness multiplier
+print('Sword Stance Damage - Mine: {} - Grimro: {}'.format(swordStance.damage,5456.188223*0.95)) # 0.95 to factor in toughness multiplier
 ultimate = SushangCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,13163.57782*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### SilverWolf #####')
-SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'quanDmg'],
-                        substats = {'flatSpd': 4, 'CR': 4, 'CD': 8, 'EHR': 8}),
+SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.quantum'],
+                        substats = {'SPD.flat': 4, 'CR': 4, 'CD': 8, 'EHR': 8}),
                         lightcone = BeforeTheTutorialMissionStarts(**config),
                         relicsetone = GeniusOfBrilliantStars2pc(),
                         relicsettwo = GeniusOfBrilliantStars4pc(),
                         planarset = PanCosmicCommercialEnterprise(),
+                        talentDefUptime = 1.0,
                         **config)
+
+print((80 + 20 ) / ( ( SilverWolfCharacter.enemyLevel + 20 ) * ( 1 - SilverWolfCharacter.getDefShred(['skill']) ) + 80 + 20 ))
+print(SilverWolfCharacter.getDefShred(['skill']))
+print(SilverWolfCharacter.getResPen(['skill']))
 
 skill = SilverWolfCharacter.useSkill()
 print('Skill Damage - Mine: {} - Grimro: {}'.format(skill.damage,10035.72419*0.95)) # 0.95 to factor in toughness multiplier
@@ -382,8 +389,8 @@ ultimate = SilverWolfCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,19457.01629*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Herta #####')
-HertaCharacter = Herta(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'iceDmg'],
-                        substats = {'flatSpd': 2, 'CR': 10, 'CD': 12}),
+HertaCharacter = Herta(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.ice'],
+                        substats = {'SPD.flat': 2, 'CR': 10, 'CD': 12}),
                         lightcone = TheSeriousnessOfBreakfast(**config),
                         relicsetone = HunterOfGlacialForest2pc(),
                         relicsettwo = MusketeerOfWildWheat2pc(),
@@ -402,8 +409,8 @@ ultimate = HertaCharacter.useUltimate()
 print('Ultimate Damage - Mine: {} - Grimro: {}'.format(ultimate.damage,31060.48263*0.95)) # 0.95 to factor in toughness multiplier
 
 print('##### Arlan #####')
-ArlanCharacter = Arlan(RelicStats(mainstats = ['percAtk', 'flatSpd', 'CR', 'lighDmg'],
-                        substats = {'flatSpd': 2, 'CR': 10, 'CD': 12}),
+ArlanCharacter = Arlan(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.lightning'],
+                        substats = {'SPD.flat': 2, 'CR': 10, 'CD': 12}),
                         lightcone = OnTheFallOfAnAeon(uptime = 0.0, stacks=4.0, **config),
                         relicsetone = BandOfSizzlingThunder2pc(),
                         relicsettwo = BandOfSizzlingThunder4pc(),

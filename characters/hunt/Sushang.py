@@ -23,7 +23,6 @@ class Sushang(BaseCharacter):
         self.weaknessBrokenUptime = weaknessBrokenUptime
         self.weaknessBrokenStacks = weaknessBrokenStacks
         self.riposteStacks = ripostedStacks
-        self.ultBuffCooldown = 0
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
@@ -36,7 +35,7 @@ class Sushang(BaseCharacter):
                      amount=0.21 if self.eidolon >= 5 else 0.2,
                      stacks=weaknessBrokenStacks if self.eidolon >= 6 else 1.0,
                      uptime=self.weaknessBrokenUptime)
-        self.addStat('DMG',description='trace',amount=0.0249999996740371,stacks=self.riposteStacks)
+        self.addStat('DMG',description='trace',amount=0.0249999996740371,type=['swordStance'],stacks=self.riposteStacks)
         self.addStat('AdvanceForward',description='trace',amount=0.15,type=['basic'],uptime=self.weaknessBrokenUptime)
         self.addStat('AdvanceForward',description='trace',amount=0.15,type=['skill'],uptime=self.weaknessBrokenUptime)
         self.addStat('AdvanceForward',description='ultimate',amount=1.0,type=['ultimate'])
@@ -67,12 +66,14 @@ class Sushang(BaseCharacter):
 
     def useSkill(self):
         stanceChance = self.weaknessBrokenUptime + (1.0 - self.weaknessBrokenUptime) * 0.33
-        if self.ultBuffCooldown > 0.0:
+        
+        ultBuffDuration = self.getTempBuffDuration('ultimate')
+        if ultBuffDuration is not None and self.getTempBuffDuration('ultimate') > 0.0:
             stanceChance *= 2 # 2 more chances at half damage, is essentially 1 more full chance
         
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill') + stanceChance * self.getTotalMotionValue('swordStance')
+        retval.damage = self.getTotalMotionValue('skill')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -81,6 +82,9 @@ class Sushang(BaseCharacter):
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0 + (self.weaknessBrokenUptime if self.eidolon >= 1 else 0.0)
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        
+        retval += stanceChance * self.useSwordStance()
+        
         self.endTurn()
         return retval
 

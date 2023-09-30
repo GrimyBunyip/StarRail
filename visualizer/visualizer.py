@@ -49,7 +49,7 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
         char:BaseCharacter = info.character
         extraImage:str = info.extraImage
         
-        speed = char.getTotalSpd()
+        speed = char.getTotalStat('SPD')
         cycles = actionEffect.actionvalue * 100.0 / speed
         values.append([(actionEffect.damage) / cycles, 
                        (actionEffect.damage + dotEffect.damage) / cycles, 
@@ -102,8 +102,8 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
             ab2 = AnnotationBbox(img, (bar.get_width() - RIGHT_OFFSET + PICTURE_SIZE, bar.get_y() + bar.get_height()/2), frameon=False)
             ax.add_artist(ab2)
             
-        speed = char.getTotalSpd()
-        effectHitRate = char.EHR
+        speed = char.getTotalStat('SPD')
+        effectHitRate = char.getTotalStat('EHR')
         cycles = totalEffect.actionvalue * 100.0 / speed # action value = # of turns kafka took, cycles = # of cycles that passed during this rotation
 
         ax.text(x = LEFT_OFFSET,

@@ -35,10 +35,12 @@ class JingYuan(BaseCharacter):
         self.addStat('CD',description='trace',amount=0.25,type=['talent'],uptime=self.battaliaCrushUptime)
         
         # Eidolons
-        self.addStat('DMG',description='e2',amount=0.2,type=['basic'],uptime=self.e2Uptime)
-        self.addStat('DMG',description='e2',amount=0.2,type=['skill'],uptime=self.e2Uptime)
-        self.addStat('DMG',description='e2',amount=0.2,type=['ultimate'],uptime=self.e2Uptime)
-        self.addStat('DMG',description='e6',amount=0.36,uptime=self.e6Uptime)
+        if self.eidolon >= 2:
+            self.addStat('DMG',description='e2',amount=0.2,type=['basic'],uptime=self.e2Uptime)
+            self.addStat('DMG',description='e2',amount=0.2,type=['skill'],uptime=self.e2Uptime)
+            self.addStat('DMG',description='e2',amount=0.2,type=['ultimate'],uptime=self.e2Uptime)
+        if self.eidolon >= 6:
+            self.addStat('DMG',description='e6',amount=0.36,uptime=self.e6Uptime)
         
         # Gear
         self.equipGear()
@@ -83,13 +85,14 @@ class JingYuan(BaseCharacter):
 
     def useTalent(self):
         retval = BaseEffect()
+        type = ['talent','followup']
         retval.damage = self.getTotalMotionValue('talent')
-        retval.damage *= self.getTotalCrit(['talent','followup'])
-        retval.damage *= self.getTotalDmg(['talent','followup'])
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 15.0 * self.getBreakEfficiency(type)
         retval.energy = ( 2.0 * self.getER(type) ) if self.eidolon >= 4 else 0.0
-        retval.actionvalue = 0.0 - min(1.0,self.getTotalStat('AdvanceForward','talent'))
+        retval.actionvalue = self.getAdvanceForward(type)
         
         multiplier = 1.0
         if self.numEnemies >= 2:

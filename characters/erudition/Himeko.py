@@ -64,6 +64,7 @@ class Himeko(BaseCharacter):
     def useSkill(self):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -88,6 +89,7 @@ class Himeko(BaseCharacter):
 
     def useTalent(self):
         retval = BaseEffect()
+        type = ['talent','followup']
         retval.damage = self.getTotalMotionValue('talent')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

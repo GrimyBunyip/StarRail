@@ -13,12 +13,13 @@ class Jingliu(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                transmigrationPercAtk:float=1.8,
+                transmigrationAtk:float=1.8,
                 e2Uptime:float=0.5,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Jingliu')
         self.e2Uptime = e2Uptime
+        self.transmigrationAtk = transmigrationAtk
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(type=['basic'],area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
@@ -32,8 +33,8 @@ class Jingliu(BaseCharacter):
                                             BaseMV(type=['ultimate'],area='adjacent', stat='atk', value=1.5, eidolonThreshold=3, eidolonBonus=0.12)]
         
         # Talents
-        self.transmigrationPercAtk = min(1.98 if self.eidolon >= 3 else 1.8,transmigrationPercAtk) + (0.3 if self.eidolon >= 4 else 0.0)
-        self.addStat('ATK.percent',description='talent',type=['transmigration'],amount=self.transmigrationPercAtk)
+        self.transmigrationAtk = min(1.98 if self.eidolon >= 3 else 1.8,self.transmigrationAtk) + (0.3 if self.eidolon >= 4 else 0.0)
+        self.addStat('ATK.percent',description='talent',type=['transmigration'],amount=self.transmigrationAtk)
         self.addStat('CR',description='talent',type=['transmigration'],amount=0.5)
         self.addStat('DMG',description='trace',type=['ultimate'],amount=0.2)
         self.addStat('AdvanceForward',description='trace',type=['skill'],amount=0.1)

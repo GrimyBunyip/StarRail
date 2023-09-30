@@ -15,7 +15,7 @@ class InTheNight(BaseLightCone):
             char.addStat('CR',description=self.name,
                                     amount=0.15 + 0.03 * self.superposition)
             
-            num_stacks = math.floor( ( char.getTotalSpd() - 100.0 ) / 10.0 )
+            num_stacks = math.floor( ( char.getTotalStat('SPD') - 100.0 ) / 10.0 )
             num_stacks = min(num_stacks, 6)
             
             char.addStat('ATK.percent',description=self.name,

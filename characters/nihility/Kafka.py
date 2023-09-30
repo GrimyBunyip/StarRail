@@ -105,7 +105,7 @@ class Kafka(BaseCharacter):
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = ( 10.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.skillpoints = 0.0
-        retval.actionvalue = 0.0 - min(1.0,self.getTotalStat('AdvanceForward','talent'))
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval
 
     def useDot(self):

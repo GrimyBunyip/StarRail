@@ -111,6 +111,7 @@ class Blade(BaseCharacter):
     def useTalent(self):
         retval = BaseEffect()
         type = ['followup','talent']
+        retval.damage = self.getTotalMotionValue('talent')
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)

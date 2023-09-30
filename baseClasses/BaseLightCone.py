@@ -1,5 +1,5 @@
 import os
-from copy import copy
+from copy import deepcopy
 import pandas as pd
 from baseClasses.BaseCharacter import BaseCharacter, EMPTY_STATS
 from baseClasses.BuffEffect import BuffEffect
@@ -18,19 +18,17 @@ class BaseLightCone(object):
         
     def loadConeStats(self, name:str):
         self.name = name
-        self.stats = copy(EMPTY_STATS)
+        self.stats = deepcopy(EMPTY_STATS)
         df = pd.read_csv(STATS_FILEPATH)
         rows = df.iloc[:, 0]
         for column in df.columns:
             split_column = column.split('.')
             data = df.loc[rows[rows == name].index,column].values[0]
             if len(split_column) > 1:
-                column_key, column_type = split_column[0], split_column[1]
-                if column_type in ['base','percent','flat']:
-                    effect = BuffEffect(column_key,'Light Cone Stats',data,mathType=column_type)
-                else:
-                    effect = BuffEffect(column_key,'Light Cone  Stats',data,type=column_type)
-                self.stats[column_key].append(effect)
+                column_key = split_column[0]
+                if not data == 0.0: # don't bother loading empty stats
+                    effect = BuffEffect(column,'Light Cone  Stats',data)
+                    self.stats[column_key].append(effect)
             else:
                 self.__dict__[column] = data
                 
@@ -49,8 +47,9 @@ class BaseLightCone(object):
             self.superposition = config['battlePassSuperpositions']
                 
     def addStats(self, char:BaseCharacter):
-        for key, value in self.stats.items():
-            char.stats[key].append(value)
+        for key, values in self.stats.items():
+            for value in values:
+                char.stats[key].append(value)
         char.lightcone = self
 
     def equipTo(self, char:BaseCharacter):

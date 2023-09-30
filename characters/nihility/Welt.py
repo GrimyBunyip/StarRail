@@ -58,6 +58,7 @@ class Welt(BaseCharacter):
     def useSkill(self):
         num_hits = 4.0 if self.eidolon >= 6 else 3.0
         retval = BaseEffect()
+        type = ['skill']
         retval.damage = self.getTotalMotionValue('skill') * (num_hits + 0.8 if self.eidolon >= 1 else 0.0)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

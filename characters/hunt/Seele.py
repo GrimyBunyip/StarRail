@@ -28,6 +28,7 @@ class Seele(BaseCharacter):
 
         # Talents
         self.addStat('SPD.percent',description='trace',amount=0.25,uptime=self.sheathedBladeUptime)
+        self.addStat('AdvanceForward',description='trace',amount=0.20,type=['basic'])
 
         # Eidolons
         if self.eidolon >= 1:
@@ -62,7 +63,7 @@ class Seele(BaseCharacter):
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 - 0.2 - min(1.0,self.getTotalStat('AdvanceForward','skill')) # advance forward 0.2 from passive
+        retval.actionvalue = 1.0 - self.getAdvanceForward(type)
         return retval
 
     def useUltimate(self):
