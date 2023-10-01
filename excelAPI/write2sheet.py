@@ -36,7 +36,11 @@ DEBUG_COLUMN_NAMES = [
     'ResPen', 'DefShred',
 ]
 
-def writeVisualizationList(visualizationList:list,path:str,sheetname:str):
+def writeVisualizationList(visInfoList:list,path:str,sheetname:str):
+    for i, visInfo in enumerate(visInfoList):
+        if isinstance(visInfo,VisualizationInfo):
+            visInfoList[i] = [visInfo]
+    
     workbook:Workbook = Workbook()
     sheet:Worksheet = workbook.active
     sheet.title = sheetname
@@ -55,14 +59,24 @@ def writeVisualizationList(visualizationList:list,path:str,sheetname:str):
     sheet.column_dimensions[get_column_letter(2)].width = 60
     sheet.column_dimensions[get_column_letter(5)].width = 30
     
-    for info in visualizationList:
-        info:VisualizationInfo
+    for visInfo in visInfoList:
         
-        rotationName:str = info.name
-        character:BaseCharacter = info.character
-        totalEffect:BaseEffect = info.effect + info.breakEffect
-        if sum(info.dotEffect.debugCount) > 0:
-            totalEffect += info.dotEffect
+        rotationName:str = ' '.join([info.name for info in visInfo]) # append the names of the characters together
+        character:BaseCharacter = visInfo[0].character # get the first character as the lead character
+        totalEffect:BaseEffect = BaseEffect()
+        for i, info in enumerate(visInfo):
+            info:VisualizationInfo
+            if i > 0: # only track energy and action values for the lead character
+                info.effect.energy = 0.0
+                info.effect.actionvalue = 0.0
+                info.dotEffect.energy = 0.0
+                info.dotEffect.actionvalue = 0.0
+                info.breakEffect.energy = 0.0
+                info.breakEffect.actionvalue = 0.0
+            
+            totalEffect += info.effect + info.breakEffect
+            if sum(info.dotEffect.debugCount) > 0:
+                totalEffect += info.dotEffect
         
         # write character info and header info
         color = hex_dict[character.element]

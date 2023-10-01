@@ -8,7 +8,6 @@ class VisualizationInfo():
     effect:BaseEffect
     breakEffect:BaseEffect
     dotEffect:BaseEffect
-    extraImage:str
     
 def DotEstimator(rotation:list, char:BaseCharacter, config:dict, dotMode:str = 'alwaysSingle'):
     # apply a number of dot ticks proportional to enemy speed, this does not count kafka procs
@@ -21,7 +20,7 @@ def DotEstimator(rotation:list, char:BaseCharacter, config:dict, dotMode:str = '
         return num_enemy_turns * char.numEnemies
     return 0.0
 
-def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config:dict, breakDotMode:str = 'limited', numDot:float=0.0, extraImage:str=None):
+def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config:dict, breakDotMode:str = 'limited', numDot:float=0.0):
     
     totalEffect:BaseEffect = BaseEffect()
     breakEffect:BaseEffect = BaseEffect()
@@ -57,6 +56,5 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
     retval.effect = copy(totalEffect)
     retval.breakEffect = copy(breakEffect)
     retval.dotEffect = copy(dotEffect)
-    retval.extraImage = extraImage
     
     return retval

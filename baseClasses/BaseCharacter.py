@@ -54,7 +54,7 @@ class BaseCharacter(object):
     enemyRes:float
     weaknessBrokenUptime:float
 
-    def __init__(self, relicstats, lightcone=None, relicsetone=None, relicsettwo=None, planarset=None, **config):
+    def __init__(self, relicstats={}, lightcone=None, relicsetone=None, relicsettwo=None, planarset=None, **config):
         self.__dict__.update(config)
         self.stats = deepcopy(EMPTY_STATS)
         self.tempStats = deepcopy(EMPTY_STATS)

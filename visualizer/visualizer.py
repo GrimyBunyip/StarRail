@@ -1,12 +1,11 @@
 import io
-import multiprocessing
 
 from urllib.request import urlopen
 
 import matplotlib.pyplot as plt
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from matplotlib.colors import to_rgba
-#import mplcursors
+from matplotlib.patches import Rectangle
 
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseEffect import BaseEffect
@@ -22,7 +21,10 @@ COLOR_DICT = {
     'imaginary': 'darkgoldenrod',
 }
 
-def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.png',  **config):
+def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **config):
+    for i, visInfo in enumerate(visInfoList):
+        if isinstance(visInfo,VisualizationInfo):
+            visInfoList[i] = [visInfo]
     
     # convert the colors to different opacities for the stacked bar plot
     rgba_dict = {}
@@ -35,90 +37,102 @@ def visualize(visInfo:VisualizationInfo, visualizerPath:str='visualizer\\visual.
         rgba3[3] = 0.25 # total damage
         rgba_dict[key] = [rgba1, rgba2, rgba3]
 
+    teamsize = max([len(visInfo) for visInfo in visInfoList])
+
     # Sample data
     rotationNames = []
     values = []
-    characters = []
     colors = []
+    characters = []
     totalEffects = []
-    extraImages = []
-    for info in visInfo:
-        info:VisualizationInfo
-        rotationName:str = info.name
-        actionEffect:BaseEffect = info.effect
-        breakEffect:BaseEffect = info.breakEffect
-        dotEffect:BaseEffect = info.dotEffect
-        char:BaseCharacter = info.character
-        extraImage:str = info.extraImage
+    bottoms = []
+    for visInfo in visInfoList: #visInfo for each rotation
+        teamName = ' '.join([info.name for info in visInfo])        
+        rotationNames.append(teamName)
         
-        speed = char.getTotalStat('SPD')
-        cycles = actionEffect.actionvalue * 100.0 / speed
-        values.append([(actionEffect.damage) / cycles, 
-                       (actionEffect.damage + dotEffect.damage) / cycles, 
-                       (actionEffect.damage + dotEffect.damage + breakEffect.damage) / cycles])
-        totalEffects.append(actionEffect + dotEffect + breakEffect)
-        rotationNames.append(rotationName)
-        characters.append(char)
-        colors.append(rgba_dict[char.element])
-        extraImages.append(extraImage)
+        teamValue = []
+        teamColor = []
+        teamCharacters = []
+        teamBottom = []
+        teamEffect:BaseEffect = BaseEffect()
+        for i, info in enumerate(visInfo): #info for each character in each rotation
+            info:VisualizationInfo
+            actionEffect:BaseEffect = info.effect
+            breakEffect:BaseEffect = info.breakEffect
+            dotEffect:BaseEffect = info.dotEffect
+            char:BaseCharacter = info.character
+            
+            speed = char.getTotalStat('SPD')
+            cycles = actionEffect.actionvalue * 100.0 / speed
+            
+            teamBottom.append(sum(teamValue))
+            teamValue.append(actionEffect.damage / cycles)
+            teamBottom.append(sum(teamValue))
+            teamValue.append(dotEffect.damage / cycles)
+            teamBottom.append(sum(teamValue))
+            teamValue.append(breakEffect.damage / cycles)
+            teamColor.append(rgba_dict[char.element][0])
+            teamColor.append(rgba_dict[char.element][1])
+            teamColor.append(rgba_dict[char.element][2])
+            teamCharacters.append(char)
+            
+            if i > 0: # only track the energy and action values of the lead character
+                actionEffect.energy = 0.0
+                actionEffect.actionvalue = 0.0
+            
+            teamEffect += actionEffect + dotEffect + breakEffect
+        
+        values.append(teamValue)
+        colors.append(teamColor)
+        characters.append(teamCharacters)
+        bottoms.append(teamBottom)
+        totalEffects.append(teamEffect)
 
     # sort the data from highest at the top
-    combined_data = list(zip(rotationNames, values, characters, colors, totalEffects, extraImages))
-    sorted_data = sorted(combined_data, key=lambda x:x[1][2])
-    rotationNames, values, characters, colors, totalEffects, extraImages = zip(*sorted_data)
+    combined_data = list(zip(rotationNames, values, characters, colors, bottoms, totalEffects,))
+    sorted_data = sorted(combined_data, key=lambda x:sum(x[1])) # x[1] is values, x[1][-1] is the largest damage entry in values
+    rotationNames, values, characters, colors, bottoms, totalEffects = zip(*sorted_data)
 
     fig, ax = plt.subplots(figsize=(22,2*len(characters)))
 
     # Create the bar chart
-    bars = ax.barh([x for x in range(len(rotationNames))], [x[0] for x in values], color = [x[0] for x in colors])
-    bars = ax.barh([x for x in range(len(rotationNames))], [x[1] for x in values], color = [x[1] for x in colors])
-    bars = ax.barh([x for x in range(len(rotationNames))], [x[2] for x in values], color = [x[2] for x in colors])
-    
-    '''cursor = mplcursors.cursor(hover=True)
-    @cursor.connect('add')
-    def on_add(sel):
-        x, y, width, height = sel.artist[sel.target.index].get_bbox().bounds
-        sel.annotation.set(text='hello',
-                        position=(10, 0), anncoords="offset points")
-        sel.annotation.xy = (x + width / 2, y + height / 2)
-        sel.annotation.get_bbox_patch().set(alpha=0.8)'''
+    for i in range(teamsize*3):
+        bars = ax.barh([x for x in range(len(rotationNames))], [x[i] for x in values], 
+                       left = [x[i] for x in bottoms],
+                       color = [x[i] for x in colors])
 
     # define left and right offsets
     PICTURE_SIZE = 9000
     LEFT_OFFSET = 1000
-    RIGHT_OFFSET = 2500
+    RIGHT_OFFSET = PICTURE_SIZE
 
     # Download images and inlay them on the bars as annotations
-    for bar, char, rotationName, totalEffect, extraImage in zip(bars, characters, rotationNames, totalEffects, extraImages):
-        totalEffect:BaseEffect
-        img_data = urlopen(char.graphic).read()
-        img = plt.imread(io.BytesIO(img_data), format='png')  # You might need to adjust the format based on the image type
-        img = OffsetImage(img, zoom=0.5)  # Adjust the zoom factor as needed
-        ab1 = AnnotationBbox(img, (bar.get_width() - RIGHT_OFFSET, bar.get_y() + bar.get_height()/2), frameon=False)
-        ax.add_artist(ab1)
-        
-        if extraImage is not None:
-            img_data = urlopen(extraImage).read()
+    for bar, teamChars, rotationName, totalEffect in zip(bars, characters, rotationNames, totalEffects):
+        bar:Rectangle
+        for i, char in enumerate(teamChars):
+            img_data = urlopen(char.graphic).read()
             img = plt.imread(io.BytesIO(img_data), format='png')  # You might need to adjust the format based on the image type
             img = OffsetImage(img, zoom=0.5)  # Adjust the zoom factor as needed
-            ab2 = AnnotationBbox(img, (bar.get_width() - RIGHT_OFFSET + PICTURE_SIZE, bar.get_y() + bar.get_height()/2), frameon=False)
-            ax.add_artist(ab2)
-            
-        speed = char.getTotalStat('SPD')
-        effectHitRate = char.getTotalStat('EHR')
+            ab = AnnotationBbox(img, (bar.get_width() + bar.get_x() - RIGHT_OFFSET + PICTURE_SIZE * i, bar.get_y() + bar.get_height()/2), frameon=False)
+            ax.add_artist(ab)
+
+        totalEffect:BaseEffect
+        leadChar:BaseCharacter = teamChars[0]
+        speed = leadChar.getTotalStat('SPD')
+        effectHitRate = leadChar.getTotalStat('EHR')
         cycles = totalEffect.actionvalue * 100.0 / speed # action value = # of turns kafka took, cycles = # of cycles that passed during this rotation
 
         ax.text(x = LEFT_OFFSET,
                 y = bar.get_y() + bar.get_height() * 2 / 4,
-                s = char.longName + 
+                s = leadChar.longName + 
                     '\nSpd: ' + str(round(speed, 2)) + '    EHR: ' + str(round(effectHitRate, 2)) + 
                     '\nRotation Cycles: ' + str(round(cycles, 2)),
                 va = 'center', 
                 color = 'white')
 
-        energySurplus = totalEffect.energy - char.maxEnergy
-        ax.text(x = bar.get_x() + bar.get_width() * 1 / 2,
-                y = bar.get_y() + bar.get_height() * 2 / 4,
+        energySurplus = totalEffect.energy - leadChar.maxEnergy
+        ax.text(x = (bar.get_x() + bar.get_width()) / 2,
+                y = bar.get_y() + bar.get_height() /2,
                 s = rotationName + 
                     '\nDamage per Cycle: ' + str(int((totalEffect.damage) / cycles)) + 
                     '\nGauge per Cycle: ' + str(round(totalEffect.gauge / cycles, 1)) + 
