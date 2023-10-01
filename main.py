@@ -295,7 +295,7 @@ if __name__ == '__main__':
     # Dan Heng
     DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind'],
                             substats = {'CR': 7, 'CD': 13}),
-            lightcone = CruisingInTheStellarSea(**config),
+            lightcone = Swordplay(**config),
             relicsetone = EagleOfTwilightLine2pc(), relicsettwo=EagleOfTwilightLine4pc(), planarset = SpaceSealingStation(),
             **config)
     
@@ -313,7 +313,7 @@ if __name__ == '__main__':
     #Yanqing
     YanqingCharacter = Yanqing(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
                             substats = {'CR': 5, 'CD': 15}),
-                    lightcone = CruisingInTheStellarSea(uptimeHP=0.5, **config),
+                    lightcone = Swordplay(uptimeHP=0.5, **config),
                     relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=2.0/3.5), planarset = SpaceSealingStation(),
                     soulsteelUptime = 1.0,
                     **config)
@@ -357,7 +357,7 @@ if __name__ == '__main__':
     # Topaz
     TopazCharacter = Topaz(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.fire'],
                             substats = {'CR': 6, 'CD': 14}),
-            lightcone = CruisingInTheStellarSea(**config),
+            lightcone = Swordplay(**config),
             relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = InertSalsotto(),
             **config)
     
@@ -527,7 +527,7 @@ if __name__ == '__main__':
     # Sushang
     SushangCharacter = Sushang(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.physical'],
                     substats = {'CR': 9, 'CD': 11}),
-                    lightcone = CruisingInTheStellarSea(**config),
+                    lightcone = Swordplay(**config),
                     relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = ChampionOfStreetwiseBoxing4pc(), planarset = RutilantArena(),
                     **config)
 

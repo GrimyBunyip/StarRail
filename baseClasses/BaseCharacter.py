@@ -186,6 +186,9 @@ class BaseCharacter(object):
     def getVulnerability(self,type:list=[], element:str=None):
         return 1.0 + self.getTotalStat('Vulnerability',type,element)
     
+    def getBreakEffect(self,type:list=[], element:str=None):
+        return 1.0 + self.getTotalStat('BreakEffect',type,element)
+    
     def getBreakEfficiency(self,type:list=[], element:str=None):
         return 1.0 + self.getTotalStat('BreakEfficiency',type,element)
     
@@ -265,8 +268,8 @@ class BaseCharacter(object):
         baseDotDamage = self.breakLevelMultiplier
         baseDotDamage *= 0.5 + self.enemyToughness / 120
         baseDotDamage *= breakMultipliers[self.element]
-        baseDotDamage *= 1.0 + self.getBreakEfficiency(type)
-        baseDotDamage *= 1.0 + self.getVulnerability(type)
+        baseDotDamage *= self.getBreakEffect(type)
+        baseDotDamage *= self.getVulnerability(type)
         baseDotDamage = self.applyDamageMultipliers(baseDotDamage,type)
 
         retval.damage = baseDotDamage
@@ -279,7 +282,7 @@ class BaseCharacter(object):
         baseDotDamage = 0.0
 
         if self.element == 'physical':
-            baseDotDamage = 2.0 *self.breakLevelMultiplier
+            baseDotDamage = 2.0 * self.breakLevelMultiplier
             baseDotDamage *= 0.5 + self.enemyToughness / 120
             if self.enemyType == 'elite':
                 bleedDamage = 0.07 * self.enemyMaxHP
@@ -298,7 +301,7 @@ class BaseCharacter(object):
             baseDotDamage = 0.6 * 3 * self.breakLevelMultiplier
             baseDotDamage *= 0.5 + self.enemyToughness / 120
 
-        baseDotDamage *= 1.0 + self.getTotalStat('BreakEffect',type)
+        baseDotDamage *= self.getBreakEffect(type)
         baseDotDamage *= self.getVulnerability(type)
         baseDotDamage = self.applyDamageMultipliers(baseDotDamage,type)
 

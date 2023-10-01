@@ -30,8 +30,13 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
     for entry in rotation:
         entry:BaseEffect
         totalEffect += entry
+            
+    newDot = char.useDot()
+    char.addDebugInfo(newDot,['dot'],'Dot Ticks')
+    dotEffect += newDot * numDot
     
     # We estimate break damage proportional to the amount of break gauge applied
+    num_enemy_turns = totalEffect.actionvalue * char.enemySpeed / char.getTotalStat('SPD')
     num_breaks = totalEffect.gauge * config['weaknessBrokenUptime'] / config['enemyToughness']
     breakEffect += char.useBreak() * num_breaks
     if breakDotMode == 'limited': # limited means we are not able to maintain 100% break dot uptime
@@ -39,13 +44,7 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
             breakEffect += char.useBreakDot() * num_breaks * 2 # these four elements tick twice
         else:
             breakEffect += char.useBreakDot() * num_breaks
-            
-    newDot = char.useDot()
-    char.addDebugInfo(newDot,['dot'],'Dot Ticks')
-    dotEffect += newDot * numDot
-    
-    num_enemy_turns = totalEffect.actionvalue * char.enemySpeed / char.getTotalStat('SPD')
-    if breakDotMode == 'alwaysSingle':
+    elif breakDotMode == 'alwaysSingle':
         breakEffect += char.useBreakDot() * num_enemy_turns
     elif breakDotMode == 'alwaysBlast':
         breakEffect += char.useBreakDot() * num_enemy_turns * min(3, char.numEnemies)
