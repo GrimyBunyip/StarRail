@@ -277,10 +277,10 @@ if __name__ == '__main__':
                                                 JingYuanRotation, JingYuanCharacter, config))
 
     # Seele
-    SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.quantum'],
-                            substats = {'CR': 10, 'CD': 10}),
+    SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.quantum'],
+                            substats = {'CR': 16, 'CD': 4}),
             lightcone = CruisingInTheStellarSea(**config),
-            relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo=GeniusOfBrilliantStars4pc(), planarset = SpaceSealingStation(),
+            relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo=GeniusOfBrilliantStars4pc(), planarset = RutilantArena(),
             **config)
 
     SeeleRotation = [ # endTurn needed to factor in resurgence buff
@@ -320,7 +320,7 @@ if __name__ == '__main__':
     YanqingCharacter = Yanqing(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
                             substats = {'CR': 5, 'CD': 15}),
                     lightcone = CruisingInTheStellarSea(uptimeHP=0.5, **config),
-                    relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(), planarset = SpaceSealingStation(),
+                    relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=2.0/3.5), planarset = SpaceSealingStation(),
                     soulsteelUptime = 1.0,
                     **config)
 
@@ -343,15 +343,16 @@ if __name__ == '__main__':
     JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
                             substats = {'CR': 12, 'CD': 6, 'SPD.flat': 2}),
             lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
-            relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(), planarset = RutilantArena(),
+            relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
             **config)
     
     numSkill = 2.0
     numEnhanced = 3.0
     numUlt = 1.0
-
-    JingliuRotation = [ # 140 max energy
-            JingliuCharacter.useSkill() * numSkill, # 60 energy, 2 stack
+    
+    JingliuRotation = [JingliuCharacter.useSkill() * numSkill]
+    JingliuCharacter.addStat('DMG',description='Rutilant Arena', amount=0.20, type=['skill']) # take care of rutilant arena manually
+    JingliuRotation += [ # 140 max energy
             JingliuCharacter.useEnhancedSkill() * numEnhanced, # 60 energy, -3 stacks
             JingliuCharacter.useUltimate() * numUlt, # 5 energy, 1 stack
             JingliuCharacter.extraTurn() * 0.9 * numEnhanced / 2.0, # multiply by 0.9 because it tends to overlap with skill advances
@@ -586,7 +587,7 @@ if __name__ == '__main__':
     HertaCharacter = Herta(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.ice'],
                     substats = {'CR':6,'CD':14}),
             lightcone = TheSeriousnessOfBreakfast(**config),
-            relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(), planarset = SpaceSealingStation(),
+            relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=2.0/3.0), planarset = SpaceSealingStation(),
             **config)
 
     HertaRotation = [ # sequencing and end turn mechanic exists her to factor in her ult buff
@@ -637,6 +638,6 @@ if __name__ == '__main__':
     '''
 
     visualize(visualizationList, visualizerPath='visualizer\SoloVisual.png', **config)
-    
+        
     from excelAPI.write2sheet import writeVisualizationList
     writeVisualizationList(visualizationList,path='visualizer\SoloVisual.xlsx',sheetname='Solo vs Two')

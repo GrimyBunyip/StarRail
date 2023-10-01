@@ -337,12 +337,14 @@ class BaseCharacter(object):
         
 def getStatComments(character:BaseCharacter,stat:str,type:list=[]):
     retval = ''
-    for entry in character.stats[stat] + character.tempStats[stat]:
+    commentList = character.stats[stat] + character.tempStats[stat]
+    commentList.sort(key=lambda x: x.mathType)
+    for entry in commentList:
         if entry.type is None or any(x in entry.type for x in type):
             entry:BuffEffect
             retval += entry.description + ':    '
             retval += str(round(entry.amount,2))
-            if entry.mathType is not None and entry.mathType != 'base':
+            if entry.mathType == 'flat':
                 retval += ' ' + entry.mathType
             if entry.stacks is not None and entry.stacks != 1.0:
                 retval += ', ' + str(round(entry.stacks,2)) + ' stacks'

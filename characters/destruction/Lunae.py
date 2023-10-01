@@ -68,18 +68,20 @@ class Lunae(BaseCharacter):
         type = ['basic']
         if hitNum is None:
             for i in range(2):
+                retval += self.useBasic(hitNum=i+1)
+        elif hitNum > 0:
+            if hitNum == 1:
                 retval.gauge = 30.0 * self.getBreakEfficiency(type)
                 retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
                 retval.skillpoints = 1.0
                 retval.actionvalue = 1.0 + self.getAdvanceForward(type)
-        elif hitNum > 0:
             retval.damage = self.getTotalMotionValue('basic_{}'.format(i+1),type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
+            self.addDebugInfo(retval,type,'Lunae Basic Hit {}'.format(hitNum))
         
         self.addHeart()
-        self.addDebugInfo(retval,type)
         return retval
 
     def useEnhancedBasic1(self, hitNum:int=None):
@@ -88,18 +90,18 @@ class Lunae(BaseCharacter):
         if hitNum is None: #iterate through each subhit then apply energy, SP, and Action Values
             for i in range(3):
                 retval += self.useEnhancedBasic1(hitNum=i+1)
-            retval.gauge = 60.0 * self.getBreakEfficiency(type)
-            retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
-            retval.skillpoints = 0.0
-            retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         elif hitNum > 0: # individual hits
+            if hitNum == 1:
+                retval.gauge = 60.0 * self.getBreakEfficiency(type)
+                retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
+                retval.actionvalue = 1.0 + self.getAdvanceForward(type)
             retval.damage = self.getTotalMotionValue('enhancedBasic1_{}'.format(hitNum),type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
+            self.addDebugInfo(retval,type,'Lunae Enhanced1 Hit {}'.format(hitNum))
         
         self.addHeart()
-        self.addDebugInfo(retval,type,'Lunae Enhanced Basic +1')
         return retval
 
     def useEnhancedBasic2(self, hitNum:int):
@@ -110,20 +112,20 @@ class Lunae(BaseCharacter):
         if hitNum is None: #iterate through each subhit then apply energy, SP, and Action Values
             for i in range(5):
                 retval += self.useEnhancedBasic2(hitNum=i+1)
-            retval.gauge = ( 90.0 + 30.0 * num_adjacents ) * self.getBreakEfficiency(type)
-            retval.energy = ( 35.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
-            retval.skillpoints = 0.0
-            retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         elif hitNum > 0: # individual hits
+            if hitNum == 1:
+                retval.gauge = ( 90.0 + 30.0 * num_adjacents ) * self.getBreakEfficiency(type)
+                retval.energy = ( 35.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
+                retval.actionvalue = 1.0 + self.getAdvanceForward(type)
             if hitNum >= 4:
                 self.addRoar()
             retval.damage = self.getTotalMotionValue('enhancedBasic3_{}'.format(hitNum),type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
+            self.addDebugInfo(retval,type,'Lunae Enhanced2 Hit {}'.format(hitNum))
         
         self.addHeart()
-        self.addDebugInfo(retval,type,'Lunae Enhanced Basic +2')
         return retval
 
     def useEnhancedBasic3(self, hitNum:int=None):
@@ -133,20 +135,20 @@ class Lunae(BaseCharacter):
         if hitNum is None: #iterate through each subhit then apply energy, SP, and Action Values
             for i in range(7):
                 retval += self.useEnhancedBasic3(hitNum=i+1)
-            retval.gauge = ( 120.0 + 60.0 * num_adjacents ) * self.getBreakEfficiency(type)
-            retval.energy = ( 40.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
-            retval.skillpoints = 0.0
-            retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         elif hitNum > 0: # individual hits
+            if hitNum == 1:
+                retval.gauge = ( 120.0 + 60.0 * num_adjacents ) * self.getBreakEfficiency(type)
+                retval.energy = ( 40.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
+                retval.actionvalue = 1.0 + self.getAdvanceForward(type)
             if hitNum >= 4:
                 self.addRoar()
             retval.damage = self.getTotalMotionValue('enhancedBasic3_{}'.format(hitNum),type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
+            self.addDebugInfo(retval,type,'Lunae Enhanced3 Hit {}'.format(hitNum))
         
         self.addHeart()
-        self.addDebugInfo(retval,type,'Lunae Enhanced Basic +3')
         return retval
 
     def useSkill(self):
@@ -163,18 +165,19 @@ class Lunae(BaseCharacter):
         if hitNum is None: #iterate through each subhit then apply energy, SP, and Action Values
             for i in range(3):
                 retval += self.useUltimate(hitNum=i+1)
-            retval.gauge = ( 60.0 * numBlast ) * self.getBreakEfficiency(type)
-            retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
-            retval.skillpoints = 3.0 if self.eidolon >= 2 else 2.0
-            retval.actionvalue = -1.0 if self.eidolon >= 2 else 0.0
         elif hitNum > 0: # individual hits
+            if hitNum == 1:
+                retval.gauge = ( 60.0 * numBlast ) * self.getBreakEfficiency(type)
+                retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+                retval.skillpoints = 3.0 if self.eidolon >= 2 else 2.0
+                retval.actionvalue = -1.0 if self.eidolon >= 2 else 0.0
             retval.damage = self.getTotalMotionValue('ultimate_{}'.format(hitNum),type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg()
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
+            self.addDebugInfo(retval,type,'Lunae Ultimate Hit {}'.format(hitNum))
         
         self.addHeart()
-        self.addDebugInfo(retval,type)
         return retval
     
     def addHeart(self):

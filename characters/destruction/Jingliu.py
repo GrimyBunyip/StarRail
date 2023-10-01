@@ -19,7 +19,7 @@ class Jingliu(BaseCharacter):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Jingliu')
         self.e2Uptime = e2Uptime
-        self.transmigrationAtk = transmigrationAtk
+        self.transmigrationAtk = min(1.98 if self.eidolon >= 3 else 1.8,transmigrationAtk) + (0.3 if self.eidolon >= 4 else 0.0)
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
@@ -33,11 +33,9 @@ class Jingliu(BaseCharacter):
                                             BaseMV(area='adjacent', stat='atk', value=1.5, eidolonThreshold=3, eidolonBonus=0.12)]
         
         # Talents
-        self.transmigrationAtk = min(1.98 if self.eidolon >= 3 else 1.8,self.transmigrationAtk) + (0.3 if self.eidolon >= 4 else 0.0)
         self.addStat('ATK.percent',description='talent',type=['transmigration'],amount=self.transmigrationAtk)
         self.addStat('CR',description='talent',type=['transmigration'],amount=0.5)
         self.addStat('DMG',description='trace',type=['ultimate'],amount=0.2)
-        self.addStat('AdvanceForward',description='trace',type=['skill'],amount=0.1)
         
         # Eidolons
         if self.eidolon >= 1:
@@ -74,7 +72,7 @@ class Jingliu(BaseCharacter):
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        retval.actionvalue = 1.0 - 0.1 + self.getAdvanceForward(type) #10% advance forward on skill trace
         self.addDebugInfo(retval,type)
         return retval
     
