@@ -387,7 +387,7 @@ if __name__ == '__main__':
             relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = RutilantArena(),
             **config)
 
-    QingqueRotation = [ # expect 2.3 SP used per basic, estimating with 1 2 2 3 4 split
+    QingqueRotation = [ # expect 2.3 SP used per basic, estimating with 1 2 2 3 4 split. Assume 1 whiff
             QingqueCharacter.useSkill(),
             QingqueCharacter.useSkill(),
             QingqueCharacter.useSkill(),
@@ -404,7 +404,7 @@ if __name__ == '__main__':
             QingqueCharacter.useEnhancedBasic(),
             QingqueCharacter.useSkill(),
             QingqueCharacter.useSkill(),
-            QingqueCharacter.useEnhancedBasic(),
+            QingqueCharacter.useBasic(),
             QingqueCharacter.drawTileFromAlly(),
             QingqueCharacter.useSkill(),
             QingqueCharacter.useUltimate(),
@@ -412,7 +412,7 @@ if __name__ == '__main__':
             QingqueCharacter.drawTileFromAlly(),
     ]
 
-    visualizationList.append(DefaultEstimator('Qingque 12E 5N 1Q', QingqueRotation, QingqueCharacter, config))
+    visualizationList.append(DefaultEstimator('Qingque 12E 4Enh 1N 1Q', QingqueRotation, QingqueCharacter, config))
 
     # Himeko
     HimekoCharacter = Himeko(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.fire'],
