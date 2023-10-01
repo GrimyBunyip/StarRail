@@ -23,9 +23,11 @@ class Qingque(BaseCharacter):
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
         self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.24),
                                                 BaseMV(area='adjacent', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['autarky'] = [BaseMV(area='single', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
-        self.motionValueDict['enhancedAutarky'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.12),
+
+        self.motionValueDict['autarky'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['enhancedAutarky'] = [BaseMV(area='single', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.24),
                                                 BaseMV(area='adjacent', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
+
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.16)]
         
         # Talents
@@ -132,7 +134,7 @@ class Qingque(BaseCharacter):
             self.setTempBuffStacks('skill',stacks)
         
         if self.eidolon >= 4:
-            self.averageAutarky += ( 1.0 - self.averageAutarky ) * 0.76
+            self.averageAutarky = 1.0 - ( 1.0 - self.averageAutarky ) * 0.76
             
         retval.energy += 1.0 if self.eidolon >= 2 else 0.0
         
