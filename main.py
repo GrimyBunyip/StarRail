@@ -292,12 +292,6 @@ if __name__ == '__main__':
     ]
     visualizationList.append(DefaultEstimator('Seele: 3E Resurgence(1E1Q)', SeeleRotation, SeeleCharacter, config))
 
-    SeeleRotation = [
-            SeeleCharacter.useSkill() * 4,
-            SeeleCharacter.useUltimate(),
-    ]
-    visualizationList.append(DefaultEstimator('Seele: 4E 1Q No Resurgence', SeeleRotation, SeeleCharacter, config))
-
     # Dan Heng
     DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind'],
                             substats = {'CR': 7, 'CD': 13}),
