@@ -146,7 +146,7 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
     plt.axis("off")
     plt.xticks([])
     plt.yticks([])
-    plt.title('Star Rail Damage per Cycle Calculator | 20 substats\n no techniques, everything at max stacks\n{} targets: {} with {} HP, {} Toughness, {:.2f} speed'.format(config['numEnemies'], config['enemyType'], config['enemyMaxHP'], config['enemyToughness'], config['enemySpeed']))
+    plt.title('Star Rail Damage per Cycle Calculator | 20 substats\n no techniques, DoTs already at max stacks where possible\n{} targets: {} with {} HP, {} Toughness, {:.2f} speed'.format(config['numEnemies'], config['enemyType'], config['enemyMaxHP'], config['enemyToughness'], config['enemySpeed']))
     plt.tight_layout()
     plt.savefig(visualizerPath)
     plt.show()
