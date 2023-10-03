@@ -116,7 +116,7 @@ if __name__ == '__main__':
 
     # Kafka
     KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
-                            substats = {'EHR': 3, 'ATK.percent': 5, 'SPD.flat': 12}),
+                            substats = {'EHR': 3, 'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5}),
                             lightcone = GoodNightAndSleepWell(**config),
                             relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = SpaceSealingStation(),
                             **config)
@@ -146,7 +146,7 @@ if __name__ == '__main__':
 
     # Blade
     BladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'DMG.wind'],
-                            substats = {'CR': 10, 'CD': 4, 'SPD.flat': 6}),
+                            substats = {'CR': 12, 'CD': 7, 'SPD.flat': 6, 'HP.percent': 3}),
                             lightcone = ASecretVow(uptime = 0.5, **config),
                             relicsetone = LongevousDisciple2pc(),
                             relicsettwo = LongevousDisciple4pc(),
@@ -174,7 +174,7 @@ if __name__ == '__main__':
 
     # Clara
     ClaraCharacter = Clara(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.physical'],
-                            substats = {'CR': 7, 'CD': 13}),
+                            substats = {'CR': 8, 'CD': 12, 'ATK.percent':5, 'SPD.flat': 3}),
             lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=5.0, **config),
             relicsetone = ChampionOfStreetwiseBoxing2pc(),
             relicsettwo = ChampionOfStreetwiseBoxing4pc(),
@@ -204,7 +204,7 @@ if __name__ == '__main__':
 
     # Lunae
     LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
-                            substats = {'CR': 10, 'CD': 10}),
+                            substats = {'CR': 10, 'CD': 10, 'ATK.percent': 5, 'SPD.flat': 3}),
             lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
             relicsetone = MusketeerOfWildWheat2pc(),
             relicsettwo = MusketeerOfWildWheat4pc(),
@@ -228,7 +228,7 @@ if __name__ == '__main__':
 
     # Serval
     ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
-                            substats = {'BreakEffect': 10, 'ATK.percent': 8, 'SPD.flat': 2}),
+                            substats = {'BreakEffect': 12, 'ATK.percent': 8, 'SPD.flat': 5, 'ATK.flat': 3}),
             lightcone = TheSeriousnessOfBreakfast(**config),
             relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SpaceSealingStation(),
             **config)
@@ -250,7 +250,7 @@ if __name__ == '__main__':
 
     # Jing Yuan
     JingYuanCharacter = JingYuan(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.lightning'],
-                            substats = {'CD': 8, 'CR': 5, 'SPD.flat': 7}),
+                            substats = {'CD': 11, 'CR': 7, 'SPD.flat': 7, 'ATK.percent': 3}),
             lightcone = GeniusesRepose(**config),
             relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = InertSalsotto(),
             **config)
@@ -277,24 +277,44 @@ if __name__ == '__main__':
                                                 JingYuanRotation, JingYuanCharacter, config))
 
     # Seele
-    SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.quantum'],
-                            substats = {'CR': 16, 'CD': 4}),
+    SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.quantum'],
+                            substats = {'CD': 12, 'CR': 8, 'ATK.percent': 5, 'SPD.flat': 3}),
             lightcone = CruisingInTheStellarSea(**config),
             relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo=GeniusOfBrilliantStars4pc(), planarset = RutilantArena(),
             **config)
 
     SeeleRotation = [ # endTurn needed to factor in resurgence buff
-            SeeleCharacter.useSkill() * 3,
+            SeeleCharacter.useBasic(),
+            SeeleCharacter.useSkill() * 2,
             SeeleCharacter.useResurgence(),
             SeeleCharacter.useSkill(),
             SeeleCharacter.useUltimate(),
             SeeleCharacter.endTurn(),
     ]
-    visualizationList.append(DefaultEstimator('Seele: 3E Resurgence(1E1Q)', SeeleRotation, SeeleCharacter, config))
+    visualizationList.append(DefaultEstimator('Seele: 1N 2E Resurgence(1E1Q)', SeeleRotation, SeeleCharacter, config))
+
+    SeeleRotation = [ # endTurn needed to factor in resurgence buff
+            SeeleCharacter.useBasic() * 2,
+            SeeleCharacter.useResurgence(),
+            SeeleCharacter.useSkill(),
+            SeeleCharacter.useUltimate(),
+            SeeleCharacter.endTurn(),
+            SeeleCharacter.useResurgence(),
+            SeeleCharacter.useSkill(),
+            SeeleCharacter.endTurn(),
+    ]
+    visualizationList.append(DefaultEstimator('Seele: 2N 2Resurgence(2E1Q)', SeeleRotation, SeeleCharacter, config))
+
+    SeeleRotation = [ # endTurn needed to factor in resurgence buff
+            SeeleCharacter.useSkill() * 4,
+            SeeleCharacter.useUltimate(),
+            SeeleCharacter.endTurn(),
+    ]
+    visualizationList.append(DefaultEstimator('Seele: 4E 1Q No Resurgence', SeeleRotation, SeeleCharacter, config))
 
     # Dan Heng
     DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind'],
-                            substats = {'CR': 7, 'CD': 13}),
+                            substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
             lightcone = Swordplay(**config),
             relicsetone = EagleOfTwilightLine2pc(), relicsettwo=EagleOfTwilightLine4pc(), planarset = SpaceSealingStation(),
             **config)
@@ -312,7 +332,7 @@ if __name__ == '__main__':
 
     #Yanqing
     YanqingCharacter = Yanqing(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
-                            substats = {'CR': 5, 'CD': 15}),
+                            substats = {'CR': 5, 'CD': 12, 'ATK.percent': 8, 'SPD.flat': 3}),
                     lightcone = Swordplay(uptimeHP=0.5, **config),
                     relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=2.0/3.5), planarset = SpaceSealingStation(),
                     soulsteelUptime = 1.0,
@@ -335,7 +355,7 @@ if __name__ == '__main__':
 
     # Jingliu
     JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
-                            substats = {'CR': 12, 'CD': 6, 'SPD.flat': 2}),
+                            substats = {'CR': 12, 'CD': 8, 'ATK.percent': 3, 'SPD.flat': 5}),
             lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
             relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
             **config)
@@ -356,7 +376,7 @@ if __name__ == '__main__':
 
     # Topaz
     TopazCharacter = Topaz(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.fire'],
-                            substats = {'CR': 6, 'CD': 14}),
+                            substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
             lightcone = Swordplay(**config),
             relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = InertSalsotto(),
             **config)
@@ -382,7 +402,7 @@ if __name__ == '__main__':
 
     # Qingque
     QingqueCharacter = Qingque(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.quantum'],
-                            substats = {'CR': 9, 'CD': 10, 'SPD.flat': 1}),
+                            substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
             lightcone = TheSeriousnessOfBreakfast(**config),
             relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = RutilantArena(),
             **config)
@@ -416,7 +436,7 @@ if __name__ == '__main__':
 
     # Himeko
     HimekoCharacter = Himeko(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.fire'],
-                            substats = {'CR': 3, 'CD': 11, 'SPD.flat': 6}),
+                            substats = {'CR': 7, 'CD': 12, 'ATK.percent':3, 'SPD.flat': 6}),
             lightcone = TheSeriousnessOfBreakfast(**config),
             relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SpaceSealingStation(),
             **config)
@@ -439,7 +459,7 @@ if __name__ == '__main__':
 
     # Hook
     HookCharacter = Hook(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.fire'],
-                            substats = {'CR': 4, 'CD': 9, 'SPD.flat': 7}),
+                            substats = {'CR': 8, 'CD': 10, 'SPD.flat': 7, 'ATK.percent': 3}),
             lightcone = OnTheFallOfAnAeon(**config),
             relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SpaceSealingStation(),
             **config)
@@ -462,7 +482,7 @@ if __name__ == '__main__':
 
     # Sampo
     SampoCharacter = Sampo(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.wind'],
-                            substats = {'ATK.percent': 7, 'SPD.flat': 3, 'EHR': 10}),
+                            substats = {'ATK.percent': 10, 'SPD.flat': 5, 'EHR': 10, 'BreakEffect': 3}),
             lightcone = GoodNightAndSleepWell(**config),
             relicsetone = EagleOfTwilightLine2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = PanCosmicCommercialEnterprise(),
             **config)
@@ -483,7 +503,7 @@ if __name__ == '__main__':
 
     # Luka
     LukaCharacter = Luka(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.physical'],
-                    substats = {'ATK.percent': 4, 'SPD.flat': 3, 'EHR': 13}),
+                    substats = {'ATK.percent': 8, 'SPD.flat': 5, 'EHR': 12, 'BreakEffect': 3}),
             lightcone = GoodNightAndSleepWell(**config),
             relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = ChampionOfStreetwiseBoxing4pc(), planarset = SpaceSealingStation(),
             **config)
@@ -506,7 +526,7 @@ if __name__ == '__main__':
 
     # Guinaifen
     GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
-                            substats = {'ATK.percent': 12, 'SPD.flat': 4, 'EHR': 4}),
+                            substats = {'ATK.percent': 12, 'SPD.flat': 8, 'EHR': 4, 'BreakEffect': 4}),
             lightcone = GoodNightAndSleepWell(**config),
             relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SpaceSealingStation(),
             **config)
@@ -526,7 +546,7 @@ if __name__ == '__main__':
 
     # Sushang
     SushangCharacter = Sushang(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.physical'],
-                    substats = {'CR': 9, 'CD': 11}),
+                    substats = {'CR': 9, 'CD': 11, 'ATK.percent': 5, 'SPD.flat': 3}),
                     lightcone = Swordplay(**config),
                     relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = ChampionOfStreetwiseBoxing4pc(), planarset = RutilantArena(),
                     **config)
@@ -543,7 +563,7 @@ if __name__ == '__main__':
 
     # Welt
     WeltCharacter = Welt(RelicStats(mainstats = ['ER', 'SPD.flat', 'CR', 'ATK.percent'],
-                    substats = {'CD': 12, 'CR': 5, 'SPD.flat':3}),
+                    substats = {'CD': 12, 'CR': 8, 'SPD.flat':3, 'ATK.percent': 5}),
             lightcone = GoodNightAndSleepWell(**config),
             relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = SpaceSealingStation(),
             **config)
@@ -562,7 +582,7 @@ if __name__ == '__main__':
 
     # SilverWolf
     SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR', 'BreakEffect'],
-                    substats = {'SPD.flat':12,'BreakEffect':8}),
+                    substats = {'SPD.flat':12,'BreakEffect':8, 'ATK.percent': 5, 'ATK.flat': 3}),
             lightcone = BeforeTheTutorialMissionStarts(**config),
             relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars2pc(), planarset = SprightlyVonwacq(),
             **config)
@@ -579,7 +599,7 @@ if __name__ == '__main__':
 
     # Herta
     HertaCharacter = Herta(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.ice'],
-                    substats = {'CR':6,'CD':14}),
+                    substats = {'CR':8,'CD':12, 'ATK.percent': 5, 'SPD.flat': 3}),
             lightcone = TheSeriousnessOfBreakfast(**config),
             relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=2.0/3.0), planarset = SpaceSealingStation(),
             **config)
@@ -597,7 +617,7 @@ if __name__ == '__main__':
 
     # Arlan
     ArlanCharacter = Arlan(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.lightning'],
-                    substats = {'CR':9,'CD':11}),
+                    substats = {'CR':9,'CD':11, 'ATK.percent':5, 'SPD.flat': 3}),
             lightcone = ASecretVow(**config),
             relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = RutilantArena(),
             **config)

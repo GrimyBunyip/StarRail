@@ -146,7 +146,7 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
     plt.axis("off")
     plt.xticks([])
     plt.yticks([])
-    plt.title('Star Rail Damage per Cycle Calculator | 20 substats | no techniques\nDoTs already at max stacks where possible, so nihility numbers may look a bit big\n{} targets: {} with {} HP, {} Toughness, {:.2f} speed'.format(config['numEnemies'], config['enemyType'], config['enemyMaxHP'], config['enemyToughness'], config['enemySpeed']))
+    plt.title('Star Rail Damage per Cycle Calculator | 12 8 5 3 relic substat split | no techniques\nDoTs already at max stacks where possible, so nihility numbers may look a bit big\n{} targets: {} with {} HP, {} Toughness, {:.2f} speed'.format(config['numEnemies'], config['enemyType'], config['enemyMaxHP'], config['enemyToughness'], config['enemySpeed']))
     plt.tight_layout()
     plt.savefig(visualizerPath)
     plt.show()

@@ -338,6 +338,16 @@ class BaseCharacter(object):
         effect.debugInfo.append(debugEntry)
         effect.debugCount.append(1)
         
+    def print(self):
+        print('Name: ',self.name)
+        print('SPD: ',self.getTotalStat('SPD'))
+        print('CR: ',self.getTotalStat('CR'))
+        print('CD: ',self.getTotalStat('CD'))
+        print('ATK: ',self.getTotalStat('ATK'))
+        print('HP: ',self.getTotalStat('HP'))
+        print('DEF: ',self.getTotalStat('DEF'))
+        print('EHR: ',self.getTotalStat('EHR'))
+        
 def getStatComments(character:BaseCharacter,stat:str,type:list=[]):
     retval = ''
     commentList = character.stats[stat] + character.tempStats[stat]
