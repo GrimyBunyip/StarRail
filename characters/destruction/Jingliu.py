@@ -35,7 +35,6 @@ class Jingliu(BaseCharacter):
         # Talents
         self.addStat('ATK.percent',description='talent',type=['transmigration'],amount=self.transmigrationAtk)
         self.addStat('CR',description='talent',type=['transmigration'],amount=0.5)
-        self.addStat('DMG',description='trace',type=['ultimate'],amount=0.2)
         
         # Eidolons
         if self.eidolon >= 1:
@@ -99,15 +98,15 @@ class Jingliu(BaseCharacter):
         self.addDebugInfo(retval,type,'Jingliu Enhanced Skill')
         return retval
 
-    def useUltimate(self):
+    def useUltimate(self, transmigration=True):
         blastEnemies = min(3,self.numEnemies)
         retval = BaseEffect()
-        type = ['ultimate','transmigration']
+        type = ['ultimate'] + (['transmigration'] if transmigration else [])
         retval.damage = self.getTotalMotionValue('ultimate',type)
         if self.eidolon >=1 and self.numEnemies == 1:
             retval.damage *= 1.5
         retval.damage *= self.getTotalCrit(type)
-        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getDmg(type) + (0.2 if transmigration else 0.0) # ascension
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 60.0 * blastEnemies * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
