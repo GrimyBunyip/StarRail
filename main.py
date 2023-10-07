@@ -303,14 +303,14 @@ if __name__ == '__main__':
             SeeleCharacter.useSkill(),
             SeeleCharacter.endTurn(),
     ]
-    visualizationList.append(DefaultEstimator('Seele: 2N 2Resurgence(2E1Q)', SeeleRotation, SeeleCharacter, config))
+    #visualizationList.append(DefaultEstimator('Seele: 2N 2Resurgence(2E1Q)', SeeleRotation, SeeleCharacter, config))
 
     SeeleRotation = [ # endTurn needed to factor in resurgence buff
             SeeleCharacter.useSkill() * 4,
             SeeleCharacter.useUltimate(),
             SeeleCharacter.endTurn(),
     ]
-    visualizationList.append(DefaultEstimator('Seele: 4E 1Q No Resurgence', SeeleRotation, SeeleCharacter, config))
+    #visualizationList.append(DefaultEstimator('Seele: 4E 1Q No Resurgence', SeeleRotation, SeeleCharacter, config))
 
     # Dan Heng
     DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind'],
@@ -364,12 +364,12 @@ if __name__ == '__main__':
     numEnhanced = 3.0
     numUlt = 1.0
     
-    JingliuRotation = [JingliuCharacter.useSkill() * numSkill]
-    JingliuCharacter.addStat('DMG',description='Rutilant Arena', amount=0.20, type=['skill']) # take care of rutilant arena manually
-    JingliuRotation += [ # 140 max energy
+    JingliuCharacter.addStat('DMG',description='Rutilant Arena', amount=0.20, type=['enhancedSkill']) # rutilant only applies to enhanced skills because of buff
+    JingliuRotation = [ # 140 max energy
+            JingliuCharacter.useSkill() * numSkill,
             JingliuCharacter.useEnhancedSkill() * numEnhanced, # 60 energy, -3 stacks
             JingliuCharacter.useUltimate() * numUlt, # 5 energy, 1 stack
-            JingliuCharacter.extraTurn() * 0.9 * numEnhanced / 2.0, # multiply by 0.9 because it tends to overlap with skill advances
+            JingliuCharacter.extraTurn() * 0.9, # multiply by 0.9 because it tends to overlap with skill advances
     ]
     visualizationList.append(DefaultEstimator('Jingliu {:.0f}E {:.0f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
                                                 JingliuRotation, JingliuCharacter, config))
