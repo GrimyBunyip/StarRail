@@ -303,14 +303,14 @@ if __name__ == '__main__':
             SeeleCharacter.useSkill(),
             SeeleCharacter.endTurn(),
     ]
-    #visualizationList.append(DefaultEstimator('Seele: 2N 2Resurgence(2E1Q)', SeeleRotation, SeeleCharacter, config))
+    visualizationList.append(DefaultEstimator('Seele: 2N 2Resurgence(2E1Q)', SeeleRotation, SeeleCharacter, config))
 
     SeeleRotation = [ # endTurn needed to factor in resurgence buff
             SeeleCharacter.useSkill() * 4,
             SeeleCharacter.useUltimate(),
             SeeleCharacter.endTurn(),
     ]
-    #visualizationList.append(DefaultEstimator('Seele: 4E 1Q No Resurgence', SeeleRotation, SeeleCharacter, config))
+    visualizationList.append(DefaultEstimator('Seele: 4E 1Q No Resurgence', SeeleRotation, SeeleCharacter, config))
 
     # Dan Heng
     DanHengCharacter = DanHeng(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind'],
