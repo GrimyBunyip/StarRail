@@ -104,7 +104,6 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
     # define left and right offsets
     PICTURE_SIZE = 9000
     LEFT_OFFSET = 1000
-    RIGHT_OFFSET = PICTURE_SIZE
 
     # Download images and inlay them on the bars as annotations
     for bar, teamChars, rotationName, totalEffect in zip(bars, characters, rotationNames, totalEffects):
@@ -113,7 +112,7 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
             img_data = urlopen(char.graphic).read()
             img = plt.imread(io.BytesIO(img_data), format='png')  # You might need to adjust the format based on the image type
             img = OffsetImage(img, zoom=0.5)  # Adjust the zoom factor as needed
-            ab = AnnotationBbox(img, (bar.get_width() + bar.get_x() - RIGHT_OFFSET + PICTURE_SIZE * i, bar.get_y() + bar.get_height()/2), frameon=False)
+            ab = AnnotationBbox(img, (bar.get_width() + bar.get_x() - PICTURE_SIZE * (len(teamChars) - i - 1), bar.get_y() + bar.get_height()/2), frameon=False)
             ax.add_artist(ab)
 
         totalEffect:BaseEffect

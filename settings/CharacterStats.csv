@@ -1,37 +1,40 @@
-name,ATK.base,DEF.base,HP.base,SPD.base,CR.base,CD.base,Taunt.base,maxEnergy,element,path,rarity,graphic,ATK.percent,DEF.percent,HP.percent,EHR.base,RES.base,DMG.wind,DMG.fire,DMG.ice,DMG.lightning,DMG.physical,DMG.quantum,DMG.imaginary,BreakEffect.base
-March 7th,511.56,573.3,1058.4,101,0.05,0.5,150,120,ice,preservation,4,https://static.wikia.nocookie.net/houkai-star-rail/images/d/d3/Character_March_7th_Icon.png,0,0.225,0,0,0.067,0,0,0.224,0,0,0,0,0
-Dan Heng,546.84,396.9,882,110,0.05,0.5,75,100,wind,hunt,4,https://static.wikia.nocookie.net/houkai-star-rail/images/1/1a/Character_Dan_Heng_Icon.png,0.18,0.125,0,0,0,0.224,0,0,0,0,0,0,0
-Himeko,756.76,436.59,1047.82,96,0.05,0.5,75,120,fire,erudition,5,https://static.wikia.nocookie.net/houkai-star-rail/images/0/00/Character_Himeko_Icon.png/,0.18,0,0,0,0.067,0,0.224,0,0,0,0,0,0
-Welt,620.93,509.36,1125.43,102,0.05,0.5,100,120,imaginary,nihility,5,https://static.wikia.nocookie.net/houkai-star-rail/images/1/11/Character_Welt_Icon.png/,0.28,0,0,0,0.067,0,0,0,0,0,0,0.144,0
-Kafka,679.14,485.1,1086.62,100,0.05,0.5,100,120,lightning,nihility,5,https://static.wikia.nocookie.net/houkai-star-rail/images/8/8c/Character_Kafka_Icon.png/,0.28,0,0.1,0.18,0,0,0,0,0,0,0,0,0
-Silver Wolf,640.33,460.84,1047.82,107,0.05,0.5,100,110,quantum,nihility,5,https://static.wikia.nocookie.net/houkai-star-rail/images/a/a3/Character_Silver_Wolf_Icon.png/,0.28,0,0,0.18,0,0,0,0,0,0,0.08,0,0
-Arlan,599.76,330.75,1199.52,102,0.05,0.5,125,110,lightning,destruction,4,https://static.wikia.nocookie.net/houkai-star-rail/images/a/a9/Character_Arlan_Icon.png/,0.28,0,0.1,0,0.12,0,0,0,0,0,0,0,0
-Asta,511.56,463.05,1023.12,106,0.117,0.5,100,120,fire,harmony,4,https://static.wikia.nocookie.net/houkai-star-rail/images/9/9f/Character_Asta_Icon.png/,0,0.225,0,0,0,0,0.224,0,0,0,0,0,0
-Herta,582.12,396.9,952.56,100,0.117,0.5,75,110,ice,erudition,4,https://static.wikia.nocookie.net/houkai-star-rail/images/b/bf/Character_Herta_Icon.png/,0,0.225,0,0,0,0,0,0.224,0,0,0,0,0
-Bronya,582.12,533.61,1241.86,99,0.05,0.74,100,120,wind,harmony,5,https://static.wikia.nocookie.net/houkai-star-rail/images/0/0f/Character_Bronya_Icon.png/,0,0,0,0,0.067,0.224,0,0,0,0,0,0,0
-Seele,640.33,363.83,931.39,115,0.05,0.74,75,120,quantum,hunt,5,https://static.wikia.nocookie.net/houkai-star-rail/images/9/9a/Character_Seele_Icon.png/,0.28,0.125,0,0,0,0,0,0,0,0,0,0,0
-Serval,652.68,374.85,917.28,104,0.237,0.5,75,100,lightning,erudition,4,https://static.wikia.nocookie.net/houkai-star-rail/images/7/7c/Character_Serval_Icon.png/,0,0,0,0.18,0.067,0,0,0,0,0,0,0,0
-Gepard,543.31,654.89,1397.09,92,0.05,0.5,150,100,ice,preservation,5,https://static.wikia.nocookie.net/houkai-star-rail/images/7/75/Character_Gepard_Icon.png/,0,0.125,0,0,0.12,0,0,0.224,0,0,0,0,0
-Natasha,476.28,507.15,1164.24,98,0.05,0.5,100,90,physical,abundance,4,https://static.wikia.nocookie.net/houkai-star-rail/images/6/61/Character_Natasha_Icon.png/,0,0.125,0.28,0,0.12,0,0,0,0,0,0,0,0
-Pela,546.84,463.05,987.84,105,0.05,0.5,100,110,ice,nihility,4,https://static.wikia.nocookie.net/houkai-star-rail/images/c/c2/Character_Pela_Icon.png/,0.18,0,0,0.1,0,0,0,0.224,0,0,0,0,0
-Clara,737.35,485.1,1241.86,90,0.05,0.5,125,110,physical,destruction,5,https://static.wikia.nocookie.net/houkai-star-rail/images/a/a4/Character_Clara_Icon.png/,0.28,0,0.1,0,0,0,0,0,0,0.144,0,0,0
-Sampo,617.4,396.9,1023.12,102,0.05,0.5,100,120,wind,nihility,4,https://static.wikia.nocookie.net/houkai-star-rail/images/5/53/Character_Sampo_Icon.png/,0.28,0,0,0.18,0.067,0,0,0,0,0,0,0,0
-Hook,617.4,352.8,1340.64,94,0.05,0.625,125,120,fire,destruction,4,https://static.wikia.nocookie.net/houkai-star-rail/images/d/d5/Character_Hook_Icon.png/,0.28,0,0.18,0,0,0,0,0,0,0,0,0,0
-Lynx,493.92,551.25,1058.4,100,0.05,0.5,100,100,quantum,abundance,4,https://static.wikia.nocookie.net/houkai-star-rail/images/6/6c/Character_Lynx_Icon.png/,0,0.225,0.28,0,0.1,0,0,0,0,0,0,0,0
-Luka,582.12,485.1,917.28,103,0.05,0.5,100,130,physical,nihility,4,https://static.wikia.nocookie.net/houkai-star-rail/images/c/c7/Character_Luka_Icon.png/,0.28,0.125,0,0.18,0,0,0,0,0,0,0,0,0
-Topaz,620.93,412.34,931.39,110,0.17,0.5,75,130,fire,hunt,5,https://static.wikia.nocookie.net/houkai-star-rail/images/8/89/Character_Topaz_%26_Numby_Icon.png/,0,0,0.1,0,0,0,0,0,0,0,0.224,0,0
-Qingque,652.68,441,1023.12,98,0.05,0.5,75,140,quantum,erudition,4,https://static.wikia.nocookie.net/houkai-star-rail/images/2/2e/Character_Qingque_Icon.png/,0.28,0.125,0,0,0,0,0,0,0,0,0.144,0,0
-Tingyun,529.2,396.9,846.72,112,0.05,0.5,100,130,lightning,harmony,4,https://static.wikia.nocookie.net/houkai-star-rail/images/4/4f/Character_Tingyun_Icon.png/,0.28,0.225,0,0,0,0,0,0,0.08,0,0,0,0
-Luocha,756.76,363.83,1280.66,101,0.05,0.5,100,100,imaginary,abundance,5,https://static.wikia.nocookie.net/houkai-star-rail/images/2/20/Character_Luocha_Icon.png/,0.3,0.125,0.18,0,0,0,0,0,0,0,0,0,0
-Jing Yuan,698.54,485.1,1164.24,99,0.17,0.5,75,130,lightning,erudition,5,https://static.wikia.nocookie.net/houkai-star-rail/images/8/88/Character_Jing_Yuan_Icon.png,0.28,0.125,0,0,0,0,0,0,0,0,0,0,0
-Blade,543.31,485.1,1358.28,97,0.17,0.5,125,130,wind,destruction,5,https://static.wikia.nocookie.net/houkai-star-rail/images/9/90/Character_Blade_Icon.png,0,0,0.28,0,0.1,0,0,0,0,0,0,0,0
-Sushang,564.48,418.95,917.28,107,0.05,0.5,75,120,physical,hunt,4,https://static.wikia.nocookie.net/houkai-star-rail/images/9/97/Character_Sushang_Icon.png,0.28,0.125,0.18,0,0,0,0,0,0,0,0,0,0
-Yukong,599.76,374.85,917.28,107,0.05,0.5,100,130,imaginary,harmony,4,https://static.wikia.nocookie.net/houkai-star-rail/images/3/32/Character_Yukong_Icon.png,0.1,0,0.18,0,0,0,0,0,0,0,0.224,0,0
-Fu Xuan,465.7,606.37,1474.7,100,0.05,0.5,150,135,quantum,preservation,5,https://static.wikia.nocookie.net/houkai-star-rail/images/1/1a/Character_Fu_Xuan_Icon.png,0,0,0,0,0,0,0,0,0,0,0,0,0
-Yanqing,679.14,412.34,892.58,109,0.05,0.5,75,140,ice,hunt,5,https://static.wikia.nocookie.net/houkai-star-rail/images/5/57/Character_Yanqing_Icon.png,0.28,0,0.1,0,0,0,0,0.144,0,0,0,0,0
-Guinaifen,582.12,441,882,106,0.05,0.5,100,120,fire,nihility,4,https://static.wikia.nocookie.net/houkai-star-rail/images/9/98/Character_Guinaifen_Icon.png,0,0,0,0,0.1,0,0.224,0,0,0,0,0,0.233
-Bailu,562.72,485.1,1319.47,98,0.05,0.5,100,100,lightning,abundance,5,https://static.wikia.nocookie.net/houkai-star-rail/images/4/47/Character_Bailu_Icon.png,0,0.225,0.28,0,0.067,0,0,0,0,0,0,0,0
-Jingliu,679.14,485,1398,105,0.05,0.87,125,140,ice,destruction,5,https://static.wikia.nocookie.net/houkai-star-rail/images/f/f9/Character_Jingliu_Icon.png,0,0,0.1,0,0,0,0,0,0,0,0,0,0
-Lunae,698.54,363.83,1241.86,102,0.17,0.5,125,140,imaginary,destruction,5,https://static.wikia.nocookie.net/houkai-star-rail/images/2/2a/Character_Dan_Heng_%E2%80%A2_Imbibitor_Lunae_Icon.png,0,0,0.1,0,0,0,0,0,0,0,0,0.224,0
-Physical Trailblazer,620.93,460.84,1203.05,100,0.05,0.5,125,120,physical,destruction,4,https://static.wikia.nocookie.net/houkai-star-rail/images/1/11/Character_Trailblazer_Icon.png,0.28,0.125,0.18,0,0,0,0,0,0,0,0,0,0
-Fire Trailblazer,601.52,606.37,1241.86,95,0.05,0.5,150,120,fire,preservation,4,https://static.wikia.nocookie.net/houkai-star-rail/images/1/11/Character_Trailblazer_Icon.png,0.18,0.35,0.1,0,0,0,0,0,0,0,0,0,0
+name,ATK.base,DEF.base,HP.base,SPD.base,CR.base,CD.base,Taunt.base,maxEnergy,element,path,rarity,graphic,ATK.percent,DEF.percent,HP.percent,EHR.base,RES.base,DMG.wind,DMG.fire,DMG.ice,DMG.lightning,DMG.physical,DMG.quantum,DMG.imaginary,BreakEffect.base,SPD.flat
+March 7th,511.56,573.3,1058.4,101,0.05,0.5,150,120,ice,preservation,4,https://static.wikia.nocookie.net/houkai-star-rail/images/d/d3/Character_March_7th_Icon.png,0,0.225,0,0,0.067,0,0,0.224,0,0,0,0,0,0
+Dan Heng,546.84,396.9,882,110,0.05,0.5,75,100,wind,hunt,4,https://static.wikia.nocookie.net/houkai-star-rail/images/1/1a/Character_Dan_Heng_Icon.png,0.18,0.125,0,0,0,0.224,0,0,0,0,0,0,0,0
+Himeko,756.76,436.59,1047.82,96,0.05,0.5,75,120,fire,erudition,5,https://static.wikia.nocookie.net/houkai-star-rail/images/0/00/Character_Himeko_Icon.png/,0.18,0,0,0,0.067,0,0.224,0,0,0,0,0,0,0
+Welt,620.93,509.36,1125.43,102,0.05,0.5,100,120,imaginary,nihility,5,https://static.wikia.nocookie.net/houkai-star-rail/images/1/11/Character_Welt_Icon.png/,0.28,0,0,0,0.067,0,0,0,0,0,0,0.144,0,0
+Kafka,679.14,485.1,1086.62,100,0.05,0.5,100,120,lightning,nihility,5,https://static.wikia.nocookie.net/houkai-star-rail/images/8/8c/Character_Kafka_Icon.png/,0.28,0,0.1,0.18,0,0,0,0,0,0,0,0,0,0
+Silver Wolf,640.33,460.84,1047.82,107,0.05,0.5,100,110,quantum,nihility,5,https://static.wikia.nocookie.net/houkai-star-rail/images/a/a3/Character_Silver_Wolf_Icon.png/,0.28,0,0,0.18,0,0,0,0,0,0,0.08,0,0,0
+Arlan,599.76,330.75,1199.52,102,0.05,0.5,125,110,lightning,destruction,4,https://static.wikia.nocookie.net/houkai-star-rail/images/a/a9/Character_Arlan_Icon.png/,0.28,0,0.1,0,0.12,0,0,0,0,0,0,0,0,0
+Asta,511.56,463.05,1023.12,106,0.117,0.5,100,120,fire,harmony,4,https://static.wikia.nocookie.net/houkai-star-rail/images/9/9f/Character_Asta_Icon.png/,0,0.225,0,0,0,0,0.224,0,0,0,0,0,0,0
+Herta,582.12,396.9,952.56,100,0.117,0.5,75,110,ice,erudition,4,https://static.wikia.nocookie.net/houkai-star-rail/images/b/bf/Character_Herta_Icon.png/,0,0.225,0,0,0,0,0,0.224,0,0,0,0,0,0
+Bronya,582.12,533.61,1241.86,99,0.05,0.74,100,120,wind,harmony,5,https://static.wikia.nocookie.net/houkai-star-rail/images/0/0f/Character_Bronya_Icon.png/,0,0,0,0,0.067,0.224,0,0,0,0,0,0,0,0
+Seele,640.33,363.83,931.39,115,0.05,0.74,75,120,quantum,hunt,5,https://static.wikia.nocookie.net/houkai-star-rail/images/9/9a/Character_Seele_Icon.png/,0.28,0.125,0,0,0,0,0,0,0,0,0,0,0,0
+Serval,652.68,374.85,917.28,104,0.237,0.5,75,100,lightning,erudition,4,https://static.wikia.nocookie.net/houkai-star-rail/images/7/7c/Character_Serval_Icon.png/,0,0,0,0.18,0.067,0,0,0,0,0,0,0,0,0
+Gepard,543.31,654.89,1397.09,92,0.05,0.5,150,100,ice,preservation,5,https://static.wikia.nocookie.net/houkai-star-rail/images/7/75/Character_Gepard_Icon.png/,0,0.125,0,0,0.12,0,0,0.224,0,0,0,0,0,0
+Natasha,476.28,507.15,1164.24,98,0.05,0.5,100,90,physical,abundance,4,https://static.wikia.nocookie.net/houkai-star-rail/images/6/61/Character_Natasha_Icon.png/,0,0.125,0.28,0,0.12,0,0,0,0,0,0,0,0,0
+Pela,546.84,463.05,987.84,105,0.05,0.5,100,110,ice,nihility,4,https://static.wikia.nocookie.net/houkai-star-rail/images/c/c2/Character_Pela_Icon.png/,0.18,0,0,0.1,0,0,0,0.224,0,0,0,0,0,0
+Clara,737.35,485.1,1241.86,90,0.05,0.5,125,110,physical,destruction,5,https://static.wikia.nocookie.net/houkai-star-rail/images/a/a4/Character_Clara_Icon.png/,0.28,0,0.1,0,0,0,0,0,0,0.144,0,0,0,0
+Sampo,617.4,396.9,1023.12,102,0.05,0.5,100,120,wind,nihility,4,https://static.wikia.nocookie.net/houkai-star-rail/images/5/53/Character_Sampo_Icon.png/,0.28,0,0,0.18,0.067,0,0,0,0,0,0,0,0,0
+Hook,617.4,352.8,1340.64,94,0.05,0.625,125,120,fire,destruction,4,https://static.wikia.nocookie.net/houkai-star-rail/images/d/d5/Character_Hook_Icon.png/,0.28,0,0.18,0,0,0,0,0,0,0,0,0,0,0
+Lynx,493.92,551.25,1058.4,100,0.05,0.5,100,100,quantum,abundance,4,https://static.wikia.nocookie.net/houkai-star-rail/images/6/6c/Character_Lynx_Icon.png/,0,0.225,0.28,0,0.1,0,0,0,0,0,0,0,0,0
+Luka,582.12,485.1,917.28,103,0.05,0.5,100,130,physical,nihility,4,https://static.wikia.nocookie.net/houkai-star-rail/images/c/c7/Character_Luka_Icon.png/,0.28,0.125,0,0.18,0,0,0,0,0,0,0,0,0,0
+Topaz,620.93,412.34,931.39,110,0.17,0.5,75,130,fire,hunt,5,https://static.wikia.nocookie.net/houkai-star-rail/images/8/89/Character_Topaz_%26_Numby_Icon.png/,0,0,0.1,0,0,0,0,0,0,0,0.224,0,0,0
+Qingque,652.68,441,1023.12,98,0.05,0.5,75,140,quantum,erudition,4,https://static.wikia.nocookie.net/houkai-star-rail/images/2/2e/Character_Qingque_Icon.png/,0.28,0.125,0,0,0,0,0,0,0,0,0.144,0,0,0
+Tingyun,529.2,396.9,846.72,112,0.05,0.5,100,130,lightning,harmony,4,https://static.wikia.nocookie.net/houkai-star-rail/images/4/4f/Character_Tingyun_Icon.png/,0.28,0.225,0,0,0,0,0,0,0.08,0,0,0,0,0
+Luocha,756.76,363.83,1280.66,101,0.05,0.5,100,100,imaginary,abundance,5,https://static.wikia.nocookie.net/houkai-star-rail/images/2/20/Character_Luocha_Icon.png/,0.3,0.125,0.18,0,0,0,0,0,0,0,0,0,0,0
+Jing Yuan,698.54,485.1,1164.24,99,0.17,0.5,75,130,lightning,erudition,5,https://static.wikia.nocookie.net/houkai-star-rail/images/8/88/Character_Jing_Yuan_Icon.png,0.28,0.125,0,0,0,0,0,0,0,0,0,0,0,0
+Blade,543.31,485.1,1358.28,97,0.17,0.5,125,130,wind,destruction,5,https://static.wikia.nocookie.net/houkai-star-rail/images/9/90/Character_Blade_Icon.png,0,0,0.28,0,0.1,0,0,0,0,0,0,0,0,0
+Sushang,564.48,418.95,917.28,107,0.05,0.5,75,120,physical,hunt,4,https://static.wikia.nocookie.net/houkai-star-rail/images/9/97/Character_Sushang_Icon.png,0.28,0.125,0.18,0,0,0,0,0,0,0,0,0,0,0
+Yukong,599.76,374.85,917.28,107,0.05,0.5,100,130,imaginary,harmony,4,https://static.wikia.nocookie.net/houkai-star-rail/images/3/32/Character_Yukong_Icon.png,0.1,0,0.18,0,0,0,0,0,0,0,0.224,0,0,0
+Fu Xuan,465.7,606.37,1474.7,100,0.05,0.5,150,135,quantum,preservation,5,https://static.wikia.nocookie.net/houkai-star-rail/images/1/1a/Character_Fu_Xuan_Icon.png,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Yanqing,679.14,412.34,892.58,109,0.05,0.5,75,140,ice,hunt,5,https://static.wikia.nocookie.net/houkai-star-rail/images/5/57/Character_Yanqing_Icon.png,0.28,0,0.1,0,0,0,0,0.144,0,0,0,0,0,0
+Guinaifen,582.12,441,882,106,0.05,0.5,100,120,fire,nihility,4,https://static.wikia.nocookie.net/houkai-star-rail/images/9/98/Character_Guinaifen_Icon.png,0,0,0,0,0.1,0,0.224,0,0,0,0,0,0.233,0
+Bailu,562.72,485.1,1319.47,98,0.05,0.5,100,100,lightning,abundance,5,https://static.wikia.nocookie.net/houkai-star-rail/images/4/47/Character_Bailu_Icon.png,0,0.225,0.28,0,0.067,0,0,0,0,0,0,0,0,0
+Jingliu,679.14,485.1,1435.9,96,0.05,0.87,125,140,ice,destruction,5,https://static.wikia.nocookie.net/houkai-star-rail/images/f/f9/Character_Jingliu_Icon.png,0,0,0.1,0,0,0,0,0,0,0,0,0,0,9
+Lunae,698.54,363.83,1241.86,102,0.17,0.5,125,140,imaginary,destruction,5,https://static.wikia.nocookie.net/houkai-star-rail/images/2/2a/Character_Dan_Heng_%E2%80%A2_Imbibitor_Lunae_Icon.png,0,0,0.1,0,0,0,0,0,0,0,0,0.224,0,0
+Physical Trailblazer,620.93,460.84,1203.05,100,0.05,0.5,125,120,physical,destruction,4,https://static.wikia.nocookie.net/houkai-star-rail/images/1/11/Character_Trailblazer_Icon.png,0.28,0.125,0.18,0,0,0,0,0,0,0,0,0,0,0
+Fire Trailblazer,601.52,606.37,1241.86,95,0.05,0.5,150,120,fire,preservation,4,https://static.wikia.nocookie.net/houkai-star-rail/images/1/11/Character_Trailblazer_Icon.png,0.18,0.35,0.1,0,0,0,0,0,0,0,0,0,0,0
+Argenti,737.35,363.83,1047.82,103,0.05,0.5,75,180,physical,erudition,5,https://static.wikia.nocookie.net/houkai-star-rail/images/c/c0/Character_Argenti_Icon.png,0.28,0,0.1,0,0,0,0,0,0,0.144,0,0,0,0
+Huohuo,601.52,509.36,1358.28,98,0.05,0.5,100,140,wind,abundance,5,https://static.wikia.nocookie.net/houkai-star-rail/images/6/68/Character_Huohuo_Icon.png,0,0,0.28,0,0.18,0,0,0,0,0,0,0,0,5
+Hanya,564.48,352.8,917.28,110,0.05,0.5,100,140,physical,harmony,4,https://static.wikia.nocookie.net/houkai-star-rail/images/9/99/Character_Hanya_Icon.png,0.28,0,0.1,0,0,0,0,0,0,0,0,0,0,9

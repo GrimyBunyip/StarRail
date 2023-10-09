@@ -1,6 +1,5 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.RelicSet import RelicSet
-from baseClasses.BuffEffect import BuffEffect
 
 class InertSalsotto(RelicSet):
     def __init__(self,

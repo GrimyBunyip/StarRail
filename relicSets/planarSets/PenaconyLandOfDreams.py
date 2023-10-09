@@ -4,7 +4,7 @@ from baseClasses.RelicSet import RelicSet
 class SprightlyVonwacq(RelicSet):
     def __init__(self,
                 graphic:str='',
-                shortname:str='Sprightly Vonwacq',
+                shortname:str='Penacony',
                 **config):
         self.graphic = graphic
         self.shortname = shortname
@@ -12,4 +12,5 @@ class SprightlyVonwacq(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('ER',description=self.shortname,
                                 amount=0.05)
-        # second effect not implemented
+        char.addStat('DMG',description=self.shortname,
+                                amount=0.10)

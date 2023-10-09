@@ -11,6 +11,7 @@ from characters.destruction.Clara import Clara
 from characters.destruction.Hook import Hook
 from characters.destruction.Jingliu import Jingliu
 from characters.destruction.Lunae import Lunae
+from characters.erudition.Argenti import Argenti
 from characters.erudition.Herta import Herta
 from characters.erudition.Himeko import Himeko
 from characters.erudition.JingYuan import JingYuan
@@ -650,6 +651,23 @@ if __name__ == '__main__':
 
     visualizationList.append(DefaultEstimator('Yukong 2 Enh 2S 1Q', YukongRotation, YukongCharacter, config))
     '''
+
+    # Argenti
+    ArgentiCharacter = Argenti(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.physical'],
+                    substats = {'CR':9,'CD':11, 'ATK.percent':5, 'SPD.flat': 3}),
+            lightcone = GeniusesRepose(**config),
+            relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = ChampionOfStreetwiseBoxing4pc(), planarset = SpaceSealingStation(),
+            **config)
+    
+    numSkill = 6.0
+    numUlt = 1.0
+
+    ArgentiRotation = [ # 
+            ArgentiCharacter.useSkill() * numSkill,
+            ArgentiCharacter.useEnhancedUltimate() * numUlt,
+    ]
+
+    visualizationList.append(DefaultEstimator('Argenti {:.1f}E {:.0f}EnhQ'.format(numSkill, numUlt), ArgentiRotation, ArgentiCharacter, config))
 
     visualize(visualizationList, visualizerPath='visualizer\SoloVisual.png', **config)
         
