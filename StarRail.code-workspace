@@ -2,6 +2,12 @@
 	"folders": [
         {
             "path": "."
+<<<<<<< HEAD
+=======
+        },
+        {
+            "path": "../PlotlyQuickstart"
+>>>>>>> 8bf983aa5b5690de2742dec3584ab07745a6a593
         }
     ]
 }
