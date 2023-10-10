@@ -17,7 +17,7 @@ class GrandDuke4pc(RelicSet):
     def __init__(self,
                 graphic:str='',
                 shortname:str='Grand Duke 4pc',
-                stacks = 8.0,
+                stacks = 4.0,
                 **config):
         self.graphic = graphic
         self.shortname = shortname

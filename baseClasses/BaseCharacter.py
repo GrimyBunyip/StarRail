@@ -205,7 +205,7 @@ class BaseCharacter(object):
         return self.getTotalStat('BonusEnergyTurn',type,element)
     
     def getDefShred(self,type:list=[], element:str=None):
-        return self.getTotalStat('DefShred',type,element)
+        return min(1.0,self.getTotalStat('DefShred',type,element))
     
     def getResPen(self,type:list=[], element:str=None):
         return self.getTotalStat('ResPen',type,element)
