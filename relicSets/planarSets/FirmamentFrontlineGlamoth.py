@@ -1,7 +1,7 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.RelicSet import RelicSet
 
-class SpaceSealingStation(RelicSet):
+class FirmamentFrontlineGlamoth(RelicSet):
     def __init__(self,
                 graphic:str='',
                 shortname:str='Firmament',

@@ -85,6 +85,7 @@ from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseB
 from relicSets.relicSets.EagleOfTwilightLine import EagleOfTwilightLine2pc, EagleOfTwilightLine4pc
 from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc, FiresmithOfLavaForging4pc
 from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc
+from relicSets.relicSets.GrandDukeIncineratedToAshes import GrandDuke2pc, GrandDuke4pc
 from relicSets.relicSets.GuardOfWutheringSnow import GuardOfWutheringSnow2pc
 from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
 from relicSets.relicSets.KnightOfPurityPalace import KnightOfPurityPalace2pc, KnightOfPurityPalace4pc
@@ -92,15 +93,19 @@ from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, Longevou
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc, MusketeerOfWildWheat4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
+from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
 from relicSets.planarSets.BelobogOfTheArchitects import BelobogOfTheArchitects
+from relicSets.planarSets.BelobogOfTheArchitects import BelobogOfTheArchitects
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.CelestialDifferentiator import CelestialDifferentiator
+from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
+from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.planarSets.SpaceSealingStation import SpaceSealingStation
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
@@ -119,7 +124,7 @@ if __name__ == '__main__':
     KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
                             substats = {'EHR': 3, 'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5}),
                             lightcone = GoodNightAndSleepWell(**config),
-                            relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = SpaceSealingStation(),
+                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
 
     numSkill = 3.0
@@ -253,7 +258,7 @@ if __name__ == '__main__':
     JingYuanCharacter = JingYuan(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.lightning'],
                             substats = {'CD': 11, 'CR': 7, 'SPD.flat': 7, 'ATK.percent': 3}),
             lightcone = GeniusesRepose(**config),
-            relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = InertSalsotto(),
+            relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = InertSalsotto(),
             **config)
 
     numSkill = 4.0
@@ -376,10 +381,10 @@ if __name__ == '__main__':
                                                 JingliuRotation, JingliuCharacter, config))
 
     # Topaz
-    TopazCharacter = Topaz(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.fire'],
+    TopazCharacter = Topaz(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ATK.percent'],
                             substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
             lightcone = Swordplay(**config),
-            relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = InertSalsotto(),
+            relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = InertSalsotto(),
             **config)
     
     numBasic = 4.0
@@ -485,7 +490,7 @@ if __name__ == '__main__':
     SampoCharacter = Sampo(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.wind'],
                             substats = {'ATK.percent': 10, 'SPD.flat': 5, 'EHR': 10, 'BreakEffect': 3}),
             lightcone = GoodNightAndSleepWell(**config),
-            relicsetone = EagleOfTwilightLine2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = PanCosmicCommercialEnterprise(),
+            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
             **config)
 
     numSkill = 3.5
@@ -506,7 +511,7 @@ if __name__ == '__main__':
     LukaCharacter = Luka(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.physical'],
                     substats = {'ATK.percent': 8, 'SPD.flat': 5, 'EHR': 12, 'BreakEffect': 3}),
             lightcone = GoodNightAndSleepWell(**config),
-            relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = ChampionOfStreetwiseBoxing4pc(), planarset = SpaceSealingStation(),
+            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
             **config)
     
     numEnhanced = 3.0
@@ -529,7 +534,7 @@ if __name__ == '__main__':
     GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
                             substats = {'ATK.percent': 12, 'SPD.flat': 8, 'EHR': 4, 'BreakEffect': 4}),
             lightcone = GoodNightAndSleepWell(**config),
-            relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SpaceSealingStation(),
+            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
             **config)
     
     numSkill = 3.0
