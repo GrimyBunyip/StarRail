@@ -4,8 +4,8 @@ from baseClasses.BuffEffect import BuffEffect
 
 class IShallBeMyOwnSword(BaseLightCone):
     def __init__(self,
-                atkStacks = 2.0,
-                defShredUptime:float = 1.0/3.0,
+                atkStacks = 3.0,
+                defShredUptime:float = 1.0,
                 **config):
         self.loadConeStats('I Shall Be My Own Sword')
         self.setSuperposition(config)
@@ -17,7 +17,7 @@ class IShallBeMyOwnSword(BaseLightCone):
         if char.path == self.path:
             char.addStat('CD',description=self.name,
                                     amount=0.17 + 0.03 * self.superposition)
-            char.addStat('ATK.percent',description=self.name,
+            char.addStat('DMG',description=self.name,
                                     amount=0.115 + 0.025 * self.superposition,
                                     stacks=self.atkStacks)
             char.addStat('DefShred',description=self.name,
