@@ -210,7 +210,7 @@ if __name__ == '__main__':
 
     # Lunae
     LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
-                            substats = {'CR': 10, 'CD': 10, 'ATK.percent': 5, 'SPD.flat': 3}),
+                            substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
             lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
             relicsetone = MusketeerOfWildWheat2pc(),
             relicsettwo = MusketeerOfWildWheat4pc(),

@@ -12,7 +12,7 @@ class Hanya(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                burdenTriggers:int=3.0,
+                burdenTriggers:int=2.5,
                 e2Uptime:float=1.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
