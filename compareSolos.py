@@ -41,6 +41,7 @@ from lightCones.destruction.TheUnreachableSide import TheUnreachableSide
 from lightCones.destruction.UnderTheBlueSky import UnderTheBlueSky
 from lightCones.destruction.WoofWalkTime import WoofWalkTime
 
+from lightCones.erudition.AnInstanceBeforeAGaze import AnInstanceBeforeAGaze
 from lightCones.erudition.BeforeDawn import BeforeDawn
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
 from lightCones.erudition.MakeTheWorldClamor import MakeTheWorldClamor
@@ -97,7 +98,6 @@ from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
-from relicSets.planarSets.BelobogOfTheArchitects import BelobogOfTheArchitects
 from relicSets.planarSets.BelobogOfTheArchitects import BelobogOfTheArchitects
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.CelestialDifferentiator import CelestialDifferentiator

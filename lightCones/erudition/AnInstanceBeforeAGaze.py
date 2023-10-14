@@ -12,7 +12,9 @@ class AnInstanceBeforeAGaze(BaseLightCone):
         self.addStats(char)
         if char.path == self.path:
             char.addStat('CD',description=self.name, amount=0.30 + 0.06 * self. superposition)
-            char.addStat('DMG',description=self.name, amount=(0.0030 + 0.0006 * self. superposition) * char.maxEnergy)
+            char.addStat('DMG',description=self.name, 
+                         amount=(0.0030 + 0.0006 * self. superposition) * min(180.0,char.maxEnergy),
+                         type=['ultimate'])
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration
