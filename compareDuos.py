@@ -538,44 +538,6 @@ BladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', '
             relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = InertSalsotto(),
             **config)
 
-# Rotation: Blade and Bronya
-BronyaRotation = [BronyaCharacter.useSkill() * 4,
-                  BronyaCharacter.useUltimate(),]
-
-# Rotation is calculated per ult, so we'll attenuate this to fit 3 bronya turns    
-numBasic = 3.0
-numUlt = 1.0
-
-BladeRotation = [ # 3 enhanced basics per ult roughly
-                BladeCharacter.useSkill() * numBasic / 4.0, # 0.75 charges
-                BladeCharacter.useEnhancedBasic() * numBasic, # 3 charges
-                BladeCharacter.useUltimate() * numUlt, # 1 charge
-                BronyaCharacter.useAdvanceForward() * numBasic / 2.0, # 1 advance forward every 2 basics
-            ]
-
-numEnemyAttacks = BladeCharacter.enemySpeed * BladeCharacter.numEnemies * sum([x.actionvalue for x in BladeRotation]) / BladeCharacter.getTotalStat('SPD')
-numHitsTaken = numEnemyAttacks * 5 / (5 + 4 + 4 + 4) # assume 3 average threat teammates
-numTalent = (0.75 + 3 + 1 + numHitsTaken) / 5.0
-BladeRotation.append(BladeCharacter.useTalent() * numTalent)
-
-totalBladeEffect = sumEffects(BladeRotation)
-totalBronyaEffect = sumEffects(BronyaRotation)
-
-BladeRotationDuration = totalBladeEffect.actionvalue * 100.0 / BladeCharacter.getTotalStat('SPD')
-BronyaRotationDuration = totalBronyaEffect.actionvalue * 100.0 / BronyaCharacter.getTotalStat('SPD')
-print('Blade Speed: ', BladeCharacter.getTotalStat('SPD'), ' Bronya Speed: ', BronyaCharacter.getTotalStat('SPD'))
-# blade rotation is 1.5 turns, bronya is 4 turns, so multilpy by 8/3
-print('Blade Rotation Duration: ', BladeRotationDuration * 8/3,' Bronya Rotation Duration: ', BronyaRotationDuration)
-print('Blade Energy: ', totalBladeEffect.energy, ' Bronya Energy: ', totalBronyaEffect.energy)
-
-# scale second character's rotation
-BronyaRotation = [x * BladeRotationDuration / BronyaRotationDuration for x in BronyaRotation]
-
-BladeEstimate = DefaultEstimator('Blade: {:.0f}N {:.1f}T {:.0f}Q'.format(numBasic, numTalent, numUlt),
-                                 BladeRotation, BladeCharacter, config)
-BronyaEstimate = DefaultEstimator('E0 Bronya S5 Planetary, 12 spd substats', BronyaRotation, BronyaCharacter, config,)
-visualizationList.append([BladeEstimate, BronyaEstimate])
-
 # Stats: Jingliu & Blade
 JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
                             substats = {'CR': 12, 'CD': 8, 'SPD.flat': 5, 'ATK.percent': 3}),
