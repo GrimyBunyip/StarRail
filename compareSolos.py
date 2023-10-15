@@ -493,7 +493,7 @@ if __name__ == '__main__':
             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
             **config)
 
-    numSkill = 3.5
+    numSkill = 3
     numUlt = 1.0
 
     SampoRotation = [ # 
@@ -504,7 +504,7 @@ if __name__ == '__main__':
     numDot = DotEstimator(SampoRotation, SampoCharacter, config, dotMode='alwaysBlast')
     numDot = min(numDot, 3.0 * (numSkill + numUlt) * SampoCharacter.numEnemies)
 
-    visualizationList.append(DefaultEstimator('Sampo {:.1f}E {:.0f}Q {:.1f}Dot'.format(numSkill, numUlt, numDot),
+    visualizationList.append(DefaultEstimator('Sampo {:.0f}E {:.0f}Q {:.1f}Dot'.format(numSkill, numUlt, numDot),
                                                 SampoRotation, SampoCharacter, config, numDot=numDot))
 
     # Luka

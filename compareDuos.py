@@ -728,12 +728,10 @@ numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alway
 numDotKafka = min(numDotKafka, 2 * numUlt * KafkaCharacter.numEnemies + 2 * numTalent)
 
 numSkillSampo = 3.0
-numBasicSampo = 1.0
 numUltSampo = 1.0
 
 SampoRotation = [ # 
         SampoCharacter.useSkill() * numSkillSampo,
-        SampoCharacter.useBasic() * numBasicSampo,
         SampoCharacter.useUltimate() * numUltSampo,
 ]
 
@@ -755,7 +753,8 @@ numDotSampo *= KafkaRotationDuration / SampoRotationDuration
 
 KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
                                  KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-SampoEstimate = DefaultEstimator('Sampo 2x5 Stacks 3.5E 1Q with S5 GNSW', SampoRotation, SampoCharacter, config, numDot=numDotSampo)
+SampoEstimate = DefaultEstimator('Sampo {:.0f}E {:.0f}Q {:.1f}Dot'.format(numSkillSampo, numUltSampo, numDotSampo), 
+                                 SampoRotation, SampoCharacter, config, numDot=numDotSampo)
 
 visualizationList.append([KafkaEstimate, SampoEstimate])
 
