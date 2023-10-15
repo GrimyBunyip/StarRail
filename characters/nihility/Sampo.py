@@ -56,7 +56,7 @@ class Sampo(BaseCharacter):
         return retval
 
     def useSkill(self):
-        num_hits = 6.0 if self.eidolon else 5.0
+        num_hits = 6.0 if self.eidolon >= 1 else 5.0
         retval = BaseEffect()
         type = ['skill']
         retval.damage = self.getTotalMotionValue('skill',type) * num_hits

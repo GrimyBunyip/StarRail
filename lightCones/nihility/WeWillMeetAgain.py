@@ -1,6 +1,5 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
-from baseClasses.BuffEffect import BuffEffect
 from baseClasses.BaseMV import BaseMV
 
 class WeWillMeetAgain(BaseLightCone):

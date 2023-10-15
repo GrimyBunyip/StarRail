@@ -1,6 +1,5 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
-from baseClasses.BuffEffect import BuffEffect
 
 class BeforeTheTutorialMissionStarts(BaseLightCone):
     def __init__(self,

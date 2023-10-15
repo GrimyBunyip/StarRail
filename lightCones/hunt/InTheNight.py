@@ -1,6 +1,5 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
-from baseClasses.BuffEffect import BuffEffect
 import math
 
 class InTheNight(BaseLightCone):

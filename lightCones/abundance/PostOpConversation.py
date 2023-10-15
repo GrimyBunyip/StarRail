@@ -1,7 +1,7 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
 
-class ASecretVow(BaseLightCone):
+class PostOpConversation(BaseLightCone):
     def __init__(self,
                 uptime:float = 0.5,
                 **config):
@@ -20,4 +20,4 @@ class ASecretVow(BaseLightCone):
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration
-    ASecretVow(**Configuration).print()
+    PostOpConversation(**Configuration).print()
