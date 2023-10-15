@@ -47,7 +47,7 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
     totalEffects = []
     bottoms = []
     for visInfo in visInfoList: #visInfo for each rotation
-        teamName = ' '.join([info.name for info in visInfo])        
+        teamName = '\n'.join([info.name for info in visInfo])
         rotationNames.append(teamName)
         
         teamValue = []
@@ -93,13 +93,13 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
     sorted_data = sorted(combined_data, key=lambda x:sum(x[1])) # x[1] is values, x[1][-1] is the largest damage entry in values
     rotationNames, values, characters, colors, bottoms, totalEffects = zip(*sorted_data)
 
-    fig, ax = plt.subplots(figsize=(22,2*len(characters)))
+    fig, ax = plt.subplots(figsize=(20,1.5+len(characters)))
 
     # Create the bar chart
     for i in range(teamsize*3):
         bars = ax.barh([x for x in range(len(rotationNames))], [x[i] for x in values], 
                        left = [x[i] for x in bottoms],
-                       color = [x[i] for x in colors])
+                       color = [x[i] for x in colors],)
 
     # define left and right offsets
     PICTURE_SIZE = 9000
@@ -111,7 +111,7 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
         for i, char in enumerate(teamChars):
             img_data = urlopen(char.graphic).read()
             img = plt.imread(io.BytesIO(img_data), format='png')  # You might need to adjust the format based on the image type
-            img = OffsetImage(img, zoom=0.5)  # Adjust the zoom factor as needed
+            img = OffsetImage(img, zoom=0.35)  # Adjust the zoom factor as needed
             ab = AnnotationBbox(img, (bar.get_width() + bar.get_x() - PICTURE_SIZE * (len(teamChars) - i - 1), bar.get_y() + bar.get_height()/2), frameon=False)
             ax.add_artist(ab)
 
@@ -122,18 +122,26 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
         cycles = totalEffect.actionvalue * 100.0 / speed # action value = # of turns kafka took, cycles = # of cycles that passed during this rotation
 
         ax.text(x = LEFT_OFFSET,
-                y = bar.get_y() + bar.get_height() * 2 / 4,
+                y = bar.get_y() + bar.get_height() / 2,
                 s = leadChar.longName + 
                     '\nSpd: ' + str(round(speed, 2)) + '    EHR: ' + str(round(effectHitRate, 2)) + 
-                    '\nRotation Cycles: ' + str(round(cycles, 2)),
+                    '\nRotation Cycles: ' + str(round(cycles, 2)) + '\n' + 
+                    ('' if leadChar.relicsettwo is None else leadChar.relicsettwo.shortname) + 
+                    ('' if (leadChar.relicsetone is None or '4pc' in leadChar.relicsettwo.shortname) else (' + ' + leadChar.relicsetone.shortname)) + 
+                    ('' if leadChar.planarset is None else (' + ' + leadChar.planarset.shortname)),
                 va = 'center', 
                 color = 'white')
 
+        ax.text(x = (bar.get_x() + bar.get_width()) / 3,
+                y = bar.get_y() + bar.get_height() / 2,
+                s = rotationName,
+                va = 'center', 
+                color = 'white')
+        
         energySurplus = totalEffect.energy - leadChar.maxEnergy
-        ax.text(x = (bar.get_x() + bar.get_width()) / 2,
-                y = bar.get_y() + bar.get_height() /2,
-                s = rotationName + 
-                    '\nDamage per Cycle: ' + str(int((totalEffect.damage) / cycles)) + 
+        ax.text(x = (bar.get_x() + bar.get_width()) * 2 / 3,
+                y = bar.get_y() + bar.get_height() / 2,
+                s = 'Damage per Cycle: ' + str(int((totalEffect.damage) / cycles)) + 
                     '\nGauge per Cycle: ' + str(round(totalEffect.gauge / cycles, 1)) + 
                     '\nSP per Cycle: ' + str(round(totalEffect.skillpoints / cycles, 2)) + 
                     '\nEnergy Surplus per Rotation: ' + str(round(energySurplus, 2)),

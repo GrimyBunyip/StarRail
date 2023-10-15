@@ -985,9 +985,9 @@ ClaraRotation = [ # 110 max energy
         ClaraCharacter.useUltimate(),
 ]
 
+ClaraCharacter.stats['Vulnerability'].pop() # remove the previous vulnerability buff
 ClaraCharacter.addStat('Vulnerability',description='Topaz Vulnerability',
-                       amount=0.55 if TopazCharacter.eidolon>= 3 else 0.5,
-                       uptime=(ClaraCharacter.numEnemies - 1.0) / ClaraCharacter.numEnemies)
+                       amount=0.55 if TopazCharacter.eidolon>= 3 else 0.5)
 ClaraRotation.append(ClaraCharacter.useTalent(enhanced=False) * numUnenhancedTalents)
 
 TopazRotation = [ # 130 max energy

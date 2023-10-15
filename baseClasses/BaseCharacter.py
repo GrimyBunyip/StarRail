@@ -82,10 +82,7 @@ class BaseCharacter(object):
         self.initialEnergy = self.maxEnergy * 0.5
         self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
         
-        self.longName = '{} E{} {} S{}\n{}{}{}'.format(self.name, self.eidolon, self.lightcone.name, self.lightcone.superposition,
-                                                        "" if self.relicsetone is None else self.relicsetone.shortname, 
-                                                        "" if self.relicsettwo is None else (" + " + self.relicsettwo.shortname), 
-                                                        "" if self.planarset is None else (" + " + self.planarset.shortname))
+        self.longName = '{} E{} {} S{}'.format(self.name, self.eidolon, self.lightcone.name, self.lightcone.superposition)
 
     def parseName(self, name:str, type:list=None, mathType:str='base'):
         splitname = name.split('.')
@@ -223,23 +220,24 @@ class BaseCharacter(object):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = 20.0 * self.getER(type)
         retval.skillpoints = 1.0
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useSkill(self):
         retval = BaseEffect()
         type = ['skill']
-        retval.gauge = 60.0 * self.getBreakEfficiency(type)
         retval.energy = 30.0 * self.getER(type)
         retval.skillpoints = -1.0
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
         retval.energy = 5.0 * self.getER(type)
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 
     def useTalent(self):
@@ -339,14 +337,16 @@ class BaseCharacter(object):
         effect.debugCount.append(1)
         
     def print(self):
-        print('Name: ',self.name)
-        print('SPD: ',self.getTotalStat('SPD'))
-        print('CR: ',self.getTotalStat('CR'))
-        print('CD: ',self.getTotalStat('CD'))
-        print('ATK: ',self.getTotalStat('ATK'))
-        print('HP: ',self.getTotalStat('HP'))
-        print('DEF: ',self.getTotalStat('DEF'))
-        print('EHR: ',self.getTotalStat('EHR'))
+        print('##### Name: {} #####'.format(self.name))
+        print('SPD: {:.2f} - CR: {:.3f} - CD: {:.3f}'.format(self.getTotalStat('SPD'),
+                                                             self.getTotalStat('CR'),
+                                                             self.getTotalStat('CD'),))
+        print('ATK: {:.1f} - HP: {:.1f} - DEF: {:.1f} - EHR: {:.3f}'.format(self.getTotalStat('ATK'),
+                                                                            self.getTotalStat('HP'),
+                                                                            self.getTotalStat('DEF'),
+                                                                            self.getTotalStat('EHR'),))
+        print('RES: {:.3f} - EHR: {:.3f}'.format(self.getTotalStat('RES'),
+                                                 self.getTotalStat('EHR'),))
         
 def getStatComments(character:BaseCharacter,stat:str,type:list=[]):
     retval = ''

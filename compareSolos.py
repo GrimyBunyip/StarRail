@@ -309,7 +309,8 @@ if __name__ == '__main__':
             SeeleCharacter.useSkill(),
             SeeleCharacter.endTurn(),
     ]
-    visualizationList.append(DefaultEstimator('Seele: 2N 2Resurgence(2E1Q)', SeeleRotation, SeeleCharacter, config))
+    # Skipping the full seele resurgence plot
+    #visualizationList.append(DefaultEstimator('Seele: 2N 2Resurgence(2E1Q)', SeeleRotation, SeeleCharacter, config))
 
     SeeleRotation = [ # endTurn needed to factor in resurgence buff
             SeeleCharacter.useSkill() * 4,
@@ -590,7 +591,7 @@ if __name__ == '__main__':
     SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR', 'BreakEffect'],
                     substats = {'SPD.flat':12,'BreakEffect':8, 'ATK.percent': 5, 'ATK.flat': 3}),
             lightcone = BeforeTheTutorialMissionStarts(**config),
-            relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars2pc(), planarset = SprightlyVonwacq(),
+            relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = SprightlyVonwacq(),
             **config)
     
     numSkill = 2.0

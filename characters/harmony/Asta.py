@@ -20,7 +20,7 @@ class Asta(BaseCharacter):
 
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=0.5, eidolonThreshold=3, eidolonBonus=0.05)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=0.5, eidolonThreshold=3, eidolonBonus=0.05)]
 
         # Talents
         self.addStat('DMG.fire',description='trace',amount=0.18)
