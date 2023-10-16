@@ -36,7 +36,7 @@ class Yukong(BaseCharacter):
         self.addStat('CD',description='ultimate',
                      amount=0.702 if self.eidolon >= 5 else 0.65,
                      type=['ultimate'])
-        self.addStat('DMG',description='trace',amount=0.12)
+        self.addStat('DMG',description='trace',amount=0.12,type=['imaginary'])
         self.addStat('BonusEnergyTurn',description='trace',amount=2.0,type=['skill'],stacks=self.majestaprocs)
 
         # Eidolons

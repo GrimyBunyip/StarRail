@@ -594,6 +594,25 @@ if __name__ == '__main__':
             relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = SprightlyVonwacq(),
             **config)
     
+    dmgResUptime:float=0.0 #we are already assuming we're hitting for weakness
+    allResUptime:float=1.0 #might want to decrease this for large numbers of targets
+    defShredUptime:float=1.0
+    talentAtkUptime:float=1.0
+    talentDefUptime:float=1.0
+    a6Uptime:float=1.0
+    
+    SilverWolfCharacter.addStat('ResPen',description='talent',amount=0.20,uptime=dmgResUptime)
+    SilverWolfCharacter.addStat('ResPen',description='skill',
+                    amount=0.105 if SilverWolfCharacter.eidolon >= 3 else 0.10,
+                    uptime=allResUptime)
+    SilverWolfCharacter.addStat('DefShred',description='ultimate',
+                    amount=0.468 if SilverWolfCharacter.eidolon >= 5 else 0.45,
+                    uptime=defShredUptime)
+    SilverWolfCharacter.addStat('DefShred',description='talent',
+                    amount=0.088 if SilverWolfCharacter.eidolon >= 3 else 0.08,
+                    uptime=talentDefUptime)
+    SilverWolfCharacter.addStat('ResPen',description='trace',amount=0.03,uptime=a6Uptime)
+    
     numSkill = 2.0
     numUlt = 1.0
 

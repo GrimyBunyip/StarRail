@@ -12,24 +12,12 @@ class SilverWolf(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                dmgResUptime:float=0.0, #we are already assuming we're hitting for weakness
-                allResUptime:float=1.0, #might want to decrease this for large numbers of targets
-                defShredUptime:float=1.0,
-                talentAtkUptime:float=1.0,
-                talentDefUptime:float=1.0,
                 talentSpdUptime:float=1.0,
-                a6Uptime:float=1.0,
                 numDebuffs:float=5.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Silver Wolf')
-        self.dmgResUptime = dmgResUptime
-        self.allResUptime = allResUptime
-        self.defShredUptime = defShredUptime
-        self.talentAtkUptime = talentAtkUptime
-        self.talentDefUptime = talentDefUptime
         self.talentSpdUptime = talentSpdUptime
-        self.a6Uptime = a6Uptime
         self.numDebuffs = numDebuffs
         
         # Motion Values should be set before talents or gear
@@ -38,17 +26,6 @@ class SilverWolf(BaseCharacter):
         self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=3.8, eidolonThreshold=5, eidolonBonus=0.304)]
         
         # Talents
-        self.addStat('ResPen',description='talent',amount=0.20,uptime=self.dmgResUptime)
-        self.addStat('ResPen',description='skill',
-                     amount=0.105 if self.eidolon >= 3 else 0.10,
-                     uptime=self.allResUptime)
-        self.addStat('DefShred',description='ultimate',
-                     amount=0.468 if self.eidolon >= 5 else 0.45,
-                     uptime=defShredUptime)
-        self.addStat('DefShred',description='talent',
-                     amount=0.088 if self.eidolon >= 3 else 0.08,
-                     uptime=self.talentDefUptime)
-        self.addStat('ResPen',description='trace',amount=0.03,uptime=self.a6Uptime)
         self.enemySpeed /= 1.0 - (0.06 if self.eidolon >= 3 else 0.066) * self.talentSpdUptime
         
         # Eidolons

@@ -337,7 +337,7 @@ HanyaRotation = [x * JingliuRotationDuration / HanyaRotationDuration for x in Ha
 
 JingliuEstimate = DefaultEstimator('Jingliu {:.0f}E {:.0f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
                                                 JingliuRotation, JingliuCharacter, config)
-HanyaEstimate = DefaultEstimator('E0 Hanya 2.5 SP per E {:.0f}E {:.0f}Q S5 Memories, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt), 
+HanyaEstimate = DefaultEstimator('Hanya 2.5 SP per E {:.0f}E {:.0f}Q S5 Memories, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt), 
                                  HanyaRotation, HanyaCharacter, config)
 visualizationList.append([JingliuEstimate, HanyaEstimate])
 
@@ -394,7 +394,7 @@ print('Lunae Energy: ', totalLunaeEffect.energy, ' Hanya Energy: ', totalHanyaEf
 HanyaRotation = [x * LunaeRotationDuration / HanyaRotationDuration for x in HanyaRotation]
 
 LunaeEstimate = DefaultEstimator('Lunae: 2N^3 1Q', LunaeRotation, LunaeCharacter, config)
-HanyaEstimate = DefaultEstimator('E0 Hanya 2.5 SP per E {:.0f}E {:.0f}Q S5 Memories, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt), 
+HanyaEstimate = DefaultEstimator('Hanya 2.5 SP per E {:.0f}E {:.0f}Q S5 Memories, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt), 
                                  HanyaRotation, HanyaCharacter, config)
 visualizationList.append([LunaeEstimate,HanyaEstimate])
 
@@ -697,13 +697,13 @@ visualizationList.append([JingYuanEstimate, TingyunEstimate])
 KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
                         substats = {'EHR': 3, 'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5}),
             lightcone = GoodNightAndSleepWell(**config),
-            relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = SpaceSealingStation(),
+            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
             **config)
 
 SampoCharacter = Sampo(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.wind'],
                         substats = {'ATK.percent': 10, 'SPD.flat': 3, 'EHR': 10, 'BreakEffect': 5}),
             lightcone = GoodNightAndSleepWell(**config),
-            relicsetone = EagleOfTwilightLine2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = PanCosmicCommercialEnterprise(),
+            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
             **config)
 
 # Give Sampo Vulnerability to Kafka
@@ -762,13 +762,13 @@ visualizationList.append([KafkaEstimate, SampoEstimate])
 KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
                         substats = {'EHR': 3, 'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect':5}),
             lightcone = GoodNightAndSleepWell(**config),
-            relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = SpaceSealingStation(),
+            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
             **config)
 
 LukaCharacter = Luka(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.physical'],
                     substats = {'ATK.percent': 8, 'SPD.flat': 3, 'EHR': 12, 'BreakEffect': 5}),
             lightcone = GoodNightAndSleepWell(**config),
-            relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = ChampionOfStreetwiseBoxing4pc(), planarset = SpaceSealingStation(),
+            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
             **config)
 
 # Assume Luka maintains his vulnerability buff on one enemy at a time
@@ -828,7 +828,7 @@ visualizationList.append([KafkaEstimate, LukaEstimate])
 KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
                         substats = {'EHR': 3, 'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5}),
             lightcone = GoodNightAndSleepWell(**config),
-            relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = SpaceSealingStation(),
+            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
             **config)
 
 ServalCharacter = Serval(relicstats = RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
@@ -888,13 +888,13 @@ visualizationList.append([KafkaEstimate, ServalEstimate])
 KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
                         substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
             lightcone = GoodNightAndSleepWell(**config),
-            relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = SpaceSealingStation(),
+            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
             **config)
 
 GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
                         substats = {'ATK.percent': 12, 'SPD.flat': 8, 'EHR': 4, 'BreakEffect': 4}),
             lightcone = GoodNightAndSleepWell(**config),
-            relicsetone = FiresmithOfLavaForging2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SpaceSealingStation(),
+            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
             **config)
 
 # Give Guinaifen Vulnerability to Kafka

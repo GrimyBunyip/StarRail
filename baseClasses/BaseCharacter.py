@@ -45,9 +45,6 @@ class BaseCharacter(object):
     enemyLevel:int
     enemySpeed:float
     enemyType:str    
-    bonusEnergyFlat:float
-    bonusEnergyPerEnemyAttack:float
-    numberEnemyAttacksPerTurn:float
     enemyMaxHP:float
     enemyToughness:float
     breakLevelMultiplier:float
@@ -345,8 +342,9 @@ class BaseCharacter(object):
                                                                             self.getTotalStat('HP'),
                                                                             self.getTotalStat('DEF'),
                                                                             self.getTotalStat('EHR'),))
-        print('RES: {:.3f} - EHR: {:.3f}'.format(self.getTotalStat('RES'),
-                                                 self.getTotalStat('EHR'),))
+        print('RES: {:.3f} - EHR: {:.3f} - DMG: {:.2f}'.format(self.getTotalStat('RES'),
+                                                 self.getTotalStat('EHR'),
+                                                 self.getTotalStat('DMG',type=[self.element])))
         
 def getStatComments(character:BaseCharacter,stat:str,type:list=[]):
     retval = ''
