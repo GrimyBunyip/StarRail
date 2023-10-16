@@ -271,6 +271,7 @@ print('Topaz: ',TopazRotationDuration)
 print('Asta: ',AstaRotationDuration)
 print('Luocha: ',LuochaRotationDuration)
 
+# Scale other character's rotation
 TopazRotation = [x * ClaraRotationDuration / TopazRotationDuration for x in TopazRotation]
 AstaRotation = [x * ClaraRotationDuration / AstaRotationDuration for x in AstaRotation]
 LuochaRotation = [x * ClaraRotationDuration / LuochaRotationDuration for x in LuochaRotation]
@@ -410,8 +411,10 @@ print('Bronya: ',BronyaRotationDuration)
 print('Pela: ',PelaRotationDuration)
 print('Luocha: ',LuochaRotationDuration)
 
-# scale second character's rotation
+# scale other character's rotation
 BronyaRotation = [x * JingliuRotationDuration / BronyaRotationDuration for x in BronyaRotation]
+PelaRotation = [x * JingliuRotationDuration / PelaRotationDuration for x in PelaRotation]
+LuochaRotation = [x * JingliuRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
 JingliuEstimate = DefaultEstimator('Jingliu {:.0f}E {:.0f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
                                                 JingliuRotation, JingliuCharacter, config)
@@ -423,146 +426,6 @@ LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCh
                                   LuochaRotation, LuochaCharacter, config)
 
 visualizationList.append([JingliuEstimate, BronyaEstimate, PelaEstimate, LuochaEstimate])
-
-#%% Kafka Guinaifen Asta Luocha Characters
-KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
-                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
-                        lightcone = GoodNightAndSleepWell(**config),
-                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                        **config)
-
-GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
-                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 4, 'BreakEffect': 4}),
-                        lightcone = GoodNightAndSleepWell(**config),
-                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                        **config)
-
-# I'm just going to assume 100% uptime on firmament frontline glamoth
-# Kafka and Guinaifen are a few substats short of base 160 with a 12 substat cap
-# But I'll just generously assume you are able to get there
-
-AstaCharacter = Asta(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR', 'ATK.percent'],
-                                substats = {'EHR': 8, 'SPD.flat': 12, 'BreakEffect': 3, 'ATK.percent': 5}),
-                                lightcone = MemoriesOfThePast(**config),
-                                relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(uptime=0.5), planarset = FleetOfTheAgeless(),
-                                **config)
-
-LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                                substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
-                                lightcone = Multiplication(**config),
-                                relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = FleetOfTheAgeless(),
-                                **config)
-
-#%% Kafka Guinaifen Asta Luocha Team Buffs
-# Fleet of the Ageless Buff
-for character in [KafkaCharacter, GuinaifenCharacter, AstaCharacter]:
-    character.addStat('ATK.percent',description='Fleet Luocha',amount=0.08)
-for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
-    character.addStat('ATK.percent',description='Fleet Asta',amount=0.08)
-    
-# Give Guinaifen Vulnerability to all other characters
-for character in [KafkaCharacter, AstaCharacter, LuochaCharacter]:
-    character.addStat('Vulnerability',description='Guinaifen Vulnerability',
-                        amount=0.076 if GuinaifenCharacter.eidolon >= 5 else 0.07,
-                        stacks=min(GuinaifenCharacter.firekissStacks,4.0 if GuinaifenCharacter.eidolon >= 6 else 3.0))
-    
-# messenger 4 pc buffs:
-KafkaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 3.0)
-GuinaifenCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 3.0)
-LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 4.0)
-
-# assume partial uptime on asta ultimate with ENN rotation
-for character in [KafkaCharacter, GuinaifenCharacter, AstaCharacter]:
-    character.addStat('SPD.flat',description='Asta Ultimate',
-                      amount=53 if AstaCharacter.eidolon >= 5 else 50,
-                      uptime=2.0/3.0)
-    character.addStat('ATK.percent',description='Asta Talent',
-                      amount=0.154 if AstaCharacter.eidolon >= 3 else 0.14,
-                      stacks=5,
-                      uptime=2.0/3.0)
-    
-# Luocha is faster so his uptime is a bit lower
-LuochaCharacter.addStat('SPD.flat',description='Asta Ultimate',
-                    amount=53 if AstaCharacter.eidolon >= 5 else 50,
-                    uptime=2.0/4.0)
-LuochaCharacter.addStat('ATK.percent',description='Asta Talent',
-                    amount=0.154 if AstaCharacter.eidolon >= 3 else 0.14,
-                    stacks=5,
-                    uptime=2.0/4.0)
-
-# Asta Ignite Buff
-GuinaifenCharacter.addStat('DMG.fire',description='trace',amount=0.18)
-
-#%% Kafka Guinaifen Asta Luocha Print Statements
-KafkaCharacter.print()
-GuinaifenCharacter.print()
-AstaCharacter.print()
-LuochaCharacter.print()
-
-#%% Kafka Guinaifen Asta Luocha Rotations
-numSkill = 3.0
-numTalent = 3.0
-numUlt = 1.0
-GuinaifenDot = GuinaifenCharacter.useDot()
-GuinaifenDot.energy = 0.0 # kafka shouldn't be getting energy for Guinaifen Dot
-AstaDot = AstaCharacter.useDot()
-AstaDot.energy = 0.0 # kafka shouldn't be getting energy for Guinaifen Dot
-extraDots = [ GuinaifenDot, AstaDot]
-extraDotsUlt = [ GuinaifenDot * KafkaCharacter.numEnemies, AstaDot * KafkaCharacter.numEnemies ]
-KafkaRotation = [
-        KafkaCharacter.useSkill(extraDots=extraDots) * numSkill,
-        KafkaCharacter.useTalent() * numTalent,
-        KafkaCharacter.useUltimate(extraDots=extraDotsUlt) * numUlt,
-]
-
-numSkillGuinaifen = 2.0
-numBasicGuinaifen = 2.0
-numUltGuinaifen = 1.0
-
-numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
-numDotKafka = min(numDotKafka, 2 * numUlt * KafkaCharacter.numEnemies + 2 * numTalent)
-
-GuinaifenRotation = [ # 
-        GuinaifenCharacter.useSkill() * numSkillGuinaifen,
-        GuinaifenCharacter.useBasic() * numBasicGuinaifen,
-        GuinaifenCharacter.useUltimate() * numUlt,
-]
-
-
-AstaRotation = [AstaCharacter.useBasic() * 2,
-                AstaCharacter.useSkill() * 1,
-                AstaCharacter.useUltimate() * 1,]
-
-LuochaRotation = [LuochaCharacter.useBasic() * 3,
-                  LuochaCharacter.useUltimate() * 1,
-                  LuochaCharacter.useSkill() * 1,]
-LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
-
-
-#%% Kafka Guinaifen Asta Luocha Rotation Math
-numDotGuinaifen = DotEstimator(GuinaifenRotation, GuinaifenCharacter, config, dotMode='alwaysBlast')
-numDotGuinaifen = min(numDotGuinaifen, 2.0 * numSkillGuinaifen * min(3.0, GuinaifenCharacter.numEnemies))
-
-totalKafkaEffect = sumEffects(KafkaRotation)
-totalGuinaifenEffect = sumEffects(GuinaifenRotation)
-
-KafkaRotationDuration = totalKafkaEffect.actionvalue * 100.0 / KafkaCharacter.getTotalStat('SPD')
-GuinaifenRotationDuration = totalGuinaifenEffect.actionvalue * 100.0 / GuinaifenCharacter.getTotalStat('SPD')
-
-# scale second character's rotation
-GuinaifenRotation = [x * KafkaRotationDuration / GuinaifenRotationDuration for x in GuinaifenRotation]
-numDotGuinaifen *= KafkaRotationDuration / GuinaifenRotationDuration
-
-KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
-                                 KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-GuinaifenEstimate = DefaultEstimator('E6 Guinaifen S5 GNSW {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(numBasicGuinaifen, numSkillGuinaifen, numUltGuinaifen, numDotGuinaifen),
-                                     GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
-AstaEstimate = DefaultEstimator('Asta: 2N 1E 1Q, S{:.0f} {}'.format(AstaCharacter.lightcone.superposition, AstaCharacter.lightcone.name), 
-                                AstaRotation, AstaCharacter, config)
-LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
-                                  LuochaRotation, LuochaCharacter, config)
-
-visualizationList.append([KafkaEstimate, GuinaifenEstimate, LuochaEstimate, AstaEstimate])
 
 #%% Lunae Hanya Yukong Luocha Characters
 LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
@@ -615,7 +478,7 @@ for character in [LunaeCharacter, YukongCharacter]:
 for character in [LunaeCharacter, YukongCharacter, LuochaCharacter]:
     character.addStat('ATK.percent',description='Hanya trace',amount=0.10)
     character.addStat('DMG',description='Burden',amount=0.44 if HanyaCharacter.eidolon >= 5 else 0.40)
-# about 80% uptime on ult buf
+
 LunaeCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.252 if HanyaCharacter.eidolon >= 5 else 0.24) * HanyaCharacter.getTotalStat('SPD'))
 LunaeCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.756 if HanyaCharacter.eidolon >= 5 else 0.70)
 
@@ -675,12 +538,18 @@ LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
 #%% Lunae Hanya Yukong Luocha Rotation Math
 totalLunaeEffect = sumEffects(LunaeRotation)
 totalHanyaEffect = sumEffects(HanyaRotation)
+totalYukongEffect = sumEffects(YukongRotation)
+totalLuochaEffect = sumEffects(LuochaRotation)
 
 LunaeRotationDuration = totalLunaeEffect.actionvalue * 100.0 / LunaeCharacter.getTotalStat('SPD')
 HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+YukongRotationDuration = totalYukongEffect.actionvalue * 100.0 / YukongCharacter.getTotalStat('SPD')
+LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
-# scale second character's rotation
+# scale other character's rotation
 HanyaRotation = [x * LunaeRotationDuration / HanyaRotationDuration for x in HanyaRotation]
+YukongRotation = [x * LunaeRotationDuration / YukongRotationDuration for x in YukongRotation]
+LuochaRotation = [x * LunaeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
 LunaeEstimate = DefaultEstimator('Lunae: 2N^3 1Q', LunaeRotation, LunaeCharacter, config)
 HanyaEstimate = DefaultEstimator('Hanya 2.5 SP per E {:.0f}E {:.0f}Q S{:.0f} {}, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt,
@@ -692,6 +561,133 @@ LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCh
                                   LuochaRotation, LuochaCharacter, config)
 
 visualizationList.append([LunaeEstimate,HanyaEstimate,YukongEstimate,LuochaEstimate])
+
+#%% Kafka Guinaifen Hanya Luocha Characters
+KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
+                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
+                        lightcone = GoodNightAndSleepWell(**config),
+                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
+                        **config)
+
+GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
+                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 4, 'BreakEffect': 4}),
+                        lightcone = GoodNightAndSleepWell(**config),
+                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
+                        **config)
+
+# I'm just going to assume 100% uptime on firmament frontline glamoth
+# Kafka and Guinaifen are a few substats short of base 160 with a 12 substat cap
+# But I'll just generously assume you are able to get there
+
+HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
+                        substats = {'CD': 8, 'SPD.flat': 12, 'CR': 5, 'BreakEffect': 3}),
+                        lightcone = MemoriesOfThePast(**config),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = FleetOfTheAgeless(),
+                        **config)
+
+LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
+                                substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
+                                lightcone = Multiplication(**config),
+                                relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = FleetOfTheAgeless(),
+                                **config)
+
+#%% Kafka Guinaifen Hanya Luocha Team Buffs
+# Fleet of the Ageless Buff
+for character in [KafkaCharacter, GuinaifenCharacter, HanyaCharacter]:
+    character.addStat('ATK.percent',description='Fleet Luocha',amount=0.08)
+for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
+    character.addStat('ATK.percent',description='Fleet Asta',amount=0.08)
+    
+# Give Guinaifen Vulnerability to all other characters
+for character in [KafkaCharacter, AstaCharacter, LuochaCharacter]:
+    character.addStat('Vulnerability',description='Guinaifen Vulnerability',
+                        amount=0.076 if GuinaifenCharacter.eidolon >= 5 else 0.07,
+                        stacks=min(GuinaifenCharacter.firekissStacks,4.0 if GuinaifenCharacter.eidolon >= 6 else 3.0))
+    
+# messenger 4 pc buffs:
+KafkaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 3.0)
+GuinaifenCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 3.0)
+LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 4.0)
+
+for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
+    character.addStat('ATK.percent',description='Hanya trace',amount=0.10)
+    character.addStat('DMG',description='Burden',amount=0.44 if HanyaCharacter.eidolon >= 5 else 0.40)
+KafkaCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.252 if HanyaCharacter.eidolon >= 5 else 0.24) * HanyaCharacter.getTotalStat('SPD'))
+KafkaCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.756 if HanyaCharacter.eidolon >= 5 else 0.70)
+
+#%% Kafka Guinaifen Hanya Luocha Print Statements
+KafkaCharacter.print()
+GuinaifenCharacter.print()
+AstaCharacter.print()
+LuochaCharacter.print()
+
+#%% Kafka Guinaifen Hanya Luocha Rotations
+numSkill = 3.0
+numTalent = 3.0
+numUlt = 1.0
+GuinaifenDot = GuinaifenCharacter.useDot()
+GuinaifenDot.energy = 0.0 # kafka shouldn't be getting energy for Guinaifen Dot
+extraDots = [ GuinaifenDot ]
+extraDotsUlt = [ GuinaifenDot * KafkaCharacter.numEnemies ]
+KafkaRotation = [
+        KafkaCharacter.useSkill(extraDots=extraDots) * numSkill,
+        KafkaCharacter.useTalent() * numTalent,
+        KafkaCharacter.useUltimate(extraDots=extraDotsUlt) * numUlt,
+]
+
+numSkillGuinaifen = 3.0
+numUltGuinaifen = 1.0
+
+numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
+numDotKafka = min(numDotKafka, 2 * numUlt * KafkaCharacter.numEnemies + 2 * numTalent)
+
+GuinaifenRotation = [ # 
+        GuinaifenCharacter.useSkill() * numSkillGuinaifen,
+        GuinaifenCharacter.useUltimate() * numUlt,
+]
+
+numHanyaSkill = 3
+numHanyaUlt = 1
+HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
+                HanyaCharacter.useUltimate() * numHanyaUlt]
+    
+LuochaRotation = [LuochaCharacter.useBasic() * 3,
+                  LuochaCharacter.useUltimate() * 1,
+                  LuochaCharacter.useSkill() * 1,]
+LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
+
+
+#%% Kafka Guinaifen Hanya Luocha Rotation Math
+numDotGuinaifen = DotEstimator(GuinaifenRotation, GuinaifenCharacter, config, dotMode='alwaysBlast')
+numDotGuinaifen = min(numDotGuinaifen, 2.0 * numSkillGuinaifen * min(3.0, GuinaifenCharacter.numEnemies))
+
+totalKafkaEffect = sumEffects(KafkaRotation)
+totalGuinaifenEffect = sumEffects(GuinaifenRotation)
+totalHanyaEffect = sumEffects(HanyaRotation)
+totalLuochaEffect = sumEffects(LuochaRotation)
+
+KafkaRotationDuration = totalKafkaEffect.actionvalue * 100.0 / KafkaCharacter.getTotalStat('SPD')
+GuinaifenRotationDuration = totalGuinaifenEffect.actionvalue * 100.0 / GuinaifenCharacter.getTotalStat('SPD')
+HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
+
+# scale other character's character's rotation
+GuinaifenRotation = [x * KafkaRotationDuration / GuinaifenRotationDuration for x in GuinaifenRotation]
+HanyaRotation = [x * KafkaRotationDuration / HanyaRotationDuration for x in HanyaRotation]
+LuochaRotation = [x * KafkaRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+numDotGuinaifen *= KafkaRotationDuration / GuinaifenRotationDuration
+
+KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
+                                 KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
+GuinaifenEstimate = DefaultEstimator('E6 Guinaifen S5 GNSW {:.0f}E {:.0f}Q {:.1f}Dot'.format(numSkillGuinaifen, numUltGuinaifen, numDotGuinaifen),
+                                     GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
+HanyaEstimate = DefaultEstimator('Hanya 2.5 SP per E {:.0f}E {:.0f}Q S{:.0f} {}, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt,
+                                HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name), 
+                                HanyaRotation, HanyaCharacter, config)
+LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
+                                  LuochaRotation, LuochaCharacter, config)
+
+visualizationList.append([KafkaEstimate, GuinaifenEstimate, HanyaEstimate, LuochaEstimate])
 
 #%% Visualization
 # Visualize
