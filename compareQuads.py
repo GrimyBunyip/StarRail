@@ -477,7 +477,7 @@ LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,u
 for character in [LunaeCharacter, YukongCharacter]:
     character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 for character in [LunaeCharacter, YukongCharacter, LuochaCharacter]:
-    character.addStat('ATK.percent',description='Hanya trace',amount=0.10)
+    character.addStat('ATK.percent',description='Hanya trace',amount=0.10,uptime=0.5)
     character.addStat('DMG',description='Burden',amount=0.33 if HanyaCharacter.eidolon >= 5 else 0.30)
 
 LunaeCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'))
@@ -611,7 +611,7 @@ GuinaifenCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.1
 LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 4.0)
 
 for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
-    character.addStat('ATK.percent',description='Hanya trace',amount=0.10)
+    character.addStat('ATK.percent',description='Hanya trace',amount=0.10,uptime=0.5)
     character.addStat('DMG',description='Burden',amount=0.33 if HanyaCharacter.eidolon >= 5 else 0.30)
 KafkaCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'))
 KafkaCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60)
