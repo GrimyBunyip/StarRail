@@ -297,10 +297,10 @@ HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 
 # apply buffs now that we calculated approximate rotation times
 JingliuCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=4.0/15.0)
 JingliuCharacter.addStat('ATK.percent',description='trace',amount=0.10)
-JingliuCharacter.addStat('DMG',description='Burden',amount=0.44 if HanyaCharacter.eidolon >= 5 else 0.40)
+JingliuCharacter.addStat('DMG',description='Burden',amount=0.33 if HanyaCharacter.eidolon >= 5 else 0.30)
 # about 80% uptime on ult buf
-JingliuCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.252 if HanyaCharacter.eidolon >= 5 else 0.24) * HanyaCharacter.getTotalStat('SPD'),uptime=0.8)
-JingliuCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.756 if HanyaCharacter.eidolon >= 5 else 0.70,uptime=0.8)
+JingliuCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'),uptime=0.8)
+JingliuCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60,uptime=0.8)
 
 # only enhanced skills have rutilant arena buff
 JingliuCharacter.addStat('DMG',description='Rutilant Arena', amount=0.20, type=['enhancedSkill']) # take care of rutilant arena manually
@@ -357,10 +357,10 @@ HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 
 # apply buffs now that we calculated approximate rotation times
 LunaeCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 LunaeCharacter.addStat('ATK.percent',description='trace',amount=0.10)
-LunaeCharacter.addStat('DMG',description='Burden',amount=0.44 if HanyaCharacter.eidolon >= 5 else 0.40)
+LunaeCharacter.addStat('DMG',description='Burden',amount=0.33 if HanyaCharacter.eidolon >= 5 else 0.30)
 # about 80% uptime on ult buf
-LunaeCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.252 if HanyaCharacter.eidolon >= 5 else 0.24) * HanyaCharacter.getTotalStat('SPD'))
-LunaeCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.756 if HanyaCharacter.eidolon >= 5 else 0.70)
+LunaeCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'))
+LunaeCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60)
 
 # Rotation: Lunae with Hanya
 numHanyaSkill = 3
