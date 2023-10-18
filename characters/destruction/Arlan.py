@@ -67,7 +67,7 @@ class Arlan(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
-        retval.skillpoints = -1.0
+        #retval.skillpoints = -1.0 # arlan skill costs no SP
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
