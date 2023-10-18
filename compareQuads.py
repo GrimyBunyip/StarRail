@@ -808,10 +808,12 @@ numDotSampo *= KafkaRotationDuration / SampoRotationDuration
 
 KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
                                  KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-GuinaifenEstimate = DefaultEstimator('E6 Guinaifen S5 GNSW {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(numBasicGuinaifen, numSkillGuinaifen, numUltGuinaifen, numDotGuinaifen),
-                                     GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
-SampoEstimate = DefaultEstimator('Sampo {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(numBasicSampo, numSkillSampo, numUltSampo, numDotSampo), 
-                                 SampoRotation, SampoCharacter, config, numDot=numDotSampo)
+GuinaifenEstimate = DefaultEstimator('E6 Guinaifen S{:.0f} {} {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(GuinaifenCharacter.lightcone.superposition, GuinaifenCharacter.lightcone.name,
+                                                                                                        numBasicGuinaifen, numSkillGuinaifen, numUltGuinaifen, numDotGuinaifen),
+                                                                                                        GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
+SampoEstimate = DefaultEstimator('Sampo S{:.0f} {} {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(SampoCharacter.lightcone.superposition, SampoCharacter.lightcone.name, 
+                                                                                            numBasicSampo, numSkillSampo, numUltSampo, numDotSampo), 
+                                                                                            SampoRotation, SampoCharacter, config, numDot=numDotSampo)
 LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
                                   LuochaRotation, LuochaCharacter, config)
 
