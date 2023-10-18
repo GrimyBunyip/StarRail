@@ -147,7 +147,7 @@ if __name__ == '__main__':
     #KafkaRotation[0] = KafkaCharacter.useSkill(extraDots=[KafkaCharacter.useBreakDot() * breakDotUptime]) * numSkill
     #KafkaRotation[2] = KafkaCharacter.useUltimate(extraDots=[KafkaCharacter.useBreakDot() * breakDotUptime]) * numUlt
 
-    visualizationList.append(DefaultEstimator('Kafka: {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDot), 
+    visualizationList.append(DefaultEstimator(f'Kafka: {numSkill:.0f}E {numTalent:.0f}T {numUlt:.0f}Q {numDot:.1f}Dot', 
                                                     KafkaRotation, KafkaCharacter, config, numDot=numDot))
 
     # Blade
@@ -175,7 +175,7 @@ if __name__ == '__main__':
     numTalent = (0.75 + 3 + 1 + numHitsTaken) / 5.0
     BladeRotation.append(BladeCharacter.useTalent() * numTalent)
 
-    visualizationList.append(DefaultEstimator('Blade: {:.1f}N {:.1f}T {:.0f}Q'.format(numBasic, numTalent, numUlt), 
+    visualizationList.append(DefaultEstimator(f'Blade: {numBasic:.1f}N {numTalent:.1f}T {numUlt:.0f}Q', 
                                             BladeRotation, BladeCharacter, config))
 
     # Clara
@@ -205,7 +205,7 @@ if __name__ == '__main__':
             ClaraCharacter.useUltimate() * numUlt,
     ]
 
-    visualizationList.append(DefaultEstimator('Clara: {:.0f}E {:.1f}T {:.0f}Q'.format(numSkill, numSvarogCounters, numUlt),
+    visualizationList.append(DefaultEstimator(f'Clara: {numSkill:.0f}E {numSvarogCounters:.1f}T {numUlt:.0f}Q',
                                             ClaraRotation, ClaraCharacter, config))
 
     # Lunae
@@ -251,7 +251,7 @@ if __name__ == '__main__':
 
     numDot = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
     
-    visualizationList.append(DefaultEstimator('Serval: {:.0f}N {:.0f}E {:.0f}Q'.format(numBasic, numSkill, numUlt), 
+    visualizationList.append(DefaultEstimator(f'Serval: {numBasic:.0f}N {numSkill:.0f}E {numUlt:.0f}Q', 
                                                 ServalRotation, ServalCharacter, config, breakDotMode='alwaysAll', numDot=numDot))
 
     # Jing Yuan
@@ -279,7 +279,7 @@ if __name__ == '__main__':
             JingYuanCharacter.useUltimate() * numUlt, # 3 lord actions
             JingYuanCharacter.useTalent() * numTalent, # hits generated from skill and ultimate
     ]
-    visualizationList.append(DefaultEstimator('JingYuan: {:.0f}E {:.0f}Q {:.0f}T'.format(numSkill, numUlt, numTalent), 
+    visualizationList.append(DefaultEstimator(f'JingYuan: {numSkill:.0f}E {numUlt:.0f}Q {numTalent:.0f}T', 
                                                 JingYuanRotation, JingYuanCharacter, config))
 
     # Seele
@@ -334,7 +334,7 @@ if __name__ == '__main__':
             DanHengCharacter.useSkill() * numSkill,
             DanHengCharacter.useUltimate(slowed=True) * numUlt,
     ]
-    visualizationList.append(DefaultEstimator('Dan Heng: {:.0f}E {:.0f}Q'.format(numSkill, numUlt), 
+    visualizationList.append(DefaultEstimator(f'Dan Heng: {numSkill:.0f}E {numUlt:.0f}Q', 
                                                 DanHengRotation, DanHengCharacter, config))
 
     #Yanqing
@@ -357,7 +357,7 @@ if __name__ == '__main__':
             YanqingCharacter.useTalent() * 2,
             YanqingCharacter.endTurn(),
     ]
-    visualizationList.append(DefaultEstimator('Yanqing: {:.1f}E {:.1f}T Bliss(1E 1Q 2T)'.format(numSkill, numTalent), 
+    visualizationList.append(DefaultEstimator(f'Yanqing: {numSkill:.1f}E {numTalent:.1f}T Bliss(1E 1Q 2T)', 
                                                 YanqingRotation, YanqingCharacter, config))
 
     # Jingliu
@@ -378,7 +378,7 @@ if __name__ == '__main__':
             JingliuCharacter.useUltimate() * numUlt, # 5 energy, 1 stack
             JingliuCharacter.extraTurn() * 0.9, # multiply by 0.9 because it tends to overlap with skill advances
     ]
-    visualizationList.append(DefaultEstimator('Jingliu {:.0f}E {:.0f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
+    visualizationList.append(DefaultEstimator(f'Jingliu {numSkill:.0f}E {numEnhanced:.0f}Moon {numUlt:.0f}Q',
                                                 JingliuRotation, JingliuCharacter, config))
 
     # Topaz
@@ -404,7 +404,7 @@ if __name__ == '__main__':
     numbyAdvanceForwards = 6 * 3 / 8 # 4 skill usages, treat each 50% advance forward as 37.5% of an advance forward    
     TopazRotation.append(TopazCharacter.useTalent(windfall=False) * (numbyTurns + numbyAdvanceForwards)) # about 1 talent per basic/skill
 
-    visualizationList.append(DefaultEstimator('Topaz {:.0f}E {:.0f}N {:.1f}T {:.0f}Q Windfall(2T)'.format(numSkill, numBasic, (numbyTurns + numbyAdvanceForwards), numUlt), 
+    visualizationList.append(DefaultEstimator(f'Topaz {numSkill:.0f}E {numBasic:.0f}N {numbyTurns + numbyAdvanceForwards:.1f}T {numUlt:.0f}Q Windfall(2T)', 
                                                 TopazRotation, TopazCharacter, config))
 
     # Qingque
@@ -461,7 +461,7 @@ if __name__ == '__main__':
     numDot = DotEstimator(HimekoRotation, HimekoCharacter, config, dotMode='alwaysAll')
     numDot = min(numDot, 2.0 * (numSkill * min(3.0, HimekoCharacter.numEnemies) + (numTalent + numUlt) * HimekoCharacter.numEnemies) * 0.5) # halve it because of himeko's base chance
 
-    visualizationList.append(DefaultEstimator('Himeko {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDot), 
+    visualizationList.append(DefaultEstimator(f'Himeko {numSkill:.0f}E {numTalent:.0f}T {numUlt:.0f}Q {numDot:.1f}Dot', 
                                                 HimekoRotation, HimekoCharacter, config, numDot=numDot))
 
     # Hook
@@ -484,7 +484,7 @@ if __name__ == '__main__':
     numDot = DotEstimator(HookRotation, HookCharacter, config, dotMode='alwaysBlast')
     numDot = min(numDot, (numEnhanced + numSkill) * (3.0 if HookCharacter.eidolon >= 2 else 2.0))
 
-    visualizationList.append(DefaultEstimator('Hook {:.0f}Enh {:.0f}E {:.0f}Q {:.1f}Dot'.format(numEnhanced, numSkill, numUlt, numDot),
+    visualizationList.append(DefaultEstimator(f'Hook {numEnhanced:.0f}Enh {numSkill:.0f}E {numUlt:.0f}Q {numDot:.1f}Dot',
                                                 HookRotation, HookCharacter, config, numDot=numDot))
 
     # Sampo
@@ -505,7 +505,7 @@ if __name__ == '__main__':
     numDot = DotEstimator(SampoRotation, SampoCharacter, config, dotMode='alwaysBlast')
     numDot = min(numDot, 3.0 * (numSkill + numUlt) * SampoCharacter.numEnemies)
 
-    visualizationList.append(DefaultEstimator('Sampo {:.0f}E {:.0f}Q {:.1f}Dot'.format(numSkill, numUlt, numDot),
+    visualizationList.append(DefaultEstimator(f'Sampo {numSkill:.0f}E {numUlt:.0f}Q {numDot:.1f}Dot',
                                                 SampoRotation, SampoCharacter, config, numDot=numDot))
 
     # Luka
@@ -528,7 +528,7 @@ if __name__ == '__main__':
     numDot = DotEstimator(LukaRotation, LukaCharacter, config, dotMode='alwaysBlast')
     numDot = min(numDot, 3.0 * numSkill)
 
-    visualizationList.append(DefaultEstimator('Luka {:.0f}Enh {:.0f}S {:.0f}Q {:.1f}Dot'.format(numEnhanced, numSkill, numUlt, numDot),
+    visualizationList.append(DefaultEstimator(f'Luka {numEnhanced:.0f}Enh {numSkill:.0f}S {numUlt:.0f}Q {numDot:.1f}Dot',
                                                 LukaRotation, LukaCharacter, config, numDot=numDot))
 
     # Guinaifen
@@ -549,7 +549,7 @@ if __name__ == '__main__':
     numDot = DotEstimator(GuinaifenRotation, GuinaifenCharacter, config, dotMode='alwaysBlast')
     numDot = min(numDot, 2.0 * numSkill * min(3.0, GuinaifenCharacter.numEnemies))
 
-    visualizationList.append(DefaultEstimator('Guinaifen {:.0f}E {:.0f}Q {:.1f}Dot'.format(numSkill, numUlt, numDot), GuinaifenRotation, GuinaifenCharacter, config, numDot=numDot))
+    visualizationList.append(DefaultEstimator(f'Guinaifen {numSkill:.0f}E {numUlt:.0f}Q {numDot:.1f}Dot', GuinaifenRotation, GuinaifenCharacter, config, numDot=numDot))
 
     # Sushang
     SushangCharacter = Sushang(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.physical'],
@@ -585,7 +585,7 @@ if __name__ == '__main__':
             WeltCharacter.useUltimate() * numUlt, #
     ]
 
-    visualizationList.append(DefaultEstimator('Welt {:.0f}N {:.0f}E {:.0f}Q'.format(numBasic, numSkill, numUlt), WeltRotation, WeltCharacter, config))
+    visualizationList.append(DefaultEstimator(f'Welt {numBasic:.0f}N {numSkill:.0f}E {numUlt:.0f}Q', WeltRotation, WeltCharacter, config))
 
     # SilverWolf
     SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR', 'BreakEffect'],
@@ -621,7 +621,7 @@ if __name__ == '__main__':
             SilverWolfCharacter.useUltimate() * numUlt, #
     ]
 
-    visualizationList.append(DefaultEstimator('SilverWolf {:.0f}E {:.0f}Q'.format(numSkill, numUlt), SilverWolfRotation, SilverWolfCharacter, config))
+    visualizationList.append(DefaultEstimator(f'SilverWolf {numSkill:.0f}E {numUlt:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config))
 
     # Herta
     HertaCharacter = Herta(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.ice'],
@@ -656,7 +656,7 @@ if __name__ == '__main__':
             ArlanCharacter.useUltimate() * numUlt,
     ]
 
-    visualizationList.append(DefaultEstimator('Arlan {:.1f}E {:.0f}Q'.format(numSkill, numUlt), ArlanRotation, ArlanCharacter, config))
+    visualizationList.append(DefaultEstimator(f'Arlan {numSkill:.1f}E {numUlt:.0f}Q', ArlanRotation, ArlanCharacter, config))
 
     #Yukong
     '''
@@ -692,7 +692,7 @@ if __name__ == '__main__':
             ArgentiCharacter.useEnhancedUltimate() * numUlt,
     ]
 
-    visualizationList.append(DefaultEstimator('Argenti {:.1f}E {:.0f}EnhQ'.format(numSkill, numUlt), ArgentiRotation, ArgentiCharacter, config))
+    visualizationList.append(DefaultEstimator(f'Argenti {numSkill:.1f}E {numUlt:.0f}EnhQ', ArgentiRotation, ArgentiCharacter, config))
 
     visualize(visualizationList, visualizerPath='visualizer\SoloVisual.png', **config)
         

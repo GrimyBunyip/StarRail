@@ -79,7 +79,7 @@ class BaseCharacter(object):
         self.initialEnergy = self.maxEnergy * 0.5
         self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
         
-        self.longName = '{} E{} {} S{}'.format(self.name, self.eidolon, self.lightcone.name, self.lightcone.superposition)
+        self.longName = f'{self.name} E{self.eidolon} {self.lightcone.name} S{self.lightcone.superposition}'
 
     def parseName(self, name:str, type:list=None, mathType:str='base'):
         splitname = name.split('.')
@@ -334,7 +334,7 @@ class BaseCharacter(object):
         effect.debugCount.append(1)
         
     def print(self):
-        print('##### Name: {} #####'.format(self.name))
+        print(f'##### Name: {self.name} #####')
         print('SPD: {:.2f} - CR: {:.3f} - CD: {:.3f}'.format(self.getTotalStat('SPD'),
                                                              self.getTotalStat('CR'),
                                                              self.getTotalStat('CD'),))

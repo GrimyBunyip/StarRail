@@ -75,11 +75,11 @@ class Lunae(BaseCharacter):
                 retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
                 retval.skillpoints = 1.0
                 retval.actionvalue = 1.0 + self.getAdvanceForward(type)
-            retval.damage = self.getTotalMotionValue('basic_{}'.format(i+1),type)
+            retval.damage = self.getTotalMotionValue(f'basic_{i+1:d}',type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
-            self.addDebugInfo(retval,type,'Lunae Basic Hit {}'.format(hitNum))
+            self.addDebugInfo(retval,type,f'Lunae Basic Hit {hitNum:d}')
         
         self.addHeart()
         return retval
@@ -95,11 +95,11 @@ class Lunae(BaseCharacter):
                 retval.gauge = 60.0 * self.getBreakEfficiency(type)
                 retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
                 retval.actionvalue = 1.0 + self.getAdvanceForward(type)
-            retval.damage = self.getTotalMotionValue('enhancedBasic1_{}'.format(hitNum),type)
+            retval.damage = self.getTotalMotionValue(f'enhancedBasic1_{hitNum:d}',type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
-            self.addDebugInfo(retval,type,'Lunae Enhanced1 Hit {}'.format(hitNum))
+            self.addDebugInfo(retval,type,f'Lunae Enhanced1 Hit {hitNum:d}')
         
         self.addHeart()
         return retval
@@ -119,11 +119,11 @@ class Lunae(BaseCharacter):
                 retval.actionvalue = 1.0 + self.getAdvanceForward(type)
             if hitNum >= 4:
                 self.addRoar()
-            retval.damage = self.getTotalMotionValue('enhancedBasic3_{}'.format(hitNum),type)
+            retval.damage = self.getTotalMotionValue(f'enhancedBasic3_{hitNum}',type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
-            self.addDebugInfo(retval,type,'Lunae Enhanced2 Hit {}'.format(hitNum))
+            self.addDebugInfo(retval,type,f'Lunae Enhanced2 Hit {hitNum}')
         
         self.addHeart()
         return retval
@@ -142,11 +142,11 @@ class Lunae(BaseCharacter):
                 retval.actionvalue = 1.0 + self.getAdvanceForward(type)
             if hitNum >= 4:
                 self.addRoar()
-            retval.damage = self.getTotalMotionValue('enhancedBasic3_{}'.format(hitNum),type)
+            retval.damage = self.getTotalMotionValue(f'enhancedBasic3_{hitNum}',type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
-            self.addDebugInfo(retval,type,'Lunae Enhanced3 Hit {}'.format(hitNum))
+            self.addDebugInfo(retval,type,f'Lunae Enhanced3 Hit {hitNum}')
         
         self.addHeart()
         return retval
@@ -171,11 +171,11 @@ class Lunae(BaseCharacter):
                 retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
                 retval.skillpoints = 3.0 if self.eidolon >= 2 else 2.0
                 retval.actionvalue = -1.0 if self.eidolon >= 2 else 0.0
-            retval.damage = self.getTotalMotionValue('ultimate_{}'.format(hitNum),type)
+            retval.damage = self.getTotalMotionValue(f'ultimate_{hitNum}',type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg()
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
-            self.addDebugInfo(retval,type,'Lunae Ultimate Hit {}'.format(hitNum))
+            self.addDebugInfo(retval,type,f'Lunae Ultimate Hit {hitNum}')
         
         self.addHeart()
         return retval

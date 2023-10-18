@@ -277,11 +277,11 @@ TopazRotation = [x * ClaraRotationDuration / TopazRotationDuration for x in Topa
 AstaRotation = [x * ClaraRotationDuration / AstaRotationDuration for x in AstaRotation]
 LuochaRotation = [x * ClaraRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
-ClaraEstimate = DefaultEstimator('Clara: 2E {:.1f}T 1Q'.format(numSvarogCounters), ClaraRotation, ClaraCharacter, config)
-TopazEstimate = DefaultEstimator('Topaz: 1E 4N {:.1f}T Q Windfall(2T)'.format((numbyTurns + numbyAdvanceForwards)), TopazRotation, TopazCharacter, config)
-AstaEstimate = DefaultEstimator('Slow Asta: 2E 1Q, S{:.0f} {}'.format(AstaCharacter.lightcone.superposition, AstaCharacter.lightcone.name), 
+ClaraEstimate = DefaultEstimator(f'Clara: 2E {numSvarogCounters:.1f}T 1Q', ClaraRotation, ClaraCharacter, config)
+TopazEstimate = DefaultEstimator(f'Topaz: 1E 4N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
+AstaEstimate = DefaultEstimator(f'Slow Asta: 2E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
                                 AstaRotation, AstaCharacter, config)
-LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
+LuochaEstimate = DefaultEstimator(f'Luocha: 3N 1E 1Q, S{LuochaCharacter.lightcone.superposition:d} {LuochaCharacter.lightcone.name}', 
                                   LuochaRotation, LuochaCharacter, config)
 
 visualizationList.append([ClaraEstimate, TopazEstimate, LuochaEstimate, AstaEstimate])

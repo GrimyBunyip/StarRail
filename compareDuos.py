@@ -200,7 +200,7 @@ for i in range(len(JingliuRotation)):
     JingliuRotation[i].energy *= 1.0 / 3.0 # manually implementing this atm
 
 JingliuEstimate = DefaultEstimator('Jingliu 2E 5Enh 3Q', JingliuRotation, JingliuCharacter, config)
-TingyunEstimate = DefaultEstimator('E6 Tingyun S5 Memories, 12 spd substats', TingyunRotation, TingyunCharacter, config)
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats', [totalTingyunEffect], TingyunCharacter, config)
 
 # removed this as the rotation is too clunky
 visualizationList.append([JingliuEstimate, TingyunEstimate])
@@ -276,9 +276,9 @@ DanceDanceDanceEffect.actionvalue = -0.24 * JingliuRotationDuration / BronyaRota
 JingliuCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
 JingliuRotation.append(DanceDanceDanceEffect)
 
-JingliuEstimate = DefaultEstimator('Jingliu {:.0f}E {:.0f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
+JingliuEstimate = DefaultEstimator(f'Jingliu {numSkill:.0f}E {numEnhanced:.0f}Moon {numUlt:.0f}Q',
                                                 JingliuRotation, JingliuCharacter, config)
-BronyaEstimate = DefaultEstimator('E0 Bronya S5 Dance, 12 Spd Substats', BronyaRotation, BronyaCharacter, config)
+BronyaEstimate = DefaultEstimator(f'E{BronyaCharacter.eidolon:.0f} Bronya S{BronyaCharacter.lightcone.superposition} {BronyaCharacter.lightcone.name}, 12 Spd Substats', BronyaRotation, BronyaCharacter, config)
 visualizationList.append([JingliuEstimate, BronyaEstimate])
 
 # Stats: Jingliu & Hanya
@@ -335,9 +335,9 @@ print('Hanya HP: ',HanyaCharacter.getTotalStat('HP'))
 # scale second character's rotation
 HanyaRotation = [x * JingliuRotationDuration / HanyaRotationDuration for x in HanyaRotation]
 
-JingliuEstimate = DefaultEstimator('Jingliu {:.0f}E {:.0f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
+JingliuEstimate = DefaultEstimator(f'Jingliu {numSkill:.0f}E {numEnhanced:.0f}Moon {numUlt:.0f}Q',
                                                 JingliuRotation, JingliuCharacter, config)
-HanyaEstimate = DefaultEstimator('Hanya 2.5 SP per E {:.0f}E {:.0f}Q S5 Memories, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt), 
+HanyaEstimate = DefaultEstimator(f'Hanya 2.5 SP per E {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition} {HanyaCharacter.lightcone.name}, 12 Spd Substats', 
                                  HanyaRotation, HanyaCharacter, config)
 visualizationList.append([JingliuEstimate, HanyaEstimate])
 
@@ -394,7 +394,7 @@ print('Lunae Energy: ', totalLunaeEffect.energy, ' Hanya Energy: ', totalHanyaEf
 HanyaRotation = [x * LunaeRotationDuration / HanyaRotationDuration for x in HanyaRotation]
 
 LunaeEstimate = DefaultEstimator('Lunae: 2N^3 1Q', LunaeRotation, LunaeCharacter, config)
-HanyaEstimate = DefaultEstimator('Hanya 2.5 SP per E {:.0f}E {:.0f}Q S5 Memories, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt), 
+HanyaEstimate = DefaultEstimator(f'Hanya 2.5 SP per E {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S5 Memories, 12 Spd Substats', 
                                  HanyaRotation, HanyaCharacter, config)
 visualizationList.append([LunaeEstimate,HanyaEstimate])
 
@@ -453,7 +453,7 @@ TingyunRotation.append(TingyunCharacter.useBenediction(['basic']) * 2)
 TingyunRotation.append(TingyunCharacter.useBenediction(['ultimate']))
 
 LunaeEstimate = DefaultEstimator('Lunae: 2N^3 1Q', LunaeRotation, LunaeCharacter, config)
-TingyunEstimate = DefaultEstimator('E6 Tingyun S5 Memories, 12 spd substats', TingyunRotation, TingyunCharacter, config)
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats', [totalTingyunEffect], TingyunCharacter, config)
 visualizationList.append([LunaeEstimate,TingyunEstimate])
 
 # Stats: Blade and Bronya
@@ -520,9 +520,9 @@ print('Blade Energy: ', totalBladeEffect.energy, ' Bronya Energy: ', totalBronya
 # scale second character's rotation
 BronyaRotation = [x * BladeRotationDuration / BronyaRotationDuration for x in BronyaRotation]
 
-BladeEstimate = DefaultEstimator('Blade: {:.0f}N {:.1f}T {:.0f}Q'.format(numBasic, numTalent, numUlt),
+BladeEstimate = DefaultEstimator(f'Blade: {numBasic:.0f}N {numTalent:.1f}T {numUlt:.0f}Q',
                                  BladeRotation, BladeCharacter, config)
-BronyaEstimate = DefaultEstimator('E0 Bronya S5 Planetary, 12 spd substats', BronyaRotation, BronyaCharacter, config,)
+BronyaEstimate = DefaultEstimator(f'E{BronyaCharacter.eidolon:.0f} Bronya S{BronyaCharacter.lightcone.superposition} {BronyaCharacter.lightcone.name}, 12 Spd Substats', BronyaRotation, BronyaCharacter, config)
 visualizationList.append([BladeEstimate, BronyaEstimate])
 
 # Stats: Jingliu & Blade
@@ -595,9 +595,9 @@ print('Blade Energy: ', totalBladeEffect.energy, ' Jingliu Energy: ', totalJingl
 # scale second character's rotation
 JingliuRotation = [x * BladeRotationDuration / JingliuRotationDuration for x in JingliuRotation]
 
-BladeEstimate = DefaultEstimator('Blade: {:.0f}N {:.1f}T {:.0f}Q'.format(numBasic, numTalent, numUlt),
+BladeEstimate = DefaultEstimator(f'Blade: {numBasic:.0f}N {numTalent:.1f}T {numUlt:.0f}Q',
                                  BladeRotation, BladeCharacter, config)
-JingliuEstimate = DefaultEstimator('Jingliu {:.0f}E {:.0f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
+JingliuEstimate = DefaultEstimator(f'Jingliu {numSkill:.0f}E {numEnhanced:.0f}Moon {numUlt:.0f}Q',
                                                 JingliuRotation, JingliuCharacter, config)
 
 visualizationList.append([BladeEstimate, JingliuEstimate])
@@ -688,9 +688,9 @@ totalJingYuanEffect = totalJingYuanEffectLong * longToShort + totalJingYuanEffec
 totalTingyunEffect = totalTingyunEffectLong * longToShort + totalTingyunEffectShort * (1.0 - longToShort)
 print('Jing Yuan Energy: ', totalJingYuanEffect.energy, ' Tingyun Energy: ', totalTingyunEffect.energy)
 
-JingYuanEstimate = DefaultEstimator('Jing Yuan {:.1f}E {:.0f}Q'.format(totalJingYuanEffect.actionvalue, numUlt),
+JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q',
                                     [totalJingYuanEffect], JingYuanCharacter, config)
-TingyunEstimate = DefaultEstimator('E6 Tingyun S5 Memories, 12 spd substats', [totalTingyunEffect], TingyunCharacter, config)
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats', [totalTingyunEffect], TingyunCharacter, config)
 visualizationList.append([JingYuanEstimate, TingyunEstimate])
 
 # Stats: Kafka & Sampo
@@ -751,9 +751,9 @@ print('Kafka Energy: ', totalKafkaEffect.energy, ' Sampo Energy: ', totalSampoEf
 SampoRotation = [x * KafkaRotationDuration / SampoRotationDuration for x in SampoRotation]
 numDotSampo *= KafkaRotationDuration / SampoRotationDuration
 
-KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
+KafkaEstimate = DefaultEstimator(f'Kafka {numSkill:.0f}E {numTalent:.0f}T {numUlt:.0f}Q {numDotKafka:.1f}Dot',
                                  KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-SampoEstimate = DefaultEstimator('Sampo {:.0f}E {:.0f}Q {:.1f}Dot'.format(numSkillSampo, numUltSampo, numDotSampo), 
+SampoEstimate = DefaultEstimator(f'Sampo {numSkillSampo:.0f}E {numUltSampo:.0f}Q {numDotSampo:.1f}Dot', 
                                  SampoRotation, SampoCharacter, config, numDot=numDotSampo)
 
 visualizationList.append([KafkaEstimate, SampoEstimate])
@@ -817,9 +817,9 @@ print('Kafka Energy: ', totalKafkaEffect.energy, ' Luka Energy: ', totalLukaEffe
 LukaRotation = [x * KafkaRotationDuration / LukaRotationDuration for x in LukaRotation]
 numDotLuka *= KafkaRotationDuration / LukaRotationDuration
 
-KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
+KafkaEstimate = DefaultEstimator(f'Kafka {numSkill:.0f}E {numTalent:.0f}T {numUlt:.0f}Q {numDotKafka:.1f}Dot',
                                  KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-LukaEstimate = DefaultEstimator('E6 Luka S5 GNSW {:.0f}Enh {:.0f}S {:.0f}Q {:.1f}Dot'.format(numEnhancedLuka, numSkillLuka, numUltLuka, numDotLuka), 
+LukaEstimate = DefaultEstimator(f'E{LukaCharacter.eidolon:.0f} Luka S{LukaCharacter.lightcone.superposition:.0f} {LukaCharacter.lightcone.name} {numEnhancedLuka:.0f}Enh {numSkillLuka:.0f}S {numUltLuka:.0f}Q {numDotLuka:.1f}Dot', 
                                 LukaRotation, LukaCharacter, config, numDot=numDotLuka)
 
 visualizationList.append([KafkaEstimate, LukaEstimate])
@@ -877,9 +877,9 @@ print('Kafka Energy: ', totalKafkaEffect.energy, ' Serval Energy: ', totalServal
 ServalRotation = [x * KafkaRotationDuration / ServalRotationDuration for x in ServalRotation]
 numDotServal *= KafkaRotationDuration / ServalRotationDuration
 
-KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
+KafkaEstimate = DefaultEstimator(f'Kafka {numSkill:.0f}E {numTalent:.0f}T {numUlt:.0f}Q {numDotKafka:.1f}Dot',
                                  KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-ServalEstimate = DefaultEstimator('E6 Serval S5 Breakfast {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(numBasicServal, numSkillServal, numUltServal, numDotServal), 
+ServalEstimate = DefaultEstimator(f'E{ServalCharacter.eidolon:.0f} Serval S{ServalCharacter.lightcone.superposition} {ServalCharacter.lightcone.name} {numBasicServal:.0f}N {numSkillServal:.0f}E {numUltServal:.0f}Q {numDotServal:.1f}Dot', 
                                   ServalRotation, ServalCharacter, config, numDot=numDotServal)
 
 visualizationList.append([KafkaEstimate, ServalEstimate])
@@ -945,9 +945,9 @@ print('Kafka Energy: ', totalKafkaEffect.energy, ' Guinaifen Energy: ', totalGui
 GuinaifenRotation = [x * KafkaRotationDuration / GuinaifenRotationDuration for x in GuinaifenRotation]
 numDotGuinaifen *= KafkaRotationDuration / GuinaifenRotationDuration
 
-KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
+KafkaEstimate = DefaultEstimator(f'Kafka {numSkill:.0f}E {numTalent:.0f}T {numUlt:.0f}Q {numDotKafka:.1f}Dot',
                                  KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-GuinaifenEstimate = DefaultEstimator('E6 Guinaifen S5 GNSW {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(numBasicGuinaifen, numSkillGuinaifen, numUltGuinaifen, numDotGuinaifen),
+GuinaifenEstimate = DefaultEstimator(f'E{GuinaifenCharacter.eidolon:.0f} Guinaifen S{GuinaifenCharacter.lightcone.superposition} {GuinaifenCharacter.lightcone.name} {numBasicGuinaifen:.0f}N {numSkillGuinaifen:.0f}E {numUltGuinaifen:.0f}Q {numDotGuinaifen:.1f}Dot',
                                      GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
 
 visualizationList.append([KafkaEstimate, GuinaifenEstimate])
@@ -1016,8 +1016,8 @@ TopazRotation = [x * ClaraRotationDuration / TopazRotationDuration for x in Topa
 print('Clara Rotation Duration: ', ClaraRotationDuration,' Topaz Rotation Duration: ', TopazRotationDuration)
 print('Clara Energy: ', totalClaraEffect.energy, ' Topaz Energy: ', totalTopazEffect.energy)
 
-ClaraEstimate = DefaultEstimator('Clara: 2E {:.1f}T 1Q'.format(numSvarogCounters), ClaraRotation, ClaraCharacter, config)
-TopazEstimate = DefaultEstimator('Topaz: 1E 4N {:.1f}T Q Windfall(2T)'.format((numbyTurns + numbyAdvanceForwards)), TopazRotation, TopazCharacter, config)
+ClaraEstimate = DefaultEstimator(f'Clara: 2E {numSvarogCounters:.1f}T 1Q', ClaraRotation, ClaraCharacter, config)
+TopazEstimate = DefaultEstimator(f'Topaz: 1E 4N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
 
 visualizationList.append([ClaraEstimate, TopazEstimate])
 
@@ -1087,9 +1087,9 @@ TingyunRotation = [x * ClaraRotationDuration / TingyunRotationDuration for x in 
 TingyunRotation.append(TingyunCharacter.useBenediction(['skill']) * numSkill)
 TingyunRotation.append(TingyunCharacter.useBenediction(['talent','followup']) * (numUnenhancedTalents + numEnhancedTalents))
 
-ClaraEstimate = DefaultEstimator('Clara: {:.1f}E {:.1f}T 1Q'.format(numSkill, (numUnenhancedTalents + numEnhancedTalents)),
+ClaraEstimate = DefaultEstimator(f'Clara: {numSkill:.1f}E {numUnenhancedTalents + numEnhancedTalents:.1f}T 1Q',
                                  ClaraRotation, ClaraCharacter, config)
-TingyunEstimate = DefaultEstimator('E6 Tingyun S5 Memories, 12 spd substats', TingyunRotation, TingyunCharacter, config)
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats', [totalTingyunEffect], TingyunCharacter, config)
 
 visualizationList.append([ClaraEstimate, TingyunEstimate])
 
@@ -1161,9 +1161,9 @@ print('Yanqing Rotation Duration: ', YanqingRotationDuration,' Tingyun Rotation 
 print('Yanqing Energy: ', totalYanqingEffect.energy, ' Tingyun Energy: ', totalTingyunEffect.energy)
 
 
-YanqingEstimate = DefaultEstimator('Yanqing: {:.1f}E {:.1f}T Bliss(1E 1Q 2T)'.format(numSkill, numTalent), 
+YanqingEstimate = DefaultEstimator(f'Yanqing: {numSkill:.1f}E {numTalent:.1f}T Bliss(1E 1Q 2T)', 
                                             YanqingRotation, YanqingCharacter, config)
-TingyunEstimate = DefaultEstimator('E6 Tingyun S5 Memories, 12 spd substats', TingyunRotation, TingyunCharacter, config)
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats', [totalTingyunEffect], TingyunCharacter, config)
 
 visualizationList.append([YanqingEstimate, TingyunEstimate])
 
@@ -1222,9 +1222,9 @@ print('Argenti Rotation Duration: ', ArgentiRotationDuration,' Tingyun Rotation 
 print('Argenti Energy: ', totalArgentiEffect.energy, ' Tingyun Energy: ', totalTingyunEffect.energy)
 
 
-ArgentiEstimate = DefaultEstimator('Argenti: {:.1f}E {:.1f}EnhQ'.format(numSkill, numUlt), 
+ArgentiEstimate = DefaultEstimator(f'Argenti: {numSkill:.1f}E {numUlt:.1f}EnhQ', 
                                             ArgentiRotation, ArgentiCharacter, config)
-TingyunEstimate = DefaultEstimator('E6 Tingyun S5 Memories, 12 spd substats', TingyunRotation, TingyunCharacter, config)
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats', [totalTingyunEffect], TingyunCharacter, config)
 
 visualizationList.append([ArgentiEstimate, TingyunEstimate])
 
