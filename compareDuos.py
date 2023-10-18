@@ -1228,6 +1228,67 @@ TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{T
 
 visualizationList.append([ArgentiEstimate, TingyunEstimate])
 
+# Stats: Arlan and Bronya
+ArlanCharacter = Arlan(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.lightning'],
+                substats = {'CR':9,'CD':9, 'ATK.percent':5, 'SPD.flat': 5}),
+        lightcone = ASecretVow(uptime=1.0,**config),
+        relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = RutilantArena(),
+        **config)
+
+
+BronyaCharacter = Bronya(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'ER'],
+                        substats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
+            lightcone = PastAndFuture(**config),
+            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+            **config)
+
+# apply buffs now that we calculated approximate rotation times
+ArlanCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
+ArlanCharacter.addStat('DMG',description='Bronya A6',amount=0.10)
+ArlanCharacter.addStat('CD',description='BrokenKeel Bronya',amount=0.10)
+
+# since we are not assuming a sync'd rotation, I will just take the average of the Bronya Buffs.
+# Assume Bronya ult buffs every 4 attacks, and Bronya skill buffs every 2
+ArlanCharacter.addStat('ATK.percent',description='Bronya Ult',
+                       amount=0.594 if BronyaCharacter.eidolon >= 3 else 0.55,
+                       uptime=1.0/4.0)
+ArlanCharacter.addStat('CD',description='Bronya Ult',
+                       amount=((0.168 * BronyaCharacter.getTotalStat('CD') + 0.216) if BronyaCharacter.eidolon >= 3 else (0.16 * BronyaCharacter.getTotalStat('CD') + 0.2)),
+                       uptime=1.0/4.0)
+ArlanCharacter.addStat('DMG',description='Bronya Skill',
+                       amount=0.726 if BronyaCharacter.eidolon >= 5 else 0.66,
+                       uptime=1.0/2.0)
+ArlanCharacter.addStat('DMG',description='Past and Future',
+                       amount=0.12 + 0.04 * BronyaCharacter.lightcone.superposition,
+                       uptime=1.0/2.0)
+
+# Rotation: Arlan and Bronya
+BronyaRotation = [BronyaCharacter.useSkill() * 4,
+                  BronyaCharacter.useUltimate(),]
+
+# Rotation is calculated per ult, so we'll attenuate this to fit 3 bronya turns    
+numSkill = 3.5
+numUlt = 1.0
+
+ArlanRotation = [ # 
+        ArlanCharacter.useSkill() * numSkill,
+        ArlanCharacter.useUltimate() * numUlt,
+        BronyaCharacter.useAdvanceForward() * numSkill / 2.0, # 1 advance forward every 2 basics
+]
+
+totalArlanEffect = sumEffects(ArlanRotation)
+totalBronyaEffect = sumEffects(BronyaRotation)
+
+ArlanRotationDuration = totalArlanEffect.actionvalue * 100.0 / ArlanCharacter.getTotalStat('SPD')
+BronyaRotationDuration = totalBronyaEffect.actionvalue * 100.0 / BronyaCharacter.getTotalStat('SPD')
+
+# scale second character's rotation
+BronyaRotation = [x * ArlanRotationDuration / BronyaRotationDuration for x in BronyaRotation]
+
+ArlanEstimate = DefaultEstimator(f'Arlan {numSkill:.1f}E {numUlt:.0f}Q', ArlanRotation, ArlanCharacter, config)
+BronyaEstimate = DefaultEstimator(f'E{BronyaCharacter.eidolon:.0f} Bronya S{BronyaCharacter.lightcone.superposition} {BronyaCharacter.lightcone.name}, 12 Spd Substats', BronyaRotation, BronyaCharacter, config)
+visualizationList.append([ArlanEstimate, BronyaEstimate])
+
 # Visualize
 visualize(visualizationList, visualizerPath='visualizer\DuoVisual.png', **config)
     
