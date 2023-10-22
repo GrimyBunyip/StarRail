@@ -25,9 +25,9 @@ class Argenti(BaseCharacter):
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
 
-        self.motionValueDict['skill'] = [BaseMV(area='all', stat='atk', value=1.1, eidolonThreshold=3, eidolonBonus=0.2)]
+        self.motionValueDict['skill'] = [BaseMV(area='all', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
 
-        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.7, eidolonThreshold=5, eidolonBonus=0.136)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.128)]
         self.motionValueDict['enhancedUltimate'] = [BaseMV(area='all', stat='atk', value=2.8, eidolonThreshold=5, eidolonBonus=0.224),
                                                     BaseMV(area='single', stat='atk', value=0.95*6, eidolonThreshold=5, eidolonBonus=0.076*6)]
 
@@ -35,6 +35,12 @@ class Argenti(BaseCharacter):
         self.addStat('CR',description='talent',
                      amount=0.028 if self.eidolon>=3 else 0.025,
                      uptime=self.talentStacks)
+        self.addStat('BonusEnergyAttack',description='talent',
+                     amount=3, type=['basic'])
+        self.addStat('BonusEnergyAttack',description='talent',
+                     amount=3, stacks=self.numEnemies, type=['skill'])
+        self.addStat('BonusEnergyAttack',description='talent',
+                     amount=3, stacks=self.numEnemies, type=['ultimate'])
         self.addStat('DMG',description='trace',amount=0.15,uptime=self.courageUptime)
         
         # Eidolons

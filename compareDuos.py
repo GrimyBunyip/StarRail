@@ -297,7 +297,7 @@ HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 
 # apply buffs now that we calculated approximate rotation times
 JingliuCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=4.0/15.0)
 JingliuCharacter.addStat('ATK.percent',description='trace',amount=0.10)
-JingliuCharacter.addStat('DMG',description='Burden',amount=0.33 if HanyaCharacter.eidolon >= 5 else 0.30)
+JingliuCharacter.addStat('DMG',description='Burden',amount=(0.33 if HanyaCharacter.eidolon >= 5 else 0.30) + (0.10 if HanyaCharacter.eidolon >= 6 else 0.0))
 # about 80% uptime on ult buf
 JingliuCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'),uptime=0.8)
 JingliuCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60,uptime=0.8)
@@ -337,7 +337,7 @@ HanyaRotation = [x * JingliuRotationDuration / HanyaRotationDuration for x in Ha
 
 JingliuEstimate = DefaultEstimator(f'Jingliu {numSkill:.0f}E {numEnhanced:.0f}Moon {numUlt:.0f}Q',
                                                 JingliuRotation, JingliuCharacter, config)
-HanyaEstimate = DefaultEstimator(f'Hanya 2.5 SP per E {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition} {HanyaCharacter.lightcone.name}, 12 Spd Substats', 
+HanyaEstimate = DefaultEstimator(f'Hanya {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition} {HanyaCharacter.lightcone.name}, 12 Spd Substats', 
                                  HanyaRotation, HanyaCharacter, config)
 visualizationList.append([JingliuEstimate, HanyaEstimate])
 
@@ -394,7 +394,7 @@ print('Lunae Energy: ', totalLunaeEffect.energy, ' Hanya Energy: ', totalHanyaEf
 HanyaRotation = [x * LunaeRotationDuration / HanyaRotationDuration for x in HanyaRotation]
 
 LunaeEstimate = DefaultEstimator('Lunae: 2N^3 1Q', LunaeRotation, LunaeCharacter, config)
-HanyaEstimate = DefaultEstimator(f'Hanya 2.5 SP per E {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S5 Memories, 12 Spd Substats', 
+HanyaEstimate = DefaultEstimator(f'Hanya {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S5 Memories, 12 Spd Substats', 
                                  HanyaRotation, HanyaCharacter, config)
 visualizationList.append([LunaeEstimate,HanyaEstimate])
 
@@ -606,7 +606,7 @@ visualizationList.append([BladeEstimate, JingliuEstimate])
 JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.lightning'],
                         substats = {'CD': 11, 'CR': 7, 'SPD.flat': 7, 'ATK.percent': 3}), # get to 140 speed before buffs, to just guarantee battalia crush
                         lightcone = GeniusesRepose(**config),
-                        relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = InertSalsotto(),
+                        relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=4.9,uptime=1.0), planarset = InertSalsotto(),
                         **config)
 
 TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],

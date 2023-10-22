@@ -12,12 +12,12 @@ class Hanya(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                burdenTriggers:int=2.5,
+                burdenTriggers:int=2.0,
                 e2Uptime:float=1.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Hanya')
-        self.burdenTriggers = burdenTriggers
+        self.burdenTriggers = min(2.0,burdenTriggers)
         self.e2Uptime = e2Uptime
 
         # Motion Values should be set before talents or gear

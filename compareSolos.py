@@ -258,7 +258,7 @@ if __name__ == '__main__':
     JingYuanCharacter = JingYuan(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.lightning'],
                             substats = {'CD': 11, 'CR': 7, 'SPD.flat': 7, 'ATK.percent': 3}),
             lightcone = GeniusesRepose(**config),
-            relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = InertSalsotto(),
+            relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=4.9,uptime=1.0), planarset = InertSalsotto(),
             **config)
 
     numSkill = 4.0

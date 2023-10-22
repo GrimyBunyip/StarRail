@@ -429,7 +429,7 @@ LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCh
 visualizationList.append([JingliuEstimate, BronyaEstimate, PelaEstimate, LuochaEstimate])
 
 #%% Lunae Hanya Yukong Luocha Characters
-LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
+LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
                         substats = {'CR': 8, 'CD': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
                         lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
                         relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
@@ -441,9 +441,9 @@ HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                         **config)
 
-YukongCharacter = Yukong(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
+YukongCharacter = Yukong(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
                         substats = {'CR': 3, 'CD': 6, 'SPD.flat': 12, 'RES': 7}),
-                        lightcone = PlanetaryRendezvous(**config),
+                        lightcone = MemoriesOfThePast(**config),
                         relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
 
@@ -478,27 +478,28 @@ for character in [LunaeCharacter, YukongCharacter]:
     character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 for character in [LunaeCharacter, YukongCharacter, LuochaCharacter]:
     character.addStat('ATK.percent',description='Hanya trace',amount=0.10,uptime=0.5)
-    character.addStat('DMG',description='Burden',amount=0.33 if HanyaCharacter.eidolon >= 5 else 0.30)
+    character.addStat('DMG',description='Burden',amount=(0.33 if HanyaCharacter.eidolon >= 5 else 0.30) + (0.10 if HanyaCharacter.eidolon >= 6 else 0.0))
+
 
 LunaeCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'))
 LunaeCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60)
 
 # Estimate Yukong Buffs.
-# Yukong rotation is 11% slower than Lunae per turn
-# Yukong rotation generates 5 bowstrings and 1 ult buff per 4 turn rotation
-# not going to assume meticulous speed tuning here
-for character in [LunaeCharacter, HanyaCharacter, YukongCharacter, LuochaCharacter]:
-    
+# Yukong is speed tuned to be slightly faster than Lunae, and always going before him
+# So Lunae gets 3 bowstrings, remaining 2 go to the rest of the party
+LunaeCharacter.addStat('ATK.percent',description='Roaring Bowstrings',
+                amount=0.88 if YukongCharacter.eidolon >= 3 else 0.80)
+LunaeCharacter.addStat('CR',description='Yukong ultimate',
+                amount=0.294 if YukongCharacter.eidolon >= 5 else 0.28,
+                uptime=1.0 / 4.0 ) # 1 ult buff, 4 characters, 4 turn rotation
+LunaeCharacter.addStat('CD',description='Yukong ultimate',
+                amount=0.702 if YukongCharacter.eidolon >= 5 else 0.65,
+                uptime=1.0 / 4.0 )
+
+for character in [HanyaCharacter, LuochaCharacter]:
     character.addStat('ATK.percent',description='Roaring Bowstrings',
                     amount=0.88 if YukongCharacter.eidolon >= 3 else 0.80,
-                    uptime=5.0 / 4.0 / 4.0 / 1.11) # 5 bowstrings, 4 characters, 4 turn rotation, Yukong is 11% slower
-    
-    character.addStat('CR',description='Yukong ultimate',
-                    amount=0.294 if YukongCharacter.eidolon >= 5 else 0.28,
-                    uptime=1.0 / 4.0 / 4.0 / 1.11) # 1 ult buff, 4 characters, 4 turn rotation, Yukong is 11% slower
-    character.addStat('CD',description='Yukong ultimate',
-                    amount=0.702 if YukongCharacter.eidolon >= 5 else 0.65,
-                    uptime=1.0 / 4.0 / 4.0 / 1.11)
+                    uptime=2.0 / 4.0 / 2.0) # 2 bowstrings, 2 characters, 4 turn rotation
 
 #%% Lunae Hanya Yukong Luocha Print Statements
 LunaeCharacter.print()
@@ -526,7 +527,7 @@ LunaeRotation = [  # 140 energy needed. EndTurn needed to factor in his buffs
 ]
 
 YukongRotation = [ # 
-            YukongCharacter.useEnhancedBasic() * 2,
+            YukongCharacter.useEnhancedBasic() * 1,
             YukongCharacter.useSkill() * 2,
             YukongCharacter.useUltimate(),
     ]
@@ -553,10 +554,10 @@ YukongRotation = [x * LunaeRotationDuration / YukongRotationDuration for x in Yu
 LuochaRotation = [x * LunaeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
 LunaeEstimate = DefaultEstimator('Lunae: 2N^3 1Q', LunaeRotation, LunaeCharacter, config)
-HanyaEstimate = DefaultEstimator('Hanya 2.5 SP per E {:.0f}E {:.0f}Q S{:.0f} {}, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt,
+HanyaEstimate = DefaultEstimator('Hanya {:.0f}E {:.0f}Q S{:.0f} {}, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt,
                                 HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name), 
                                 HanyaRotation, HanyaCharacter, config)
-YukongEstimate = DefaultEstimator('Yukong (No Speed Tuning) 2N 2E 1Q S{:.0f} {}'.format(YukongCharacter.lightcone.superposition, YukongCharacter.lightcone.name), 
+YukongEstimate = DefaultEstimator('Yukong (Speed Tuned) 1N 2E 1Q S{:.0f} {}'.format(YukongCharacter.lightcone.superposition, YukongCharacter.lightcone.name), 
                                   YukongRotation, YukongCharacter, config)
 LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
                                   LuochaRotation, LuochaCharacter, config)
@@ -612,7 +613,8 @@ LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,u
 
 for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
     character.addStat('ATK.percent',description='Hanya trace',amount=0.10,uptime=0.5)
-    character.addStat('DMG',description='Burden',amount=0.33 if HanyaCharacter.eidolon >= 5 else 0.30)
+    character.addStat('DMG',description='Burden',amount=(0.33 if HanyaCharacter.eidolon >= 5 else 0.30) + (0.10 if HanyaCharacter.eidolon >= 6 else 0.0))
+
 KafkaCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'))
 KafkaCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60)
 

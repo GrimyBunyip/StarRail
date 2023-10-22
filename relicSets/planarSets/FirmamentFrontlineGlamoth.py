@@ -19,4 +19,4 @@ class FirmamentFrontlineGlamoth(RelicSet):
                                 amount=0.12)
         elif self.stacks == 2:
             char.addStat('DMG',description=self.shortname,
-                                amount=0.20)
+                                amount=0.18)

@@ -41,7 +41,7 @@ class Yukong(BaseCharacter):
 
         # Eidolons
         if self.eidolon >= 2:
-            self.addStat('BonusEnergyTurn',description='e2',amount=5.0,stacks=3.0)
+            self.addStat('BonusEnergyAttack',description='e2',amount=5.0,stacks=3.0,type='ultimate')
         if self.eidolon >= 4:
             self.addStat('DMG',description='e4',amount=0.3,uptime=self.bowstringUptime)
         
@@ -90,6 +90,6 @@ class Yukong(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 90.0 * self.getBreakEfficiency(type)
-        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
         return retval
