@@ -289,10 +289,10 @@ JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'C
             **config)
 
 HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
-                        substats = {'CR': 8, 'SPD.flat': 12, 'CD': 5, 'ATK.percent': 3}),
-            lightcone = MemoriesOfThePast(**config),
-            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
-            **config)
+                    substats = {'CR': 8, 'SPD.flat': 12, 'CD': 5, 'ATK.percent': 3}),
+                    lightcone = MemoriesOfThePast(**config),
+                    relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                    **config)
 
 # apply buffs now that we calculated approximate rotation times
 JingliuCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=4.0/15.0)

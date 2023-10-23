@@ -12,7 +12,7 @@ class Luka(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                ultDebuffUptime:float=0.5,
+                ultDebuffUptime:float=1.0,
                 bleedUptime:float=1.0,
                 e2uptime:float=1.0,
                 e4stacks:float=4.0,
@@ -40,7 +40,7 @@ class Luka(BaseCharacter):
         # Talents
         self.addStat('Vulnerability',description='ultimate',
                      amount=0.216 if self.eidolon >= 5 else 0.2,
-                     uptime=self.ultDebuffUptime)
+                     uptime=self.ultDebuffUptime / self.numEnemies)
         
         self.addStat('BonusEnergyAttack',description='trace',amount=6.0,type=['ultimate'])
         self.addStat('BonusEnergyAttack',description='trace',amount=3.0,type=['basic'])

@@ -78,7 +78,7 @@ class Yukong(BaseCharacter):
         retval = BaseEffect()
         type = ['skill']
         retval.energy = (30.0 + self.getBonusEnergyTurn(type)) * self.getER(type) # 4 bonus energy from ascension 6, but it could be more
-        retval.skillpoints = -1.0 + (0.5 if self.eidolon >= 1 else 0.0)
+        retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         return retval
 

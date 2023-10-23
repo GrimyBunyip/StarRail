@@ -73,7 +73,7 @@ class Seele(BaseCharacter):
         type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate',type)
         retval.damage *= self.getTotalCrit(type)
-        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getDmg(type) + ( (0.88 if self.eidolon >= 3 else 0.8) if self.getTempBuffDuration('Resurgence') is None else 0.0 )
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 90.0 * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)

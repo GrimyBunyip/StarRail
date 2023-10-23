@@ -11,7 +11,7 @@ class GrandDuke2pc(RelicSet):
 
     def equipTo(self, char:BaseCharacter):
         char.addStat('DMG',description=self.shortname,
-                                amount=0.16,type=['followup'])
+                                amount=0.18,type=['followup'])
         
 class GrandDuke4pc(RelicSet):
     def __init__(self,
