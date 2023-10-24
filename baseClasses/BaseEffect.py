@@ -84,3 +84,9 @@ class BaseEffect:
 
     def __itruediv__(self, value:float):
         return self.__truediv__(value)
+    
+def sumEffects(effectList:list):
+    totalEffects = BaseEffect()
+    for effect in effectList:
+        totalEffects += effect
+    return totalEffects

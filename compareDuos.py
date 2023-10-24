@@ -117,6 +117,7 @@ from relicSets.planarSets.CelestialDifferentiator import CelestialDifferentiator
 from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
+from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.planarSets.SpaceSealingStation import SpaceSealingStation
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
@@ -458,16 +459,16 @@ visualizationList.append([LunaeEstimate,TingyunEstimate])
 
 # Stats: Blade and Bronya
 BladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'HP.percent'],
-                        substats = {'CR': 12, 'CD': 8, 'SPD.flat': 5, 'HP.percent': 3}),
-            lightcone = ASecretVow(**config),
-            relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = InertSalsotto(),
-            **config)
+                    substats = {'CR': 12, 'CD': 8, 'SPD.flat': 5, 'HP.percent': 3}),
+                    lightcone = ASecretVow(**config),
+                    relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = InertSalsotto(),
+                    **config)
 
 BronyaCharacter = Bronya(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'ER'],
-                        substats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
-            lightcone = PlanetaryRendezvous(**config),
-            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
-            **config)
+                    substats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
+                    lightcone = PlanetaryRendezvous(**config),
+                    relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                    **config)
 
 # apply buffs now that we calculated approximate rotation times
 BladeCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
@@ -612,13 +613,14 @@ JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 
 TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
                         substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                         lightcone = MemoriesOfThePast(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = SprightlyVonwacq(),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = PenaconyLandOfDreams(),
                         benedictionTarget=JingYuanCharacter,
                         **config)
 
 # apply buffs now that we calculated approximate rotation times
 JingYuanCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=0.5)
 JingYuanCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
+JingYuanCharacter.addStat('DMG',description='Penacony from Tingyun',amount=0.10)
 JingYuanCharacter.addStat('ATK.percent',description='Benediction',
                          amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
 
@@ -1168,7 +1170,7 @@ TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{T
 visualizationList.append([YanqingEstimate, TingyunEstimate])
 
 # Stats: Argenti & Tingyun
-ArgentiCharacter = Argenti(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.physical'],
+ArgentiCharacter = Argenti(RelicStats(mainstats = ['ER', 'SPD.flat', 'CR', 'DMG.physical'],
                 substats = {'CR':9,'CD':11, 'ATK.percent':5, 'SPD.flat': 3}),
         lightcone = GeniusesRepose(**config),
         relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = ChampionOfStreetwiseBoxing4pc(), planarset = SpaceSealingStation(),
@@ -1192,7 +1194,7 @@ ArgentiCharacter.addStat('DMG',description='Tingyun Ult',
                           amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6)
 
 # Argenti & Tingyun Rotation
-numSkill = 3
+numSkill = ( (180.0 - (60.0 if TingyunCharacter.eidolon >= 6 else 50.0)) / ArgentiCharacter.getER() - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (3.0 * ArgentiCharacter.numEnemies + 30.0)
 numUltimate = 1
 
 ArgentiRotation = [ArgentiCharacter.useSkill() * numSkill,

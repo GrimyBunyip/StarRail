@@ -144,61 +144,45 @@ config = copy(Configuration)
 config['numEnemies'] = 2
 config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
-#%% Clara Silver Wolf Pela Characters
-ClaraCharacter = Clara(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.physical'],
-                                substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
-                                lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=5.0, **config),
-                                relicsetone = ChampionOfStreetwiseBoxing2pc(),
-                                relicsettwo = ChampionOfStreetwiseBoxing4pc(),
-                                planarset = InertSalsotto(),
-                                **config)
+#%% Seele MID Silver Wolf Bronya Characters
+SeeleCharacter = Seele(relicstats = RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.quantum'],
+                        substats = {'CD': 12, 'CR': 8, 'ATK.percent': 5, 'SPD.flat': 3}),
+                        lightcone = CruisingInTheStellarSea(**config),
+                        relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo=GeniusOfBrilliantStars4pc(), planarset = RutilantArena(),
+                        **config)
 
 SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR', 'BreakEffect'],
                         substats = {'SPD.flat':12,'BreakEffect':8, 'ATK.percent': 5, 'ATK.flat': 3}),
                         lightcone = BeforeTheTutorialMissionStarts(**config),
-                        relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = BrokenKeel(),
+                        relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = PenaconyLandOfDreams(),
                         **config)
 
-PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
-                        substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-            lightcone = ResolutionShinesAsPearlsOfSweat(**config),
-            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
-            **config)
+BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'ER'],
+                        substats = {'CD': 12, 'SPD.flat': 8, 'HP.percent': 5, 'DEF.percent': 3}),
+                        lightcone = PastAndFuture(**config),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                        **config)
 
 LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                                substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
-                                lightcone = Multiplication(**config),
-                                relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
-                                **config)
+                        substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
+                        lightcone = Multiplication(**config),
+                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+                        **config)
 
-#%% Clara Silver Wolf Pela Team Buffs
-for character in [SilverWolfCharacter, ClaraCharacter, PelaCharacter]:
+#%% Seele MID Silver Wolf Bronya Team Buffs
+for character in [SilverWolfCharacter, SeeleCharacter, BronyaCharacter]:
     character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
     
-for character in [SilverWolfCharacter, ClaraCharacter, LuochaCharacter]:
-    character.addStat('CD',description='Broken Keel from Pela',amount=0.1)
+for character in [SilverWolfCharacter, SeeleCharacter, LuochaCharacter]:
+    character.addStat('CD',description='Broken Keel from Bronya',amount=0.1)
 
-# Pela Debuffs, 3 turn pela rotation
-pelaUltUptime = (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-pelaUltUptime = min(1.0, pelaUltUptime)
-for character in [ClaraCharacter, SilverWolfCharacter, PelaCharacter, LuochaCharacter]:
-    character.addStat('DefShred',description='Pela Ultimate',
-                      amount=0.42 if PelaCharacter.eidolon >= 5 else 0.40,
-                      uptime=pelaUltUptime)
-    
-# Resolution Shines as Pearls of Sweat uptime
-sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
-sweatUptime = min(1.0, sweatUptime)
-for character in [ClaraCharacter, SilverWolfCharacter, PelaCharacter, LuochaCharacter]:
-    character.addStat('DefShred',description='Resolution Sweat',
-                      amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
-                      uptime=sweatUptime)
+for character in [SilverWolfCharacter, SeeleCharacter, LuochaCharacter]:
+    character.addStat('DMG',description='Penacony from Silver Wolf',amount=0.1)
 
-# Silver Wolf Debuffs
-swUltUptime = (2.0 / 2.0) * SilverWolfCharacter.getTotalStat('SPD') / SilverWolfCharacter.enemySpeed / SilverWolfCharacter.numEnemies
+# Silver Wolf Debuffs, do not divide by speed since single target
+swUltUptime = (2.0 / 2.0) * SilverWolfCharacter.getTotalStat('SPD') / SilverWolfCharacter.enemySpeed
 swUltUptime = min(1.0, swUltUptime)
-swSkillUptime = (3.0 * 3.0 / 2.0) * SilverWolfCharacter.getTotalStat('SPD') / SilverWolfCharacter.enemySpeed / SilverWolfCharacter.numEnemies
+swSkillUptime = (3.0 * 3.0 / 2.0) * SilverWolfCharacter.getTotalStat('SPD') / SilverWolfCharacter.enemySpeed
 swSkillUptime = min(1.0, swSkillUptime)
 
 dmgResUptime:float=0.0 #we are already assuming we're hitting for weakness
@@ -208,7 +192,8 @@ talentAtkUptime:float=swSkillUptime
 talentDefUptime:float=swSkillUptime
 a6Uptime:float=swSkillUptime
 
-for character in [ClaraCharacter, SilverWolfCharacter, PelaCharacter, LuochaCharacter]:
+# handle this separately for seele, assume it doesn't apply to her basics
+for character in [SilverWolfCharacter, LuochaCharacter]:
     character.addStat('ResPen',description='talent',amount=0.20,uptime=dmgResUptime)
     character.addStat('ResPen',description='skill',
                     amount=0.105 if SilverWolfCharacter.eidolon >= 3 else 0.10,
@@ -220,905 +205,107 @@ for character in [ClaraCharacter, SilverWolfCharacter, PelaCharacter, LuochaChar
                     amount=0.088 if SilverWolfCharacter.eidolon >= 3 else 0.08,
                     uptime=talentDefUptime)
     character.addStat('ResPen',description='trace',amount=0.03,uptime=a6Uptime)
+
+# Bronya Messenger Buff
+for character in [SeeleCharacter, SilverWolfCharacter, LuochaCharacter]:
+    character.addStat('DMG',description='Bronya A6',amount=0.10)
+    character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)
+
+# Bronya Buffs
+SeeleCharacter.addStat('DMG',description='Bronya Skill', amount=0.726 if BronyaCharacter.eidolon >= 5 else 0.66, uptime=0.5)
+SeeleCharacter.addStat('DMG',description='Past and Future', amount=0.12 + 0.04 * BronyaCharacter.lightcone.superposition, uptime=0.5)
+SeeleCharacter.addStat('ATK.percent',description='Bronya Ult',
+                       amount=0.594 if BronyaCharacter.eidolon >= 3 else 0.55,
+                       uptime=0.25) # only get bronya ult buff every 4 rotations
+SeeleCharacter.addStat('CD',description='Bronya Ult',
+                       amount=(0.168 * BronyaCharacter.getTotalStat('CD') + 0.216) if BronyaCharacter.eidolon >= 3 else (0.16 * BronyaCharacter.getTotalStat('CD') + 0.2),
+                       uptime=0.25) # only get bronya ult buff every 4 rotations
     
-#%% Clara Silver Wolf Pela Print Statements
-ClaraCharacter.print()
+#%% Seele MID Silver Wolf Bronya Print Statements
+SeeleCharacter.print()
 SilverWolfCharacter.print()
-PelaCharacter.print()
+BronyaCharacter.print()
 LuochaCharacter.print()
 
-#%% Clara Silver Wolf Pela Rotations
+#%% Seele MID Silver Wolf Bronya Rotations
 
-# assume each elite performs 1 single target attack per turn
-# times 2 as the rotation is 2 of her turns long
-numEnemyAttacks = ClaraCharacter.enemySpeed * ClaraCharacter.numEnemies * 2 / ClaraCharacter.getTotalStat('SPD')
-numEnhancedTalents = 2
-numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*6) / (5*6 + 3 + 4 + 4)
-numSvarogCounters = numEnemyAttacks * (5*6) / (5*6 + 3 + 4 + 4)
-
-ClaraRotation = [ # 110 max energy
-        ClaraCharacter.useSkill() * 2,
-        ClaraCharacter.useMarkOfSvarog() * numSvarogCounters, 
-        ClaraCharacter.useTalent(enhanced=True) * numEnhancedTalents,
-        ClaraCharacter.useUltimate(),
-        ClaraCharacter.useTalent(enhanced=False) * numUnenhancedTalents,
+SeeleRotation = [ # endTurn needed to factor in resurgence buff
+        SeeleCharacter.useBasic(),
+        SeeleCharacter.useUltimate(), # use ult to trigger resurgence, on an enemy that isn't debuffed yet
 ]
 
-numSkillSW = 2
+# Apply silver wolf debuffs to the main target only, assume it doesn't affect Seele's Basics
+SeeleCharacter.addStat('ResPen',description='talent',amount=0.20,uptime=dmgResUptime)
+SeeleCharacter.addStat('ResPen',description='skill',
+                amount=0.105 if SilverWolfCharacter.eidolon >= 3 else 0.10,
+                uptime=allResUptime)
+SeeleCharacter.addStat('DefShred',description='ultimate',
+                amount=0.468 if SilverWolfCharacter.eidolon >= 5 else 0.45,
+                uptime=defShredUptime)
+SeeleCharacter.addStat('DefShred',description='talent',
+                amount=0.088 if SilverWolfCharacter.eidolon >= 3 else 0.08,
+                uptime=talentDefUptime)
+SeeleCharacter.addStat('ResPen',description='trace',amount=0.03,uptime=a6Uptime)
+
+SeeleRotation += [ # endTurn needed to factor in resurgence buff
+    SeeleCharacter.useBasic() * 1,
+    SeeleCharacter.useResurgence(),
+    SeeleCharacter.useSkill() * 2,
+    SeeleCharacter.endTurn(),
+    BronyaCharacter.useAdvanceForward() * 1.1, # minus 0.4, to ignore the two advance forwards from basics
+]
+
+numBasicSW = 2
+numSkillSW = 1
 numUltSW = 1
 SilverWolfRotation = [ # 
+        SilverWolfCharacter.useBasic() * numBasicSW,
         SilverWolfCharacter.useSkill() * numSkillSW, #
         SilverWolfCharacter.useUltimate() * numUltSW, #
 ]
 
-PelaRotation = [PelaCharacter.useBasic() * 3,
-                PelaCharacter.useUltimate(),]
+BronyaRotation = [BronyaCharacter.useSkill() * 4,
+                  BronyaCharacter.useUltimate(),]
 
 LuochaRotation = [LuochaCharacter.useBasic() * 3,
                   LuochaCharacter.useUltimate() * 1,
                   LuochaCharacter.useSkill() * 1,]
 LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
 
-#%% Clara SilverWolf Pela Luocha Rotation Math
+#%% Seele MID SilverWolf Bronya Luocha Rotation Math
 
-totalClaraEffect = sumEffects(ClaraRotation)
-totalPelaEffect = sumEffects(PelaRotation)
+totalSeeleEffect = sumEffects(SeeleRotation)
+totalBronyaEffect = sumEffects(BronyaRotation)
 totalSilverWolfEffect = sumEffects(SilverWolfRotation)
 totalLuochaEffect = sumEffects(LuochaRotation)
 
-ClaraRotationDuration = totalClaraEffect.actionvalue * 100.0 / ClaraCharacter.getTotalStat('SPD')
-PelaRotationDuration = totalPelaEffect.actionvalue * 100.0 / PelaCharacter.getTotalStat('SPD')
+SeeleRotationDuration = totalSeeleEffect.actionvalue * 100.0 / SeeleCharacter.getTotalStat('SPD')
+BronyaRotationDuration = totalBronyaEffect.actionvalue * 100.0 / BronyaCharacter.getTotalStat('SPD')
 SilverWolfRotationDuration = totalSilverWolfEffect.actionvalue * 100.0 / SilverWolfCharacter.getTotalStat('SPD')
 LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
 print('##### Rotation Durations #####')
-print('Clara: ',ClaraRotationDuration)
-print('Pela: ',PelaRotationDuration)
+print('Seele: ',SeeleRotationDuration)
+print('Bronya: ',BronyaRotationDuration)
 print('SilverWolf: ',SilverWolfRotationDuration)
 print('Luocha: ',LuochaRotationDuration)
 
 # Scale other character's rotation
-PelaRotation = [x * ClaraRotationDuration / PelaRotationDuration for x in PelaRotation]
-SilverWolfRotation = [x * ClaraRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
-LuochaRotation = [x * ClaraRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+BronyaRotation = [x * SeeleRotationDuration / BronyaRotationDuration for x in BronyaRotation]
+SilverWolfRotation = [x * SeeleRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
+LuochaRotation = [x * SeeleRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
-ClaraEstimate = DefaultEstimator(f'Clara: 2E {numSvarogCounters:.1f}T 1Q', ClaraRotation, ClaraCharacter, config)
-PelaEstimate = DefaultEstimator(f'Pela: 3N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
-                                PelaRotation, PelaCharacter, config)
-SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numSkillSW:.0f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)
+SeeleEstimate = DefaultEstimator('Seele Ult Resurgence: 2N 1Resurgence(2E1Q)', SeeleRotation, SeeleCharacter, config)
+BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
+                                  BronyaRotation, BronyaCharacter, config)
+SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numBasicSW:.0f}N {numSkillSW:.0f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)
 LuochaEstimate = DefaultEstimator(f'Luocha: 3N 1E 1Q, S{LuochaCharacter.lightcone.superposition:d} {LuochaCharacter.lightcone.name}', 
                                   LuochaRotation, LuochaCharacter, config)
 
-visualizationList.append([ClaraEstimate, SilverWolfEstimate, PelaEstimate, LuochaEstimate])
+#Seele is too fast for slow bronya. And we don't have enough SP to go faster
+SeeleEstimate.effect.actionvalue *= (BronyaRotationDuration / 4) / (SeeleRotationDuration / 1.5 )
 
-#%% Kafka Guinaifen Asta Luocha Characters
-KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
-                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
-                        lightcone = GoodNightAndSleepWell(**config),
-                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                        **config)
-
-GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
-                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 4, 'BreakEffect': 4}),
-                        lightcone = GoodNightAndSleepWell(**config),
-                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                        **config)
-
-# I'm just going to assume 100% uptime on firmament frontline glamoth
-# Kafka and Guinaifen are a few substats short of base 160 with a 12 substat cap
-# But I'll just generously assume you are able to get there
-
-AstaCharacter = Asta(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR', 'ATK.percent'],
-                                substats = {'EHR': 8, 'SPD.flat': 12, 'BreakEffect': 3, 'ATK.percent': 5}),
-                                lightcone = MemoriesOfThePast(**config),
-                                relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(uptime=0.5), planarset = FleetOfTheAgeless(),
-                                **config)
-
-LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                                substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
-                                lightcone = Multiplication(**config),
-                                relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = FleetOfTheAgeless(),
-                                **config)
-
-#%% Kafka Guinaifen Asta Luocha Team Buffs
-# Fleet of the Ageless Buff
-for character in [KafkaCharacter, GuinaifenCharacter, AstaCharacter]:
-    character.addStat('ATK.percent',description='Fleet Luocha',amount=0.08)
-for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
-    character.addStat('ATK.percent',description='Fleet Asta',amount=0.08)
-    
-# Give Guinaifen Vulnerability to all other characters
-for character in [KafkaCharacter, AstaCharacter, LuochaCharacter]:
-    character.addStat('Vulnerability',description='Guinaifen Vulnerability',
-                        amount=0.076 if GuinaifenCharacter.eidolon >= 5 else 0.07,
-                        stacks=min(GuinaifenCharacter.firekissStacks,4.0 if GuinaifenCharacter.eidolon >= 6 else 3.0))
-    
-# messenger 4 pc buffs:
-KafkaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 3.0)
-GuinaifenCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 3.0)
-LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 4.0)
-
-# assume partial uptime on asta ultimate with ENN rotation
-for character in [KafkaCharacter, GuinaifenCharacter, AstaCharacter]:
-    character.addStat('SPD.flat',description='Asta Ultimate',
-                      amount=53 if AstaCharacter.eidolon >= 5 else 50,
-                      uptime=2.0/3.0)
-    character.addStat('ATK.percent',description='Asta Talent',
-                      amount=0.154 if AstaCharacter.eidolon >= 3 else 0.14,
-                      stacks=5,
-                      uptime=2.0/3.0)
-    
-# Luocha is faster so his uptime is a bit lower
-LuochaCharacter.addStat('SPD.flat',description='Asta Ultimate',
-                    amount=53 if AstaCharacter.eidolon >= 5 else 50,
-                    uptime=2.0/4.0)
-LuochaCharacter.addStat('ATK.percent',description='Asta Talent',
-                    amount=0.154 if AstaCharacter.eidolon >= 3 else 0.14,
-                    stacks=5,
-                    uptime=2.0/4.0)
-
-# Asta Ignite Buff
-GuinaifenCharacter.addStat('DMG.fire',description='trace',amount=0.18)
-
-#%% Kafka Guinaifen Asta Luocha Print Statements
-KafkaCharacter.print()
-GuinaifenCharacter.print()
-AstaCharacter.print()
-LuochaCharacter.print()
-
-#%% Kafka Guinaifen Asta Luocha Rotations
-numSkill = 3.0
-numTalent = 3.0
-numUlt = 1.0
-GuinaifenDot = GuinaifenCharacter.useDot()
-GuinaifenDot.energy = 0.0 # kafka shouldn't be getting energy for Guinaifen Dot
-AstaDot = AstaCharacter.useDot()
-AstaDot.energy = 0.0 # kafka shouldn't be getting energy for Guinaifen Dot
-extraDots = [ GuinaifenDot, AstaDot]
-extraDotsUlt = [ GuinaifenDot * KafkaCharacter.numEnemies, AstaDot * KafkaCharacter.numEnemies ]
-KafkaRotation = [
-        KafkaCharacter.useSkill(extraDots=extraDots) * numSkill,
-        KafkaCharacter.useTalent() * numTalent,
-        KafkaCharacter.useUltimate(extraDots=extraDotsUlt) * numUlt,
-]
-
-numSkillGuinaifen = 2.0
-numBasicGuinaifen = 2.0
-numUltGuinaifen = 1.0
-
-numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
-numDotKafka = min(numDotKafka, 2 * numUlt * KafkaCharacter.numEnemies + 2 * numTalent)
-
-GuinaifenRotation = [ # 
-        GuinaifenCharacter.useSkill() * numSkillGuinaifen,
-        GuinaifenCharacter.useBasic() * numBasicGuinaifen,
-        GuinaifenCharacter.useUltimate() * numUlt,
-]
-
-
-AstaRotation = [AstaCharacter.useBasic() * 2,
-                AstaCharacter.useSkill() * 1,
-                AstaCharacter.useUltimate() * 1,]
-
-LuochaRotation = [LuochaCharacter.useBasic() * 3,
-                  LuochaCharacter.useUltimate() * 1,
-                  LuochaCharacter.useSkill() * 1,]
-LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
-
-
-#%% Kafka Guinaifen Asta Luocha Rotation Math
-numDotGuinaifen = DotEstimator(GuinaifenRotation, GuinaifenCharacter, config, dotMode='alwaysBlast')
-numDotGuinaifen = min(numDotGuinaifen, 2.0 * numSkillGuinaifen * min(3.0, GuinaifenCharacter.numEnemies))
-
-totalKafkaEffect = sumEffects(KafkaRotation)
-totalGuinaifenEffect = sumEffects(GuinaifenRotation)
-totalAstaEffect = sumEffects(AstaRotation)
-totalLuochaEffect = sumEffects(LuochaRotation)
-
-KafkaRotationDuration = totalKafkaEffect.actionvalue * 100.0 / KafkaCharacter.getTotalStat('SPD')
-GuinaifenRotationDuration = totalGuinaifenEffect.actionvalue * 100.0 / GuinaifenCharacter.getTotalStat('SPD')
-AstaRotationDuration = totalAstaEffect.actionvalue * 100.0 / AstaCharacter.getTotalStat('SPD')
-LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
-
-# scale other character's rotation
-GuinaifenRotation = [x * KafkaRotationDuration / GuinaifenRotationDuration for x in GuinaifenRotation]
-AstaRotation = [x * KafkaRotationDuration / AstaRotationDuration for x in AstaRotation]
-LuochaRotation = [x * KafkaRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-numDotGuinaifen *= KafkaRotationDuration / GuinaifenRotationDuration
-
-KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
-                                 KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-GuinaifenEstimate = DefaultEstimator('E6 Guinaifen S5 GNSW {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(numBasicGuinaifen, numSkillGuinaifen, numUltGuinaifen, numDotGuinaifen),
-                                     GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
-AstaEstimate = DefaultEstimator('Asta: 2N 1E 1Q, S{:.0f} {}'.format(AstaCharacter.lightcone.superposition, AstaCharacter.lightcone.name), 
-                                AstaRotation, AstaCharacter, config)
-LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
-                                  LuochaRotation, LuochaCharacter, config)
-
-visualizationList.append([KafkaEstimate, GuinaifenEstimate, LuochaEstimate, AstaEstimate])
-
-#%% Kafka Guinaifen Hanya Luocha Characters
-KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
-                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
-                        lightcone = GoodNightAndSleepWell(**config),
-                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                        **config)
-
-GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
-                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 4, 'BreakEffect': 4}),
-                        lightcone = GoodNightAndSleepWell(**config),
-                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                        **config)
-
-# I'm just going to assume 100% uptime on firmament frontline glamoth
-# Kafka and Guinaifen are a few substats short of base 160 with a 12 substat cap
-# But I'll just generously assume you are able to get there
-
-HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
-                        substats = {'CD': 8, 'SPD.flat': 12, 'CR': 5, 'BreakEffect': 3}),
-                        lightcone = MemoriesOfThePast(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = FleetOfTheAgeless(),
-                        **config)
-
-LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                                substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
-                                lightcone = Multiplication(**config),
-                                relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = FleetOfTheAgeless(),
-                                **config)
-
-#%% Kafka Guinaifen Hanya Luocha Team Buffs
-# Fleet of the Ageless Buff
-for character in [KafkaCharacter, GuinaifenCharacter, HanyaCharacter]:
-    character.addStat('ATK.percent',description='Fleet Luocha',amount=0.08)
-for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
-    character.addStat('ATK.percent',description='Fleet Asta',amount=0.08)
-    
-# Give Guinaifen Vulnerability to all other characters
-for character in [KafkaCharacter, HanyaCharacter, LuochaCharacter]:
-    character.addStat('Vulnerability',description='Guinaifen Vulnerability',
-                        amount=0.076 if GuinaifenCharacter.eidolon >= 5 else 0.07,
-                        stacks=min(GuinaifenCharacter.firekissStacks,4.0 if GuinaifenCharacter.eidolon >= 6 else 3.0))
-    
-# messenger 4 pc buffs:
-KafkaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 3.0)
-GuinaifenCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 3.0)
-LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 4.0)
-
-for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
-    character.addStat('ATK.percent',description='Hanya trace',amount=0.10,uptime=0.5)
-    character.addStat('DMG',description='Burden',amount=(0.33 if HanyaCharacter.eidolon >= 5 else 0.30) + (0.10 if HanyaCharacter.eidolon >= 6 else 0.0))
-
-KafkaCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'))
-KafkaCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60)
-
-#%% Kafka Guinaifen Hanya Luocha Print Statements
-KafkaCharacter.print()
-GuinaifenCharacter.print()
-HanyaCharacter.print()
-LuochaCharacter.print()
-
-#%% Kafka Guinaifen Hanya Luocha Rotations
-numSkill = 3.0
-numTalent = 3.0
-numUlt = 1.0
-GuinaifenDot = GuinaifenCharacter.useDot()
-GuinaifenDot.energy = 0.0 # kafka shouldn't be getting energy for Guinaifen Dot
-extraDots = [ GuinaifenDot ]
-extraDotsUlt = [ GuinaifenDot * KafkaCharacter.numEnemies ]
-KafkaRotation = [
-        KafkaCharacter.useSkill(extraDots=extraDots) * numSkill,
-        KafkaCharacter.useTalent() * numTalent,
-        KafkaCharacter.useUltimate(extraDots=extraDotsUlt) * numUlt,
-]
-
-numSkillGuinaifen = 3.0
-numUltGuinaifen = 1.0
-
-numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
-numDotKafka = min(numDotKafka, 2 * numUlt * KafkaCharacter.numEnemies + 2 * numTalent)
-
-GuinaifenRotation = [ # 
-        GuinaifenCharacter.useSkill() * numSkillGuinaifen,
-        GuinaifenCharacter.useUltimate() * numUlt,
-]
-
-numHanyaSkill = 3
-numHanyaUlt = 1
-HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
-                HanyaCharacter.useUltimate() * numHanyaUlt]
-    
-LuochaRotation = [LuochaCharacter.useBasic() * 3,
-                  LuochaCharacter.useUltimate() * 1,
-                  LuochaCharacter.useSkill() * 1,]
-LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
-
-
-#%% Kafka Guinaifen Hanya Luocha Rotation Math
-numDotGuinaifen = DotEstimator(GuinaifenRotation, GuinaifenCharacter, config, dotMode='alwaysBlast')
-numDotGuinaifen = min(numDotGuinaifen, 2.0 * numSkillGuinaifen * min(3.0, GuinaifenCharacter.numEnemies))
-
-totalKafkaEffect = sumEffects(KafkaRotation)
-totalGuinaifenEffect = sumEffects(GuinaifenRotation)
-totalHanyaEffect = sumEffects(HanyaRotation)
-totalLuochaEffect = sumEffects(LuochaRotation)
-
-KafkaRotationDuration = totalKafkaEffect.actionvalue * 100.0 / KafkaCharacter.getTotalStat('SPD')
-GuinaifenRotationDuration = totalGuinaifenEffect.actionvalue * 100.0 / GuinaifenCharacter.getTotalStat('SPD')
-HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
-LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
-
-# scale other character's character's rotation
-GuinaifenRotation = [x * KafkaRotationDuration / GuinaifenRotationDuration for x in GuinaifenRotation]
-HanyaRotation = [x * KafkaRotationDuration / HanyaRotationDuration for x in HanyaRotation]
-LuochaRotation = [x * KafkaRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-numDotGuinaifen *= KafkaRotationDuration / GuinaifenRotationDuration
-
-KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
-                                 KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-GuinaifenEstimate = DefaultEstimator('E6 Guinaifen S5 GNSW {:.0f}E {:.0f}Q {:.1f}Dot'.format(numSkillGuinaifen, numUltGuinaifen, numDotGuinaifen),
-                                     GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
-HanyaEstimate = DefaultEstimator('Hanya 2.5 SP per E {:.0f}E {:.0f}Q S{:.0f} {}, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt,
-                                HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name), 
-                                HanyaRotation, HanyaCharacter, config)
-LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
-                                  LuochaRotation, LuochaCharacter, config)
-
-visualizationList.append([KafkaEstimate, GuinaifenEstimate, HanyaEstimate, LuochaEstimate])
-
-KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
-                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
-                        lightcone = GoodNightAndSleepWell(**config),
-                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                        **config)
-
-GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'ATK.percent', 'DMG.fire'],
-                        substats = {'ATK.percent': 12, 'SPD.flat': 8, 'EHR': 4, 'BreakEffect': 4}),
-                        lightcone = GoodNightAndSleepWell(**config),
-                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
-                        **config)
-
-# I'm just going to assume 100% uptime on firmament frontline glamoth
-# Kafka and Guinaifen are a few substats short of base 160 with a 12 substat cap
-# But I'll just generously assume you are able to get there
-
-LukaCharacter = Luka(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'ATK.percent', 'DMG.physical'],
-                        substats = {'ATK.percent': 12, 'SPD.flat': 3, 'EHR': 8, 'BreakEffect': 5}),
-                        lightcone = GoodNightAndSleepWell(**config),
-                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
-                        **config)
-
-LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                        substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
-                        lightcone = Multiplication(**config),
-                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = FleetOfTheAgeless(),
-                        **config)
-
-#%% Kafka Guinaifen Luka Luocha Team Buffs
-# Fleet of the Ageless Buff
-for character in [KafkaCharacter, GuinaifenCharacter, LukaCharacter]:
-    character.addStat('ATK.percent',description='Fleet Luocha',amount=0.08)
-    
-# Give Guinaifen Vulnerability to all other characters
-for character in [KafkaCharacter, LukaCharacter, LuochaCharacter]:
-    character.addStat('Vulnerability',description='Guinaifen Vulnerability',
-                        amount=0.076 if GuinaifenCharacter.eidolon >= 5 else 0.07,
-                        stacks=min(GuinaifenCharacter.firekissStacks,4.0 if GuinaifenCharacter.eidolon >= 6 else 3.0))
-
-# Give Luka Vulnerability to all other characters
-for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
-    character.addStat('Vulnerability',description='Luka Vulnerability',
-                     amount=0.216 if LukaCharacter.eidolon >= 5 else 0.2,
-                     uptime=(3.0/5.0)*LukaCharacter.ultDebuffUptime/LukaCharacter.numEnemies)
-
-#%% Kafka Guinaifen Luka Luocha Print Statements
-KafkaCharacter.print()
-GuinaifenCharacter.print()
-LukaCharacter.print()
-LuochaCharacter.print()
-
-#%% Kafka Guinaifen Luka Luocha Rotations
-numSkill = 3.0
-numTalent = 3.0
-numUlt = 1.0
-GuinaifenDot = GuinaifenCharacter.useDot()
-GuinaifenDot.energy = 0.0 # kafka shouldn't be getting energy for Guinaifen Dot
-LukaDot = LukaCharacter.useDot()
-LukaDot.energy = 0.0
-extraDots = [ GuinaifenDot, LukaDot ]
-extraDotsUlt = [ GuinaifenDot * KafkaCharacter.numEnemies, LukaDot * min(2,KafkaCharacter.numEnemies) ]
-KafkaRotation = [
-        KafkaCharacter.useSkill(extraDots=extraDots) * numSkill,
-        KafkaCharacter.useTalent() * numTalent,
-        KafkaCharacter.useUltimate(extraDots=extraDotsUlt) * numUlt,
-]
-
-numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
-numDotKafka = min(numDotKafka, 2 * numUlt * KafkaCharacter.numEnemies + 2 * numTalent)
-
-numBasicGuinaifen = 2.0
-numSkillGuinaifen = 2.0
-numUltGuinaifen = 1.0
-GuinaifenRotation = [ # 
-        GuinaifenCharacter.useBasic() * numBasicGuinaifen,
-        GuinaifenCharacter.useSkill() * numSkillGuinaifen,
-        GuinaifenCharacter.useUltimate() * numUlt,
-]
-
-numEnhancedLuka = 3.0
-numSkillLuka = 2.0
-numUltLuka = 1.0
-
-LukaRotation = [ # 
-        LukaCharacter.useEnhancedBasic() * numEnhancedLuka, # -6 Fighting Will
-        LukaCharacter.useSkill() * numSkillLuka, # +4 Fighting Will
-        LukaCharacter.useUltimate() * numUltLuka, # +2 Fighting Will
-]
-    
-LuochaRotation = [LuochaCharacter.useBasic() * 3,
-                  LuochaCharacter.useUltimate() * 1,
-                  LuochaCharacter.useSkill() * 1,]
-LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
-
-
-#%% Kafka Guinaifen Luka Luocha Rotation Math
-numDotGuinaifen = DotEstimator(GuinaifenRotation, GuinaifenCharacter, config, dotMode='alwaysBlast')
-numDotGuinaifen = min(numDotGuinaifen, 2.0 * numSkillGuinaifen * min(3.0, GuinaifenCharacter.numEnemies))
-numDotLuka = DotEstimator(LukaRotation, LukaCharacter, config, dotMode='alwaysBlast')
-numDotLuka = min(numDotLuka, 3.0 * numSkillLuka)
-
-totalKafkaEffect = sumEffects(KafkaRotation)
-totalGuinaifenEffect = sumEffects(GuinaifenRotation)
-totalLukaEffect = sumEffects(LukaRotation)
-totalLuochaEffect = sumEffects(LuochaRotation)
-
-KafkaRotationDuration = totalKafkaEffect.actionvalue * 100.0 / KafkaCharacter.getTotalStat('SPD')
-GuinaifenRotationDuration = totalGuinaifenEffect.actionvalue * 100.0 / GuinaifenCharacter.getTotalStat('SPD')
-LukaRotationDuration = totalLukaEffect.actionvalue * 100.0 / LukaCharacter.getTotalStat('SPD')
-LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
-
-# scale other character's character's rotation
-GuinaifenRotation = [x * KafkaRotationDuration / GuinaifenRotationDuration for x in GuinaifenRotation]
-LukaRotation = [x * KafkaRotationDuration / LukaRotationDuration for x in LukaRotation]
-LuochaRotation = [x * KafkaRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-numDotGuinaifen *= KafkaRotationDuration / GuinaifenRotationDuration
-numDotLuka *= KafkaRotationDuration / LukaRotationDuration
-
-KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
-                                 KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-GuinaifenEstimate = DefaultEstimator('E6 Guinaifen S5 GNSW {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(numBasicGuinaifen, numSkillGuinaifen, numUltGuinaifen, numDotGuinaifen),
-                                     GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
-LukaEstimate = DefaultEstimator('E6 Luka S5 GNSW {:.0f}Enh {:.0f}S {:.0f}Q {:.1f}Dot'.format(numEnhancedLuka, numSkillLuka, numUltLuka, numDotLuka), 
-                                LukaRotation, LukaCharacter, config, numDot=numDotLuka)
-LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
-                                  LuochaRotation, LuochaCharacter, config)
-
-visualizationList.append([KafkaEstimate, GuinaifenEstimate, LukaEstimate, LuochaEstimate])
-
-#%% Lunae Hanya Yukong Luocha Characters
-LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
-                        substats = {'CR': 8, 'CD': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
-                        lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
-                        relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                        **config)
-
-HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
-                        substats = {'RES': 7, 'SPD.flat': 12, 'CD': 5, 'CR': 4}),
-                        lightcone = MemoriesOfThePast(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
-                        **config)
-
-YukongCharacter = Yukong(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
-                        substats = {'CR': 5, 'CD': 8, 'SPD.flat': 12, 'RES': 3}),
-                        lightcone = PlanetaryRendezvous(**config),
-                        relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
-                        **config)
-
-LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                                substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'RES': 3}),
-                                lightcone = Multiplication(**config),
-                                relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
-                                **config)
-
-#%% Lunae Hanya Yukong Luocha Team Buffs
-# Broken Keel Buffs
-for character in [LunaeCharacter, YukongCharacter, LuochaCharacter]:
-    character.addStat('CD',description='Broken Keel from Hanya',amount=0.1)
-    
-# Penacony Buff
-for character in [LunaeCharacter, LuochaCharacter]:
-    character.addStat('DMG',description='Penacony from Yukong',amount=0.1)
-for character in [LunaeCharacter, YukongCharacter]:
-    character.addStat('DMG',description='Penacony from Luocha',amount=0.1)
-    
-# Yukong imaginary damage trace
-for character in [LunaeCharacter, LuochaCharacter]:
-    character.addStat('DMG',description='Yukong trace',amount=0.12,type=['imaginary'])
-
-# Yukong Planetary Rendezvous
-for character in [LunaeCharacter, LuochaCharacter]:
-    character.addStat('DMG',description='Planetary Rendezvous',amount=0.09 + 0.03 * YukongCharacter.lightcone.superposition)
-
-# Hanya Messenger Buff
-LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)
-for character in [LunaeCharacter, YukongCharacter]:
-    character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-
-# Hanya Buff
-for character in [LunaeCharacter, YukongCharacter, LuochaCharacter]:
-    character.addStat('ATK.percent',description='Hanya trace',amount=0.10,uptime=0.5)
-    character.addStat('DMG',description='Burden',amount=(0.33 if HanyaCharacter.eidolon >= 5 else 0.30) + (0.10 if HanyaCharacter.eidolon >= 6 else 0.0))
-
-# Hanya Ult Buff
-LunaeCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'))
-LunaeCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60)
-
-# Estimate Yukong Buffs.
-# Yukong is speed tuned to be slightly faster than Lunae, and always going before him
-LunaeCharacter.addStat('ATK.percent',description='Roaring Bowstrings',
-                amount=0.88 if YukongCharacter.eidolon >= 3 else 0.80,
-                uptime=3.0 / 4.0)
-LunaeCharacter.addStat('CR',description='Yukong ultimate',
-                amount=0.294 if YukongCharacter.eidolon >= 5 else 0.28,
-                uptime=1.0 / 4.0 ) # 1 ult buff, 4 characters, 4 turn rotation
-LunaeCharacter.addStat('CD',description='Yukong ultimate',
-                amount=0.702 if YukongCharacter.eidolon >= 5 else 0.65,
-                uptime=1.0 / 4.0 )
-
-for character in [HanyaCharacter, LuochaCharacter]:
-    character.addStat('ATK.percent',description='Roaring Bowstrings',
-                    amount=0.88 if YukongCharacter.eidolon >= 3 else 0.80,
-                    uptime=2.0 / 4.0 / 2.0) # 2 bowstrings, 2 characters, 4 turn rotation
-
-#%% Lunae Hanya Yukong Luocha Print Statements
-LunaeCharacter.print()
-HanyaCharacter.print()
-YukongCharacter.print()
-LuochaCharacter.print()
-
-#%% Lunae Hanya Yukong Luocha Rotations
-numHanyaSkill = 3
-numHanyaUlt = 1
-HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
-                HanyaCharacter.useUltimate() * numHanyaUlt]
-    
-LunaeRotation = [  # 140 energy needed. EndTurn needed to factor in his buffs
-            LunaeCharacter.useSkill()*3,
-            LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
-            LunaeCharacter.endTurn(),
-            LunaeCharacter.useSkill()*3,
-            LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
-            LunaeCharacter.endTurn(),
-            LunaeCharacter.useSkill()*3,
-            LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
-            LunaeCharacter.useUltimate(), # +2 SP, 5 energy
-            LunaeCharacter.endTurn(),
-]
-
-numBasicYukong = 2
-numSkillYukong = 2
-numUltYukong = 1
-YukongRotation = [ # 
-            YukongCharacter.useEnhancedBasic() * numBasicYukong,
-            YukongCharacter.useSkill() * numSkillYukong,
-            YukongCharacter.useUltimate() * numUltYukong,
-    ]
-
-LuochaRotation = [LuochaCharacter.useBasic() * 3,
-                  LuochaCharacter.useUltimate() * 1,
-                  LuochaCharacter.useSkill() * 1,]
-LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
-
-#%% Lunae Hanya Yukong Luocha Rotation Math
-totalLunaeEffect = sumEffects(LunaeRotation)
-totalHanyaEffect = sumEffects(HanyaRotation)
-totalYukongEffect = sumEffects(YukongRotation)
-totalLuochaEffect = sumEffects(LuochaRotation)
-
-LunaeRotationDuration = totalLunaeEffect.actionvalue * 100.0 / LunaeCharacter.getTotalStat('SPD')
-HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
-YukongRotationDuration = totalYukongEffect.actionvalue * 100.0 / YukongCharacter.getTotalStat('SPD')
-LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
-
-# scale other character's rotation
-HanyaRotation = [x * LunaeRotationDuration / HanyaRotationDuration for x in HanyaRotation]
-YukongRotation = [x * LunaeRotationDuration / YukongRotationDuration for x in YukongRotation]
-LuochaRotation = [x * LunaeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-
-LunaeEstimate = DefaultEstimator('Lunae: 2N^3 1Q', LunaeRotation, LunaeCharacter, config)
-HanyaEstimate = DefaultEstimator('Hanya {:.0f}E {:.0f}Q S{:.0f} {}, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt,
-                                HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name), 
-                                HanyaRotation, HanyaCharacter, config)
-YukongEstimate = DefaultEstimator(f'Yukong (Speed Tuned) {numBasicYukong:d}N {numSkillYukong:d}E {numUltYukong:d}Q S{YukongCharacter.lightcone.superposition:d} {YukongCharacter.lightcone.name}', 
-                                  YukongRotation, YukongCharacter, config)
-LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
-                                  LuochaRotation, LuochaCharacter, config)
-
-visualizationList.append([LunaeEstimate,HanyaEstimate,YukongEstimate,LuochaEstimate])
-
-#%% Lunae Tingyun Yukong Luocha Characters
-LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
-                        substats = {'CR': 8, 'CD': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
-                        lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
-                        relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                        **config)
-
-TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
-                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
-                        lightcone = MemoriesOfThePast(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = SprightlyVonwacq(),
-                        benedictionTarget=LunaeCharacter,
-                        **config)
-
-YukongCharacter = Yukong(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ER'],
-                        substats = {'CR': 8, 'CD': 12, 'SPD.flat': 5, 'RES': 3}),
-                        lightcone = PlanetaryRendezvous(**config),
-                        relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
-                        **config)
-
-LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                        substats = {'ATK.percent': 5, 'SPD.flat': 12, 'HP.percent': 4, 'RES': 7}),
-                        lightcone = Multiplication(**config),
-                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
-                        **config)
-
-#%% Lunae Tingyun Yukong Luocha Team Buffs
-# Penacony Buff
-for character in [LunaeCharacter, LuochaCharacter]:
-    character.addStat('DMG',description='Penacony from Yukong',amount=0.1)
-for character in [LunaeCharacter, YukongCharacter]:
-    character.addStat('DMG',description='Penacony from Luocha',amount=0.1)
-    
-# Yukong imaginary damage trace
-for character in [LunaeCharacter, LuochaCharacter]:
-    character.addStat('DMG',description='Yukong trace',amount=0.12,type=['imaginary'])
-
-# Yukong Planetary Rendezvous
-for character in [LunaeCharacter, LuochaCharacter]:
-    character.addStat('DMG',description='Planetary Rendezvous',amount=0.09 + 0.03 * YukongCharacter.lightcone.superposition)
-
-# Tingyun Messenger Buff
-LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)
-for character in [LunaeCharacter, YukongCharacter]:
-    character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/2.0)
-    
-LunaeCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=0.5)
-LunaeCharacter.addStat('ATK.percent',description='Benediction',
-                         amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
-LunaeCharacter.addStat('DMG',description='Tingyun Ult',amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6) # tingyun ult buff never expires in this rotation
-
-# Estimate Yukong Buffs.
-# Yukong is speed tuned to be slightly faster than Lunae, and always going before him
-LunaeCharacter.addStat('ATK.percent',description='Roaring Bowstrings',
-                amount=0.88 if YukongCharacter.eidolon >= 3 else 0.80,
-                uptime=3.0 / 4.0)
-LunaeCharacter.addStat('CR',description='Yukong ultimate',
-                amount=0.294 if YukongCharacter.eidolon >= 5 else 0.28,
-                uptime=1.0 / 4.0 ) # 1 ult buff, 4 characters, 4 turn rotation
-LunaeCharacter.addStat('CD',description='Yukong ultimate',
-                amount=0.702 if YukongCharacter.eidolon >= 5 else 0.65,
-                uptime=1.0 / 4.0 )
-
-for character in [TingyunCharacter, LuochaCharacter]:
-    character.addStat('ATK.percent',description='Roaring Bowstrings',
-                    amount=0.88 if YukongCharacter.eidolon >= 3 else 0.80,
-                    uptime=2.0 / 4.0 / 2.0) # 1 bowstrings, 2 characters, 4 turn rotation
-
-#%% Lunae Tingyun Yukong Luocha Print Statements
-LunaeCharacter.print()
-TingyunCharacter.print()
-YukongCharacter.print()
-LuochaCharacter.print()
-
-#%% Lunae Tingyun Yukong Luocha Rotations
-TingyunRotation = [ 
-        TingyunCharacter.useBasic() * 2, 
-        TingyunCharacter.useSkill(),
-        TingyunCharacter.useUltimate(),
-]
-    
-LunaeRotation = [  # 140 energy needed. EndTurn needed to factor in his buffs
-            LunaeCharacter.useSkill()*3,
-            LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
-            LunaeCharacter.endTurn(),
-            LunaeCharacter.useSkill()*3,
-            LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
-            LunaeCharacter.useUltimate(), # +2 SP, 5 energy
-            LunaeCharacter.endTurn(),
-            TingyunCharacter.giveUltEnergy(),
-]
-
-numBasicYukong = 2
-numSkillYukong = 2
-numUltYukong = 1
-YukongRotation = [ # 
-            YukongCharacter.useEnhancedBasic() * numBasicYukong,
-            YukongCharacter.useSkill() * numSkillYukong,
-            YukongCharacter.useUltimate() * numUltYukong,
-    ]
-
-LuochaRotation = [LuochaCharacter.useBasic() * 3,
-                  LuochaCharacter.useUltimate() * 1,
-                  LuochaCharacter.useSkill() * 1,]
-LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
-
-#%% Lunae Tingyun Yukong Luocha Rotation Math
-totalLunaeEffect = sumEffects(LunaeRotation)
-totalTingyunEffect = sumEffects(TingyunRotation)
-totalYukongEffect = sumEffects(YukongRotation)
-totalLuochaEffect = sumEffects(LuochaRotation)
-
-LunaeRotationDuration = totalLunaeEffect.actionvalue * 100.0 / LunaeCharacter.getTotalStat('SPD')
-TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
-YukongRotationDuration = totalYukongEffect.actionvalue * 100.0 / YukongCharacter.getTotalStat('SPD')
-LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
-
-# scale other character's rotation
-TingyunRotation = [x * LunaeRotationDuration / TingyunRotationDuration for x in TingyunRotation]
-YukongRotation = [x * LunaeRotationDuration / YukongRotationDuration for x in YukongRotation]
-LuochaRotation = [x * LunaeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-
-LunaeEstimate = DefaultEstimator('Lunae: 2N^3 1Q', LunaeRotation, LunaeCharacter, config)
-TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats', [totalTingyunEffect], TingyunCharacter, config)
-YukongEstimate = DefaultEstimator(f'Yukong (Speed Tuned) {numBasicYukong:d}N {numSkillYukong:d}E {numUltYukong:d}Q S{YukongCharacter.lightcone.superposition:d} {YukongCharacter.lightcone.name}', 
-                                  YukongRotation, YukongCharacter, config)
-LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
-                                  LuochaRotation, LuochaCharacter, config)
-
-visualizationList.append([LunaeEstimate,TingyunEstimate,YukongEstimate,LuochaEstimate])
-
-#%% Lunae Hanya Pela Luocha Characters
-LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
-                        substats = {'CR': 8, 'CD': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
-                        lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
-                        relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                        **config)
-
-HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
-                        substats = {'RES': 7, 'SPD.flat': 12, 'CD': 5, 'CR': 4}),
-                        lightcone = MemoriesOfThePast(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
-                        **config)
-
-PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
-                        substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                        lightcone = ResolutionShinesAsPearlsOfSweat(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
-                        **config)
-
-LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                                substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'RES': 3}),
-                                lightcone = Multiplication(**config),
-                                relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
-                                **config)
-
-#%% Lunae Hanya Pela Luocha Team Buffs
-# Broken Keel Buffs
-for character in [LunaeCharacter, PelaCharacter, LuochaCharacter]:
-    character.addStat('CD',description='Broken Keel from Hanya',amount=0.1)
-for character in [LunaeCharacter, HanyaCharacter, LuochaCharacter]:
-    character.addStat('CD',description='Broken Keel from Pela',amount=0.1)
-    
-# Penacony Buff
-for character in [LunaeCharacter, PelaCharacter]:
-    character.addStat('DMG',description='Penacony from Luocha',amount=0.1)
-    
-# Hanya Messenger Buff
-LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)
-for character in [LunaeCharacter, PelaCharacter]:
-    character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-
-# Hanya Buff
-for character in [LunaeCharacter, PelaCharacter, LuochaCharacter]:
-    character.addStat('ATK.percent',description='Hanya trace',amount=0.10,uptime=0.5)
-    character.addStat('DMG',description='Burden',amount=(0.33 if HanyaCharacter.eidolon >= 5 else 0.30) + (0.10 if HanyaCharacter.eidolon >= 6 else 0.0))
-
-# Hanya Ult Buff
-LunaeCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'))
-LunaeCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60)
-
-# Pela Debuffs, 3 turn pela rotation
-pelaUltUptime = (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-pelaUltUptime = min(1.0, pelaUltUptime)
-for character in [LunaeCharacter, HanyaCharacter, PelaCharacter, LuochaCharacter]:
-    character.addStat('DefShred',description='Pela Ultimate',
-                      amount=0.42 if PelaCharacter.eidolon >= 5 else 0.40,
-                      uptime=pelaUltUptime)
-    
-# Resolution Shines as Pearls of Sweat uptime
-sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
-sweatUptime = min(1.0, sweatUptime)
-for character in [LunaeCharacter,HanyaCharacter,PelaCharacter,LuochaCharacter]:
-    character.addStat('DefShred',description='Resolution Sweat',
-                      amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
-                      uptime=sweatUptime)
-
-
-#%% Lunae Hanya Pela Luocha Print Statements
-LunaeCharacter.print()
-HanyaCharacter.print()
-PelaCharacter.print()
-LuochaCharacter.print()
-
-#%% Lunae Hanya Pela Luocha Rotations
-numHanyaSkill = 3
-numHanyaUlt = 1
-HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
-                HanyaCharacter.useUltimate() * numHanyaUlt]
-    
-LunaeRotation = [  # 140 energy needed. EndTurn needed to factor in his buffs
-            LunaeCharacter.useSkill()*3,
-            LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
-            LunaeCharacter.endTurn(),
-            LunaeCharacter.useSkill()*3,
-            LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
-            LunaeCharacter.endTurn(),
-            LunaeCharacter.useSkill()*3,
-            LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
-            LunaeCharacter.useUltimate(), # +2 SP, 5 energy
-            LunaeCharacter.endTurn(),
-]
-
-PelaRotation = [PelaCharacter.useBasic() * 3,
-                PelaCharacter.useUltimate(),]
-
-LuochaRotation = [LuochaCharacter.useBasic() * 3,
-                  LuochaCharacter.useUltimate() * 1,
-                  LuochaCharacter.useSkill() * 1,]
-LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
-
-#%% Lunae Hanya Pela Luocha Rotation Math
-totalLunaeEffect = sumEffects(LunaeRotation)
-totalHanyaEffect = sumEffects(HanyaRotation)
-totalPelaEffect = sumEffects(PelaRotation)
-totalLuochaEffect = sumEffects(LuochaRotation)
-
-LunaeRotationDuration = totalLunaeEffect.actionvalue * 100.0 / LunaeCharacter.getTotalStat('SPD')
-HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
-PelaRotationDuration = totalPelaEffect.actionvalue * 100.0 / PelaCharacter.getTotalStat('SPD')
-LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
-
-# scale other character's rotation
-HanyaRotation = [x * LunaeRotationDuration / HanyaRotationDuration for x in HanyaRotation]
-PelaRotation = [x * LunaeRotationDuration / PelaRotationDuration for x in PelaRotation]
-LuochaRotation = [x * LunaeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-
-LunaeEstimate = DefaultEstimator('Lunae: 2N^3 1Q', LunaeRotation, LunaeCharacter, config)
-HanyaEstimate = DefaultEstimator('Hanya {:.0f}E {:.0f}Q S{:.0f} {}, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt,
-                                HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name), 
-                                HanyaRotation, HanyaCharacter, config)
-PelaEstimate = DefaultEstimator(f'Pela: 3N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
-                                PelaRotation, PelaCharacter, config)
-LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
-                                  LuochaRotation, LuochaCharacter, config)
-
-visualizationList.append([LunaeEstimate,HanyaEstimate,PelaEstimate,LuochaEstimate])
-
-#%% Lunae Tingyun Pela Luocha Characters
-LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
-                        substats = {'CR': 8, 'CD': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
-                        lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
-                        relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                        **config)
-
-TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
-                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
-                        lightcone = MemoriesOfThePast(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = SprightlyVonwacq(),
-                        benedictionTarget=LunaeCharacter,
-                        **config)
-
-PelaCharacter = Pela(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ER'],
-                        substats = {'CR': 8, 'CD': 12, 'SPD.flat': 5, 'RES': 3}),
-                        lightcone = PlanetaryRendezvous(**config),
-                        relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
-                        **config)
-
-LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                        substats = {'ATK.percent': 5, 'SPD.flat': 12, 'HP.percent': 4, 'RES': 7}),
-                        lightcone = Multiplication(**config),
-                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
-                        **config)
+visualizationList.append([SeeleEstimate, SilverWolfEstimate, BronyaEstimate, LuochaEstimate])
 
 #%% Visualization
 # Visualize
