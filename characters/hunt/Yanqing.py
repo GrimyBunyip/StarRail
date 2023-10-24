@@ -119,7 +119,7 @@ class Yanqing(BaseCharacter):
     def useFreezeDot(self):
         retval = BaseEffect()
         type = ['dot','talent']
-        retval.damage = self.getTotalMotionValue('dot',type)
+        retval.damage = self.getTotalMotionValue('freezeDot',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)

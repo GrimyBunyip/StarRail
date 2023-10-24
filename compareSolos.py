@@ -574,17 +574,15 @@ WeltCharacter = Welt(RelicStats(mainstats = ['ER', 'SPD.flat', 'CR', 'ATK.percen
         relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = SpaceSealingStation(),
         **config)
 
-numBasic = 1.0
-numSkill = 2.0
+numSkill = 3.0
 numUlt = 1.0
 
 WeltRotation = [ # 
-        WeltCharacter.useBasic() * numBasic, #
         WeltCharacter.useSkill() * numSkill, #
         WeltCharacter.useUltimate() * numUlt, #
 ]
 
-visualizationList.append(DefaultEstimator(f'Welt {numBasic:.0f}N {numSkill:.0f}E {numUlt:.0f}Q', WeltRotation, WeltCharacter, config))
+visualizationList.append(DefaultEstimator(f'Welt {numSkill:.0f}E {numUlt:.0f}Q', WeltRotation, WeltCharacter, config))
 
 # SilverWolf
 SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR', 'BreakEffect'],
