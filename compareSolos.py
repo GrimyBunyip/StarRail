@@ -569,7 +569,7 @@ visualizationList.append(DefaultEstimator('Sushang 4E 1Q', SushangRotation, Sush
 
 # Welt
 WeltCharacter = Welt(RelicStats(mainstats = ['ER', 'SPD.flat', 'CR', 'ATK.percent'],
-                substats = {'CD': 12, 'CR': 8, 'SPD.flat':3, 'ATK.percent': 5}),
+                substats = {'CD': 10, 'CR': 5, 'SPD.flat':3, 'EHR': 10}),
         lightcone = GoodNightAndSleepWell(**config),
         relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = SpaceSealingStation(),
         **config)
