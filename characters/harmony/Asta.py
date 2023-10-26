@@ -23,7 +23,6 @@ class Asta(BaseCharacter):
         self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=0.5, eidolonThreshold=3, eidolonBonus=0.05)]
 
         # Talents
-        self.addStat('DMG.fire',description='trace',amount=0.18)
         self.addStat('DEF.percent',description='trace',amount=0.06,uptime=self.chargingStacks)
 
         # Eidolons
@@ -32,6 +31,25 @@ class Asta(BaseCharacter):
         
         # Gear
         self.equipGear()
+        
+    def applyTraceBuff(self,team:list):
+        for character in team:
+            character:BaseCharacter
+            character.addStat('DMG.fire',description='trace',amount=0.18)
+            
+    def applyUltBuff(self,team:list,uptime:float):
+        for character in team:
+            character:BaseCharacter
+            character.addStat('SPD.flat',description='Asta Ultimate',
+                                    amount=53 if self.eidolon >= 5 else 50, 
+                                    uptime=uptime)
+            
+    def applyChargingBuff(self,team:list,stacks:int=5):
+        for character in team:
+            character:BaseCharacter
+            character.addStat('ATK.percent',description='Asta Talent',
+                                    amount=0.154 if self.eidolon >= 3 else 0.14,
+                                    stacks=stacks)
         
     def useBasic(self):
         retval = BaseEffect()

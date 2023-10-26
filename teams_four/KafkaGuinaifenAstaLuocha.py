@@ -64,24 +64,14 @@ def KafkaGuinaifenAstaLuocha(config):
     GuinaifenCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 3.0)
     LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 4.0)
 
+    # Asta Buffs
+    AstaCharacter.applyChargingBuff(team)
+    AstaCharacter.applyTraceBuff(team)
+
     # assume partial uptime on asta ultimate with ENN rotation
-    for character in [KafkaCharacter, GuinaifenCharacter, AstaCharacter]:
-        character.addStat('SPD.flat',description='Asta Ultimate',
-                        amount=53 if AstaCharacter.eidolon >= 5 else 50,
-                        uptime=2.0/3.0)
-        character.addStat('ATK.percent',description='Asta Talent',
-                        amount=0.154 if AstaCharacter.eidolon >= 3 else 0.14,
-                        stacks=5,
-                        uptime=2.0/3.0)
-        
-    # Luocha is faster so his uptime is a bit lower
-    LuochaCharacter.addStat('SPD.flat',description='Asta Ultimate',
-                        amount=53 if AstaCharacter.eidolon >= 5 else 50,
-                        uptime=2.0/4.0)
-    LuochaCharacter.addStat('ATK.percent',description='Asta Talent',
-                        amount=0.154 if AstaCharacter.eidolon >= 3 else 0.14,
-                        stacks=5,
-                        uptime=2.0/4.0)
+    # Luocha's uptime is lower because he is very fast with the multiplication light cone
+    AstaCharacter.applyUltBuff([KafkaCharacter,GuinaifenCharacter,AstaCharacter],uptime=2.0/3.0)
+    AstaCharacter.applyUltBuff([LuochaCharacter],uptime=2.0/4.0)
 
     # Asta Ignite Buff
     GuinaifenCharacter.addStat('DMG.fire',description='trace',amount=0.18)

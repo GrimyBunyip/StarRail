@@ -52,22 +52,12 @@ def JingyuanTingyunAstaLuocha(config):
         character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
         
     # Asta Buffs
-    # assume full uptime on asta ultimate and talent with 2 turn rotation
-    for character in [JingYuanCharacter, TingyunCharacter, AstaCharacter]:
-        character.addStat('SPD.flat',description='Asta Ultimate',
-                        amount=53 if AstaCharacter.eidolon >= 5 else 50,
-                        uptime=2.0/2.5)
-        character.addStat('ATK.percent',description='Asta Talent',
-                        amount=0.154 if AstaCharacter.eidolon >= 3 else 0.14,
-                        stacks=5)
-        
+    AstaCharacter.applyChargingBuff(team)
+    AstaCharacter.applyTraceBuff(team)
+
     # Luocha's uptime is lower because he is very fast with the multiplication light cone
-    LuochaCharacter.addStat('SPD.flat',description='Asta Ultimate',
-                            amount=53 if AstaCharacter.eidolon >= 5 else 50, 
-                            uptime=0.75)
-    LuochaCharacter.addStat('ATK.percent',description='Asta Talent',
-                            amount=0.154 if AstaCharacter.eidolon >= 3 else 0.14,
-                            stacks=5, uptime=0.75)
+    AstaCharacter.applyUltBuff([JingYuanCharacter,TingyunCharacter,AstaCharacter])
+    AstaCharacter.applyUltBuff([LuochaCharacter],uptime=0.75)
 
     # Asta Messenger Buff
     JingYuanCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 2.5)
