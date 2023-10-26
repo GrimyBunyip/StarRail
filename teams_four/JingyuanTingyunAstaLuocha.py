@@ -56,7 +56,7 @@ def JingyuanTingyunAstaLuocha(config):
     AstaCharacter.applyTraceBuff(team)
 
     # Luocha's uptime is lower because he is very fast with the multiplication light cone
-    AstaCharacter.applyUltBuff([JingYuanCharacter,TingyunCharacter,AstaCharacter])
+    AstaCharacter.applyUltBuff([JingYuanCharacter,TingyunCharacter,AstaCharacter],uptime=1.0)
     AstaCharacter.applyUltBuff([LuochaCharacter],uptime=0.75)
 
     # Asta Messenger Buff

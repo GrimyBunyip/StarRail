@@ -62,7 +62,7 @@ def ClaraTopazAstaLuocha(config):
     AstaCharacter.applyTraceBuff(team)
 
     # Luocha's uptime is lower because he is very fast with the multiplication light cone
-    AstaCharacter.applyUltBuff([TopazCharacter,ClaraCharacter,AstaCharacter])
+    AstaCharacter.applyUltBuff([TopazCharacter,ClaraCharacter,AstaCharacter],uptime=1.0)
     AstaCharacter.applyUltBuff([LuochaCharacter],uptime=0.75)
 
     # Topaz Vulnerability Buff
