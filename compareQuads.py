@@ -4,6 +4,7 @@ from teams_four.BladeBronyaPelaLuocha import BladeBronyaPelaLuocha
 from teams_four.BladeBronyaPelaLynx import BladeBronyaPelaLynx
 from teams_four.ClaraSilverWolfPelaLuocha import ClaraSilverWolfPelaLuocha
 from teams_four.ClaraTopazAstaLuocha import ClaraTopazAstaLuocha
+from teams_four.ClaraTopazHanyaLuocha import ClaraTopazHanyaLuocha
 from teams_four.JingliuBronyaPelaLuocha import JingliuBronyaPelaLuocha
 from teams_four.JingliuHanyaBladeLuocha import JingliuHanyaBladeLuocha
 from teams_four.JingyuanTingyunAstaLuocha import JingyuanTingyunAstaLuocha
@@ -26,13 +27,14 @@ visualizationList = []
 
 config = copy(Configuration)
 config['numEnemies'] = 2
-config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
+config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
 visualizationList.append(BladeBronyaPelaLuocha(config))
 visualizationList.append(BladeBronyaPelaLynx(config))
 visualizationList.append(ClaraSilverWolfPelaLuocha(config))
 visualizationList.append(ClaraTopazAstaLuocha(config))
+visualizationList.append(ClaraTopazHanyaLuocha(config))
 visualizationList.append(JingliuBronyaPelaLuocha(config))
 visualizationList.append(JingliuHanyaBladeLuocha(config))
 visualizationList.append(JingyuanTingyunAstaLuocha(config))

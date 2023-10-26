@@ -61,7 +61,8 @@ def KafkaGuinaifenHanyaLuocha(config):
     KafkaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 3.0)
     GuinaifenCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 3.0)
     LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 4.0)
-
+    
+    # Hanya Buff
     for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
         character.addStat('ATK.percent',description='Hanya trace',amount=0.10,uptime=0.5)
         character.addStat('DMG',description='Burden',amount=(0.33 if HanyaCharacter.eidolon >= 5 else 0.30) + (0.10 if HanyaCharacter.eidolon >= 6 else 0.0))

@@ -41,7 +41,7 @@ class Welt(BaseCharacter):
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
-        retval.damage = self.getTotalMotionValue('basic',type)
+        retval.damage = self.getTotalMotionValue('basic',type) + (0.50 if self.eidolon >= 1 else 0.0)
         retval.damage *= 1.5 if self.eidolon >= 6 else 1.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -60,7 +60,7 @@ class Welt(BaseCharacter):
         num_hits = 4.0 if self.eidolon >= 6 else 3.0
         retval = BaseEffect()
         type = ['skill']
-        retval.damage = self.getTotalMotionValue('skill',type) * (num_hits + (0.8 if self.eidolon >= 1 else 0.0) )
+        retval.damage = self.getTotalMotionValue('skill',type) * (num_hits + (0.8 if self.eidolon >= 1 else 0.0) ) # e1 does not proc extra talent
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
