@@ -25,12 +25,29 @@ class Bronya(BaseCharacter):
                      amount=0.33 if self.eidolon >= 3 else 0.3,
                      type=['basic'])
         self.addStat('CR',description='trace',amount=1.0,type=['basic'])
-        self.addStat('DMG',description='trace',amount=1.0)
 
         # Eidolons
         
         # Gear
         self.equipGear()
+        
+    def applyTraceBuff(self,team:list):
+        for character in team:
+            character:BaseCharacter
+            character.addStat('DMG',description='trace',amount=1.0)
+             
+    def applyUltBuff(self,character:BaseCharacter,uptime:float):
+        character.addStat('ATK.percent',description='Bronya Ult',
+                            amount=0.594 if self.eidolon >= 3 else 0.55,
+                            uptime=uptime)
+        character.addStat('CD',description='Bronya Ult',
+                            amount=((0.168 * self.getTotalStat('CD') + 0.216) if self.eidolon >= 3 else (0.16 * self.getTotalStat('CD') + 0.2)),
+                            uptime=uptime)
+        
+    def applySkillBuff(self,character:BaseCharacter,uptime:float):
+        character.addStat('DMG',description='Bronya Skill',
+                            amount=0.726 if self.eidolon >= 5 else 0.66,
+                            uptime=uptime)
         
     def useBasic(self):
         retval = BaseEffect()

@@ -56,9 +56,8 @@ def JingliuBronyaPelaLuocha(config):
     for character in [JingliuCharacter, PelaCharacter, LuochaCharacter]:
         character.addStat('CD',description='Broken Keel Bronya',amount=0.10)
 
-    # Bronya A6 and Messenger 4 pc
+    # Messenger 4 pc
     for character in [JingliuCharacter, PelaCharacter, LuochaCharacter]:
-        character.addStat('DMG',description='Bronya A6',amount=0.10)
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/5.0)
 
     # Pela Debuffs, 3 turn pela rotation
@@ -90,7 +89,6 @@ def JingliuBronyaPelaLuocha(config):
 
     # 1 skill should have bronya buff, 1 should not.
     JingliuRotation += [JingliuCharacter.useSkill()]
-    JingliuCharacter.addStat('DMG',description='Bronya Skill', amount=0.726 if BronyaCharacter.eidolon >= 5 else 0.66)
     JingliuCharacter.addStat('DMG',description='Past and Future', amount=0.12 + 0.04 * BronyaCharacter.lightcone.superposition)
     JingliuRotation += [JingliuCharacter.useSkill()]
     JingliuCharacter.stats['DMG'].pop() # remove bronya skill buff
@@ -100,14 +98,9 @@ def JingliuBronyaPelaLuocha(config):
     JingliuRotation += [JingliuCharacter.useEnhancedSkill() * 2]
 
     # 1 enhanced skill and the ultimate will both have bronya buff
-    JingliuCharacter.addStat('DMG',description='Bronya Skill', amount=0.726 if BronyaCharacter.eidolon >= 5 else 0.66)
+    BronyaCharacter.applySkillBuff(JingliuCharacter,uptime=1.0)
+    BronyaCharacter.applyUltBuff(JingliuCharacter,uptime=0.5) # only get Bronya ult buff every other rotation
     JingliuCharacter.addStat('DMG',description='Past and Future', amount=0.12 + 0.04 * BronyaCharacter.lightcone.superposition)
-    JingliuCharacter.addStat('ATK.percent',description='Bronya Ult',
-                        amount=0.594 if BronyaCharacter.eidolon >= 3 else 0.55,
-                        uptime=0.5) # only get bronya ult buff every other rotation
-    JingliuCharacter.addStat('CD',description='Bronya Ult',
-                        amount=(0.168 * BronyaCharacter.getTotalStat('CD') + 0.216) if BronyaCharacter.eidolon >= 3 else (0.16 * BronyaCharacter.getTotalStat('CD') + 0.2),
-                        uptime=0.5) # only get bronya ult buff every other rotation
     JingliuRotation += [JingliuCharacter.useEnhancedSkill()]
     JingliuRotation += [JingliuCharacter.useUltimate()]
     JingliuRotation += [JingliuCharacter.extraTurn() * 0.9] # multiply by 0.9 because it tends to overlap with skill advances

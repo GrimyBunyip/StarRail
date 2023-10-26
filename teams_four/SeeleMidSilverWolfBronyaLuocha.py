@@ -84,18 +84,14 @@ def SeeleMidSilverWolfBronyaLuocha(config):
 
     # Bronya Messenger Buff
     for character in [SeeleCharacter, SilverWolfCharacter, LuochaCharacter]:
-        character.addStat('DMG',description='Bronya A6',amount=0.10)
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)
 
     # Bronya Buffs
-    SeeleCharacter.addStat('DMG',description='Bronya Skill', amount=0.726 if BronyaCharacter.eidolon >= 5 else 0.66, uptime=0.5)
+    BronyaCharacter.applyTraceBuff(team)
+    BronyaCharacter.applyUltBuff(SeeleCharacter,uptime=1.0/4.0) # estimate 1 bronya buff per 4 rotations
+    BronyaCharacter.applySkillBuff(SeeleCharacter,uptime=1.0/2.0) # estimate 1 bronya skill buff per 2 attacks
+    
     SeeleCharacter.addStat('DMG',description='Past and Future', amount=0.12 + 0.04 * BronyaCharacter.lightcone.superposition, uptime=0.5)
-    SeeleCharacter.addStat('ATK.percent',description='Bronya Ult',
-                        amount=0.594 if BronyaCharacter.eidolon >= 3 else 0.55,
-                        uptime=0.25) # only get bronya ult buff every 4 rotations
-    SeeleCharacter.addStat('CD',description='Bronya Ult',
-                        amount=(0.168 * BronyaCharacter.getTotalStat('CD') + 0.216) if BronyaCharacter.eidolon >= 3 else (0.16 * BronyaCharacter.getTotalStat('CD') + 0.2),
-                        uptime=0.25) # only get bronya ult buff every 4 rotations
         
     #%% Print Statements
     for character in team:

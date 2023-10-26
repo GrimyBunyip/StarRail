@@ -57,9 +57,8 @@ def BladeBronyaPelaLynx(config):
     # Bronya Planetary Rendezvous
     BladeCharacter.addStat('DMG',description='Planetary Rendezvous',amount=0.09 + 0.03 * BronyaCharacter.lightcone.superposition)
 
-    # Bronya A6 and Messenger 4 pc
+    # Messenger 4 pc
     for character in [BladeCharacter, PelaCharacter, LynxCharacter]:
-        character.addStat('DMG',description='Bronya A6',amount=0.10)
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 
     # Pela Debuffs, 3 turn pela rotation
@@ -75,17 +74,9 @@ def BladeBronyaPelaLynx(config):
                         uptime=sweatUptime)
         
     # Bronya Buffs
-    # since we are not assuming a sync'd rotation, I will just take the average of the Bronya Buffs.
-    # Assume Bronya ult buffs every 4 attacks, and Bronya skill buffs every 2
-    BladeCharacter.addStat('ATK.percent',description='Bronya Ult',
-                        amount=0.594 if BronyaCharacter.eidolon >= 3 else 0.55,
-                        uptime=1.0/4.0)
-    BladeCharacter.addStat('CD',description='Bronya Ult',
-                        amount=((0.168 * BronyaCharacter.getTotalStat('CD') + 0.216) if BronyaCharacter.eidolon >= 3 else (0.16 * BronyaCharacter.getTotalStat('CD') + 0.2)),
-                        uptime=1.0/4.0)
-    BladeCharacter.addStat('DMG',description='Bronya Skill',
-                        amount=0.726 if BronyaCharacter.eidolon >= 5 else 0.66,
-                        uptime=1.0/2.0)
+    BronyaCharacter.applyTraceBuff(team)
+    BronyaCharacter.applyUltBuff(BladeCharacter,uptime=1.0/4.0) # estimate 1 bronya buff per 4 rotations
+    BronyaCharacter.applySkillBuff(BladeCharacter,uptime=1.0/2.0) # estimate 1 bronya skill buff per 2 blade attacks
 
     # Lynx Buffs
     LynxBuffUptime = LynxCharacter.getTotalStat('SPD') / BladeCharacter.getTotalStat('SPD') / (2.6/3.0) / 2.0
