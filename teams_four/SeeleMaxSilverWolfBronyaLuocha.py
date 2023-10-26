@@ -42,6 +42,8 @@ def SeeleMaxSilverWolfBronyaLuocha(config):
                             lightcone = Multiplication(**config),
                             relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                             **config)
+    
+    team = [SeeleCharacter, SilverWolfCharacter, BronyaCharacter, LuochaCharacter]
 
     #%% Seele MAX Silver Wolf Bronya Luocha Team Buffs
     for character in [SilverWolfCharacter, SeeleCharacter, BronyaCharacter]:
@@ -95,11 +97,9 @@ def SeeleMaxSilverWolfBronyaLuocha(config):
                         amount=(0.168 * BronyaCharacter.getTotalStat('CD') + 0.216) if BronyaCharacter.eidolon >= 3 else (0.16 * BronyaCharacter.getTotalStat('CD') + 0.2),
                         uptime=0.25) # only get bronya ult buff every 4 rotations
         
-    #%% Seele MAX Silver Wolf Bronya Luocha Print Statements
-    SeeleCharacter.print()
-    SilverWolfCharacter.print()
-    BronyaCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Seele MAX Silver Wolf Bronya Luocha Rotations
 

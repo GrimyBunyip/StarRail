@@ -41,6 +41,8 @@ def LunaeHanyaYukongLuocha(config):
                                     lightcone = Multiplication(**config),
                                     relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
                                     **config)
+    
+    team = [LunaeCharacter, HanyaCharacter, YukongCharacter, LuochaCharacter]
 
     #%% Lunae Hanya Yukong Luocha Team Buffs
     # Broken Keel Buffs
@@ -92,11 +94,9 @@ def LunaeHanyaYukongLuocha(config):
                         amount=0.88 if YukongCharacter.eidolon >= 3 else 0.80,
                         uptime=2.0 / 4.0 / 2.0) # 2 bowstrings, 2 characters, 4 turn rotation
 
-    #%% Lunae Hanya Yukong Luocha Print Statements
-    LunaeCharacter.print()
-    HanyaCharacter.print()
-    YukongCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Lunae Hanya Yukong Luocha Rotations
     numHanyaSkill = 3

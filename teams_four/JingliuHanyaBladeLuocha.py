@@ -42,6 +42,8 @@ def JingliuHanyaBladeLuocha(config):
                         lightcone = Multiplication(**config),
                         relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
+    
+    team = [JingliuCharacter, HanyaCharacter, BladeCharacter, LuochaCharacter]
 
     #%% Jingliu Hanya Blade Luocha Team Buffs
     # only enhanced skills have rutilant arena buff
@@ -68,11 +70,9 @@ def JingliuHanyaBladeLuocha(config):
     JingliuCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'),uptime=0.8)
     JingliuCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60,uptime=0.8)
 
-    #%% Jingliu Hanya Blade Luocha Print Statements
-    JingliuCharacter.print()
-    HanyaCharacter.print()
-    BladeCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Jingliu Hanya Blade Luocha Rotations
     HanyaRotation = [HanyaCharacter.useSkill() * 4,

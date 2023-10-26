@@ -41,6 +41,8 @@ def TopazTingyunHanyaLuocha(config):
                         lightcone = Multiplication(**config),
                         relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
+    
+    team = [TopazCharacter, TingyunCharacter, HanyaCharacter, LuochaCharacter]
 
     #%% Topaz Tingyun Hanya Luocha Team Buffs
     for character in [TopazCharacter, TingyunCharacter, HanyaCharacter]:
@@ -73,11 +75,9 @@ def TopazTingyunHanyaLuocha(config):
                             amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
     TopazCharacter.addStat('DMG',description='Tingyun Ult',amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6,uptime=2.0/3.0)
 
-    #%% Topaz Tingyun Hanya Luocha Print Statements
-    TopazCharacter.print()
-    TingyunCharacter.print()
-    HanyaCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Topaz Tingyun Hanya Luocha Rotations
     numSkillTopaz = 2.5

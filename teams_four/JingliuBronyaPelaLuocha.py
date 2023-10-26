@@ -73,11 +73,9 @@ def JingliuBronyaPelaLuocha(config):
                         amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
                         uptime=sweatUptime)
 
-    #%% Jingliu Bronya Pela Luocha Print Statements
-    JingliuCharacter.print()
-    BronyaCharacter.print()
-    PelaCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Jingliu Bronya Pela Luocha Rotations
     BronyaRotation = [BronyaCharacter.useSkill() * 4,

@@ -44,6 +44,8 @@ def ClaraTopazHanyaLuocha(config):
                                     lightcone = Multiplication(**config),
                                     relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                                     **config)
+    
+    team = [ClaraCharacter, TopazCharacter, HanyaCharacter, LuochaCharacter]
 
     #%% Clara Topaz Hanya Luocha Team Buffs
     for character in [TopazCharacter, ClaraCharacter, HanyaCharacter]:
@@ -70,11 +72,9 @@ def ClaraTopazHanyaLuocha(config):
                         amount=0.55 if TopazCharacter.eidolon>= 3 else 0.5,
                         uptime=1.0 / ClaraCharacter.numEnemies)
 
-    #%% Clara Topaz Hanya Luocha Print Statements
-    ClaraCharacter.print()
-    TopazCharacter.print()
-    HanyaCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Clara Topaz Hanya Luocha Rotations
     # assume each elite performs 1 single target attack per turn

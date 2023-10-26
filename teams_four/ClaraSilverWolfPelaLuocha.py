@@ -92,11 +92,9 @@ def ClaraSilverWolfPelaLuocha(config):
                         uptime=talentDefUptime)
         character.addStat('ResPen',description='trace',amount=0.03,uptime=a6Uptime)
         
-    #%% Clara Silver Wolf Pela Luocha Print Statements
-    ClaraCharacter.print()
-    SilverWolfCharacter.print()
-    PelaCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Clara Silver Wolf Pela Luocha Rotations
 

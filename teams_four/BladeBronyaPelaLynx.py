@@ -97,11 +97,9 @@ def BladeBronyaPelaLynx(config):
     if LynxCharacter.eidolon >= 6:
         BladeCharacter.addStat('HP.flat',description='Lynx E6',amount=LynxCharacter.getTotalStat('HP') * 0.06,uptime=LynxBuffUptime)
 
-    #%% Blade Bronya Pela Lynx Print Statements
-    BladeCharacter.print()
-    BronyaCharacter.print()
-    PelaCharacter.print()
-    LynxCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Blade Bronya Pela Lynx Rotations
     BronyaRotation = [BronyaCharacter.useSkill() * 4,

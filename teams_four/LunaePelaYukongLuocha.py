@@ -93,11 +93,9 @@ def LunaePelaYukongLuocha(config):
                         amount=0.88 if YukongCharacter.eidolon >= 3 else 0.80,
                         uptime=2.0 / 4.0 / 2.0) # 2 bowstrings, 2 characters, 4 turn rotation
 
-    #%% Lunae Pela Yukong Luocha Print Statements
-    LunaeCharacter.print()
-    PelaCharacter.print()
-    YukongCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Lunae Pela Yukong Luocha Rotations
     PelaRotation = [PelaCharacter.useBasic() * 3,

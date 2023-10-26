@@ -43,6 +43,8 @@ def KafkaGuinaifenHanyaLuocha(config):
                                     lightcone = Multiplication(**config),
                                     relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = FleetOfTheAgeless(),
                                     **config)
+    
+    team = [KafkaCharacter, GuinaifenCharacter, HanyaCharacter, LuochaCharacter]
 
     #%% Kafka Guinaifen Hanya Luocha Team Buffs
     # Fleet of the Ageless Buff
@@ -70,11 +72,9 @@ def KafkaGuinaifenHanyaLuocha(config):
     KafkaCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'))
     KafkaCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60)
 
-    #%% Kafka Guinaifen Hanya Luocha Print Statements
-    KafkaCharacter.print()
-    GuinaifenCharacter.print()
-    HanyaCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Kafka Guinaifen Hanya Luocha Rotations
     numSkill = 3.0

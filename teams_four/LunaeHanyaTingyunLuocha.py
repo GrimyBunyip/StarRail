@@ -42,6 +42,8 @@ def LunaeHanyaTingyunLuocha(config):
                             lightcone = Multiplication(**config),
                             relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
                             **config)
+    
+    team = [LunaeCharacter, HanyaCharacter, TingyunCharacter, LuochaCharacter]
 
     #%% Lunae Hanya Tingyun Luocha Team Buffs
     # Broken Keel Buffs
@@ -77,11 +79,9 @@ def LunaeHanyaTingyunLuocha(config):
                             amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
     LunaeCharacter.addStat('DMG',description='Tingyun Ult',amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6,uptime=2.0/3.0)
 
-    #%% Lunae Hanya Tingyun Luocha Print Statements
-    LunaeCharacter.print()
-    HanyaCharacter.print()
-    TingyunCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Lunae Hanya Tingyun Luocha Rotations
     numHanyaSkill = 3

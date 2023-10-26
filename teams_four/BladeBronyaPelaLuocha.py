@@ -86,11 +86,9 @@ def BladeBronyaPelaLuocha(config):
                         amount=0.726 if BronyaCharacter.eidolon >= 5 else 0.66,
                         uptime=1.0/2.0)
 
-    #%% Blade Bronya Pela Luocha Print Statements
-    BladeCharacter.print()
-    BronyaCharacter.print()
-    PelaCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Blade Bronya Pela Luocha Rotations
     BronyaRotation = [BronyaCharacter.useSkill() * 4,

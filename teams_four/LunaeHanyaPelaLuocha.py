@@ -83,11 +83,9 @@ def LunaeHanyaPelaLuocha(config):
                         uptime=sweatUptime)
 
 
-    #%% Lunae Hanya Pela Luocha Print Statements
-    LunaeCharacter.print()
-    HanyaCharacter.print()
-    PelaCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Lunae Hanya Pela Luocha Rotations
     numHanyaSkill = 3

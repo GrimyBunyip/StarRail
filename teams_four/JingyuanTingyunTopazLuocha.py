@@ -42,6 +42,8 @@ def JingyuanTingyunTopazLuocha(config):
                             lightcone = Multiplication(**config),
                             relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                             **config)
+    
+    team = [JingYuanCharacter, TingyunCharacter, TopazCharacter, LuochaCharacter]
 
     #%% JingYuan Tingyun Topaz Luocha Team Buffs
     # Broken Keel Buffs
@@ -77,11 +79,9 @@ def JingyuanTingyunTopazLuocha(config):
                             amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6,
                             uptime=1.0 - longToShort / 2)
 
-    #%% JingYuan Tingyun Topaz Luocha Print Statements
-    JingYuanCharacter.print()
-    TingyunCharacter.print()
-    TopazCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% JingYuan Tingyun Topaz Luocha Rotations
     TingyunRotation = [ 

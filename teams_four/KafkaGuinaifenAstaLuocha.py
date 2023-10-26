@@ -43,6 +43,8 @@ def KafkaGuinaifenAstaLuocha(config):
                                     lightcone = Multiplication(**config),
                                     relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = FleetOfTheAgeless(),
                                     **config)
+    
+    team = [KafkaCharacter, GuinaifenCharacter, AstaCharacter, LuochaCharacter]
 
     #%% Kafka Guinaifen Asta Luocha Team Buffs
     # Fleet of the Ageless Buff
@@ -84,11 +86,9 @@ def KafkaGuinaifenAstaLuocha(config):
     # Asta Ignite Buff
     GuinaifenCharacter.addStat('DMG.fire',description='trace',amount=0.18)
 
-    #%% Kafka Guinaifen Asta Luocha Print Statements
-    KafkaCharacter.print()
-    GuinaifenCharacter.print()
-    AstaCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Kafka Guinaifen Asta Luocha Rotations
     numSkill = 3.0

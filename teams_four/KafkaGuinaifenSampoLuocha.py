@@ -42,6 +42,8 @@ def KafkaGuinaifenSampoLuocha(config):
                                     lightcone = Multiplication(**config),
                                     relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = FleetOfTheAgeless(),
                                     **config)
+    
+    team = [KafkaCharacter, GuinaifenCharacter, SampoCharacter, LuochaCharacter]
 
     #%% Kafka Guinaifen Sampo Luocha Team Buffs
     # Fleet of the Ageless Buff
@@ -59,11 +61,9 @@ def KafkaGuinaifenSampoLuocha(config):
                         amount=0.32 if SampoCharacter.eidolon >= 5 else 0.3,
                         uptime=SampoCharacter.ultUptime)
 
-    #%% Kafka Guinaifen Sampo Luocha Print Statements
-    KafkaCharacter.print()
-    GuinaifenCharacter.print()
-    SampoCharacter.print()
-    LuochaCharacter.print()
+    #%% Print Statements
+    for character in team:
+        character.print()
 
     #%% Kafka Guinaifen Sampo Luocha Rotations
     numSkill = 3.0
