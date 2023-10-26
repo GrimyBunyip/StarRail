@@ -27,7 +27,7 @@ visualizationList = []
 
 config = copy(Configuration)
 config['numEnemies'] = 2
-config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
+config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
 visualizationList.append(BladeBronyaPelaLuocha(config))
