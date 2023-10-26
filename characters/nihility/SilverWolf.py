@@ -42,13 +42,12 @@ class SilverWolf(BaseCharacter):
         # Gear
         self.equipGear()
         
-    def applyDebuffs(self,team:list,rotationDuration:float=2.0, targetingUptime=1.0):
+    def applyDebuffs(self,team:list,rotationDuration:float=2.0, targetingUptime:float=1.0, dmgResUptime:float=0.0):
         swUltUptime = (2.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
         swUltUptime = min(1.0, swUltUptime) * targetingUptime
         swSkillUptime = (3.0 * 3.0 / 2.0) * self.getTotalStat('SPD') / self.enemySpeed
         swSkillUptime = min(1.0, swSkillUptime) * targetingUptime
 
-        dmgResUptime:float=0.0 #we are already assuming we're hitting for weakness
         allResUptime:float=swSkillUptime #might want to decrease this for large numbers of targets
         defShredUptime:float=swUltUptime
         talentAtkUptime:float=swSkillUptime
