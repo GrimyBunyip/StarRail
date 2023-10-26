@@ -42,6 +42,8 @@ def LunaePelaYukongLuocha(config):
                                     lightcone = Multiplication(**config),
                                     relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
                                     **config)
+    
+    team = [LunaeCharacter, PelaCharacter, YukongCharacter, LuochaCharacter]
 
     #%% Lunae Pela Yukong Luocha Team Buffs
     # Broken Keel Buffs
@@ -55,12 +57,7 @@ def LunaePelaYukongLuocha(config):
         character.addStat('DMG',description='Penacony from Luocha',amount=0.1)
         
     # Pela Debuffs, 3 turn pela rotation
-    pelaUltUptime = (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-    pelaUltUptime = min(1.0, pelaUltUptime)
-    for character in [LunaeCharacter, YukongCharacter, PelaCharacter, LuochaCharacter]:
-        character.addStat('DefShred',description='Pela Ultimate',
-                        amount=0.42 if PelaCharacter.eidolon >= 5 else 0.40,
-                        uptime=pelaUltUptime)
+    PelaCharacter.applyUltDebuff(team,rotation_turns=3)
         
     # Resolution Shines as Pearls of Sweat uptime
     sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed

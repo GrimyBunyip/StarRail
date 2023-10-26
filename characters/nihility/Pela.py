@@ -37,6 +37,14 @@ class Pela(BaseCharacter):
         
         # Gear
         self.equipGear()
+        
+    def applyUltDebuff(self,team:list, rotation_turns:float=3.0):
+        pelaUltUptime = (2.0 / rotation_turns) * self.getTotalStat('SPD') / self.enemySpeed
+        pelaUltUptime = min(1.0, pelaUltUptime)
+        for character in team:
+            character.addStat('DefShred',description='Pela Ultimate',
+                            amount=0.42 if self.eidolon >= 5 else 0.40,
+                            uptime=pelaUltUptime)
 
     def useBasic(self):
         retval = BaseEffect()
