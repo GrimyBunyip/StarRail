@@ -61,7 +61,7 @@ def BladeBronyaPelaLuocha(config):
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 
     # Pela Debuffs, 3 turn pela rotation
-    PelaCharacter.applyUltDebuff(team,rotation_turns=3)
+    PelaCharacter.applyUltDebuff(team,rotationDuration=3)
         
     # Resolution Shines as Pearls of Sweat uptime
     sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed

@@ -71,7 +71,7 @@ def LunaeHanyaPelaLuocha(config):
     LunaeCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60)
 
     # Pela Debuffs, 3 turn pela rotation
-    PelaCharacter.applyUltDebuff(team,rotation_turns=3)
+    PelaCharacter.applyUltDebuff(team,rotationDuration=3)
         
     # Resolution Shines as Pearls of Sweat uptime
     sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
