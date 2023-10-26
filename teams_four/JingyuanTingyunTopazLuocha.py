@@ -51,10 +51,8 @@ def JingyuanTingyunTopazLuocha(config):
         character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
         
     # Topaz Vulnerability Buff
-    JingYuanCharacter.addStat('Vulnerability',description='Topaz Vulnerability',
-                        amount=0.55 if TopazCharacter.eidolon>= 3 else 0.5,
-                        uptime=1.0 / JingYuanCharacter.numEnemies,
-                        type=['followup'])
+    TopazCharacter.applyVulnerabilityDebuff([TopazCharacter],uptime=1.0)
+    TopazCharacter.applyVulnerabilityDebuff([JingYuanCharacter],uptime=1.0/JingYuanCharacter.numEnemies)
         
     # Tingyun Messenger Buff
     LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)

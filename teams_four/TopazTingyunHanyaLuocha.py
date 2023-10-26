@@ -64,6 +64,9 @@ def TopazTingyunHanyaLuocha(config):
     HanyaCharacter.applyBurdenBuff(team)
     HanyaCharacter.applyUltBuff(TopazCharacter,uptime=1.0)
     
+    # Topaz Vulnerability Buff
+    TopazCharacter.applyVulnerabilityDebuff([TopazCharacter],uptime=1.0)
+    
     # Tingyun Buffs
     TopazCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=1.0/3.0)
     TopazCharacter.addStat('ATK.percent',description='Benediction',

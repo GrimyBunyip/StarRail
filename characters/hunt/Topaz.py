@@ -26,7 +26,6 @@ class Topaz(BaseCharacter):
         
         # Talents
         self.addStat('DMG',description='trace',amount=0.15) # Financial Turmoil
-        self.addStat('Vulnerability',description='skill',amount=0.55 if self.eidolon >= 3 else 0.5)
         self.addStat('BonusEnergyAttack',description='trace',amount=10.0,type=['windfall'])
         
         self.addStat('CD',description='windfall',amount=0.25,type=['windfall'])
@@ -43,6 +42,11 @@ class Topaz(BaseCharacter):
         
         # Gear
         self.equipGear()
+        
+    def applyVulnerabilityDebuff(self,team:list,uptime:float):
+        for character in team:
+            character:BaseCharacter
+            character.addStat('Vulnerability',description='skill',amount=0.55 if self.eidolon >= 3 else 0.5,type=['followup'],uptime=uptime)
         
     def useBasic(self):
         retval = BaseEffect()

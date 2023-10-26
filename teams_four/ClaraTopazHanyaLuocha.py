@@ -63,10 +63,8 @@ def ClaraTopazHanyaLuocha(config):
     HanyaCharacter.applyUltBuff(TopazCharacter,uptime=1.0)
 
     # Topaz Vulnerability Buff
-    ClaraCharacter.addStat('Vulnerability',description='Topaz Vulnerability',
-                        amount=0.55 if TopazCharacter.eidolon>= 3 else 0.5,
-                        uptime=1.0 / ClaraCharacter.numEnemies,
-                        type=['followup'])
+    TopazCharacter.applyVulnerabilityDebuff([TopazCharacter],uptime=1.0)
+    TopazCharacter.applyVulnerabilityDebuff([ClaraCharacter],uptime=1.0/ClaraCharacter.numEnemies)
 
     #%% Print Statements
     for character in team:
