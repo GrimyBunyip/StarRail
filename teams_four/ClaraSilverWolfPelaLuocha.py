@@ -67,30 +67,8 @@ def ClaraSilverWolfPelaLuocha(config):
                         uptime=sweatUptime)
 
     # Silver Wolf Debuffs
-    swUltUptime = (2.0 / 2.0) * SilverWolfCharacter.getTotalStat('SPD') / SilverWolfCharacter.enemySpeed / SilverWolfCharacter.numEnemies
-    swUltUptime = min(1.0, swUltUptime)
-    swSkillUptime = (3.0 * 3.0 / 2.0) * SilverWolfCharacter.getTotalStat('SPD') / SilverWolfCharacter.enemySpeed / SilverWolfCharacter.numEnemies
-    swSkillUptime = min(1.0, swSkillUptime)
-
-    dmgResUptime:float=0.0 #we are already assuming we're hitting for weakness
-    allResUptime:float=swSkillUptime #might want to decrease this for large numbers of targets
-    defShredUptime:float=swUltUptime
-    talentAtkUptime:float=swSkillUptime
-    talentDefUptime:float=swSkillUptime
-    a6Uptime:float=swSkillUptime
-
-    for character in [ClaraCharacter, SilverWolfCharacter, PelaCharacter, LuochaCharacter]:
-        character.addStat('ResPen',description='talent',amount=0.20,uptime=dmgResUptime)
-        character.addStat('ResPen',description='skill',
-                        amount=0.105 if SilverWolfCharacter.eidolon >= 3 else 0.10,
-                        uptime=allResUptime)
-        character.addStat('DefShred',description='ultimate',
-                        amount=0.468 if SilverWolfCharacter.eidolon >= 5 else 0.45,
-                        uptime=defShredUptime)
-        character.addStat('DefShred',description='talent',
-                        amount=0.088 if SilverWolfCharacter.eidolon >= 3 else 0.08,
-                        uptime=talentDefUptime)
-        character.addStat('ResPen',description='trace',amount=0.03,uptime=a6Uptime)
+    SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, LuochaCharacter])
+    SilverWolfCharacter.applyDebuffs([ClaraCharacter, PelaCharacter],targetingUptime=1.0/ClaraCharacter.numEnemies) # clara and pela won't consistently target the debuffed enemy
         
     #%% Print Statements
     for character in team:

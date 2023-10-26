@@ -38,8 +38,8 @@ class Pela(BaseCharacter):
         # Gear
         self.equipGear()
         
-    def applyUltDebuff(self,team:list, rotation_turns:float=3.0):
-        pelaUltUptime = (2.0 / rotation_turns) * self.getTotalStat('SPD') / self.enemySpeed
+    def applyUltDebuff(self,team:list, rotationDuration:float=3.0):
+        pelaUltUptime = (2.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
         pelaUltUptime = min(1.0, pelaUltUptime)
         for character in team:
             character.addStat('DefShred',description='Pela Ultimate',

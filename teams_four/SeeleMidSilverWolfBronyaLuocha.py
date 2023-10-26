@@ -55,32 +55,9 @@ def SeeleMidSilverWolfBronyaLuocha(config):
     for character in [SilverWolfCharacter, SeeleCharacter]:
         character.addStat('DMG',description='Penacony from Silver Wolf',amount=0.1)
 
-    # Silver Wolf Debuffs, do not divide by speed since single target
-    swUltUptime = (2.0 / 2.0) * SilverWolfCharacter.getTotalStat('SPD') / SilverWolfCharacter.enemySpeed
-    swUltUptime = min(1.0, swUltUptime)
-    swSkillUptime = (3.0 * 3.0 / 2.0) * SilverWolfCharacter.getTotalStat('SPD') / SilverWolfCharacter.enemySpeed
-    swSkillUptime = min(1.0, swSkillUptime)
-
-    dmgResUptime:float=0.0 #we are already assuming we're hitting for weakness
-    allResUptime:float=swSkillUptime #might want to decrease this for large numbers of targets
-    defShredUptime:float=swUltUptime
-    talentAtkUptime:float=swSkillUptime
-    talentDefUptime:float=swSkillUptime
-    a6Uptime:float=swSkillUptime
-
+    # Silver Wolf Debuffs
     # handle this separately for seele, assume it doesn't apply to her basics
-    for character in [SilverWolfCharacter, LuochaCharacter]:
-        character.addStat('ResPen',description='talent',amount=0.20,uptime=dmgResUptime)
-        character.addStat('ResPen',description='skill',
-                        amount=0.105 if SilverWolfCharacter.eidolon >= 3 else 0.10,
-                        uptime=allResUptime)
-        character.addStat('DefShred',description='ultimate',
-                        amount=0.468 if SilverWolfCharacter.eidolon >= 5 else 0.45,
-                        uptime=defShredUptime)
-        character.addStat('DefShred',description='talent',
-                        amount=0.088 if SilverWolfCharacter.eidolon >= 3 else 0.08,
-                        uptime=talentDefUptime)
-        character.addStat('ResPen',description='trace',amount=0.03,uptime=a6Uptime)
+    SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, BronyaCharacter, LuochaCharacter])
 
     # Bronya Messenger Buff
     for character in [SeeleCharacter, SilverWolfCharacter, LuochaCharacter]:
@@ -104,19 +81,7 @@ def SeeleMidSilverWolfBronyaLuocha(config):
             SeeleCharacter.useUltimate(), # use ult to trigger resurgence, on an enemy that isn't debuffed yet
     ]
 
-    # Apply silver wolf debuffs to the main target only, assume it doesn't affect Seele's Basics
-    SeeleCharacter.addStat('ResPen',description='talent',amount=0.20,uptime=dmgResUptime)
-    SeeleCharacter.addStat('ResPen',description='skill',
-                    amount=0.105 if SilverWolfCharacter.eidolon >= 3 else 0.10,
-                    uptime=allResUptime)
-    SeeleCharacter.addStat('DefShred',description='ultimate',
-                    amount=0.468 if SilverWolfCharacter.eidolon >= 5 else 0.45,
-                    uptime=defShredUptime)
-    SeeleCharacter.addStat('DefShred',description='talent',
-                    amount=0.088 if SilverWolfCharacter.eidolon >= 3 else 0.08,
-                    uptime=talentDefUptime)
-    SeeleCharacter.addStat('ResPen',description='trace',amount=0.03,uptime=a6Uptime)
-
+    SilverWolfCharacter.applyDebuffs([SeeleCharacter])
     SeeleRotation += [ # endTurn needed to factor in resurgence buff
         SeeleCharacter.useBasic() * 1,
         SeeleCharacter.useResurgence(),
