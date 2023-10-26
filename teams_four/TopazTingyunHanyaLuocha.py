@@ -60,15 +60,10 @@ def TopazTingyunHanyaLuocha(config):
     HanyaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
     LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4)
 
-    # Hanya Buff
-    for character in [TopazCharacter, TingyunCharacter, LuochaCharacter]:
-        character.addStat('ATK.percent',description='Hanya trace',amount=0.10,uptime=0.5)
-        character.addStat('DMG',description='Burden',amount=(0.33 if HanyaCharacter.eidolon >= 5 else 0.30) + (0.10 if HanyaCharacter.eidolon >= 6 else 0.0))
-
-    # Hanya Ult Buff
-    TopazCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'))
-    TopazCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60)
-
+    # Hanya Buffs
+    HanyaCharacter.applyBurdenBuff(team)
+    HanyaCharacter.applyUltBuff(TopazCharacter,uptime=1.0)
+    
     # Tingyun Buffs
     TopazCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=1.0/3.0)
     TopazCharacter.addStat('ATK.percent',description='Benediction',

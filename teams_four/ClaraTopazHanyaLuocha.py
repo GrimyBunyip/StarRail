@@ -58,19 +58,15 @@ def ClaraTopazHanyaLuocha(config):
     TopazCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
     LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5*3/4)
     
-    # Hanya Buff
-    for character in [ClaraCharacter, TopazCharacter, LuochaCharacter]:
-        character.addStat('ATK.percent',description='Hanya trace',amount=0.10,uptime=0.5)
-        character.addStat('DMG',description='Burden',amount=(0.33 if HanyaCharacter.eidolon >= 5 else 0.30) + (0.10 if HanyaCharacter.eidolon >= 6 else 0.0))
-
-    # Hanya Ult Buff
-    TopazCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'))
-    TopazCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60)
+    # Hanya Buffs
+    HanyaCharacter.applyBurdenBuff(team)
+    HanyaCharacter.applyUltBuff(TopazCharacter,uptime=1.0)
 
     # Topaz Vulnerability Buff
     ClaraCharacter.addStat('Vulnerability',description='Topaz Vulnerability',
                         amount=0.55 if TopazCharacter.eidolon>= 3 else 0.5,
-                        uptime=1.0 / ClaraCharacter.numEnemies)
+                        uptime=1.0 / ClaraCharacter.numEnemies,
+                        type=['followup'])
 
     #%% Print Statements
     for character in team:

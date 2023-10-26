@@ -79,7 +79,8 @@ def ClaraTopazAstaLuocha(config):
     # Topaz Vulnerability Buff
     ClaraCharacter.addStat('Vulnerability',description='Topaz Vulnerability',
                         amount=0.55 if TopazCharacter.eidolon>= 3 else 0.5,
-                        uptime=1.0 / ClaraCharacter.numEnemies)
+                        uptime=1.0 / ClaraCharacter.numEnemies,
+                        type=['followup'])
 
     #%% Print Statements
     for character in team:

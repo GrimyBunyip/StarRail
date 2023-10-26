@@ -34,6 +34,15 @@ class Hanya(BaseCharacter):
         # Gear
         self.equipGear()
         
+    def applyBurdenBuff(self,team:list):
+        for character in team:
+            character.addStat('ATK.percent',description='Hanya trace',amount=0.10,uptime=0.5)
+            character.addStat('DMG',description='Burden',amount=(0.33 if self.eidolon >= 5 else 0.30) + (0.10 if self.eidolon >= 6 else 0.0))
+
+    def applyUltBuff(self,character:BaseCharacter,uptime:float):
+        character.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if self.eidolon >= 5 else 0.20) * self.getTotalStat('SPD'),uptime=uptime)
+        character.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if self.eidolon >= 5 else 0.60,uptime=uptime)
+        
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']

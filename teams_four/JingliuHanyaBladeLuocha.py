@@ -60,16 +60,10 @@ def JingliuHanyaBladeLuocha(config):
     BladeCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
     LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)
 
-    # apply buffs now that we calculated approximate rotation times
-    # Hanya Buff
-    for character in [JingliuCharacter, BladeCharacter, LuochaCharacter]:
-        character.addStat('ATK.percent',description='Hanya trace',amount=0.10,uptime=0.5)
-        character.addStat('DMG',description='Burden',amount=(0.33 if HanyaCharacter.eidolon >= 5 else 0.30) + (0.10 if HanyaCharacter.eidolon >= 6 else 0.0))
-
-    # about 80% uptime on ult buf
-    JingliuCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'),uptime=0.8)
-    JingliuCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60,uptime=0.8)
-
+    # Hanya Buffs
+    HanyaCharacter.applyBurdenBuff(team)
+    HanyaCharacter.applyUltBuff(JingliuCharacter,uptime=0.8)
+    
     #%% Print Statements
     for character in team:
         character.print()

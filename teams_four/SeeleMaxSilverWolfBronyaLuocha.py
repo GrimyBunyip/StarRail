@@ -57,7 +57,7 @@ def SeeleMaxSilverWolfBronyaLuocha(config):
 
     # Silver Wolf Debuffs
     # handle this separately for seele, assume it doesn't apply to her basics
-    SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, BronyaCharacter, LuochaCharacter])
+    SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, BronyaCharacter, LuochaCharacter],targetingUptime=1.0) 
 
     # Bronya Messenger Buff
     for character in [SeeleCharacter, SilverWolfCharacter, LuochaCharacter]:
