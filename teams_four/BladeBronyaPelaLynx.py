@@ -45,8 +45,6 @@ def BladeBronyaPelaLynx(config):
     team = [BladeCharacter, BronyaCharacter, PelaCharacter, LynxCharacter]
 
     #%% Blade Bronya Pela Lynx Team Buffs
-    # only enhanced skills have rutilant arena buff
-    BladeCharacter.addStat('DMG',description='Rutilant Arena', amount=0.20, type=['enhancedSkill']) # take care of rutilant arena manually
 
     # Broken Keel Buff
     for character in [BladeCharacter, BronyaCharacter, PelaCharacter]:
