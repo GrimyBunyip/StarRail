@@ -976,13 +976,14 @@ ClaraCharacter.addStat('Vulnerability',description='Topaz Vulnerability',
                        amount=0.55 if TopazCharacter.eidolon>= 3 else 0.5)
 ClaraRotation.append(ClaraCharacter.useTalent(enhanced=False) * numUnenhancedTalents)
 
+numBasicTopaz = 1.0
+numSkillTopaz = 2.0
 TopazRotation = [ # 130 max energy
-        TopazCharacter.useBasic() * 4,
-        TopazCharacter.useSkill(),
+        TopazCharacter.useBasic() * numBasicTopaz,
+        TopazCharacter.useSkill() * numSkillTopaz,
         TopazCharacter.useUltimate(),
         TopazCharacter.useTalent(windfall=True) * 2, # two talents from windfall
 ]
-
 topazTurns = sum([x.actionvalue for x in TopazRotation])
 claraTurns = sum([x.actionvalue for x in ClaraRotation])
 numbyTurns = topazTurns * 80 / TopazCharacter.getTotalStat('SPD')
@@ -1003,7 +1004,7 @@ print('Clara Rotation Duration: ', ClaraRotationDuration,' Topaz Rotation Durati
 print('Clara Energy: ', totalClaraEffect.energy, ' Topaz Energy: ', totalTopazEffect.energy)
 
 ClaraEstimate = DefaultEstimator(f'Clara: 2E {numSvarogCounters:.1f}T 1Q', ClaraRotation, ClaraCharacter, config)
-TopazEstimate = DefaultEstimator(f'Topaz: 1E 4N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
+TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
 
 visualizationList.append([ClaraEstimate, TopazEstimate])
 

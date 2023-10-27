@@ -83,12 +83,8 @@ def ClaraTopazHanyaLuocha(config):
             ClaraCharacter.useMarkOfSvarog() * numSvarogCounters, 
             ClaraCharacter.useTalent(enhanced=True) * numEnhancedTalents,
             ClaraCharacter.useUltimate(),
+            ClaraCharacter.useTalent(enhanced=False) * numUnenhancedTalents
     ]
-
-    ClaraCharacter.stats['Vulnerability'].pop() # remove the previous vulnerability buff
-    ClaraCharacter.addStat('Vulnerability',description='Topaz Vulnerability',
-                        amount=0.55 if TopazCharacter.eidolon>= 3 else 0.5)
-    ClaraRotation.append(ClaraCharacter.useTalent(enhanced=False) * numUnenhancedTalents)
 
     numSkillTopaz = 3.5
     TopazRotation = [ # 130 max energy

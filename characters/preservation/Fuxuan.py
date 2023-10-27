@@ -56,7 +56,7 @@ class Fuxuan(BaseCharacter):
         retval = BaseEffect()
         type = ['skill']
         retval.energy = ( 30.0 + self.getBonusEnergyTurn(type) ) * self.getER(type)
-        retval.skillpoints = 1.0
+        retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
