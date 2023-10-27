@@ -11,20 +11,20 @@ class GrandDuke2pc(RelicSet):
 
     def equipTo(self, char:BaseCharacter):
         char.addStat('DMG',description=self.shortname,
-                                amount=0.18,type=['followup'])
+                                amount=0.20,type=['followup'])
         
 class GrandDuke4pc(RelicSet):
     def __init__(self,
                 graphic:str='',
                 shortname:str='Grand Duke 4pc',
                 followupStacks = 4.0,
-                stacks = 7.0,
+                stacks = 8.0,
                 uptime = 0.0,
                 **config):
         self.graphic = graphic
         self.shortname = shortname
-        self.followupStacks = min(7.0,followupStacks)
-        self.stacks = min(7.0,stacks)
+        self.followupStacks = min(8.0,followupStacks)
+        self.stacks = min(8.0,stacks)
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
