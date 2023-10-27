@@ -1263,6 +1263,63 @@ ArlanEstimate = DefaultEstimator(f'Arlan {numSkill:.1f}E {numUlt:.0f}Q', ArlanRo
 BronyaEstimate = DefaultEstimator(f'E{BronyaCharacter.eidolon:.0f} Bronya S{BronyaCharacter.lightcone.superposition} {BronyaCharacter.lightcone.name}, 12 Spd Substats', BronyaRotation, BronyaCharacter, config)
 visualizationList.append([ArlanEstimate, BronyaEstimate])
 
+# Stats Topaz & Tingyun
+TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'ATK.percent', 'CR', 'ATK.percent'],
+                    substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
+                    lightcone = Swordplay(**config),
+                    relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = InertSalsotto(),
+                    **config)
+
+TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
+                    substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
+                    lightcone = MemoriesOfThePast(**config),
+                    relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = SprightlyVonwacq(),
+                    benedictionTarget=TopazCharacter,
+                    **config)
+
+# messenger 4 pc buffs from Tingyun:
+TopazCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
+
+# Topaz Vulnerability Buff
+TopazCharacter.applyVulnerabilityDebuff([TopazCharacter],uptime=1.0)
+
+# Tingyun Buffs
+TingyunCharacter.applySkillBuff(TopazCharacter)
+TingyunCharacter.applyUltBuff(TopazCharacter)
+
+numSkillTopaz = 1.7
+numUltTopaz = 1.0
+TopazRotation = [ # 130 max energy
+        TopazCharacter.useSkill() * numSkillTopaz,
+        TopazCharacter.useUltimate() * numUltTopaz,
+        TopazCharacter.useTalent(windfall=True) * 2, # two talents from windfall
+        TingyunCharacter.giveUltEnergy() * ( TingyunCharacter.getTotalStat('SPD') * numSkillTopaz / TopazCharacter.getTotalStat('SPD') / 3.0 ), # average tingyun energy
+]
+
+topazTurns = sum([x.actionvalue for x in TopazRotation])
+numbyTurns = topazTurns * 80 / TopazCharacter.getTotalStat('SPD')
+numbyAdvanceForwards = topazTurns / 2    
+TopazRotation.append(TopazCharacter.useTalent(windfall=False) * (numbyTurns + numbyAdvanceForwards)) # about 1 talent per basic/skill
+
+TingyunRotation = [ 
+        TingyunCharacter.useBasic() * 2, 
+        TingyunCharacter.useSkill(),
+        TingyunCharacter.useUltimate(),
+]
+
+totalTopazEffect = sumEffects(TopazRotation)
+totalTingyunEffect = sumEffects(TingyunRotation)
+
+TopazRotationDuration = totalTopazEffect.actionvalue * 100.0 / TopazCharacter.getTotalStat('SPD')
+TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
+
+TingyunRotation = [x * TopazRotationDuration / TingyunRotationDuration for x in TingyunRotation]
+
+TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.1f}E {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats', [totalTingyunEffect], TingyunCharacter, config)
+
+visualizationList.append([TopazEstimate,TingyunEstimate])
+
 # Visualize
 visualize(visualizationList, visualizerPath='visualizer\DuoVisual.png', **config)
     

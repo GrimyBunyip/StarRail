@@ -76,13 +76,13 @@ def TopazTingyunHanyaLuocha(config):
         character.print()
 
     #%% Topaz Tingyun Hanya Luocha Rotations
-    numSkillTopaz = 2.5
+    numSkillTopaz = 1.7
     numUltTopaz = 1.0
     TopazRotation = [ # 130 max energy
             TopazCharacter.useSkill() * numSkillTopaz,
             TopazCharacter.useUltimate() * numUltTopaz,
             TopazCharacter.useTalent(windfall=True) * 2, # two talents from windfall
-            TingyunCharacter.giveUltEnergy() * ( TingyunCharacter.getTotalStat('SPD') * 2.5 / TopazCharacter.getTotalStat('SPD') / 3.0 ), # average tingyun energy
+            TingyunCharacter.giveUltEnergy() * ( TingyunCharacter.getTotalStat('SPD') * numSkillTopaz / TopazCharacter.getTotalStat('SPD') / 3.0 ), # average tingyun energy
     ]
 
     topazTurns = sum([x.actionvalue for x in TopazRotation])
