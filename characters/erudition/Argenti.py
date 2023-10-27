@@ -38,9 +38,9 @@ class Argenti(BaseCharacter):
         self.addStat('BonusEnergyAttack',description='talent',
                      amount=3, type=['basic'])
         self.addStat('BonusEnergyAttack',description='talent',
-                     amount=3, stacks=self.numEnemies, type=['skill'])
+                     amount=3, type=['skill'])
         self.addStat('BonusEnergyAttack',description='talent',
-                     amount=3, stacks=self.numEnemies, type=['ultimate'])
+                     amount=3, type=['ultimate'])
         self.addStat('DMG',description='trace',amount=0.15,uptime=self.courageUptime)
         
         # Eidolons
