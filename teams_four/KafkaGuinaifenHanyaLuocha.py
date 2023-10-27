@@ -53,11 +53,8 @@ def KafkaGuinaifenHanyaLuocha(config):
     for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
         character.addStat('ATK.percent',description='Fleet Asta',amount=0.08)
         
-    # Give Guinaifen Vulnerability to all other characters
-    for character in [KafkaCharacter, HanyaCharacter, LuochaCharacter]:
-        character.addStat('Vulnerability',description='Guinaifen Vulnerability',
-                            amount=0.076 if GuinaifenCharacter.eidolon >= 5 else 0.07,
-                            stacks=min(GuinaifenCharacter.firekissStacks,4.0 if GuinaifenCharacter.eidolon >= 6 else 3.0))
+    # Apply Guinaifen Debuff
+    GuinaifenCharacter.applyFirekiss(team=team,uptime=1.0)
         
     # messenger 4 pc buffs:
     KafkaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 3.0)

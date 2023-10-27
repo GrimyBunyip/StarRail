@@ -29,9 +29,6 @@ class Guinaifen(BaseCharacter):
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.096)]
         
         # Talents
-        self.addStat('Vulnerability',description='firekiss',
-                     amount=0.076 if self.eidolon >= 5 else 0.07,
-                     stacks=min(self.firekissStacks, 4.0 if self.eidolon >= 6 else 3.0))
         self.addStat('DMG',description='trace',amount=0.2,uptime=self.burnUptime)
         
         # Eidolons
@@ -42,6 +39,14 @@ class Guinaifen(BaseCharacter):
         
         # Gear
         self.equipGear()
+        
+    def applyFirekiss(self,team:list,uptime:float):
+        for character in team:
+            character:BaseCharacter
+            character.addStat('Vulnerability',description='firekiss',
+                     amount=0.076 if self.eidolon >= 5 else 0.07,
+                     stacks=min(self.firekissStacks, 4.0 if self.eidolon >= 6 else 3.0),
+                     uptime=uptime)
 
     def useBasic(self):
         retval = BaseEffect()

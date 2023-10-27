@@ -150,12 +150,10 @@ TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'A
             **config)
 
 # apply buffs now that we calculated approximate rotation times
-JingliuCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=0.5)
 JingliuCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
-JingliuCharacter.addStat('ATK.percent',description='Benediction',
-                         amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
 
-JingliuCharacter.addStat('DMG',description='Rutilant Arena', amount=0.20, type=['enhancedSkill']) # take care of rutilant arena manually
+TingyunCharacter.applySkillBuff(JingliuCharacter)
+TingyunCharacter.applyUltBuff(JingliuCharacter)
 
 # Rotation: Jingliu & Tingyun
 TingyunRotation = [ 
@@ -297,12 +295,11 @@ HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 
 
 # apply buffs now that we calculated approximate rotation times
 JingliuCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=4.0/15.0)
-JingliuCharacter.addStat('ATK.percent',description='trace',amount=0.10)
-JingliuCharacter.addStat('DMG',description='Burden',amount=(0.33 if HanyaCharacter.eidolon >= 5 else 0.30) + (0.10 if HanyaCharacter.eidolon >= 6 else 0.0))
-# about 80% uptime on ult buf
-JingliuCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'),uptime=0.8)
-JingliuCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60,uptime=0.8)
 
+# Hanya Buffs
+HanyaCharacter.applyBurdenBuff([JingliuCharacter,HanyaCharacter])
+HanyaCharacter.applyUltBuff(JingliuCharacter,uptime=4.0/5.0)
+    
 # only enhanced skills have rutilant arena buff
 JingliuCharacter.addStat('DMG',description='Rutilant Arena', amount=0.20, type=['enhancedSkill']) # take care of rutilant arena manually
 
@@ -357,11 +354,10 @@ HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 
 
 # apply buffs now that we calculated approximate rotation times
 LunaeCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-LunaeCharacter.addStat('ATK.percent',description='trace',amount=0.10)
-LunaeCharacter.addStat('DMG',description='Burden',amount=0.33 if HanyaCharacter.eidolon >= 5 else 0.30)
-# about 80% uptime on ult buf
-LunaeCharacter.addStat('SPD.flat',description='Hanya Ult',amount=(0.21 if HanyaCharacter.eidolon >= 5 else 0.20) * HanyaCharacter.getTotalStat('SPD'))
-LunaeCharacter.addStat('ATK.percent',description='Hanya Ult',amount=0.648 if HanyaCharacter.eidolon >= 5 else 0.60)
+
+# Hanya Buffs
+HanyaCharacter.applyBurdenBuff([LunaeCharacter,HanyaCharacter])
+HanyaCharacter.applyUltBuff(LunaeCharacter,uptime=1.0)
 
 # Rotation: Lunae with Hanya
 numHanyaSkill = 3
@@ -414,11 +410,9 @@ TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'A
             **config)
 
 # apply buffs now that we calculated approximate rotation times
-LunaeCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=0.5)
 LunaeCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
-LunaeCharacter.addStat('ATK.percent',description='Benediction',
-                         amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
-LunaeCharacter.addStat('DMG',description='Tingyun Ult',amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6) # tingyun ult buff never expires in this rotation
+TingyunCharacter.applySkillBuff(LunaeCharacter)
+TingyunCharacter.applyUltBuff(LunaeCharacter)
 
 # Rotation: Lunae with Tingyun
 TingyunRotation = [ 
@@ -618,11 +612,11 @@ TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'A
                         **config)
 
 # apply buffs now that we calculated approximate rotation times
-JingYuanCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=0.5)
 JingYuanCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
 JingYuanCharacter.addStat('DMG',description='Penacony from Tingyun',amount=0.10)
-JingYuanCharacter.addStat('ATK.percent',description='Benediction',
-                         amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
+
+TingyunCharacter.applySkillBuff(JingYuanCharacter)
+TingyunCharacter.applyUltBuff(JingYuanCharacter)
 
 # Tingyun and Jing Yuan are going to be out of sync so we just need to try and math out an average rotation
 print('Jing Yuan Speed: ', JingYuanCharacter.getTotalStat('SPD'), ' Tingyun Speed: ', TingyunCharacter.getTotalStat('SPD'))
@@ -632,11 +626,6 @@ tyRotation = 3 / TingyunCharacter.getTotalStat('SPD')
 
 longToShort = (tyRotation - jyShortRotation) / jyLongRotation
 print('LongToShort Ratio', longToShort)
-
-# Use long to short ratio to estimate Jing Yuan Buff
-JingYuanCharacter.addStat('DMG',description='Tingyun Ult',
-                          amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6,
-                          uptime=1.0 - longToShort / 2)
 
 # Rotation: Jing Yuan & Tingyun
 TingyunRotation = [ 
@@ -899,10 +888,8 @@ GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat'
             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
             **config)
 
-# Give Guinaifen Vulnerability to Kafka
-KafkaCharacter.addStat('Vulnerability',description='Guinaifen Vulnerability',
-                       amount=0.076 if GuinaifenCharacter.eidolon >= 5 else 0.07,
-                       stacks=min(GuinaifenCharacter.firekissStacks,4.0 if GuinaifenCharacter.eidolon >= 6 else 3.0))
+# Apply Guinaifen Debuff
+GuinaifenCharacter.applyFirekiss(team=[KafkaCharacter,GuinaifenCharacter],uptime=1.0)
 
 # Rotation: Kafka & Guinaifen
 numSkill = 3.0
@@ -1040,14 +1027,10 @@ TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'A
                         **config)
 
 # apply buffs now that we calculated approximate rotation times
-ClaraCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=0.5)
 ClaraCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
-ClaraCharacter.addStat('ATK.percent',description='Benediction',
-                         amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
 
-# Clara should be slow enough to maintain this buff uptime
-ClaraCharacter.addStat('DMG',description='Tingyun Ult',
-                          amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6)
+TingyunCharacter.applySkillBuff(ClaraCharacter)
+TingyunCharacter.applyUltBuff(ClaraCharacter)
 
 # Rotation: Clara & Tingyun
 # assume each elite performs 1 single target attack per turn
@@ -1111,14 +1094,9 @@ TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'A
                         **config)
 
 # apply buffs now that we calculated approximate rotation times
-YanqingCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=0.5)
 YanqingCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
-YanqingCharacter.addStat('ATK.percent',description='Benediction',
-                         amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
-
-# Yanqing should be slow enough to maintain this buff uptime
-YanqingCharacter.addStat('DMG',description='Tingyun Ult',
-                          amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6)
+TingyunCharacter.applySkillBuff(YanqingCharacter)
+TingyunCharacter.applyUltBuff(YanqingCharacter)
 
 # Yanqing & Tingyun Rotation
 
@@ -1184,14 +1162,10 @@ TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'A
                         **config)
 
 # apply buffs now that we calculated approximate rotation times
-ArgentiCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=0.5)
 ArgentiCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
-ArgentiCharacter.addStat('ATK.percent',description='Benediction',
-                         amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
 
-# Argenti should be slow enough to maintain this buff uptime
-ArgentiCharacter.addStat('DMG',description='Tingyun Ult',
-                          amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6)
+TingyunCharacter.applySkillBuff(ArgentiCharacter)
+TingyunCharacter.applyUltBuff(ArgentiCharacter)
 
 # Argenti & Tingyun Rotation
 numSkill = ( (180.0 - (60.0 if TingyunCharacter.eidolon >= 6 else 50.0)) / ArgentiCharacter.getER() - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (3.0 * ArgentiCharacter.numEnemies + 30.0)

@@ -537,6 +537,8 @@ GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat'
         relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
         **config)
 
+GuinaifenCharacter.applyFirekiss([GuinaifenCharacter],uptime=1.0)
+
 numSkill = 3.0
 numUlt = 1.0
 
