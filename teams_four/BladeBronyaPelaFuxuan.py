@@ -132,7 +132,7 @@ def BladeBronyaPelaFuxuan(config):
     PelaRotation = [x * BladeRotationDuration / PelaRotationDuration for x in PelaRotation]
     FuxuanRotation = [x * BladeRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
 
-    BladeEstimate = DefaultEstimator(f'Blade: {numBasic:.0f}N {numTalent:.1f}T {numUlt:.0f}Q with 100% secret vow uptime',
+    BladeEstimate = DefaultEstimator(f'Blade: {numBasic:.0f}N {numTalent:.1f}T {numUlt:.0f}Q',
                                     BladeRotation, BladeCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)

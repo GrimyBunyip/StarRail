@@ -15,9 +15,11 @@ class BaseLightCone(object):
     rarity:str
     name:str
     path:str
+    nameAffix:str
         
-    def loadConeStats(self, name:str):
+    def loadConeStats(self, name:str, nameAffix:str=''):
         self.name = name
+        self.nameAffix = nameAffix
         self.stats = deepcopy(EMPTY_STATS)
         df = pd.read_csv(STATS_FILEPATH)
         rows = df.iloc[:, 0]

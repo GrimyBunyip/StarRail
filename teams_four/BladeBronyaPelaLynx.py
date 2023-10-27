@@ -135,7 +135,7 @@ def BladeBronyaPelaLynx(config):
     PelaRotation = [x * BladeRotationDuration / PelaRotationDuration for x in PelaRotation]
     LynxRotation = [x * BladeRotationDuration / LynxRotationDuration for x in LynxRotation]
 
-    BladeEstimate = DefaultEstimator(f'Blade: {numBasic:.0f}N {numTalent:.1f}T {numUlt:.0f}Q with 50% Secret Vow Uptime',
+    BladeEstimate = DefaultEstimator(f'Blade: {numBasic:.0f}N {numTalent:.1f}T {numUlt:.0f}Q',
                                     BladeRotation, BladeCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
