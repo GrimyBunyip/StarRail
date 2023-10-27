@@ -38,9 +38,6 @@ class Luka(BaseCharacter):
         self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=3.3, eidolonThreshold=5, eidolonBonus=0.264)]
         
         # Talents
-        self.addStat('Vulnerability',description='ultimate',
-                     amount=0.216 if self.eidolon >= 5 else 0.2,
-                     uptime=self.ultDebuffUptime / self.numEnemies)
         
         self.addStat('BonusEnergyAttack',description='trace',amount=6.0,type=['ultimate'])
         self.addStat('BonusEnergyAttack',description='trace',amount=3.0,type=['basic'])
@@ -56,6 +53,15 @@ class Luka(BaseCharacter):
         
         # Gear
         self.equipGear()
+        
+    def applyUltDebuff(self,team:list,rotationDuration:float,targetingUptime:float=1.0):
+        uptime = (3.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
+        uptime = min(1.0, uptime * targetingUptime)
+        for character in team:
+            character:BaseCharacter
+            character.addStat('Vulnerability',description='ultimate',
+                        amount=0.216 if self.eidolon >= 5 else 0.2,
+                        uptime=uptime)
 
     def useBasic(self):
         retval = BaseEffect()

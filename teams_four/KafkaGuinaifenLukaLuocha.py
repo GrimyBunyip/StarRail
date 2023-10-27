@@ -56,10 +56,8 @@ def KafkaGuinaifenLukaLuocha(config):
     GuinaifenCharacter.applyFirekiss(team=team,uptime=1.0)
 
     # Give Luka Vulnerability to all other characters
-    for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
-        character.addStat('Vulnerability',description='Luka Vulnerability',
-                        amount=0.216 if LukaCharacter.eidolon >= 5 else 0.2,
-                        uptime=(3.0/5.0)*LukaCharacter.ultDebuffUptime/LukaCharacter.numEnemies)
+    LukaCharacter.applyUltDebuff([LukaCharacter,LuochaCharacter],rotationDuration=5.0,targetingUptime=1.0) # single target characters aim for luka target
+    LukaCharacter.applyUltDebuff([KafkaCharacter,GuinaifenCharacter],rotationDuration=5.0,targetingUptime=1.0/LukaCharacter.numEnemies)
 
     #%% Print Statements
     for character in team:

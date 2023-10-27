@@ -12,13 +12,11 @@ class Sampo(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                ultUptime:float=2.0/3.0,
                 windshearUptime:float=1.0,
                 windshearStacks:float=5.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Sampo')
-        self.ultUptime = ultUptime
         self.windshearUptime = windshearUptime
         self.windshearStacks = windshearStacks
         
@@ -30,15 +28,21 @@ class Sampo(BaseCharacter):
         self.motionValueDict['dote6'] = [BaseMV(area='single', stat='atk', value=0.52+0.15, eidolonThreshold=5, eidolonBonus=0.052)]
         
         # Talents
-        self.addStat('Vulnerability',description='ultimate',
-                     amount=0.32 if self.eidolon >= 5 else 0.3,
-                     type=['dot'],uptime=self.ultUptime)
         self.addStat('BonusEnergyAttack',description='trace',amount=10.0,type=['ultimate'])
         
         # Eidolons
         
         # Gear
         self.equipGear()
+        
+    def applyUltDebuff(self,team:list,rotationDuration:float):
+        uptime = (2.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
+        uptime = min(1.0, uptime)
+        for character in team:
+            character:BaseCharacter
+            character.addStat('Vulnerability',description='ultimate',
+                        amount=0.32 if self.eidolon >= 5 else 0.3,
+                        type=['dot'],uptime=uptime)
 
     def useBasic(self):
         retval = BaseEffect()

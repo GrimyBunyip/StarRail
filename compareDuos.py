@@ -153,7 +153,6 @@ TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'A
 JingliuCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
 
 TingyunCharacter.applySkillBuff(JingliuCharacter)
-TingyunCharacter.applyUltBuff(JingliuCharacter)
 
 # Rotation: Jingliu & Tingyun
 TingyunRotation = [ 
@@ -698,9 +697,7 @@ SampoCharacter = Sampo(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.p
             **config)
 
 # Give Sampo Vulnerability to Kafka
-KafkaCharacter.addStat('Vulnerability',description='Sampo Vulnerability',
-                       amount=0.32 if SampoCharacter.eidolon >= 5 else 0.3,
-                       uptime=SampoCharacter.ultUptime)
+SampoCharacter.applyUltDebuff([KafkaCharacter,SampoCharacter],rotationDuration=3.0)
 
 # Rotation: Kafka & Sampo
 numSkill = 3.0
@@ -763,9 +760,9 @@ LukaCharacter = Luka(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.per
             **config)
 
 # Assume Luka maintains his vulnerability buff on one enemy at a time
-KafkaCharacter.addStat('Vulnerability',description='Luka Vulnerability',
-                     amount=0.216 if LukaCharacter.eidolon >= 5 else 0.2,
-                     uptime=LukaCharacter.ultDebuffUptime/LukaCharacter.numEnemies)
+LukaCharacter.applyUltDebuff([LukaCharacter],rotationDuration=5.0,targetingUptime=1.0) # single target characters aim for luka target
+LukaCharacter.applyUltDebuff([KafkaCharacter],rotationDuration=5.0,targetingUptime=1.0/LukaCharacter.numEnemies)
+
 
 # Rotation: Kafka & Luka
 numSkill = 3.0

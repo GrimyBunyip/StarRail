@@ -53,10 +53,8 @@ def KafkaGuinaifenSampoLuocha(config):
     # Apply Guinaifen Debuff
     GuinaifenCharacter.applyFirekiss(team=team,uptime=1.0)
         
-    for character in [KafkaCharacter, GuinaifenCharacter, LuochaCharacter]:
-        character.addStat('Vulnerability',description='Sampo Vulnerability',
-                        amount=0.32 if SampoCharacter.eidolon >= 5 else 0.3,
-                        uptime=SampoCharacter.ultUptime)
+    # Apply Sampo Vulnerability Debuff
+    SampoCharacter.applyUltDebuff(team,rotationDuration=4.0)
 
     #%% Print Statements
     for character in team:

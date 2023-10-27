@@ -391,6 +391,8 @@ numBasic = 4.0
 numSkill = 1.0
 numUlt = 1.0
 
+TopazCharacter.applyVulnerabilityDebuff([TopazCharacter],uptime=1.0)
+
 TopazRotation = [ # 130 max energy
         TopazCharacter.useBasic() * numBasic,
         TopazCharacter.useSkill() * numSkill,
@@ -496,6 +498,8 @@ SampoCharacter = Sampo(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.p
 numSkill = 3
 numUlt = 1.0
 
+SampoCharacter.applyUltDebuff([SampoCharacter],rotationDuration=numSkill)
+
 SampoRotation = [ # 
         SampoCharacter.useSkill() * numSkill,
         SampoCharacter.useUltimate() * numUlt,
@@ -513,6 +517,8 @@ LukaCharacter = Luka(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.per
         lightcone = GoodNightAndSleepWell(**config),
         relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
         **config)
+
+LukaCharacter.applyUltDebuff([LukaCharacter],rotationDuration=5.0) # single target characters aim for luka target
 
 numEnhanced = 3.0
 numSkill = 2.0
@@ -596,7 +602,7 @@ SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR'
 numSkill = 2.0
 numUlt = 1.0
 
-SilverWolfCharacter.applyDebuffs(rotationDuration=numSkill)
+SilverWolfCharacter.applyDebuffs([SilverWolfCharacter],rotationDuration=numSkill)
 
 SilverWolfRotation = [ # 
         SilverWolfCharacter.useSkill() * numSkill, #
