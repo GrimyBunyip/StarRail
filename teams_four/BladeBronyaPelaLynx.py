@@ -78,15 +78,9 @@ def BladeBronyaPelaLynx(config):
     BronyaCharacter.applyUltBuff(BladeCharacter,uptime=1.0/4.0) # estimate 1 bronya buff per 4 rotations
     BronyaCharacter.applySkillBuff(BladeCharacter,uptime=1.0/2.0) # estimate 1 bronya skill buff per 2 blade attacks
 
-    # Lynx Buffs
-    LynxBuffUptime = LynxCharacter.getTotalStat('SPD') / BladeCharacter.getTotalStat('SPD') / (2.6/3.0) / 2.0
-    BladeCharacter.addStat('HP.flat',description='Lynx E6',
-                        amount=(LynxCharacter.getTotalStat('HP') * 0.08 + 223) if LynxCharacter.eidolon >= 3 else (LynxCharacter.getTotalStat('HP') * 0.075 + 200),
-                        uptime=LynxBuffUptime)
-    if LynxCharacter.eidolon >= 4:
-        BladeCharacter.addStat('ATK.flat',description='Lynx E6',amount=LynxCharacter.getTotalStat('HP') * 0.03,uptime=LynxBuffUptime/3.0)
-    if LynxCharacter.eidolon >= 6:
-        BladeCharacter.addStat('HP.flat',description='Lynx E6',amount=LynxCharacter.getTotalStat('HP') * 0.06,uptime=LynxBuffUptime)
+    # Lynx Buffs    
+    LynxBuffUptime = LynxCharacter.getTotalStat('SPD') / BladeCharacter.getTotalStat('SPD') / 3.0 / 2.0
+    LynxCharacter.applySkillBuff(BladeCharacter,uptime=LynxBuffUptime) # multiply by 2 because 
 
     #%% Print Statements
     for character in team:

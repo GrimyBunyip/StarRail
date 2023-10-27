@@ -26,6 +26,15 @@ class Lynx(BaseCharacter):
         # Gear
         self.equipGear()
         
+    def applySkillBuff(self,character:BaseCharacter,uptime:float):
+        character.addStat('HP.flat',description='Lynx E6',
+                            amount=(self.getTotalStat('HP') * 0.08 + 223) if self.eidolon >= 3 else (self.getTotalStat('HP') * 0.075 + 200),
+                            uptime=min(1.0,uptime))
+        if self.eidolon >= 4:
+            character.addStat('ATK.flat',description='Lynx E6',amount=self.getTotalStat('HP') * 0.03,uptime=uptime/3.0)
+        if self.eidolon >= 6:
+            character.addStat('HP.flat',description='Lynx E6',amount=self.getTotalStat('HP') * 0.06,uptime=min(1.0,uptime))
+        
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']
