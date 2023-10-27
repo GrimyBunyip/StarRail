@@ -88,7 +88,7 @@ def BladeBronyaPelaFuxuan(config):
                     BronyaCharacter.useUltimate(),]
 
     # Rotation is calculated per ult, so we'll attenuate this to fit 3 bronya turns    
-    numBasic = 3.0
+    numBasic = 3.5
     numUlt = 1.0
 
     BladeRotation = [ # 3 enhanced basics per ult roughly
@@ -132,7 +132,7 @@ def BladeBronyaPelaFuxuan(config):
     PelaRotation = [x * BladeRotationDuration / PelaRotationDuration for x in PelaRotation]
     FuxuanRotation = [x * BladeRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
 
-    BladeEstimate = DefaultEstimator(f'Blade: {numBasic:.0f}N {numTalent:.1f}T {numUlt:.0f}Q',
+    BladeEstimate = DefaultEstimator(f'Blade: {numBasic:.1f}N {numTalent:.1f}T {numUlt:.0f}Q',
                                     BladeRotation, BladeCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
