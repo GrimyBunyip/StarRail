@@ -69,10 +69,8 @@ def LunaeHanyaTingyunLuocha(config):
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Buffs
-    LunaeCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=1.0/3.0)
-    LunaeCharacter.addStat('ATK.percent',description='Benediction',
-                            amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
-    LunaeCharacter.addStat('DMG',description='Tingyun Ult',amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6,uptime=2.0/3.0)
+    TingyunCharacter.applySkillBuff(LunaeCharacter)
+    TingyunCharacter.applyUltBuff(LunaeCharacter)
 
     #%% Print Statements
     for character in team:

@@ -69,11 +69,9 @@ def JingyuanTingyunAstaLuocha(config):
     for character in [JingYuanCharacter, AstaCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
-    JingYuanCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=1.0/3.0)
-    JingYuanCharacter.addStat('ATK.percent',description='Benediction',
-                            amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
-    JingYuanCharacter.addStat('DMG',description='Tingyun Ult',amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6,
-                            uptime=(2.0/3.0) * (TingyunCharacter.getTotalStat('SPD') / JingYuanCharacter.getTotalStat('SPD')))
+    # Tingyun Buffs
+    TingyunCharacter.applySkillBuff(JingYuanCharacter)
+    TingyunCharacter.applyUltBuff(JingYuanCharacter)
 
     # Tingyun and Jing Yuan are going to be out of sync so we just need to try and math out an average rotation
     print('Jing Yuan Speed: ', JingYuanCharacter.getTotalStat('SPD'), ' Tingyun Speed: ', TingyunCharacter.getTotalStat('SPD'))

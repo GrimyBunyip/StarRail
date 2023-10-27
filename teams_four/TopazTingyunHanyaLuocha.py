@@ -68,10 +68,8 @@ def TopazTingyunHanyaLuocha(config):
     TopazCharacter.applyVulnerabilityDebuff([TopazCharacter],uptime=1.0)
     
     # Tingyun Buffs
-    TopazCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=1.0/3.0)
-    TopazCharacter.addStat('ATK.percent',description='Benediction',
-                            amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
-    TopazCharacter.addStat('DMG',description='Tingyun Ult',amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6,uptime=2.0/3.0)
+    TingyunCharacter.applySkillBuff(TopazCharacter)
+    TingyunCharacter.applyUltBuff(TopazCharacter)
 
     #%% Print Statements
     for character in team:

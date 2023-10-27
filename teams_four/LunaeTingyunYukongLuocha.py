@@ -65,10 +65,9 @@ def LunaeTingyunYukongLuocha(config):
     for character in [LunaeCharacter, YukongCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/2.0)
         
-    LunaeCharacter.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=0.5)
-    LunaeCharacter.addStat('ATK.percent',description='Benediction',
-                            amount=0.55 if TingyunCharacter.eidolon >= 5 else 0.50)
-    LunaeCharacter.addStat('DMG',description='Tingyun Ult',amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6) # tingyun ult buff never expires in this rotation
+    # Tingyun Buffs
+    TingyunCharacter.applySkillBuff(LunaeCharacter)
+    TingyunCharacter.applyUltBuff(LunaeCharacter)
 
     # Estimate Yukong Buffs.
     # Yukong is speed tuned to be slightly faster than Lunae, and always going before him
