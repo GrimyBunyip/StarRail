@@ -51,10 +51,10 @@ def LunaePelaYukongLuocha(config):
         character.addStat('CD',description='Broken Keel from Pela',amount=0.1)
         
     # Penacony Buff
-    for character in [LunaeCharacter, LuochaCharacter]:
-        character.addStat('DMG',description='Penacony from Yukong',amount=0.1)
-    for character in [LunaeCharacter, YukongCharacter]:
-        character.addStat('DMG',description='Penacony from Luocha',amount=0.1)
+    for character in [LunaeCharacter, PelaCharacter, LuochaCharacter]:
+        character.addStat('DMG.imaginary',description='Penacony from Yukong',amount=0.1)
+    for character in [LunaeCharacter, PelaCharacter, YukongCharacter]:
+        character.addStat('DMG.imaginary',description='Penacony from Luocha',amount=0.1)
         
     # Pela Debuffs, 3 turn pela rotation
     PelaCharacter.applyUltDebuff(team,rotationDuration=3)

@@ -51,8 +51,8 @@ def LunaeHanyaTingyunLuocha(config):
         character.addStat('CD',description='Broken Keel from Hanya',amount=0.1)
         
     # Penacony Buff
-    for character in [LunaeCharacter, TingyunCharacter]:
-        character.addStat('DMG',description='Penacony from Luocha',amount=0.1)
+    for character in [LunaeCharacter, HanyaCharacter, TingyunCharacter]:
+        character.addStat('DMG.imaginary',description='Penacony from Luocha',amount=0.1)
         
     # Hanya Messenger Buff
     LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)

@@ -47,14 +47,14 @@ def LunaeTingyunYukongLuocha(config):
 
     #%% Lunae Tingyun Yukong Luocha Team Buffs
     # Penacony Buff
-    for character in [LunaeCharacter, LuochaCharacter]:
-        character.addStat('DMG',description='Penacony from Yukong',amount=0.1)
-    for character in [LunaeCharacter, YukongCharacter]:
-        character.addStat('DMG',description='Penacony from Luocha',amount=0.1)
+    for character in [LunaeCharacter, TingyunCharacter, LuochaCharacter]:
+        character.addStat('DMG.imaginary',description='Penacony from Yukong',amount=0.1)
+    for character in [LunaeCharacter, TingyunCharacter, YukongCharacter]:
+        character.addStat('DMG.imaginary',description='Penacony from Luocha',amount=0.1)
         
     # Yukong imaginary damage trace
     for character in [LunaeCharacter, LuochaCharacter]:
-        character.addStat('DMG',description='Yukong trace',amount=0.12,type=['imaginary'])
+        character.addStat('DMG.imaginary',description='Yukong trace',amount=0.12)
 
     # Yukong Planetary Rendezvous
     for character in [LunaeCharacter, LuochaCharacter]:

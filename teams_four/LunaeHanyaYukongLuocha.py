@@ -50,10 +50,10 @@ def LunaeHanyaYukongLuocha(config):
         character.addStat('CD',description='Broken Keel from Hanya',amount=0.1)
         
     # Penacony Buff
-    for character in [LunaeCharacter, LuochaCharacter]:
-        character.addStat('DMG',description='Penacony from Yukong',amount=0.1)
-    for character in [LunaeCharacter, YukongCharacter]:
-        character.addStat('DMG',description='Penacony from Luocha',amount=0.1)
+    for character in [LunaeCharacter, HanyaCharacter, LuochaCharacter]:
+        character.addStat('DMG.imaginary',description='Penacony from Yukong',amount=0.1)
+    for character in [LunaeCharacter, HanyaCharacter, YukongCharacter]:
+        character.addStat('DMG.imaginary',description='Penacony from Luocha',amount=0.1)
         
     # Yukong imaginary damage trace
     for character in [LunaeCharacter, LuochaCharacter]:

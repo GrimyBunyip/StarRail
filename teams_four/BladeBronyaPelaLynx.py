@@ -51,8 +51,8 @@ def BladeBronyaPelaLynx(config):
         character.addStat('CD',description='Broken Keel Lynx',amount=0.10)
     for character in [BladeCharacter, BronyaCharacter, LynxCharacter]:
         character.addStat('CD',description='Broken Keel Pela',amount=0.10)
-    for character in [BladeCharacter]:
-        character.addStat('DMG',description='Penacony Bronya',amount=0.10)
+    for character in [BladeCharacter, PelaCharacter, LynxCharacter]:
+        character.addStat('DMG.wind',description='Penacony Bronya',amount=0.10)
 
     # Bronya Planetary Rendezvous
     BladeCharacter.addStat('DMG',description='Planetary Rendezvous',amount=0.09 + 0.03 * BronyaCharacter.lightcone.superposition)

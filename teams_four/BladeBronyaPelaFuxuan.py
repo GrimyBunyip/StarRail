@@ -49,8 +49,8 @@ def BladeBronyaPelaFuxuan(config):
         character.addStat('CD',description='Broken Keel Fuxuan',amount=0.10)
     for character in [BladeCharacter, BronyaCharacter, FuxuanCharacter]:
         character.addStat('CD',description='Broken Keel Pela',amount=0.10)
-    for character in [BladeCharacter]:
-        character.addStat('DMG',description='Penacony Bronya',amount=0.10)
+    for character in [BladeCharacter, PelaCharacter, FuxuanCharacter]:
+        character.addStat('DMG.wind',description='Penacony Bronya',amount=0.10)
 
     # Bronya Planetary Rendezvous
     BladeCharacter.addStat('DMG',description='Planetary Rendezvous',amount=0.09 + 0.03 * BronyaCharacter.lightcone.superposition)

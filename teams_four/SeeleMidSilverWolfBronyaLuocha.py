@@ -52,8 +52,8 @@ def SeeleMidSilverWolfBronyaLuocha(config):
     for character in [SilverWolfCharacter, SeeleCharacter, LuochaCharacter]:
         character.addStat('CD',description='Broken Keel from Bronya',amount=0.1)
 
-    for character in [SilverWolfCharacter, SeeleCharacter]:
-        character.addStat('DMG',description='Penacony from Silver Wolf',amount=0.1)
+    for character in [SeeleCharacter, BronyaCharacter, LuochaCharacter]:
+        character.addStat('DMG.quantum',description='Penacony from Silver Wolf',amount=0.1)
 
     # Silver Wolf Debuffs
     # handle this separately for seele, assume it doesn't apply to her basics

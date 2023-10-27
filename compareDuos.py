@@ -612,7 +612,7 @@ TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'A
 
 # apply buffs now that we calculated approximate rotation times
 JingYuanCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
-JingYuanCharacter.addStat('DMG',description='Penacony from Tingyun',amount=0.10)
+JingYuanCharacter.addStat('DMG.lightning',description='Penacony from Tingyun',amount=0.10)
 
 TingyunCharacter.applySkillBuff(JingYuanCharacter)
 TingyunCharacter.applyUltBuff(JingYuanCharacter)
