@@ -29,7 +29,7 @@ from visualizer.visualizer import visualize
 visualizationList = []
 
 config = copy(Configuration)
-config['numEnemies'] = 2
+config['numEnemies'] = 5
 config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
