@@ -88,14 +88,18 @@ def ArgentiHanyaTingyunHuohuo(config):
                     HanyaCharacter.useUltimate() * numHanyaUlt]
 
     # Argenti & Tingyun Rotation
-    numSkill = ( (180.0 - (60.0 if TingyunCharacter.eidolon >= 6 else 50.0)) / ArgentiCharacter.getER() - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (3.0 * ArgentiCharacter.numEnemies + 30.0)
-    numUltimate = 1
+    TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 3.0
+    HuohuoEnergyPerTurn = (36.0 if HuohuoCharacter.eidolon >= 5 else 36.0) / 4.0
+    numSkill = (180.0 - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (30.0 + TingyunEnergyPerTurn + HuohuoEnergyPerTurn + 3 * ArgentiCharacter.numEnemies)
+    numUlt = 1
 
     ArgentiRotation = [ArgentiCharacter.useSkill() * numSkill,
-                        ArgentiCharacter.useEnhancedUltimate() * numUltimate]
+                        ArgentiCharacter.useEnhancedUltimate() * numUlt,
+                        HuohuoCharacter.giveUltEnergy(ArgentiCharacter) * 2.5 / 4.0,
+                        TingyunCharacter.giveUltEnergy() * 2.5 / 3.0,]
 
-    TingyunRotation.append(TingyunCharacter.useBenediction(['skill']) * numSkill * ArgentiCharacter.numEnemies)
-    TingyunRotation.append(TingyunCharacter.useBenediction(['ultimate','enhancedUltimate']) * numUltimate * ArgentiCharacter.numEnemies)
+    ArgentiRotation.append(TingyunCharacter.useBenediction(['skill']) * numSkill * ArgentiCharacter.numEnemies)
+    ArgentiRotation.append(TingyunCharacter.useBenediction(['ultimate','enhancedUltimate']) * numUlt * ArgentiCharacter.numEnemies)
 
     TingyunRotation = [ 
             TingyunCharacter.useBasic() * 2, 
@@ -129,8 +133,8 @@ def ArgentiHanyaTingyunHuohuo(config):
     TingyunRotation = [x * ArgentiRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     HuohuoRotation = [x * ArgentiRotationDuration / HuohuoRotationDuration for x in HuohuoRotation]
 
-    ArgentiEstimate = DefaultEstimator('Argenti {:.1f}E {:.1f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
-                                                    ArgentiRotation, ArgentiCharacter, config)
+    ArgentiEstimate = DefaultEstimator(f'Argenti: {numSkill:.1f}E {numUlt:.1f}EnhQ', 
+                                            ArgentiRotation, ArgentiCharacter, config)
     HanyaEstimate = DefaultEstimator('Hanya {:.0f}E {:.0f}Q S{:.0f} {}, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt,
                                     HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name), 
                                     HanyaRotation, HanyaCharacter, config)
