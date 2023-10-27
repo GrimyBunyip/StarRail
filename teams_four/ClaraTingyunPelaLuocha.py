@@ -93,7 +93,10 @@ def ClaraTingyunPelaLuocha(config):
             ClaraCharacter.useMarkOfSvarog() * numSvarogCounters, 
             ClaraCharacter.useTalent(enhanced=True) * numEnhancedTalents,
             ClaraCharacter.useUltimate(),
-            ClaraCharacter.useTalent(enhanced=False) * numUnenhancedTalents
+            ClaraCharacter.useTalent(enhanced=False) * numUnenhancedTalents,
+            TingyunCharacter.useBenediction(['skill']) * numSkillClara,
+            TingyunCharacter.useBenediction(['talent','followup']) * numEnhancedTalents,
+            TingyunCharacter.useBenediction(['talent','followup']) * numUnenhancedTalents,
     ]
     
     TingyunRotation = [ 

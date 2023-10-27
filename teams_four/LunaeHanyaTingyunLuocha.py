@@ -89,6 +89,8 @@ def LunaeHanyaTingyunLuocha(config):
                 LunaeCharacter.useSkill()*3,
                 LunaeCharacter.useEnhancedBasic3(), # -3 SP, 40 energy
                 LunaeCharacter.useUltimate(), # +2 SP, 5 energy
+                TingyunCharacter.useBenediction(['basic','enhancedBasic']) * 2, # apply benedictions with buffs
+                TingyunCharacter.useBenediction(['ultimate']) * 1,
                 LunaeCharacter.endTurn(),
                 TingyunCharacter.giveUltEnergy() * 2.2 / 3.0, # rough estimate of rotation, tingyun is about 10% faster
     ]

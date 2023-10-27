@@ -50,8 +50,6 @@ def ArgentiHanyaTingyunHuohuo(config):
     team = [ArgentiCharacter, HanyaCharacter, TingyunCharacter, HuohuoCharacter]
 
     #%% Argenti Hanya Tingyun Huohuo Team Buffs
-    # only enhanced skills have rutilant arena buff
-    ArgentiCharacter.addStat('DMG',description='Rutilant Arena', amount=0.20, type=['enhancedSkill']) # take care of rutilant arena manually
 
     # Broken Keel & Penacony Buff
     for character in [ArgentiCharacter, HanyaCharacter, TingyunCharacter]:
@@ -60,10 +58,13 @@ def ArgentiHanyaTingyunHuohuo(config):
         character.addStat('DMG.physical',description='Penacony Hanya',amount=0.10)
 
     # Hanya Messenger 4 pc
-    ArgentiCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/5.0)
-    TingyunCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-    HuohuoCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)
-
+    for character in [ArgentiCharacter, TingyunCharacter, HuohuoCharacter]:
+        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
+        
+    # Tingyun Messenger 4 pc
+    for character in [ArgentiCharacter, HanyaCharacter, HuohuoCharacter]:
+        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
+    
     # Hanya Buffs
     HanyaCharacter.applyBurdenBuff(team)
     HanyaCharacter.applyUltBuff(ArgentiCharacter,uptime=0.8)
@@ -71,44 +72,36 @@ def ArgentiHanyaTingyunHuohuo(config):
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([TingyunCharacter,HanyaCharacter],uptime=2.0/4.0)
     HuohuoCharacter.applyUltBuff([ArgentiCharacter],uptime=2.0/5.0)
+        
+    # Tingyun Buffs
+    TingyunCharacter.applySkillBuff(ArgentiCharacter)
+    TingyunCharacter.applyUltBuff(ArgentiCharacter)
     
     #%% Print Statements
     for character in team:
         character.print()
 
     #%% Argenti Hanya Tingyun Huohuo Rotations
-    HanyaRotation = [HanyaCharacter.useSkill() * 4,
-                    HanyaCharacter.useUltimate(),]
+    numHanyaSkill = 3
+    numHanyaUlt = 1
+    HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
+                    HanyaCharacter.useUltimate() * numHanyaUlt]
 
-    # Assume Hanya skill buff applies to skills, and only applies a fraction of the time to the remaining abilities
-    numSkill = 1.5
-    numEnhanced = 2.5
-    numUlt = 1
+    # Argenti & Tingyun Rotation
+    numSkill = ( (180.0 - (60.0 if TingyunCharacter.eidolon >= 6 else 50.0)) / ArgentiCharacter.getER() - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (3.0 * ArgentiCharacter.numEnemies + 30.0)
+    numUltimate = 1
 
-    ArgentiRotation = [ # 140 max energy
-            ArgentiCharacter.useSkill() * numSkill,
-            ArgentiCharacter.useEnhancedSkill() * numEnhanced, # 60 energy, -3 stacks
-            ArgentiCharacter.useUltimate() * numUlt, # 5 energy, 1 stack
-            ArgentiCharacter.extraTurn() * 0.9 * numSkill / 2.0, # multiply by 0.9 because it tends to overlap with skill advances
-            HuohuoCharacter.giveUltEnergy(ArgentiCharacter),
+    ArgentiRotation = [ArgentiCharacter.useSkill() * numSkill,
+                        ArgentiCharacter.useEnhancedUltimate() * numUltimate]
+
+    TingyunRotation.append(TingyunCharacter.useBenediction(['skill']) * numSkill * ArgentiCharacter.numEnemies)
+    TingyunRotation.append(TingyunCharacter.useBenediction(['ultimate','enhancedUltimate']) * numUltimate * ArgentiCharacter.numEnemies)
+
+    TingyunRotation = [ 
+            TingyunCharacter.useBasic() * 2, 
+            TingyunCharacter.useSkill(),
+            TingyunCharacter.useUltimate(),
     ]
-
-    numBasicTingyun = 2.5
-    numUltTingyun = 1
-
-    TingyunRotation = [ # 3 enhanced basics per ult roughly
-                    TingyunCharacter.useSkill() * numBasicTingyun / 4.0, # 0.75 charges
-                    TingyunCharacter.useEnhancedBasic() * numBasicTingyun, # 3 charges, 6 charges with Argenti
-                    TingyunCharacter.useUltimate() * numUltTingyun, # 1 charge
-                    HuohuoCharacter.giveUltEnergy(TingyunCharacter) * 2.5 / 4.0,
-                ]
-
-    # assuming Tingyun takes 1 turn every 1 Argenti turn, so we multiply number of hits per enhanced basic by 2
-    numEnemyAttacks = TingyunCharacter.enemySpeed * TingyunCharacter.numEnemies * sum([x.actionvalue for x in TingyunRotation]) / TingyunCharacter.getTotalStat('SPD')
-    numHitsTaken = numEnemyAttacks * 5 / (5 + 5 + 4 + 4) #
-    ArgentiDrainRate = (4.0 / 4.1 ) * ( ArgentiCharacter.getTotalStat('SPD') / TingyunCharacter.getTotalStat('SPD'))
-    numTalentTingyun = (numBasicTingyun / 4.0 + (1 + ArgentiDrainRate) * numBasicTingyun + numUltTingyun + numHitsTaken) / 5.0 # skill, basics, ult, hits taken
-    TingyunRotation.append(TingyunCharacter.useTalent() * numTalentTingyun)
 
     HuohuoRotation = [HuohuoCharacter.useBasic() * 3,
                     HuohuoCharacter.useSkill() * 1,
@@ -138,10 +131,10 @@ def ArgentiHanyaTingyunHuohuo(config):
 
     ArgentiEstimate = DefaultEstimator('Argenti {:.1f}E {:.1f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
                                                     ArgentiRotation, ArgentiCharacter, config)
-    HanyaEstimate = DefaultEstimator('E0 Hanya S{:.0f} {}, 12 Spd Substats'.format(HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name), 
+    HanyaEstimate = DefaultEstimator('Hanya {:.0f}E {:.0f}Q S{:.0f} {}, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt,
+                                    HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name), 
                                     HanyaRotation, HanyaCharacter, config)
-    TingyunEstimate = DefaultEstimator(f'Tingyun: {numBasicTingyun:.1f}N {numTalentTingyun:.1f}T {numUltTingyun:.0f}Q',
-                                    TingyunRotation, TingyunCharacter, config)
+    TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats', [totalTingyunEffect], TingyunCharacter, config)
     HuohuoEstimate = DefaultEstimator('Huohuo: 3N 1E 1Q, S{:.0f} {}'.format(HuohuoCharacter.lightcone.superposition, HuohuoCharacter.lightcone.name),
                                     HuohuoRotation, HuohuoCharacter, config)
 

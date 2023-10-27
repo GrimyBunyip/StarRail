@@ -90,6 +90,11 @@ def TopazTingyunHanyaLuocha(config):
     numbyAdvanceForwards = topazTurns / 2    
     TopazRotation.append(TopazCharacter.useTalent(windfall=False) * (numbyTurns + numbyAdvanceForwards)) # about 1 talent per basic/skill
 
+    # add benedictions
+    TopazRotation.append(TingyunCharacter.useBenediction(['skill','followup']) * numSkillTopaz)
+    TopazRotation.append(TingyunCharacter.useBenediction(['talent','followup']) * 2)
+    TopazRotation.append(TingyunCharacter.useBenediction(['talent','followup']) * (numbyTurns + numbyAdvanceForwards))
+
     numHanyaSkill = 3
     numHanyaUlt = 1
     HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
