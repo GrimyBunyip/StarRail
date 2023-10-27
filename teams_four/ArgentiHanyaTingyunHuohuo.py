@@ -22,8 +22,8 @@ from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingClou
 
 def ArgentiHanyaTingyunHuohuo(config):
     #%% Argenti Hanya Tingyun Huohuo Characters
-    ArgentiCharacter = Argenti(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.physical'],
-                        substats = {'CR': 12, 'CD': 8, 'SPD.flat': 5, 'ATK.percent': 3}),
+    ArgentiCharacter = Argenti(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.physical'],
+                        substats = {'CR': 8, 'CD': 12, 'SPD.flat': 5, 'ATK.percent': 3}),
                         lightcone =  GeniusesRepose(**config),
                         relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = ChampionOfStreetwiseBoxing4pc(uptime=0.4), planarset = FirmamentFrontlineGlamoth(uptime=0.0),
                         **config)
@@ -94,9 +94,7 @@ def ArgentiHanyaTingyunHuohuo(config):
     numUlt = 1
 
     ArgentiRotation = [ArgentiCharacter.useSkill() * numSkill,
-                        ArgentiCharacter.useEnhancedUltimate() * numUlt,
-                        HuohuoCharacter.giveUltEnergy(ArgentiCharacter) * 2.5 / 4.0,
-                        TingyunCharacter.giveUltEnergy() * 2.5 / 3.0,]
+                        ArgentiCharacter.useEnhancedUltimate() * numUlt,]
 
     ArgentiRotation.append(TingyunCharacter.useBenediction(['skill']) * numSkill * ArgentiCharacter.numEnemies)
     ArgentiRotation.append(TingyunCharacter.useBenediction(['ultimate','enhancedUltimate']) * numUlt * ArgentiCharacter.numEnemies)
@@ -121,6 +119,9 @@ def ArgentiHanyaTingyunHuohuo(config):
     HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
     HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
+
+    ArgentiRotation.append(HuohuoCharacter.giveUltEnergy(ArgentiCharacter) * ArgentiRotationDuration / HuohuoRotationDuration)
+    ArgentiRotation.append(TingyunCharacter.giveUltEnergy() * ArgentiRotationDuration / HuohuoRotationDuration)
 
     print('##### Rotation Durations #####')
     print('Argenti: ',ArgentiRotationDuration)

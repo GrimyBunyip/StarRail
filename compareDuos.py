@@ -396,17 +396,17 @@ visualizationList.append([LunaeEstimate,HanyaEstimate])
 
 # Stats: Lunae and Tingyun
 LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
-                        substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'ATK.flat': 3}),
-            lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
-            relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = RutilantArena(),
-            **config)
+                    substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'ATK.flat': 3}),
+                    lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
+                    relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = RutilantArena(),
+                    **config)
 
 TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
-                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
-            lightcone = MemoriesOfThePast(**config),
-            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = SprightlyVonwacq(),
-            benedictionTarget=LunaeCharacter,
-            **config)
+                    substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
+                    lightcone = MemoriesOfThePast(**config),
+                    relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = SprightlyVonwacq(),
+                    benedictionTarget=LunaeCharacter,
+                    **config)
 
 # apply buffs now that we calculated approximate rotation times
 LunaeCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)

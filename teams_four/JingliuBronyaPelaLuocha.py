@@ -10,6 +10,7 @@ from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
+from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
@@ -19,28 +20,28 @@ from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingClou
 def JingliuBronyaPelaLuocha(config):
     #%% Jingliu Bronya Pela Luocha Characters
     JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
-                                substats = {'CR': 12, 'CD': 8, 'SPD.flat': 3, 'ATK.percent': 5}),
-                lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
-                relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
-                **config)
+                        substats = {'CR': 12, 'CD': 8, 'SPD.flat': 3, 'ATK.percent': 5}),
+                        lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
+                        relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
+                        **config)
 
     BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'HP.percent', 'CD', 'ER'],
-                            substats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
-                lightcone = PastAndFuture(**config),
-                relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
-                **config)
+                        substats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
+                        lightcone = PastAndFuture(**config),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                        **config)
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
-                            substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                lightcone = ResolutionShinesAsPearlsOfSweat(**config),
-                relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
-                **config)
+                        substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
+                        lightcone = ResolutionShinesAsPearlsOfSweat(**config),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = PenaconyLandOfDreams(),
+                        **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                                    substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
-                                    lightcone = Multiplication(**config),
-                                    relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
-                                    **config)
+                        substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
+                        lightcone = Multiplication(**config),
+                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+                        **config)
     
     team = [JingliuCharacter, BronyaCharacter, PelaCharacter, LuochaCharacter]
 
@@ -48,13 +49,14 @@ def JingliuBronyaPelaLuocha(config):
     # only enhanced skills have rutilant arena buff
     JingliuCharacter.addStat('DMG',description='Rutilant Arena', amount=0.20, type=['enhancedSkill']) # take care of rutilant arena manually
 
-    # Broken Keel Buff
+    # Broken Keel and Penacony Buff
     for character in [JingliuCharacter, BronyaCharacter, PelaCharacter]:
         character.addStat('CD',description='Broken Keel Luocha',amount=0.10)
-    for character in [JingliuCharacter, BronyaCharacter, LuochaCharacter]:
-        character.addStat('CD',description='Broken Keel Pela',amount=0.10)
     for character in [JingliuCharacter, PelaCharacter, LuochaCharacter]:
         character.addStat('CD',description='Broken Keel Bronya',amount=0.10)
+        
+    for character in [JingliuCharacter, BronyaCharacter, LuochaCharacter]:
+        character.addStat('DMG.ice',description='Penacony Pela',amount=0.10)
 
     # Messenger 4 pc
     for character in [JingliuCharacter, PelaCharacter, LuochaCharacter]:
@@ -67,7 +69,7 @@ def JingliuBronyaPelaLuocha(config):
     sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
     sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
     sweatUptime = min(1.0, sweatUptime)
-    for character in [JingliuCharacter,BronyaCharacter,PelaCharacter,LuochaCharacter]:
+    for character in team:
         character.addStat('DefShred',description='Resolution Sweat',
                         amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
                         uptime=sweatUptime)
