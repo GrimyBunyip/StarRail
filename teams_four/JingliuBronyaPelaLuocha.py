@@ -91,6 +91,7 @@ def JingliuBronyaPelaLuocha(config):
 
     # 1 skill should have bronya buff, 1 should not.
     JingliuRotation += [JingliuCharacter.useSkill()]
+    BronyaCharacter.applySkillBuff(JingliuCharacter,uptime=1.0)
     JingliuCharacter.addStat('DMG',description='Past and Future', amount=0.12 + 0.04 * BronyaCharacter.lightcone.superposition)
     JingliuRotation += [JingliuCharacter.useSkill()]
     JingliuCharacter.stats['DMG'].pop() # remove bronya skill buff

@@ -1,27 +1,23 @@
 from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
-from characters.abundance.Huohuo import Huohuo
+from characters.preservation.Fuxuan import Fuxuan
 from characters.erudition.Argenti import Argenti
 from characters.harmony.Tingyun import Tingyun
 from characters.harmony.Hanya import Hanya
 from estimator.DefaultEstimator import DefaultEstimator
-from lightCones.abundance.PostOpConversation import PostOpConversation
-from lightCones.destruction.ASecretVow import ASecretVow
-from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
+from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
-from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
-from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
+from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
-from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 
-def ArgentiHanyaTingyunHuohuo(config):
-    #%% Argenti Hanya Tingyun Huohuo Characters
+def ArgentiHanyaTingyunFuxuan(config):
+    #%% Argenti Hanya Tingyun Fuxuan Characters
     ArgentiCharacter = Argenti(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.physical'],
                         substats = {'CR': 8, 'CD': 12, 'SPD.flat': 5, 'ATK.percent': 3}),
                         lightcone =  GeniusesRepose(**config),
@@ -41,37 +37,36 @@ def ArgentiHanyaTingyunHuohuo(config):
                             benedictionTarget=ArgentiCharacter,
                             **config)
 
-    HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
-                        substats = {'HP.percent': 7, 'SPD.flat': 12, 'HP.flat': 3, 'RES': 6}),
-                        lightcone = PostOpConversation(**config),
-                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+    FuxuanCharacter = Fuxuan(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
+                        substats = {'HP.percent': 7, 'SPD.flat': 12, 'DEF.percent': 3, 'RES': 6}),
+                        lightcone = DayOneOfMyNewLife(**config),
+                        relicsetone = LongevousDisciple2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
-    team = [ArgentiCharacter, HanyaCharacter, TingyunCharacter, HuohuoCharacter]
+    team = [ArgentiCharacter, HanyaCharacter, TingyunCharacter, FuxuanCharacter]
 
-    #%% Argenti Hanya Tingyun Huohuo Team Buffs
+    #%% Argenti Hanya Tingyun Fuxuan Team Buffs
 
     # Broken Keel & Penacony Buff
     for character in [ArgentiCharacter, HanyaCharacter, TingyunCharacter]:
-        character.addStat('CD',description='Broken Keel Huohuo',amount=0.10)
-    for character in [ArgentiCharacter, TingyunCharacter, HuohuoCharacter]:
+        character.addStat('CD',description='Broken Keel Fuxuan',amount=0.10)
+    for character in [ArgentiCharacter, TingyunCharacter, FuxuanCharacter]:
         character.addStat('DMG.physical',description='Penacony Hanya',amount=0.10)
 
     # Hanya Messenger 4 pc
-    for character in [ArgentiCharacter, TingyunCharacter, HuohuoCharacter]:
+    for character in [ArgentiCharacter, TingyunCharacter, FuxuanCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Messenger 4 pc
-    for character in [ArgentiCharacter, HanyaCharacter, HuohuoCharacter]:
+    for character in [ArgentiCharacter, HanyaCharacter, FuxuanCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
     
     # Hanya Buffs
     HanyaCharacter.applyBurdenBuff(team)
     HanyaCharacter.applyUltBuff(ArgentiCharacter,uptime=0.8)
     
-    # Huohuo Buffs
-    HuohuoCharacter.applyUltBuff([TingyunCharacter,HanyaCharacter],uptime=2.0/4.0)
-    HuohuoCharacter.applyUltBuff([ArgentiCharacter],uptime=2.0/5.0)
+    # Fu Xuan Buffs
+    FuxuanCharacter.applySkillBuff(team)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(ArgentiCharacter)
@@ -81,7 +76,7 @@ def ArgentiHanyaTingyunHuohuo(config):
     for character in team:
         character.print()
 
-    #%% Argenti Hanya Tingyun Huohuo Rotations
+    #%% Argenti Hanya Tingyun Fuxuan Rotations
     numHanyaSkill = 3
     numHanyaUlt = 1
     HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
@@ -89,8 +84,7 @@ def ArgentiHanyaTingyunHuohuo(config):
 
     # Argenti & Tingyun Rotation
     TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 3.0
-    HuohuoEnergyPerTurn = (36.0 if HuohuoCharacter.eidolon >= 5 else 36.0) / 4.0
-    numSkill = (180.0 - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (30.0 + TingyunEnergyPerTurn + HuohuoEnergyPerTurn + 3 * ArgentiCharacter.numEnemies)
+    numSkill = (180.0 - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (30.0 + TingyunEnergyPerTurn + 3 * ArgentiCharacter.numEnemies)
     numUlt = 1
 
     ArgentiRotation = [ArgentiCharacter.useSkill() * numSkill,
@@ -105,34 +99,33 @@ def ArgentiHanyaTingyunHuohuo(config):
             TingyunCharacter.useUltimate(),
     ]
 
-    HuohuoRotation = [HuohuoCharacter.useBasic() * 3,
-                    HuohuoCharacter.useSkill() * 1,
-                    HuohuoCharacter.useUltimate() * 1,]
+    FuxuanRotation = [FuxuanCharacter.useBasic() * 2,
+                    FuxuanCharacter.useSkill() * 1,
+                    FuxuanCharacter.useUltimate() * 1,]
 
-    #%% Argenti Hanya Tingyun Huohuo Rotation Math
+    #%% Argenti Hanya Tingyun Fuxuan Rotation Math
     totalArgentiEffect = sumEffects(ArgentiRotation)
     totalHanyaEffect = sumEffects(HanyaRotation)
     totalTingyunEffect = sumEffects(TingyunRotation)
-    totalHuohuoEffect = sumEffects(HuohuoRotation)
+    totalFuxuanEffect = sumEffects(FuxuanRotation)
 
     ArgentiRotationDuration = totalArgentiEffect.actionvalue * 100.0 / ArgentiCharacter.getTotalStat('SPD')
     HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
-    HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
+    FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
-    ArgentiRotation.append(HuohuoCharacter.giveUltEnergy(ArgentiCharacter) * ArgentiRotationDuration / HuohuoRotationDuration)
-    ArgentiRotation.append(TingyunCharacter.giveUltEnergy() * ArgentiRotationDuration / HuohuoRotationDuration)
+    ArgentiRotation.append(TingyunCharacter.giveUltEnergy() * ArgentiRotationDuration / FuxuanRotationDuration)
 
     print('##### Rotation Durations #####')
     print('Argenti: ',ArgentiRotationDuration)
     print('Hanya: ',HanyaRotationDuration)
     print('Tingyun: ',TingyunRotationDuration)
-    print('Huohuo: ',HuohuoRotationDuration)
+    print('Fuxuan: ',FuxuanRotationDuration)
 
     # scale other character's rotation
     HanyaRotation = [x * ArgentiRotationDuration / HanyaRotationDuration for x in HanyaRotation]
     TingyunRotation = [x * ArgentiRotationDuration / TingyunRotationDuration for x in TingyunRotation]
-    HuohuoRotation = [x * ArgentiRotationDuration / HuohuoRotationDuration for x in HuohuoRotation]
+    FuxuanRotation = [x * ArgentiRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
 
     ArgentiEstimate = DefaultEstimator(f'Argenti: {numSkill:.1f}E {numUlt:.1f}EnhQ', 
                                             ArgentiRotation, ArgentiCharacter, config)
@@ -140,7 +133,7 @@ def ArgentiHanyaTingyunHuohuo(config):
                                     HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name), 
                                     HanyaRotation, HanyaCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats', [totalTingyunEffect], TingyunCharacter, config)
-    HuohuoEstimate = DefaultEstimator('Huohuo: 3N 1E 1Q, S{:.0f} {}'.format(HuohuoCharacter.lightcone.superposition, HuohuoCharacter.lightcone.name),
-                                    HuohuoRotation, HuohuoCharacter, config)
+    FuxuanEstimate = DefaultEstimator('Fuxuan: 2N 1E 1Q, S{:.0f} {}'.format(FuxuanCharacter.lightcone.superposition, FuxuanCharacter.lightcone.name),
+                                    FuxuanRotation, FuxuanCharacter, config)
 
-    return([ArgentiEstimate, HanyaEstimate, TingyunEstimate, HuohuoEstimate])
+    return([ArgentiEstimate, HanyaEstimate, TingyunEstimate, FuxuanEstimate])

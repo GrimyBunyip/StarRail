@@ -1,5 +1,7 @@
 from copy import copy
 from settings.BaseConfiguration import Configuration
+from teams_four.ArgentiBronyaPelaHuohuo import ArgentiBronyaPelaHuohuo
+from teams_four.ArgentiHanyaTingyunFuxuan import ArgentiHanyaTingyunFuxuan
 from teams_four.ArgentiHanyaTingyunHuohuo import ArgentiHanyaTingyunHuohuo
 from teams_four.BladeBronyaPelaFuxuan import BladeBronyaPelaFuxuan
 from teams_four.BladeBronyaPelaLuocha import BladeBronyaPelaLuocha
@@ -61,6 +63,8 @@ visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
 visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))
 #visualizationList.append(TopazTingyunHanyaLuocha(config))
 visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
+visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
+#visualizationList.append(ArgentiBronyaPelaHuohuo(config))
 
 #%% Visualization
 # Visualize
