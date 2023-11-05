@@ -64,7 +64,7 @@ class Tingyun(BaseCharacter):
         ultUptime = min(1.0,ultUptime)
         
         character.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=e1Uptime)
-        character.addStat('DMG',description='Tingyun Ult',amount=0.50 if self.eidolon >= 3 else 0.5,uptime=ultUptime)
+        character.addStat('DMG',description='Tingyun Ult',amount=0.56 if self.eidolon >= 3 else 0.5,uptime=ultUptime)
 
     def useSkill(self):
         retval = BaseEffect()
