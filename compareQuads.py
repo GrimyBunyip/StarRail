@@ -14,6 +14,7 @@ from teams_four.ClaraTopazHanyaLuocha import ClaraTopazHanyaLuocha
 from teams_four.JingliuBronyaPelaLuocha import JingliuBronyaPelaLuocha
 from teams_four.JingliuBronyaRuanMeiLuocha import JingliuBronyaRuanMeiLuocha
 from teams_four.JingliuHanyaBladeHuohuo import JingliuHanyaBladeHuohuo
+from teams_four.JingliuRuanMeiBladeLuocha import JingliuRuanMeiBladeLuocha
 from teams_four.JingyuanTingyunAstaLuocha import JingyuanTingyunAstaLuocha
 from teams_four.JingyuanTingyunTopazLuocha import JingyuanTingyunTopazLuocha
 from teams_four.KafkaGuinaifenAstaLuocha import KafkaGuinaifenAstaLuocha
@@ -49,6 +50,7 @@ visualizationList.append(ClaraTopazAstaLuocha(config))
 #visualizationList.append(ClaraTopazHanyaLuocha(config))
 visualizationList.append(JingliuBronyaPelaLuocha(config))
 visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+visualizationList.append(JingliuRuanMeiBladeLuocha(config))
 visualizationList.append(JingliuHanyaBladeHuohuo(config))
 visualizationList.append(JingyuanTingyunAstaLuocha(config))
 #visualizationList.append(JingyuanTingyunTopazLuocha(config))
@@ -66,7 +68,7 @@ visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
 visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))
 #visualizationList.append(TopazTingyunHanyaLuocha(config))
 visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
-visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
+#visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
 #visualizationList.append(ArgentiBronyaPelaHuohuo(config))
 
 #%% Visualization

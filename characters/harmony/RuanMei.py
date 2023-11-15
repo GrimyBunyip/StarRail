@@ -36,11 +36,12 @@ class RuanMei(BaseCharacter):
             character.enemySpeed = self.baseEnemySpeed * enemyTurnsPerBreak / (enemyTurnsPerBreak + 0.25 + 0.10 + 0.15 * character.getTotalStat('BreakEffect'))
             character.weaknessBrokenUptime = self.baseWeaknessBrokenUptime * (enemyTurnsPerBreak + 0.25) / (enemyTurnsPerBreak + 0.25 + 0.10 + 0.15 * 0.15 * character.getTotalStat('BreakEffect') )
                 
-    def applyTraceBuff(self,team:list):
+    def applyPassiveBuffs(self,team:list):
         for character in team:
             character:BaseCharacter
+            character.addStat('DMG',description='talent',amount=0.33 if self.eidolon >= 3 else 0.30)
             character.addStat('BreakEffect',description='trace',amount=0.20)
-            character.addStat('DMG',description='trace',amount=self.weaknessBrokenUptime)
+            character.addStat('DMG',description='trace',amount=0.24,uptime=self.weaknessBrokenUptime)
              
     def applyUltBuff(self,team:list,uptime:float):
         for character in team:
@@ -93,6 +94,6 @@ class RuanMei(BaseCharacter):
         retval = BaseEffect()
         type = ['talent']
         breakEffect = self.useBreak() # scale the damage to the weakness break uptime
-        retval.damage = (0.132 if self.eidoolon >= 3 else 0.12) * breakEffect.damage * self.weaknessBrokenUptime
+        retval.damage = (0.132 if self.eidolon >= 3 else 0.12) * breakEffect.damage * self.weaknessBrokenUptime
         self.addDebugInfo(retval,type)
         return retval

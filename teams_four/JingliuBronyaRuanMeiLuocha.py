@@ -66,7 +66,7 @@ def JingliuBronyaRuanMeiLuocha(config):
 
     # RuanMei Debuffs, 3 turn RuanMei rotation
     RuanMeiCharacter.applyWeaknessModifiers(team=team)
-    RuanMeiCharacter.applyTraceBuff(team=team)
+    RuanMeiCharacter.applyPassiveBuffs(team=team)
     RuanMeiCharacter.applySkillBuff(team=team,uptime=2.0/3.0)
     RuanMeiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
         
@@ -106,13 +106,20 @@ def JingliuBronyaRuanMeiLuocha(config):
     JingliuRotation += [JingliuCharacter.extraTurn() * 0.9] # multiply by 0.9 because it tends to overlap with skill advances
     JingliuRotation += [BronyaCharacter.useAdvanceForward() * 2] #Jingliu rotation is basically 4 turns
 
-    RuanMeiRotation = [RuanMeiCharacter.useBasic() * 2,
-                       RuanMeiCharacter.useSkill() * 1,
-                    RuanMeiCharacter.useUltimate(),]
+    numBlast = min(3, JingliuCharacter.numEnemies)
+    JingliuRotation += [RuanMeiCharacter.useTalent() * (2 + 4 * numBlast)] # append ruan mei talent damage
+
+    numBasicRuanMei = 2.0
+    numSkillRuanMei = 1.0
+    RuanMeiRotation = [RuanMeiCharacter.useBasic() * numBasicRuanMei,
+                       RuanMeiCharacter.useSkill() * numSkillRuanMei,
+                    RuanMeiCharacter.useUltimate(),
+                    RuanMeiCharacter.useTalent() * numBasicRuanMei] # append ruan mei talent damage
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
                     LuochaCharacter.useUltimate() * 1,
-                    LuochaCharacter.useSkill() * 1,]
+                    LuochaCharacter.useSkill() * 1,
+                    RuanMeiCharacter.useTalent() * (3 + 1 * LuochaCharacter.numEnemies)] # append ruan mei talent damage
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
 
     #%% Jingliu Bronya RuanMei Luocha Rotation Math
@@ -141,7 +148,7 @@ def JingliuBronyaRuanMeiLuocha(config):
                                                     JingliuRotation, JingliuCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
-    RuanMeiEstimate = DefaultEstimator(f'Ruan Mei: 2N1E 1Q, S{RuanMeiCharacter.lightcone.superposition:d} {RuanMeiCharacter.lightcone.name}', 
+    RuanMeiEstimate = DefaultEstimator(f'Ruan Mei: {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q, S{RuanMeiCharacter.lightcone.superposition:d} {RuanMeiCharacter.lightcone.name}', 
                                     RuanMeiRotation, RuanMeiCharacter, config)
     LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name),
                                     LuochaRotation, LuochaCharacter, config)
