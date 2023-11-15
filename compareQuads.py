@@ -12,6 +12,7 @@ from teams_four.ClaraTingyunTopazLuocha import ClaraTingyunTopazLuocha
 from teams_four.ClaraTopazAstaLuocha import ClaraTopazAstaLuocha
 from teams_four.ClaraTopazHanyaLuocha import ClaraTopazHanyaLuocha
 from teams_four.JingliuBronyaPelaLuocha import JingliuBronyaPelaLuocha
+from teams_four.JingliuBronyaRuanMeiLuocha import JingliuBronyaRuanMeiLuocha
 from teams_four.JingliuHanyaBladeHuohuo import JingliuHanyaBladeHuohuo
 from teams_four.JingyuanTingyunAstaLuocha import JingyuanTingyunAstaLuocha
 from teams_four.JingyuanTingyunTopazLuocha import JingyuanTingyunTopazLuocha
@@ -37,15 +38,17 @@ config['numEnemies'] = 2
 config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
+
 visualizationList.append(BladeBronyaPelaFuxuan(config))
 #visualizationList.append(BladeBronyaPelaLuocha(config))
 #visualizationList.append(BladeBronyaPelaLynx(config))
 #visualizationList.append(ClaraSilverWolfPelaLuocha(config))
 #visualizationList.append(ClaraTingyunPelaLuocha(config))
-#visualizationList.append(ClaraTingyunTopazLuocha(config))
+visualizationList.append(ClaraTingyunTopazLuocha(config))
 visualizationList.append(ClaraTopazAstaLuocha(config))
 #visualizationList.append(ClaraTopazHanyaLuocha(config))
 visualizationList.append(JingliuBronyaPelaLuocha(config))
+visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 visualizationList.append(JingliuHanyaBladeHuohuo(config))
 visualizationList.append(JingyuanTingyunAstaLuocha(config))
 #visualizationList.append(JingyuanTingyunTopazLuocha(config))

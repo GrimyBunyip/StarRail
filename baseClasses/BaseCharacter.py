@@ -342,9 +342,10 @@ class BaseCharacter(object):
                                                                             self.getTotalStat('HP'),
                                                                             self.getTotalStat('DEF'),
                                                                             self.getTotalStat('EHR'),))
-        print('RES: {:.3f} - EHR: {:.3f} - DMG: {:.2f}'.format(self.getTotalStat('RES'),
+        print('RES: {:.3f} - EHR: {:.3f} - DMG: {:.2f} - BreakEffect {:.3f}'.format(self.getTotalStat('RES'),
                                                  self.getTotalStat('EHR'),
-                                                 self.getTotalStat('DMG',type=[self.element])))
+                                                 self.getTotalStat('DMG',type=[self.element]),
+                                                 self.getTotalStat('BreakEffect')))
         
 def getStatComments(character:BaseCharacter,stat:str,type:list=[]):
     retval = ''

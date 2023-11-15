@@ -109,6 +109,14 @@ def SeeleMidSilverWolfBronyaLuocha(config):
 
     #%% Seele MID Silver Wolf Bronya Luocha Rotation Math
 
+    #Seele is too fast for slow bronya. And we don't have enough SP to go faster
+    totalSeeleEffect = sumEffects(SeeleRotation)
+    totalBronyaEffect = sumEffects(BronyaRotation)
+    SeeleRotationDuration = totalSeeleEffect.actionvalue * 100.0 / SeeleCharacter.getTotalStat('SPD')
+    BronyaRotationDuration = totalBronyaEffect.actionvalue * 100.0 / BronyaCharacter.getTotalStat('SPD')
+    for effect in SeeleRotation:
+        effect.actionvalue *= (BronyaRotationDuration / 4) / (SeeleRotationDuration / 1.5 )
+
     totalSeeleEffect = sumEffects(SeeleRotation)
     totalBronyaEffect = sumEffects(BronyaRotation)
     totalSilverWolfEffect = sumEffects(SilverWolfRotation)
@@ -136,8 +144,5 @@ def SeeleMidSilverWolfBronyaLuocha(config):
     SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numBasicSW:.0f}N {numSkillSW:.0f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)
     LuochaEstimate = DefaultEstimator(f'Luocha: 3N 1E 1Q, S{LuochaCharacter.lightcone.superposition:d} {LuochaCharacter.lightcone.name}', 
                                     LuochaRotation, LuochaCharacter, config)
-
-    #Seele is too fast for slow bronya. And we don't have enough SP to go faster
-    SeeleEstimate.effect.actionvalue *= (BronyaRotationDuration / 4) / (SeeleRotationDuration / 1.5 )
 
     return([SeeleEstimate, SilverWolfEstimate, BronyaEstimate, LuochaEstimate])
