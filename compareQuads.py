@@ -27,6 +27,7 @@ from teams_four.LunaeHanyaYukongLuocha import LunaeHanyaYukongLuocha
 from teams_four.LunaePelaTingyun import LunaePelaTingyunLuocha
 from teams_four.LunaePelaYukongLuocha import LunaePelaYukongLuocha
 from teams_four.LunaeTingyunYukongLuocha import LunaeTingyunYukongLuocha
+from teams_four.RatioTopazAstaLuocha import DrRatioTopazAstaLuocha
 from teams_four.SeeleMaxSilverWolfBronyaLuocha import SeeleMaxSilverWolfBronyaLuocha
 from teams_four.SeeleMidSilverWolfBronyaLuocha import SeeleMidSilverWolfBronyaLuocha
 from teams_four.TopazTingyunHanyaLuocha import TopazTingyunHanyaLuocha
@@ -45,8 +46,9 @@ visualizationList.append(BladeBronyaPelaFuxuan(config))
 #visualizationList.append(BladeBronyaPelaLynx(config))
 #visualizationList.append(ClaraSilverWolfPelaLuocha(config))
 #visualizationList.append(ClaraTingyunPelaLuocha(config))
-visualizationList.append(ClaraTingyunTopazLuocha(config))
+#visualizationList.append(ClaraTingyunTopazLuocha(config))
 visualizationList.append(ClaraTopazAstaLuocha(config))
+visualizationList.append(DrRatioTopazAstaLuocha(config))
 #visualizationList.append(ClaraTopazHanyaLuocha(config))
 visualizationList.append(JingliuBronyaPelaLuocha(config))
 visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
