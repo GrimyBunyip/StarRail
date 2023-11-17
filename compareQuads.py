@@ -31,6 +31,7 @@ from teams_four.RatioTopazAstaLuocha import DrRatioTopazAstaLuocha
 from teams_four.SeeleMaxSilverWolfBronyaLuocha import SeeleMaxSilverWolfBronyaLuocha
 from teams_four.SeeleMidSilverWolfBronyaLuocha import SeeleMidSilverWolfBronyaLuocha
 from teams_four.TopazTingyunHanyaLuocha import TopazTingyunHanyaLuocha
+from teams_four.XueyiHanyaPelaFuxuan import XueyiHanyaPelaFuxuan
 from visualizer.visualizer import visualize
 
 visualizationList = []
@@ -41,7 +42,7 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
-visualizationList.append(BladeBronyaPelaFuxuan(config))
+#visualizationList.append(BladeBronyaPelaFuxuan(config))
 #visualizationList.append(BladeBronyaPelaLuocha(config))
 #visualizationList.append(BladeBronyaPelaLynx(config))
 #visualizationList.append(ClaraSilverWolfPelaLuocha(config))
@@ -60,6 +61,8 @@ visualizationList.append(JingyuanTingyunAstaLuocha(config))
 #visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 #visualizationList.append(KafkaGuinaifenLukaLuocha(config))
 visualizationList.append(KafkaGuinaifenSampoLuocha(config))
+visualizationList.append(XueyiHanyaPelaFuxuan(config))
+#visualizationList.append(XueyiHanyaPelaFuxuan(config,breakRatio=1.0))
 #visualizationList.append(LunaeHanyaPelaLuocha(config))
 visualizationList.append(LunaeHanyaTingyunLuocha(config))
 #visualizationList.append(LunaePelaTingyunLuocha(config))

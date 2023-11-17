@@ -138,7 +138,7 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 # Stats: Jingliu & Tingyun
 JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'ER', 'CD', 'DMG.ice'],
                         substats = {'CR': 12, 'CD': 8, 'ATK.percent': 5, 'ATK.flat': 3}),
-            lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
+            lightcone = OnTheFallOfAnAeon(**config),
             relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=2.0/3.0), planarset = RutilantArena(uptime=0.0),
             **config)
 
@@ -207,7 +207,7 @@ visualizationList.append([JingliuEstimate, TingyunEstimate])
 # Stats: Jingliu & Bronya
 JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
                             substats = {'CR': 12, 'CD': 8, 'SPD.flat': 3, 'ATK.percent': 5}),
-            lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
+            lightcone = OnTheFallOfAnAeon(**config),
             relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
             **config)
 
@@ -283,7 +283,7 @@ visualizationList.append([JingliuEstimate, BronyaEstimate])
 # Stats: Jingliu & Hanya
 JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
                             substats = {'CR': 12, 'CD': 8, 'SPD.flat': 3, 'ATK.percent': 5}),
-            lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
+            lightcone = OnTheFallOfAnAeon(**config),
             relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
             **config)
 
@@ -342,7 +342,7 @@ visualizationList.append([JingliuEstimate, HanyaEstimate])
 # Stats: Lunae and Hanya
 LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
                         substats = {'CR': 8, 'CD': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
-            lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
+            lightcone = OnTheFallOfAnAeon(**config),
             relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = RutilantArena(),
             **config)
 
@@ -398,7 +398,7 @@ visualizationList.append([LunaeEstimate,HanyaEstimate])
 # Stats: Lunae and Tingyun
 LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
                     substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'ATK.flat': 3}),
-                    lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
+                    lightcone = OnTheFallOfAnAeon(**config),
                     relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = RutilantArena(),
                     **config)
 
@@ -526,7 +526,7 @@ visualizationList.append([BladeEstimate, BronyaEstimate])
 # Stats: Jingliu & Blade
 JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
                             substats = {'CR': 12, 'CD': 8, 'SPD.flat': 5, 'ATK.percent': 3}),
-            lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
+            lightcone = OnTheFallOfAnAeon(**config),
             relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
             **config)
 
@@ -539,7 +539,7 @@ BladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', '
 # Stats: Jingliu & Blade
 JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
                             substats = {'CR': 12, 'CD': 8, 'SPD.flat': 5, 'ATK.percent': 3}),
-            lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
+            lightcone = OnTheFallOfAnAeon(**config),
             relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
             **config)
 

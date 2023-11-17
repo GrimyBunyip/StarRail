@@ -210,7 +210,7 @@ visualizationList.append(DefaultEstimator(f'Clara: {numSkill:.0f}E {numSvarogCou
 # Lunae
 LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
                         substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
-        lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=4.0, **config),
+        lightcone = OnTheFallOfAnAeon(**config),
         relicsetone = MusketeerOfWildWheat2pc(),
         relicsettwo = MusketeerOfWildWheat4pc(),
         planarset = RutilantArena(),
@@ -362,7 +362,7 @@ visualizationList.append(DefaultEstimator(f'Yanqing: {numSkill:.1f}E {numTalent:
 # Jingliu
 JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
                         substats = {'CR': 12, 'CD': 8, 'ATK.percent': 3, 'SPD.flat': 5}),
-        lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
+        lightcone = OnTheFallOfAnAeon(**config),
         relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
         **config)
 

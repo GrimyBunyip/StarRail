@@ -21,7 +21,7 @@ def JingliuBronyaPelaLuocha(config):
     #%% Jingliu Bronya Pela Luocha Characters
     JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
                         substats = {'CR': 12, 'CD': 8, 'SPD.flat': 3, 'ATK.percent': 5}),
-                        lightcone = OnTheFallOfAnAeon(uptime = 0.25, **config),
+                        lightcone = OnTheFallOfAnAeon(**config),
                         relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
                         **config)
 

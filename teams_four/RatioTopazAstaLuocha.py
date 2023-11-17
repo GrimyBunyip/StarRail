@@ -135,7 +135,7 @@ def DrRatioTopazAstaLuocha(config):
     AstaRotation = [x * DrRatioRotationDuration / AstaRotationDuration for x in AstaRotation]
     LuochaRotation = [x * DrRatioRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
-    DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.0f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q', DrRatioRotation, DrRatioCharacter, config)
+    DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.0f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
     TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
     AstaEstimate = DefaultEstimator(f'Slow Asta: 2E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
                                     AstaRotation, AstaCharacter, config)
