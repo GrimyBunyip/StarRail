@@ -16,6 +16,7 @@ from teams_four.JingliuBronyaRuanMeiLuocha import JingliuBronyaRuanMeiLuocha
 from teams_four.JingliuHanyaBladeHuohuo import JingliuHanyaBladeHuohuo
 from teams_four.JingliuRuanMeiBladeLuocha import JingliuRuanMeiBladeLuocha
 from teams_four.JingyuanTingyunAstaLuocha import JingyuanTingyunAstaLuocha
+from teams_four.JingyuanTingyunHanyaFuxuan import JingyuanTingyunHanyaFuxuan
 from teams_four.JingyuanTingyunTopazLuocha import JingyuanTingyunTopazLuocha
 from teams_four.KafkaGuinaifenAstaLuocha import KafkaGuinaifenAstaLuocha
 from teams_four.KafkaGuinaifenHanyaLuocha import KafkaGuinaifenHanyaLuocha
@@ -56,6 +57,7 @@ visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 visualizationList.append(JingliuRuanMeiBladeLuocha(config))
 visualizationList.append(JingliuHanyaBladeHuohuo(config))
 visualizationList.append(JingyuanTingyunAstaLuocha(config))
+visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
 #visualizationList.append(JingyuanTingyunTopazLuocha(config))
 #visualizationList.append(KafkaGuinaifenAstaLuocha(config))
 #visualizationList.append(KafkaGuinaifenHanyaLuocha(config))

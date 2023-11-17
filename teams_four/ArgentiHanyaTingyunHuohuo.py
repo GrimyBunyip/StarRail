@@ -67,7 +67,7 @@ def ArgentiHanyaTingyunHuohuo(config):
     
     # Hanya Buffs
     HanyaCharacter.applyBurdenBuff(team)
-    HanyaCharacter.applyUltBuff(ArgentiCharacter,uptime=0.8)
+    HanyaCharacter.applyUltBuff(ArgentiCharacter,uptime=1.0)
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([TingyunCharacter,HanyaCharacter],uptime=2.0/4.0)

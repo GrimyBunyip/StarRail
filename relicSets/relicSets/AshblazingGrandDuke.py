@@ -18,7 +18,7 @@ class GrandDuke4pc(RelicSet):
                 graphic:str='',
                 shortname:str='Grand Duke 4pc',
                 followupStacks = 4.0,
-                stacks = 8.0,
+                stacks = 0.0,
                 uptime = 0.0,
                 **config):
         self.graphic = graphic
