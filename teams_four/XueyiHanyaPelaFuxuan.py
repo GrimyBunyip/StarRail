@@ -32,7 +32,7 @@ def XueyiHanyaPelaFuxuan(config, breakRatio:float=0.5):
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
                             substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                            lightcone = BeforeTheTutorialMissionStarts(**config),
+                            lightcone = ResolutionShinesAsPearlsOfSweat(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
                             **config)
 

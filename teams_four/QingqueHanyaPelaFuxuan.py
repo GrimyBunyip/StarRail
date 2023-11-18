@@ -33,7 +33,7 @@ def QingqueHanyaPelaFuxuan(config):
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
                         substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                        lightcone = BeforeTheTutorialMissionStarts(**config),
+                        lightcone = ResolutionShinesAsPearlsOfSweat(**config),
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
                         **config)
 
@@ -58,17 +58,17 @@ def QingqueHanyaPelaFuxuan(config):
     for character in [QingqueCharacter, PelaCharacter, FuxuanCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 
-    # Pela Debuffs, 3 turn pela rotation
-    PelaCharacter.applyUltDebuff(team,rotationDuration=2)
+    # Pela Debuffs, 2 turn pela rotation
+    PelaCharacter.applyUltDebuff(team,rotationDuration=3)
         
     # Resolution Shines as Pearls of Sweat uptime
-    #sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-    #sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
-    #sweatUptime = min(1.0, sweatUptime)
-    #for character in [QingqueCharacter,HanyaCharacter,PelaCharacter,FuxuanCharacter]:
-    #    character.addStat('DefShred',description='Resolution Sweat',
-    #                    amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
-    #                    uptime=sweatUptime)
+    sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
+    sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
+    sweatUptime = min(1.0, sweatUptime)
+    for character in [QingqueCharacter,HanyaCharacter,PelaCharacter,FuxuanCharacter]:
+        character.addStat('DefShred',description='Resolution Sweat',
+                        amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
+                        uptime=sweatUptime)
         
     # Hanya Buffs
     HanyaCharacter.applyBurdenBuff(team)
@@ -112,7 +112,7 @@ def QingqueHanyaPelaFuxuan(config):
         QingqueCharacter.drawTileFromAlly(),
     ]
 
-    numBasicPela = 2.0
+    numBasicPela = 3.0
     PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
                     PelaCharacter.useUltimate(),]
 
