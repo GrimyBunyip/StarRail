@@ -7,6 +7,7 @@ from characters.nihility.Pela import Pela
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
+from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
@@ -30,10 +31,10 @@ def BladeBronyaPelaFuxuan(config):
                         **config)
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
-                        substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                        lightcone = ResolutionShinesAsPearlsOfSweat(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
-                        **config)
+                            substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
+                            lightcone = BeforeTheTutorialMissionStarts(**config),
+                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
+                            **config)
 
     FuxuanCharacter = Fuxuan(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
                         substats = {'HP.percent': 7, 'SPD.flat': 12, 'DEF.percent': 3, 'RES': 6}),
@@ -59,17 +60,17 @@ def BladeBronyaPelaFuxuan(config):
     for character in [BladeCharacter, PelaCharacter, FuxuanCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 
-    # Pela Debuffs, 3 turn pela rotation
-    PelaCharacter.applyUltDebuff(team,rotationDuration=3)
+    # Pela Debuffs, 2 turn pela rotation
+    PelaCharacter.applyUltDebuff(team,rotationDuration=2)
         
     # Resolution Shines as Pearls of Sweat uptime
-    sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-    sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
-    sweatUptime = min(1.0, sweatUptime)
-    for character in [BladeCharacter,BronyaCharacter,PelaCharacter,FuxuanCharacter]:
-        character.addStat('DefShred',description='Resolution Sweat',
-                        amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
-                        uptime=sweatUptime)
+    #sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
+    #sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
+    #sweatUptime = min(1.0, sweatUptime)
+    #for character in team:
+    #    character.addStat('DefShred',description='Resolution Sweat',
+    #                    amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
+    #                    uptime=sweatUptime)
         
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
@@ -103,7 +104,8 @@ def BladeBronyaPelaFuxuan(config):
     numTalent = (0.75 + 3 + 1 + numHitsTaken) / 5.0
     BladeRotation.append(BladeCharacter.useTalent() * numTalent)
 
-    PelaRotation = [PelaCharacter.useBasic() * 3,
+    numBasicPela = 2.0
+    PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
                     PelaCharacter.useUltimate(),]
 
     FuxuanRotation = [FuxuanCharacter.useBasic() * 2,
@@ -136,7 +138,7 @@ def BladeBronyaPelaFuxuan(config):
                                     BladeRotation, BladeCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
-    PelaEstimate = DefaultEstimator(f'Pela: 3N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
+    PelaEstimate = DefaultEstimator(f'Pela: {numBasicPela:.0f}N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)
     FuxuanEstimate = DefaultEstimator('Fuxuan: 2N 1E 1Q, S{:.0f} {}'.format(FuxuanCharacter.lightcone.superposition, FuxuanCharacter.lightcone.name),
                                     FuxuanRotation, FuxuanCharacter, config)

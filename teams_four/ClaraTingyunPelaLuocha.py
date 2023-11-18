@@ -8,6 +8,7 @@ from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
+from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
@@ -36,7 +37,7 @@ def ClaraTingyunPelaLuocha(config):
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
                             substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                            lightcone = ResolutionShinesAsPearlsOfSweat(**config),
+                            lightcone = BeforeTheTutorialMissionStarts(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
                             **config)
 
@@ -59,17 +60,17 @@ def ClaraTingyunPelaLuocha(config):
     PelaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
     LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5*3/4)
     
-    # Pela Debuffs, 3 turn pela rotation
+    # Pela Debuffs, 2 turn pela rotation
     PelaCharacter.applyUltDebuff(team,rotationDuration=2)
         
     # Resolution Shines as Pearls of Sweat uptime
-    sweatUptime = (1.0 / 2.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-    sweatUptime += (1.0 / 2.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
-    sweatUptime = min(1.0, sweatUptime)
-    for character in team:
-        character.addStat('DefShred',description='Resolution Sweat',
-                        amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
-                        uptime=sweatUptime)
+    #sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
+    #sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
+    #sweatUptime = min(1.0, sweatUptime)
+    #for character in team:
+    #    character.addStat('DefShred',description='Resolution Sweat',
+    #                    amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
+    #                    uptime=sweatUptime)
 
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(ClaraCharacter)
@@ -105,7 +106,8 @@ def ClaraTingyunPelaLuocha(config):
         TingyunCharacter.useUltimate(),
     ]
 
-    PelaRotation = [PelaCharacter.useSkill() * 2,
+    numBasicPela = 2.0
+    PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
                     PelaCharacter.useUltimate(),]
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
@@ -141,7 +143,7 @@ def ClaraTingyunPelaLuocha(config):
     ClaraEstimate = DefaultEstimator(f'Clara: {numSkillClara:.1f}E {numSvarogCounters:.1f}T 1Q', ClaraRotation, ClaraCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats',
                                     TingyunRotation, TingyunCharacter, config)
-    PelaEstimate = DefaultEstimator(f'Pela: 2E 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
+    PelaEstimate = DefaultEstimator(f'Pela: {numBasicPela:.0f}N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)
     LuochaEstimate = DefaultEstimator(f'Luocha: 3N 1E 1Q, S{LuochaCharacter.lightcone.superposition:d} {LuochaCharacter.lightcone.name}', 
                                     LuochaRotation, LuochaCharacter, config)

@@ -8,6 +8,7 @@ from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
+from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
@@ -27,7 +28,7 @@ def LunaePelaYukongLuocha(config):
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
                             substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                            lightcone = ResolutionShinesAsPearlsOfSweat(**config),
+                            lightcone = BeforeTheTutorialMissionStarts(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
                             **config)
 
@@ -56,17 +57,17 @@ def LunaePelaYukongLuocha(config):
     for character in [LunaeCharacter, PelaCharacter, YukongCharacter]:
         character.addStat('DMG.imaginary',description='Penacony from Luocha',amount=0.1)
         
-    # Pela Debuffs, 3 turn pela rotation
-    PelaCharacter.applyUltDebuff(team,rotationDuration=3)
+    # Pela Debuffs, 2 turn pela rotation
+    PelaCharacter.applyUltDebuff(team,rotationDuration=2)
         
     # Resolution Shines as Pearls of Sweat uptime
-    sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-    sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
-    sweatUptime = min(1.0, sweatUptime)
-    for character in [LunaeCharacter,YukongCharacter,PelaCharacter,LuochaCharacter]:
-        character.addStat('DefShred',description='Resolution Sweat',
-                        amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
-                        uptime=sweatUptime)
+    #sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
+    #sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
+    #sweatUptime = min(1.0, sweatUptime)
+    #for character in [LunaeCharacter,YukongCharacter,PelaCharacter,LuochaCharacter]:
+    #    character.addStat('DefShred',description='Resolution Sweat',
+    #                    amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
+    #                    uptime=sweatUptime)
         
     # Yukong imaginary damage trace
     for character in [LunaeCharacter, LuochaCharacter]:
@@ -98,7 +99,8 @@ def LunaePelaYukongLuocha(config):
         character.print()
 
     #%% Lunae Pela Yukong Luocha Rotations
-    PelaRotation = [PelaCharacter.useBasic() * 3,
+    numBasicPela = 2.0
+    PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
                     PelaCharacter.useUltimate(),]
 
     LunaeRotation = [  # 140 energy needed. EndTurn needed to factor in his buffs
@@ -145,7 +147,7 @@ def LunaePelaYukongLuocha(config):
     LuochaRotation = [x * LunaeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
     LunaeEstimate = DefaultEstimator('Lunae: 2N^3 1Q', LunaeRotation, LunaeCharacter, config)
-    PelaEstimate = DefaultEstimator(f'Pela: 3N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
+    PelaEstimate = DefaultEstimator(f'Pela: {numBasicPela:.0f}N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)
     YukongEstimate = DefaultEstimator(f'Yukong (Speed Tuned) {numBasicYukong:d}N {numSkillYukong:d}E {numUltYukong:d}Q S{YukongCharacter.lightcone.superposition:d} {YukongCharacter.lightcone.name}', 
                                     YukongRotation, YukongCharacter, config)

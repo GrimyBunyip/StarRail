@@ -8,6 +8,7 @@ from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
+from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.InertSalsotto import InertSalsotto
@@ -31,10 +32,10 @@ def BladeBronyaPelaLuocha(config):
                         **config)
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
-                        substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                        lightcone = ResolutionShinesAsPearlsOfSweat(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
-                        **config)
+                            substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
+                            lightcone = BeforeTheTutorialMissionStarts(**config),
+                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
+                            **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                         substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
@@ -60,17 +61,17 @@ def BladeBronyaPelaLuocha(config):
     for character in [BladeCharacter, PelaCharacter, LuochaCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 
-    # Pela Debuffs, 3 turn pela rotation
-    PelaCharacter.applyUltDebuff(team,rotationDuration=3)
+    # Pela Debuffs, 2 turn pela rotation
+    PelaCharacter.applyUltDebuff(team,rotationDuration=2)
         
     # Resolution Shines as Pearls of Sweat uptime
-    sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-    sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
-    sweatUptime = min(1.0, sweatUptime)
-    for character in [BladeCharacter,BronyaCharacter,PelaCharacter,LuochaCharacter]:
-        character.addStat('DefShred',description='Resolution Sweat',
-                        amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
-                        uptime=sweatUptime)
+    #sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
+    #sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
+    #sweatUptime = min(1.0, sweatUptime)
+    #for character in team:
+    #    character.addStat('DefShred',description='Resolution Sweat',
+    #                    amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
+    #                    uptime=sweatUptime)
         
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
@@ -101,7 +102,8 @@ def BladeBronyaPelaLuocha(config):
     numTalent = (0.75 + 3 + 1 + numHitsTaken) / 5.0
     BladeRotation.append(BladeCharacter.useTalent() * numTalent)
 
-    PelaRotation = [PelaCharacter.useBasic() * 3,
+    numBasicPela = 2.0
+    PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
                     PelaCharacter.useUltimate(),]
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
@@ -135,7 +137,7 @@ def BladeBronyaPelaLuocha(config):
                                     BladeRotation, BladeCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
-    PelaEstimate = DefaultEstimator(f'Pela: 3N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
+    PelaEstimate = DefaultEstimator(f'Pela: {numBasicPela:.0f}N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)
     LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name),
                                     LuochaRotation, LuochaCharacter, config)

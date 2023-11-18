@@ -9,6 +9,7 @@ from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.PostOpConversation import PostOpConversation
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
 from lightCones.harmony.PastAndFuture import PastAndFuture
+from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.SpaceSealingStation import SpaceSealingStation
@@ -32,10 +33,10 @@ def ArgentiBronyaPelaHuohuo(config):
                         **config)
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
-                        substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                        lightcone = ResolutionShinesAsPearlsOfSweat(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
-                        **config)
+                            substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
+                            lightcone = BeforeTheTutorialMissionStarts(**config),
+                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
+                            **config)
 
     HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
                         substats = {'HP.percent': 7, 'SPD.flat': 12, 'HP.flat': 3, 'RES': 6}),
@@ -58,17 +59,17 @@ def ArgentiBronyaPelaHuohuo(config):
     for character in [ArgentiCharacter, PelaCharacter, HuohuoCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/5.0)
 
-    # Pela Debuffs, 2.5 turn pela rotation with huohuo
-    PelaCharacter.applyUltDebuff(team,rotationDuration=2.5)
+    # Pela Debuffs, 2 turn pela rotation
+    PelaCharacter.applyUltDebuff(team,rotationDuration=2.0)
         
     # Resolution Shines as Pearls of Sweat uptime
-    sweatUptime = (1.0 / 2.5) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-    sweatUptime += (2.0 / 2.5) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
-    sweatUptime = min(1.0, sweatUptime)
-    for character in team:
-        character.addStat('DefShred',description='Resolution Sweat',
-                        amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
-                        uptime=sweatUptime)
+    #sweatUptime = (1.0 / 2.5) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
+    #sweatUptime += (2.0 / 2.5) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
+    #sweatUptime = min(1.0, sweatUptime)
+    #for character in team:
+    #    character.addStat('DefShred',description='Resolution Sweat',
+    #                    amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
+    #                    uptime=sweatUptime)
         
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([ArgentiCharacter,BronyaCharacter,PelaCharacter],uptime=2.0/4.0)
@@ -95,7 +96,8 @@ def ArgentiBronyaPelaHuohuo(config):
     ArgentiRotation += [ArgentiCharacter.useSkill() * numSkill / 2.0]
     ArgentiRotation += [ArgentiCharacter.useUltimate() * numUlt]
 
-    PelaRotation = [PelaCharacter.useBasic() * 2.5,
+    numBasicPela = 2.0
+    PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
                     PelaCharacter.useUltimate(),]
 
     HuohuoRotation = [HuohuoCharacter.useBasic() * 3,
@@ -128,7 +130,7 @@ def ArgentiBronyaPelaHuohuo(config):
                                             ArgentiRotation, ArgentiCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
-    PelaEstimate = DefaultEstimator(f'Pela: 3N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
+    PelaEstimate = DefaultEstimator(f'Pela: {numBasicPela:.0f}N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)
     HuohuoEstimate = DefaultEstimator('Huohuo: 3N 1E 1Q, S{:.0f} {}'.format(HuohuoCharacter.lightcone.superposition, HuohuoCharacter.lightcone.name),
                                     HuohuoRotation, HuohuoCharacter, config)

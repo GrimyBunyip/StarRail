@@ -7,6 +7,7 @@ from characters.nihility.Pela import Pela
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
+from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
@@ -31,7 +32,7 @@ def XueyiHanyaPelaFuxuan(config, breakRatio:float=0.5):
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
                             substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                            lightcone = ResolutionShinesAsPearlsOfSweat(**config),
+                            lightcone = BeforeTheTutorialMissionStarts(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
                             **config)
 
