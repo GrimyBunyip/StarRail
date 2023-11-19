@@ -111,8 +111,8 @@ def JingliuRuanMeiBladeLuocha(config):
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
                     LuochaCharacter.useSkill() * 1,
-                    LuochaCharacter.useUltimate() * 1,
-                    RuanMeiCharacter.useTalent() * (3 + 1 * LuochaCharacter.numEnemies)] # append ruan mei talent damage
+                    RuanMeiCharacter.useTalent() * (3 + 1 * LuochaCharacter.numEnemies), # append ruan mei talent damage
+                    LuochaCharacter.useUltimate() * 1]
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
     LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
 
