@@ -46,7 +46,7 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 #%% Team Imports
 
 visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
-#visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
+visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
 #visualizationList.append(ArgentiBronyaPelaHuohuo(config))
 visualizationList.append(BladeBronyaPelaFuxuan(config))
 #visualizationList.append(BladeBronyaPelaLuocha(config))
@@ -74,7 +74,7 @@ visualizationList.append(LunaeHanyaTingyunLuocha(config))
 #visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 #visualizationList.append(KafkaGuinaifenLukaLuocha(config))
 visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-visualizationList.append(QingqueHanyaPelaFuxuan(config))
+#visualizationList.append(QingqueHanyaPelaFuxuan(config))
 visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
 visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
 visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))

@@ -3,7 +3,7 @@ from baseClasses.BaseLightCone import BaseLightCone
 
 class NightOnTheMilkyWay(BaseLightCone):
     def __init__(self,
-                uptime:float=0.25,
+                uptime:float=0.5,
                 **config):
         self.loadConeStats('Night on the Milky Way')
         self.setSuperposition(config)

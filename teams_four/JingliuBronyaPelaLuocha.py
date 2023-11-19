@@ -33,10 +33,10 @@ def JingliuBronyaPelaLuocha(config):
                         **config)
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
-                            substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                            lightcone = ResolutionShinesAsPearlsOfSweat(**config),
-                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
-                            **config)
+                        substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
+                        lightcone = ResolutionShinesAsPearlsOfSweat(**config),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = PenaconyLandOfDreams(),
+                        **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                         substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
@@ -118,6 +118,7 @@ def JingliuBronyaPelaLuocha(config):
                     LuochaCharacter.useUltimate() * 1,
                     LuochaCharacter.useSkill() * 1,]
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
+    LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
 
     #%% Jingliu Bronya Pela Luocha Rotation Math
     totalJingliuEffect = sumEffects(JingliuRotation)

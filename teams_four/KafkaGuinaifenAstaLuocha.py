@@ -115,6 +115,7 @@ def KafkaGuinaifenAstaLuocha(config):
                     LuochaCharacter.useUltimate() * 1,
                     LuochaCharacter.useSkill() * 1,]
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
+    LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
 
 
     #%% Kafka Guinaifen Asta Luocha Rotation Math

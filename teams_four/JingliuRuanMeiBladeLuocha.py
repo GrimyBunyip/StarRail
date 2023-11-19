@@ -114,6 +114,7 @@ def JingliuRuanMeiBladeLuocha(config):
                     LuochaCharacter.useUltimate() * 1,
                     RuanMeiCharacter.useTalent() * (3 + 1 * LuochaCharacter.numEnemies)] # append ruan mei talent damage
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
+    LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
 
     #%% Jingliu RuanMei Blade Luocha Rotation Math
     totalJingliuEffect = sumEffects(JingliuRotation)
