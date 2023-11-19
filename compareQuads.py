@@ -32,6 +32,7 @@ from teams_four.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
 from teams_four.RatioTopazAstaLuocha import DrRatioTopazAstaLuocha
 from teams_four.SeeleMaxSilverWolfBronyaLuocha import SeeleMaxSilverWolfBronyaLuocha
+from teams_four.SeeleMidSilverWolfBronyaFuxuan import SeeleMidSilverWolfBronyaFuxuan
 from teams_four.SeeleMidSilverWolfBronyaLuocha import SeeleMidSilverWolfBronyaLuocha
 from teams_four.TopazTingyunHanyaLuocha import TopazTingyunHanyaLuocha
 from teams_four.XueyiHanyaPelaFuxuan import XueyiHanyaPelaFuxuan
@@ -78,6 +79,7 @@ visualizationList.append(KafkaGuinaifenSampoLuocha(config))
 visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
 visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
 visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))
+#visualizationList.append(SeeleMidSilverWolfBronyaFuxuan(config))
 #visualizationList.append(TopazTingyunHanyaLuocha(config))
 visualizationList.append(XueyiHanyaPelaFuxuan(config))
 #visualizationList.append(XueyiHanyaPelaFuxuan(config,breakRatio=1.0))
