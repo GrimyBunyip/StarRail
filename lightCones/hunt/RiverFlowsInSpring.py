@@ -8,6 +8,7 @@ class RiverFlowsInSpring(BaseLightCone):
         self.loadConeStats('River Flows in Spring')
         self.setSuperposition(config)
         self.uptime = uptime
+        self.nameAffix = f'{uptime:.2f} Uptime'
 
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)

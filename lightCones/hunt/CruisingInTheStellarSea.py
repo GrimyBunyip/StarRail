@@ -10,6 +10,7 @@ class CruisingInTheStellarSea(BaseLightCone):
         self.setSuperposition(config)
         self.uptimeHP = uptimeHP
         self.uptimeDefeat = uptimeDefeat
+        self.nameAffix = f'{uptimeDefeat:.2f} Uptime'
 
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
