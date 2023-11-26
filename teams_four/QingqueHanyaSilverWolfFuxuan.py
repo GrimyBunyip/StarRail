@@ -104,7 +104,7 @@ def QingqueHanyaSilverWolfFuxuan(config):
         QingqueCharacter.drawTileFromAlly(),
     ]
 
-    numBasicSW = 2
+    numBasicSW = 1
     numSkillSW = 1
     numUltSW = 1
     SilverWolfRotation = [ # 

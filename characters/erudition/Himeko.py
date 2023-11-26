@@ -54,6 +54,7 @@ class Himeko(BaseCharacter):
         retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
@@ -69,6 +70,7 @@ class Himeko(BaseCharacter):
         retval.damage = self.getTotalMotionValue('skill',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * self.getBreakEfficiency(type)
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
@@ -83,6 +85,7 @@ class Himeko(BaseCharacter):
         retval.damage = self.getTotalMotionValue('ultimate',type) * ((1.8 * retval.damage / self.numEnemies) if self.eidolon >= 6 else 1.0)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 60.0 * self.numEnemies * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
@@ -96,6 +99,7 @@ class Himeko(BaseCharacter):
         retval.damage = self.getTotalMotionValue('talent',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = ( 30.0 * self.numEnemies ) * self.getBreakEfficiency(type)
         retval.energy = ( 10.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
@@ -108,5 +112,6 @@ class Himeko(BaseCharacter):
         type = ['dot']
         retval.damage = self.getTotalMotionValue('dot',type)
         retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         return retval

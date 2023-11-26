@@ -63,6 +63,7 @@ class Yanqing(BaseCharacter):
         retval.damage = self.getTotalMotionValue('basic',type) + self.getTotalMotionValue('icing',type) if icing else 0.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
@@ -77,6 +78,7 @@ class Yanqing(BaseCharacter):
         retval.damage = self.getTotalMotionValue('skill',type) + self.getTotalMotionValue('icing',type) if icing else 0.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
@@ -91,6 +93,7 @@ class Yanqing(BaseCharacter):
         retval.damage = self.getTotalMotionValue('ultimate',type) + self.getTotalMotionValue('icing',type) if icing else 0.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 90.0 * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
@@ -104,6 +107,7 @@ class Yanqing(BaseCharacter):
         retval.damage = self.getTotalMotionValue('talent',type) + self.getTotalMotionValue('icing',type) if icing else 0.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = ( 10.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
@@ -122,6 +126,7 @@ class Yanqing(BaseCharacter):
         retval.damage = self.getTotalMotionValue('freezeDot',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         
         procrate = 0.62 if self.eidolon >= 5 else 0.6

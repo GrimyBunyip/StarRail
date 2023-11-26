@@ -55,6 +55,7 @@ class Bronya(BaseCharacter):
         retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
@@ -86,6 +87,7 @@ class Bronya(BaseCharacter):
         retval.damage = self.getTotalMotionValue('basic',type) * 0.8
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)

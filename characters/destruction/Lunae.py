@@ -78,6 +78,7 @@ class Lunae(BaseCharacter):
             retval.damage = self.getTotalMotionValue(f'basic_{i+1:d}',type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
+            retval.damage *= self.getVulnerability(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
             self.addDebugInfo(retval,type,f'Lunae Basic Hit {hitNum:d}')
         
@@ -98,6 +99,7 @@ class Lunae(BaseCharacter):
             retval.damage = self.getTotalMotionValue(f'enhancedBasic1_{hitNum:d}',type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
+            retval.damage *= self.getVulnerability(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
             self.addDebugInfo(retval,type,f'Lunae Enhanced1 Hit {hitNum:d}')
         
@@ -122,6 +124,7 @@ class Lunae(BaseCharacter):
             retval.damage = self.getTotalMotionValue(f'enhancedBasic3_{hitNum}',type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
+            retval.damage *= self.getVulnerability(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
             self.addDebugInfo(retval,type,f'Lunae Enhanced2 Hit {hitNum}')
         
@@ -145,6 +148,7 @@ class Lunae(BaseCharacter):
             retval.damage = self.getTotalMotionValue(f'enhancedBasic3_{hitNum}',type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
+            retval.damage *= self.getVulnerability(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
             self.addDebugInfo(retval,type,f'Lunae Enhanced3 Hit {hitNum}')
         
@@ -174,6 +178,7 @@ class Lunae(BaseCharacter):
             retval.damage = self.getTotalMotionValue(f'ultimate_{hitNum}',type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg()
+            retval.damage *= self.getVulnerability(type)
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
             self.addDebugInfo(retval,type,f'Lunae Ultimate Hit {hitNum}')
         
