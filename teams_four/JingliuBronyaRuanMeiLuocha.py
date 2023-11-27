@@ -69,6 +69,9 @@ def JingliuBronyaRuanMeiLuocha(config):
     RuanMeiCharacter.applyPassiveBuffs(team=team)
     RuanMeiCharacter.applySkillBuff(team=team,uptime=2.0/3.0)
     RuanMeiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
+        
+    # Bronya Buffs
+    BronyaCharacter.applyTraceBuff(team)
 
     #%% Print Statements
     for character in team:

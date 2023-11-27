@@ -31,6 +31,7 @@ from teams_four.LunaeRuanMeiTingyun import LunaeRuanMeiTingyunLuocha
 from teams_four.LunaeTingyunYukongLuocha import LunaeTingyunYukongLuocha
 from teams_four.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
+from teams_four.RatioBronyaSilverWolfLuocha import DrRatioBronyaSilverWolfLuocha
 from teams_four.RatioTopazAstaLuocha import DrRatioTopazAstaLuocha
 from teams_four.RatioHanyaSilverWolfLuocha import DrRatioHanyaSilverWolfLuocha
 from teams_four.SeeleMaxSilverWolfBronyaLuocha import SeeleMaxSilverWolfBronyaLuocha
@@ -49,7 +50,7 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 #%% Team Imports
 
 visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
-visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
+#visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
 #visualizationList.append(ArgentiBronyaPelaHuohuo(config))
 visualizationList.append(BladeBronyaPelaFuxuan(config))
 #visualizationList.append(BladeBronyaPelaLuocha(config))
@@ -60,17 +61,18 @@ visualizationList.append(BladeBronyaPelaFuxuan(config))
 visualizationList.append(ClaraTopazAstaLuocha(config))
 visualizationList.append(DrRatioTopazAstaLuocha(config))
 visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
+#visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
 #visualizationList.append(ClaraTopazHanyaLuocha(config))
 visualizationList.append(JingliuBronyaPelaLuocha(config))
 visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 visualizationList.append(JingliuRuanMeiBladeLuocha(config))
 visualizationList.append(JingliuHanyaBladeHuohuo(config))
-visualizationList.append(JingyuanTingyunAstaLuocha(config))
+#visualizationList.append(JingyuanTingyunAstaLuocha(config))
 visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
 #visualizationList.append(JingyuanTingyunTopazLuocha(config))
 #visualizationList.append(LunaeHanyaPelaLuocha(config))
 visualizationList.append(LunaeHanyaTingyunLuocha(config))
-visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
+#visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
 #visualizationList.append(LunaePelaTingyunLuocha(config))
 #visualizationList.append(LunaeHanyaYukongLuocha(config))
 #visualizationList.append(LunaePelaYukongLuocha(config))

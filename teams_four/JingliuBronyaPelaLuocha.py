@@ -74,6 +74,9 @@ def JingliuBronyaPelaLuocha(config):
         character.addStat('DefShred',description='Resolution Sweat',
                         amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
                         uptime=sweatUptime)
+        
+    # Bronya Buffs
+    BronyaCharacter.applyTraceBuff(team)
 
     #%% Print Statements
     for character in team:

@@ -71,6 +71,9 @@ def ArgentiBronyaPelaHuohuo(config):
                         amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
                         uptime=sweatUptime)
         
+    # Bronya Buffs
+    BronyaCharacter.applyTraceBuff(team)
+        
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([ArgentiCharacter,BronyaCharacter,PelaCharacter],uptime=2.0/4.0)
 
