@@ -52,7 +52,7 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 
 visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
 visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
-#visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
+visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
 #visualizationList.append(ArgentiBronyaPelaHuohuo(config))
 visualizationList.append(BladeBronyaPelaFuxuan(config))
 #visualizationList.append(BladeBronyaPelaLuocha(config))

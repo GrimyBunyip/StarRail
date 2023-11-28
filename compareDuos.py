@@ -198,7 +198,7 @@ for i in range(len(JingliuRotation)):
     JingliuRotation[i].energy *= 1.0 / 3.0 # manually implementing this atm
 
 JingliuEstimate = DefaultEstimator('Jingliu 2E 5Enh 3Q', JingliuRotation, JingliuCharacter, config)
-TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats',
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',
                                    TingyunRotation, TingyunCharacter, config)
 
 # removed this as the rotation is too clunky
@@ -450,7 +450,7 @@ TingyunRotation.append(TingyunCharacter.useBenediction(['basic']) * 2)
 TingyunRotation.append(TingyunCharacter.useBenediction(['ultimate']))
 
 LunaeEstimate = DefaultEstimator('Lunae: 2N^3 1Q', LunaeRotation, LunaeCharacter, config)
-TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats', 
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 
                                 TingyunRotation, TingyunCharacter, config)
 visualizationList.append([LunaeEstimate,TingyunEstimate])
 
@@ -684,7 +684,7 @@ print('Jing Yuan Energy: ', totalJingYuanEffect.energy, ' Tingyun Energy: ', tot
 
 JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q',
                                     [totalJingYuanEffect], JingYuanCharacter, config)
-TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats',
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',
                                    TingyunRotation, TingyunCharacter, config)
 visualizationList.append([JingYuanEstimate, TingyunEstimate])
 
@@ -1077,7 +1077,7 @@ TingyunRotation.append(TingyunCharacter.useBenediction(['talent','followup']) * 
 
 ClaraEstimate = DefaultEstimator(f'Clara: {numSkill:.1f}E {numUnenhancedTalents + numEnhancedTalents:.1f}T 1Q',
                                  ClaraRotation, ClaraCharacter, config)
-TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats', 
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 
                                 TingyunRotation, TingyunCharacter, config)
 
 visualizationList.append([ClaraEstimate, TingyunEstimate])
@@ -1147,7 +1147,7 @@ print('Yanqing Energy: ', totalYanqingEffect.energy, ' Tingyun Energy: ', totalT
 
 YanqingEstimate = DefaultEstimator(f'Yanqing: {numSkill:.1f}E {numTalent:.1f}T Bliss(1E 1Q 2T)', 
                                             YanqingRotation, YanqingCharacter, config)
-TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats',
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',
                                    TingyunRotation, TingyunCharacter, config)
 
 visualizationList.append([YanqingEstimate, TingyunEstimate])
@@ -1205,7 +1205,7 @@ print('Argenti Energy: ', totalArgentiEffect.energy, ' Tingyun Energy: ', totalT
 
 ArgentiEstimate = DefaultEstimator(f'Argenti: {numSkill:.1f}E {numUlt:.1f}EnhQ', 
                                             ArgentiRotation, ArgentiCharacter, config)
-TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats',
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',
                                    TingyunRotation, TingyunCharacter, config)
 
 visualizationList.append([ArgentiEstimate, TingyunEstimate])
@@ -1324,7 +1324,7 @@ TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharac
 TingyunRotation = [x * TopazRotationDuration / TingyunRotationDuration for x in TingyunRotation]
 
 TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.1f}E {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
-TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.1f} Tingyun S{TingyunCharacter.lightcone.superposition:.1f} {TingyunCharacter.lightcone.name}, 12 spd substats',
+TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',
                                    TingyunRotation, TingyunCharacter, config)
 
 visualizationList.append([TopazEstimate,TingyunEstimate])
