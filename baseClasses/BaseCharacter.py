@@ -352,6 +352,8 @@ def getStatComments(character:BaseCharacter,stat:str,type:list=[]):
     commentList = character.stats[stat] + character.tempStats[stat]
     commentList.sort(key=lambda x: x.mathType)
     for entry in commentList:
+        if entry.uptime <= 0.0:
+            continue
         if entry.type is None or any(x in entry.type for x in type):
             entry:BuffEffect
             retval += entry.description + ':    '
@@ -360,7 +362,7 @@ def getStatComments(character:BaseCharacter,stat:str,type:list=[]):
                 retval += ' ' + entry.mathType
             if entry.stacks is not None and entry.stacks != 1.0:
                 retval += ', ' + str(round(entry.stacks,2)) + ' stacks'
-            if entry.uptime is not None and entry.uptime < 1.0 and entry.uptime > 0.0:
+            if entry.uptime is not None and entry.uptime < 1.0 and entry.uptime != 0.0:
                 retval += ', ' + str(round(entry.uptime,2)) + ' uptime'
             if entry.duration is not None and entry.duration > 0.0:
                 retval += ', ' + str(round(entry.duration,1)) + ' duration'
