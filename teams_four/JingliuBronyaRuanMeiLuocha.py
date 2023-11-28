@@ -64,7 +64,7 @@ def JingliuBronyaRuanMeiLuocha(config):
     for character in [JingliuCharacter, RuanMeiCharacter, LuochaCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/5.0)
 
-    # RuanMei Debuffs, 3 turn RuanMei rotation
+    # RuanMei Buffs, 3 turn RuanMei rotation
     RuanMeiCharacter.applyWeaknessModifiers(team=team)
     RuanMeiCharacter.applyPassiveBuffs(team=team)
     RuanMeiCharacter.applySkillBuff(team=team,uptime=3.0/3.0)

@@ -52,7 +52,7 @@ def LunaeRuanMeiTingyunLuocha(config):
     for character in [LunaeCharacter, RuanMeiCharacter, TingyunCharacter]:
         character.addStat('DMG.imaginary',description='Penacony from Luocha',amount=0.1)
 
-    # RuanMei Debuffs, max skill uptime
+    # RuanMei Buffs, max skill uptime
     RuanMeiCharacter.applyWeaknessModifiers(team=team)
     RuanMeiCharacter.applyPassiveBuffs(team=team)
     RuanMeiCharacter.applySkillBuff(team=team,uptime=3.0/3.0)

@@ -1,6 +1,7 @@
 from copy import copy
 from settings.BaseConfiguration import Configuration
 from teams_four.ArgentiBronyaPelaHuohuo import ArgentiBronyaPelaHuohuo
+from teams_four.ArgentiHanyaRuanMeiHuohuo import ArgentiHanyaRuanMeiHuohuo
 from teams_four.ArgentiHanyaTingyunFuxuan import ArgentiHanyaTingyunFuxuan
 from teams_four.ArgentiHanyaTingyunHuohuo import ArgentiHanyaTingyunHuohuo
 from teams_four.BladeBronyaPelaFuxuan import BladeBronyaPelaFuxuan
@@ -49,6 +50,7 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
+visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
 visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
 #visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
 #visualizationList.append(ArgentiBronyaPelaHuohuo(config))

@@ -61,7 +61,7 @@ def JingliuRuanMeiBladeLuocha(config):
     for character in [JingliuCharacter, BladeCharacter, LuochaCharacter]:
         character.addStat('DMG.ice',description='Penacony Ruan Mei',amount=0.10)
 
-    # RuanMei Debuffs, max skill uptime
+    # RuanMei Buffs, max skill uptime
     RuanMeiCharacter.applyWeaknessModifiers(team=team)
     RuanMeiCharacter.applyPassiveBuffs(team=team)
     RuanMeiCharacter.applySkillBuff(team=team,uptime=3.0/3.0)

@@ -99,5 +99,6 @@ class DrRatio(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
-        retval.actionvalue = 0.0 - self.getAdvanceForward(type)        
+        retval.actionvalue = 0.0 - self.getAdvanceForward(type)    
+        self.addDebugInfo(retval,type)    
         return retval
