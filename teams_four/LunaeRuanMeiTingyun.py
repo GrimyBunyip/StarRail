@@ -76,8 +76,7 @@ def LunaeRuanMeiTingyunLuocha(config):
     numSkillRuanMei = 1.0
     RuanMeiRotation = [RuanMeiCharacter.useBasic() * numBasicRuanMei,
                        RuanMeiCharacter.useSkill() * numSkillRuanMei,
-                    RuanMeiCharacter.useUltimate(),
-                    RuanMeiCharacter.useTalent() * numBasicRuanMei] # append ruan mei talent damage
+                    RuanMeiCharacter.useUltimate()]
         
     numBlast = min(3, LunaeCharacter.numEnemies)
     LunaeRotation = [  # 140 energy needed. EndTurn needed to factor in his buffs
@@ -91,19 +90,16 @@ def LunaeRuanMeiTingyunLuocha(config):
                 TingyunCharacter.useBenediction(['ultimate']) * 1,
                 LunaeCharacter.endTurn(),
                 TingyunCharacter.giveUltEnergy() , # rough estimate of rotation, tingyun is about 10% faster
-                RuanMeiCharacter.useTalent() * 3 * numBlast,
     ]
 
     TingyunRotation = [ 
             TingyunCharacter.useBasic() * 2, 
             TingyunCharacter.useSkill(),
             TingyunCharacter.useUltimate(),
-            RuanMeiCharacter.useTalent() * 2, # append ruan mei talent damage
     ]
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
                     LuochaCharacter.useSkill() * 1,
-                    RuanMeiCharacter.useTalent() * (3 + 1 * LuochaCharacter.numEnemies), # append ruan mei talent damage
                     LuochaCharacter.useUltimate() * 1]
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
     LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
@@ -123,6 +119,11 @@ def LunaeRuanMeiTingyunLuocha(config):
     RuanMeiRotation = [x * LunaeRotationDuration / RuanMeiRotationDuration for x in RuanMeiRotation]
     TingyunRotation = [x * LunaeRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     LuochaRotation = [x * LunaeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+    
+    # calculate total number of breaks for Ruan Mei Talent
+    totalEffect = sumEffects(LunaeRotation + TingyunRotation + RuanMeiRotation + LuochaRotation)
+    numBreaks = totalEffect.gauge * RuanMeiCharacter.weaknessBrokenUptime / RuanMeiCharacter.enemyToughness
+    RuanMeiRotation.append(RuanMeiCharacter.useTalent() * numBreaks)
 
     LunaeEstimate = DefaultEstimator('Lunae: 2N^3 1Q', LunaeRotation, LunaeCharacter, config)
     RuanMeiEstimate = DefaultEstimator(f'RuanMei {numSkillRuanMei:.1f}E {numBasicRuanMei:.1f}N S{RuanMeiCharacter.lightcone.superposition:.0f} {RuanMeiCharacter.lightcone.name}, 12 Spd Substats', 

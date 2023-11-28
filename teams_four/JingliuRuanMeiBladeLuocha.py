@@ -76,8 +76,7 @@ def JingliuRuanMeiBladeLuocha(config):
     numSkillRuanMei = 1
     RuanMeiRotation = [RuanMeiCharacter.useBasic() * numBasicRuanMei,
                        RuanMeiCharacter.useSkill() * numSkillRuanMei,
-                    RuanMeiCharacter.useUltimate(),
-                    RuanMeiCharacter.useTalent() * numBasicRuanMei] # append ruan mei talent damage
+                    RuanMeiCharacter.useUltimate()]
 
     numSkill = 1.5
     numEnhanced = 2.5
@@ -89,7 +88,6 @@ def JingliuRuanMeiBladeLuocha(config):
             JingliuCharacter.useEnhancedSkill() * numEnhanced, # 60 energy, -3 stacks
             JingliuCharacter.useUltimate() * numUlt, # 5 energy, 1 stack
             JingliuCharacter.extraTurn() * 0.9 * numSkill / 2.0, # multiply by 0.9 because it tends to overlap with skill advances
-            RuanMeiCharacter.useTalent() * (numSkill + numBlast * (numEnhanced + numUlt)),
     ]
 
     numBasicBlade = 2.5
@@ -107,11 +105,9 @@ def JingliuRuanMeiBladeLuocha(config):
     jingliuDrainRate = (4.0 / 4.1 ) * ( JingliuCharacter.getTotalStat('SPD') / BladeCharacter.getTotalStat('SPD'))
     numTalentBlade = (numBasicBlade / 4.0 + (1 + jingliuDrainRate) * numBasicBlade + numUltBlade + numHitsTaken) / 5.0 # skill, basics, ult, hits taken
     BladeRotation.append(BladeCharacter.useTalent() * numTalentBlade)
-    BladeRotation.append(RuanMeiCharacter.useTalent() * (numTalentBlade * BladeCharacter.numEnemies + numBlast * (numBasicBlade + numUltBlade)))
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
                     LuochaCharacter.useSkill() * 1,
-                    RuanMeiCharacter.useTalent() * (3 + 1 * LuochaCharacter.numEnemies), # append ruan mei talent damage
                     LuochaCharacter.useUltimate() * 1]
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
     LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
@@ -137,6 +133,11 @@ def JingliuRuanMeiBladeLuocha(config):
     RuanMeiRotation = [x * JingliuRotationDuration / RuanMeiRotationDuration for x in RuanMeiRotation]
     BladeRotation = [x * JingliuRotationDuration / BladeRotationDuration for x in BladeRotation]
     LuochaRotation = [x * JingliuRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+    
+    # calculate total number of breaks for Ruan Mei Talent
+    totalEffect = sumEffects(JingliuRotation + BladeRotation + RuanMeiRotation + LuochaRotation)
+    numBreaks = totalEffect.gauge * RuanMeiCharacter.weaknessBrokenUptime / RuanMeiCharacter.enemyToughness
+    RuanMeiRotation.append(RuanMeiCharacter.useTalent() * numBreaks)
 
     JingliuEstimate = DefaultEstimator('Jingliu {:.1f}E {:.1f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
                                                     JingliuRotation, JingliuCharacter, config)

@@ -108,19 +108,14 @@ def JingliuBronyaRuanMeiLuocha(config):
     JingliuRotation += [JingliuCharacter.extraTurn() * 0.9] # multiply by 0.9 because it tends to overlap with skill advances
     JingliuRotation += [BronyaCharacter.useAdvanceForward() * 2] #Jingliu rotation is basically 4 turns
 
-    numBlast = min(3, JingliuCharacter.numEnemies)
-    JingliuRotation += [RuanMeiCharacter.useTalent() * (2 + 4 * numBlast)] # append ruan mei talent damage
-
     numBasicRuanMei = 2.0
     numSkillRuanMei = 1.0
     RuanMeiRotation = [RuanMeiCharacter.useBasic() * numBasicRuanMei,
                        RuanMeiCharacter.useSkill() * numSkillRuanMei,
-                    RuanMeiCharacter.useUltimate(),
-                    RuanMeiCharacter.useTalent() * numBasicRuanMei] # append ruan mei talent damage
+                    RuanMeiCharacter.useUltimate()]
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
                     LuochaCharacter.useUltimate() * 1,
-                    RuanMeiCharacter.useTalent() * (3 + 1 * LuochaCharacter.numEnemies), # append ruan mei talent damage
                     LuochaCharacter.useSkill() * 1] 
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
     LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
@@ -146,6 +141,11 @@ def JingliuBronyaRuanMeiLuocha(config):
     BronyaRotation = [x * JingliuRotationDuration / BronyaRotationDuration for x in BronyaRotation]
     RuanMeiRotation = [x * JingliuRotationDuration / RuanMeiRotationDuration for x in RuanMeiRotation]
     LuochaRotation = [x * JingliuRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+    
+    # calculate total number of breaks for Ruan Mei Talent
+    totalEffect = sumEffects(JingliuRotation + BronyaRotation + RuanMeiRotation + LuochaRotation)
+    numBreaks = totalEffect.gauge * RuanMeiCharacter.weaknessBrokenUptime / RuanMeiCharacter.enemyToughness
+    RuanMeiRotation.append(RuanMeiCharacter.useTalent() * numBreaks)
 
     JingliuEstimate = DefaultEstimator('Jingliu {:.0f}E {:.0f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
                                                     JingliuRotation, JingliuCharacter, config)

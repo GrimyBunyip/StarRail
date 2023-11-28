@@ -22,7 +22,7 @@ class RuanMei(BaseCharacter):
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
 
         # Talents
-        self.addStat('BonusEnergyTurn',description='Hanya Trace',amount=5.0)
+        self.addStat('BonusEnergyTurn',description='Ruan Mei Trace',amount=5.0)
 
         # Eidolons
         

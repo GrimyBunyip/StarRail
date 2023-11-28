@@ -4,9 +4,11 @@ from teams_four.ArgentiBronyaPelaHuohuo import ArgentiBronyaPelaHuohuo
 from teams_four.ArgentiHanyaRuanMeiHuohuo import ArgentiHanyaRuanMeiHuohuo
 from teams_four.ArgentiHanyaTingyunFuxuan import ArgentiHanyaTingyunFuxuan
 from teams_four.ArgentiHanyaTingyunHuohuo import ArgentiHanyaTingyunHuohuo
+from teams_four.ArgentiRuanMeiTingyunHuohuo import ArgentiRuanMeiTingyunHuohuo
 from teams_four.BladeBronyaPelaFuxuan import BladeBronyaPelaFuxuan
 from teams_four.BladeBronyaPelaLuocha import BladeBronyaPelaLuocha
 from teams_four.BladeBronyaPelaLynx import BladeBronyaPelaLynx
+from teams_four.BladeBronyaRuanMeiFuxuan import BladeBronyaRuanMeiFuxuan
 from teams_four.ClaraSilverWolfPelaLuocha import ClaraSilverWolfPelaLuocha
 from teams_four.ClaraTingyunPelaLuocha import ClaraTingyunPelaLuocha
 from teams_four.ClaraTingyunTopazLuocha import ClaraTingyunTopazLuocha
@@ -50,11 +52,13 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
-visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
+#visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
+#visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
 visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
-visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
+#visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
 #visualizationList.append(ArgentiBronyaPelaHuohuo(config))
-visualizationList.append(BladeBronyaPelaFuxuan(config))
+#visualizationList.append(BladeBronyaPelaFuxuan(config))
+visualizationList.append(BladeBronyaRuanMeiFuxuan(config))
 #visualizationList.append(BladeBronyaPelaLuocha(config))
 #visualizationList.append(BladeBronyaPelaLynx(config))
 #visualizationList.append(ClaraSilverWolfPelaLuocha(config))
