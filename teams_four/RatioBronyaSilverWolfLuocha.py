@@ -27,6 +27,7 @@ def DrRatioBronyaSilverWolfLuocha(config):
                                     relicsetone = WastelanderOfBanditryDesert2pc(),
                                     relicsettwo = WastelanderOfBanditryDesert4pc(),
                                     planarset = FirmamentFrontlineGlamoth(stacks=2),
+                                    debuffStacks=5.0,
                                     **config)
 
     BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'HP.percent', 'CD', 'ER'],
