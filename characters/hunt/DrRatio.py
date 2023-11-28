@@ -12,38 +12,30 @@ class DrRatio(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                buffStacks:float=3.0,
                 debuffStacks:float=4.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Dr Ratio')
-        self.buffStacks = buffStacks
-        self.debuffStacks = min(4.0,debuffStacks)
+        self.debuffStacks = debuffStacks
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
         self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.5, eidolonThreshold=3, eidolonBonus=0.15)]
-        self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=3.2, eidolonThreshold=3, eidolonBonus=0.32)]
+        self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=2.7, eidolonThreshold=3, eidolonBonus=0.27)]
         self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.192)]
-        self.motionValueDict['e2Stacks'] = [BaseMV(area='single', stat='atk', value=0.0, eidolonThreshold=2, eidolonBonus=0.20*self.debuffStacks)]
+        self.motionValueDict['e2Stacks'] = [BaseMV(area='single', stat='atk', value=0.0, eidolonThreshold=2, eidolonBonus=0.20*min(4.0,self.debuffStacks))]
 
         # Talents
-        self.addStat('ATK.percent',description='talent',
-                     amount=0.132 if self.eidolon >= 5 else 0.12,
-                     stacks=self.buffStacks)
         self.addStat('CR',description='talent',
-                     amount=0.044 if self.eidolon >= 5 else 0.04,
-                     stacks=self.buffStacks)
+                     amount=0.025,
+                     stacks=6.0)
         self.addStat('CD',description='talent',
-                     amount=0.132 if self.eidolon >= 5 else 0.12,
-                     stacks=self.buffStacks)
-        self.addStat('SPD.percent',description='talent',
-                     amount=0.055 if self.eidolon >= 5 else 0.05,
-                     stacks=self.buffStacks)
+                     amount=0.05,
+                     stacks=6.0)
 
         # Eidolons
         if self.eidolon >= 4:
-            self.addStat('BonusEnergyAttack',description='e4',amount=3,stacks=self.debuffStacks)
+            self.addStat('BonusEnergyAttack',description='e4',amount=15.0,type=['talent'])
         
         # Gear
         self.equipGear()
@@ -51,7 +43,7 @@ class DrRatio(BaseCharacter):
     def applyTalentBuff(self, team:list, uptime:float=1.0):
         for character in team:
             character:BaseCharacter
-            character.addStat('DMG',description='Dr Ratio Trace',amount=0.1, uptime=uptime)
+            character.addStat('DMG',description='Dr Ratio Trace',amount=min(0.50,0.10*self.debuffStacks), uptime=uptime)
         
     def useBasic(self):
         retval = BaseEffect()

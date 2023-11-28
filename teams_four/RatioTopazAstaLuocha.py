@@ -20,8 +20,8 @@ from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditr
 
 def DrRatioTopazAstaLuocha(config):
     #%% DrRatio Topaz Asta Luocha Characters
-    DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
-                                    substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
+    DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.imaginary'],
+                                    substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = WastelanderOfBanditryDesert2pc(),
                                     relicsettwo = WastelanderOfBanditryDesert4pc(),

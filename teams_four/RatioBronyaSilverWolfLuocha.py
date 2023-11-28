@@ -21,8 +21,8 @@ from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditr
 
 def DrRatioBronyaSilverWolfLuocha(config):
     #%% DrRatio SilverWolf Bronya Luocha Characters
-    DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
-                                    substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'ATK.flat': 3}),
+    DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.imaginary'],
+                                    substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'ATK.flat': 3}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = WastelanderOfBanditryDesert2pc(),
                                     relicsettwo = WastelanderOfBanditryDesert4pc(),
