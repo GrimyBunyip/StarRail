@@ -42,6 +42,7 @@ class Serval(BaseCharacter):
         retval.damage += self.getTotalMotionValue('shockedBasic',type) if shocked else 0.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type) + 0.3 if (shocked and self.eidolon >= 6) else 0.0
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = ( 30.0 * self.numEnemies if shocked else 30.0 ) * self.getBreakEfficiency(type)
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * self.getER(type)
@@ -58,6 +59,7 @@ class Serval(BaseCharacter):
         retval.damage += self.getTotalMotionValue('shockedSkill',type) if shocked else 0.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type) + 0.3 if (shocked and self.eidolon >= 6) else 0.0
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * self.getBreakEfficiency(type)
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * self.getER(type)
@@ -73,6 +75,7 @@ class Serval(BaseCharacter):
         retval.damage += self.getTotalMotionValue('shockedUltimate',type) if shocked else 0.0
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type) + 0.3 if (shocked and self.eidolon >= 6) else 0.0
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 60.0 * self.numEnemies * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) + 4.0 if (shocked and self.eidolon >= 2) else 0.0 ) * self.getER(type)
@@ -86,6 +89,7 @@ class Serval(BaseCharacter):
         retval.damage = self.getTotalMotionValue('dot',type)
         # no crits on dots
         retval.damage *= self.getDmg(type) + ( 0.3 if (shocked and self.eidolon >= 6) else 0.0 )
+        retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.energy = ( 0.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = 0.0 - self.getAdvanceForward(type)
