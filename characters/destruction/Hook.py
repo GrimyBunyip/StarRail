@@ -32,8 +32,8 @@ class Hook(BaseCharacter):
         self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
         
         # Talents
-        self.addStat('AdvanceForward',description='trace',type=['ultimate'],amount=0.2)
-        self.addStat('BonusEnergyAttack',description='trace',type=['ultimate'],amount=5.0)
+        self.addStat('AdvanceForward',description='Hook Trace',type=['ultimate'],amount=0.2)
+        self.addStat('BonusEnergyAttack',description='Hook Trace',type=['ultimate'],amount=5.0)
         
         # Eidolons
         if self.eidolon >= 1:

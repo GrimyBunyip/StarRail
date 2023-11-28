@@ -23,7 +23,7 @@ class Asta(BaseCharacter):
         self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=0.5, eidolonThreshold=3, eidolonBonus=0.05)]
 
         # Talents
-        self.addStat('DEF.percent',description='trace',amount=0.06,uptime=self.chargingStacks)
+        self.addStat('DEF.percent',description='ASta Trace',amount=0.06,uptime=self.chargingStacks)
 
         # Eidolons
         if self.eidolon >= 4 and self.chargingStacks > 2.0:
@@ -35,7 +35,7 @@ class Asta(BaseCharacter):
     def applyTraceBuff(self,team:list):
         for character in team:
             character:BaseCharacter
-            character.addStat('DMG.fire',description='trace',amount=0.18)
+            character.addStat('DMG.fire',description='Asta Trace',amount=0.18)
             
     def applyUltBuff(self,team:list,uptime:float):
         for character in team:

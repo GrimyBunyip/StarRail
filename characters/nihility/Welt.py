@@ -28,8 +28,8 @@ class Welt(BaseCharacter):
         
         # Talents
         self.addStat('Vulnerability',description='ultimate',amount=0.12,uptime=self.ultUptime)
-        self.addStat('BonusEnergyAttack',description='trace',amount=10.0,type=['ultimate'])
-        self.addStat('DMG',description='trace',amount=0.20,uptime=config['weaknessBrokenUptime'])
+        self.addStat('BonusEnergyAttack',description='Welt Trace',amount=10.0,type=['ultimate'])
+        self.addStat('DMG',description='Welt Trace',amount=0.20,uptime=config['weaknessBrokenUptime'])
         
         # Eidolons
         if self.eidolon >= 2:

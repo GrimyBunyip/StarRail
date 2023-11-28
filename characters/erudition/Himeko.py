@@ -36,8 +36,8 @@ class Himeko(BaseCharacter):
         self.motionValueDict['dot'] = [BaseMV(area='all', stat='atk', value=0.3)]
 
         # Talents
-        self.addStat('DMG',description='trace',amount=0.2,uptime=self.magmaUptime)
-        self.addStat('CR',description='trace',amount=0.15,uptime=self.benchmarkUptime)
+        self.addStat('DMG',description='Himeko Trace',amount=0.2,uptime=self.magmaUptime)
+        self.addStat('CR',description='Himeko Trace',amount=0.15,uptime=self.benchmarkUptime)
         
         # Eidolons
         if self.eidolon >= 1:

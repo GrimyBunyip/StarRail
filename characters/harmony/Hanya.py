@@ -25,7 +25,7 @@ class Hanya(BaseCharacter):
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=2.4, eidolonThreshold=3, eidolonBonus=0.24)]
 
         # Talents
-        self.addStat('BonusEnergyAttack',description='trace',amount=2,stacks=self.burdenTriggers,type=['skill'])
+        self.addStat('BonusEnergyAttack',description='Hanya Trace',amount=2,stacks=self.burdenTriggers,type=['skill'])
 
         # Eidolons
         if self.eidolon >= 2:

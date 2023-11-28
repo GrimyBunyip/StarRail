@@ -66,7 +66,7 @@ class SilverWolf(BaseCharacter):
             character.addStat('DefShred',description='talent',
                             amount=0.088 if self.eidolon >= 3 else 0.08,
                             uptime=talentDefUptime)
-            character.addStat('ResPen',description='trace',amount=0.03,uptime=a6Uptime)
+            character.addStat('ResPen',description='Silver Wolf Trace',amount=0.03,uptime=a6Uptime)
 
     def useBasic(self):
         retval = BaseEffect()

@@ -54,7 +54,7 @@ class Lunae(BaseCharacter):
                                             BaseMV(area='adjacent', stat='atk', value=1.4*0.4, eidolonThreshold=5, eidolonBonus=0.112*0.4),]
         
         # Talents
-        self.addStat('CD',description='trace',amount=0.24,uptime=self.joltAnewUptime)
+        self.addStat('CD',description='Lunae Trace',amount=0.24,uptime=self.joltAnewUptime)
         
         # Eidolons
         if self.eidolon >= 6:

@@ -28,7 +28,7 @@ class Sampo(BaseCharacter):
         self.motionValueDict['dote6'] = [BaseMV(area='single', stat='atk', value=0.52+0.15, eidolonThreshold=5, eidolonBonus=0.052)]
         
         # Talents
-        self.addStat('BonusEnergyAttack',description='trace',amount=10.0,type=['ultimate'])
+        self.addStat('BonusEnergyAttack',description='Sampo Trace',amount=10.0,type=['ultimate'])
         
         # Eidolons
         

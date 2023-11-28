@@ -16,9 +16,5 @@ class RutilantArena(RelicSet):
                                 amount=0.08)
         char.addStat('DMG',description=self.shortname,
                                 amount=0.20,
-                                type=['basic'],
-                                uptime=self.uptime)
-        char.addStat('DMG',description=self.shortname,
-                                amount=0.20,
-                                type=['skill'],
+                                type=['basic','skill'],
                                 uptime=self.uptime)

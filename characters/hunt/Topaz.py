@@ -25,8 +25,8 @@ class Topaz(BaseCharacter):
         self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.15)]
         
         # Talents
-        self.addStat('DMG',description='trace',amount=0.15) # Financial Turmoil
-        self.addStat('BonusEnergyAttack',description='trace',amount=10.0,type=['windfall'])
+        self.addStat('DMG',description='Topaz Trace',amount=0.15) # Financial Turmoil
+        self.addStat('BonusEnergyAttack',description='Topaz Trace',amount=10.0,type=['windfall'])
         
         self.addStat('CD',description='windfall',amount=0.25,type=['windfall'])
 

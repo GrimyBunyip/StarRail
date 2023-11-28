@@ -27,8 +27,8 @@ class Seele(BaseCharacter):
         self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=4.25, eidolonThreshold=5, eidolonBonus=0.34)]
 
         # Talents
-        self.addStat('SPD.percent',description='trace',amount=0.25,uptime=self.sheathedBladeUptime)
-        self.addStat('AdvanceForward',description='trace',amount=0.20,type=['basic'])
+        self.addStat('SPD.percent',description='Seele Trace',amount=0.25,uptime=self.sheathedBladeUptime)
+        self.addStat('AdvanceForward',description='Seele Trace',amount=0.20,type=['basic'])
 
         # Eidolons
         if self.eidolon >= 1:

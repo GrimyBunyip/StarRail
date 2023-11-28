@@ -39,11 +39,11 @@ class Luka(BaseCharacter):
         
         # Talents
         
-        self.addStat('BonusEnergyAttack',description='trace',amount=6.0,type=['ultimate'])
-        self.addStat('BonusEnergyAttack',description='trace',amount=3.0,type=['basic'])
-        self.addStat('BonusEnergyAttack',description='trace',amount=-3.0,type=['enhancedBasic']) # enhanced basic does not proc cycle braking
-        self.addStat('BonusEnergyAttack',description='trace',amount=3.0,type=['skill'])
-        self.addStat('BonusEnergyAttack',description='trace',amount=3.0,type=['skill'],uptime=self.e2uptime)
+        self.addStat('BonusEnergyAttack',description='Luka Trace',amount=6.0,type=['ultimate'])
+        self.addStat('BonusEnergyAttack',description='Luka Trace',amount=3.0,type=['basic'])
+        self.addStat('BonusEnergyAttack',description='Luka Trace',amount=-3.0,type=['enhancedBasic']) # enhanced basic does not proc cycle braking
+        self.addStat('BonusEnergyAttack',description='Luka Trace',amount=3.0,type=['skill'])
+        self.addStat('BonusEnergyAttack',description='Luka Trace',amount=3.0,type=['skill'],uptime=self.e2uptime)
         
         # Eidolons
         if self.eidolon >= 1:

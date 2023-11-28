@@ -33,8 +33,8 @@ class Herta(BaseCharacter):
         self.motionValueDict['talent'] = [BaseMV(area='all', stat='atk', value=0.40, eidolonThreshold=5, eidolonBonus=0.03)]
         
         # Talents
-        self.addStat('DMG',description='trace',amount=0.2,type=['ultimate'],uptime=self.frozenUptime)
-        self.addStat('DMG',description='trace',amount=0.45,type=['skill'],uptime=self.hpThresholdUptime)
+        self.addStat('DMG',description='Herta Trace',amount=0.2,type=['ultimate'],uptime=self.frozenUptime)
+        self.addStat('DMG',description='Herta Trace',amount=0.45,type=['skill'],uptime=self.hpThresholdUptime)
         
         # Eidolons
         if self.eidolon >= 2:

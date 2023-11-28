@@ -31,7 +31,7 @@ class Qingque(BaseCharacter):
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.16)]
         
         # Talents
-        self.addStat('SPD.percent',description='trace',amount=0.1,uptime=self.winningHandUptime)
+        self.addStat('SPD.percent',description='Qingque Trace',amount=0.1,uptime=self.winningHandUptime)
         self.addStat('ATK.percent',description='talent',
                      amount=0.792 if self.eidolon >= 3 else 0.72,
                      type=['enhancedBasic'])

@@ -55,7 +55,7 @@ def LunaeRuanMeiTingyunLuocha(config):
     # RuanMei Debuffs, max skill uptime
     RuanMeiCharacter.applyWeaknessModifiers(team=team)
     RuanMeiCharacter.applyPassiveBuffs(team=team)
-    RuanMeiCharacter.applySkillBuff(team=team,uptime=2.0/3.0)
+    RuanMeiCharacter.applySkillBuff(team=team,uptime=3.0/3.0)
     RuanMeiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
             
     # Tingyun Messenger Buff

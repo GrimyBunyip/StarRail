@@ -71,7 +71,7 @@ def KafkaGuinaifenAstaLuocha(config):
     AstaCharacter.applyUltBuff([LuochaCharacter],uptime=2.0/4.0)
 
     # Asta Ignite Buff
-    GuinaifenCharacter.addStat('DMG.fire',description='trace',amount=0.18)
+    GuinaifenCharacter.addStat('DMG.fire',description='Kafka Trace',amount=0.18)
 
     #%% Print Statements
     for character in team:

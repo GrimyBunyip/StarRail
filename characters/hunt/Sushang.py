@@ -35,9 +35,9 @@ class Sushang(BaseCharacter):
                      amount=0.21 if self.eidolon >= 5 else 0.2,
                      stacks=weaknessBrokenStacks if self.eidolon >= 6 else 1.0,
                      uptime=self.weaknessBrokenUptime)
-        self.addStat('DMG',description='trace',amount=0.0249999996740371,type=['swordStance'],stacks=self.riposteStacks)
-        self.addStat('AdvanceForward',description='trace',amount=0.15,type=['basic'],uptime=self.weaknessBrokenUptime)
-        self.addStat('AdvanceForward',description='trace',amount=0.15,type=['skill'],uptime=self.weaknessBrokenUptime)
+        self.addStat('DMG',description='Sushang Trace',amount=0.0249999996740371,type=['swordStance'],stacks=self.riposteStacks)
+        self.addStat('AdvanceForward',description='Sushang Trace',amount=0.15,type=['basic'],uptime=self.weaknessBrokenUptime)
+        self.addStat('AdvanceForward',description='Sushang Trace',amount=0.15,type=['skill'],uptime=self.weaknessBrokenUptime)
         self.addStat('AdvanceForward',description='ultimate',amount=1.0,type=['ultimate'])
 
         # Eidolons

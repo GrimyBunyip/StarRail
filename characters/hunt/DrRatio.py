@@ -51,7 +51,7 @@ class DrRatio(BaseCharacter):
     def applyTalentBuff(self, team:list, uptime:float=1.0):
         for character in team:
             character:BaseCharacter
-            character.addStat('DMG',description='trace',amount=0.1, uptime=uptime)
+            character.addStat('DMG',description='Dr Ratio Trace',amount=0.1, uptime=uptime)
         
     def useBasic(self):
         retval = BaseEffect()

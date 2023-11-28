@@ -72,8 +72,8 @@ def JingliuRuanMeiBladeLuocha(config):
         character.print()
 
     #%% Jingliu RuanMei Blade Luocha Rotations
-    numBasicRuanMei = 1.5
-    numSkillRuanMei = 1.5
+    numBasicRuanMei = 2
+    numSkillRuanMei = 1
     RuanMeiRotation = [RuanMeiCharacter.useBasic() * numBasicRuanMei,
                        RuanMeiCharacter.useSkill() * numSkillRuanMei,
                     RuanMeiCharacter.useUltimate(),

@@ -43,7 +43,7 @@ class Blade(BaseCharacter):
                                         BaseMV(area='all', stat='hp', value=1.1, eidolonThreshold=3, eidolonBonus=0.11)]
         
         # Talents
-        self.addStat('DMG',description='trace',type=['followup'],amount=0.2)
+        self.addStat('DMG',description='Blade Trace',type=['followup'],amount=0.2)
         self.addStat('DMG',description='hellscape',
                      amount=0.456 if self.eidolon >= 3 else 0.40,
                      uptime=self.hellscapeUptime)

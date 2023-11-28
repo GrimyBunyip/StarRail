@@ -30,7 +30,7 @@ class Clara(BaseCharacter):
         self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.16)]        
         
         # Talents
-        self.addStat('DMG',description='trace',type=['followup'],amount=0.3)
+        self.addStat('DMG',description='Clara Trace',type=['followup'],amount=0.3)
         
         # Eidolons
         # handle handle e1 manually, by using the argument in the useSkill call

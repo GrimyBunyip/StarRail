@@ -22,7 +22,7 @@ class Fuxuan(BaseCharacter):
         self.motionValueDict['ultimateE6'] = [BaseMV(area='all', stat='hp', value=1.2)]
 
         # Talents
-        self.addStat('BonusEnergyTurn',description='trace',amount=20.0,type=['skill'])
+        self.addStat('BonusEnergyTurn',description='Fuxuan Trace',amount=20.0,type=['skill'])
 
         # Eidolons
         

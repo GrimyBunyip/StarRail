@@ -24,7 +24,7 @@ class Bronya(BaseCharacter):
         self.addStat('AdvanceForward',description='talent',
                      amount=0.33 if self.eidolon >= 3 else 0.3,
                      type=['basic'])
-        self.addStat('CR',description='trace',amount=1.0,type=['basic'])
+        self.addStat('CR',description='Bronya Trace',amount=1.0,type=['basic'])
 
         # Eidolons
         
@@ -34,7 +34,7 @@ class Bronya(BaseCharacter):
     def applyTraceBuff(self,team:list):
         for character in team:
             character:BaseCharacter
-            character.addStat('DMG',description='trace',amount=0.1)
+            character.addStat('DMG',description='Bronya Trace',amount=0.1)
              
     def applyUltBuff(self,character:BaseCharacter,uptime:float):
         character.addStat('ATK.percent',description='Bronya Ult',

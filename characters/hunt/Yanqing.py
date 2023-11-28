@@ -38,8 +38,8 @@ class Yanqing(BaseCharacter):
         self.motionValueDict['freezeDot'] = [BaseMV(area='single', stat='atk', value=0.5, eidolonThreshold=5, eidolonBonus=0.05)]
         
         # Talents
-        self.addStat('SPD.percent',description='trace',amount=0.1,uptime=self.gentleBladeUptime) # Frost Favors the Brave
-        self.addStat('RES',description='trace',amount=0.2,uptime=self.soulsteelUptime) # Frost Favors the Brave
+        self.addStat('SPD.percent',description='Yanqing Trace',amount=0.1,uptime=self.gentleBladeUptime) # Frost Favors the Brave
+        self.addStat('RES',description='Yanqing Trace',amount=0.2,uptime=self.soulsteelUptime) # Frost Favors the Brave
         self.addStat('CR',description='soulsteel',
                      amount=0.22 if self.eidolon >= 5 else 0.20,
                      uptime=self.soulsteelUptime)

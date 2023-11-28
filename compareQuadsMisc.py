@@ -204,7 +204,7 @@ for character in [SilverWolfCharacter, LuochaCharacter]:
     character.addStat('DefShred',description='talent',
                     amount=0.088 if SilverWolfCharacter.eidolon >= 3 else 0.08,
                     uptime=talentDefUptime)
-    character.addStat('ResPen',description='trace',amount=0.03,uptime=a6Uptime)
+    character.addStat('ResPen',description='Trace',amount=0.03,uptime=a6Uptime)
 
 # Bronya Messenger Buff
 for character in [SeeleCharacter, SilverWolfCharacter, LuochaCharacter]:
@@ -245,7 +245,7 @@ SeeleCharacter.addStat('DefShred',description='ultimate',
 SeeleCharacter.addStat('DefShred',description='talent',
                 amount=0.088 if SilverWolfCharacter.eidolon >= 3 else 0.08,
                 uptime=talentDefUptime)
-SeeleCharacter.addStat('ResPen',description='trace',amount=0.03,uptime=a6Uptime)
+SeeleCharacter.addStat('ResPen',description='Trace',amount=0.03,uptime=a6Uptime)
 
 SeeleRotation += [ # endTurn needed to factor in resurgence buff
     SeeleCharacter.useBasic() * 1,

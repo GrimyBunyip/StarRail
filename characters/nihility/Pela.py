@@ -28,7 +28,7 @@ class Pela(BaseCharacter):
         
         # Talents
         self.addStat('BonusEnergyAttack',description='talent',amount=11.0 if self.eidolon >= 5 else 10.0)
-        self.addStat('DMG',description='trace',amount=0.2,uptime=self.bashUptime)
+        self.addStat('DMG',description='Pela Trace',amount=0.2,uptime=self.bashUptime)
         self.addStat('EHR',description='talent',amount=0.1)
         
         # Eidolons

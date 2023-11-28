@@ -29,7 +29,7 @@ class Guinaifen(BaseCharacter):
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.096)]
         
         # Talents
-        self.addStat('DMG',description='trace',amount=0.2,uptime=self.burnUptime)
+        self.addStat('DMG',description='Guinaifen Trace',amount=0.2,uptime=self.burnUptime)
         
         # Eidolons
         if self.eidolon >= 2:

@@ -32,7 +32,7 @@ class Xueyi(BaseCharacter):
         self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=0.9, eidolonThreshold=5, eidolonBonus=0.99)]
         
         # Talents
-        self.addStat('DMG',description='trace',amount=0.10,uptime=demoralizationUptime)
+        self.addStat('DMG',description='Xueyi Trace',amount=0.10,uptime=demoralizationUptime)
         
         # Eidolons
         if self.eidolon >= 1:
@@ -44,7 +44,7 @@ class Xueyi(BaseCharacter):
         self.equipGear()
         
         # apply Xueyi buff after we calcualte other buffs. 
-        self.addStat('DMG',description='trace',amount=min(2.4,self.getTotalStat('BreakEffect')))
+        self.addStat('DMG',description='Xueyi Trace',amount=min(2.4,self.getTotalStat('BreakEffect')))
 
     def useBasic(self):
         retval = BaseEffect()

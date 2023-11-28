@@ -32,8 +32,8 @@ class DanHeng(BaseCharacter):
         self.motionValueDict['ultimateSlowed'] = [BaseMV(area='single', stat='atk', value=4.0+1.2, eidolonThreshold=5, eidolonBonus=0.32+0.096)]
 
         # Talents
-        self.addStat('SPD.percent',description='trace',amount=0.20,uptime=self.fasterThanLightUptime)
-        self.addStat('Taunt',description='trace',amount=-0.5,uptime=self.hiddenDragonUptime)
+        self.addStat('SPD.percent',description='Dan Heng Trace',amount=0.20,uptime=self.fasterThanLightUptime)
+        self.addStat('Taunt',description='Dan Heng Trace',amount=-0.5,uptime=self.hiddenDragonUptime)
         self.addStat('ResPen',description='talent',
                     amount=0.396 if self.eidolon >= 5 else 0.36,
                     uptime=self.talentUptime)

@@ -30,7 +30,7 @@ class Arlan(BaseCharacter):
                                             BaseMV(area='adjacent', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256)]
         
         # Talents
-        self.addStat('DMG',description='trace',
+        self.addStat('DMG',description='Arlan Trace',
                      amount=min(1.0, (0.792 if self.eidolon >= 5 else 0.72) * self.percentHP))
         
         # Eidolons

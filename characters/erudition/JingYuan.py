@@ -31,8 +31,8 @@ class JingYuan(BaseCharacter):
         self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=0.66, eidolonThreshold=5, eidolonBonus=0.066)]
         
         # Talents
-        self.addStat('CR',description='trace',amount=0.1,uptime=self.warMarshalUptime)
-        self.addStat('CD',description='trace',amount=0.25,type=['talent'],uptime=self.battaliaCrushUptime)
+        self.addStat('CR',description='Jingyuan Trace',amount=0.1,uptime=self.warMarshalUptime)
+        self.addStat('CD',description='Jingyuan Trace',amount=0.25,type=['talent'],uptime=self.battaliaCrushUptime)
         
         # Eidolons
         if self.eidolon >= 2:

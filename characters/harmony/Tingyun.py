@@ -25,12 +25,12 @@ class Tingyun(BaseCharacter):
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
 
         # Talents
-        self.addStat('SPD.percent',description='trace',amount=0.20,uptime=self.speedUptime)
-        self.addStat('DMG',description='trace',amount=0.40,type=['basic'])
+        self.addStat('SPD.percent',description='Tingyun Trace',amount=0.20,uptime=self.speedUptime)
+        self.addStat('DMG',description='Tingyun Trace',amount=0.40,type=['basic'])
 
         # Eidolons
         if self.eidolon >= 2:
-            self.addStat('BonusEnergyTurn',description='trace',amount=5.0)
+            self.addStat('BonusEnergyTurn',description='Tingyun Trace',amount=5.0)
         
         # Gear
         self.equipGear()
