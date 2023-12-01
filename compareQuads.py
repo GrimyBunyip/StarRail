@@ -9,6 +9,7 @@ from teams_four.BladeBronyaPelaFuxuan import BladeBronyaPelaFuxuan
 from teams_four.BladeBronyaPelaLuocha import BladeBronyaPelaLuocha
 from teams_four.BladeBronyaPelaLynx import BladeBronyaPelaLynx
 from teams_four.BladeBronyaRuanMeiFuxuan import BladeBronyaRuanMeiFuxuan
+from teams_four.BladeBronyaRuanMeiLuocha import BladeBronyaRuanMeiLuocha
 from teams_four.ClaraSilverWolfPelaLuocha import ClaraSilverWolfPelaLuocha
 from teams_four.ClaraTingyunPelaLuocha import ClaraTingyunPelaLuocha
 from teams_four.ClaraTingyunTopazLuocha import ClaraTingyunTopazLuocha
@@ -37,6 +38,7 @@ from teams_four.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
 from teams_four.RatioBronyaSilverWolfLuocha import DrRatioBronyaSilverWolfLuocha
 from teams_four.RatioTopazAstaLuocha import DrRatioTopazAstaLuocha
 from teams_four.RatioHanyaSilverWolfLuocha import DrRatioHanyaSilverWolfLuocha
+from teams_four.RatioTopazRuanMeiLuocha import DrRatioTopazRuanMeiLuocha
 from teams_four.SeeleMaxSilverWolfBronyaLuocha import SeeleMaxSilverWolfBronyaLuocha
 from teams_four.SeeleMidSilverWolfBronyaFuxuan import SeeleMidSilverWolfBronyaFuxuan
 from teams_four.SeeleMidSilverWolfBronyaLuocha import SeeleMidSilverWolfBronyaLuocha
@@ -52,27 +54,29 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
-#visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
-#visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
+visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
+visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
 visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
 #visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
 #visualizationList.append(ArgentiBronyaPelaHuohuo(config))
-#visualizationList.append(BladeBronyaPelaFuxuan(config))
-visualizationList.append(BladeBronyaRuanMeiFuxuan(config))
-#visualizationList.append(BladeBronyaPelaLuocha(config))
+visualizationList.append(BladeBronyaPelaFuxuan(config))
+#visualizationList.append(BladeBronyaRuanMeiFuxuan(config))
+visualizationList.append(BladeBronyaPelaLuocha(config))
+visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 #visualizationList.append(BladeBronyaPelaLynx(config))
 #visualizationList.append(ClaraSilverWolfPelaLuocha(config))
 #visualizationList.append(ClaraTingyunPelaLuocha(config))
 #visualizationList.append(ClaraTingyunTopazLuocha(config))
 visualizationList.append(ClaraTopazAstaLuocha(config))
 visualizationList.append(DrRatioTopazAstaLuocha(config))
+visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
 visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
 #visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
 #visualizationList.append(ClaraTopazHanyaLuocha(config))
 visualizationList.append(JingliuBronyaPelaLuocha(config))
 visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 visualizationList.append(JingliuRuanMeiBladeLuocha(config))
-visualizationList.append(JingliuHanyaBladeHuohuo(config))
+#visualizationList.append(JingliuHanyaBladeHuohuo(config))
 #visualizationList.append(JingyuanTingyunAstaLuocha(config))
 visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
 #visualizationList.append(JingyuanTingyunTopazLuocha(config))

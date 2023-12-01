@@ -58,10 +58,6 @@ def ArgentiHanyaRuanMeiHuohuo(config):
     # Hanya Messenger 4 pc
     for character in [ArgentiCharacter, RuanMeiCharacter, HuohuoCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-        
-    # RuanMei Messenger 4 pc
-    for character in [ArgentiCharacter, HanyaCharacter, HuohuoCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
     
     # Hanya Buffs
     HanyaCharacter.applyBurdenBuff(team)

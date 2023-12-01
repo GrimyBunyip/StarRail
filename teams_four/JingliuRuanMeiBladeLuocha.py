@@ -38,7 +38,7 @@ def JingliuRuanMeiBladeLuocha(config):
 
     BladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'HP.percent'],
                         substats = {'CR': 12, 'CD': 8, 'SPD.flat': 5, 'HP.percent': 3}),
-                        lightcone = ASecretVow(**config),
+                        lightcone = ASecretVow(uptime=0.0,**config),
                         relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = InertSalsotto(),
                         **config)
 
