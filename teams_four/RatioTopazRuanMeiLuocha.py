@@ -29,7 +29,7 @@ def DrRatioTopazRuanMeiLuocha(config):
                         **config)
     
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
-                                    substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
+                                    substats = {'CD': 6, 'CR': 11, 'ATK.percent': 3, 'SPD.flat': 8}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = WastelanderOfBanditryDesert2pc(),
                                     relicsettwo = WastelanderOfBanditryDesert4pc(),
@@ -37,7 +37,7 @@ def DrRatioTopazRuanMeiLuocha(config):
                                     **config)
 
     TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'CR', 'ATK.percent'],
-                                    substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
+                                    substats = {'CR': 7, 'CD': 12, 'ATK.percent': 3, 'SPD.flat': 4}),
                                     lightcone = Swordplay(**config),
                                     relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
                                     **config)
