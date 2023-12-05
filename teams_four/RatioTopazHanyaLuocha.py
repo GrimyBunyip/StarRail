@@ -2,7 +2,7 @@ from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Luocha import Luocha
 from characters.hunt.DrRatio import DrRatio
-from characters.harmony.Asta import Asta
+from characters.harmony.Hanya import Hanya
 from characters.hunt.Topaz import Topaz
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
@@ -11,31 +11,32 @@ from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.hunt.Swordplay import Swordplay
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
+from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
-def DrRatioTopazAstaLuocha(config):
-    #%% DrRatio Topaz Asta Luocha Characters
-    DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.imaginary'],
-                                    substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
+def DrRatioTopazHanyaLuocha(config):
+    #%% DrRatio Topaz Hanya Luocha Characters
+    DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
+                                    substats = {'CD': 8, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = WastelanderOfBanditryDesert2pc(),
                                     relicsettwo = WastelanderOfBanditryDesert4pc(),
-                                    planarset = FirmamentFrontlineGlamoth(stacks=2),
+                                    planarset = InertSalsotto(),
                                     **config)
 
     TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'ATK.percent', 'CR', 'ATK.percent'],
-                                    substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
+                                    substats = {'CR': 8, 'CD': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
                                     lightcone = Swordplay(**config),
-                                    relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
+                                    relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = InertSalsotto(),
                                     **config)
 
-    AstaCharacter = Asta(RelicStats(mainstats = ['ER', 'ATK.percent', 'CR', 'ATK.percent'],
-                                    substats = {'CR': 8, 'CD': 12, 'HP.percent': 3, 'ATK.percent': 5}),
+    HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
+                                    substats = {'CR': 8, 'SPD.flat': 12, 'CD': 5, 'ATK.percent': 3}),
                                     lightcone = MemoriesOfThePast(**config),
-                                    relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(uptime=0.5), planarset = BrokenKeel(),
+                                    relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                                     **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
@@ -44,26 +45,23 @@ def DrRatioTopazAstaLuocha(config):
                                     relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                                     **config)
     
-    team = [DrRatioCharacter, TopazCharacter, AstaCharacter, LuochaCharacter]
+    team = [DrRatioCharacter, TopazCharacter, HanyaCharacter, LuochaCharacter]
 
-    #%% DrRatio Topaz Asta Luocha Team Buffs
-    for character in [TopazCharacter, DrRatioCharacter, AstaCharacter]:
+    #%% DrRatio Topaz Hanya Luocha Team Buffs
+    for character in [TopazCharacter, DrRatioCharacter, HanyaCharacter]:
         character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
     for character in [TopazCharacter, DrRatioCharacter, LuochaCharacter]:
-        character.addStat('CD',description='Broken Keel from Asta',amount=0.1)
+        character.addStat('CD',description='Broken Keel from Hanya',amount=0.1)
 
     # messenger 4 pc buffs:
     DrRatioCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
     TopazCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
     LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5*3/4)
 
-    # Asta Buffs
-    AstaCharacter.applyChargingBuff(team)
-    AstaCharacter.applyTraceBuff(team)
-
-    # Luocha's uptime is lower because he is very fast with the multiplication light cone
-    AstaCharacter.applyUltBuff([TopazCharacter,DrRatioCharacter,AstaCharacter],uptime=1.0)
-    AstaCharacter.applyUltBuff([LuochaCharacter],uptime=0.75)
+    # Hanya Buffs
+    HanyaCharacter.applyBurdenBuff(team)
+    HanyaCharacter.applyUltBuff(DrRatioCharacter,uptime=2.0/3.0)
+    HanyaCharacter.applyUltBuff(TopazCharacter,uptime=2.0/3.0)
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff([TopazCharacter,DrRatioCharacter],uptime=1.0)
@@ -75,7 +73,7 @@ def DrRatioTopazAstaLuocha(config):
     for character in team:
         character.print()
 
-    #%% DrRatio Topaz Asta Luocha Rotations
+    #%% DrRatio Topaz Hanya Luocha Rotations
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
 
@@ -88,8 +86,8 @@ def DrRatioTopazAstaLuocha(config):
             DrRatioCharacter.useTalent() * numTalentRatio,
     ]
 
-    numBasicTopaz = 3.6
-    numSkillTopaz = 1.25
+    numBasicTopaz = 0.0
+    numSkillTopaz = 3.83
     TopazRotation = [ # 130 max energy
             TopazCharacter.useBasic() * numBasicTopaz,
             TopazCharacter.useSkill() * numSkillTopaz,
@@ -100,10 +98,12 @@ def DrRatioTopazAstaLuocha(config):
     topazTurns = sum([x.actionvalue for x in TopazRotation])
     numbyTurns = topazTurns * 80 / TopazCharacter.getTotalStat('SPD')
     numbyAdvanceForwards = topazTurns / 2 + numTalentRatio    
-    TopazRotation.append(TopazCharacter.useTalent(windfall=False) * (numbyTurns + numbyAdvanceForwards)) # about 1 talent per basic/skill
+    TopazRotation.append(TopazCharacter.useTalent(windfall=False) * (numbyTurns + numbyAdvanceForwards*0.8)) # about 1 talent per basic/skill, 0.8 on advances because I want to assume some desync with Hanya in the mix
 
-    AstaRotation = [AstaCharacter.useSkill() * 2,
-                    AstaCharacter.useUltimate() * 1,]
+    numHanyaSkill = 3
+    numHanyaUlt = 1
+    HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
+                    HanyaCharacter.useUltimate() * numHanyaUlt]
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
                     LuochaCharacter.useUltimate() * 1,
@@ -111,35 +111,35 @@ def DrRatioTopazAstaLuocha(config):
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
     LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
 
-    #%% DrRatio Topaz Asta Luocha Rotation Math
+    #%% DrRatio Topaz Hanya Luocha Rotation Math
 
     totalDrRatioEffect = sumEffects(DrRatioRotation)
     totalTopazEffect = sumEffects(TopazRotation)
-    totalAstaEffect = sumEffects(AstaRotation)
+    totalHanyaEffect = sumEffects(HanyaRotation)
     totalLuochaEffect = sumEffects(LuochaRotation)
 
     DrRatioRotationDuration = totalDrRatioEffect.actionvalue * 100.0 / DrRatioCharacter.getTotalStat('SPD')
     TopazRotationDuration = totalTopazEffect.actionvalue * 100.0 / TopazCharacter.getTotalStat('SPD')
-    AstaRotationDuration = totalAstaEffect.actionvalue * 100.0 / AstaCharacter.getTotalStat('SPD')
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')
     print('DrRatio: ',DrRatioRotationDuration)
     print('Topaz: ',TopazRotationDuration)
-    print('Asta: ',AstaRotationDuration)
+    print('Hanya: ',HanyaRotationDuration)
     print('Luocha: ',LuochaRotationDuration)
 
     # Scale other character's rotation
     TopazRotation = [x * DrRatioRotationDuration / TopazRotationDuration for x in TopazRotation]
-    AstaRotation = [x * DrRatioRotationDuration / AstaRotationDuration for x in AstaRotation]
+    HanyaRotation = [x * DrRatioRotationDuration / HanyaRotationDuration for x in HanyaRotation]
     LuochaRotation = [x * DrRatioRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
     DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.0f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
     TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
-    AstaEstimate = DefaultEstimator(f'Slow Asta: 2E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
-                                    AstaRotation, AstaCharacter, config)
+    HanyaEstimate = DefaultEstimator(f'Hanya: {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition:.0f} {HanyaCharacter.lightcone.name}, 12 Spd Substats', 
+                                    HanyaRotation, HanyaCharacter, config)
     LuochaEstimate = DefaultEstimator(f'Luocha: 3N 1E 1Q, S{LuochaCharacter.lightcone.superposition:d} {LuochaCharacter.lightcone.name}', 
                                     LuochaRotation, LuochaCharacter, config)
 
-    return([DrRatioEstimate, TopazEstimate, LuochaEstimate, AstaEstimate])
+    return([DrRatioEstimate, TopazEstimate, LuochaEstimate, HanyaEstimate])
 

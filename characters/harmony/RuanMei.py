@@ -44,13 +44,13 @@ class RuanMei(BaseCharacter):
                               amount=max(0.0,min(0.36,(self.getTotalStat('BreakEffect')-1.20) * 0.60)),
                               uptime=self.weaknessBrokenUptime)
             if character.name != 'Ruan Mei;':
-                character.addStat('SPD.percent',description='talent',amount=0.156 if self.eidolon >= 3 else 0.15)
+                character.addStat('SPD.percent',description='talent',amount=0.104 if self.eidolon >= 3 else 0.10)
              
     def applyUltBuff(self,team:list,uptime:float):
         for character in team:
             character:BaseCharacter
             character.addStat('ResPen', description='Ruan Mei Ult', 
-                              amount=0.324 if self.eidolon >= 3 else 0.30, uptime=uptime)
+                              amount=0.27 if self.eidolon >= 3 else 0.25, uptime=uptime)
         
     def applySkillBuff(self,team:list,uptime:float):
         for character in team:
@@ -99,6 +99,6 @@ class RuanMei(BaseCharacter):
         retval = BaseEffect()
         type = ['talent']
         breakEffect = self.useBreak() # scale the damage to the weakness break uptime
-        retval.damage = (1.1 if self.eidolon >= 3 else 1.0) * breakEffect.damage * self.weaknessBrokenUptime
+        retval.damage = (1.32 if self.eidolon >= 3 else 1.2) * breakEffect.damage * self.weaknessBrokenUptime
         self.addDebugInfo(retval,type)
         return retval

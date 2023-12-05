@@ -36,8 +36,10 @@ from teams_four.LunaeTingyunYukongLuocha import LunaeTingyunYukongLuocha
 from teams_four.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
 from teams_four.RatioBronyaSilverWolfLuocha import DrRatioBronyaSilverWolfLuocha
+from teams_four.RatioRuanMeiSilverWolfLuocha import DrRatioRuanMeiSilverWolfLuocha
 from teams_four.RatioTopazAstaLuocha import DrRatioTopazAstaLuocha
 from teams_four.RatioHanyaSilverWolfLuocha import DrRatioHanyaSilverWolfLuocha
+from teams_four.RatioTopazHanyaLuocha import DrRatioTopazHanyaLuocha
 from teams_four.RatioTopazRuanMeiLuocha import DrRatioTopazRuanMeiLuocha
 from teams_four.SeeleMaxSilverWolfBronyaLuocha import SeeleMaxSilverWolfBronyaLuocha
 from teams_four.SeeleMidSilverWolfBronyaFuxuan import SeeleMidSilverWolfBronyaFuxuan
@@ -70,7 +72,9 @@ visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 visualizationList.append(ClaraTopazAstaLuocha(config))
 visualizationList.append(DrRatioTopazAstaLuocha(config))
 visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
+visualizationList.append(DrRatioTopazHanyaLuocha(config))
 visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
+visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
 #visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
 #visualizationList.append(ClaraTopazHanyaLuocha(config))
 visualizationList.append(JingliuBronyaPelaLuocha(config))
