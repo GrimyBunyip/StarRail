@@ -34,6 +34,7 @@ class RuanMei(BaseCharacter):
         for character in team:
             character:BaseCharacter
             character.enemySpeed = self.baseEnemySpeed * enemyTurnsPerBreak / (enemyTurnsPerBreak + 0.25 + 0.10 + 0.20 * self.getTotalStat('BreakEffect'))
+            character.enemyDotSpeed = self.baseEnemySpeed * (enemyTurnsPerBreak + 1) / (enemyTurnsPerBreak + 0.25 + 0.10 + 0.20 * self.getTotalStat('BreakEffect'))
             character.weaknessBrokenUptime = 1.0 - (1.0 - self.baseWeaknessBrokenUptime) * (enemyTurnsPerBreak + 0.25) / (enemyTurnsPerBreak + 0.25 + 0.10 + 0.20 * self.getTotalStat('BreakEffect') )
                 
     def applyPassiveBuffs(self,team:list):

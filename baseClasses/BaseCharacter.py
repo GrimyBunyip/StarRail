@@ -44,6 +44,7 @@ class BaseCharacter(object):
     numRounds:float
     enemyLevel:int
     enemySpeed:float
+    enemyDotSpeed:float = None
     enemyType:str    
     enemyMaxHP:float
     enemyToughness:float

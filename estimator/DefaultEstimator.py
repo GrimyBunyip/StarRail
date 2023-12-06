@@ -35,7 +35,8 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
     dotEffect += newDot * numDot
     
     # We estimate break damage proportional to the amount of break gauge applied
-    num_enemy_turns = totalEffect.actionvalue * char.enemySpeed / char.getTotalStat('SPD')
+    char.enemyDotSpeed = char.enemySpeed if char.enemyDotSpeed is None else char.enemyDotSpeed
+    num_enemy_turns = totalEffect.actionvalue * char.enemyDotSpeed / char.getTotalStat('SPD')
     num_breaks = totalEffect.gauge * config['weaknessBrokenUptime'] / config['enemyToughness']
     breakEffect += char.useBreak() * num_breaks
     if breakDotMode == 'limited': # limited means we are not able to maintain 100% break dot uptime
