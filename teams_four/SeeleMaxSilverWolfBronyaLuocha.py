@@ -141,7 +141,7 @@ def SeeleMaxSilverWolfBronyaLuocha(config):
     SilverWolfRotation = [x * SeeleRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
     LuochaRotation = [x * SeeleRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
-    SeeleEstimate = DefaultEstimator('Seele Max Resurgence: 2N 2Resurgence(2E1Q)', SeeleRotation, SeeleCharacter, config)
+    SeeleEstimate = DefaultEstimator('Seele Max Resurgence: 2N Resurgence(2E1Q)', SeeleRotation, SeeleCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
     SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numBasicSW:.0f}N {numSkillSW:.0f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)

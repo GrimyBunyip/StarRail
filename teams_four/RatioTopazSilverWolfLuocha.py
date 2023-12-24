@@ -2,16 +2,15 @@ from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Luocha import Luocha
 from characters.hunt.DrRatio import DrRatio
-from characters.harmony.RuanMei import RuanMei
+from characters.nihility.SilverWolf import SilverWolf
 from characters.hunt.Topaz import Topaz
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
-from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.hunt.Swordplay import Swordplay
+from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
-from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
@@ -19,28 +18,28 @@ from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingClou
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
-def DrRatioTopazRuanMeiLuocha(config):
-    #%% DrRatio Topaz RuanMei Luocha Characters
-    
-    # do ruan mei first because she needs to alter the enemy speed and toughness uptime
-    RuanMeiCharacter = RuanMei(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'DEF.percent', 'ER'],
-                        substats = {'DEF.percent': 3, 'BreakEffect': 12, 'SPD.flat': 8, 'HP.percent': 5}),
-                        lightcone = MemoriesOfThePast(**config),
-                        relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
-                        **config)
+def DrRatioTopazSilverWolfLuocha(config):
+    #%% DrRatio Topaz SilverWolf Luocha Characters
     
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
-                                    substats = {'CD': 5, 'CR': 10, 'ATK.percent': 3, 'SPD.flat': 10}),
+                                    substats = {'CD': 5, 'CR': 6, 'ATK.percent': 3, 'SPD.flat': 14}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = WastelanderOfBanditryDesert2pc(),
                                     relicsettwo = WastelanderOfBanditryDesert4pc(),
                                     planarset = FirmamentFrontlineGlamoth(stacks=2),
+                                    debuffStacks=5,
                                     **config)
 
     TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'CR', 'ATK.percent'],
-                                    substats = {'CR': 7, 'CD': 12, 'ATK.percent': 3, 'SPD.flat': 4}),
+                                    substats = {'CR': 5, 'CD': 8, 'ATK.percent': 3, 'SPD.flat': 12}),
                                     lightcone = Swordplay(**config),
                                     relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
+                                    **config)
+
+    SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR', 'BreakEffect'],
+                                    substats = {'SPD.flat':12,'BreakEffect':8, 'ATK.percent': 5, 'ATK.flat': 3}),
+                                    lightcone = BeforeTheTutorialMissionStarts(**config),
+                                    relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
                                     **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
@@ -49,17 +48,14 @@ def DrRatioTopazRuanMeiLuocha(config):
                                     relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                                     **config)
     
-    team = [DrRatioCharacter, TopazCharacter, RuanMeiCharacter, LuochaCharacter]
+    team = [DrRatioCharacter, TopazCharacter, SilverWolfCharacter, LuochaCharacter]
 
-    #%% DrRatio Topaz RuanMei Luocha Team Buffs
-    for character in [TopazCharacter, DrRatioCharacter, RuanMeiCharacter]:
+    #%% DrRatio Topaz SilverWolf Luocha Team Buffs
+    for character in [TopazCharacter, DrRatioCharacter, SilverWolfCharacter]:
         character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
 
-    # RuanMei Buffs, 3 turn RuanMei rotation
-    RuanMeiCharacter.applyWeaknessModifiers(team=team)
-    RuanMeiCharacter.applyPassiveBuffs(team=team)
-    RuanMeiCharacter.applySkillBuff(team=team,uptime=3.0/3.0)
-    RuanMeiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
+    # Silver Wolf Debuffs
+    SilverWolfCharacter.applyDebuffs(team=team,targetingUptime=1.0,rotationDuration=2.2,numSkillUses=1.8) 
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff([TopazCharacter,DrRatioCharacter],uptime=1.0)
@@ -71,7 +67,7 @@ def DrRatioTopazRuanMeiLuocha(config):
     for character in team:
         character.print()
 
-    #%% DrRatio Topaz RuanMei Luocha Rotations
+    #%% DrRatio Topaz SilverWolf Luocha Rotations
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
 
@@ -84,8 +80,8 @@ def DrRatioTopazRuanMeiLuocha(config):
             DrRatioCharacter.useTalent() * numTalentRatio,
     ]
 
-    numBasicTopaz = 1.0
-    numSkillTopaz = 3.0
+    numBasicTopaz = 4.0
+    numSkillTopaz = 1.0
     TopazRotation = [ # 130 max energy
             TopazCharacter.useBasic() * numBasicTopaz,
             TopazCharacter.useSkill() * numSkillTopaz,
@@ -98,11 +94,14 @@ def DrRatioTopazRuanMeiLuocha(config):
     numbyAdvanceForwards = topazTurns / 2 + numTalentRatio    
     TopazRotation.append(TopazCharacter.useTalent(windfall=False) * (numbyTurns + numbyAdvanceForwards)) # about 1 talent per basic/skill
 
-    numBasicRuanMei = 2.0
-    numSkillRuanMei = 1.0
-    RuanMeiRotation = [RuanMeiCharacter.useBasic() * numBasicRuanMei,
-                       RuanMeiCharacter.useSkill() * numSkillRuanMei,
-                    RuanMeiCharacter.useUltimate()]
+    numBasicSW = 0.4
+    numSkillSW = 1.8
+    numUltSW = 1
+    SilverWolfRotation = [ # 
+            SilverWolfCharacter.useBasic() * numBasicSW,
+            SilverWolfCharacter.useSkill() * numSkillSW, #
+            SilverWolfCharacter.useUltimate() * numUltSW, #
+    ]
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
                     LuochaCharacter.useUltimate() * 1,
@@ -110,40 +109,39 @@ def DrRatioTopazRuanMeiLuocha(config):
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
     LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
 
-    #%% DrRatio Topaz RuanMei Luocha Rotation Math
+    #%% DrRatio Topaz SilverWolf Luocha Rotation Math
 
     totalDrRatioEffect = sumEffects(DrRatioRotation)
     totalTopazEffect = sumEffects(TopazRotation)
-    totalRuanMeiEffect = sumEffects(RuanMeiRotation)
+    totalSilverWolfEffect = sumEffects(SilverWolfRotation)
     totalLuochaEffect = sumEffects(LuochaRotation)
 
     DrRatioRotationDuration = totalDrRatioEffect.actionvalue * 100.0 / DrRatioCharacter.getTotalStat('SPD')
     TopazRotationDuration = totalTopazEffect.actionvalue * 100.0 / TopazCharacter.getTotalStat('SPD')
-    RuanMeiRotationDuration = totalRuanMeiEffect.actionvalue * 100.0 / RuanMeiCharacter.getTotalStat('SPD')
+    SilverWolfRotationDuration = totalSilverWolfEffect.actionvalue * 100.0 / SilverWolfCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')
     print('DrRatio: ',DrRatioRotationDuration)
     print('Topaz: ',TopazRotationDuration)
-    print('RuanMei: ',RuanMeiRotationDuration)
+    print('SilverWolf: ',SilverWolfRotationDuration)
     print('Luocha: ',LuochaRotationDuration)
 
     # Scale other character's rotation
     TopazRotation = [x * DrRatioRotationDuration / TopazRotationDuration for x in TopazRotation]
-    RuanMeiRotation = [x * DrRatioRotationDuration / RuanMeiRotationDuration for x in RuanMeiRotation]
+    SilverWolfRotation = [x * DrRatioRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
     LuochaRotation = [x * DrRatioRotationDuration / LuochaRotationDuration for x in LuochaRotation]
     
     # calculate total number of breaks for Ruan Mei Talent
-    totalEffect = sumEffects(DrRatioRotation + TopazRotation + RuanMeiRotation + LuochaRotation)
-    numBreaks = totalEffect.gauge * RuanMeiCharacter.weaknessBrokenUptime / RuanMeiCharacter.enemyToughness
-    RuanMeiRotation.append(RuanMeiCharacter.useTalent() * numBreaks)
+    totalEffect = sumEffects(DrRatioRotation + TopazRotation + SilverWolfRotation + LuochaRotation)
+    numBreaks = totalEffect.gauge * SilverWolfCharacter.weaknessBrokenUptime / SilverWolfCharacter.enemyToughness
+    SilverWolfRotation.append(SilverWolfCharacter.useTalent() * numBreaks)
 
     DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.0f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
     TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
-    RuanMeiEstimate = DefaultEstimator(f'Ruan Mei: {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q, S{RuanMeiCharacter.lightcone.superposition:d} {RuanMeiCharacter.lightcone.name}', 
-                                    RuanMeiRotation, RuanMeiCharacter, config)
+    SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numBasicSW:.1f}N {numSkillSW:.1f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)
     LuochaEstimate = DefaultEstimator(f'Luocha: 3N 1E 1Q, S{LuochaCharacter.lightcone.superposition:d} {LuochaCharacter.lightcone.name}', 
                                     LuochaRotation, LuochaCharacter, config)
 
-    return([DrRatioEstimate, TopazEstimate, LuochaEstimate, RuanMeiEstimate])
+    return([DrRatioEstimate, TopazEstimate, LuochaEstimate, SilverWolfEstimate])
 

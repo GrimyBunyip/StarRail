@@ -44,10 +44,14 @@ from teams_four.RatioTopazAstaLuocha import DrRatioTopazAstaLuocha
 from teams_four.RatioHanyaSilverWolfLuocha import DrRatioHanyaSilverWolfLuocha
 from teams_four.RatioTopazHanyaLuocha import DrRatioTopazHanyaLuocha
 from teams_four.RatioTopazRuanMeiLuocha import DrRatioTopazRuanMeiLuocha
+from teams_four.RatioTopazSilverWolfLuocha import DrRatioTopazSilverWolfLuocha
 from teams_four.SeeleMaxSilverWolfBronyaLuocha import SeeleMaxSilverWolfBronyaLuocha
+from teams_four.SeeleMaxSilverWolfRuanMeiFuxuan import SeeleMaxSilverWolfRuanMeiFuxuan
+from teams_four.SeeleMaxSilverWolfTingyunFuxuan import SeeleMaxSilverWolfTingyunFuxuan
 from teams_four.SeeleMidSilverWolfBronyaFuxuan import SeeleMidSilverWolfBronyaFuxuan
 from teams_four.SeeleMidSilverWolfBronyaLuocha import SeeleMidSilverWolfBronyaLuocha
 from teams_four.TopazTingyunHanyaLuocha import TopazTingyunHanyaLuocha
+from teams_four.XueyiAstaTopazFuxuan import XueyiAstaTopazFuxuan
 from teams_four.XueyiHanyaPelaFuxuan import XueyiHanyaPelaFuxuan
 from visualizer.visualizer import visualize
 
@@ -59,7 +63,6 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
-'''
 visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
 visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
 visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
@@ -79,6 +82,7 @@ visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
 visualizationList.append(DrRatioTopazHanyaLuocha(config))
 visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
 visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
+visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
 #visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
 #visualizationList.append(ClaraTopazHanyaLuocha(config))
 visualizationList.append(JingliuBronyaPelaLuocha(config))
@@ -94,7 +98,7 @@ visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
 #visualizationList.append(LunaePelaTingyunLuocha(config))
 #visualizationList.append(LunaeHanyaYukongLuocha(config))
 #visualizationList.append(LunaePelaYukongLuocha(config))
-#visualizationList.append(LunaeTingyunYukongLuocha(config))'''
+#visualizationList.append(LunaeTingyunYukongLuocha(config))
 visualizationList.append(KafkaSampoRuanMeiLuocha(config))
 visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
 visualizationList.append(KafkaTingyunRuanMeiLuocha(config))
@@ -102,15 +106,16 @@ visualizationList.append(KafkaGuinaifenAstaLuocha(config))
 visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 visualizationList.append(KafkaGuinaifenLukaLuocha(config))
 visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-'''
 #visualizationList.append(QingqueHanyaPelaFuxuan(config))
 visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
+#visualizationList.append(SeeleMaxSilverWolfTingyunFuxuan(config))
+#visualizationList.append(SeeleMaxSilverWolfRuanMeiFuxuan(config))
 visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
 visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))
 #visualizationList.append(SeeleMidSilverWolfBronyaFuxuan(config))
 #visualizationList.append(TopazTingyunHanyaLuocha(config))
 visualizationList.append(XueyiHanyaPelaFuxuan(config))
-#visualizationList.append(XueyiHanyaPelaFuxuan(config,breakRatio=1.0))'''
+#visualizationList.append(XueyiAstaTopazFuxuan(config))
 
 #%% Visualization
 # Visualize
