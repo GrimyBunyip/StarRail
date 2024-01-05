@@ -57,8 +57,8 @@ class Tingyun(BaseCharacter):
                                 amount=0.55 if self.eidolon >= 5 else 0.50,
                                 uptime=uptime)
         
-    def applyUltBuff(self,character:BaseCharacter,tingRotationDuration:float=3.0):
-        e1Uptime = self.getTotalStat('SPD') / character.getTotalStat('SPD') / tingRotationDuration
+    def applyUltBuff(self,character:BaseCharacter,tingRotationDuration:float=3.0,targetSpdMult:float=1.0):
+        e1Uptime = self.getTotalStat('SPD') / character.getTotalStat('SPD') / targetSpdMult / tingRotationDuration
         ultUptime = e1Uptime * 2.0
         
         e1Uptime = min(1.0,e1Uptime)
