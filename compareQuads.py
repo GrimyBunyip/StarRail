@@ -118,25 +118,25 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 #visualizationList.append(JingyuanTingyunTopazLuocha(config))
 
 # Lunae Teams
-visualizationList.append(LunaeHanabiTingyunLuocha(config)) # Retired, we dont need full SP rotations
-visualizationList.append(LunaeHanabiHanyaLuocha(config)) # Retired, we dont need full Sp rotations
-visualizationList.append(LunaeHanyaTingyunLuocha(config))
-visualizationList.append(LunaeHanabiHanyaLuochaSlow(config)) # Retired, we dont need full SP rotations
-visualizationList.append(LunaeHanabiTingyunLuochaSlow(config))
-visualizationList.append(LunaeHanyaYukongLuocha(config))
-visualizationList.append(LunaeHanyaPelaLuocha(config))
-visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
-visualizationList.append(LunaeTingyunYukongLuocha(config))
-visualizationList.append(LunaePelaTingyunLuocha(config))
-visualizationList.append(LunaePelaYukongLuocha(config))
+#visualizationList.append(LunaeHanabiTingyunLuocha(config)) # Retired, we dont need full SP rotations
+#visualizationList.append(LunaeHanabiHanyaLuocha(config)) # Retired, we dont need full Sp rotations
+#visualizationList.append(LunaeHanyaTingyunLuocha(config))
+#visualizationList.append(LunaeHanabiHanyaLuochaSlow(config)) # Retired, we dont need full SP rotations
+#visualizationList.append(LunaeHanabiTingyunLuochaSlow(config))
+#visualizationList.append(LunaeHanyaYukongLuocha(config))
+#visualizationList.append(LunaeHanyaPelaLuocha(config))
+#visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
+#visualizationList.append(LunaeTingyunYukongLuocha(config))
+#visualizationList.append(LunaePelaTingyunLuocha(config))
+#visualizationList.append(LunaePelaYukongLuocha(config))
 
 # Kafka Teams
-#visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-#visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
-#visualizationList.append(KafkaSampoRuanMeiLuocha(config))
-#visualizationList.append(KafkaGuinaifenLukaLuocha(config))
-#visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
-#visualizationList.append(KafkaTingyunRuanMeiLuocha(config))
+visualizationList.append(KafkaGuinaifenSampoLuocha(config))
+visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
+visualizationList.append(KafkaSampoRuanMeiLuocha(config))
+visualizationList.append(KafkaGuinaifenLukaLuocha(config))
+visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
+visualizationList.append(KafkaTingyunRuanMeiLuocha(config))
 
 # Qingque Teams
 #visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
