@@ -98,6 +98,7 @@ def ArgentiBronyaPelaHuohuo(config):
     ArgentiCharacter.addStat('DMG',description='Past and Future', amount=0.12 + 0.04 * BronyaCharacter.lightcone.superposition)
     ArgentiRotation += [ArgentiCharacter.useSkill() * numSkill / 2.0]
     ArgentiRotation += [ArgentiCharacter.useUltimate() * numUlt]
+    ArgentiRotation += [BronyaCharacter.useAdvanceForward() * numSkill / 2.0]
 
     numBasicPela = 3.0
     PelaRotation = [PelaCharacter.useBasic() * numBasicPela,

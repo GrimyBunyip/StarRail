@@ -65,60 +65,82 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
-visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
-visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
-visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
+# Argenti Teams
+#visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
 #visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
-#visualizationList.append(ArgentiBronyaPelaHuohuo(config))
-visualizationList.append(BladeBronyaPelaFuxuan(config))
-#visualizationList.append(BladeBronyaRuanMeiFuxuan(config))
-visualizationList.append(BladeBronyaPelaLuocha(config))
-visualizationList.append(BladeBronyaRuanMeiLuocha(config))
+#visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
+#visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
+#visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
+
+# Blade Teams
+#visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan
+#visualizationList.append(BladeBronyaPelaFuxuan(config)) # 100% vow uptime with fu xuan
+#visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 #visualizationList.append(BladeBronyaPelaLynx(config))
-#visualizationList.append(ClaraSilverWolfPelaLuocha(config))
+#visualizationList.append(BladeBronyaPelaLuocha(config))
+
+# Clara Teams
+#visualizationList.append(ClaraTopazAstaLuocha(config))
+#visualizationList.append(ClaraTopazHanyaLuocha(config))
 #visualizationList.append(ClaraTingyunPelaLuocha(config))
 #visualizationList.append(ClaraTingyunTopazLuocha(config))
-visualizationList.append(ClaraTopazAstaLuocha(config))
-#visualizationList.append(DrRatioTopazAstaLuocha(config))
+#visualizationList.append(ClaraSilverWolfPelaLuocha(config))
+
+# Dr Ratio Teams
+#visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
 #visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
-visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
+#visualizationList.append(DrRatioTopazAstaLuocha(config))
 #visualizationList.append(DrRatioTopazHanyaLuocha(config))
 #visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
 #visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
 #visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
 #visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
-#visualizationList.append(ClaraTopazHanyaLuocha(config))
-visualizationList.append(JingliuBronyaPelaLuocha(config))
-visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-visualizationList.append(JingliuRuanMeiBladeLuocha(config))
+
+# Jingliu Teams
+#visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+#visualizationList.append(JingliuBronyaPelaLuocha(config))
+#visualizationList.append(JingliuRuanMeiBladeLuocha(config))
 #visualizationList.append(JingliuHanyaBladeHuohuo(config))
+
+# Jingyuan Teams
 #visualizationList.append(JingyuanTingyunAstaLuocha(config))
-visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
+#visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
 #visualizationList.append(JingyuanTingyunTopazLuocha(config))
-#visualizationList.append(LunaeHanyaPelaLuocha(config))
-visualizationList.append(LunaeHanyaTingyunLuocha(config))
-visualizationList.append(LunaeHanabiTingyunLuocha(config))
-#visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
-#visualizationList.append(LunaePelaTingyunLuocha(config))
+
+# Lunae Teams
+#visualizationList.append(LunaeHanyaTingyunLuocha(config))
+#visualizationList.append(LunaeHanabiTingyunLuocha(config))
 #visualizationList.append(LunaeHanyaYukongLuocha(config))
-#visualizationList.append(LunaePelaYukongLuocha(config))
+#visualizationList.append(LunaeHanyaPelaLuocha(config))
+#visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
 #visualizationList.append(LunaeTingyunYukongLuocha(config))
-visualizationList.append(KafkaSampoRuanMeiLuocha(config))
-visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
-visualizationList.append(KafkaTingyunRuanMeiLuocha(config))
-visualizationList.append(KafkaGuinaifenAstaLuocha(config))
-visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
-visualizationList.append(KafkaGuinaifenLukaLuocha(config))
-visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-#visualizationList.append(QingqueHanyaPelaFuxuan(config))
+#visualizationList.append(LunaePelaTingyunLuocha(config))
+#visualizationList.append(LunaePelaYukongLuocha(config))
+
+# Kafka Teams
+#visualizationList.append(KafkaGuinaifenSampoLuocha(config))
+#visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
+#visualizationList.append(KafkaSampoRuanMeiLuocha(config))
+#visualizationList.append(KafkaGuinaifenLukaLuocha(config))
+#visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
+#visualizationList.append(KafkaTingyunRuanMeiLuocha(config))
+
+# Qingque Teams
 visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
+visualizationList.append(QingqueHanyaPelaFuxuan(config))
+
+# Seele Teams
 #visualizationList.append(SeeleMaxSilverWolfTingyunFuxuan(config))
 #visualizationList.append(SeeleMaxSilverWolfRuanMeiFuxuan(config))
-visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
-visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))
+#visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
+#visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))
 #visualizationList.append(SeeleMidSilverWolfBronyaFuxuan(config))
+
+# Solo Topaz Teams
 #visualizationList.append(TopazTingyunHanyaLuocha(config))
-visualizationList.append(XueyiHanyaPelaFuxuan(config))
+
+# Xueyi Teams
+#visualizationList.append(XueyiHanyaPelaFuxuan(config))
 #visualizationList.append(XueyiAstaTopazFuxuan(config))
 
 #%% Visualization

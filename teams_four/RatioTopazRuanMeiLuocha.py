@@ -24,10 +24,10 @@ def DrRatioTopazRuanMeiLuocha(config):
     
     # do ruan mei first because she needs to alter the enemy speed and toughness uptime
     RuanMeiCharacter = RuanMei(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'DEF.percent', 'ER'],
-                        substats = {'DEF.percent': 3, 'BreakEffect': 12, 'SPD.flat': 8, 'HP.percent': 5}),
-                        lightcone = MemoriesOfThePast(**config),
-                        relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
-                        **config)
+                                    substats = {'DEF.percent': 3, 'BreakEffect': 12, 'SPD.flat': 8, 'HP.percent': 5}),
+                                    lightcone = MemoriesOfThePast(**config),
+                                    relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
+                                    **config)
     
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
                                     substats = {'CD': 5, 'CR': 10, 'ATK.percent': 3, 'SPD.flat': 10}),

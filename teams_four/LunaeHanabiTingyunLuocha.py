@@ -70,16 +70,16 @@ def LunaeHanabiTingyunLuocha(config):
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Buffs
-    TingyunCharacter.applySkillBuff(LunaeCharacter)
-    TingyunCharacter.applyUltBuff(LunaeCharacter,targetSpdMult=1.5)
+    TingyunCharacter.applySkillBuff(LunaeCharacter,uptime=2.0/3.0)
+    TingyunCharacter.applyUltBuff(LunaeCharacter,targetSpdMult=1.333)
 
     #%% Print Statements
     for character in team:
         character.print()
 
     #%% Lunae Hanabi Tingyun Luocha Rotations
-    numBasicHanabi = 0.0
-    numSkillHanabi = 3.0
+    numBasicHanabi = 1.0
+    numSkillHanabi = 2.0
     HanabiRotation = [HanabiCharacter.useBasic() * numBasicHanabi,
                        HanabiCharacter.useSkill() * numSkillHanabi,
                     HanabiCharacter.useUltimate()]
@@ -93,8 +93,8 @@ def LunaeHanabiTingyunLuocha(config):
                 TingyunCharacter.useBenediction(['basic','enhancedBasic']) * 2, # apply benedictions with buffs
                 TingyunCharacter.useBenediction(['ultimate']) * 1,
                 LunaeCharacter.endTurn(),
-                HanabiCharacter.useAdvanceForward() * lunaeRotation * 2.0 / 3.0, # Hanabi only advances forward 2 out of every 3 lunae turns
-                TingyunCharacter.giveUltEnergy() * TingyunCharacter.getTotalStat('SPD') / LunaeCharacter.getTotalStat('SPD') / 1.5 , # rough estimate of rotation, tingyun is about 10% faster
+                HanabiCharacter.useAdvanceForward() * lunaeRotation * (2.0 / 3.0) * (2.0 / 3.0), # Hanabi only advances forward 2 out of every 3 lunae turns, and only 2 out of 3 
+                TingyunCharacter.giveUltEnergy() * TingyunCharacter.getTotalStat('SPD') / LunaeCharacter.getTotalStat('SPD') / 1.333 , # rough estimate of rotation, tingyun is about 10% faster
     ]
 
     TingyunRotation = [ 

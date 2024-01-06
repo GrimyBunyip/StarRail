@@ -1,4 +1,4 @@
-from baseClasses.BaseEffect import sumEffects
+from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.erudition.Qingque import Qingque
 from characters.preservation.Fuxuan import Fuxuan
@@ -6,6 +6,7 @@ from characters.harmony.Hanya import Hanya
 from characters.nihility.SilverWolf import SilverWolf
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
+from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
@@ -27,7 +28,7 @@ def QingqueHanyaSilverWolfFuxuan(config):
 
     HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
                         substats = {'CR': 8, 'SPD.flat': 12, 'CD': 5, 'ATK.percent': 3}),
-                        lightcone = MemoriesOfThePast(**config),
+                        lightcone = DanceDanceDance(**config),
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                         **config)
 
@@ -138,6 +139,21 @@ def QingqueHanyaSilverWolfFuxuan(config):
     HanyaRotation = [x * QingqueRotationDuration / HanyaRotationDuration for x in HanyaRotation]
     SilverWolfRotation = [x * QingqueRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
     FuxuanRotation = [x * QingqueRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
+
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * QingqueRotationDuration / HanyaRotationDuration
+    QingqueCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    QingqueRotation.append(DanceDanceDanceEffect)
+    
+    SilverWolfCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    SilverWolfRotation.append(DanceDanceDanceEffect)
+    
+    FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    FuxuanRotation.append(DanceDanceDanceEffect)
+    
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(DanceDanceDanceEffect)
 
     QingqueEstimate = DefaultEstimator('Qingque 12E 4Enh 1N 1Q', QingqueRotation, QingqueCharacter, config)
     HanyaEstimate = DefaultEstimator(f'Hanya: {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition:.0f} {HanyaCharacter.lightcone.name}, 12 Spd Substats', 

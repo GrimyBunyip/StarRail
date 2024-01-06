@@ -1,4 +1,4 @@
-from baseClasses.BaseEffect import sumEffects
+from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Luocha import Luocha
 from characters.destruction.Lunae import Lunae
@@ -7,6 +7,7 @@ from characters.harmony.Tingyun import Tingyun
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
+from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
@@ -26,7 +27,7 @@ def LunaeHanyaTingyunLuocha(config):
 
     HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
                             substats = {'RES': 7, 'SPD.flat': 12, 'CD': 5, 'CR': 4}),
-                            lightcone = MemoriesOfThePast(**config),
+                            lightcone = DanceDanceDance(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
@@ -77,10 +78,12 @@ def LunaeHanyaTingyunLuocha(config):
         character.print()
 
     #%% Lunae Hanya Tingyun Luocha Rotations
-    numHanyaSkill = 3
+    #Dance Dance Dance effect
+    
+    numHanyaSkill = 4
     numHanyaUlt = 1
     HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
-                    HanyaCharacter.useUltimate() * numHanyaUlt]
+                    HanyaCharacter.useUltimate() * numHanyaUlt,]
         
     numLunaeBasic = 2 + (1.0/3.0) * (LunaeCharacter.getTotalStat('SPD') / TingyunCharacter.getTotalStat('SPD'))
     LunaeRotation = [  # 140 energy needed. EndTurn needed to factor in his buffs
@@ -126,6 +129,21 @@ def LunaeHanyaTingyunLuocha(config):
     HanyaRotation = [x * LunaeRotationDuration / HanyaRotationDuration for x in HanyaRotation]
     TingyunRotation = [x * LunaeRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     LuochaRotation = [x * LunaeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * LunaeRotationDuration / HanyaRotationDuration
+    LunaeCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    LunaeRotation.append(DanceDanceDanceEffect)
+    
+    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TingyunRotation.append(DanceDanceDanceEffect)
+    
+    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    LuochaRotation.append(DanceDanceDanceEffect)
+    
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(DanceDanceDanceEffect)
 
     LunaeEstimate = DefaultEstimator(f'Lunae: {numLunaeBasic:.1f}N^3 1Q', LunaeRotation, LunaeCharacter, config)
     HanyaEstimate = DefaultEstimator(f'Hanya {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition:.0f} {HanyaCharacter.lightcone.name}, 12 Spd Substats', 

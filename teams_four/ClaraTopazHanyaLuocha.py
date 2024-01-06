@@ -34,10 +34,10 @@ def ClaraTopazHanyaLuocha(config):
                                     **config)
 
     HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
-                            substats = {'CD': 7, 'SPD.flat': 12, 'RES': 6, 'CR': 3}),
-                            lightcone = MemoriesOfThePast(**config),
-                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
-                            **config)
+                                    substats = {'CD': 7, 'SPD.flat': 12, 'RES': 6, 'CR': 3}),
+                                    lightcone = MemoriesOfThePast(**config),
+                                    relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                                    **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                                     substats = {'ATK.percent': 5, 'SPD.flat': 12, 'HP.percent': 4, 'RES': 7}),

@@ -7,6 +7,7 @@ from characters.harmony.Hanya import Hanya
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
+from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
@@ -28,7 +29,7 @@ def ArgentiHanyaTingyunFuxuan(config):
 
     HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
                         substats = {'CR': 8, 'SPD.flat': 12, 'CD': 5, 'ATK.percent': 3}),
-                        lightcone = MemoriesOfThePast(**config),
+                        lightcone = PlanetaryRendezvous(**config),
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = PenaconyLandOfDreams(),
                         **config)
 
@@ -54,6 +55,8 @@ def ArgentiHanyaTingyunFuxuan(config):
         character.addStat('CD',description='Broken Keel Fuxuan',amount=0.10)
     for character in [ArgentiCharacter, TingyunCharacter, FuxuanCharacter]:
         character.addStat('DMG.physical',description='Penacony Hanya',amount=0.10)
+    for character in team:
+        character.addStat('DMG.physical',description='Planetary Rendezvous',amount=0.24)
 
     # Hanya Messenger 4 pc
     for character in [ArgentiCharacter, TingyunCharacter, FuxuanCharacter]:

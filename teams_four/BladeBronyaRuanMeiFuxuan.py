@@ -53,9 +53,8 @@ def BladeBronyaRuanMeiFuxuan(config):
         character.addStat('CD',description='Broken Keel Fuxuan',amount=0.10)
     for character in [BladeCharacter, RuanMeiCharacter, FuxuanCharacter]:
         character.addStat('DMG.wind',description='Penacony Bronya',amount=0.10)
-
-    # Bronya Planetary Rendezvous
-    BladeCharacter.addStat('DMG',description='Planetary Rendezvous',amount=0.09 + 0.03 * BronyaCharacter.lightcone.superposition)
+    for character in team:
+        character.addStat('DMG.wind',description='Planetary Rendezvous',amount=0.09 + 0.03 * BronyaCharacter.lightcone.superposition)
 
     # Messenger 4 pc
     for character in [BladeCharacter, RuanMeiCharacter, FuxuanCharacter]:

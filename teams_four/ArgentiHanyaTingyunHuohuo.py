@@ -10,6 +10,7 @@ from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
+from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.InertSalsotto import InertSalsotto
@@ -30,16 +31,16 @@ def ArgentiHanyaTingyunHuohuo(config):
 
     HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
                         substats = {'CR': 8, 'SPD.flat': 12, 'CD': 5, 'ATK.percent': 3}),
-                        lightcone = MemoriesOfThePast(**config),
+                        lightcone = PlanetaryRendezvous(**config),
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = PenaconyLandOfDreams(),
                         **config)
 
     TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
-                            substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
-                            lightcone = MemoriesOfThePast(**config),
-                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = SprightlyVonwacq(),
-                            benedictionTarget=ArgentiCharacter,
-                            **config)
+                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
+                        lightcone = MemoriesOfThePast(**config),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = SprightlyVonwacq(),
+                        benedictionTarget=ArgentiCharacter,
+                        **config)
 
     HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
                         substats = {'HP.percent': 7, 'SPD.flat': 12, 'HP.flat': 3, 'RES': 6}),
@@ -56,6 +57,8 @@ def ArgentiHanyaTingyunHuohuo(config):
         character.addStat('CD',description='Broken Keel Huohuo',amount=0.10)
     for character in [ArgentiCharacter, TingyunCharacter, HuohuoCharacter]:
         character.addStat('DMG.physical',description='Penacony Hanya',amount=0.10)
+    for character in team:
+        character.addStat('DMG.physical',description='Planetary Rendezvous',amount=0.24)
 
     # Hanya Messenger 4 pc
     for character in [ArgentiCharacter, TingyunCharacter, HuohuoCharacter]:
