@@ -32,6 +32,7 @@ from teams_four.KafkaGuinaifenSampoLuocha import KafkaGuinaifenSampoLuocha
 from teams_four.KafkaSampoRuanMei import KafkaSampoRuanMeiLuocha
 from teams_four.KafkaTingyunRuanMei import KafkaTingyunRuanMeiLuocha
 from teams_four.LunaeHanabiHanyaLuocha import LunaeHanabiHanyaLuocha
+from teams_four.LunaeHanabiHanyaLuochaSlow import LunaeHanabiHanyaLuochaSlow
 from teams_four.LunaeHanabiTingyunLuocha import LunaeHanabiTingyunLuocha
 from teams_four.LunaeHanabiTingyunLuochaSlow import LunaeHanabiTingyunLuochaSlow
 from teams_four.LunaeHanyaPelaLuocha import LunaeHanyaPelaLuocha
@@ -117,9 +118,10 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 #visualizationList.append(JingyuanTingyunTopazLuocha(config))
 
 # Lunae Teams
-#visualizationList.append(LunaeHanabiTingyunLuocha(config)) # Retired, we dont need full SP rotations
-#visualizationList.append(LunaeHanabiHanyaLuocha(config)) # Retired, we dont need full Sp rotations
+visualizationList.append(LunaeHanabiTingyunLuocha(config)) # Retired, we dont need full SP rotations
+visualizationList.append(LunaeHanabiHanyaLuocha(config)) # Retired, we dont need full Sp rotations
 visualizationList.append(LunaeHanyaTingyunLuocha(config))
+visualizationList.append(LunaeHanabiHanyaLuochaSlow(config)) # Retired, we dont need full SP rotations
 visualizationList.append(LunaeHanabiTingyunLuochaSlow(config))
 visualizationList.append(LunaeHanyaYukongLuocha(config))
 visualizationList.append(LunaeHanyaPelaLuocha(config))

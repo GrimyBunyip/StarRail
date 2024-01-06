@@ -9,6 +9,7 @@ from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.Chorus import Chorus
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
+from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.RutilantArena import RutilantArena
@@ -27,7 +28,7 @@ def LunaeHanabiHanyaLuocha(config):
 
     HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
                             substats = {'RES': 7, 'SPD.flat': 12, 'CD': 5, 'CR': 4}),
-                            lightcone = DanceDanceDance(**config),
+                            lightcone = MemoriesOfThePast(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
     
@@ -98,7 +99,7 @@ def LunaeHanabiHanyaLuocha(config):
                 HanabiCharacter.useAdvanceForward() * lunaeRotation * 2.0 / 3.0, 
     ]
 
-    numHanyaSkill = 4
+    numHanyaSkill = 3
     numHanyaUlt = 1
     HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
                     HanyaCharacter.useUltimate() * numHanyaUlt]
@@ -124,21 +125,6 @@ def LunaeHanabiHanyaLuocha(config):
     HanabiRotation = [x * LunaeRotationDuration / HanabiRotationDuration for x in HanabiRotation]
     HanyaRotation = [x * LunaeRotationDuration / HanyaRotationDuration for x in HanyaRotation]
     LuochaRotation = [x * LunaeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-
-    # Apply Dance Dance Dance Effect
-    DanceDanceDanceEffect = BaseEffect()
-    DanceDanceDanceEffect.actionvalue = -0.24 * LunaeRotationDuration / HanyaRotationDuration
-    LunaeCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    LunaeRotation.append(DanceDanceDanceEffect)
-    
-    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanabiRotation.append(DanceDanceDanceEffect)
-    
-    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    LuochaRotation.append(DanceDanceDanceEffect)
-    
-    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanyaRotation.append(DanceDanceDanceEffect)
 
     LunaeEstimate = DefaultEstimator(f'Lunae: {lunaeRotation:.1f}N^3 1Q', LunaeRotation, LunaeCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
