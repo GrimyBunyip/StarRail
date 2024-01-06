@@ -1,4 +1,4 @@
-from baseClasses.BaseEffect import sumEffects
+from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.erudition.JingYuan import JingYuan
 from characters.harmony.Hanya import Hanya
@@ -7,6 +7,7 @@ from characters.harmony.Tingyun import Tingyun
 from characters.preservation.Fuxuan import Fuxuan
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
+from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
@@ -33,7 +34,7 @@ def JingyuanTingyunHanyaFuxuan(config):
 
     HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
                             substats = {'CR': 8, 'SPD.flat': 12, 'CD': 5, 'ATK.percent': 3}),
-                            lightcone = MemoriesOfThePast(**config),
+                            lightcone = DanceDanceDance(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
@@ -112,7 +113,7 @@ def JingyuanTingyunHanyaFuxuan(config):
         TingyunCharacter.giveUltEnergy(),
     ]
     
-    numHanyaSkill = 3
+    numHanyaSkill = 4
     numHanyaUlt = 1
     HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
                     HanyaCharacter.useUltimate() * numHanyaUlt]
@@ -136,6 +137,21 @@ def JingyuanTingyunHanyaFuxuan(config):
     TingyunRotation = [x * JingYuanRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     HanyaRotation = [x * JingYuanRotationDuration / HanyaRotationDuration for x in HanyaRotation]
     FuxuanRotation = [x * JingYuanRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
+
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * JingYuanRotationDuration / HanyaRotationDuration
+    JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    JingYuanRotation.append(DanceDanceDanceEffect)
+    
+    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TingyunRotation.append(DanceDanceDanceEffect)
+    
+    FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    FuxuanRotation.append(DanceDanceDanceEffect)
+    
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(DanceDanceDanceEffect)
 
     JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q', JingYuanRotation, JingYuanCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 

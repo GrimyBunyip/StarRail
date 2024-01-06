@@ -37,9 +37,11 @@ from teams_four.LunaePelaTingyunLuocha import LunaePelaTingyunLuocha
 from teams_four.LunaePelaYukongLuocha import LunaePelaYukongLuocha
 from teams_four.LunaeRuanMeiTingyunLuocha import LunaeRuanMeiTingyunLuocha
 from teams_four.LunaeTingyunYukongLuocha import LunaeTingyunYukongLuocha
+from teams_four.QingqueHanabiSilverWolfLuocha import QingqueHanabiSilverWolfLuocha
 from teams_four.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
 from teams_four.RatioBronyaSilverWolfLuocha import DrRatioBronyaSilverWolfLuocha
+from teams_four.RatioHanabiSilverWolfLuocha import DrRatioHanabiSilverWolfLuocha
 from teams_four.RatioRuanMeiSilverWolfLuocha import DrRatioRuanMeiSilverWolfLuocha
 from teams_four.RatioTingyunSilverWolfLuocha import DrRatioTingyunSilverWolfLuocha
 from teams_four.RatioTopazAstaLuocha import DrRatioTopazAstaLuocha
@@ -87,14 +89,15 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 #visualizationList.append(ClaraSilverWolfPelaLuocha(config))
 
 # Dr Ratio Teams
-#visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
-#visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
-#visualizationList.append(DrRatioTopazAstaLuocha(config))
-#visualizationList.append(DrRatioTopazHanyaLuocha(config))
-#visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
-#visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
-#visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
-#visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
+visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
+visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
+visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
+visualizationList.append(DrRatioTopazAstaLuocha(config))
+visualizationList.append(DrRatioTopazHanyaLuocha(config))
+visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
+visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
+visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
+visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
 
 # Jingliu Teams
 #visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
@@ -126,8 +129,9 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 #visualizationList.append(KafkaTingyunRuanMeiLuocha(config))
 
 # Qingque Teams
-visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
-visualizationList.append(QingqueHanyaPelaFuxuan(config))
+#visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
+#visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
+#visualizationList.append(QingqueHanyaPelaFuxuan(config))
 
 # Seele Teams
 #visualizationList.append(SeeleMaxSilverWolfTingyunFuxuan(config))

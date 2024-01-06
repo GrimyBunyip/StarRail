@@ -82,7 +82,7 @@ def ArgentiHanyaTingyunFuxuan(config):
         character.print()
 
     #%% Argenti Hanya Tingyun Fuxuan Rotations
-    numHanyaSkill = 3
+    numHanyaSkill = 4
     numHanyaUlt = 1
     HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
                     HanyaCharacter.useUltimate() * numHanyaUlt]

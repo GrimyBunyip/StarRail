@@ -83,7 +83,7 @@ def QingqueHanyaPelaFuxuan(config):
         character.print()
 
     #%% Qingque Hanya Pela Fuxuan Rotations
-    numHanyaSkill = 3
+    numHanyaSkill = 4
     numHanyaUlt = 1
     HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
                     HanyaCharacter.useUltimate() * numHanyaUlt]

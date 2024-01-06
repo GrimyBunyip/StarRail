@@ -37,7 +37,6 @@ def LunaeHanabiTingyunLuocha(config):
                             substats = {'RES': 8, 'CD': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                             lightcone = Chorus(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
-                            benedictionTarget=LunaeCharacter,
                             **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],

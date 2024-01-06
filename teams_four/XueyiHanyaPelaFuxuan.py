@@ -1,4 +1,4 @@
-from baseClasses.BaseEffect import sumEffects
+from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.preservation.Fuxuan import Fuxuan
 from characters.destruction.Xueyi import Xueyi
@@ -6,6 +6,7 @@ from characters.harmony.Hanya import Hanya
 from characters.nihility.Pela import Pela
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
+from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
@@ -26,7 +27,7 @@ def XueyiHanyaPelaFuxuan(config, breakRatio:float=0.5):
 
     HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
                             substats = {'RES': 7, 'SPD.flat': 12, 'CD': 5, 'CR': 4}),
-                            lightcone = MemoriesOfThePast(**config),
+                            lightcone = DanceDanceDance(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
@@ -95,7 +96,7 @@ def XueyiHanyaPelaFuxuan(config, breakRatio:float=0.5):
                 XueyiCharacter.useTalent() * numTalentXueyi,
     ]
     
-    numHanyaSkill = 3
+    numHanyaSkill = 4
     numHanyaUlt = 1
     HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
                     HanyaCharacter.useUltimate() * numHanyaUlt]
@@ -122,6 +123,21 @@ def XueyiHanyaPelaFuxuan(config, breakRatio:float=0.5):
     HanyaRotation = [x * XueyiRotationDuration / HanyaRotationDuration for x in HanyaRotation]
     PelaRotation = [x * XueyiRotationDuration / PelaRotationDuration for x in PelaRotation]
     FuxuanRotation = [x * XueyiRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
+
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * XueyiRotationDuration / HanyaRotationDuration
+    XueyiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    XueyiRotation.append(DanceDanceDanceEffect)
+    
+    PelaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    PelaRotation.append(DanceDanceDanceEffect)
+    
+    FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    FuxuanRotation.append(DanceDanceDanceEffect)
+    
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(DanceDanceDanceEffect)
 
     XueyiEstimate = DefaultEstimator(f'Xueyi: {numSkillXueyi:.0f}E {numUltXueyi:.0f}Q {numTalentXueyi:.1f}T with {breakRatio*100.0:.0f}% of hits depleting toughness', XueyiRotation, XueyiCharacter, config)
     HanyaEstimate = DefaultEstimator('Hanya {:.0f}E {:.0f}Q S{:.0f} {}, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt,
