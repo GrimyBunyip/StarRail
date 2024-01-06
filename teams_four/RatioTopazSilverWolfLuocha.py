@@ -131,11 +131,6 @@ def DrRatioTopazSilverWolfLuocha(config):
     TopazRotation = [x * DrRatioRotationDuration / TopazRotationDuration for x in TopazRotation]
     SilverWolfRotation = [x * DrRatioRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
     LuochaRotation = [x * DrRatioRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-    
-    # calculate total number of breaks for Ruan Mei Talent
-    totalEffect = sumEffects(DrRatioRotation + TopazRotation + SilverWolfRotation + LuochaRotation)
-    numBreaks = totalEffect.gauge * SilverWolfCharacter.weaknessBrokenUptime / SilverWolfCharacter.enemyToughness
-    SilverWolfRotation.append(SilverWolfCharacter.useTalent() * numBreaks)
 
     DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.0f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
     TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)

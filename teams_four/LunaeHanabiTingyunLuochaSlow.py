@@ -17,7 +17,7 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
-def LunaeHanabiTingyunLuocha(config):
+def LunaeHanabiTingyunLuochaSlow(config):
     #%% Lunae Hanabi Tingyun Luocha Characters
     
     LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
@@ -64,26 +64,21 @@ def LunaeHanabiTingyunLuocha(config):
         character.addStat('ATK.percent',description='Chorus',amount=0.12)
             
     # Tingyun Messenger Buff
-    LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc Tingyun',amount=0.12,uptime=1.0/4.0)
+    LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)
     for character in [LunaeCharacter, HanabiCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc Tingyun',amount=0.12,uptime=1.0/3.0)
-    
-    # Hanabi Messenger Buff
-    LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc Hanabi',amount=0.12,uptime=1.0/4.0)
-    for character in [LunaeCharacter, HanabiCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc Hanabi',amount=0.12,uptime=1.0/3.0)
+        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(LunaeCharacter)
-    TingyunCharacter.applyUltBuff(LunaeCharacter,targetSpdMult=1.5)
+    TingyunCharacter.applyUltBuff(LunaeCharacter,targetSpdMult=1.333)
 
     #%% Print Statements
     for character in team:
         character.print()
 
     #%% Lunae Hanabi Tingyun Luocha Rotations
-    numBasicHanabi = 0.0
-    numSkillHanabi = 3.0
+    numBasicHanabi = 1.0
+    numSkillHanabi = 2.0
     HanabiRotation = [HanabiCharacter.useBasic() * numBasicHanabi,
                        HanabiCharacter.useSkill() * numSkillHanabi,
                     HanabiCharacter.useUltimate()]
@@ -97,8 +92,7 @@ def LunaeHanabiTingyunLuocha(config):
                 TingyunCharacter.useBenediction(['basic','enhancedBasic']) * 2, # apply benedictions with buffs
                 TingyunCharacter.useBenediction(['ultimate']) * 1,
                 LunaeCharacter.endTurn(),
-                HanabiCharacter.useAdvanceForward() * lunaeRotation * (2.0 / 3.0), # Hanabi only advances forward 2 out of every 3 lunae turns, and only 2 out of 3 
-                TingyunCharacter.giveUltEnergy() * TingyunCharacter.getTotalStat('SPD') / LunaeCharacter.getTotalStat('SPD') / 1.5 , # rough estimate of rotation, tingyun is about 10% faster
+                HanabiCharacter.useAdvanceForward() * lunaeRotation * (2.0 / 3.0) * (2.0 / 3.0), # Hanabi only advances forward 2 out of every 3 lunae turns, and only 2 out of 3 
     ]
 
     TingyunRotation = [ 
@@ -123,6 +117,8 @@ def LunaeHanabiTingyunLuocha(config):
     HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
+
+    LunaeRotation.append(TingyunCharacter.giveUltEnergy() * LunaeRotationDuration / TingyunRotationDuration)
 
     # scale other character's rotation
     HanabiRotation = [x * LunaeRotationDuration / HanabiRotationDuration for x in HanabiRotation]

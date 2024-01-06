@@ -11,6 +11,8 @@ from teams_four.BladeBronyaPelaLynx import BladeBronyaPelaLynx
 from teams_four.BladeBronyaRuanMeiFuxuan import BladeBronyaRuanMeiFuxuan
 from teams_four.BladeBronyaRuanMeiLuocha import BladeBronyaRuanMeiLuocha
 from teams_four.ClaraSilverWolfPelaLuocha import ClaraSilverWolfPelaLuocha
+from teams_four.ClaraTingyunHanabiLuocha import ClaraTingyunHanabiLuocha
+from teams_four.ClaraTingyunHanyaLuocha import ClaraTingyunHanyaLuocha
 from teams_four.ClaraTingyunPelaLuocha import ClaraTingyunPelaLuocha
 from teams_four.ClaraTingyunTopazLuocha import ClaraTingyunTopazLuocha
 from teams_four.ClaraTopazAstaLuocha import ClaraTopazAstaLuocha
@@ -29,7 +31,9 @@ from teams_four.KafkaGuinaifenRuanMei import KafkaGuinaifenRuanMeiLuocha
 from teams_four.KafkaGuinaifenSampoLuocha import KafkaGuinaifenSampoLuocha
 from teams_four.KafkaSampoRuanMei import KafkaSampoRuanMeiLuocha
 from teams_four.KafkaTingyunRuanMei import KafkaTingyunRuanMeiLuocha
+from teams_four.LunaeHanabiHanyaLuocha import LunaeHanabiHanyaLuocha
 from teams_four.LunaeHanabiTingyunLuocha import LunaeHanabiTingyunLuocha
+from teams_four.LunaeHanabiTingyunLuochaSlow import LunaeHanabiTingyunLuochaSlow
 from teams_four.LunaeHanyaPelaLuocha import LunaeHanyaPelaLuocha
 from teams_four.LunaeHanyaTingyunLuocha import LunaeHanyaTingyunLuocha
 from teams_four.LunaeHanyaYukongLuocha import LunaeHanyaYukongLuocha
@@ -82,6 +86,8 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 #visualizationList.append(BladeBronyaPelaLuocha(config))
 
 # Clara Teams
+#visualizationList.append(ClaraTingyunHanabiLuocha(config))
+#visualizationList.append(ClaraTingyunHanyaLuocha(config))
 #visualizationList.append(ClaraTopazAstaLuocha(config))
 #visualizationList.append(ClaraTopazHanyaLuocha(config))
 #visualizationList.append(ClaraTingyunPelaLuocha(config))
@@ -89,15 +95,15 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 #visualizationList.append(ClaraSilverWolfPelaLuocha(config))
 
 # Dr Ratio Teams
-visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
-visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
-visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
-visualizationList.append(DrRatioTopazAstaLuocha(config))
-visualizationList.append(DrRatioTopazHanyaLuocha(config))
-visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
-visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
-visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
-visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
+#visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
+#visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
+#visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
+#visualizationList.append(DrRatioTopazAstaLuocha(config))
+#visualizationList.append(DrRatioTopazHanyaLuocha(config))
+#visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
+#visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
+#visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
+#visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
 
 # Jingliu Teams
 #visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
@@ -111,14 +117,16 @@ visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
 #visualizationList.append(JingyuanTingyunTopazLuocha(config))
 
 # Lunae Teams
-#visualizationList.append(LunaeHanyaTingyunLuocha(config))
-#visualizationList.append(LunaeHanabiTingyunLuocha(config))
-#visualizationList.append(LunaeHanyaYukongLuocha(config))
-#visualizationList.append(LunaeHanyaPelaLuocha(config))
-#visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
-#visualizationList.append(LunaeTingyunYukongLuocha(config))
-#visualizationList.append(LunaePelaTingyunLuocha(config))
-#visualizationList.append(LunaePelaYukongLuocha(config))
+#visualizationList.append(LunaeHanabiTingyunLuocha(config)) # Retired, we dont need full SP rotations
+#visualizationList.append(LunaeHanabiHanyaLuocha(config)) # Retired, we dont need full Sp rotations
+visualizationList.append(LunaeHanyaTingyunLuocha(config))
+visualizationList.append(LunaeHanabiTingyunLuochaSlow(config))
+visualizationList.append(LunaeHanyaYukongLuocha(config))
+visualizationList.append(LunaeHanyaPelaLuocha(config))
+visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
+visualizationList.append(LunaeTingyunYukongLuocha(config))
+visualizationList.append(LunaePelaTingyunLuocha(config))
+visualizationList.append(LunaePelaYukongLuocha(config))
 
 # Kafka Teams
 #visualizationList.append(KafkaGuinaifenSampoLuocha(config))
