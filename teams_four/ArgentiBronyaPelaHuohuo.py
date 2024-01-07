@@ -124,6 +124,8 @@ def ArgentiBronyaPelaHuohuo(config):
     print('Bronya: ',BronyaRotationDuration)
     print('Pela: ',PelaRotationDuration)
     print('Huohuo: ',HuohuoRotationDuration)
+    
+    ArgentiRotation.append(HuohuoCharacter.giveUltEnergy(ArgentiCharacter) * ArgentiRotationDuration / HuohuoRotationDuration)
 
     # scale other character's rotation
     BronyaRotation = [x * ArgentiRotationDuration / BronyaRotationDuration for x in BronyaRotation]

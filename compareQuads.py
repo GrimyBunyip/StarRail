@@ -24,13 +24,16 @@ from teams_four.JingliuRuanMeiBladeLuocha import JingliuRuanMeiBladeLuocha
 from teams_four.JingyuanTingyunAstaLuocha import JingyuanTingyunAstaLuocha
 from teams_four.JingyuanTingyunHanyaFuxuan import JingyuanTingyunHanyaFuxuan
 from teams_four.JingyuanTingyunTopazLuocha import JingyuanTingyunTopazLuocha
+from teams_four.KafkaBlackSwanRuanMeiHuohuo import KafkaBlackSwanRuanMeiHuohuo
+from teams_four.KafkaBlackSwanRuanMeiLuocha import KafkaBlackSwanRuanMeiLuocha
 from teams_four.KafkaGuinaifenAstaLuocha import KafkaGuinaifenAstaLuocha
+from teams_four.KafkaGuinaifenBlackSwanLuocha import KafkaGuinaifenBlackSwanLuocha
 from teams_four.KafkaGuinaifenHanyaLuocha import KafkaGuinaifenHanyaLuocha
 from teams_four.KafkaGuinaifenLukaLuocha import KafkaGuinaifenLukaLuocha
-from teams_four.KafkaGuinaifenRuanMei import KafkaGuinaifenRuanMeiLuocha
+from teams_four.KafkaGuinaifenRuanMeiLuocha import KafkaGuinaifenRuanMeiLuocha
 from teams_four.KafkaGuinaifenSampoLuocha import KafkaGuinaifenSampoLuocha
-from teams_four.KafkaSampoRuanMei import KafkaSampoRuanMeiLuocha
-from teams_four.KafkaTingyunRuanMei import KafkaTingyunRuanMeiLuocha
+from teams_four.KafkaSampoRuanMeiLuocha import KafkaSampoRuanMeiLuocha
+from teams_four.KafkaTingyunRuanMeiLuocha import KafkaTingyunRuanMeiLuocha
 from teams_four.LunaeHanabiHanyaLuocha import LunaeHanabiHanyaLuocha
 from teams_four.LunaeHanabiHanyaLuochaSlow import LunaeHanabiHanyaLuochaSlow
 from teams_four.LunaeHanabiTingyunLuocha import LunaeHanabiTingyunLuocha
@@ -131,12 +134,16 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 #visualizationList.append(LunaePelaYukongLuocha(config))
 
 # Kafka Teams
+visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 visualizationList.append(KafkaGuinaifenSampoLuocha(config))
 visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
 visualizationList.append(KafkaSampoRuanMeiLuocha(config))
 visualizationList.append(KafkaGuinaifenLukaLuocha(config))
 visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
-visualizationList.append(KafkaTingyunRuanMeiLuocha(config))
+
+#visualizationList.append(KafkaBlackSwanRuanMeiHuohuo(config)) # Night of Fright lightcone, retiring this
+#visualizationList.append(KafkaBlackSwanRuanMeiLuocha(config)) # patience lightcone, retiring this
+#visualizationList.append(KafkaTingyunRuanMeiLuocha(config)) # mediocre, retiring this
 
 # Qingque Teams
 #visualizationList.append(QingqueHanabiSilverWolfLuocha(config))

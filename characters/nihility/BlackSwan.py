@@ -26,9 +26,13 @@ class BlackSwan(BaseCharacter):
                                         BaseMV(area='adjacent', stat='atk', value=0.9, eidolonThreshold=3, eidolonBonus=0.09),]
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.20, eidolonThreshold=5, eidolonBonus=0.096)]
         self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=0.24+0.12*self.sacramentStacks, eidolonThreshold=3, eidolonBonus=0.24+0.012*self.sacramentStacks)]
+        self.motionValueDict['dotAOE'] = [BaseMV(area='single', stat='atk', value=0.24+0.12*self.sacramentStacks, eidolonThreshold=3, eidolonBonus=0.24+0.012*self.sacramentStacks),
+                                        BaseMV(area='adjacent', stat='atk', value=1.8 if self.sacramentStacks >= 3 else 0.0, eidolonThreshold=3, eidolonBonus=0.18 if self.sacramentStacks >= 3 else 0.0),]
         
         # Talents
         self.addStat('DMG',description='Black Swan Candleflame Buff',amount=self.candleflameBuff)
+        if self.sacramentStacks >= 7:
+            self.addStat('DefShred',description='Black Swan Sacrament Def Shred',amount=0.20,type='dotAOE')
         
         # Eidolons
         
@@ -36,7 +40,7 @@ class BlackSwan(BaseCharacter):
         self.equipGear()
         
     def applySkillDebuff(self,team:list,rotationDuration:float):
-        uptime = (2.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
+        uptime = (3.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
         uptime = min(1.0, uptime)
         for character in team:
             character:BaseCharacter
@@ -97,6 +101,18 @@ class BlackSwan(BaseCharacter):
         return retval
 
     def useDot(self):
+        retval = BaseEffect()
+        type = ['dot','dotAOE']
+        retval.damage = self.getTotalMotionValue('dotAOE',type)
+        # no crits on dots
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.energy = self.getBonusEnergyAttack(type) * self.getER(type)
+        retval.actionvalue = self.getAdvanceForward(type)
+        return retval
+
+    def useDotDetonation(self):
         retval = BaseEffect()
         type = ['dot']
         retval.damage = self.getTotalMotionValue('dot',type)

@@ -18,13 +18,13 @@ from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4
 def KafkaGuinaifenLukaLuocha(config):
     #%% Kafka Guinaifen Luka Luocha Characters
     KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
-                            substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
+                            substats = {'ATK.percent': 4, 'SPD.flat': 16, 'BreakEffect': 5, 'ATK.flat': 3}),
                             lightcone = GoodNightAndSleepWell(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
 
     GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'ATK.percent', 'DMG.fire'],
-                            substats = {'ATK.percent': 12, 'SPD.flat': 8, 'EHR': 4, 'BreakEffect': 4}),
+                            substats = {'ATK.percent': 13, 'SPD.flat': 7, 'EHR': 4, 'BreakEffect': 4}),
                             lightcone = GoodNightAndSleepWell(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = SpaceSealingStation(),
                             **config)
