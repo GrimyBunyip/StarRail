@@ -101,10 +101,11 @@ def ClaraTingyunHanabiLuocha(config):
         TingyunCharacter.useUltimate(),
     ]
     
-    numHanabiSkill = 4
-    numHanabiUlt = 1
-    HanabiRotation = [HanabiCharacter.useSkill() * numHanabiSkill,
-                    HanabiCharacter.useUltimate() * numHanabiUlt]
+    numBasicHanabi = 0.0
+    numSkillHanabi = 3.0
+    HanabiRotation = [HanabiCharacter.useBasic() * numBasicHanabi,
+                       HanabiCharacter.useSkill() * numSkillHanabi,
+                    HanabiCharacter.useUltimate()]
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
                     LuochaCharacter.useUltimate() * 1,
@@ -140,7 +141,7 @@ def ClaraTingyunHanabiLuocha(config):
     ClaraEstimate = DefaultEstimator(f'Clara: {numSkillClara:.1f}E {numSvarogCounters:.1f}T 1Q', ClaraRotation, ClaraCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',
                                     TingyunRotation, TingyunCharacter, config)
-    HanabiEstimate = DefaultEstimator(f'Hanabi {numHanabiSkill:.0f}E {numHanabiUlt:.0f}Q S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
+    HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)
     LuochaEstimate = DefaultEstimator(f'Luocha: 3N 1E 1Q, S{LuochaCharacter.lightcone.superposition:d} {LuochaCharacter.lightcone.name}', 
                                     LuochaRotation, LuochaCharacter, config)

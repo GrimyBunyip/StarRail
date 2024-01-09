@@ -75,11 +75,6 @@ def JingyuanTingyunTopazLuocha(config):
     longToShort = (tyRotation - jyShortRotation) / jyLongRotation
     print('LongToShort Ratio', longToShort)
 
-    # Use long to short ratio to estimate Jing Yuan Buff
-    JingYuanCharacter.addStat('DMG',description='Tingyun Ult',
-                            amount=0.65 if TingyunCharacter.eidolon >= 3 else 0.6,
-                            uptime=1.0 - longToShort / 2)
-
     #%% Print Statements
     for character in team:
         character.print()

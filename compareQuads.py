@@ -22,6 +22,7 @@ from teams_four.JingliuBronyaRuanMeiLuocha import JingliuBronyaRuanMeiLuocha
 from teams_four.JingliuHanyaBladeHuohuo import JingliuHanyaBladeHuohuo
 from teams_four.JingliuRuanMeiBladeLuocha import JingliuRuanMeiBladeLuocha
 from teams_four.JingyuanTingyunAstaLuocha import JingyuanTingyunAstaLuocha
+from teams_four.JingyuanTingyunHanabiFuxuan import JingyuanTingyunHanabiFuxuan
 from teams_four.JingyuanTingyunHanabiLuocha import JingyuanTingyunHanabiLuocha
 from teams_four.JingyuanTingyunHanyaFuxuan import JingyuanTingyunHanyaFuxuan
 from teams_four.JingyuanTingyunTopazLuocha import JingyuanTingyunTopazLuocha
@@ -114,6 +115,7 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 #visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
 # Jingyuan Teams
+visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
 visualizationList.append(JingyuanTingyunHanabiLuocha(config))
 visualizationList.append(JingyuanTingyunAstaLuocha(config))
 visualizationList.append(JingyuanTingyunHanyaFuxuan(config))

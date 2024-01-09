@@ -1,25 +1,27 @@
-from baseClasses.BaseEffect import sumEffects
+from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
-from characters.abundance.Luocha import Luocha
 from characters.erudition.JingYuan import JingYuan
 from characters.harmony.Hanabi import Hanabi
+from characters.harmony.Hanabi import Hanabi
 from characters.harmony.Tingyun import Tingyun
+from characters.preservation.Fuxuan import Fuxuan
 from estimator.DefaultEstimator import DefaultEstimator
-from lightCones.abundance.Multiplication import Multiplication
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
+from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
+from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
+from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
-from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 
-def JingyuanTingyunHanabiLuocha(config):
-    #%% JingYuan Tingyun Hanabi Luocha Characters
+def JingyuanTingyunHanabiFuxuan(config):
+    #%% JingYuan Tingyun Hanabi Fuxuan Characters
     JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.lightning'],
-                            substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'BreakEffect': 3}),
+                            substats = {'CD': 10, 'CR': 10, 'ATK.percent': 5, 'BreakEffect': 3}), # get to 140 speed before buffs, to just guarantee battalia crush
                             lightcone = GeniusesRepose(**config),
                             relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=6.5,stacks=8.0,uptime=1.0), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
@@ -37,29 +39,29 @@ def JingyuanTingyunHanabiLuocha(config):
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
-    LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                            substats = {'ATK.percent': 5, 'SPD.flat': 12, 'HP.percent': 4, 'RES': 7}),
-                            lightcone = Multiplication(**config),
-                            relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+    FuxuanCharacter = Fuxuan(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
+                            substats = {'HP.percent': 7, 'SPD.flat': 12, 'DEF.percent': 3, 'RES': 6}),
+                            lightcone = DayOneOfMyNewLife(**config),
+                            relicsetone = LongevousDisciple2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                             **config)
     
-    team = [JingYuanCharacter, TingyunCharacter, HanabiCharacter, LuochaCharacter]
+    team = [JingYuanCharacter, TingyunCharacter, HanabiCharacter, FuxuanCharacter]
 
-    #%% JingYuan Tingyun Hanabi Luocha Team Buffs
+    #%% JingYuan Tingyun Hanabi Fuxuan Team Buffs
     # Penacony Buff
-    for character in [JingYuanCharacter, TingyunCharacter, LuochaCharacter]:
+    for character in [JingYuanCharacter, TingyunCharacter, FuxuanCharacter]:
         character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
     for character in [JingYuanCharacter, TingyunCharacter, HanabiCharacter]:
-        character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
-    for character in [JingYuanCharacter, LuochaCharacter, HanabiCharacter]:
+        character.addStat('CD',description='Broken Keel from Fuxuan',amount=0.1)
+    for character in [JingYuanCharacter, HanabiCharacter, FuxuanCharacter]:
         character.addStat('DMG.lightning',description='Penacony from Tingyun',amount=0.1)
         
     # Hanabi Messenger 4 pc
-    for character in [JingYuanCharacter, TingyunCharacter, LuochaCharacter]:
+    for character in [JingYuanCharacter, TingyunCharacter, FuxuanCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Messenger Buff
-    for character in [JingYuanCharacter, HanabiCharacter, LuochaCharacter]:
+    for character in [JingYuanCharacter, HanabiCharacter, FuxuanCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 
     # Past and Future
@@ -69,6 +71,9 @@ def JingyuanTingyunHanabiLuocha(config):
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=JingYuanCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
+    
+    # Fu Xuan Buffs
+    FuxuanCharacter.applySkillBuff(team)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(JingYuanCharacter)
@@ -87,7 +92,7 @@ def JingyuanTingyunHanabiLuocha(config):
     for character in team:
         character.print()
 
-    #%% JingYuan Tingyun Hanabi Luocha Rotations
+    #%% JingYuan Tingyun Hanabi Fuxuan Rotations
     TingyunRotation = [ 
             TingyunCharacter.useBasic() * 2, 
             TingyunCharacter.useSkill(),
@@ -114,36 +119,34 @@ def JingyuanTingyunHanabiLuocha(config):
                        HanabiCharacter.useSkill() * numSkillHanabi,
                     HanabiCharacter.useUltimate()]
 
-    LuochaRotation = [LuochaCharacter.useBasic() * 3,
-                    LuochaCharacter.useUltimate() * 1,
-                    LuochaCharacter.useSkill() * 1,]
-    LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
-    LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
+    FuxuanRotation = [FuxuanCharacter.useBasic() * 2,
+                    FuxuanCharacter.useSkill() * 1,
+                    FuxuanCharacter.useUltimate() * 1,]
 
-    #%% JingYuan Tingyun Hanabi Luocha Rotation Math
+    #%% JingYuan Tingyun Hanabi Fuxuan Rotation Math
     totalJingYuanEffect = sumEffects(JingYuanRotation)
     totalTingyunEffect = sumEffects(TingyunRotation)
     totalHanabiEffect = sumEffects(HanabiRotation)
-    totalLuochaEffect = sumEffects(LuochaRotation)
+    totalFuxuanEffect = sumEffects(FuxuanRotation)
 
     JingYuanRotationDuration = totalJingYuanEffect.actionvalue * 100.0 / JingYuanCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
     HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
-    LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
-
-    JingYuanRotation.append(TingyunCharacter.giveUltEnergy() * JingYuanRotationDuration / TingyunRotationDuration)
+    FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
     # scale other character's rotation
     TingyunRotation = [x * JingYuanRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     HanabiRotation = [x * JingYuanRotationDuration / HanabiRotationDuration for x in HanabiRotation]
-    LuochaRotation = [x * JingYuanRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+    FuxuanRotation = [x * JingYuanRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
+
+    JingYuanRotation.append(TingyunCharacter.giveUltEnergy() * JingYuanRotationDuration / TingyunRotationDuration)
 
     JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q', JingYuanRotation, JingYuanCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 
                                     TingyunRotation, TingyunCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)
-    LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
-                                    LuochaRotation, LuochaCharacter, config)
+    FuxuanEstimate = DefaultEstimator('Fuxuan: 2N 1E 1Q, S{:.0f} {}'.format(FuxuanCharacter.lightcone.superposition, FuxuanCharacter.lightcone.name),
+                                    FuxuanRotation, FuxuanCharacter, config)
 
-    return([JingYuanEstimate,TingyunEstimate,HanabiEstimate,LuochaEstimate])
+    return([JingYuanEstimate,TingyunEstimate,HanabiEstimate,FuxuanEstimate])
