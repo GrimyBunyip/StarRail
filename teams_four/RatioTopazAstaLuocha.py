@@ -14,15 +14,15 @@ from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGla
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
-from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
+from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 
 def DrRatioTopazAstaLuocha(config):
     #%% DrRatio Topaz Asta Luocha Characters
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.imaginary'],
                                     substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
                                     lightcone = CruisingInTheStellarSea(**config),
-                                    relicsetone = WastelanderOfBanditryDesert2pc(),
-                                    relicsettwo = WastelanderOfBanditryDesert4pc(),
+                                    relicsetone = Pioneer2pc(),
+                                    relicsettwo = Pioneer4pc(),
                                     planarset = FirmamentFrontlineGlamoth(stacks=2),
                                     **config)
 

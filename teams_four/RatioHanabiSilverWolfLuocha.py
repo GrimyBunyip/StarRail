@@ -15,16 +15,16 @@ from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
+from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
-from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
 def DrRatioHanabiSilverWolfLuocha(config):
     #%% DrRatio SilverWolf Hanabi Luocha Characters
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.imaginary'],
                                     substats = {'CR': 7, 'CD': 12, 'ATK.percent': 6, 'BreakEffect': 3}),
                                     lightcone = CruisingInTheStellarSea(**config),
-                                    relicsetone = WastelanderOfBanditryDesert2pc(),
-                                    relicsettwo = WastelanderOfBanditryDesert4pc(),
+                                    relicsetone = Pioneer2pc(),
+                                    relicsettwo = Pioneer4pc(),
                                     planarset = InertSalsotto(),
                                     debuffStacks=5.0,
                                     **config)

@@ -11,13 +11,12 @@ from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.hunt.Swordplay import Swordplay
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
-from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
+from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
-from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
 def DrRatioTopazRuanMeiLuocha(config):
     #%% DrRatio Topaz RuanMei Luocha Characters
@@ -32,8 +31,8 @@ def DrRatioTopazRuanMeiLuocha(config):
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
                                     substats = {'CD': 5, 'CR': 10, 'ATK.percent': 3, 'SPD.flat': 10}),
                                     lightcone = CruisingInTheStellarSea(**config),
-                                    relicsetone = WastelanderOfBanditryDesert2pc(),
-                                    relicsettwo = WastelanderOfBanditryDesert4pc(),
+                                    relicsetone = Pioneer2pc(),
+                                    relicsettwo = Pioneer4pc(),
                                     planarset = FirmamentFrontlineGlamoth(stacks=2),
                                     **config)
 

@@ -15,8 +15,8 @@ from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
+from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
-from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
 def DrRatioTopazSilverWolfLuocha(config):
     #%% DrRatio Topaz SilverWolf Luocha Characters
@@ -24,8 +24,8 @@ def DrRatioTopazSilverWolfLuocha(config):
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
                                     substats = {'CD': 5, 'CR': 6, 'ATK.percent': 3, 'SPD.flat': 14}),
                                     lightcone = CruisingInTheStellarSea(**config),
-                                    relicsetone = WastelanderOfBanditryDesert2pc(),
-                                    relicsettwo = WastelanderOfBanditryDesert4pc(),
+                                    relicsetone = Pioneer2pc(),
+                                    relicsettwo = Pioneer4pc(),
                                     planarset = FirmamentFrontlineGlamoth(stacks=2),
                                     debuffStacks=5,
                                     **config)

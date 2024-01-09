@@ -98,15 +98,15 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 #visualizationList.append(ClaraSilverWolfPelaLuocha(config))
 
 # Dr Ratio Teams
-#visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
-#visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
-#visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
-#visualizationList.append(DrRatioTopazAstaLuocha(config))
-#visualizationList.append(DrRatioTopazHanyaLuocha(config))
-#visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
-#visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
-#visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
-#visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
+visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
+visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
+visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
+visualizationList.append(DrRatioTopazAstaLuocha(config))
+visualizationList.append(DrRatioTopazHanyaLuocha(config))
+visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
+visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
+visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
+visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
 
 # Jingliu Teams
 #visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
@@ -115,11 +115,11 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 #visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
 # Jingyuan Teams
-visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
-visualizationList.append(JingyuanTingyunHanabiLuocha(config))
-visualizationList.append(JingyuanTingyunAstaLuocha(config))
-visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
-visualizationList.append(JingyuanTingyunTopazLuocha(config))
+#visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
+#visualizationList.append(JingyuanTingyunHanabiLuocha(config))
+#visualizationList.append(JingyuanTingyunAstaLuocha(config))
+#visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
+#visualizationList.append(JingyuanTingyunTopazLuocha(config))
 
 # Lunae Teams
 #visualizationList.append(LunaeHanabiTingyunLuocha(config))

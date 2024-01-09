@@ -7,7 +7,6 @@ from characters.nihility.SilverWolf import SilverWolf
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
-from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from relicSets.planarSets.BrokenKeel import BrokenKeel
@@ -16,16 +15,16 @@ from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
+from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
-from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
 def DrRatioHanyaSilverWolfLuocha(config):
     #%% DrRatio SilverWolf Hanya Luocha Characters
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
                                     substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
                                     lightcone = CruisingInTheStellarSea(**config),
-                                    relicsetone = WastelanderOfBanditryDesert2pc(),
-                                    relicsettwo = WastelanderOfBanditryDesert4pc(),
+                                    relicsetone = Pioneer2pc(),
+                                    relicsettwo = Pioneer4pc(),
                                     planarset = FirmamentFrontlineGlamoth(stacks=2),
                                     debuffStacks=5.0,
                                     **config)
