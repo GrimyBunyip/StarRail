@@ -7,8 +7,8 @@ from characters.harmony.Hanabi import Hanabi
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
-from lightCones.harmony.Chorus import Chorus
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
+from lightCones.harmony.PastAndFuture import PastAndFuture
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
@@ -19,7 +19,7 @@ from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingClou
 def ClaraTingyunHanabiLuocha(config):
     #%% Clara Tingyun Hanabi Luocha Characters
     ClaraCharacter = Clara(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
-                            substats = {'CD': 6, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 7}),
+                            substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'BreakEffect': 5}),
                             lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=5.0, **config),
                             relicsetone = ChampionOfStreetwiseBoxing2pc(),
                             relicsettwo = ChampionOfStreetwiseBoxing4pc(),
@@ -33,9 +33,9 @@ def ClaraTingyunHanabiLuocha(config):
                             benedictionTarget=ClaraCharacter,
                             **config)
     
-    HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'DEF.percent', 'ER'],
-                            substats = {'RES': 8, 'CD': 12, 'HP.percent': 5, 'DEF.percent': 3}),
-                            lightcone = Chorus(**config),
+    HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
+                            substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
+                            lightcone = PastAndFuture(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
@@ -55,12 +55,11 @@ def ClaraTingyunHanabiLuocha(config):
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
-    HanabiCharacter.applySkillBuff(character=ClaraCharacter,uptime=2.0/3.0)
+    HanabiCharacter.applySkillBuff(character=ClaraCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
     
-    # Hanabi Chorus Buff
-    for character in team:
-        character.addStat('ATK.percent',description='Chorus',amount=0.12)
+    # Past and Future
+    ClaraCharacter.addStat('DMG',description='Past and Future',amount=0.32)
         
     # messenger 4 pc buffs from Tingyun:
     ClaraCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
@@ -69,7 +68,7 @@ def ClaraTingyunHanabiLuocha(config):
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(ClaraCharacter)
-    TingyunCharacter.applyUltBuff(ClaraCharacter,targetSpdMult=1.5)
+    TingyunCharacter.applyUltBuff(ClaraCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/ClaraCharacter.getTotalStat('SPD'))
 
     #%% Print Statements
     for character in team:
@@ -79,7 +78,7 @@ def ClaraTingyunHanabiLuocha(config):
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
     numSkillClara = 1.25
-    numEnemyAttacks = ClaraCharacter.enemySpeed * ClaraCharacter.numEnemies * numSkillClara / ClaraCharacter.getTotalStat('SPD') / 1.5
+    numEnemyAttacks = ClaraCharacter.enemySpeed * ClaraCharacter.numEnemies * numSkillClara / HanabiCharacter.getTotalStat('SPD') # enemy attacks now scale to hanabi speed
     numEnhancedTalents = 2
     numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*6) / (5*6 + 3 + 4 + 4)
     numSvarogCounters = numEnemyAttacks * (5*6) / (5*6 + 3 + 4 + 4)
@@ -93,7 +92,7 @@ def ClaraTingyunHanabiLuocha(config):
             TingyunCharacter.useBenediction(['skill']) * numSkillClara,
             TingyunCharacter.useBenediction(['talent','followup']) * numEnhancedTalents,
             TingyunCharacter.useBenediction(['talent','followup']) * numUnenhancedTalents,
-            HanabiCharacter.useAdvanceForward() * numSkillClara  * 2.0 / 3.0,
+            HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - ClaraCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * numSkillClara,
     ]
     
     TingyunRotation = [ 

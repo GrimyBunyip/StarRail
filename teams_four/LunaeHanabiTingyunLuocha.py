@@ -7,8 +7,8 @@ from characters.harmony.Tingyun import Tingyun
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
-from lightCones.harmony.Chorus import Chorus
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
+from lightCones.harmony.PastAndFuture import PastAndFuture
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.RutilantArena import RutilantArena
@@ -21,7 +21,7 @@ def LunaeHanabiTingyunLuocha(config):
     #%% Lunae Hanabi Tingyun Luocha Characters
     
     LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
-                            substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
+                            substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'BreakEffect': 3}),
                             lightcone = OnTheFallOfAnAeon(**config),
                             relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = RutilantArena(),
                             **config)
@@ -33,9 +33,9 @@ def LunaeHanabiTingyunLuocha(config):
                             benedictionTarget=LunaeCharacter,
                             **config)
     
-    HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'DEF.percent', 'ER'],
-                            substats = {'RES': 8, 'CD': 12, 'HP.percent': 5, 'DEF.percent': 3}),
-                            lightcone = Chorus(**config),
+    HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
+                            substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
+                            lightcone = PastAndFuture(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
@@ -56,12 +56,11 @@ def LunaeHanabiTingyunLuocha(config):
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
-    HanabiCharacter.applySkillBuff(character=LunaeCharacter,uptime=2.0/3.0)
+    HanabiCharacter.applySkillBuff(character=LunaeCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
     
-    # Hanabi Chorus Buff
-    for character in team:
-        character.addStat('ATK.percent',description='Chorus',amount=0.12)
+    # Past and Future
+    LunaeCharacter.addStat('DMG',description='Past and Future',amount=0.32)
             
     # Tingyun Messenger Buff
     LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc Tingyun',amount=0.12,uptime=1.0/4.0)
@@ -75,7 +74,7 @@ def LunaeHanabiTingyunLuocha(config):
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(LunaeCharacter)
-    TingyunCharacter.applyUltBuff(LunaeCharacter,targetSpdMult=1.5)
+    TingyunCharacter.applyUltBuff(LunaeCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/LunaeCharacter.getTotalStat('SPD'))
 
     #%% Print Statements
     for character in team:
@@ -97,7 +96,7 @@ def LunaeHanabiTingyunLuocha(config):
                 TingyunCharacter.useBenediction(['basic','enhancedBasic']) * 2, # apply benedictions with buffs
                 TingyunCharacter.useBenediction(['ultimate']) * 1,
                 LunaeCharacter.endTurn(),
-                HanabiCharacter.useAdvanceForward() * lunaeRotation * (2.0 / 3.0), # Hanabi only advances forward 2 out of every 3 lunae turns, and only 2 out of 3 
+                HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - LunaeCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * lunaeRotation, 
     ]
 
     TingyunRotation = [ 

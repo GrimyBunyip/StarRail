@@ -46,10 +46,12 @@ def JingyuanTingyunAstaLuocha(config):
 
     #%% JingYuan Tingyun Asta Luocha Team Buffs
     # Penacony Buff
-    for character in [JingYuanCharacter, LuochaCharacter]:
+    for character in [JingYuanCharacter, TingyunCharacter, LuochaCharacter]:
         character.addStat('CD',description='Broken Keel from Asta',amount=0.1)
-    for character in [JingYuanCharacter, AstaCharacter]:
+    for character in [JingYuanCharacter, TingyunCharacter, AstaCharacter]:
         character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
+    for character in [JingYuanCharacter, LuochaCharacter, AstaCharacter]:
+        character.addStat('DMG.lightning',description='Penacony from Tingyun',amount=0.1)
         
     # Asta Buffs
     AstaCharacter.applyChargingBuff(team)

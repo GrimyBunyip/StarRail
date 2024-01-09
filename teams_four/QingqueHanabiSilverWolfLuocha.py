@@ -1,4 +1,4 @@
-from baseClasses.BaseEffect import BaseEffect, sumEffects
+from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.erudition.Qingque import Qingque
 from characters.abundance.Luocha import Luocha
@@ -7,16 +7,12 @@ from characters.nihility.SilverWolf import SilverWolf
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
-from lightCones.harmony.DanceDanceDance import DanceDanceDance
-from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
-from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
+from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
-from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc
-from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
@@ -24,14 +20,14 @@ from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, 
 def QingqueHanabiSilverWolfLuocha(config):
     #%% Qingque Hanabi SilverWolf Luocha Characters
     QingqueCharacter = Qingque(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.quantum'],
-                        substats = {'CR': 12, 'CD': 8, 'ATK.percent': 5, 'SPD.flat': 3}),
+                        substats = {'CR': 12, 'CD': 8, 'ATK.percent': 5, 'BreakEffect': 3}),
                         lightcone = TheSeriousnessOfBreakfast(**config),
                         relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = RutilantArena(),
                         **config)
     
-    HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'DEF.percent', 'ER'],
-                        substats = {'RES': 8, 'CD': 12, 'HP.percent': 5, 'SPD.flat': 3}),
-                        lightcone = PlanetaryRendezvous(**config),
+    HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
+                        substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
+                        lightcone = PastAndFuture(**config),
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = PenaconyLandOfDreams(),
                         **config)
 
@@ -57,8 +53,9 @@ def QingqueHanabiSilverWolfLuocha(config):
         character.addStat('DMG.quantum',description='Penacony SilverWolf',amount=0.10)
     for character in [QingqueCharacter, SilverWolfCharacter, HanabiCharacter]:
         character.addStat('CD',description='Broken Keel Luocha',amount=0.10)
-    for character in team:
-        character.addStat('DMG.quantum',description='Planetary Rendezvous',amount=0.24)
+
+    # Past and Future
+    QingqueCharacter.addStat('DMG',description='Past and Future',amount=0.32)
 
     # Messenger 4 pc
     for character in [QingqueCharacter, SilverWolfCharacter, LuochaCharacter]:
@@ -70,7 +67,7 @@ def QingqueHanabiSilverWolfLuocha(config):
         
     # Hanabi Buffs
     HanabiCharacter.applyTraceBuff(team=team)
-    HanabiCharacter.applySkillBuff(character=QingqueCharacter,uptime=2.0/3.0)
+    HanabiCharacter.applySkillBuff(character=QingqueCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
 
     #%% Print Statements
@@ -107,7 +104,7 @@ def QingqueHanabiSilverWolfLuocha(config):
         QingqueCharacter.useUltimate(),
         QingqueCharacter.useEnhancedBasic(),
         QingqueCharacter.drawTileFromAlly(),
-        HanabiCharacter.useAdvanceForward() * 5 * 2 / 3,
+        HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - QingqueCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * 5,
     ]
 
     numBasicSW = 1

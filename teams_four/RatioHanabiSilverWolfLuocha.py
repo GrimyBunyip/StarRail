@@ -6,11 +6,10 @@ from characters.harmony.Hanabi import Hanabi
 from characters.nihility.SilverWolf import SilverWolf
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
-from lightCones.harmony.Chorus import Chorus
+from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
@@ -22,7 +21,7 @@ from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditr
 def DrRatioHanabiSilverWolfLuocha(config):
     #%% DrRatio SilverWolf Hanabi Luocha Characters
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.imaginary'],
-                                    substats = {'CR': 7, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 4}),
+                                    substats = {'CR': 7, 'CD': 12, 'ATK.percent': 6, 'BreakEffect': 3}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = WastelanderOfBanditryDesert2pc(),
                                     relicsettwo = WastelanderOfBanditryDesert4pc(),
@@ -30,9 +29,9 @@ def DrRatioHanabiSilverWolfLuocha(config):
                                     debuffStacks=5.0,
                                     **config)
     
-    HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'DEF.percent', 'ER'],
-                                    substats = {'RES': 8, 'CD': 12, 'HP.percent': 5, 'SPD.flat': 3}),
-                                    lightcone = Chorus(**config),
+    HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'SPD.flat', 'HP.percent', 'ER'],
+                                    substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
+                                    lightcone = PastAndFuture(**config),
                                     relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                                     **config)
 
@@ -63,12 +62,11 @@ def DrRatioHanabiSilverWolfLuocha(config):
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
-    HanabiCharacter.applySkillBuff(character=DrRatioCharacter,uptime=2.0/3.0)
+    HanabiCharacter.applySkillBuff(character=DrRatioCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
     
-    # Hanabi Chorus Buff
-    for character in team:
-        character.addStat('ATK.percent',description='Chorus',amount=0.12)
+    # Past and Future
+    DrRatioCharacter.addStat('DMG',description='Past and Future',amount=0.32)
 
     # Silver Wolf Debuffs
     SilverWolfCharacter.applyDebuffs(team=team,targetingUptime=1.0,numSkillUses=1) 
@@ -91,7 +89,7 @@ def DrRatioHanabiSilverWolfLuocha(config):
             DrRatioCharacter.useSkill() * numSkillRatio,
             DrRatioCharacter.useUltimate() * numUltRatio,
             DrRatioCharacter.useTalent() * numTalentRatio,
-            HanabiCharacter.useAdvanceForward() * numSkillRatio * 2.0 / 3.0,
+            HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - DrRatioCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * numSkillRatio,
     ]
 
     numBasicSW = 1
