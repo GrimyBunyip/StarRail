@@ -56,7 +56,7 @@ def LunaeHanabiTingyunLuocha(config):
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
-    HanabiCharacter.applySkillBuff(character=LunaeCharacter,uptime=1.0)
+    HanabiCharacter.applySkillBuff(character=LunaeCharacter,uptime=2.0/3.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
     
     # Hanabi Chorus Buff

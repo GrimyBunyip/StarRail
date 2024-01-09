@@ -31,7 +31,7 @@ class Hanabi(BaseCharacter):
         for character in team:
             character:BaseCharacter
             character.addStat('ATK.percent',description='Hanabi Trace',amount=0.15)
-            character.addStat('DMG.quantum',description='Hanabi Trace',amount=0.3 if numQuantum >= 3 else 0.15 if numQuantum == 2 else 0.05)
+            character.addStat('ATK.percent',description='Hanabi Trace',amount=0.3 if numQuantum >= 3 else 0.15 if numQuantum == 2 else 0.05,type='quantum')
             character.addStat('DMG',description='Hanabi Talent',amount=0.066 if self.eidolon >= 5 else 0.06, stacks=3)
             
     def applyUltBuff(self, team:list, uptime:float):
