@@ -31,6 +31,7 @@ def BladeBronyaRuanMeiFuxuan(config):
                         substats = {'CR': 12, 'CD': 8, 'SPD.flat': 5, 'HP.percent': 3}),
                         lightcone = ASecretVow(uptime=1.0,**config),
                         relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = InertSalsotto(),
+                        hpLossTally = 0.25,
                         **config)
 
     BronyaCharacter = Bronya(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'ER'],

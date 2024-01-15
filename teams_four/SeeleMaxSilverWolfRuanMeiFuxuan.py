@@ -107,13 +107,6 @@ def SeeleMaxSilverWolfRuanMeiFuxuan(config):
                     FuxuanCharacter.useUltimate() * 1,]
 
     #%% Seele MID Silver Wolf RuanMei Fuxuan Rotation Math
-
-    #Seele is too fast for slow RuanMei. And we don't have enough SP to go faster
-    totalSeeleEffect = sumEffects(SeeleRotation)
-    totalRuanMeiEffect = sumEffects(RuanMeiRotation)
-    SeeleRotationDuration = totalSeeleEffect.actionvalue * 100.0 / SeeleCharacter.getTotalStat('SPD')
-    RuanMeiRotationDuration = totalRuanMeiEffect.actionvalue * 100.0 / RuanMeiCharacter.getTotalStat('SPD')
-
     totalSeeleEffect = sumEffects(SeeleRotation)
     totalRuanMeiEffect = sumEffects(RuanMeiRotation)
     totalSilverWolfEffect = sumEffects(SilverWolfRotation)

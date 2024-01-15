@@ -42,10 +42,10 @@ def KafkaGuinaifenBlackSwanLuocha(config):
                             **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                                    substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
-                                    lightcone = Multiplication(**config),
-                                    relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = FleetOfTheAgeless(),
-                                    **config)
+                            substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
+                            lightcone = Multiplication(**config),
+                            relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = FleetOfTheAgeless(),
+                            **config)
     
     team = [KafkaCharacter, GuinaifenCharacter, BlackSwanCharacter, LuochaCharacter]
 
