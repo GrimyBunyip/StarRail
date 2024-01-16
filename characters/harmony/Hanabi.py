@@ -43,7 +43,7 @@ class Hanabi(BaseCharacter):
         
     def applySkillBuff(self,character:BaseCharacter,uptime:float):
         character.addStat('CD',description='Hanabi Skill',
-                            amount=((0.396 * self.getTotalStat('CD') + 0.176) if self.eidolon >= 3 else (0.36 * self.getTotalStat('CD') + 0.16)),
+                            amount=((0.264 * self.getTotalStat('CD') + 0.495) if self.eidolon >= 3 else (0.24 * self.getTotalStat('CD') + 0.45)),
                             uptime=uptime)
         
     def useBasic(self):
