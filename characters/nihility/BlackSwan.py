@@ -39,6 +39,12 @@ class BlackSwan(BaseCharacter):
         # Gear
         self.equipGear()
         
+    def setSacramentStacks(self,sacramentStacks:float):
+        self.sacramentStacks = sacramentStacks
+        self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=0.24+0.12*self.sacramentStacks, eidolonThreshold=3, eidolonBonus=0.24+0.012*self.sacramentStacks)]
+        self.motionValueDict['dotAOE'] = [BaseMV(area='single', stat='atk', value=0.24+0.12*self.sacramentStacks, eidolonThreshold=3, eidolonBonus=0.24+0.012*self.sacramentStacks),
+                                        BaseMV(area='adjacent', stat='atk', value=1.8 if self.sacramentStacks >= 3 else 0.0, eidolonThreshold=3, eidolonBonus=0.18 if self.sacramentStacks >= 3 else 0.0),]
+        
     def applySkillDebuff(self,team:list,rotationDuration:float):
         uptime = (3.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
         uptime = min(1.0, uptime)

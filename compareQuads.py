@@ -30,6 +30,9 @@ from teams_four.KafkaBlackSwanRuanMeiHuohuo import KafkaBlackSwanRuanMeiHuohuo
 from teams_four.KafkaBlackSwanRuanMeiLuocha import KafkaBlackSwanRuanMeiLuocha
 from teams_four.KafkaGuinaifenAstaLuocha import KafkaGuinaifenAstaLuocha
 from teams_four.KafkaGuinaifenBlackSwanLuocha import KafkaGuinaifenBlackSwanLuocha
+from teams_four.KafkaGuinaifenBlackSwanLuochaPatience import KafkaGuinaifenBlackSwanLuochaPatience
+from teams_four.KafkaGuinaifenBlackSwanLuochaSlow import KafkaGuinaifenBlackSwanLuochaSlow
+from teams_four.KafkaRuanMeiBlackSwanLuochaPatience import KafkaRuanMeiBlackSwanLuochaPatience
 from teams_four.KafkaGuinaifenHanyaLuocha import KafkaGuinaifenHanyaLuocha
 from teams_four.KafkaGuinaifenLukaLuocha import KafkaGuinaifenLukaLuocha
 from teams_four.KafkaGuinaifenRuanMeiLuocha import KafkaGuinaifenRuanMeiLuocha
@@ -133,7 +136,11 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(LunaePelaYukongLuocha(config))
 
 # Kafka Teams
+config['enemySpeed'] = 190 / 1.125
 visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuochaSlow(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
+visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
 visualizationList.append(KafkaGuinaifenSampoLuocha(config))
 visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
 visualizationList.append(KafkaSampoRuanMeiLuocha(config))
