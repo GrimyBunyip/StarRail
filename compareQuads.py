@@ -11,6 +11,7 @@ from teams_four.BladeBronyaPelaLynx import BladeBronyaPelaLynx
 from teams_four.BladeBronyaRuanMeiFuxuan import BladeBronyaRuanMeiFuxuan
 from teams_four.BladeBronyaRuanMeiLuocha import BladeBronyaRuanMeiLuocha
 from teams_four.ClaraSilverWolfPelaLuocha import ClaraSilverWolfPelaLuocha
+from teams_four.ClaraTingyunHanabiFuxuan import ClaraTingyunHanabiFuxuan
 from teams_four.ClaraTingyunHanabiLuocha import ClaraTingyunHanabiLuocha
 from teams_four.ClaraTingyunHanyaLuocha import ClaraTingyunHanyaLuocha
 from teams_four.ClaraTingyunPelaLuocha import ClaraTingyunPelaLuocha
@@ -31,7 +32,6 @@ from teams_four.KafkaBlackSwanRuanMeiLuocha import KafkaBlackSwanRuanMeiLuocha
 from teams_four.KafkaGuinaifenAstaLuocha import KafkaGuinaifenAstaLuocha
 from teams_four.KafkaGuinaifenBlackSwanLuocha import KafkaGuinaifenBlackSwanLuocha
 from teams_four.KafkaGuinaifenBlackSwanLuochaPatience import KafkaGuinaifenBlackSwanLuochaPatience
-from teams_four.KafkaGuinaifenBlackSwanLuochaSlow import KafkaGuinaifenBlackSwanLuochaSlow
 from teams_four.KafkaRuanMeiBlackSwanLuochaPatience import KafkaRuanMeiBlackSwanLuochaPatience
 from teams_four.KafkaGuinaifenHanyaLuocha import KafkaGuinaifenHanyaLuocha
 from teams_four.KafkaGuinaifenLukaLuocha import KafkaGuinaifenLukaLuocha
@@ -74,7 +74,7 @@ visualizationList = []
 
 config = copy(Configuration)
 config['numEnemies'] = 2
-config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
+config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
 
@@ -86,13 +86,14 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
 # Blade Teams
-# visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan
+# visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
 # visualizationList.append(BladeBronyaPelaFuxuan(config)) # 100% vow uptime with fu xuan
 # visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 # visualizationList.append(BladeBronyaPelaLynx(config))
 # visualizationList.append(BladeBronyaPelaLuocha(config))
 
 # Clara Teams
+# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(ClaraTingyunHanabiLuocha(config))
 # visualizationList.append(ClaraTingyunHanyaLuocha(config))
 # visualizationList.append(ClaraTopazAstaLuocha(config))
@@ -102,8 +103,8 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(ClaraSilverWolfPelaLuocha(config))
 
 # Dr Ratio Teams
-# visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
 # visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
+# visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
 # visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
 # visualizationList.append(DrRatioTopazAstaLuocha(config))
 # visualizationList.append(DrRatioTopazHanyaLuocha(config))
@@ -126,7 +127,7 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(JingyuanTingyunTopazLuocha(config))
 
 # Lunae Teams
-# visualizationList.append(LunaeHanabiTingyunLuocha(config))
+visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaYukongLuocha(config))
 # visualizationList.append(LunaeHanyaPelaLuocha(config))
@@ -136,16 +137,15 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(LunaePelaYukongLuocha(config))
 
 # Kafka Teams
-config['enemySpeed'] = 190 / 1.125
-visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-visualizationList.append(KafkaGuinaifenBlackSwanLuochaSlow(config))
-visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
-visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
-visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
-visualizationList.append(KafkaSampoRuanMeiLuocha(config))
-visualizationList.append(KafkaGuinaifenLukaLuocha(config))
-visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
+# config['enemySpeed'] = 190 / 1.125
+# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaGuinaifenSampoLuocha(config))
+# visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
+# visualizationList.append(KafkaSampoRuanMeiLuocha(config))
+# visualizationList.append(KafkaGuinaifenLukaLuocha(config))
+# visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 
 # visualizationList.append(KafkaBlackSwanRuanMeiHuohuo(config)) # Night of Fright lightcone, retiring this
 # visualizationList.append(KafkaBlackSwanRuanMeiLuocha(config)) # patience lightcone, retiring this
@@ -165,7 +165,8 @@ visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 # visualizationList.append(SeeleMidSilverWolfBronyaFuxuan(config))
 
 # Solo Topaz Teams
-# visualizationList.append(TopazTingyunHanyaLuocha(config))
+visualizationList.append(TopazTingyunHanyaLuocha(config))
+visualizationList.append(TopazTingyunHanyaLuocha(config))
 
 # Xueyi Teams
 # visualizationList.append(XueyiHanyaPelaFuxuan(config))

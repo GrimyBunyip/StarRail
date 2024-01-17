@@ -40,7 +40,7 @@ def KafkaRuanMeiBlackSwanLuochaPatience(config):
     # Kafka and RuanMei are a few substats short of base 160 with a 12 substat cap
     # But I'll just generously assume you are able to get there
 
-    BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
+    BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                         substats = {'ATK.percent': 3, 'SPD.flat': 8, 'EHR': 14, 'BreakEffect': 3}),
                         lightcone = EyesOfThePrey(**config),
                         relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
@@ -123,8 +123,8 @@ def KafkaRuanMeiBlackSwanLuochaPatience(config):
                        RuanMeiCharacter.useSkill() * numSkillRuanMei,
                     RuanMeiCharacter.useUltimate()]
 
-    numBasicBlackSwan = 2
-    numSkillBlackSwan = 2
+    numBasicBlackSwan = SwanUltRotation / 2.0
+    numSkillBlackSwan = SwanUltRotation / 2.0
     numUltBlackSwan = 1
     BlackSwanRotation = [
                     BlackSwanCharacter.useBasic() * numBasicBlackSwan,

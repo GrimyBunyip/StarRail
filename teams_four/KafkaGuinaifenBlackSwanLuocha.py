@@ -34,7 +34,7 @@ def KafkaGuinaifenBlackSwanLuocha(config):
     # Kafka and Guinaifen are a few substats short of base 160 with a 12 substat cap
     # But I'll just generously assume you are able to get there
 
-    BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'SPD.flat', 'ATK.percent', 'ER'],
+    BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 5, 'BreakEffect': 3}),
                             lightcone = EyesOfThePrey(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
@@ -58,7 +58,7 @@ def KafkaGuinaifenBlackSwanLuocha(config):
     GuinaifenCharacter.applyFirekiss(team=team,uptime=1.0)
         
     # Apply BlackSwan Vulnerability Debuff
-    SwanUltRotation = 4.0
+    SwanUltRotation = 5.0
     BlackSwanCharacter.applySkillDebuff(team,rotationDuration=2.0)
     BlackSwanCharacter.applyUltDebuff(team,rotationDuration=SwanUltRotation)
 
@@ -89,7 +89,7 @@ def KafkaGuinaifenBlackSwanLuocha(config):
     netStackRate = adjacentStackRate * KafkaCharacter.enemySpeed * SwanUltMultiplier
     netStackRate += dotStackRate * KafkaCharacter.enemySpeed * SwanUltMultiplier
     netStackRate += KafkaStackRate * KafkaCharacter.getTotalStat('SPD') * SwanUltMultiplier
-    netStackRate += GuinaifenStackRate * GuinaifenCharacter.getTotalStat('SPD') * (2 if SwanUltRotation == 4.0 else SwanUltMultiplier)
+    netStackRate += GuinaifenStackRate * GuinaifenCharacter.getTotalStat('SPD') * SwanUltMultiplier
     netStackRate += SwanStackRate * BlackSwanCharacter.getTotalStat('SPD') * SwanUltMultiplier
     netStackRate = netStackRate / KafkaCharacter.enemySpeed / KafkaCharacter.numEnemies
     print(f'net Stack Rate per Enemy {netStackRate}')
@@ -124,8 +124,8 @@ def KafkaGuinaifenBlackSwanLuocha(config):
             BlackSwanDot * GuinaifenCharacter.numEnemies, # Guinaifen detonates swan dot
     ]
 
-    numBasicBlackSwan = 2
-    numSkillBlackSwan = 2
+    numBasicBlackSwan = SwanUltRotation / 2.0
+    numSkillBlackSwan = SwanUltRotation / 2.0
     numUltBlackSwan = 1
     BlackSwanRotation = [
                     BlackSwanCharacter.useBasic() * numBasicBlackSwan,

@@ -149,6 +149,8 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
                     '\nEnergy Surplus per Rotation: ' + str(round(energySurplus, 2)),
                 va = 'center', 
                 color = 'white')
+        
+        print(int((totalEffect.damage) / cycles))
 
     plt.xlabel('Build')
     plt.ylabel('Damage')

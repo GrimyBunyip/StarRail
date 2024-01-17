@@ -21,7 +21,7 @@ def LunaeHanabiTingyunLuocha(config):
     #%% Lunae Hanabi Tingyun Luocha Characters
     
     LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
-                            substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'BreakEffect': 3}),
+                            substats = {'CR': 11, 'CD': 9, 'ATK.percent': 5, 'BreakEffect': 3}),
                             lightcone = OnTheFallOfAnAeon(**config),
                             relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = RutilantArena(),
                             **config)

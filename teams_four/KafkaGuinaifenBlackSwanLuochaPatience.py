@@ -35,7 +35,7 @@ def KafkaGuinaifenBlackSwanLuochaPatience(config):
     # Kafka and Guinaifen are a few substats short of base 160 with a 12 substat cap
     # But I'll just generously assume you are able to get there
 
-    BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'SPD.flat', 'ATK.percent', 'ER'],
+    BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 5, 'BreakEffect': 3}),
                             lightcone = EyesOfThePrey(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
@@ -59,7 +59,7 @@ def KafkaGuinaifenBlackSwanLuochaPatience(config):
     GuinaifenCharacter.applyFirekiss(team=team,uptime=1.0)
         
     # Apply BlackSwan Vulnerability Debuff
-    SwanUltRotation = 4.0
+    SwanUltRotation = 5.0
     BlackSwanCharacter.applySkillDebuff(team,rotationDuration=2.0)
     BlackSwanCharacter.applyUltDebuff(team,rotationDuration=SwanUltRotation)
 
@@ -115,8 +115,8 @@ def KafkaGuinaifenBlackSwanLuochaPatience(config):
     numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
     numDotKafka = min(numDotKafka, 2 * numUlt * KafkaCharacter.numEnemies + 2 * numTalent)
 
-    numBasicGuinaifen = 2.0
-    numSkillGuinaifen = 2.0
+    numBasicGuinaifen = SwanUltRotation / 2.0
+    numSkillGuinaifen = SwanUltRotation / 2.0
     numUltGuinaifen = 1.0
     GuinaifenRotation = [ # 
             GuinaifenCharacter.useBasic() * numBasicGuinaifen,
