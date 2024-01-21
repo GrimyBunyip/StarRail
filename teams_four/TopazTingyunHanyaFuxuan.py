@@ -1,26 +1,27 @@
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
-from characters.abundance.Luocha import Luocha
-from characters.harmony.Hanabi import Hanabi
+from characters.preservation.Fuxuan import Fuxuan
+from characters.harmony.Hanya import Hanya
 from characters.harmony.Tingyun import Tingyun
 from characters.hunt.Topaz import Topaz
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
-from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.hunt.Swordplay import Swordplay
+from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
+from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 
-def TopazTingyunHanabiLuocha(config):
-    #%% Topaz Tingyun Hanabi Luocha Characters
+def TopazTingyunHanyaFuxuan(config):
+    #%% Topaz Tingyun Hanya Fuxuan Characters
     TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'ATK.percent', 'CR', 'ATK.percent'],
-                        substats = {'CR': 12, 'CD': 8, 'ATK.percent': 5, 'SPD.flat': 3}),
+                        substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
                         lightcone = Swordplay(**config),
                         relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
                         **config)
@@ -31,41 +32,40 @@ def TopazTingyunHanabiLuocha(config):
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = SprightlyVonwacq(),
                         benedictionTarget=TopazCharacter,
                         **config)
-    
-    HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
-                        substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
-                        lightcone = PastAndFuture(**config),
+
+    HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
+                        substats = {'CR': 8, 'SPD.flat': 12, 'CD': 5, 'ATK.percent': 3}),
+                        lightcone = DanceDanceDance(**config),
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                         **config)
 
-    LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                        substats = {'ATK.percent': 5, 'SPD.flat': 12, 'HP.percent': 4, 'RES': 7}),
-                        lightcone = Multiplication(**config),
-                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+    FuxuanCharacter = Fuxuan(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
+                        substats = {'HP.percent': 7, 'SPD.flat': 12, 'DEF.percent': 3, 'RES': 6}),
+                        lightcone = DayOneOfMyNewLife(**config),
+                        relicsetone = LongevousDisciple2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
-    team = [TopazCharacter, TingyunCharacter, HanabiCharacter, LuochaCharacter]
+    team = [TopazCharacter, TingyunCharacter, HanyaCharacter, FuxuanCharacter]
 
-    #%% Topaz Tingyun Hanabi Luocha Team Buffs
-    for character in [TopazCharacter, TingyunCharacter, HanabiCharacter]:
-        character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
-    for character in [TopazCharacter, TingyunCharacter, LuochaCharacter]:
-        character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
+    #%% Topaz Tingyun Hanya Fuxuan Team Buffs
+    for character in [TopazCharacter, TingyunCharacter, HanyaCharacter]:
+        character.addStat('CD',description='Broken Keel from Fuxuan',amount=0.1)
+    for character in [TopazCharacter, TingyunCharacter, FuxuanCharacter]:
+        character.addStat('CD',description='Broken Keel from Hanya',amount=0.1)
         
-    # messenger 4 pc buffs from Hanabi:
+    # messenger 4 pc buffs from Hanya:
     TopazCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
     TingyunCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-    LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4)
+    FuxuanCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4)
 
     # messenger 4 pc buffs from Tingyun:
     TopazCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-    HanabiCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-    LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4)
+    HanyaCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
+    FuxuanCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4)
 
-    # Hanabi Buffs, max skill uptime
-    HanabiCharacter.applyTraceBuff(team=team)
-    HanabiCharacter.applySkillBuff(character=TopazCharacter,uptime=1.0)
-    HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
+    # Hanya Buffs
+    HanyaCharacter.applyBurdenBuff(team)
+    HanyaCharacter.applyUltBuff(TopazCharacter,uptime=1.0)
     
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff([TopazCharacter],uptime=1.0)
@@ -73,12 +73,15 @@ def TopazTingyunHanabiLuocha(config):
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(TopazCharacter)
     TingyunCharacter.applyUltBuff(TopazCharacter)
+    
+    # Fu Xuan Buffs
+    FuxuanCharacter.applySkillBuff(team)
 
     #%% Print Statements
     for character in team:
         character.print()
 
-    #%% Topaz Tingyun Hanabi Luocha Rotations
+    #%% Topaz Tingyun Hanya Fuxuan Rotations
     numSkillTopaz = 1.7
     numUltTopaz = 1.0
     TopazRotation = [ # 130 max energy
@@ -97,12 +100,11 @@ def TopazTingyunHanabiLuocha(config):
     TopazRotation.append(TingyunCharacter.useBenediction(['skill','followup']) * numSkillTopaz)
     TopazRotation.append(TingyunCharacter.useBenediction(['talent','followup']) * 2)
     TopazRotation.append(TingyunCharacter.useBenediction(['talent','followup']) * (numbyTurns + numbyAdvanceForwards))
-    
-    numBasicHanabi = 0.0
-    numSkillHanabi = 3.0
-    HanabiRotation = [HanabiCharacter.useBasic() * numBasicHanabi,
-                       HanabiCharacter.useSkill() * numSkillHanabi,
-                    HanabiCharacter.useUltimate()]
+
+    numHanyaSkill = 4
+    numHanyaUlt = 1
+    HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
+                    HanyaCharacter.useUltimate() * numHanyaUlt]
 
     TingyunRotation = [ 
             TingyunCharacter.useBasic() * 2, 
@@ -110,41 +112,54 @@ def TopazTingyunHanabiLuocha(config):
             TingyunCharacter.useUltimate(),
     ]
 
-    LuochaRotation = [LuochaCharacter.useBasic() * 3,
-                    LuochaCharacter.useUltimate() * 1,
-                    LuochaCharacter.useSkill() * 1,]
-    LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
-    LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
+    FuxuanRotation = [FuxuanCharacter.useBasic() * 2,
+                    FuxuanCharacter.useSkill() * 1,
+                    FuxuanCharacter.useUltimate() * 1,]
 
-    #%% Topaz Tingyun Hanabi Luocha Rotation Math
+    #%% Topaz Tingyun Hanya Fuxuan Rotation Math
 
     totalTopazEffect = sumEffects(TopazRotation)
     totalTingyunEffect = sumEffects(TingyunRotation)
-    totalHanabiEffect = sumEffects(HanabiRotation)
-    totalLuochaEffect = sumEffects(LuochaRotation)
+    totalHanyaEffect = sumEffects(HanyaRotation)
+    totalFuxuanEffect = sumEffects(FuxuanRotation)
 
     TopazRotationDuration = totalTopazEffect.actionvalue * 100.0 / TopazCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
-    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
-    LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+    FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')
     print('Topaz: ',TopazRotationDuration)
     print('Tingyun: ',TingyunRotationDuration)
-    print('Hanabi: ',HanabiRotationDuration)
-    print('Luocha: ',LuochaRotationDuration)
+    print('Hanya: ',HanyaRotationDuration)
+    print('Fuxuan: ',FuxuanRotationDuration)
 
     # Scale other character's rotation
     TingyunRotation = [x * TopazRotationDuration / TingyunRotationDuration for x in TingyunRotation]
-    HanabiRotation = [x * TopazRotationDuration / HanabiRotationDuration for x in HanabiRotation]
-    LuochaRotation = [x * TopazRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+    HanyaRotation = [x * TopazRotationDuration / HanyaRotationDuration for x in HanyaRotation]
+    FuxuanRotation = [x * TopazRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
+
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * TopazRotationDuration / HanyaRotationDuration
+    TopazCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TopazRotation.append(DanceDanceDanceEffect)
+    
+    TopazCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TopazRotation.append(DanceDanceDanceEffect)
+    
+    FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    FuxuanRotation.append(DanceDanceDanceEffect)
+    
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(DanceDanceDanceEffect)
 
     TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.1f}E {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 
                                     TingyunRotation, TingyunCharacter, config)
-    HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
-                                    HanabiRotation, HanabiCharacter, config)
-    LuochaEstimate = DefaultEstimator(f'Luocha: 3N 1E 1Q, S{LuochaCharacter.lightcone.superposition:d} {LuochaCharacter.lightcone.name}', 
-                                    LuochaRotation, LuochaCharacter, config)
+    HanyaEstimate = DefaultEstimator('E0 Hanya S{:.0f} {}, 12 Spd Substats'.format(HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name), 
+                                      HanyaRotation, HanyaCharacter, config)
+    FuxuanEstimate = DefaultEstimator('Fuxuan: 2N 1E 1Q, S{:.0f} {}'.format(FuxuanCharacter.lightcone.superposition, FuxuanCharacter.lightcone.name),
+                                    FuxuanRotation, FuxuanCharacter, config)
 
-    return([TopazEstimate, TingyunEstimate, HanabiEstimate, LuochaEstimate])
+    return([TopazEstimate, TingyunEstimate, HanyaEstimate, FuxuanEstimate])

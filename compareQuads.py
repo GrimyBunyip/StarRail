@@ -5,6 +5,7 @@ from teams_four.ArgentiHanyaRuanMeiHuohuo import ArgentiHanyaRuanMeiHuohuo
 from teams_four.ArgentiHanyaTingyunFuxuan import ArgentiHanyaTingyunFuxuan
 from teams_four.ArgentiHanyaTingyunHuohuo import ArgentiHanyaTingyunHuohuo
 from teams_four.ArgentiRuanMeiTingyunHuohuo import ArgentiRuanMeiTingyunHuohuo
+from teams_four.BladeBronyaHanabiLuocha import BladeBronyaHanabiLuocha
 from teams_four.BladeBronyaPelaFuxuan import BladeBronyaPelaFuxuan
 from teams_four.BladeBronyaPelaLuocha import BladeBronyaPelaLuocha
 from teams_four.BladeBronyaPelaLynx import BladeBronyaPelaLynx
@@ -18,6 +19,7 @@ from teams_four.ClaraTingyunPelaLuocha import ClaraTingyunPelaLuocha
 from teams_four.ClaraTingyunTopazLuocha import ClaraTingyunTopazLuocha
 from teams_four.ClaraTopazAstaLuocha import ClaraTopazAstaLuocha
 from teams_four.ClaraTopazHanyaLuocha import ClaraTopazHanyaLuocha
+from teams_four.JingliuBronyaHanabiLuocha import JingliuBronyaHanabiLuocha
 from teams_four.JingliuBronyaPelaLuocha import JingliuBronyaPelaLuocha
 from teams_four.JingliuBronyaRuanMeiLuocha import JingliuBronyaRuanMeiLuocha
 from teams_four.JingliuHanyaBladeHuohuo import JingliuHanyaBladeHuohuo
@@ -65,7 +67,8 @@ from teams_four.SeeleMaxSilverWolfRuanMeiFuxuan import SeeleMaxSilverWolfRuanMei
 from teams_four.SeeleMaxSilverWolfTingyunFuxuan import SeeleMaxSilverWolfTingyunFuxuan
 from teams_four.SeeleMidSilverWolfBronyaFuxuan import SeeleMidSilverWolfBronyaFuxuan
 from teams_four.SeeleMidSilverWolfBronyaLuocha import SeeleMidSilverWolfBronyaLuocha
-from teams_four.TopazTingyunHanyaLuocha import TopazTingyunHanyaLuocha
+from teams_four.TopazTingyunHanabiFuxuan import TopazTingyunHanabiFuxuan
+from teams_four.TopazTingyunHanyaFuxuan import TopazTingyunHanyaFuxuan
 from teams_four.XueyiAstaTopazFuxuan import XueyiAstaTopazFuxuan
 from teams_four.XueyiHanyaPelaFuxuan import XueyiHanyaPelaFuxuan
 from visualizer.visualizer import visualize
@@ -86,11 +89,13 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
 # Blade Teams
-# visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
-# visualizationList.append(BladeBronyaPelaFuxuan(config)) # 100% vow uptime with fu xuan
+# visualizationList.append(BladeBronyaHanabiLuocha(config))
 # visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 # visualizationList.append(BladeBronyaPelaLynx(config))
 # visualizationList.append(BladeBronyaPelaLuocha(config))
+
+# visualizationList.append(BladeBronyaPelaFuxuan(config)) # 100% vow uptime with fu xuan
+# visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
 
 # Clara Teams
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
@@ -114,10 +119,11 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
 
 # Jingliu Teams
-# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-# visualizationList.append(JingliuBronyaPelaLuocha(config))
-# visualizationList.append(JingliuRuanMeiBladeLuocha(config))
-# visualizationList.append(JingliuHanyaBladeHuohuo(config))
+visualizationList.append(JingliuBronyaHanabiLuocha(config))
+visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+visualizationList.append(JingliuBronyaPelaLuocha(config))
+visualizationList.append(JingliuRuanMeiBladeLuocha(config))
+visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
 # Jingyuan Teams
 # visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
@@ -127,7 +133,7 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(JingyuanTingyunTopazLuocha(config))
 
 # Lunae Teams
-visualizationList.append(LunaeHanabiTingyunLuocha(config))
+# visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaYukongLuocha(config))
 # visualizationList.append(LunaeHanyaPelaLuocha(config))
@@ -165,8 +171,8 @@ visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(SeeleMidSilverWolfBronyaFuxuan(config))
 
 # Solo Topaz Teams
-visualizationList.append(TopazTingyunHanyaLuocha(config))
-visualizationList.append(TopazTingyunHanyaLuocha(config))
+# visualizationList.append(TopazTingyunHanabiFuxuan(config))
+# visualizationList.append(TopazTingyunHanyaFuxuan(config))
 
 # Xueyi Teams
 # visualizationList.append(XueyiHanyaPelaFuxuan(config))

@@ -21,7 +21,7 @@ from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingClou
 def ClaraTingyunHanabiFuxuan(config):
     #%% Clara Tingyun Hanabi Fuxuan Characters
     ClaraCharacter = Clara(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
-                            substats = {'CD': 9, 'CR': 12, 'ATK.percent': 5, 'BreakEffect': 3}),
+                            substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'BreakEffect': 3}),
                             lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=5.0, **config),
                             relicsetone = ChampionOfStreetwiseBoxing2pc(),
                             relicsettwo = ChampionOfStreetwiseBoxing4pc(),
