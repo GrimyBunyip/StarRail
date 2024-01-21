@@ -20,13 +20,13 @@ from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingClou
 
 def JingliuBronyaHanabiLuocha(config):
     #%% Jingliu Bronya Hanabi Luocha Characters
-    JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
-                        substats = {'CR': 12, 'CD': 8, 'SPD.flat': 3, 'ATK.percent': 5}),
+    JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.ice'],
+                        substats = {'CR': 12, 'CD': 8, 'ATK.flat': 3, 'ATK.percent': 5}),
                         lightcone = OnTheFallOfAnAeon(**config),
                         relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
                         **config)
 
-    BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'HP.percent', 'CD', 'ER'],
+    BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'ER'],
                         substats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                         lightcone = PastAndFuture(**config),
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
@@ -69,7 +69,7 @@ def JingliuBronyaHanabiLuocha(config):
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
     #HanabiCharacter.applySkillBuff(character=JingliuCharacter,uptime=1.0)
-    HanabiCharacter.applyUltBuff(team=team,uptime=1.0/3.0)
+    HanabiCharacter.applyUltBuff(team=team,uptime=1.0/4.0)
     
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
@@ -123,8 +123,9 @@ def JingliuBronyaHanabiLuocha(config):
     JingliuRotation += [JingliuCharacter.useEnhancedSkill()]
     JingliuRotation += [JingliuCharacter.useUltimate()]
 
+    JingliuRotation += [JingliuCharacter.extraTurn() * 0.9] # multiply by 0.9 because it tends to overlap with skill advances
     JingliuRotation += [BronyaCharacter.useAdvanceForward() * (numSkill + numEnhanced - 1.0) / 2.0] # Half of the turns
-    HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - JingliuCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * (numSkill + numEnhanced - 1.0) / 2.0,
+    JingliuRotation += [HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - JingliuCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * (numSkill + numEnhanced - 1.0) / 2.0] # multiply by 0.9 because it tends to overlap with skill advances
 
     numBasicHanabi = 0.0
     numSkillHanabi = 3.0

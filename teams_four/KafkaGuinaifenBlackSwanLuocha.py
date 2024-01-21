@@ -60,7 +60,8 @@ def KafkaGuinaifenBlackSwanLuocha(config):
     # Apply BlackSwan Vulnerability Debuff
     SwanUltRotation = 5.0
     BlackSwanCharacter.applySkillDebuff(team,rotationDuration=2.0)
-    BlackSwanCharacter.applyUltDebuff(team,rotationDuration=SwanUltRotation)
+    # BlackSwanCharacter.applyUltDebuff(team,rotationDuration=SwanUltRotation)
+    # Epiphany does not apply to detonations, so bump this buff til after the rotation cone
 
     #%% Print Statements
     for character in team:
@@ -137,6 +138,9 @@ def KafkaGuinaifenBlackSwanLuocha(config):
                     LuochaCharacter.useSkill() * 1,]
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
     LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
+    
+    BlackSwanCharacter.applyUltDebuff(team,rotationDuration=SwanUltRotation)
+    # Epiphany does not apply to detonations, so bump this buff til after the rotation cone
 
 
     #%% Kafka Guinaifen BlackSwan Luocha Rotation Math

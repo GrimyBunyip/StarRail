@@ -119,11 +119,11 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
 
 # Jingliu Teams
-visualizationList.append(JingliuBronyaHanabiLuocha(config))
-visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-visualizationList.append(JingliuBronyaPelaLuocha(config))
-visualizationList.append(JingliuRuanMeiBladeLuocha(config))
-visualizationList.append(JingliuHanyaBladeHuohuo(config))
+# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+# visualizationList.append(JingliuBronyaHanabiLuocha(config))
+# visualizationList.append(JingliuBronyaPelaLuocha(config))
+# visualizationList.append(JingliuRuanMeiBladeLuocha(config))
+# visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
 # Jingyuan Teams
 # visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
@@ -144,14 +144,14 @@ visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
 # Kafka Teams
 # config['enemySpeed'] = 190 / 1.125
-# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-# visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
-# visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
-# visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-# visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
-# visualizationList.append(KafkaSampoRuanMeiLuocha(config))
-# visualizationList.append(KafkaGuinaifenLukaLuocha(config))
-# visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
+visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+visualizationList.append(KafkaGuinaifenSampoLuocha(config))
+visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
+visualizationList.append(KafkaSampoRuanMeiLuocha(config))
+visualizationList.append(KafkaGuinaifenLukaLuocha(config))
+visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 
 # visualizationList.append(KafkaBlackSwanRuanMeiHuohuo(config)) # Night of Fright lightcone, retiring this
 # visualizationList.append(KafkaBlackSwanRuanMeiLuocha(config)) # patience lightcone, retiring this
