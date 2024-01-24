@@ -44,7 +44,6 @@ def KafkaRuanMeiBlackSwanLuochaPatience(config):
                         substats = {'ATK.percent': 3, 'SPD.flat': 8, 'EHR': 14, 'BreakEffect': 3}),
                         lightcone = EyesOfThePrey(**config),
                         relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
-                        sacramentStacks=16.0, # Estimate it floats between 15-16 regardless of how you set your build
                         **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],

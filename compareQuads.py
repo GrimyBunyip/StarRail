@@ -61,12 +61,15 @@ from teams_four.RatioHanyaSilverWolfLuocha import DrRatioHanyaSilverWolfLuocha
 from teams_four.RatioTopazHanyaLuocha import DrRatioTopazHanyaLuocha
 from teams_four.RatioTopazRuanMeiLuocha import DrRatioTopazRuanMeiLuocha
 from teams_four.RatioTopazSilverWolfLuocha import DrRatioTopazSilverWolfLuocha
+from teams_four.RuanMeiGuinaifenBlackSwanLuocha import RuanMeiGuinaifenBlackSwanLuocha
+from teams_four.SampoGuinaifenBlackSwanLuocha import SampoGuinaifenBlackSwanLuocha
 from teams_four.SeeleMaxSilverWolfBronyaLuocha import SeeleMaxSilverWolfBronyaLuocha
 from teams_four.SeeleMaxSilverWolfHanabiFuxuan import SeeleMaxSilverWolfHanabiFuxuan
 from teams_four.SeeleMaxSilverWolfRuanMeiFuxuan import SeeleMaxSilverWolfRuanMeiFuxuan
 from teams_four.SeeleMaxSilverWolfTingyunFuxuan import SeeleMaxSilverWolfTingyunFuxuan
 from teams_four.SeeleMidSilverWolfBronyaFuxuan import SeeleMidSilverWolfBronyaFuxuan
 from teams_four.SeeleMidSilverWolfBronyaLuocha import SeeleMidSilverWolfBronyaLuocha
+from teams_four.SeeleNoneSilverWolfHanabiFuxuan import SeeleNoneSilverWolfHanabiLuocha
 from teams_four.TopazTingyunHanabiFuxuan import TopazTingyunHanabiFuxuan
 from teams_four.TopazTingyunHanyaFuxuan import TopazTingyunHanyaFuxuan
 from teams_four.XueyiAstaTopazFuxuan import XueyiAstaTopazFuxuan
@@ -144,14 +147,16 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # Kafka Teams
 # config['enemySpeed'] = 190 / 1.125
-visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
-visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
-visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
-visualizationList.append(KafkaSampoRuanMeiLuocha(config))
-visualizationList.append(KafkaGuinaifenLukaLuocha(config))
-visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+# visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
+# visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaGuinaifenSampoLuocha(config))
+# visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
+# visualizationList.append(KafkaSampoRuanMeiLuocha(config))
+# visualizationList.append(KafkaGuinaifenLukaLuocha(config))
+# visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 
 # visualizationList.append(KafkaBlackSwanRuanMeiHuohuo(config)) # Night of Fright lightcone, retiring this
 # visualizationList.append(KafkaBlackSwanRuanMeiLuocha(config)) # patience lightcone, retiring this
@@ -169,6 +174,7 @@ visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 # visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
 # visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))
 # visualizationList.append(SeeleMidSilverWolfBronyaFuxuan(config))
+# visualizationList.append(SeeleNoneSilverWolfHanabiLuocha(config))
 
 # Solo Topaz Teams
 # visualizationList.append(TopazTingyunHanabiFuxuan(config))

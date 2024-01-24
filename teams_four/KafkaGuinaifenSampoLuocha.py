@@ -76,9 +76,6 @@ def KafkaGuinaifenSampoLuocha(config):
             KafkaCharacter.useUltimate(extraDots=extraDotsUlt) * numUlt,
     ]
 
-    numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
-    numDotKafka = min(numDotKafka, 2 * numUlt * KafkaCharacter.numEnemies + 2 * numTalent)
-
     numBasicGuinaifen = 2.0
     numSkillGuinaifen = 2.0
     numUltGuinaifen = 1.0
@@ -108,6 +105,8 @@ def KafkaGuinaifenSampoLuocha(config):
     numDotGuinaifen = min(numDotGuinaifen, 2.0 * numSkillGuinaifen * min(3.0, GuinaifenCharacter.numEnemies))
     numDotSampo = DotEstimator(SampoRotation, SampoCharacter, config, dotMode='alwaysBlast')
     numDotSampo = min(numDotSampo, 3.0 * (numSkillSampo + numUltSampo) * SampoCharacter.numEnemies)
+    numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
+    numDotKafka = min(numDotKafka, 2 * numUlt * KafkaCharacter.numEnemies + 2 * numTalent)
 
     totalKafkaEffect = sumEffects(KafkaRotation)
     totalGuinaifenEffect = sumEffects(GuinaifenRotation)
