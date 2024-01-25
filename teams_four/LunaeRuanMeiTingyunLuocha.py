@@ -28,7 +28,7 @@ def LunaeRuanMeiTingyunLuocha(config):
     
     LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
                         substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'ATK.flat': 3}),
-                        lightcone = OnTheFallOfAnAeon(**config),
+                        lightcone = OnTheFallOfAnAeon(uptime=1.0,**config),
                         relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = RutilantArena(),
                         **config)
 

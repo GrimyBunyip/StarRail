@@ -13,13 +13,11 @@ class Xueyi(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                ultRatio:float=1.0,
                 demoralizationUptime:float=1.0,
-                e4Uptime:float=0.5,
+                e4Uptime:float=1.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Xueyi')
-        self.ultRatio = ultRatio
         self.demoralizationUptime = demoralizationUptime
         self.e4Uptime = e4Uptime
         
@@ -32,7 +30,7 @@ class Xueyi(BaseCharacter):
         self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=0.9, eidolonThreshold=5, eidolonBonus=0.99)]
         
         # Talents
-        self.addStat('DMG',description='Xueyi Trace',amount=0.10,uptime=demoralizationUptime)
+        self.addStat('DMG',description='Xueyi Trace',amount=0.10,uptime=demoralizationUptime,type=['ultimate'])
         
         # Eidolons
         if self.eidolon >= 1:

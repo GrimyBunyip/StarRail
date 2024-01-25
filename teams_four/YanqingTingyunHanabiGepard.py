@@ -69,10 +69,13 @@ def YanqingTingyunHanabiGepard(config):
     # Past and Future
     YanqingCharacter.addStat('DMG',description='Past and Future',amount=0.32)
         
-    # messenger 4 pc buffs from Tingyun:
-    YanqingCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
-    HanabiCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
-    GepardCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5*3/4)
+    # Hanabi Messenger 4 pc
+    for character in [YanqingCharacter, TingyunCharacter, GepardCharacter]:
+        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
+        
+    # Tingyun Messenger Buff
+    for character in [YanqingCharacter, HanabiCharacter, GepardCharacter]:
+        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(YanqingCharacter)

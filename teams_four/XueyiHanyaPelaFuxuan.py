@@ -21,7 +21,7 @@ def XueyiHanyaPelaFuxuan(config, breakRatio:float=0.5):
     #%% Xueyi Hanya Pela Fuxuan Characters
     XueyiCharacter = Xueyi(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'BreakEffect'],
                             substats = {'CR': 8, 'CD': 12, 'BreakEffect': 3, 'SPD.flat': 5}),
-                            lightcone = OnTheFallOfAnAeon(**config),
+                            lightcone = OnTheFallOfAnAeon(uptime=1.0,**config),
                             relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
 

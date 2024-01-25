@@ -49,6 +49,7 @@ from teams_four.LunaePelaTingyunLuocha import LunaePelaTingyunLuocha
 from teams_four.LunaePelaYukongLuocha import LunaePelaYukongLuocha
 from teams_four.LunaeRuanMeiTingyunLuocha import LunaeRuanMeiTingyunLuocha
 from teams_four.LunaeTingyunYukongLuocha import LunaeTingyunYukongLuocha
+from teams_four.QingqueHanabiPelaFuxuan import QingqueHanabiPelaFuxuan
 from teams_four.QingqueHanabiSilverWolfLuocha import QingqueHanabiSilverWolfLuocha
 from teams_four.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
@@ -166,7 +167,8 @@ visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(KafkaTingyunRuanMeiLuocha(config)) # mediocre, retiring this
 
 # Qingque Teams
-visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
+visualizationList.append(QingqueHanabiPelaFuxuan(config))
+# visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
 # visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
 # visualizationList.append(QingqueHanyaPelaFuxuan(config))
 

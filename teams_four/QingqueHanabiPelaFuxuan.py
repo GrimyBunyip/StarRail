@@ -1,16 +1,15 @@
-from baseClasses.BaseEffect import BaseEffect, sumEffects
+from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.erudition.Qingque import Qingque
 from characters.preservation.Fuxuan import Fuxuan
-from characters.harmony.Hanya import Hanya
+from characters.harmony.Hanabi import Hanabi
 from characters.nihility.Pela import Pela
 from estimator.DefaultEstimator import DefaultEstimator
+from lightCones.abundance.Multiplication import Multiplication
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
 from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
-from lightCones.harmony.DanceDanceDance import DanceDanceDance
-from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
+from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
-from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
@@ -18,19 +17,21 @@ from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
+from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
+from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def QingqueHanyaPelaFuxuan(config):
-    #%% Qingque Hanya Pela Fuxuan Characters
+def QingqueHanabiPelaFuxuan(config):
+    #%% Qingque Hanabi Pela Fuxuan Characters
     QingqueCharacter = Qingque(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.quantum'],
-                        substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
+                        substats = {'CR': 12, 'CD': 8, 'ATK.percent': 5, 'BreakEffect': 3}),
                         lightcone = GeniusesRepose(**config),
                         relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = RutilantArena(),
                         **config)
-
-    HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
-                        substats = {'CR': 8, 'SPD.flat': 12, 'CD': 5, 'ATK.percent': 3}),
-                        lightcone = DanceDanceDance(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+    
+    HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
+                        substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
+                        lightcone = PastAndFuture(**config),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = PenaconyLandOfDreams(),
                         **config)
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
@@ -45,36 +46,31 @@ def QingqueHanyaPelaFuxuan(config):
                         relicsetone = LongevousDisciple2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
                         **config)
     
-    team = [QingqueCharacter, HanyaCharacter, PelaCharacter, FuxuanCharacter]
+    team = [QingqueCharacter, HanabiCharacter, PelaCharacter, FuxuanCharacter]
 
-    #%% Qingque Hanya Pela Fuxuan Team Buffs
+    #%% Qingque Hanabi Pela Fuxuan Team Buffs
     # Broken Keel Buff
     for character in [QingqueCharacter, FuxuanCharacter, PelaCharacter]:
-        character.addStat('CD',description='Broken Keel Hanya',amount=0.10)
-    for character in [QingqueCharacter, HanyaCharacter, FuxuanCharacter]:
+        character.addStat('DMG.quantum',description='Penacony Hanabi',amount=0.10)
+    for character in [QingqueCharacter, HanabiCharacter, FuxuanCharacter]:
         character.addStat('CD',description='Broken Keel Pela',amount=0.10)
-    for character in [QingqueCharacter, PelaCharacter, HanyaCharacter]:
+    for character in [QingqueCharacter, PelaCharacter, HanabiCharacter]:
         character.addStat('DMG.quantum',description='Penacony Fuxuan',amount=0.10)
+
+    # Past and Future
+    QingqueCharacter.addStat('DMG',description='Past and Future',amount=0.32)
 
     # Messenger 4 pc
     for character in [QingqueCharacter, PelaCharacter, FuxuanCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
+        character.addStat('SPD.percent',description='Messenger 4 pc Hanabi',amount=0.12,uptime=1.0/3.0)
 
     # Pela Debuffs, 2 turn pela rotation
     PelaCharacter.applyUltDebuff(team,rotationDuration=2)
         
-    # # Resolution Shines as Pearls of Sweat uptime
-    # sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-    # sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
-    # sweatUptime = min(1.0, sweatUptime)
-    # for character in [QingqueCharacter,HanyaCharacter,PelaCharacter,FuxuanCharacter]:
-    #     character.addStat('DefShred',description='Resolution Sweat',
-    #                     amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
-    #                     uptime=sweatUptime)
-        
-    # Hanya Buffs
-    HanyaCharacter.applyBurdenBuff(team)
-    HanyaCharacter.applyUltBuff(QingqueCharacter,uptime=1.0)
+    # Hanabi Buffs
+    HanabiCharacter.applyTraceBuff(team=team)
+    HanabiCharacter.applySkillBuff(character=QingqueCharacter,uptime=1.0)
+    HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
     
     # Fu Xuan Buffs
     FuxuanCharacter.applySkillBuff(team)
@@ -83,11 +79,12 @@ def QingqueHanyaPelaFuxuan(config):
     for character in team:
         character.print()
 
-    #%% Qingque Hanya Pela Fuxuan Rotations
-    numHanyaSkill = 4
-    numHanyaUlt = 1
-    HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
-                    HanyaCharacter.useUltimate() * numHanyaUlt]
+    #%% Qingque Hanabi Pela Fuxuan Rotations
+    numBasicHanabi = 0.0
+    numSkillHanabi = 3.0
+    HanabiRotation = [HanabiCharacter.useBasic() * numBasicHanabi,
+                       HanabiCharacter.useSkill() * numSkillHanabi,
+                    HanabiCharacter.useUltimate()]
 
     QingqueRotation = [ # expect 2.3 SP used per basic, estimating with 1 2 2 3 4 split. Assume 1 whiff
         QingqueCharacter.useSkill(),
@@ -106,12 +103,15 @@ def QingqueHanyaPelaFuxuan(config):
         QingqueCharacter.useEnhancedBasic(),
         QingqueCharacter.useSkill(),
         QingqueCharacter.useSkill(),
-        QingqueCharacter.useBasic(),
+        QingqueCharacter.useSkill(),
+        QingqueCharacter.useSkill(),
+        QingqueCharacter.useEnhancedBasic(), #except pela gives SP so no whiff, -2 and add more skll usages, this is usually skill usages here
         QingqueCharacter.drawTileFromAlly(),
         QingqueCharacter.useSkill(),
         QingqueCharacter.useUltimate(),
         QingqueCharacter.useEnhancedBasic(),
         QingqueCharacter.drawTileFromAlly(),
+        HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - QingqueCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * 5,
     ]
 
     numBasicPela = 2.0
@@ -122,51 +122,35 @@ def QingqueHanyaPelaFuxuan(config):
                     FuxuanCharacter.useSkill() * 1,
                     FuxuanCharacter.useUltimate() * 1,]
 
-    #%% Qingque Hanya Pela Fuxuan Rotation Math
+    #%% Qingque Hanabi Pela Fuxuan Rotation Math
     totalQingqueEffect = sumEffects(QingqueRotation)
-    totalHanyaEffect = sumEffects(HanyaRotation)
+    totalHanabiEffect = sumEffects(HanabiRotation)
     totalPelaEffect = sumEffects(PelaRotation)
     totalFuxuanEffect = sumEffects(FuxuanRotation)
 
     QingqueRotationDuration = totalQingqueEffect.actionvalue * 100.0 / QingqueCharacter.getTotalStat('SPD')
-    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
     PelaRotationDuration = totalPelaEffect.actionvalue * 100.0 / PelaCharacter.getTotalStat('SPD')
     FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')
     print('Qingque: ',QingqueRotationDuration)
-    print('Hanya: ',HanyaRotationDuration)
+    print('Hanabi: ',HanabiRotationDuration)
     print('Pela: ',PelaRotationDuration)
     print('Fuxuan: ',FuxuanRotationDuration)
 
     # scale other character's rotation
-    HanyaRotation = [x * QingqueRotationDuration / HanyaRotationDuration for x in HanyaRotation]
+    HanabiRotation = [x * QingqueRotationDuration / HanabiRotationDuration for x in HanabiRotation]
     PelaRotation = [x * QingqueRotationDuration / PelaRotationDuration for x in PelaRotation]
     FuxuanRotation = [x * QingqueRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
 
-    # Apply Dance Dance Dance Effect
-    DanceDanceDanceEffect = BaseEffect()
-    DanceDanceDanceEffect.actionvalue = -0.24 * QingqueRotationDuration / HanyaRotationDuration
-
-    QingqueCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    QingqueRotation.append(DanceDanceDanceEffect)
-    
-    PelaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    PelaRotation.append(DanceDanceDanceEffect)
-    
-    FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    FuxuanRotation.append(DanceDanceDanceEffect)
-    
-    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanyaRotation.append(DanceDanceDanceEffect)
-
-    QingqueEstimate = DefaultEstimator('Qingque 12E 4Enh 1N 1Q', QingqueRotation, QingqueCharacter, config)
-    HanyaEstimate = DefaultEstimator(f'Hanya: {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition:.0f} {HanyaCharacter.lightcone.name}, 12 Spd Substats', 
-                                    HanyaRotation, HanyaCharacter, config)
+    QingqueEstimate = DefaultEstimator('Qingque 14E 5Enh 1Q', QingqueRotation, QingqueCharacter, config)
+    HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
+                                    HanabiRotation, HanabiCharacter, config)
     PelaEstimate = DefaultEstimator(f'Pela: {numBasicPela:.0f}N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)
     FuxuanEstimate = DefaultEstimator('Fuxuan: 2N 1E 1Q, S{:.0f} {}'.format(FuxuanCharacter.lightcone.superposition, FuxuanCharacter.lightcone.name),
                                     FuxuanRotation, FuxuanCharacter, config)
 
-    return([QingqueEstimate, HanyaEstimate, PelaEstimate, FuxuanEstimate])
+    return([QingqueEstimate, HanabiEstimate, PelaEstimate, FuxuanEstimate])
 

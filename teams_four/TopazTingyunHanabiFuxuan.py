@@ -54,15 +54,13 @@ def TopazTingyunHanabiFuxuan(config):
     for character in [TopazCharacter, TingyunCharacter, FuxuanCharacter]:
         character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
         
-    # messenger 4 pc buffs from Hanabi:
-    TopazCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-    TingyunCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-    FuxuanCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4)
-
-    # messenger 4 pc buffs from Tingyun:
-    TopazCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-    HanabiCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-    FuxuanCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4)
+    # Hanabi Messenger 4 pc
+    for character in [TopazCharacter, TingyunCharacter, FuxuanCharacter]:
+        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
+        
+    # Tingyun Messenger Buff
+    for character in [TopazCharacter, HanabiCharacter, FuxuanCharacter]:
+        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)

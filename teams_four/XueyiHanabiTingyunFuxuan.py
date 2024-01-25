@@ -24,7 +24,7 @@ def XueyiHanabiTingyunFuxuan(config, breakRatio:float=0.5):
     #%% Xueyi Hanabi Tingyun Fuxuan Characters
     XueyiCharacter = Xueyi(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'BreakEffect'],
                             substats = {'CR': 12, 'CD': 8, 'BreakEffect': 5, 'ATK.percent': 3}),
-                            lightcone = OnTheFallOfAnAeon(**config),
+                            lightcone = OnTheFallOfAnAeon(uptime=1.0,**config),
                             relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = InertSalsotto(),
                             **config)
 
@@ -53,8 +53,6 @@ def XueyiHanabiTingyunFuxuan(config, breakRatio:float=0.5):
     # Broken Keel Buffs
     for character in [XueyiCharacter, TingyunCharacter, FuxuanCharacter]:
         character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
-    for character in [XueyiCharacter, HanabiCharacter, FuxuanCharacter]:
-        character.addStat('CD',description='Broken Keel from Tingyun',amount=0.1)
     for character in [XueyiCharacter, HanabiCharacter, TingyunCharacter]:
         character.addStat('CD',description='Broken Keel from Fuxuan',amount=0.1)
         
@@ -66,10 +64,13 @@ def XueyiHanabiTingyunFuxuan(config, breakRatio:float=0.5):
     # Past and Future
     XueyiCharacter.addStat('DMG',description='Past and Future',amount=0.32)
         
-    # messenger 4 pc buffs from Tingyun:
-    XueyiCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
-    HanabiCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5)
-    FuxuanCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=0.5*3/4)
+    # Hanabi Messenger 4 pc
+    for character in [XueyiCharacter, TingyunCharacter, FuxuanCharacter]:
+        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
+        
+    # Tingyun Messenger Buff
+    for character in [XueyiCharacter, HanabiCharacter, FuxuanCharacter]:
+        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(XueyiCharacter)

@@ -20,7 +20,7 @@ def LunaeTingyunYukongLuocha(config):
     #%% Lunae Tingyun Yukong Luocha Characters
     LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
                             substats = {'CR': 8, 'CD': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
-                            lightcone = OnTheFallOfAnAeon(**config),
+                            lightcone = OnTheFallOfAnAeon(uptime=1.0,**config),
                             relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
 

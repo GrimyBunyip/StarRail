@@ -21,7 +21,7 @@ def XueyiAstaTopazFuxuan(config, breakRatio:float=0.5):
     #%% Xueyi Asta Topaz Fuxuan Characters
     XueyiCharacter = Xueyi(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'BreakEffect'],
                             substats = {'CR': 8, 'CD': 12, 'BreakEffect': 5, 'SPD.flat': 3}),
-                            lightcone = OnTheFallOfAnAeon(**config),
+                            lightcone = OnTheFallOfAnAeon(uptime=1.0,**config),
                             relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
 

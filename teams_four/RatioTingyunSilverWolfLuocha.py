@@ -10,6 +10,7 @@ from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
+from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
@@ -24,7 +25,7 @@ def DrRatioTingyunSilverWolfLuocha(config):
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = Pioneer2pc(),
                                     relicsettwo = Pioneer4pc(),
-                                    planarset = FirmamentFrontlineGlamoth(stacks=2),
+                                    planarset = InertSalsotto(),
                                     debuffStacks=5.0,
                                     **config)
 

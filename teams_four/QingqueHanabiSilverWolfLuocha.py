@@ -6,6 +6,7 @@ from characters.harmony.Hanabi import Hanabi
 from characters.nihility.SilverWolf import SilverWolf
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
+from lightCones.erudition.GeniusesRepose import GeniusesRepose
 from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
@@ -21,7 +22,7 @@ def QingqueHanabiSilverWolfLuocha(config):
     #%% Qingque Hanabi SilverWolf Luocha Characters
     QingqueCharacter = Qingque(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.quantum'],
                         substats = {'CR': 12, 'CD': 8, 'ATK.percent': 5, 'BreakEffect': 3}),
-                        lightcone = TheSeriousnessOfBreakfast(**config),
+                        lightcone = GeniusesRepose(**config),
                         relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = RutilantArena(),
                         **config)
     
