@@ -82,7 +82,7 @@ def DrRatioHanabiSilverWolfLuocha(config):
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
 
-    numSkillRatio = 4.0
+    numSkillRatio = 3.5
     numUltRatio = 1.0
     numTalentRatio = numSkillRatio + 2 * numUltRatio
     DrRatioRotation = [ # 110 max energy
@@ -136,7 +136,7 @@ def DrRatioHanabiSilverWolfLuocha(config):
     HanabiRotation = [x * DrRatioRotationDuration / HanabiRotationDuration for x in HanabiRotation]
     LuochaRotation = [x * DrRatioRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
-    DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.0f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
+    DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.1f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)
     SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numBasicSW:.0f}N {numSkillSW:.0f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)

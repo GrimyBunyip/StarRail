@@ -74,7 +74,7 @@ def DrRatioRuanMeiSilverWolfLuocha(config):
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
 
-    numSkillRatio = 4.0
+    numSkillRatio = 3.5
     numUltRatio = 1.0
     numTalentRatio = numSkillRatio + 2 * numUltRatio
     DrRatioRotation = [ # 110 max energy
@@ -132,7 +132,7 @@ def DrRatioRuanMeiSilverWolfLuocha(config):
     numBreaks = totalEffect.gauge * RuanMeiCharacter.weaknessBrokenUptime / RuanMeiCharacter.enemyToughness
     RuanMeiRotation.append(RuanMeiCharacter.useTalent() * numBreaks)
 
-    DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.0f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
+    DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.1f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
     RuanMeiEstimate = DefaultEstimator(f'Ruan Mei: {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q, S{RuanMeiCharacter.lightcone.superposition:d} {RuanMeiCharacter.lightcone.name}', 
                                     RuanMeiRotation, RuanMeiCharacter, config)
     SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numBasicSW:.1f}N {numSkillSW:.1f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)

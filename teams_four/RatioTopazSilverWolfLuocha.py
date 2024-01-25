@@ -71,7 +71,7 @@ def DrRatioTopazSilverWolfLuocha(config):
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
 
-    numSkillRatio = 4.0
+    numSkillRatio = 3.5
     numUltRatio = 1.0
     numTalentRatio = numSkillRatio + 2 * numUltRatio
     DrRatioRotation = [ # 110 max energy
@@ -132,7 +132,7 @@ def DrRatioTopazSilverWolfLuocha(config):
     SilverWolfRotation = [x * DrRatioRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
     LuochaRotation = [x * DrRatioRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
-    DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.0f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
+    DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.1f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
     TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
     SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numBasicSW:.1f}N {numSkillSW:.1f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)
     LuochaEstimate = DefaultEstimator(f'Luocha: 3N 1E 1Q, S{LuochaCharacter.lightcone.superposition:d} {LuochaCharacter.lightcone.name}', 

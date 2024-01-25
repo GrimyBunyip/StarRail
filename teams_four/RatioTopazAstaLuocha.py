@@ -79,7 +79,7 @@ def DrRatioTopazAstaLuocha(config):
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
 
-    numSkillRatio = 4.0
+    numSkillRatio = 3.5
     numUltRatio = 1.0
     numTalentRatio = numSkillRatio + 2 * numUltRatio
     DrRatioRotation = [ # 110 max energy
@@ -134,7 +134,7 @@ def DrRatioTopazAstaLuocha(config):
     AstaRotation = [x * DrRatioRotationDuration / AstaRotationDuration for x in AstaRotation]
     LuochaRotation = [x * DrRatioRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
-    DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.0f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
+    DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.1f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
     TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
     AstaEstimate = DefaultEstimator(f'Slow Asta: 2E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
                                     AstaRotation, AstaCharacter, config)
