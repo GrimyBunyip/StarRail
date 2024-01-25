@@ -73,7 +73,10 @@ from teams_four.SeeleNoneSilverWolfHanabiFuxuan import SeeleNoneSilverWolfHanabi
 from teams_four.TopazTingyunHanabiFuxuan import TopazTingyunHanabiFuxuan
 from teams_four.TopazTingyunHanyaFuxuan import TopazTingyunHanyaFuxuan
 from teams_four.XueyiAstaTopazFuxuan import XueyiAstaTopazFuxuan
+from teams_four.XueyiHanabiTingyunFuxuan import XueyiHanabiTingyunFuxuan
 from teams_four.XueyiHanyaPelaFuxuan import XueyiHanyaPelaFuxuan
+from teams_four.YanqingTingyunHanabiGepard import YanqingTingyunHanabiGepard
+from teams_four.YanqingTingyunRuanMeiGepard import YanqingTingyunRuanMeiGepard
 from visualizer.visualizer import visualize
 
 visualizationList = []
@@ -92,7 +95,7 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
 # Blade Teams
-# visualizationList.append(BladeBronyaHanabiLuocha(config))
+visualizationList.append(BladeBronyaHanabiLuocha(config))
 # visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 # visualizationList.append(BladeBronyaPelaLynx(config))
 # visualizationList.append(BladeBronyaPelaLuocha(config))
@@ -101,7 +104,7 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
 
 # Clara Teams
-# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(ClaraTingyunHanabiLuocha(config))
 # visualizationList.append(ClaraTingyunHanyaLuocha(config))
 # visualizationList.append(ClaraTopazAstaLuocha(config))
@@ -111,7 +114,7 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(ClaraSilverWolfPelaLuocha(config))
 
 # Dr Ratio Teams
-# visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
+visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
 # visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
 # visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
 # visualizationList.append(DrRatioTopazAstaLuocha(config))
@@ -122,21 +125,21 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config))
 
 # Jingliu Teams
-# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # visualizationList.append(JingliuBronyaHanabiLuocha(config))
 # visualizationList.append(JingliuBronyaPelaLuocha(config))
 # visualizationList.append(JingliuRuanMeiBladeLuocha(config))
 # visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
 # Jingyuan Teams
-# visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
+visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
 # visualizationList.append(JingyuanTingyunHanabiLuocha(config))
 # visualizationList.append(JingyuanTingyunAstaLuocha(config))
 # visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
 # visualizationList.append(JingyuanTingyunTopazLuocha(config))
 
 # Lunae Teams
-# visualizationList.append(LunaeHanabiTingyunLuocha(config))
+visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaYukongLuocha(config))
 # visualizationList.append(LunaeHanyaPelaLuocha(config))
@@ -147,7 +150,7 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # Kafka Teams
 # config['enemySpeed'] = 190 / 1.125
-# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
@@ -163,12 +166,12 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(KafkaTingyunRuanMeiLuocha(config)) # mediocre, retiring this
 
 # Qingque Teams
-# visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
+visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
 # visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
 # visualizationList.append(QingqueHanyaPelaFuxuan(config))
 
 # Seele Teams
-# visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
+visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
 # visualizationList.append(SeeleMaxSilverWolfTingyunFuxuan(config))
 # visualizationList.append(SeeleMaxSilverWolfRuanMeiFuxuan(config))
 # visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
@@ -177,12 +180,18 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(SeeleNoneSilverWolfHanabiLuocha(config))
 
 # Solo Topaz Teams
-# visualizationList.append(TopazTingyunHanabiFuxuan(config))
+visualizationList.append(TopazTingyunHanabiFuxuan(config))
 # visualizationList.append(TopazTingyunHanyaFuxuan(config))
 
 # Xueyi Teams
-# visualizationList.append(XueyiHanyaPelaFuxuan(config))
-# visualizationList.append(XueyiAstaTopazFuxuan(config))
+visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
+# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
+# visualizationList.append(XueyiHanyaPelaFuxuan(config)) # dont like the break assumptions here
+# visualizationList.append(XueyiAstaTopazFuxuan(config)) # needs review, why is the SP so negative? also this team makes no sense
+
+# YanqingTeam
+visualizationList.append(YanqingTingyunHanabiGepard(config))
+# visualizationList.append(YanqingTingyunRuanMeiGepard(config))
 
 #%% Visualization
 # Visualize
