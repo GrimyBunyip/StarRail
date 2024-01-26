@@ -8,6 +8,7 @@ from estimator.DefaultEstimator import DefaultEstimator, DotEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.nihility.EyesOfThePrey import EyesOfThePrey
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
+from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
@@ -26,7 +27,7 @@ def KafkaGuinaifenBlackSwanLuocha(config):
 
     GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
                             substats = {'ATK.percent': 7, 'SPD.flat': 13, 'EHR': 4, 'BreakEffect': 4}),
-                            lightcone = GoodNightAndSleepWell(**config),
+                            lightcone = ResolutionShinesAsPearlsOfSweat(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
 
@@ -34,7 +35,7 @@ def KafkaGuinaifenBlackSwanLuocha(config):
     # Kafka and Guinaifen are a few substats short of base 160 with a 12 substat cap
     # But I'll just generously assume you are able to get there
 
-    BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
+    BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'SPD.flat', 'ATK.percent', 'DMG.wind'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 5, 'BreakEffect': 3}),
                             lightcone = EyesOfThePrey(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
@@ -55,6 +56,15 @@ def KafkaGuinaifenBlackSwanLuocha(config):
         
     # Apply Guinaifen Debuff
     GuinaifenCharacter.applyFirekiss(team=team,uptime=1.0)
+
+    # Resolution Shines as Pearls of Sweat uptime
+    sweatUptime = (3.0 / 4.0) * GuinaifenCharacter.getTotalStat('SPD') / GuinaifenCharacter.enemySpeed # 2 skills and an ult
+    sweatUptime += (1.0 / 4.0) * GuinaifenCharacter.getTotalStat('SPD') / GuinaifenCharacter.enemySpeed / GuinaifenCharacter.numEnemies # 1 basic (ignore the other basic)
+    sweatUptime = min(1.0, sweatUptime)
+    for character in team:
+        character.addStat('DefShred',description='Resolution Sweat',
+                        amount=0.11 + 0.01 * GuinaifenCharacter.lightcone.superposition,
+                        uptime=sweatUptime)
         
     # Apply BlackSwan Vulnerability Debuff
     SwanUltRotation = 5.0

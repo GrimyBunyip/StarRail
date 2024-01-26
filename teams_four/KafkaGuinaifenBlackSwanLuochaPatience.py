@@ -35,7 +35,7 @@ def KafkaGuinaifenBlackSwanLuochaPatience(config):
     # Kafka and Guinaifen are a few substats short of base 160 with a 12 substat cap
     # But I'll just generously assume you are able to get there
 
-    BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
+    BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'SPD.flat', 'ATK.percent', 'DMG.wind'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 5, 'BreakEffect': 3}),
                             lightcone = EyesOfThePrey(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),

@@ -13,12 +13,12 @@ class BlackSwan(BaseCharacter):
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
                 sacramentStacks:float=7.0,
-                candleflameBuff:float=1.2,
+                candleflameBuff:float=0.72,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Black Swan')
         self.sacramentStacks = sacramentStacks
-        self.candleflameBuff = min(1.2,candleflameBuff)
+        self.candleflameBuff = min(0.72,candleflameBuff)
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
