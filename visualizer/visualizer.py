@@ -77,8 +77,9 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
             teamCharacters.append(char)
             
             if i > 0: # only track the energy and action values of the lead character
-                actionEffect.energy = 0.0
-                actionEffect.actionvalue = 0.0
+                for e in [actionEffect, dotEffect, breakEffect]:
+                    e.energy = 0.0
+                    e.actionvalue = 0.0
             
             teamEffect += actionEffect + dotEffect + breakEffect
             

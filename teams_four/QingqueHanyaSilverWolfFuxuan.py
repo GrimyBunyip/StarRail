@@ -60,8 +60,8 @@ def QingqueHanyaSilverWolfFuxuan(config):
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 
     # Silver Wolf Debuffs
-    SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, HanyaCharacter],targetingUptime=1.0) 
-    SilverWolfCharacter.applyDebuffs([QingqueCharacter, FuxuanCharacter],targetingUptime=1.0/QingqueCharacter.numEnemies) 
+    SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, HanyaCharacter],targetingUptime=1.0,rotationDuration=3.0) 
+    SilverWolfCharacter.applyDebuffs([QingqueCharacter, FuxuanCharacter],targetingUptime=1.0/QingqueCharacter.numEnemies,rotationDuration=3.0) 
         
     # Hanya Buffs
     HanyaCharacter.applyBurdenBuff(team)
@@ -97,7 +97,9 @@ def QingqueHanyaSilverWolfFuxuan(config):
         QingqueCharacter.useEnhancedBasic(),
         QingqueCharacter.useSkill(),
         QingqueCharacter.useSkill(),
-        QingqueCharacter.useBasic(),
+        QingqueCharacter.useSkill(),
+        QingqueCharacter.useSkill(),
+        QingqueCharacter.useEnhancedBasic(), #except pela gives SP so no whiff, -2 and add more skll usages, this is usually skill usages here
         QingqueCharacter.drawTileFromAlly(),
         QingqueCharacter.useSkill(),
         QingqueCharacter.useUltimate(),
@@ -105,7 +107,7 @@ def QingqueHanyaSilverWolfFuxuan(config):
         QingqueCharacter.drawTileFromAlly(),
     ]
 
-    numBasicSW = 1
+    numBasicSW = 2
     numSkillSW = 1
     numUltSW = 1
     SilverWolfRotation = [ # 
@@ -155,7 +157,7 @@ def QingqueHanyaSilverWolfFuxuan(config):
     HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     HanyaRotation.append(DanceDanceDanceEffect)
 
-    QingqueEstimate = DefaultEstimator('Qingque 12E 4Enh 1N 1Q', QingqueRotation, QingqueCharacter, config)
+    QingqueEstimate = DefaultEstimator('Qingque 14E 5Enh 1Q', QingqueRotation, QingqueCharacter, config)
     HanyaEstimate = DefaultEstimator(f'Hanya: {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition:.0f} {HanyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanyaRotation, HanyaCharacter, config)
     SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numBasicSW:.0f}N {numSkillSW:.0f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)

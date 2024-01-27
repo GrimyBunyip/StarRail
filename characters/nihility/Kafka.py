@@ -31,6 +31,8 @@ class Kafka(BaseCharacter):
             self.addStat('DMG',description='e1',amount=0.30,type=['dot'],uptime=1.0 / self.numEnemies)
         if self.eidolon >= 2:
             self.addStat('DMG',description='e2',amount=0.25,type=['dot'])
+        if self.eidolon >= 4:
+            self.addStat('BonusEnergyAttack',description='e4',amount=2.0,type=['dot'])
         
         # Gear
         self.equipGear()
@@ -70,6 +72,9 @@ class Kafka(BaseCharacter):
             for extraDot in extraDots:
                 dotExplosion += extraDot
         dotExplosion.damage *= 0.78 if self.eidolon >= 3 else 0.75
+        dotExplosion.energy = 0.0
+        dotExplosion.actionvalue = 0.0
+        dotExplosion.skillpoints = 0.0
         self.addDebugInfo(dotExplosion,type,'Skill Dot Explosion')
         
         retval += dotExplosion
@@ -94,6 +99,9 @@ class Kafka(BaseCharacter):
             for extraDot in extraDots:
                 dotExplosion += extraDot
         dotExplosion.damage *= 1.0 if self.eidolon >= 5 else 1.04
+        dotExplosion.energy = 0.0
+        dotExplosion.actionvalue = 0.0
+        dotExplosion.skillpoints = 0.0
         self.addDebugInfo(dotExplosion,type,'Ultimate Dot Explosion')
         
         retval += dotExplosion
@@ -122,6 +130,6 @@ class Kafka(BaseCharacter):
         retval.damage *= self.getDmg(type) + (1.56 if self.eidolon >= 6 else 0.0)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.energy = ( self.getBonusEnergyAttack(type) + (2.0 if self.eidolon >= 4 else 0.0) ) * self.getER(type)
+        retval.energy = self.getBonusEnergyAttack(type) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
         return retval

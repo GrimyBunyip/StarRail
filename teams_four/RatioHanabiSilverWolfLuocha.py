@@ -69,7 +69,7 @@ def DrRatioHanabiSilverWolfLuocha(config):
     DrRatioCharacter.addStat('DMG',description='Past and Future',amount=0.32)
 
     # Silver Wolf Debuffs
-    SilverWolfCharacter.applyDebuffs(team=team,targetingUptime=1.0,numSkillUses=1) 
+    SilverWolfCharacter.applyDebuffs(team=team,targetingUptime=1.0,numSkillUses=1,rotationDuration=3) 
     
     # Dr Ratio Buff
     DrRatioCharacter.applyTalentBuff(team)
@@ -92,7 +92,7 @@ def DrRatioHanabiSilverWolfLuocha(config):
             HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - DrRatioCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * numSkillRatio,
     ]
 
-    numBasicSW = 1
+    numBasicSW = 2
     numSkillSW = 1
     numUltSW = 1
     SilverWolfRotation = [ # 

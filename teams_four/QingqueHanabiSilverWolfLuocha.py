@@ -63,8 +63,8 @@ def QingqueHanabiSilverWolfLuocha(config):
         character.addStat('SPD.percent',description='Messenger 4 pc Hanabi',amount=0.12,uptime=1.0/3.0)
 
     # Silver Wolf Debuffs
-    SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, HanabiCharacter],targetingUptime=1.0) 
-    SilverWolfCharacter.applyDebuffs([QingqueCharacter, LuochaCharacter],targetingUptime=1.0/QingqueCharacter.numEnemies) 
+    SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, HanabiCharacter],targetingUptime=1.0,rotationDuration=3.0) 
+    SilverWolfCharacter.applyDebuffs([QingqueCharacter, LuochaCharacter],targetingUptime=1.0/QingqueCharacter.numEnemies,rotationDuration=3.0) 
         
     # Hanabi Buffs
     HanabiCharacter.applyTraceBuff(team=team)
@@ -99,7 +99,9 @@ def QingqueHanabiSilverWolfLuocha(config):
         QingqueCharacter.useEnhancedBasic(),
         QingqueCharacter.useSkill(),
         QingqueCharacter.useSkill(),
-        QingqueCharacter.useBasic(),
+        QingqueCharacter.useSkill(),
+        QingqueCharacter.useSkill(),
+        QingqueCharacter.useEnhancedBasic(), #except pela gives SP so no whiff, -2 and add more skll usages, this is usually skill usages here
         QingqueCharacter.drawTileFromAlly(),
         QingqueCharacter.useSkill(),
         QingqueCharacter.useUltimate(),
@@ -108,7 +110,7 @@ def QingqueHanabiSilverWolfLuocha(config):
         HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - QingqueCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * 5,
     ]
 
-    numBasicSW = 1
+    numBasicSW = 2
     numSkillSW = 1
     numUltSW = 1
     SilverWolfRotation = [ # 
@@ -145,7 +147,7 @@ def QingqueHanabiSilverWolfLuocha(config):
     SilverWolfRotation = [x * QingqueRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
     LuochaRotation = [x * QingqueRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
-    QingqueEstimate = DefaultEstimator('Qingque 12E 4Enh 1N 1Q', QingqueRotation, QingqueCharacter, config)
+    QingqueEstimate = DefaultEstimator('Qingque 14E 5Enh 1Q', QingqueRotation, QingqueCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)
     SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numBasicSW:.0f}N {numSkillSW:.0f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)

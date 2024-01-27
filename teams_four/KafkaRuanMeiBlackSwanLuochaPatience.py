@@ -40,8 +40,8 @@ def KafkaRuanMeiBlackSwanLuochaPatience(config):
     # Kafka and RuanMei are a few substats short of base 160 with a 12 substat cap
     # But I'll just generously assume you are able to get there
 
-    BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                        substats = {'ATK.percent': 3, 'SPD.flat': 8, 'EHR': 14, 'BreakEffect': 3}),
+    BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'ATK.percent', 'ATK.percent', 'DMG.wind'],
+                        substats = {'ATK.percent': 12, 'SPD.flat': 5, 'EHR': 8, 'BreakEffect': 3}),
                         lightcone = EyesOfThePrey(**config),
                         relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
                         **config)
@@ -67,7 +67,7 @@ def KafkaRuanMeiBlackSwanLuochaPatience(config):
         
     # Apply BlackSwan Vulnerability Debuff
     SwanUltRotation = 5.0
-    BlackSwanCharacter.applySkillDebuff(team,rotationDuration=2.0)
+    BlackSwanCharacter.applySkillDebuff(team,rotationDuration=1.5)
     # BlackSwanCharacter.applyUltDebuff(team,rotationDuration=SwanUltRotation)
     # Epiphany does not apply to detonations, so bump this buff til after the rotation cone
 
@@ -89,7 +89,7 @@ def KafkaRuanMeiBlackSwanLuochaPatience(config):
     swanBasicStacks = 1 + numDots
     swanSkillStacks = numDots * min(3.0,BlackSwanCharacter.numEnemies)
     
-    SwanStackRate = (swanBasicStacks + swanSkillStacks) / 2
+    SwanStackRate = swanBasicStacks * 1.0 / 3.0 + swanSkillStacks * 2.0 / 3.0
     
     SwanUltMultiplier = 1.0 + 1.0 / SwanUltRotation # swan ult effectively applies 1 extra rotation of dots every N turns
     netStackRate = adjacentStackRate * KafkaCharacter.enemyDotSpeed * SwanUltMultiplier
@@ -123,8 +123,8 @@ def KafkaRuanMeiBlackSwanLuochaPatience(config):
                        RuanMeiCharacter.useSkill() * numSkillRuanMei,
                     RuanMeiCharacter.useUltimate()]
 
-    numBasicBlackSwan = SwanUltRotation / 2.0
-    numSkillBlackSwan = SwanUltRotation / 2.0
+    numBasicBlackSwan = SwanUltRotation * 1.0 / 3.0
+    numSkillBlackSwan = SwanUltRotation * 2.0 / 3.0
     numUltBlackSwan = 1
     BlackSwanRotation = [
                     BlackSwanCharacter.useBasic() * numBasicBlackSwan,
@@ -142,8 +142,6 @@ def KafkaRuanMeiBlackSwanLuochaPatience(config):
 
 
     #%% Kafka RuanMei BlackSwan Luocha Rotation Math
-    numDotRuanMei = DotEstimator(RuanMeiRotation, RuanMeiCharacter, config, dotMode='alwaysBlast')
-    numDotRuanMei = min(numDotRuanMei, 2.0 * numSkillRuanMei * min(3.0, RuanMeiCharacter.numEnemies))
     numDotBlackSwan = DotEstimator(BlackSwanRotation, BlackSwanCharacter, config, dotMode='alwaysAll')
     numDotBlackSwan = min(numDotBlackSwan, 3.0 * (numSkillBlackSwan + numUltBlackSwan) * BlackSwanCharacter.numEnemies)
 

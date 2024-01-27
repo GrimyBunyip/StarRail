@@ -104,6 +104,6 @@ class Sampo(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.energy = self.getBonusEnergyAttack(type) * self.getER(type)
+        # retval.energy = self.getBonusEnergyAttack(type) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
         return retval

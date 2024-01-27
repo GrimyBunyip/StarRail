@@ -106,7 +106,9 @@ def QingqueHanyaPelaFuxuan(config):
         QingqueCharacter.useEnhancedBasic(),
         QingqueCharacter.useSkill(),
         QingqueCharacter.useSkill(),
-        QingqueCharacter.useBasic(),
+        QingqueCharacter.useSkill(),
+        QingqueCharacter.useSkill(),
+        QingqueCharacter.useEnhancedBasic(), #except pela gives SP so no whiff, -2 and add more skll usages, this is usually skill usages here
         QingqueCharacter.drawTileFromAlly(),
         QingqueCharacter.useSkill(),
         QingqueCharacter.useUltimate(),
@@ -160,7 +162,7 @@ def QingqueHanyaPelaFuxuan(config):
     HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     HanyaRotation.append(DanceDanceDanceEffect)
 
-    QingqueEstimate = DefaultEstimator('Qingque 12E 4Enh 1N 1Q', QingqueRotation, QingqueCharacter, config)
+    QingqueEstimate = DefaultEstimator('Qingque 14E 5Enh 1Q', QingqueRotation, QingqueCharacter, config)
     HanyaEstimate = DefaultEstimator(f'Hanya: {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition:.0f} {HanyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanyaRotation, HanyaCharacter, config)
     PelaEstimate = DefaultEstimator(f'Pela: {numBasicPela:.0f}N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 

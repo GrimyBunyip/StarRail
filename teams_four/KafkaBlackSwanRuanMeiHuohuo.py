@@ -127,7 +127,7 @@ def KafkaBlackSwanRuanMeiHuohuo(config):
                     HuohuoCharacter.useUltimate() * 1,]
 
     #%% Kafka BlackSwan RuanMei Huohuo Rotation Math
-    numDotBlackSwan = DotEstimator(BlackSwanRotation, BlackSwanCharacter, config, dotMode='alwaysBlast')
+    numDotBlackSwan = DotEstimator(BlackSwanRotation, BlackSwanCharacter, config, dotMode='alwaysAll')
     numDotBlackSwan = min(numDotBlackSwan, 2.0 * numSkillBlackSwan * min(3.0, BlackSwanCharacter.numEnemies))
 
     totalKafkaEffect = sumEffects(KafkaRotation)

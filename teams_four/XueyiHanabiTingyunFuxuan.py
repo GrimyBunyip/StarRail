@@ -9,6 +9,7 @@ from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
+from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
@@ -37,7 +38,7 @@ def XueyiHanabiTingyunFuxuan(config, breakRatio:float=0.5):
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                             substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
-                            lightcone = PastAndFuture(**config),
+                            lightcone = PlanetaryRendezvous(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
@@ -61,8 +62,9 @@ def XueyiHanabiTingyunFuxuan(config, breakRatio:float=0.5):
     HanabiCharacter.applySkillBuff(character=XueyiCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
     
-    # Past and Future
-    XueyiCharacter.addStat('DMG',description='Past and Future',amount=0.32)
+    # Planetary Rendezvous
+    for character in team:
+        character.addStat('DMG.quantum',description='Planetary Rendezvous',amount=0.24)
         
     # Hanabi Messenger 4 pc
     for character in [XueyiCharacter, TingyunCharacter, FuxuanCharacter]:

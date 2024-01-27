@@ -64,7 +64,7 @@ def DrRatioTingyunSilverWolfLuocha(config):
     TingyunCharacter.applyUltBuff(DrRatioCharacter)
 
     # Silver Wolf Debuffs
-    SilverWolfCharacter.applyDebuffs(team=team,targetingUptime=1.0,numSkillUses=1) 
+    SilverWolfCharacter.applyDebuffs(team=team,targetingUptime=1.0,numSkillUses=2) 
     
     # Dr Ratio Buff
     DrRatioCharacter.applyTalentBuff(team)
