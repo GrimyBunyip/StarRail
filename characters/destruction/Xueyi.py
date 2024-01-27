@@ -27,7 +27,7 @@ class Xueyi(BaseCharacter):
                                             BaseMV(area='adjacent', stat='atk', value=0.7, eidolonThreshold=3, eidolonBonus=0.07)]
         self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=2.5, eidolonThreshold=5, eidolonBonus=0.20)]
         self.motionValueDict['ultimateBonus'] = [BaseMV(area='single', stat='atk', value=0.6, eidolonThreshold=5, eidolonBonus=0.048)]
-        self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=0.9, eidolonThreshold=5, eidolonBonus=0.99)]
+        self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=0.9, eidolonThreshold=5, eidolonBonus=0.09)]
         
         # Talents
         self.addStat('DMG',description='Xueyi Trace',amount=0.10,uptime=demoralizationUptime,type=['ultimate'])

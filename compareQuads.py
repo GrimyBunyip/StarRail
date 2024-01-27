@@ -1,6 +1,7 @@
 from copy import copy
 from settings.BaseConfiguration import Configuration
 from teams_four.ArgentiBronyaPelaHuohuo import ArgentiBronyaPelaHuohuo
+from teams_four.ArgentiHanabiTingyunHuohuo import ArgentiHanabiTingyunHuohuo
 from teams_four.ArgentiHanyaRuanMeiHuohuo import ArgentiHanyaRuanMeiHuohuo
 from teams_four.ArgentiHanyaTingyunFuxuan import ArgentiHanyaTingyunFuxuan
 from teams_four.ArgentiHanyaTingyunHuohuo import ArgentiHanyaTingyunHuohuo
@@ -91,6 +92,7 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 #%% Team Imports
 
 # Argenti Teams
+# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
 # visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
 # visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
@@ -154,7 +156,7 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # Kafka Teams
 # config['enemySpeed'] = 190 / 1.125
-config['numEnemies'] = 3
+# config['numEnemies'] = 3
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(KafkaGuinaifenSampoLuocha(config))
@@ -164,10 +166,10 @@ config['numEnemies'] = 3
 # visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
-visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
-visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
-visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
-visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 
 # visualizationList.append(KafkaBlackSwanRuanMeiHuohuo(config)) # Night of Fright lightcone, retiring this
 # visualizationList.append(KafkaTingyunRuanMeiLuocha(config)) # mediocre, retiring this
@@ -192,8 +194,8 @@ visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 # visualizationList.append(TopazTingyunHanyaFuxuan(config))
 
 # Xueyi Teams
-# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
-# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
+visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
+visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
 # visualizationList.append(XueyiHanyaPelaFuxuan(config)) # dont like the break assumptions here
 # visualizationList.append(XueyiAstaTopazFuxuan(config)) # needs review, why is the SP so negative? also this team makes no sense
 
