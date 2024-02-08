@@ -1,4 +1,4 @@
-from baseClasses.BaseEffect import sumEffects
+from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Luocha import Luocha
 from characters.erudition.JingYuan import JingYuan
@@ -7,10 +7,9 @@ from characters.harmony.Tingyun import Tingyun
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
+from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
-from lightCones.harmony.PastAndFuture import PastAndFuture
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
@@ -34,7 +33,7 @@ def JingyuanTingyunHanabiLuocha(config):
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                             substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
-                            lightcone = PastAndFuture(**config),
+                            lightcone = DanceDanceDance(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
@@ -62,9 +61,6 @@ def JingyuanTingyunHanabiLuocha(config):
     # Tingyun Messenger Buff
     for character in [JingYuanCharacter, HanabiCharacter, LuochaCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-
-    # Past and Future
-    JingYuanCharacter.addStat('DMG',description='Past and Future',amount=0.32)
         
     # Hanabi Buffs
     HanabiCharacter.applyTraceBuff(team=team)
@@ -138,6 +134,21 @@ def JingyuanTingyunHanabiLuocha(config):
     TingyunRotation = [x * JingYuanRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     HanabiRotation = [x * JingYuanRotationDuration / HanabiRotationDuration for x in HanabiRotation]
     LuochaRotation = [x * JingYuanRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * JingYuanRotationDuration / HanabiRotationDuration
+    JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    JingYuanRotation.append(DanceDanceDanceEffect)
+    
+    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TingyunRotation.append(DanceDanceDanceEffect)
+    
+    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    LuochaRotation.append(DanceDanceDanceEffect)
+    
+    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanabiRotation.append(DanceDanceDanceEffect)
 
     JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q', JingYuanRotation, JingYuanCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 

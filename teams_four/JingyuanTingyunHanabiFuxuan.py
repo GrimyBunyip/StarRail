@@ -9,10 +9,8 @@ from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
-from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
@@ -36,7 +34,7 @@ def JingyuanTingyunHanabiFuxuan(config):
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                             substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
-                            lightcone = PastAndFuture(**config),
+                            lightcone = DanceDanceDance(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
@@ -65,9 +63,6 @@ def JingyuanTingyunHanabiFuxuan(config):
     for character in [JingYuanCharacter, HanabiCharacter, FuxuanCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 
-    # Past and Future
-    JingYuanCharacter.addStat('DMG',description='Past and Future',amount=0.32)
-        
     # Hanabi Buffs
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=JingYuanCharacter,uptime=1.0)
@@ -135,12 +130,27 @@ def JingyuanTingyunHanabiFuxuan(config):
     HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
     FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
+    JingYuanRotation.append(TingyunCharacter.giveUltEnergy() * JingYuanRotationDuration / TingyunRotationDuration)
+
     # scale other character's rotation
     TingyunRotation = [x * JingYuanRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     HanabiRotation = [x * JingYuanRotationDuration / HanabiRotationDuration for x in HanabiRotation]
     FuxuanRotation = [x * JingYuanRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
 
-    JingYuanRotation.append(TingyunCharacter.giveUltEnergy() * JingYuanRotationDuration / TingyunRotationDuration)
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * JingYuanRotationDuration / HanabiRotationDuration
+    JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    JingYuanRotation.append(DanceDanceDanceEffect)
+    
+    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TingyunRotation.append(DanceDanceDanceEffect)
+    
+    FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    FuxuanRotation.append(DanceDanceDanceEffect)
+    
+    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanabiRotation.append(DanceDanceDanceEffect)
 
     JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q', JingYuanRotation, JingYuanCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 

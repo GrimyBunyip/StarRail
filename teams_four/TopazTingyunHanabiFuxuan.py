@@ -5,10 +5,8 @@ from characters.harmony.Hanabi import Hanabi
 from characters.harmony.Tingyun import Tingyun
 from characters.hunt.Topaz import Topaz
 from estimator.DefaultEstimator import DefaultEstimator
-from lightCones.abundance.Multiplication import Multiplication
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
-from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.hunt.Swordplay import Swordplay
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
@@ -17,7 +15,6 @@ from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
-from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 
 def TopazTingyunHanabiFuxuan(config):
     #%% Topaz Tingyun Hanabi Fuxuan Characters
@@ -36,7 +33,7 @@ def TopazTingyunHanabiFuxuan(config):
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                         substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
-                        lightcone = PastAndFuture(**config),
+                        lightcone = DanceDanceDance(**config),
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                         **config)
 
@@ -66,9 +63,6 @@ def TopazTingyunHanabiFuxuan(config):
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=TopazCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
-    
-    # Past and Future
-    TopazCharacter.addStat('DMG',description='Past and Future',amount=0.32)
     
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff([TopazCharacter],uptime=1.0)
@@ -144,6 +138,21 @@ def TopazTingyunHanabiFuxuan(config):
     TingyunRotation = [x * TopazRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     HanabiRotation = [x * TopazRotationDuration / HanabiRotationDuration for x in HanabiRotation]
     FuxuanRotation = [x * TopazRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
+
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * TopazRotationDuration / HanabiRotationDuration
+    TopazCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TopazRotation.append(DanceDanceDanceEffect)
+    
+    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TingyunRotation.append(DanceDanceDanceEffect)
+    
+    FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    FuxuanRotation.append(DanceDanceDanceEffect)
+    
+    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanabiRotation.append(DanceDanceDanceEffect)
 
     TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.1f}E {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 

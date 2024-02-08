@@ -1,14 +1,13 @@
-from baseClasses.BaseEffect import sumEffects
+from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.preservation.Fuxuan import Fuxuan
 from characters.destruction.Clara import Clara
 from characters.harmony.Tingyun import Tingyun
 from characters.harmony.Hanabi import Hanabi
 from estimator.DefaultEstimator import DefaultEstimator
-from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
+from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
-from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.InertSalsotto import InertSalsotto
@@ -16,7 +15,6 @@ from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
-from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 
 def ClaraTingyunHanabiFuxuan(config):
     #%% Clara Tingyun Hanabi Fuxuan Characters
@@ -37,7 +35,7 @@ def ClaraTingyunHanabiFuxuan(config):
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                             substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
-                            lightcone = PastAndFuture(**config),
+                            lightcone = DanceDanceDance(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
@@ -60,9 +58,6 @@ def ClaraTingyunHanabiFuxuan(config):
     HanabiCharacter.applySkillBuff(character=ClaraCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
     
-    # Past and Future
-    ClaraCharacter.addStat('DMG',description='Past and Future',amount=0.32)
-        
     # Hanabi Messenger 4 pc
     for character in [ClaraCharacter, TingyunCharacter, FuxuanCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
@@ -143,6 +138,21 @@ def ClaraTingyunHanabiFuxuan(config):
     TingyunRotation = [x * ClaraRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     HanabiRotation = [x * ClaraRotationDuration / HanabiRotationDuration for x in HanabiRotation]
     FuxuanRotation = [x * ClaraRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
+
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * ClaraRotationDuration / HanabiRotationDuration
+    ClaraCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    ClaraRotation.append(DanceDanceDanceEffect)
+    
+    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TingyunRotation.append(DanceDanceDanceEffect)
+    
+    FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    FuxuanRotation.append(DanceDanceDanceEffect)
+    
+    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanabiRotation.append(DanceDanceDanceEffect)
 
     ClaraEstimate = DefaultEstimator(f'Clara: {numSkillClara:.1f}E {numSvarogCounters:.1f}T 1Q', ClaraRotation, ClaraCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',

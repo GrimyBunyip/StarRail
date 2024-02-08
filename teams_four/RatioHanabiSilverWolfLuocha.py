@@ -1,4 +1,4 @@
-from baseClasses.BaseEffect import sumEffects
+from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Luocha import Luocha
 from characters.hunt.DrRatio import DrRatio
@@ -6,7 +6,7 @@ from characters.harmony.Hanabi import Hanabi
 from characters.nihility.SilverWolf import SilverWolf
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
-from lightCones.harmony.PastAndFuture import PastAndFuture
+from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from relicSets.planarSets.BrokenKeel import BrokenKeel
@@ -31,7 +31,7 @@ def DrRatioHanabiSilverWolfLuocha(config):
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'SPD.flat', 'HP.percent', 'ER'],
                                     substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
-                                    lightcone = PastAndFuture(**config),
+                                    lightcone = DanceDanceDance(**config),
                                     relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                                     **config)
 
@@ -64,9 +64,6 @@ def DrRatioHanabiSilverWolfLuocha(config):
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=DrRatioCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
-    
-    # Past and Future
-    DrRatioCharacter.addStat('DMG',description='Past and Future',amount=0.32)
 
     # Silver Wolf Debuffs
     SilverWolfCharacter.applyDebuffs(team=team,targetingUptime=1.0,numSkillUses=1,rotationDuration=3) 
@@ -135,6 +132,21 @@ def DrRatioHanabiSilverWolfLuocha(config):
     SilverWolfRotation = [x * DrRatioRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
     HanabiRotation = [x * DrRatioRotationDuration / HanabiRotationDuration for x in HanabiRotation]
     LuochaRotation = [x * DrRatioRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * DrRatioRotationDuration / HanabiRotationDuration
+    DrRatioCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    DrRatioRotation.append(DanceDanceDanceEffect)
+    
+    SilverWolfCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    SilverWolfRotation.append(DanceDanceDanceEffect)
+    
+    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    LuochaRotation.append(DanceDanceDanceEffect)
+    
+    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanabiRotation.append(DanceDanceDanceEffect)
 
     DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.1f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
