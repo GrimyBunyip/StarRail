@@ -99,7 +99,7 @@ def JingyuanTingyunHanabiFuxuan(config):
 
     numSkill = 2.0 + 2.0 * longToShort
     numUlt = 1.0
-    numTalents = ( 3 * numSkill * lordSpeed / JingYuanCharacter.getTotalStat('SPD') )  + 2 * numSkill + 3
+    numTalents = ( 3 * numSkill * lordSpeed / HanabiCharacter.getTotalStat('SPD') / 0.92 )  + 2 * numSkill + 3 # 0.92 to account for S5 dance dance Dance
     JingYuanRotation = [
         JingYuanCharacter.useSkill() * numSkill,
         JingYuanCharacter.useUltimate() * numUlt,
