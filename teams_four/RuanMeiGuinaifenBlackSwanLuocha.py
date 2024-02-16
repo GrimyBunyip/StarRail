@@ -34,7 +34,7 @@ def RuanMeiGuinaifenBlackSwanLuocha(config):
     GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
                             substats = {'ATK.percent': 7, 'SPD.flat': 13, 'EHR': 4, 'BreakEffect': 4}),
                             lightcone = GoodNightAndSleepWell(**config),
-                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
+                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(stacks=2), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
 
     # I'm just going to assume 100% uptime on firmament frontline glamoth
@@ -44,7 +44,7 @@ def RuanMeiGuinaifenBlackSwanLuocha(config):
     BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
                             substats = {'ATK.percent': 12, 'SPD.flat': 5, 'EHR': 8, 'BreakEffect': 3}),
                             lightcone = EyesOfThePrey(**config),
-                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
+                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(stacks=2), planarset = PanCosmicCommercialEnterprise(),
                             **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
@@ -94,7 +94,7 @@ def RuanMeiGuinaifenBlackSwanLuocha(config):
     
     # Swan alternates applying basic and skill stacks
     swanBasicStacks = 1 + numDots
-    swanSkillStacks = numDots * min(3.0,BlackSwanCharacter.numEnemies)
+    swanSkillStacks = (1+ numDots) * min(3.0,BlackSwanCharacter.numEnemies)
     
     SwanStackRate = (swanBasicStacks + swanSkillStacks) / 2
     

@@ -26,8 +26,7 @@ class BlackSwan(BaseCharacter):
                                         BaseMV(area='adjacent', stat='atk', value=0.9, eidolonThreshold=3, eidolonBonus=0.09),]
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.20, eidolonThreshold=5, eidolonBonus=0.096)]
         self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=0.24+0.12*self.sacramentStacks, eidolonThreshold=3, eidolonBonus=0.24+0.012*self.sacramentStacks)]
-        self.motionValueDict['dotAOE'] = [BaseMV(area='single', stat='atk', value=0.24+0.12*self.sacramentStacks, eidolonThreshold=3, eidolonBonus=0.24+0.012*self.sacramentStacks),
-                                        BaseMV(area='adjacent', stat='atk', value=1.8 if self.sacramentStacks >= 3 else 0.0, eidolonThreshold=3, eidolonBonus=0.18 if self.sacramentStacks >= 3 else 0.0),]
+        self.motionValueDict['dotAOE'] = [BaseMV(area='adjacent', stat='atk', value=1.8 if self.sacramentStacks >= 3 else 0.0, eidolonThreshold=3, eidolonBonus=0.18 if self.sacramentStacks >= 3 else 0.0),]
         
         # Talents
         self.addStat('DMG',description='Black Swan Candleflame Buff',amount=self.candleflameBuff)
@@ -108,8 +107,14 @@ class BlackSwan(BaseCharacter):
 
     def useDot(self):
         retval = BaseEffect()
-        type = ['dot','dotAOE']
-        retval.damage = self.getTotalMotionValue('dotAOE',type)
+        type = ['dot']
+        average_num_adjacents = 2 * (self.numEnemies - 1) / self.numEnemies
+        # 1 enemy = 0 / 1 adjacents per enemy
+        # 2 enemy = 2 / 2 adjacent per enemy
+        # 3 enemy = 4 / 3 adjacents per enemy
+        # 4 enemy = 6 / 4 adjacents per enemy
+        # 5 enemy = 8 / 5 adjacents per enemy
+        retval.damage = self.getTotalMotionValue('dotAOE',type) * average_num_adjacents + self.getTotalMotionValue('dot',type)
         # no crits on dots
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)

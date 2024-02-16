@@ -89,7 +89,7 @@ def KafkaHanyaBlackSwanLuochaPatience(config):
     
     # Swan alternates applying basic and skill stacks
     swanBasicStacks = 1 + numDots
-    swanSkillStacks = numDots * min(3.0,BlackSwanCharacter.numEnemies)
+    swanSkillStacks = (1 + numDots) * min(3.0,BlackSwanCharacter.numEnemies)
     
     SwanStackRate = swanBasicStacks * 0.0 + swanSkillStacks * 1.0
     

@@ -14,6 +14,7 @@ from teams_four.BladeBronyaRuanMeiFuxuan import BladeBronyaRuanMeiFuxuan
 from teams_four.BladeBronyaRuanMeiLuocha import BladeBronyaRuanMeiLuocha
 from teams_four.ClaraSilverWolfPelaLuocha import ClaraSilverWolfPelaLuocha
 from teams_four.ClaraTingyunHanabiFuxuan import ClaraTingyunHanabiFuxuan
+from teams_four.ClaraTingyunHanabiFuxuanEscapade import ClaraTingyunHanabiFuxuanEscapade
 from teams_four.ClaraTingyunHanabiLuocha import ClaraTingyunHanabiLuocha
 from teams_four.ClaraTingyunHanyaLuocha import ClaraTingyunHanyaLuocha
 from teams_four.ClaraTingyunPelaLuocha import ClaraTingyunPelaLuocha
@@ -91,117 +92,118 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
-# Argenti Teams
-# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
-# visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
-# visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
-# visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
-# visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
-# visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
+# # Argenti Teams
+# # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+# # visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
+# # visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
+# # visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
+# # visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
+# # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
-# Blade Teams
-visualizationList.append(BladeBronyaHanabiLuocha(config))
-# visualizationList.append(BladeBronyaRuanMeiLuocha(config))
-# visualizationList.append(BladeBronyaPelaLynx(config))
-# visualizationList.append(BladeBronyaPelaLuocha(config))
+# # Blade Teams
+# visualizationList.append(BladeBronyaHanabiLuocha(config))
+# # visualizationList.append(BladeBronyaRuanMeiLuocha(config))
+# # visualizationList.append(BladeBronyaPelaLynx(config))
+# # visualizationList.append(BladeBronyaPelaLuocha(config))
 
-# visualizationList.append(BladeBronyaPelaFuxuan(config)) # 100% vow uptime with fu xuan
-# visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
+# # visualizationList.append(BladeBronyaPelaFuxuan(config)) # 100% vow uptime with fu xuan
+# # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
 
-# Clara Teams
-visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-# visualizationList.append(ClaraTingyunHanabiLuocha(config))
-# visualizationList.append(ClaraTingyunHanyaLuocha(config))
-# visualizationList.append(ClaraTopazAstaLuocha(config))
-# visualizationList.append(ClaraTopazHanyaLuocha(config))
-# visualizationList.append(ClaraTingyunPelaLuocha(config))
-# visualizationList.append(ClaraTingyunTopazLuocha(config))
-# visualizationList.append(ClaraSilverWolfPelaLuocha(config))
+# # Clara Teams
+# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+# # visualizationList.append(ClaraTingyunHanabiLuocha(config))
+# # visualizationList.append(ClaraTingyunHanyaLuocha(config))
+# # visualizationList.append(ClaraTopazAstaLuocha(config))
+# # visualizationList.append(ClaraTopazHanyaLuocha(config))
+# # visualizationList.append(ClaraTingyunPelaLuocha(config))
+# # visualizationList.append(ClaraTingyunTopazLuocha(config))
+# # visualizationList.append(ClaraSilverWolfPelaLuocha(config))
+# # visualizationList.append(ClaraTingyunHanabiFuxuanEscapade(config))
 
-# Dr Ratio Teams
-visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
-# visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
-# visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
-# visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
-# visualizationList.append(DrRatioTopazAstaLuocha(config))
-# visualizationList.append(DrRatioTopazHanyaLuocha(config))
-# visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
-# visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
-# visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
-# visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
+# # Dr Ratio Teams
+# visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
+# # visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
+# # visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
+# # visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
+# # visualizationList.append(DrRatioTopazAstaLuocha(config))
+# # visualizationList.append(DrRatioTopazHanyaLuocha(config))
+# # visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
+# # visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
+# # visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
+# # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
 
-# Jingliu Teams
-visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-# visualizationList.append(JingliuBronyaHanabiLuocha(config))
-# visualizationList.append(JingliuBronyaPelaLuocha(config))
-# visualizationList.append(JingliuRuanMeiBladeLuocha(config))
-# visualizationList.append(JingliuHanyaBladeHuohuo(config))
+# # Jingliu Teams
+# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+# # visualizationList.append(JingliuBronyaHanabiLuocha(config))
+# # visualizationList.append(JingliuBronyaPelaLuocha(config))
+# # visualizationList.append(JingliuRuanMeiBladeLuocha(config))
+# # visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
-# Jingyuan Teams
-visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
-# visualizationList.append(JingyuanTingyunHanabiLuocha(config))
-# visualizationList.append(JingyuanTingyunAstaLuocha(config))
-# visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
-# visualizationList.append(JingyuanTingyunTopazLuocha(config))
+# # Jingyuan Teams
+# visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
+# # visualizationList.append(JingyuanTingyunHanabiLuocha(config))
+# # visualizationList.append(JingyuanTingyunAstaLuocha(config))
+# # visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
+# # visualizationList.append(JingyuanTingyunTopazLuocha(config))
 
-# Lunae Teams
-visualizationList.append(LunaeHanabiTingyunLuocha(config))
-# visualizationList.append(LunaeHanyaTingyunLuocha(config))
-# visualizationList.append(LunaeHanyaYukongLuocha(config))
-# visualizationList.append(LunaeHanyaPelaLuocha(config))
-# visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
-# visualizationList.append(LunaeTingyunYukongLuocha(config))
-# visualizationList.append(LunaePelaTingyunLuocha(config))
-# visualizationList.append(LunaePelaYukongLuocha(config))
+# # Lunae Teams
+# visualizationList.append(LunaeHanabiTingyunLuocha(config))
+# # visualizationList.append(LunaeHanyaTingyunLuocha(config))
+# # visualizationList.append(LunaeHanyaYukongLuocha(config))
+# # visualizationList.append(LunaeHanyaPelaLuocha(config))
+# # visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
+# # visualizationList.append(LunaeTingyunYukongLuocha(config))
+# # visualizationList.append(LunaePelaTingyunLuocha(config))
+# # visualizationList.append(LunaePelaYukongLuocha(config))
 
-# Kafka Teams
-# config['enemySpeed'] = 190 / 1.125
-# config['numEnemies'] = 3
+# # Kafka Teams
+# # config['enemySpeed'] = 190 / 1.125
+# # config['numEnemies'] = 3
 visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-# visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
-# visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-# visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
-# visualizationList.append(KafkaSampoRuanMeiLuocha(config))
-# visualizationList.append(KafkaGuinaifenLukaLuocha(config))
-# visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
-# visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
+visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
+visualizationList.append(KafkaGuinaifenSampoLuocha(config))
+visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
+visualizationList.append(KafkaSampoRuanMeiLuocha(config))
+visualizationList.append(KafkaGuinaifenLukaLuocha(config))
+visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
+visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
-# visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
+# # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
 # visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
 # visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
 # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 
-# visualizationList.append(KafkaBlackSwanRuanMeiHuohuo(config)) # Night of Fright lightcone, retiring this
-# visualizationList.append(KafkaTingyunRuanMeiLuocha(config)) # mediocre, retiring this
+# # visualizationList.append(KafkaBlackSwanRuanMeiHuohuo(config)) # Night of Fright lightcone, retiring this
+# # visualizationList.append(KafkaTingyunRuanMeiLuocha(config)) # mediocre, retiring this
 
-# Qingque Teams
-visualizationList.append(QingqueHanabiPelaFuxuan(config))
-# visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
-# visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
-# visualizationList.append(QingqueHanyaPelaFuxuan(config))
+# # Qingque Teams
+# visualizationList.append(QingqueHanabiPelaFuxuan(config))
+# # visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
+# # visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
+# # visualizationList.append(QingqueHanyaPelaFuxuan(config))
 
-# Seele Teams
-visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
-# visualizationList.append(SeeleMaxSilverWolfTingyunFuxuan(config))
-# visualizationList.append(SeeleMaxSilverWolfRuanMeiFuxuan(config))
-# visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
-# visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))
-# visualizationList.append(SeeleMidSilverWolfBronyaFuxuan(config))
-# visualizationList.append(SeeleNoneSilverWolfHanabiLuocha(config))
+# # Seele Teams
+# visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
+# # visualizationList.append(SeeleMaxSilverWolfTingyunFuxuan(config))
+# # visualizationList.append(SeeleMaxSilverWolfRuanMeiFuxuan(config))
+# # visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
+# # visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))
+# # visualizationList.append(SeeleMidSilverWolfBronyaFuxuan(config))
+# # visualizationList.append(SeeleNoneSilverWolfHanabiLuocha(config))
 
-# Solo Topaz Teams
-visualizationList.append(TopazTingyunHanabiFuxuan(config))
-# visualizationList.append(TopazTingyunHanyaFuxuan(config))
+# # Solo Topaz Teams
+# visualizationList.append(TopazTingyunHanabiFuxuan(config))
+# # visualizationList.append(TopazTingyunHanyaFuxuan(config))
 
-# Xueyi Teams
-visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
-# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
-# visualizationList.append(XueyiHanyaPelaFuxuan(config)) # dont like the break assumptions here
-# visualizationList.append(XueyiAstaTopazFuxuan(config)) # needs review, why is the SP so negative? also this team makes no sense
+# # Xueyi Teams
+# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
+# # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
+# # visualizationList.append(XueyiHanyaPelaFuxuan(config)) # dont like the break assumptions here
+# # visualizationList.append(XueyiAstaTopazFuxuan(config)) # needs review, why is the SP so negative? also this team makes no sense
 
-# YanqingTeam
-visualizationList.append(YanqingTingyunHanabiGepard(config))
-# visualizationList.append(YanqingTingyunRuanMeiGepard(config))
+# # YanqingTeam
+# visualizationList.append(YanqingTingyunHanabiGepard(config))
+# # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
 
 #%% Visualization
 # Visualize
