@@ -83,8 +83,8 @@ def SampoGuinaifenBlackSwanLuocha(config):
     # let's not assume sampo skill detonations in this
     SampoStackRate = 0
     
-    # Guinaifen applies 2 stacks every ult, 4 turn rotation
-    GuinaifenStackRate = 2 * GuinaifenCharacter.numEnemies / 4
+    # Guinaifen applies 1 stack every ult, 4 turn rotation
+    GuinaifenStackRate = GuinaifenCharacter.numEnemies / 4
     
     # Swan alternates applying basic and skill stacks
     swanBasicStacks = 1 + numDots
@@ -92,13 +92,13 @@ def SampoGuinaifenBlackSwanLuocha(config):
     
     SwanStackRate = (swanBasicStacks + swanSkillStacks) / 2
     
-    SwanUltMultiplier = 1.0 + 1.0 / SwanUltRotation # swan ult effectively applies 1 extra rotation of dots every N turns
-    netStackRate = adjacentStackRate * SampoCharacter.enemySpeed * SwanUltMultiplier
-    netStackRate += dotStackRate * SampoCharacter.enemySpeed * SwanUltMultiplier
-    netStackRate += SampoStackRate * SampoCharacter.getTotalStat('SPD') * SwanUltMultiplier
-    netStackRate += GuinaifenStackRate * GuinaifenCharacter.getTotalStat('SPD') * SwanUltMultiplier
-    netStackRate += SwanStackRate * BlackSwanCharacter.getTotalStat('SPD') * SwanUltMultiplier
+    netStackRate = adjacentStackRate * SampoCharacter.enemySpeed
+    netStackRate += dotStackRate * SampoCharacter.enemySpeed
+    netStackRate += SampoStackRate * SampoCharacter.getTotalStat('SPD')
+    netStackRate += GuinaifenStackRate * GuinaifenCharacter.getTotalStat('SPD')
+    netStackRate += SwanStackRate * BlackSwanCharacter.getTotalStat('SPD')
     netStackRate = netStackRate / SampoCharacter.enemySpeed / SampoCharacter.numEnemies
+    netStackRate *= 1.0 + 1.0 / SwanUltRotation # swan ult effectively applies 1 extra rotation of dots every N turns
     print(f'net Stack Rate per Enemy {netStackRate}')
     
     BlackSwanCharacter.setSacramentStacks(netStackRate)

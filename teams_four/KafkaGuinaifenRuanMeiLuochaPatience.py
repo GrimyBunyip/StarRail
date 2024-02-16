@@ -7,12 +7,12 @@ from characters.nihility.Kafka import Kafka
 from estimator.DefaultEstimator import DefaultEstimator, DotEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
-from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
+from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
@@ -35,7 +35,7 @@ def KafkaGuinaifenRuanMeiLuochaPatience(config):
 
     GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 4, 'BreakEffect': 4}),
-                            lightcone = GoodNightAndSleepWell(**config),
+                            lightcone = ResolutionShinesAsPearlsOfSweat(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
 
@@ -58,6 +58,15 @@ def KafkaGuinaifenRuanMeiLuochaPatience(config):
         
     # Apply Guinaifen Debuff
     GuinaifenCharacter.applyFirekiss(team=team,uptime=1.0)
+
+    # Resolution Shines as Pearls of Sweat uptime
+    sweatUptime = (3.0 / 4.0) * GuinaifenCharacter.getTotalStat('SPD') / GuinaifenCharacter.enemySpeed # 2 skills and an ult
+    sweatUptime += (1.0 / 4.0) * GuinaifenCharacter.getTotalStat('SPD') / GuinaifenCharacter.enemySpeed / GuinaifenCharacter.numEnemies # 1 basic (ignore the other basic)
+    sweatUptime = min(1.0, sweatUptime)
+    for character in team:
+        character.addStat('DefShred',description='Resolution Sweat',
+                        amount=0.11 + 0.01 * GuinaifenCharacter.lightcone.superposition,
+                        uptime=sweatUptime)
 
     # RuanMei Buffs, max skill uptime
     RuanMeiCharacter.applyWeaknessModifiers(team=team)

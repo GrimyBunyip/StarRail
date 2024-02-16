@@ -7,12 +7,11 @@ from characters.nihility.BlackSwan import BlackSwan
 from estimator.DefaultEstimator import DefaultEstimator, DotEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.nihility.EyesOfThePrey import EyesOfThePrey
-from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
+from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
-from relicSets.planarSets.SpaceSealingStation import SpaceSealingStation
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
@@ -27,7 +26,7 @@ def KafkaGuinaifenBlackSwanLuochaPatience(config):
 
     GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
                             substats = {'ATK.percent': 7, 'SPD.flat': 13, 'EHR': 4, 'BreakEffect': 4}),
-                            lightcone = GoodNightAndSleepWell(**config),
+                            lightcone = ResolutionShinesAsPearlsOfSweat(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
 
@@ -56,6 +55,15 @@ def KafkaGuinaifenBlackSwanLuochaPatience(config):
         
     # Apply Guinaifen Debuff
     GuinaifenCharacter.applyFirekiss(team=team,uptime=1.0)
+
+    # Resolution Shines as Pearls of Sweat uptime
+    sweatUptime = (3.0 / 4.0) * GuinaifenCharacter.getTotalStat('SPD') / GuinaifenCharacter.enemySpeed # 2 skills and an ult
+    sweatUptime += (1.0 / 4.0) * GuinaifenCharacter.getTotalStat('SPD') / GuinaifenCharacter.enemySpeed / GuinaifenCharacter.numEnemies # 1 basic (ignore the other basic)
+    sweatUptime = min(1.0, sweatUptime)
+    for character in team:
+        character.addStat('DefShred',description='Resolution Sweat',
+                        amount=0.11 + 0.01 * GuinaifenCharacter.lightcone.superposition,
+                        uptime=sweatUptime)
         
     # Apply BlackSwan Vulnerability Debuff
     SwanUltRotation = 5.0
@@ -77,22 +85,22 @@ def KafkaGuinaifenBlackSwanLuochaPatience(config):
     # 3 turn kafka ult rotation, 3 single target + 3 aoe every 3 turns
     KafkaStackRate = (3 + 3 * KafkaCharacter.numEnemies / 3)
     
-    # Guinaifen applies 2 stacks every ult, 4 turn rotation
-    GuinaifenStackRate = 2 * GuinaifenCharacter.numEnemies / 4
+    # Guinaifen applies 1 stack every ult, 4 turn rotation
+    GuinaifenStackRate = GuinaifenCharacter.numEnemies / 4
     
     # Swan alternates applying basic and skill stacks
     swanBasicStacks = 1 + numDots
     swanSkillStacks = (1 + numDots) * min(3.0,BlackSwanCharacter.numEnemies)
     
     SwanStackRate = (swanBasicStacks + swanSkillStacks) / 2
-    
-    SwanUltMultiplier = 1.0 + 1.0 / SwanUltRotation # swan ult effectively applies 1 extra rotation of dots every N turns
-    netStackRate = adjacentStackRate * KafkaCharacter.enemySpeed * SwanUltMultiplier
-    netStackRate += dotStackRate * KafkaCharacter.enemySpeed * SwanUltMultiplier
-    netStackRate += KafkaStackRate * KafkaCharacter.getTotalStat('SPD') * SwanUltMultiplier
-    netStackRate += GuinaifenStackRate * GuinaifenCharacter.getTotalStat('SPD') * (2 if SwanUltRotation == 4.0 else SwanUltMultiplier)
-    netStackRate += SwanStackRate * BlackSwanCharacter.getTotalStat('SPD') * SwanUltMultiplier
+
+    netStackRate = adjacentStackRate * KafkaCharacter.enemySpeed
+    netStackRate += dotStackRate * KafkaCharacter.enemySpeed
+    netStackRate += KafkaStackRate * KafkaCharacter.getTotalStat('SPD')
+    netStackRate += GuinaifenStackRate * GuinaifenCharacter.getTotalStat('SPD')
+    netStackRate += SwanStackRate * BlackSwanCharacter.getTotalStat('SPD')
     netStackRate = netStackRate / KafkaCharacter.enemySpeed / KafkaCharacter.numEnemies
+    netStackRate *= 1.0 + 1.0 / SwanUltRotation # swan ult effectively applies 1 extra rotation of dots every N turns
     print(f'net Stack Rate per Enemy {netStackRate}')
     
     BlackSwanCharacter.setSacramentStacks(netStackRate)
@@ -115,15 +123,17 @@ def KafkaGuinaifenBlackSwanLuochaPatience(config):
     numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
     numDotKafka = min(numDotKafka, 2 * numUlt * KafkaCharacter.numEnemies + 2 * numTalent)
 
-    numBasicGuinaifen = SwanUltRotation / 2.0
-    numSkillGuinaifen = SwanUltRotation / 2.0
+    numBasicGuinaifen = 2.0
+    numSkillGuinaifen = 2.0
     numUltGuinaifen = 1.0
+    GuinaifenDetonation = BlackSwanDot * GuinaifenCharacter.numEnemies * (2.0 / SwanUltRotation) * (BlackSwanCharacter.getTotalStat('SPD') / GuinaifenCharacter.enemySpeed) # Guinaifen detonates swan dot
     GuinaifenRotation = [ # 
             GuinaifenCharacter.useBasic() * numBasicGuinaifen,
             GuinaifenCharacter.useSkill() * numSkillGuinaifen,
             GuinaifenCharacter.useUltimate() * numUlt,
-            BlackSwanDot * GuinaifenCharacter.numEnemies, # Guinaifen detonates swan dot
+            GuinaifenDetonation,
     ]
+    GuinaifenCharacter.addDebugInfo(GuinaifenDetonation,['dot'],'Guinaifen Detonation on Swan Dot')
 
     numBasicBlackSwan = 2
     numSkillBlackSwan = 2

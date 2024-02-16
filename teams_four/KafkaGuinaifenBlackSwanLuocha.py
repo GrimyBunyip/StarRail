@@ -86,8 +86,8 @@ def KafkaGuinaifenBlackSwanLuocha(config):
     # 3 turn kafka ult rotation, 3 single target + 3 aoe every 3 turns
     KafkaStackRate = (3 + 3 * KafkaCharacter.numEnemies / 3)
     
-    # Guinaifen applies 2 stacks every ult, 4 turn rotation
-    GuinaifenStackRate = 2 * GuinaifenCharacter.numEnemies / 4
+    # Guinaifen applies 1 stack every ult, 4 turn rotation
+    GuinaifenStackRate = GuinaifenCharacter.numEnemies / 4
     
     # Swan alternates applying basic and skill stacks
     swanBasicStacks = 1 + numDots
@@ -95,13 +95,13 @@ def KafkaGuinaifenBlackSwanLuocha(config):
     
     SwanStackRate = (swanBasicStacks + swanSkillStacks) / 2
     
-    SwanUltMultiplier = 1.0 + 1.0 / SwanUltRotation # swan ult effectively applies 1 extra rotation of dots every N turns
-    netStackRate = adjacentStackRate * KafkaCharacter.enemySpeed * SwanUltMultiplier
-    netStackRate += dotStackRate * KafkaCharacter.enemySpeed * SwanUltMultiplier
-    netStackRate += KafkaStackRate * KafkaCharacter.getTotalStat('SPD') * SwanUltMultiplier
-    netStackRate += GuinaifenStackRate * GuinaifenCharacter.getTotalStat('SPD') * SwanUltMultiplier
-    netStackRate += SwanStackRate * BlackSwanCharacter.getTotalStat('SPD') * SwanUltMultiplier
+    netStackRate = adjacentStackRate * KafkaCharacter.enemySpeed
+    netStackRate += dotStackRate * KafkaCharacter.enemySpeed
+    netStackRate += KafkaStackRate * KafkaCharacter.getTotalStat('SPD')
+    netStackRate += GuinaifenStackRate * GuinaifenCharacter.getTotalStat('SPD')
+    netStackRate += SwanStackRate * BlackSwanCharacter.getTotalStat('SPD')
     netStackRate = netStackRate / KafkaCharacter.enemySpeed / KafkaCharacter.numEnemies
+    netStackRate *= 1.0 + 1.0 / SwanUltRotation # swan ult effectively applies 1 extra rotation of dots every N turns
     print(f'net Stack Rate per Enemy {netStackRate}')
     
     BlackSwanCharacter.setSacramentStacks(netStackRate)
@@ -127,12 +127,14 @@ def KafkaGuinaifenBlackSwanLuocha(config):
     numBasicGuinaifen = 2.0
     numSkillGuinaifen = 2.0
     numUltGuinaifen = 1.0
+    GuinaifenDetonation = BlackSwanDot * GuinaifenCharacter.numEnemies * (2.0 / SwanUltRotation) * (BlackSwanCharacter.getTotalStat('SPD') / GuinaifenCharacter.enemySpeed) # Guinaifen detonates swan dot
     GuinaifenRotation = [ # 
             GuinaifenCharacter.useBasic() * numBasicGuinaifen,
             GuinaifenCharacter.useSkill() * numSkillGuinaifen,
             GuinaifenCharacter.useUltimate() * numUlt,
-            BlackSwanDot * GuinaifenCharacter.numEnemies, # Guinaifen detonates swan dot
+            GuinaifenDetonation,
     ]
+    GuinaifenCharacter.addDebugInfo(GuinaifenDetonation,['dot'],'Guinaifen Detonation on Swan Dot')
 
     numBasicBlackSwan = SwanUltRotation / 2.0
     numSkillBlackSwan = SwanUltRotation / 2.0
@@ -156,8 +158,7 @@ def KafkaGuinaifenBlackSwanLuocha(config):
     numDotGuinaifen = DotEstimator(GuinaifenRotation, GuinaifenCharacter, config, dotMode='alwaysBlast')
     numDotGuinaifen = min(numDotGuinaifen, 2.0 * numSkillGuinaifen * min(3.0, GuinaifenCharacter.numEnemies))
     numDotBlackSwan = DotEstimator(BlackSwanRotation, BlackSwanCharacter, config, dotMode='alwaysAll')
-    numDotBlackSwan = min(numDotBlackSwan, 3.0 * (numSkillBlackSwan + numUltBlackSwan) * BlackSwanCharacter.numEnemies)
-
+    
     totalKafkaEffect = sumEffects(KafkaRotation)
     totalGuinaifenEffect = sumEffects(GuinaifenRotation)
     totalBlackSwanEffect = sumEffects(BlackSwanRotation)

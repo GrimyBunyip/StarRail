@@ -93,12 +93,12 @@ def KafkaHanyaBlackSwanLuochaPatience(config):
     
     SwanStackRate = swanBasicStacks * 0.0 + swanSkillStacks * 1.0
     
-    SwanUltMultiplier = 1.0 + 1.0 / SwanUltRotation # swan ult effectively applies 1 extra rotation of dots every N turns
-    netStackRate = adjacentStackRate * KafkaCharacter.enemySpeed * SwanUltMultiplier
-    netStackRate += dotStackRate * KafkaCharacter.enemySpeed * SwanUltMultiplier
-    netStackRate += KafkaStackRate * KafkaCharacter.getTotalStat('SPD') * SwanUltMultiplier
-    netStackRate += SwanStackRate * BlackSwanCharacter.getTotalStat('SPD') * SwanUltMultiplier
+    netStackRate = adjacentStackRate * KafkaCharacter.enemySpeed
+    netStackRate += dotStackRate * KafkaCharacter.enemySpeed
+    netStackRate += KafkaStackRate * KafkaCharacter.getTotalStat('SPD')
+    netStackRate += SwanStackRate * BlackSwanCharacter.getTotalStat('SPD')
     netStackRate = netStackRate / KafkaCharacter.enemySpeed / KafkaCharacter.numEnemies
+    netStackRate *= 1.0 + 1.0 / SwanUltRotation # swan ult effectively applies 1 extra rotation of dots every N turns
     print(f'net Stack Rate per Enemy {netStackRate}')
     
     BlackSwanCharacter.setSacramentStacks(netStackRate)

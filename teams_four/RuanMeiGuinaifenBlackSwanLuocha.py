@@ -44,6 +44,7 @@ def RuanMeiGuinaifenBlackSwanLuocha(config):
     BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
                             substats = {'ATK.percent': 12, 'SPD.flat': 5, 'EHR': 8, 'BreakEffect': 3}),
                             lightcone = EyesOfThePrey(**config),
+                            sacramentStacks=5.0, # we do not consistently reach def shred stacks here, this number will be recalculated below
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(stacks=2), planarset = PanCosmicCommercialEnterprise(),
                             **config)
 
@@ -82,29 +83,29 @@ def RuanMeiGuinaifenBlackSwanLuocha(config):
     #%% RuanMei Guinaifen BlackSwan Luocha Rotations
     # Napkin Math for stacks applied
     
-    numDots = 3
+    numDots = 2
     adjacentStackRate = 2 # adjacent ticks when you have 2 enemies
     dotStackRate = numDots * RuanMeiCharacter.numEnemies
     
     # no ruan mei dots
     RuanMeiStackRate = 0
     
-    # Guinaifen applies 2 stacks every ult, 4 turn rotation
-    GuinaifenStackRate = 2 * GuinaifenCharacter.numEnemies / 4
+    # Guinaifen applies 1 stack every ult, 4 turn rotation
+    GuinaifenStackRate = GuinaifenCharacter.numEnemies / 4
     
     # Swan alternates applying basic and skill stacks
     swanBasicStacks = 1 + numDots
-    swanSkillStacks = (1+ numDots) * min(3.0,BlackSwanCharacter.numEnemies)
+    swanSkillStacks = (1 + numDots) * min(3.0,BlackSwanCharacter.numEnemies)
     
     SwanStackRate = (swanBasicStacks + swanSkillStacks) / 2
     
-    SwanUltMultiplier = 1.0 + 1.0 / SwanUltRotation # swan ult effectively applies 1 extra rotation of dots every N turns
-    netStackRate = adjacentStackRate * RuanMeiCharacter.enemyDotSpeed * SwanUltMultiplier
-    netStackRate += dotStackRate * RuanMeiCharacter.enemyDotSpeed * SwanUltMultiplier
-    netStackRate += RuanMeiStackRate * RuanMeiCharacter.getTotalStat('SPD') * SwanUltMultiplier
-    netStackRate += GuinaifenStackRate * GuinaifenCharacter.getTotalStat('SPD') * SwanUltMultiplier
-    netStackRate += SwanStackRate * BlackSwanCharacter.getTotalStat('SPD') * SwanUltMultiplier
+    netStackRate = adjacentStackRate * RuanMeiCharacter.enemyDotSpeed
+    netStackRate += dotStackRate * RuanMeiCharacter.enemyDotSpeed
+    netStackRate += RuanMeiStackRate * RuanMeiCharacter.getTotalStat('SPD')
+    netStackRate += GuinaifenStackRate * GuinaifenCharacter.getTotalStat('SPD')
+    netStackRate += SwanStackRate * BlackSwanCharacter.getTotalStat('SPD')
     netStackRate = netStackRate / RuanMeiCharacter.enemyDotSpeed / RuanMeiCharacter.numEnemies
+    netStackRate *= 1.0 + 1.0 / SwanUltRotation # swan ult effectively applies 1 extra rotation of dots every N turns
     print(f'net Stack Rate per Enemy {netStackRate}')
     
     BlackSwanCharacter.setSacramentStacks(netStackRate)
