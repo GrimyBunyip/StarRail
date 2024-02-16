@@ -86,20 +86,20 @@ from visualizer.visualizer import visualize
 visualizationList = []
 
 config = copy(Configuration)
-config['numEnemies'] = 2
-config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
+config['numEnemies'] = 3
+config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
 
-# # Argenti Teams
-# # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
-# # visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
-# # visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
-# # visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
-# # visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
-# # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
+# Argenti Teams
+# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+# visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
+# visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
+# visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
+# visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
+# visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
-# # Blade Teams
+# Blade Teams
 # visualizationList.append(BladeBronyaHanabiLuocha(config))
 # # visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 # # visualizationList.append(BladeBronyaPelaLynx(config))
@@ -156,16 +156,16 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(LunaePelaYukongLuocha(config))
 
 # # Kafka Teams
-# config['enemySpeed'] = 190 / 1.125
-# config['numEnemies'] = 3
+config['enemySpeed'] = 190 / 1.125
+config['numEnemies'] = 3
 visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-# visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
+visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
 visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-# visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
-# visualizationList.append(KafkaSampoRuanMeiLuocha(config))
-# visualizationList.append(KafkaGuinaifenLukaLuocha(config))
-# visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
-# visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
+visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
+visualizationList.append(KafkaSampoRuanMeiLuocha(config))
+visualizationList.append(KafkaGuinaifenLukaLuocha(config))
+visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
+visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
 # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
 # visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
@@ -174,7 +174,7 @@ visualizationList.append(KafkaGuinaifenSampoLuocha(config))
 
 # visualizationList.append(KafkaTingyunRuanMeiLuocha(config)) # mediocre, retiring this
 
-# Qingque Teams
+# # Qingque Teams
 # visualizationList.append(QingqueHanabiPelaFuxuan(config))
 # # visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
 # # visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))

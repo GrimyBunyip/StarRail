@@ -7,6 +7,7 @@ from characters.nihility.Sampo import Sampo
 from estimator.DefaultEstimator import DefaultEstimator, DotEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
+from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
@@ -23,7 +24,7 @@ def KafkaGuinaifenSampoLuocha(config):
 
     GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
                             substats = {'ATK.percent': 7, 'SPD.flat': 13, 'EHR': 4, 'BreakEffect': 4}),
-                            lightcone = GoodNightAndSleepWell(**config),
+                            lightcone = ResolutionShinesAsPearlsOfSweat(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
 
@@ -52,6 +53,15 @@ def KafkaGuinaifenSampoLuocha(config):
         
     # Apply Guinaifen Debuff
     GuinaifenCharacter.applyFirekiss(team=team,uptime=1.0)
+
+    # Resolution Shines as Pearls of Sweat uptime
+    sweatUptime = (3.0 / 4.0) * GuinaifenCharacter.getTotalStat('SPD') / GuinaifenCharacter.enemySpeed # 2 skills and an ult
+    sweatUptime += (1.0 / 4.0) * GuinaifenCharacter.getTotalStat('SPD') / GuinaifenCharacter.enemySpeed / GuinaifenCharacter.numEnemies # 1 basic (ignore the other basic)
+    sweatUptime = min(1.0, sweatUptime)
+    for character in team:
+        character.addStat('DefShred',description='Resolution Sweat',
+                        amount=0.11 + 0.01 * GuinaifenCharacter.lightcone.superposition,
+                        uptime=sweatUptime)
         
     # Apply Sampo Vulnerability Debuff
     SampoCharacter.applyUltDebuff(team,rotationDuration=4.0)

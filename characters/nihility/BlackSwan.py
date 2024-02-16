@@ -25,8 +25,7 @@ class BlackSwan(BaseCharacter):
         self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=0.9, eidolonThreshold=3, eidolonBonus=0.09),
                                         BaseMV(area='adjacent', stat='atk', value=0.9, eidolonThreshold=3, eidolonBonus=0.09),]
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.20, eidolonThreshold=5, eidolonBonus=0.096)]
-        self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=2.4+0.12*self.sacramentStacks, eidolonThreshold=3, eidolonBonus=0.24+0.012*self.sacramentStacks)]
-        self.motionValueDict['dotAOE'] = [BaseMV(area='single', stat='atk', value=1.8 if self.sacramentStacks >= 3 else 0.0, eidolonThreshold=3, eidolonBonus=0.18 if self.sacramentStacks >= 3 else 0.0),]
+        self.setSacramentStacks(self.sacramentStacks)
         
         # Talents
         self.addStat('DMG',description='Black Swan Candleflame Buff',amount=self.candleflameBuff)

@@ -84,7 +84,7 @@ def RuanMeiGuinaifenBlackSwanLuocha(config):
     # Napkin Math for stacks applied
     
     numDots = 2
-    adjacentStackRate = 2 # adjacent ticks when you have 2 enemies
+    adjacentStackRate = 2 * (BlackSwanCharacter.numEnemies - 1) / BlackSwanCharacter.numEnemies
     dotStackRate = numDots * RuanMeiCharacter.numEnemies
     
     # no ruan mei dots

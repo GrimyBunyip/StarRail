@@ -25,7 +25,6 @@ class Guinaifen(BaseCharacter):
         self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12),
                                         BaseMV(area='adjacent', stat='atk', value=0.40, eidolonThreshold=3, eidolonBonus=0.04),]
         self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=2.1821, eidolonThreshold=3, eidolonBonus=0.21821)]
-        
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.096)]
         
         # Talents
@@ -92,11 +91,12 @@ class Guinaifen(BaseCharacter):
         retval.actionvalue = self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         
-        # assume we hit up to 3 enemies
-        dotExplosion = self.useDot()
+        # assume we hit up to 3 enemies, because gui is alternating skill basic rather than spamming skill here
+        dotExplosion = self.useDot() * min(3.0,self.numEnemies)
         dotExplosion.damage *= 0.96 if self.eidolon >= 4 else 0.92
-        retval += dotExplosion
         self.addDebugInfo(dotExplosion,['dot'],'Guinaifen Dot Explosion')
+        
+        retval += dotExplosion
         return retval
 
     def useDot(self):

@@ -81,7 +81,7 @@ def KafkaHanyaBlackSwanLuochaPatience(config):
     # Napkin Math for stacks applied
     
     numDots = 3
-    adjacentStackRate = 2 # adjacent ticks when you have 2 enemies
+    adjacentStackRate = 2 * (BlackSwanCharacter.numEnemies - 1) / BlackSwanCharacter.numEnemies
     dotStackRate = numDots * KafkaCharacter.numEnemies
     
     # 3 turn kafka ult rotation, 3 single target + 3 aoe every 3 turns
