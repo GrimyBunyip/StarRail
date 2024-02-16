@@ -157,21 +157,21 @@ config['enemySpeed'] = 132 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(LunaePelaYukongLuocha(config))
 
 # # Kafka Teams
-# # config['enemySpeed'] = 190 / 1.125
-# # config['numEnemies'] = 3
-visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
-visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
-visualizationList.append(KafkaSampoRuanMeiLuocha(config))
-visualizationList.append(KafkaGuinaifenLukaLuocha(config))
-visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
-visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
+config['enemySpeed'] = 190 / 1.125
+config['numEnemies'] = 3
+# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+# visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
+# visualizationList.append(KafkaGuinaifenSampoLuocha(config))
+# visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
+# visualizationList.append(KafkaSampoRuanMeiLuocha(config))
+# visualizationList.append(KafkaGuinaifenLukaLuocha(config))
+# visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
+# visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
-# # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
-# visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
-# visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
-# visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
+visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
+visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 
 # # visualizationList.append(KafkaBlackSwanRuanMeiHuohuo(config)) # Night of Fright lightcone, retiring this
 # # visualizationList.append(KafkaTingyunRuanMeiLuocha(config)) # mediocre, retiring this
