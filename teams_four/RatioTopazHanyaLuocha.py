@@ -19,7 +19,7 @@ from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 def DrRatioTopazHanyaLuocha(config):
     #%% DrRatio Topaz Hanya Luocha Characters
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
-                                    substats = {'CD': 8, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
+                                    substats = {'CD': 11, 'CR': 9, 'ATK.percent': 3, 'SPD.flat': 5}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = Pioneer2pc(),
                                     relicsettwo = Pioneer4pc(),

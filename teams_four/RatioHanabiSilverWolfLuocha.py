@@ -21,7 +21,7 @@ from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, 
 def DrRatioHanabiSilverWolfLuocha(config):
     #%% DrRatio SilverWolf Hanabi Luocha Characters
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.imaginary'],
-                                    substats = {'CR': 7, 'CD': 12, 'ATK.percent': 6, 'BreakEffect': 3}),
+                                    substats = {'CR': 9, 'CD': 11, 'ATK.percent': 5, 'BreakEffect': 3}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = Pioneer2pc(),
                                     relicsettwo = Pioneer4pc(),

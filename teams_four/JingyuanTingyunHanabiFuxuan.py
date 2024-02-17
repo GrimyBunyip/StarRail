@@ -20,7 +20,7 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 def JingyuanTingyunHanabiFuxuan(config):
     #%% JingYuan Tingyun Hanabi Fuxuan Characters
     JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.lightning'],
-                            substats = {'CD': 10, 'CR': 10, 'ATK.percent': 5, 'BreakEffect': 3}), # get to 140 speed before buffs, to just guarantee battalia crush
+                            substats = {'CD': 13, 'CR': 7, 'ATK.percent': 5, 'BreakEffect': 3}), # get to 140 speed before buffs, to just guarantee battalia crush
                             lightcone = GeniusesRepose(**config),
                             relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=6.5,stacks=8.0,uptime=1.0), planarset = InertSalsotto(),
                             **config)

@@ -19,7 +19,7 @@ from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingClou
 def JingyuanTingyunHanabiLuocha(config):
     #%% JingYuan Tingyun Hanabi Luocha Characters
     JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.lightning'],
-                            substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'BreakEffect': 3}),
+                            substats = {'CD': 9, 'CR': 11, 'ATK.percent': 5, 'BreakEffect': 3}),
                             lightcone = GeniusesRepose(**config),
                             relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=6.5,stacks=8.0,uptime=1.0), planarset = InertSalsotto(),
                             **config)
