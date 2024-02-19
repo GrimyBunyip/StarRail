@@ -36,6 +36,7 @@ from teams_four.KafkaGuinaifenBlackSwanLuocha import KafkaGuinaifenBlackSwanLuoc
 from teams_four.KafkaGuinaifenBlackSwanLuochaPatience import KafkaGuinaifenBlackSwanLuochaPatience
 from teams_four.KafkaGuinaifenRuanMeiLuochaPatience import KafkaGuinaifenRuanMeiLuochaPatience
 from teams_four.KafkaHanyaBlackSwanLuochaPatience import KafkaHanyaBlackSwanLuochaPatience
+from teams_four.KafkaPelaBlackSwanLuochaPatience import KafkaPelaBlackSwanLuochaPatience
 from teams_four.KafkaRuanMeiBlackSwanLuochaPatience import KafkaRuanMeiBlackSwanLuochaPatience
 from teams_four.KafkaGuinaifenHanyaLuocha import KafkaGuinaifenHanyaLuocha
 from teams_four.KafkaGuinaifenLukaLuocha import KafkaGuinaifenLukaLuocha
@@ -76,6 +77,7 @@ from teams_four.SeeleNoneSilverWolfHanabiFuxuan import SeeleNoneSilverWolfHanabi
 from teams_four.TopazTingyunHanabiFuxuan import TopazTingyunHanabiFuxuan
 from teams_four.TopazTingyunHanyaFuxuan import TopazTingyunHanyaFuxuan
 from teams_four.XueyiAstaTopazFuxuan import XueyiAstaTopazFuxuan
+from teams_four.XueyiHanabiPelaFuxuan import XueyiHanabiPelaFuxuan
 from teams_four.XueyiHanabiTingyunFuxuan import XueyiHanabiTingyunFuxuan
 from teams_four.XueyiHanyaPelaFuxuan import XueyiHanyaPelaFuxuan
 from teams_four.YanqingTingyunHanabiGepard import YanqingTingyunHanabiGepard
@@ -91,7 +93,7 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 #%% Team Imports
 
 # Argenti Teams
-# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
 # visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
 # visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
@@ -154,7 +156,7 @@ visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(LunaePelaTingyunLuocha(config))
 # visualizationList.append(LunaePelaYukongLuocha(config))
 
-# Kafka Teams
+# # Kafka Teams
 # config['enemySpeed'] = 190 / 1.125
 # config['numEnemies'] = 3
 visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
@@ -166,9 +168,10 @@ visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
-# visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
-# visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
-# visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
+visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
+visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
 # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 
 # Qingque Teams
@@ -191,9 +194,10 @@ visualizationList.append(TopazTingyunHanabiFuxuan(config))
 # visualizationList.append(TopazTingyunHanyaFuxuan(config))
 
 # Xueyi Teams
-visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
-# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
-# visualizationList.append(XueyiHanyaPelaFuxuan(config)) # dont like the break assumptions here
+visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
+# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
+# visualizationList.append(XueyiHanabiPelaFuxuan(config,breakRatio=0.5))
+# visualizationList.append(XueyiHanyaPelaFuxuan(config,breakRatio=0.5)) # dont like the break assumptions here
 # visualizationList.append(XueyiAstaTopazFuxuan(config)) # needs review, why is the SP so negative? also this team makes no sense
 
 # YanqingTeam

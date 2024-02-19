@@ -1,4 +1,4 @@
-from baseClasses.BaseEffect import BaseEffect, sumEffects
+from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.preservation.Fuxuan import Fuxuan
 from characters.destruction.Xueyi import Xueyi
@@ -6,15 +6,10 @@ from characters.harmony.Hanabi import Hanabi
 from characters.harmony.Tingyun import Tingyun
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
-from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
-from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
-from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
-from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc

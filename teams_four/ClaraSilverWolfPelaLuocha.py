@@ -98,7 +98,8 @@ def ClaraSilverWolfPelaLuocha(config):
             SilverWolfCharacter.useUltimate() * numUltSW, #
     ]
 
-    PelaRotation = [PelaCharacter.useBasic() * 3,
+    numBasicPela = 3.0
+    PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
                     PelaCharacter.useUltimate(),]
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
