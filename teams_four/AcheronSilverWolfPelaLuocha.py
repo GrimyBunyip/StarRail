@@ -1,31 +1,30 @@
 from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Luocha import Luocha
-from characters.destruction.Clara import Clara
+from characters.nihility.Acheron import Acheron
 from characters.nihility.Pela import Pela
 from characters.nihility.SilverWolf import SilverWolf
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
-from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
+from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.InertSalsotto import InertSalsotto
+from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
-from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
+from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def ClaraSilverWolfPelaLuocha(config):
-    #%% Clara Silver Wolf Pela Luocha Characters
-    ClaraCharacter = Clara(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.physical'],
+def AcheronSilverWolfPelaLuocha(config):
+    #%% Acheron Silver Wolf Pela Luocha Characters
+    AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                             substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
-                            lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=5.0, **config),
-                            relicsetone = ChampionOfStreetwiseBoxing2pc(),
-                            relicsettwo = ChampionOfStreetwiseBoxing4pc(),
-                            planarset = InertSalsotto(),
+                            lightcone = GoodNightAndSleepWell(**config),
+                            relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
+                            planarset = IzumoGenseiAndTakamaDivineRealm(),
                             **config)
 
     SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR', 'BreakEffect'],
@@ -46,13 +45,12 @@ def ClaraSilverWolfPelaLuocha(config):
                             relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                             **config)
     
-    team = [ClaraCharacter, SilverWolfCharacter, PelaCharacter, LuochaCharacter]
+    team = [AcheronCharacter, SilverWolfCharacter, PelaCharacter, LuochaCharacter]
 
-    #%% Clara Silver Wolf Pela Luocha Team Buffs
-    for character in [SilverWolfCharacter, ClaraCharacter, PelaCharacter]:
+    #%% Acheron Silver Wolf Pela Luocha Team Buffs
+    for character in [SilverWolfCharacter, AcheronCharacter, PelaCharacter]:
         character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
-        
-    for character in [SilverWolfCharacter, ClaraCharacter, LuochaCharacter]:
+    for character in [SilverWolfCharacter, AcheronCharacter, LuochaCharacter]:
         character.addStat('CD',description='Broken Keel from Pela',amount=0.1)
 
     # Pela Debuffs, 3 turn pela rotation
@@ -62,34 +60,32 @@ def ClaraSilverWolfPelaLuocha(config):
     sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
     sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
     sweatUptime = min(1.0, sweatUptime)
-    for character in [ClaraCharacter, SilverWolfCharacter, PelaCharacter, LuochaCharacter]:
+    for character in [AcheronCharacter, SilverWolfCharacter, PelaCharacter, LuochaCharacter]:
         character.addStat('DefShred',description='Resolution Sweat',
                         amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
                         uptime=sweatUptime)
 
     # Silver Wolf Debuffs
     SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, LuochaCharacter])
-    SilverWolfCharacter.applyDebuffs([ClaraCharacter, PelaCharacter],targetingUptime=1.0/ClaraCharacter.numEnemies) # clara and pela won't consistently target the debuffed enemy
+    SilverWolfCharacter.applyDebuffs([AcheronCharacter, PelaCharacter],targetingUptime=1.0/AcheronCharacter.numEnemies) # Acheron and pela won't consistently target the debuffed enemy
         
     #%% Print Statements
     for character in team:
         character.print()
 
-    #%% Clara Silver Wolf Pela Luocha Rotations
+    #%% Acheron Silver Wolf Pela Luocha Rotations
+    
+    numStacks = 3 # Assume Acheron generates 3 stacks when she attacks
+    numStacks += (3 / 2) * SilverWolfCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 3 silver wolf attacks per 2 turn wolf rotation
+    numStacks +=  (4 / 3) * PelaCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 4 pela attacks per 3 turn wolf rotation
+    
+    numSkillAcheron = 9.0 / numStacks
 
-    # assume each elite performs 1 single target attack per turn
-    # times 2 as the rotation is 2 of her turns long
-    numEnemyAttacks = ClaraCharacter.enemySpeed * ClaraCharacter.numEnemies * 2 / ClaraCharacter.getTotalStat('SPD')
-    numEnhancedTalents = 2
-    numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*6) / (5*6 + 3 + 4 + 4)
-    numSvarogCounters = numEnemyAttacks * (5*6) / (5*6 + 3 + 4 + 4)
-
-    ClaraRotation = [ # 110 max energy
-            ClaraCharacter.useSkill() * 2,
-            ClaraCharacter.useMarkOfSvarog() * numSvarogCounters, 
-            ClaraCharacter.useTalent(enhanced=True) * numEnhancedTalents,
-            ClaraCharacter.useUltimate(),
-            ClaraCharacter.useTalent(enhanced=False) * numUnenhancedTalents,
+    AcheronRotation = [ 
+            AcheronCharacter.useSkill() * numSkillAcheron,
+            AcheronCharacter.useUltimate_st() * 3,
+            AcheronCharacter.useUltimate_aoe() * 12,
+            AcheronCharacter.useUltimate_end(),
     ]
 
     numSkillSW = 2
@@ -109,34 +105,34 @@ def ClaraSilverWolfPelaLuocha(config):
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
     LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
 
-    #%% Clara Silver Wolf Pela Luocha Rotation Math
+    #%% Acheron Silver Wolf Pela Luocha Rotation Math
 
-    totalClaraEffect = sumEffects(ClaraRotation)
+    totalAcheronEffect = sumEffects(AcheronRotation)
     totalPelaEffect = sumEffects(PelaRotation)
     totalSilverWolfEffect = sumEffects(SilverWolfRotation)
     totalLuochaEffect = sumEffects(LuochaRotation)
 
-    ClaraRotationDuration = totalClaraEffect.actionvalue * 100.0 / ClaraCharacter.getTotalStat('SPD')
+    AcheronRotationDuration = totalAcheronEffect.actionvalue * 100.0 / AcheronCharacter.getTotalStat('SPD')
     PelaRotationDuration = totalPelaEffect.actionvalue * 100.0 / PelaCharacter.getTotalStat('SPD')
     SilverWolfRotationDuration = totalSilverWolfEffect.actionvalue * 100.0 / SilverWolfCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')
-    print('Clara: ',ClaraRotationDuration)
+    print('Acheron: ',AcheronRotationDuration)
     print('Pela: ',PelaRotationDuration)
     print('SilverWolf: ',SilverWolfRotationDuration)
     print('Luocha: ',LuochaRotationDuration)
 
     # Scale other character's rotation
-    PelaRotation = [x * ClaraRotationDuration / PelaRotationDuration for x in PelaRotation]
-    SilverWolfRotation = [x * ClaraRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
-    LuochaRotation = [x * ClaraRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+    PelaRotation = [x * AcheronRotationDuration / PelaRotationDuration for x in PelaRotation]
+    SilverWolfRotation = [x * AcheronRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
+    LuochaRotation = [x * AcheronRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
-    ClaraEstimate = DefaultEstimator(f'Clara: 2E {numSvarogCounters:.1f}T 1Q', ClaraRotation, ClaraCharacter, config)
+    AcheronEstimate = DefaultEstimator(f'Acheron: {numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
     PelaEstimate = DefaultEstimator(f'Pela: 3N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)
     SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numSkillSW:.0f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)
     LuochaEstimate = DefaultEstimator(f'Luocha: 3N 1E 1Q, S{LuochaCharacter.lightcone.superposition:d} {LuochaCharacter.lightcone.name}', 
                                     LuochaRotation, LuochaCharacter, config)
 
-    return([ClaraEstimate, SilverWolfEstimate, PelaEstimate, LuochaEstimate])
+    return([AcheronEstimate, SilverWolfEstimate, PelaEstimate, LuochaEstimate])
