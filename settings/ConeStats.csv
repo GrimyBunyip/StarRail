@@ -36,7 +36,6 @@ Planetary Rendezvous,423.36,330.75,1058.4,4,harmony
 Only Silence Remains,476.28,330.75,952.56,4,hunt
 Subscribe for More!,476.28,330.75,952.56,4,hunt
 Swordplay,476.28,330.75,952.56,4,hunt
-Before the Tutorial Mission Starts,476.28,330.75,952.56,4,nihility
 Eyes of the Prey,476.28,330.75,952.56,4,nihility
 Good Night and Sleep Well,476.28,330.75,952.56,4,nihility
 Resolution Shines As Pearls of Sweat,476.28,330.75,952.56,4,nihility
@@ -64,8 +63,10 @@ In the Name of the World,582.12,463.05,1058.4,5,nihility
 Incessant Rain,582.12,463.05,1058.4,5,nihility
 Patience Is All You Need,582.12,463.05,1058.4,5,nihility
 Reforged Remembrance,582.12,463.05,1058.4,5,nihility
+Along the Passing Shore,635.04,396.9,1058.4,5,nihility
 Moment of Victory,476.28,595.35,1058.4,5,preservation
 She Already Shut Her Eyes,423.36,529.2,1270.08,5,preservation
+Inherently Unjust Destiny,423.36,662,1058.4,5,preservation
 Warmth Shortens Cold Nights,370.44,396.9,1058.4,Battlepass,abundance
 Nowhere to Run,529.2,264.6,952.56,Battlepass,destruction
 Today Is Another Peaceful Day,529.2,330.75,846.72,Battlepass,erudition
@@ -73,6 +74,9 @@ Today Is Another Peaceful Day,529.2,330.75,846.72,Battlepass,erudition
 Return to Darkness,529.2,330.75,846.72,Battlepass,hunt
 We Will Meet Again,529.2,330.75,846.72,Battlepass,nihility
 This Is Me!,370.44,529.2,846.72,Battlepass,preservation
+Before the Tutorial Mission Starts,476.28,330.75,952.56,Event,nihility
+"Hey, Over Here",423.36,529.2,952.56,Event,abundance
+Concert for Two,370.44,396.9,846.72,Event,preservation
 Quid Pro Quo,423.36,396.9,952.56,Forgottenhall,abundance
 Woof! Walk Time!,476.28,330.75,952.56,Forgottenhall,destruction
 The Seriousness of Breakfast,476.28,396.9,846.72,Forgottenhall,erudition
