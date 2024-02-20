@@ -41,6 +41,8 @@ class BaseLightCone(object):
             self.superposition = config['fourstarSuperpositions']
         elif self.rarity == '5':
             self.superposition = config['fivestarSuperpositions']
+        elif self.rarity == 'Event':
+            self.superposition = config['eventSuperpositions']
         elif self.rarity == 'Herta':
             self.superposition = config['hertaSuperpositions']
         elif self.rarity == 'Forgottenhall':

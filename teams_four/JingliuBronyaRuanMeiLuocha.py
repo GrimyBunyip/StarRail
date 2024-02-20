@@ -60,9 +60,9 @@ def JingliuBronyaRuanMeiLuocha(config):
     for character in [JingliuCharacter, BronyaCharacter, LuochaCharacter]:
         character.addStat('DMG.ice',description='Penacony Ruan Mei',amount=0.10)
 
-    # Messenger 4 pc
-    for character in [JingliuCharacter, RuanMeiCharacter, LuochaCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/5.0)
+    # Messenger 4 pc Bronya
+    for character in [JingliuCharacter, RuanMeiCharacter, LuochaCharacter]: # uptime 1.0 because bronya casts every 4 jingliu turns
+        character.addStat('SPD.percent',description='Messenger 4 pc Bronya',amount=0.12,uptime=1.0/4.0)
 
     # RuanMei Buffs, 3 turn RuanMei rotation
     RuanMeiCharacter.applyWeaknessModifiers(team=team)

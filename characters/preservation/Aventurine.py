@@ -85,8 +85,8 @@ class Aventurine(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = 0.0 * self.getBreakEfficiency(type)
-        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
+        retval.gauge = 10.0 * self.getBreakEfficiency(type)
+        retval.energy = -1.0 + ( 0.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval

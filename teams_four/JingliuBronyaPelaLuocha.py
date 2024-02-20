@@ -59,9 +59,9 @@ def JingliuBronyaPelaLuocha(config):
     for character in [JingliuCharacter, BronyaCharacter, LuochaCharacter]:
         character.addStat('DMG.ice',description='Penacony Pela',amount=0.10)
 
-    # Messenger 4 pc
-    for character in [JingliuCharacter, PelaCharacter, LuochaCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/5.0)
+    # Messenger 4 pc Bronya
+    for character in [JingliuCharacter, PelaCharacter, LuochaCharacter]: # uptime 1.0 because bronya casts every 4 jingliu turns
+        character.addStat('SPD.percent',description='Messenger 4 pc Bronya',amount=0.12,uptime=1.0/4.0)
 
     # Pela Debuffs, 3 turn pela rotation
     PelaCharacter.applyUltDebuff(team,rotationDuration=3)

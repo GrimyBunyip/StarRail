@@ -14,11 +14,13 @@ class Acheron(BaseCharacter):
                 planarset:RelicSet=None,
                 num_other_nihility:int = 2,
                 thunder_core_uptime:float = 1.0,
+                thunder_core_stacks:float = 3.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Acheron')
         self.num_other_nihility = num_other_nihility
         self.thunder_core_uptime = thunder_core_uptime
+        self.thunder_core_stacks = thunder_core_stacks
         
         mv_mult = 1.6 if self.num_other_nihility >= 2 else (1.15 if self.num_other_nihility == 1 else 1.0 )
         
@@ -29,10 +31,10 @@ class Acheron(BaseCharacter):
         self.motionValueDict['ultimate_st'] = [BaseMV(area='single', stat='atk', value=0.24 * mv_mult, eidolonThreshold=5, eidolonBonus=0.0192 * mv_mult)]
         self.motionValueDict['ultimate_aoe'] = [BaseMV(area='all', stat='atk', value=0.15 * mv_mult, eidolonThreshold=5, eidolonBonus=0.012 * mv_mult)]
         self.motionValueDict['ultimate_end'] = [BaseMV(area='all', stat='atk', value=1.2 * mv_mult, eidolonThreshold=5, eidolonBonus=0.096 * mv_mult),
-                                                BaseMV(area='single', stat='atk', value=0.25 * mv_mult)]
+                                                BaseMV(area='single', stat='atk', value=6 * 0.25 * mv_mult)]
         
         # Talents
-        self.addStat('DMG',description='Acheron Trace',amount=0.30,uptime=self.thunder_core_uptime)
+        self.addStat('DMG',description='Acheron Trace',amount=0.30,uptime=self.thunder_core_uptime,stacks=self.thunder_core_stacks)
         self.addStat('ResPen',description='Acheron Talent',amount=0.20,type=['ultimate'])
         
         # Eidolons

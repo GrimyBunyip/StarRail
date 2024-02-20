@@ -16,6 +16,7 @@ Configuration = {
     'fourstarEidolons': 6, #number of eidolons on fourstar characters
 
     'hertaSuperpositions': 5, #number of superpositions on herta light cones
+    'eventSuperpositions': 5, #number of superpositions on herta light cones
     'forgottenHallSuperpositions': 5, #number of superpositions on forgotten hall
     'battlePassSuperpositions': 1, #number of superpositions on battlepass lightcones
     'fivestarSuperpositions': 1, #number of superpositions on fivestar light cones

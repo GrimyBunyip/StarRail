@@ -59,12 +59,12 @@ def JingliuBronyaHanabiLuocha(config):
         character.addStat('CD',description='Broken Keel Hanabi',amount=0.10)
 
     # Messenger 4 pc Bronya
-    for character in [JingliuCharacter, HanabiCharacter, LuochaCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc Bronya',amount=0.12,uptime=1.0/5.0)
+    for character in [JingliuCharacter, HanabiCharacter, LuochaCharacter]: # uptime 1.0 because bronya casts every 4 jingliu turns
+        character.addStat('SPD.percent',description='Messenger 4 pc Bronya',amount=0.12,uptime=1.0/4.0)
 
     # Messenger 4 pc Hanabi
     for character in [JingliuCharacter, BronyaCharacter, LuochaCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc Hanabi',amount=0.12,uptime=1.0/5.0)
+        character.addStat('SPD.percent',description='Messenger 4 pc Hanabi',amount=0.12,uptime=1.0/3.0)
         
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)

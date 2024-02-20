@@ -57,12 +57,16 @@ class Tingyun(BaseCharacter):
                                 amount=0.55 if self.eidolon >= 5 else 0.50,
                                 uptime=uptime)
         
-    def applyUltBuff(self,character:BaseCharacter,tingRotationDuration:float=3.0,targetSpdMult:float=1.0):
-        e1Uptime = self.getTotalStat('SPD') / character.getTotalStat('SPD') / targetSpdMult / tingRotationDuration
-        ultUptime = e1Uptime * 2.0
-        
-        e1Uptime = min(1.0,e1Uptime)
-        ultUptime = min(1.0,ultUptime)
+    def applyUltBuff(self,character:BaseCharacter,tingRotationDuration:float=3.0,targetSpdMult:float=1.0,ultUptime=None):
+        if ultUptime is None:
+            e1Uptime = self.getTotalStat('SPD') / character.getTotalStat('SPD') / targetSpdMult / tingRotationDuration
+            ultUptime = e1Uptime * 2.0
+            
+            e1Uptime = min(1.0,e1Uptime)
+            ultUptime = min(1.0,ultUptime)
+        else:
+            ultUptime = ultUptime
+            e1Uptime = 0.0
         
         character.addStat('SPD.percent',description='Tingyun E1',amount=0.20,uptime=e1Uptime)
         character.addStat('DMG',description='Tingyun Ult',amount=0.56 if self.eidolon >= 3 else 0.5,uptime=ultUptime)

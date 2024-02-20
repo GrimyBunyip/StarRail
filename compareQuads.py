@@ -26,6 +26,7 @@ from teams_four.ClaraTopazHanyaLuocha import ClaraTopazHanyaLuocha
 from teams_four.JingliuBronyaHanabiLuocha import JingliuBronyaHanabiLuocha
 from teams_four.JingliuBronyaPelaLuocha import JingliuBronyaPelaLuocha
 from teams_four.JingliuBronyaRuanMeiLuocha import JingliuBronyaRuanMeiLuocha
+from teams_four.JingliuBronyaTingyunLuocha import JingliuBronyaTingyunLuocha
 from teams_four.JingliuHanyaBladeHuohuo import JingliuHanyaBladeHuohuo
 from teams_four.JingliuRuanMeiBladeLuocha import JingliuRuanMeiBladeLuocha
 from teams_four.JingyuanTingyunAstaLuocha import JingyuanTingyunAstaLuocha
@@ -94,8 +95,8 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
-# Acheron Teams
-visualizationList.append(AcheronSilverWolfPelaLuocha(config))
+# # Acheron Teams
+# visualizationList.append(AcheronSilverWolfPelaLuocha(config))
 
 # # Argenti Teams
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
@@ -138,12 +139,13 @@ visualizationList.append(AcheronSilverWolfPelaLuocha(config))
 # # visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
 # # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
 
-# # Jingliu Teams
-# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-# # visualizationList.append(JingliuBronyaHanabiLuocha(config))
-# # visualizationList.append(JingliuBronyaPelaLuocha(config))
-# # visualizationList.append(JingliuRuanMeiBladeLuocha(config))
-# # visualizationList.append(JingliuHanyaBladeHuohuo(config))
+# Jingliu Teams
+visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+visualizationList.append(JingliuBronyaTingyunLuocha(config))
+visualizationList.append(JingliuBronyaHanabiLuocha(config))
+visualizationList.append(JingliuBronyaPelaLuocha(config))
+visualizationList.append(JingliuRuanMeiBladeLuocha(config))
+visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
 # # Jingyuan Teams
 # visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
