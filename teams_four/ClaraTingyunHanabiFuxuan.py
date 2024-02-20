@@ -83,8 +83,8 @@ def ClaraTingyunHanabiFuxuan(config):
     numSkillClara = 1.25
     numEnemyAttacks = ClaraCharacter.enemySpeed * ClaraCharacter.numEnemies * numSkillClara / (HanabiCharacter.getTotalStat('SPD') / 0.92 ) # enemy attacks now scale to hanabi speed, account for S5 dance dance in denominator
     numEnhancedTalents = 2
-    numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*6) / (5*6 + 5 + 4 + 4)
-    numSvarogCounters = numEnemyAttacks * (5*6) / (5*6 + 3 + 4 + 4)
+    numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*6) / (5*6 + 6 + 4 + 4)
+    numSvarogCounters = numEnemyAttacks * (5*6) / (5*6 + 6 + 4 + 4)
 
     ClaraRotation = [ # 110 max energy
             ClaraCharacter.useSkill() * numSkillClara,

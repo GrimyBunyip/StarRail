@@ -28,7 +28,8 @@ class Acheron(BaseCharacter):
                                         BaseMV(area='adjacent', stat='atk', value=0.6 * mv_mult, eidolonThreshold=3, eidolonBonus=0.06 * mv_mult),]
         self.motionValueDict['ultimate_st'] = [BaseMV(area='single', stat='atk', value=0.24 * mv_mult, eidolonThreshold=5, eidolonBonus=0.0192 * mv_mult)]
         self.motionValueDict['ultimate_aoe'] = [BaseMV(area='all', stat='atk', value=0.15 * mv_mult, eidolonThreshold=5, eidolonBonus=0.012 * mv_mult)]
-        self.motionValueDict['ultimate_end'] = [BaseMV(area='all', stat='atk', value=0.65 * mv_mult, eidolonThreshold=5, eidolonBonus=0.052 * mv_mult)]
+        self.motionValueDict['ultimate_end'] = [BaseMV(area='all', stat='atk', value=1.2 * mv_mult, eidolonThreshold=5, eidolonBonus=0.096 * mv_mult),
+                                                BaseMV(area='single', stat='atk', value=0.25 * mv_mult)]
         
         # Talents
         self.addStat('DMG',description='Acheron Trace',amount=0.30,uptime=self.thunder_core_uptime)
@@ -78,21 +79,21 @@ class Acheron(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = 0.0 * self.numEnemies * self.getBreakEfficiency(type) # NEED TO SET THE GAUGE VALUE
+        retval.gauge = 15.0 * self.numEnemies * self.getBreakEfficiency(type)
         #retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type) # unclear if this bonus energy is affected by ER
         retval.actionvalue = self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
 
-    def useUltimate_aoe(self):
+    def useUltimate_aoe(self, num_stacks:float = 3.0):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.damage = self.getTotalMotionValue('ultimate_aoe',type)
+        retval.damage = self.getTotalMotionValue('ultimate_aoe',type) * (1.0 + num_stacks)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = 0.0 * self.numEnemies * self.getBreakEfficiency(type) # NEED TO SET THE GAUGE VALUE
+        retval.gauge = 15.0 * self.numEnemies * self.getBreakEfficiency(type)
         #retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type) # unclear if this bonus energy is affected by ER
         retval.actionvalue = self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
@@ -106,7 +107,7 @@ class Acheron(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = 0.0 * self.numEnemies * self.getBreakEfficiency(type) # NEED TO SET THE GAUGE VALUE
+        retval.gauge = 15.0 * self.numEnemies * self.getBreakEfficiency(type) # must be at least 15
         #retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type) # unclear if this bonus energy is affected by ER
         retval.actionvalue = self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)

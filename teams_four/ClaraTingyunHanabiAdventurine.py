@@ -1,25 +1,25 @@
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
-from characters.abundance.Luocha import Luocha
+from characters.preservation.Aventurine import Aventurine
 from characters.destruction.Clara import Clara
 from characters.harmony.Tingyun import Tingyun
 from characters.harmony.Hanabi import Hanabi
 from estimator.DefaultEstimator import DefaultEstimator
-from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
+from lightCones.preservation.DestinysThreadsForewoven import DestinysThreadsForewoven
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
+from relicSets.relicSets.KnightOfPurityPalace import KnightOfPurityPalace2pc, KnightOfPurityPalace4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
-from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 
-def ClaraTingyunHanabiLuocha(config):
-    #%% Clara Tingyun Hanabi Luocha Characters
+def ClaraTingyunHanabiAventurine(config):
+    #%% Clara Tingyun Hanabi Aventurine Characters
     ClaraCharacter = Clara(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
-                            substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'BreakEffect': 5}),
+                            substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'BreakEffect': 3}),
                             lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=5.0, **config),
                             relicsetone = ChampionOfStreetwiseBoxing2pc(),
                             relicsettwo = ChampionOfStreetwiseBoxing4pc(),
@@ -39,49 +39,53 @@ def ClaraTingyunHanabiLuocha(config):
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
-    LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                            substats = {'ATK.percent': 5, 'SPD.flat': 12, 'HP.percent': 4, 'RES': 7}),
-                            lightcone = Multiplication(**config),
-                            relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+    AventurineCharacter = Aventurine(RelicStats(mainstats = ['DEF.percent', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
+                            substats = {'CR': 8, 'CD': 12, 'SPD.flat': 5, 'DEF.percent': 3}),
+                            lightcone = DestinysThreadsForewoven(defense=3250,**config),
+                            leverage_cr=0.40 * 3250 / 3600,
+                            relicsetone = KnightOfPurityPalace2pc(), relicsettwo = KnightOfPurityPalace4pc(), planarset = BrokenKeel(),
                             **config)
     
-    team = [ClaraCharacter, TingyunCharacter, HanabiCharacter, LuochaCharacter]
+    team = [ClaraCharacter, TingyunCharacter, HanabiCharacter, AventurineCharacter]
 
-    #%% Clara Tingyun Hanabi Luocha Team Buffs
+    #%% Clara Tingyun Hanabi Aventurine Team Buffs
     for character in [TingyunCharacter, ClaraCharacter, HanabiCharacter]:
-        character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
-    for character in [TingyunCharacter, ClaraCharacter, LuochaCharacter]:
+        character.addStat('CD',description='Broken Keel from Aventurine',amount=0.1)
+    for character in [TingyunCharacter, ClaraCharacter, AventurineCharacter]:
         character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=ClaraCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
-            
+    
     # Hanabi Messenger 4 pc
-    for character in [ClaraCharacter, TingyunCharacter, LuochaCharacter]:
+    for character in [ClaraCharacter, TingyunCharacter, AventurineCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Messenger Buff
-    for character in [ClaraCharacter, HanabiCharacter, LuochaCharacter]:
+    for character in [ClaraCharacter, HanabiCharacter, AventurineCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(ClaraCharacter)
     TingyunCharacter.applyUltBuff(ClaraCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/ClaraCharacter.getTotalStat('SPD'))
 
+    # Aventurine Buffs
+    AventurineCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
+
     #%% Print Statements
     for character in team:
         character.print()
 
-    #%% Clara Tingyun Hanabi Luocha Rotations
+    #%% Clara Tingyun Hanabi Aventurine Rotations
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
     numSkillClara = 1.25
     numEnemyAttacks = ClaraCharacter.enemySpeed * ClaraCharacter.numEnemies * numSkillClara / (HanabiCharacter.getTotalStat('SPD') / 0.92 ) # enemy attacks now scale to hanabi speed, account for S5 dance dance in denominator
     numEnhancedTalents = 2
-    numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*6) / (5*6 + 4 + 4 + 4)
-    numSvarogCounters = numEnemyAttacks * (5*6) / (5*6 + 4 + 4 + 4)
+    numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*6) / (5*6 + 6 + 4 + 4)
+    numSvarogCounters = numEnemyAttacks * (5*6) / (5*6 + 6 + 4 + 4)
 
     ClaraRotation = [ # 110 max energy
             ClaraCharacter.useSkill() * numSkillClara,
@@ -107,23 +111,27 @@ def ClaraTingyunHanabiLuocha(config):
                        HanabiCharacter.useSkill() * numSkillHanabi,
                     HanabiCharacter.useUltimate()]
 
-    LuochaRotation = [LuochaCharacter.useBasic() * 3,
-                    LuochaCharacter.useUltimate() * 1,
-                    LuochaCharacter.useSkill() * 1,]
-    LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
-    LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
+    numBasicAventurine = 4.0
+    numTalentAventurine = 4.0 # stacks from ultimate
+    numTalentAventurine += numBasicAventurine # extra stacks from clara followups, limited by Aventurine turns
+    numEnemyAttacks = AventurineCharacter.numEnemies * AventurineCharacter.enemySpeed / AventurineCharacter.getTotalStat('SPD') # extra stacks from people getting hit per turn
+    numEnemyAttacks *= (1.0 + (6*1) / (5*6 + 6 + 4 + 4)) # extra stacks from when Aventurine is Targeted
+    numTalentAventurine += numBasicAventurine * numEnemyAttacks
+    AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
+                           AventurineCharacter.useTalent() * numTalentAventurine,
+                           AventurineCharacter.useUltimate() * 1,]
 
-    #%% Clara Tingyun Hanabi Luocha Rotation Math
+    #%% Clara Tingyun Hanabi Aventurine Rotation Math
 
     totalClaraEffect = sumEffects(ClaraRotation)
     totalTingyunEffect = sumEffects(TingyunRotation)
     totalHanabiEffect = sumEffects(HanabiRotation)
-    totalLuochaEffect = sumEffects(LuochaRotation)
+    totalAventurineEffect = sumEffects(AventurineRotation)
 
     ClaraRotationDuration = totalClaraEffect.actionvalue * 100.0 / ClaraCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
     HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
-    LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
+    AventurineRotationDuration = totalAventurineEffect.actionvalue * 100.0 / AventurineCharacter.getTotalStat('SPD')
 
     ClaraRotation.append(TingyunCharacter.giveUltEnergy() * ClaraRotationDuration / TingyunRotationDuration)
     
@@ -131,12 +139,12 @@ def ClaraTingyunHanabiLuocha(config):
     print('Clara: ',ClaraRotationDuration)
     print('Tingyun: ',TingyunRotationDuration)
     print('Hanabi: ',HanabiRotationDuration)
-    print('Luocha: ',LuochaRotationDuration)
+    print('Aventurine: ',AventurineRotationDuration)
 
     # Scale other character's rotation
     TingyunRotation = [x * ClaraRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     HanabiRotation = [x * ClaraRotationDuration / HanabiRotationDuration for x in HanabiRotation]
-    LuochaRotation = [x * ClaraRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+    AventurineRotation = [x * ClaraRotationDuration / AventurineRotationDuration for x in AventurineRotation]
 
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
@@ -147,8 +155,8 @@ def ClaraTingyunHanabiLuocha(config):
     TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     TingyunRotation.append(DanceDanceDanceEffect)
     
-    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    LuochaRotation.append(DanceDanceDanceEffect)
+    AventurineCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    AventurineRotation.append(DanceDanceDanceEffect)
     
     HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     HanabiRotation.append(DanceDanceDanceEffect)
@@ -158,8 +166,8 @@ def ClaraTingyunHanabiLuocha(config):
                                     TingyunRotation, TingyunCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)
-    LuochaEstimate = DefaultEstimator(f'Luocha: 3N 1E 1Q, S{LuochaCharacter.lightcone.superposition:d} {LuochaCharacter.lightcone.name}', 
-                                    LuochaRotation, LuochaCharacter, config)
+    AventurineEstimate = DefaultEstimator(f'Aventurine: {numBasicAventurine:.0f}N {numTalentAventurine:.1f}T 1Q, S{AventurineCharacter.lightcone.superposition:.0f} {AventurineCharacter.lightcone.name}',
+                                    AventurineRotation, AventurineCharacter, config)
 
-    return([ClaraEstimate, TingyunEstimate, HanabiEstimate, LuochaEstimate])
+    return([ClaraEstimate, TingyunEstimate, HanabiEstimate, AventurineEstimate])
 

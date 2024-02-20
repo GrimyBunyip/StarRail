@@ -75,7 +75,7 @@ def AcheronSilverWolfPelaLuocha(config):
 
     #%% Acheron Silver Wolf Pela Luocha Rotations
     
-    numStacks = 3 # Assume Acheron generates 3 stacks when she attacks
+    numStacks = 2 # Assume Acheron generates 2 stacks when she attacks
     numStacks += (3 / 2) * SilverWolfCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 3 silver wolf attacks per 2 turn wolf rotation
     numStacks +=  (4 / 3) * PelaCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 4 pela attacks per 3 turn wolf rotation
     
@@ -84,7 +84,7 @@ def AcheronSilverWolfPelaLuocha(config):
     AcheronRotation = [ 
             AcheronCharacter.useSkill() * numSkillAcheron,
             AcheronCharacter.useUltimate_st() * 3,
-            AcheronCharacter.useUltimate_aoe() * 12,
+            AcheronCharacter.useUltimate_aoe(num_stacks=3.0) * 3.0,
             AcheronCharacter.useUltimate_end(),
     ]
 

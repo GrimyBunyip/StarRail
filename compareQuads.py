@@ -14,6 +14,7 @@ from teams_four.BladeBronyaPelaLynx import BladeBronyaPelaLynx
 from teams_four.BladeBronyaRuanMeiFuxuan import BladeBronyaRuanMeiFuxuan
 from teams_four.BladeBronyaRuanMeiLuocha import BladeBronyaRuanMeiLuocha
 from teams_four.ClaraSilverWolfPelaLuocha import ClaraSilverWolfPelaLuocha
+from teams_four.ClaraTingyunHanabiAventurine import ClaraTingyunHanabiAventurine
 from teams_four.ClaraTingyunHanabiFuxuan import ClaraTingyunHanabiFuxuan
 from teams_four.ClaraTingyunHanabiFuxuanEscapade import ClaraTingyunHanabiFuxuanEscapade
 from teams_four.ClaraTingyunHanabiLuocha import ClaraTingyunHanabiLuocha
@@ -94,7 +95,7 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 #%% Team Imports
 
 # Acheron Teams
-# visualizationList.append(AcheronSilverWolfPelaLuocha(config))
+visualizationList.append(AcheronSilverWolfPelaLuocha(config))
 
 # # Argenti Teams
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
@@ -115,6 +116,7 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # # Clara Teams
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+# # visualizationList.append(ClaraTingyunHanabiAventurine(config))
 # # visualizationList.append(ClaraTingyunHanabiLuocha(config))
 # # visualizationList.append(ClaraTingyunHanyaLuocha(config))
 # # visualizationList.append(ClaraTopazAstaLuocha(config))

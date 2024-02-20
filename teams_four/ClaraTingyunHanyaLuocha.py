@@ -85,8 +85,8 @@ def ClaraTingyunHanyaLuocha(config):
     numSkillClara = 1.25
     numEnemyAttacks = ClaraCharacter.enemySpeed * ClaraCharacter.numEnemies * numSkillClara / ClaraCharacter.getTotalStat('SPD')
     numEnhancedTalents = 2
-    numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*6) / (5*6 + 3 + 4 + 4)
-    numSvarogCounters = numEnemyAttacks * (5*6) / (5*6 + 3 + 4 + 4)
+    numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*6) / (5*6 + 4 + 4 + 4)
+    numSvarogCounters = numEnemyAttacks * (5*6) / (5*6 + 4 + 4 + 4)
 
     ClaraRotation = [ # 110 max energy
             ClaraCharacter.useSkill() * numSkillClara,
