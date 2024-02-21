@@ -15,12 +15,14 @@ class Acheron(BaseCharacter):
                 num_other_nihility:int = 2,
                 thunder_core_uptime:float = 1.0,
                 thunder_core_stacks:float = 3.0,
+                e1Uptime:float = 1.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Acheron')
         self.num_other_nihility = num_other_nihility
         self.thunder_core_uptime = thunder_core_uptime
         self.thunder_core_stacks = thunder_core_stacks
+        self.e1Uptime = e1Uptime
         
         mv_mult = 1.6 if self.num_other_nihility >= 2 else (1.15 if self.num_other_nihility == 1 else 1.0 )
         
@@ -38,6 +40,8 @@ class Acheron(BaseCharacter):
         self.addStat('ResPen',description='Acheron Talent',amount=0.20,type=['ultimate'])
         
         # Eidolons
+        if self.eidolon >= 1:
+            self.addStat('CR',description='Acheron e1',amount=0.18,uptime=self.e1Uptime)
         
         # Gear
         self.equipGear()

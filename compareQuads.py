@@ -1,5 +1,9 @@
 from copy import copy
 from settings.BaseConfiguration import Configuration
+from teams_four.AcheronE2HanabiPelaFuxuan import AcheronE2HanabiPelaFuxuan
+from teams_four.AcheronE2S1HanabiPelaFuxuan import AcheronE2S1HanabiPelaFuxuan
+from teams_four.AcheronS1SilverWolfPelaFuxuan import AcheronS1SilverWolfPelaFuxuan
+from teams_four.AcheronSilverWolfPelaFuxuan import AcheronSilverWolfPelaFuxuan
 from teams_four.AcheronSilverWolfPelaLuocha import AcheronSilverWolfPelaLuocha
 from teams_four.ArgentiBronyaPelaHuohuo import ArgentiBronyaPelaHuohuo
 from teams_four.ArgentiHanabiTingyunHuohuo import ArgentiHanabiTingyunHuohuo
@@ -90,13 +94,17 @@ from visualizer.visualizer import visualize
 visualizationList = []
 
 config = copy(Configuration)
-config['numEnemies'] = 2
+config['numEnemies'] = 3
 config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
 
-# # Acheron Teams
-# visualizationList.append(AcheronSilverWolfPelaLuocha(config))
+# Acheron Teams
+visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
+visualizationList.append(AcheronE2HanabiPelaFuxuan(config))
+visualizationList.append(AcheronS1SilverWolfPelaFuxuan(config))
+visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
+# visualizationList.append(AcheronSilverWolfPelaLuocha(config)) # retired, just use fuxuan
 
 # # Argenti Teams
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
@@ -139,13 +147,13 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
 # # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
 
-# Jingliu Teams
-visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-visualizationList.append(JingliuBronyaTingyunLuocha(config))
-visualizationList.append(JingliuBronyaHanabiLuocha(config))
-visualizationList.append(JingliuBronyaPelaLuocha(config))
-visualizationList.append(JingliuRuanMeiBladeLuocha(config))
-visualizationList.append(JingliuHanyaBladeHuohuo(config))
+# # Jingliu Teams
+# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+# # visualizationList.append(JingliuBronyaHanabiLuocha(config))
+# # visualizationList.append(JingliuBronyaTingyunLuocha(config))
+# # visualizationList.append(JingliuBronyaPelaLuocha(config))
+# # visualizationList.append(JingliuRuanMeiBladeLuocha(config))
+# # visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
 # # Jingyuan Teams
 # visualizationList.append(JingyuanTingyunHanabiFuxuan(config))

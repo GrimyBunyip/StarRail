@@ -174,6 +174,8 @@ def JingliuBronyaTingyunLuocha(config):
     BronyaRotation = [x * JingliuRotationDuration / BronyaRotationDuration for x in BronyaRotation]
     TingyunRotation = [x * JingliuRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     LuochaRotation = [x * JingliuRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+    
+    JingliuRotation.append(TingyunCharacter.giveUltEnergy() * JingliuRotationDuration / TingyunRotationDuration)
 
     JingliuEstimate = DefaultEstimator('Jingliu {:.1f}E {:.1f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
                                                     JingliuRotation, JingliuCharacter, config)

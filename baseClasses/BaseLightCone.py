@@ -14,11 +14,13 @@ class BaseLightCone(object):
     superposition:int
     rarity:str
     name:str
+    shortname:str
     path:str
     nameAffix:str
         
-    def loadConeStats(self, name:str, nameAffix:str=''):
+    def loadConeStats(self, name:str, nameAffix:str='', shortname=None):
         self.name = name
+        self.shortname = name if shortname is None else shortname
         self.nameAffix = nameAffix
         self.stats = deepcopy(EMPTY_STATS)
         df = pd.read_csv(STATS_FILEPATH)
