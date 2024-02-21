@@ -64,11 +64,7 @@ def KafkaGuinaifenAstaLuocha(config):
     # Asta Buffs
     AstaCharacter.applyChargingBuff(team)
     AstaCharacter.applyTraceBuff(team)
-
-    # assume partial uptime on asta ultimate with ENN rotation
-    # Luocha's uptime is lower because he is very fast with the multiplication light cone
-    AstaCharacter.applyUltBuff([KafkaCharacter,GuinaifenCharacter,AstaCharacter],uptime=2.0/2.5)
-    AstaCharacter.applyUltBuff([LuochaCharacter],uptime=3.0/5.0)
+    AstaCharacter.applyUltBuff(team,rotation=3.0)
 
     # Asta Ignite Buff
     GuinaifenCharacter.addStat('DMG.fire',description='Kafka Trace',amount=0.18)
@@ -106,9 +102,10 @@ def KafkaGuinaifenAstaLuocha(config):
             GuinaifenCharacter.useUltimate() * numUlt,
     ]
 
-
-    AstaRotation = [AstaCharacter.useBasic() * 1.5,
-                    AstaCharacter.useSkill() * 1.5,
+    numBasicAsta = 1.5
+    numSkillAsta = 1.5
+    AstaRotation = [AstaCharacter.useBasic() * numBasicAsta,
+                    AstaCharacter.useSkill() * numSkillAsta,
                     AstaCharacter.useUltimate() * 1,]
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
@@ -142,7 +139,7 @@ def KafkaGuinaifenAstaLuocha(config):
                                     KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
     GuinaifenEstimate = DefaultEstimator('E6 Guinaifen S5 GNSW {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(numBasicGuinaifen, numSkillGuinaifen, numUltGuinaifen, numDotGuinaifen),
                                         GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
-    AstaEstimate = DefaultEstimator(f'Asta: 2N 1E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
+    AstaEstimate = DefaultEstimator(f'Asta: {numBasicAsta:.1f}N {numSkillAsta:.1f}E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
                                     AstaRotation, AstaCharacter, config)
     LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
                                     LuochaRotation, LuochaCharacter, config)

@@ -20,7 +20,7 @@ from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, 
 def AcheronS1SilverWolfPelaFuxuan(config):
     #%% Acheron Silver Wolf Pela Fuxuan Characters
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
-                            substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
+                            substats = {'CR': 10, 'CD': 10, 'ATK.percent': 5, 'SPD.flat': 3}),
                             lightcone = AlongThePassingShore(**config),
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
@@ -81,6 +81,7 @@ def AcheronS1SilverWolfPelaFuxuan(config):
     numStacks +=  (4 / 3) * PelaCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 4 pela attacks per 3 turn wolf rotation
     
     numSkillAcheron = 9.0 / numStacks
+    print(f"{numStacks * AcheronCharacter.getTotalStat('SPD'):.2f} stack rate")
 
     AcheronRotation = [ 
             AcheronCharacter.useSkill() * numSkillAcheron,

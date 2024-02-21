@@ -56,10 +56,7 @@ def JingyuanTingyunAstaLuocha(config):
     # Asta Buffs
     AstaCharacter.applyChargingBuff(team)
     AstaCharacter.applyTraceBuff(team)
-
-    # Luocha's uptime is lower because he is very fast with the multiplication light cone
-    AstaCharacter.applyUltBuff([JingYuanCharacter,TingyunCharacter,AstaCharacter],uptime=1.0)
-    AstaCharacter.applyUltBuff([LuochaCharacter],uptime=0.75)
+    AstaCharacter.applyUltBuff(team,rotation=3.0)
 
     # Asta Messenger Buff
     JingYuanCharacter.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0 / 2.5)
@@ -109,8 +106,10 @@ def JingyuanTingyunAstaLuocha(config):
         TingyunCharacter.giveUltEnergy(),
     ]
 
-    AstaRotation = [AstaCharacter.useBasic() * 1.5,
-                    AstaCharacter.useSkill() * 1.5,
+    numBasicAsta = 1.5
+    numSkillAsta = 1.5
+    AstaRotation = [AstaCharacter.useBasic() * numBasicAsta,
+                    AstaCharacter.useSkill() * numSkillAsta,
                     AstaCharacter.useUltimate() * 1,]
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
@@ -138,7 +137,7 @@ def JingyuanTingyunAstaLuocha(config):
     JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q', JingYuanRotation, JingYuanCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 
                                     TingyunRotation, TingyunCharacter, config)
-    AstaEstimate = DefaultEstimator(f'Asta: 1.5N 1.5E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
+    AstaEstimate = DefaultEstimator(f'Asta: {numBasicAsta:.1f}N {numSkillAsta:.1f}E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
                                     AstaRotation, AstaCharacter, config)
     LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
                                     LuochaRotation, LuochaCharacter, config)

@@ -37,9 +37,11 @@ class Asta(BaseCharacter):
             character:BaseCharacter
             character.addStat('DMG.fire',description='Asta Trace',amount=0.18)
             
-    def applyUltBuff(self,team:list,uptime:float):
+    def applyUltBuff(self,team:list,rotation:float):
         for character in team:
-            character:BaseCharacter
+            character:BaseCharacter # this could probably use some work
+            uptime = (2.0 / rotation) * (self.getTotalStat('SPD') / character.getTotalStat('SPD'))
+            uptime = min(1.0, uptime)
             character.addStat('SPD.flat',description='Asta Ultimate',
                                     amount=53 if self.eidolon >= 5 else 50, 
                                     uptime=uptime)

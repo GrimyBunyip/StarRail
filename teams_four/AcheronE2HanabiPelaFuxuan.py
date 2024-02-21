@@ -16,10 +16,10 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 
 def AcheronE2HanabiPelaFuxuan(config):
-    #%% Acheron Silver Wolf Pela Fuxuan Characters
+    #%% Acheron Hanabi Pela Fuxuan Characters
     originalFivestarEidolons = config['fivestarEidolons']
     config['fivestarEidolons'] = 2
-    AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'ATK.percent'],
+    AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                             substats = {'CR': 4, 'CD': 12, 'ATK.percent': 9, 'ATK.flat': 3}),
                             lightcone = GoodNightAndSleepWell(**config),
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
@@ -47,7 +47,7 @@ def AcheronE2HanabiPelaFuxuan(config):
     
     team = [AcheronCharacter, HanabiCharacter, PelaCharacter, FuxuanCharacter]
 
-    #%% Acheron Silver Wolf Pela Fuxuan Team Buffs
+    #%% Acheron Hanabi Pela Fuxuan Team Buffs
     for character in [HanabiCharacter, AcheronCharacter, PelaCharacter]:
         character.addStat('CD',description='Broken Keel from Fuxuan',amount=0.1)
     for character in [HanabiCharacter, AcheronCharacter, FuxuanCharacter]:
@@ -81,12 +81,13 @@ def AcheronE2HanabiPelaFuxuan(config):
     for character in team:
         character.print()
 
-    #%% Acheron Silver Wolf Pela Fuxuan Rotations
+    #%% Acheron Hanabi Pela Fuxuan Rotations
     
     numStacks = 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2
     numStacks +=  (4 / 3) * PelaCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD') # 4 pela attacks per 3 turn wolf rotation
     
     numSkillAcheron = 9.0 / numStacks
+    print(f"{numStacks * AcheronCharacter.getTotalStat('SPD'):.2f} stack rate")
 
     AcheronRotation = [ 
             AcheronCharacter.useSkill() * numSkillAcheron,
@@ -110,7 +111,7 @@ def AcheronE2HanabiPelaFuxuan(config):
                     FuxuanCharacter.useSkill() * 1,
                     FuxuanCharacter.useUltimate() * 1,]
 
-    #%% Acheron Silver Wolf Pela Fuxuan Rotation Math
+    #%% Acheron Hanabi Pela Fuxuan Rotation Math
 
     totalAcheronEffect = sumEffects(AcheronRotation)
     totalPelaEffect = sumEffects(PelaRotation)

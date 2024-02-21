@@ -60,7 +60,7 @@ def XueyiAstaTopazFuxuan(config, breakRatio:float=0.5):
     # Asta Buffs
     AstaCharacter.applyChargingBuff(team)
     AstaCharacter.applyTraceBuff(team)
-    AstaCharacter.applyUltBuff(team,uptime=1.0)
+    AstaCharacter.applyUltBuff(team,rotation=2.0)
     
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff([TopazCharacter,XueyiCharacter],uptime=0.5)
@@ -86,7 +86,10 @@ def XueyiAstaTopazFuxuan(config, breakRatio:float=0.5):
                 XueyiCharacter.useTalent() * numTalentXueyi,
     ]
     
-    AstaRotation = [AstaCharacter.useSkill() * 2,
+    numBasicAsta = 0.0
+    numSkillAsta = 2.0
+    AstaRotation = [AstaCharacter.useBasic() * numBasicAsta,
+                    AstaCharacter.useSkill() * numSkillAsta,
                     AstaCharacter.useUltimate() * 1,]
 
     numBasicTopaz = 0.0
@@ -124,7 +127,7 @@ def XueyiAstaTopazFuxuan(config, breakRatio:float=0.5):
     FuxuanRotation = [x * XueyiRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
 
     XueyiEstimate = DefaultEstimator(f'Xueyi: {numSkillXueyi:.0f}E {numUltXueyi:.0f}Q {numTalentXueyi:.1f}T with {breakRatio*100.0:.0f}% of hits depleting toughness', XueyiRotation, XueyiCharacter, config)
-    AstaEstimate = DefaultEstimator(f'Slow Asta: 2E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
+    AstaEstimate = DefaultEstimator(f'Asta: {numBasicAsta:.1f}N {numSkillAsta:.1f}E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
                                     AstaRotation, AstaCharacter, config)
     TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
     FuxuanEstimate = DefaultEstimator('Fuxuan: 2N 1E 1Q, S{:.0f} {}'.format(FuxuanCharacter.lightcone.superposition, FuxuanCharacter.lightcone.name),

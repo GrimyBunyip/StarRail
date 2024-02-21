@@ -3,7 +3,7 @@ from baseClasses.RelicStats import RelicStats
 from characters.preservation.Fuxuan import Fuxuan
 from characters.nihility.Acheron import Acheron
 from characters.nihility.Pela import Pela
-from characters.nihility.SilverWolf import SilverWolf
+from characters.nihility.Welt import Welt
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
@@ -17,8 +17,8 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronSilverWolfPelaFuxuan(config):
-    #%% Acheron Silver Wolf Pela Fuxuan Characters
+def AcheronWeltPelaFuxuan(config):
+    #%% Acheron Welt Pela Fuxuan Characters
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                             substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
                             lightcone = GoodNightAndSleepWell(**config),
@@ -26,10 +26,10 @@ def AcheronSilverWolfPelaFuxuan(config):
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
                             **config)
 
-    SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR', 'BreakEffect'],
-                            substats = {'SPD.flat':12,'BreakEffect':8, 'ATK.percent': 5, 'ATK.flat': 3}),
+    WeltCharacter = Welt(RelicStats(mainstats = ['ER', 'SPD.flat', 'CR', 'ATK.percent'],
+                            substats = {'CD': 8, 'CR': 5, 'SPD.flat':12, 'EHR': 3}),
                             lightcone = BeforeTheTutorialMissionStarts(**config),
-                            relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
+                            relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(), planarset = SprightlyVonwacq(),
                             **config)
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
@@ -44,12 +44,12 @@ def AcheronSilverWolfPelaFuxuan(config):
                         relicsetone = LongevousDisciple2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
-    team = [AcheronCharacter, SilverWolfCharacter, PelaCharacter, FuxuanCharacter]
+    team = [AcheronCharacter, WeltCharacter, PelaCharacter, FuxuanCharacter]
 
-    #%% Acheron Silver Wolf Pela Fuxuan Team Buffs
-    for character in [SilverWolfCharacter, AcheronCharacter, PelaCharacter]:
+    #%% Acheron Welt Pela Fuxuan Team Buffs
+    for character in [WeltCharacter, AcheronCharacter, PelaCharacter]:
         character.addStat('CD',description='Broken Keel from Fuxuan',amount=0.1)
-    for character in [SilverWolfCharacter, AcheronCharacter, FuxuanCharacter]:
+    for character in [WeltCharacter, AcheronCharacter, FuxuanCharacter]:
         character.addStat('CD',description='Broken Keel from Pela',amount=0.1)
 
     # Pela Debuffs, 3 turn pela rotation
@@ -59,14 +59,14 @@ def AcheronSilverWolfPelaFuxuan(config):
     sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
     sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
     sweatUptime = min(1.0, sweatUptime)
-    for character in [AcheronCharacter, SilverWolfCharacter, PelaCharacter, FuxuanCharacter]:
+    for character in [AcheronCharacter, WeltCharacter, PelaCharacter, FuxuanCharacter]:
         character.addStat('DefShred',description='Resolution Sweat',
                         amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
                         uptime=sweatUptime)
 
-    # Silver Wolf Debuffs
-    SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, FuxuanCharacter])
-    SilverWolfCharacter.applyDebuffs([AcheronCharacter, PelaCharacter],targetingUptime=1.0/AcheronCharacter.numEnemies) # Acheron and pela won't consistently target the debuffed enemy
+    # Welt Debuffs
+    for character in team:
+        character.addStat('Vulnerability', description='Welt Vulnerability',amount=0.12)
 
     # Fu Xuan Buffs
     FuxuanCharacter.applySkillBuff(team)        
@@ -74,10 +74,10 @@ def AcheronSilverWolfPelaFuxuan(config):
     for character in team:
         character.print()
 
-    #%% Acheron Silver Wolf Pela Fuxuan Rotations
+    #%% Acheron Welt Pela Fuxuan Rotations
     
     numStacks = 1 # Assume Acheron generates 1 stack when she skills
-    numStacks += (3 / 2) * SilverWolfCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 3 silver wolf attacks per 2 turn wolf rotation
+    numStacks += (3 / 2) * WeltCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 3 Welt attacks per 2 turn wolf rotation
     numStacks +=  (4 / 3) * PelaCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 4 pela attacks per 3 turn wolf rotation
     
     numSkillAcheron = 9.0 / numStacks
@@ -90,13 +90,13 @@ def AcheronSilverWolfPelaFuxuan(config):
             AcheronCharacter.useUltimate_end(),
     ]
 
-    numBasicSW = 0.0
-    numSkillSW = 2.0
-    numUltSW = 1
-    SilverWolfRotation = [ # 
-            SilverWolfCharacter.useBasic() * numBasicSW, #
-            SilverWolfCharacter.useSkill() * numSkillSW, #
-            SilverWolfCharacter.useUltimate() * numUltSW, #
+    numBasicWelt = 0.0
+    numSkillWelt = 2.0
+    numUltWelt = 1
+    WeltRotation = [ # 
+            WeltCharacter.useBasic() * numBasicWelt, #
+            WeltCharacter.useSkill() * numSkillWelt, #
+            WeltCharacter.useUltimate() * numUltWelt, #
     ]
 
     numBasicPela = 3.0
@@ -107,34 +107,34 @@ def AcheronSilverWolfPelaFuxuan(config):
                     FuxuanCharacter.useSkill() * 1,
                     FuxuanCharacter.useUltimate() * 1,]
 
-    #%% Acheron Silver Wolf Pela Fuxuan Rotation Math
+    #%% Acheron Welt Pela Fuxuan Rotation Math
 
     totalAcheronEffect = sumEffects(AcheronRotation)
     totalPelaEffect = sumEffects(PelaRotation)
-    totalSilverWolfEffect = sumEffects(SilverWolfRotation)
+    totalWeltEffect = sumEffects(WeltRotation)
     totalFuxuanEffect = sumEffects(FuxuanRotation)
 
     AcheronRotationDuration = totalAcheronEffect.actionvalue * 100.0 / AcheronCharacter.getTotalStat('SPD')
     PelaRotationDuration = totalPelaEffect.actionvalue * 100.0 / PelaCharacter.getTotalStat('SPD')
-    SilverWolfRotationDuration = totalSilverWolfEffect.actionvalue * 100.0 / SilverWolfCharacter.getTotalStat('SPD')
+    WeltRotationDuration = totalWeltEffect.actionvalue * 100.0 / WeltCharacter.getTotalStat('SPD')
     FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')
     print('Acheron: ',AcheronRotationDuration)
     print('Pela: ',PelaRotationDuration)
-    print('SilverWolf: ',SilverWolfRotationDuration)
+    print('Welt: ',WeltRotationDuration)
     print('Fuxuan: ',FuxuanRotationDuration)
 
     # Scale other character's rotation
     PelaRotation = [x * AcheronRotationDuration / PelaRotationDuration for x in PelaRotation]
-    SilverWolfRotation = [x * AcheronRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
+    WeltRotation = [x * AcheronRotationDuration / WeltRotationDuration for x in WeltRotation]
     FuxuanRotation = [x * AcheronRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
 
     AcheronEstimate = DefaultEstimator(f'Acheron E{AcheronCharacter.eidolon:d} S{AcheronCharacter.lightcone.superposition:d} {AcheronCharacter.lightcone.shortname}: {numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
     PelaEstimate = DefaultEstimator(f'Pela: 3N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)
-    SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numBasicSW:.0f}N {numSkillSW:.0f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)
+    WeltEstimate = DefaultEstimator(f'Welt {numBasicWelt:.0f}N {numSkillWelt:.0f}E {numUltWelt:.0f}Q', WeltRotation, WeltCharacter, config)
     FuxuanEstimate = DefaultEstimator('Fuxuan: 2N 1E 1Q, S{:.0f} {}'.format(FuxuanCharacter.lightcone.superposition, FuxuanCharacter.lightcone.name),
                                     FuxuanRotation, FuxuanCharacter, config)
 
-    return([AcheronEstimate, SilverWolfEstimate, PelaEstimate, FuxuanEstimate])
+    return([AcheronEstimate, WeltEstimate, PelaEstimate, FuxuanEstimate])

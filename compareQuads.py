@@ -1,16 +1,20 @@
 from copy import copy
 from settings.BaseConfiguration import Configuration
+from teams_four.AcheronE2AstaPelaFuxuan import AcheronE2AstaPelaFuxuan
 from teams_four.AcheronE2HanabiPelaFuxuan import AcheronE2HanabiPelaFuxuan
+from teams_four.AcheronE2RuanMeiPelaFuxuan import AcheronE2RuanMeiPelaFuxuan
 from teams_four.AcheronE2S1HanabiPelaFuxuan import AcheronE2S1HanabiPelaFuxuan
 from teams_four.AcheronS1SilverWolfPelaFuxuan import AcheronS1SilverWolfPelaFuxuan
 from teams_four.AcheronSilverWolfPelaFuxuan import AcheronSilverWolfPelaFuxuan
 from teams_four.AcheronSilverWolfPelaLuocha import AcheronSilverWolfPelaLuocha
+from teams_four.AcheronWeltPelaFuxuan import AcheronWeltPelaFuxuan
 from teams_four.ArgentiBronyaPelaHuohuo import ArgentiBronyaPelaHuohuo
 from teams_four.ArgentiHanabiTingyunHuohuo import ArgentiHanabiTingyunHuohuo
 from teams_four.ArgentiHanyaRuanMeiHuohuo import ArgentiHanyaRuanMeiHuohuo
 from teams_four.ArgentiHanyaTingyunFuxuan import ArgentiHanyaTingyunFuxuan
 from teams_four.ArgentiHanyaTingyunHuohuo import ArgentiHanyaTingyunHuohuo
 from teams_four.ArgentiRuanMeiTingyunHuohuo import ArgentiRuanMeiTingyunHuohuo
+from teams_four.AstaGuinaifenBlackSwanLuocha import AstaGuinaifenBlackSwanLuocha
 from teams_four.BladeBronyaHanabiLuocha import BladeBronyaHanabiLuocha
 from teams_four.BladeBronyaPelaFuxuan import BladeBronyaPelaFuxuan
 from teams_four.BladeBronyaPelaLuocha import BladeBronyaPelaLuocha
@@ -99,12 +103,15 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
-# Acheron Teams
-visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
-visualizationList.append(AcheronE2HanabiPelaFuxuan(config))
-visualizationList.append(AcheronS1SilverWolfPelaFuxuan(config))
-visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
-# visualizationList.append(AcheronSilverWolfPelaLuocha(config)) # retired, just use fuxuan
+# # Acheron Teams
+# visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
+# visualizationList.append(AcheronE2AstaPelaFuxuan(config))
+# visualizationList.append(AcheronE2RuanMeiPelaFuxuan(config))
+# visualizationList.append(AcheronE2HanabiPelaFuxuan(config))
+# visualizationList.append(AcheronS1SilverWolfPelaFuxuan(config))
+# visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
+# visualizationList.append(AcheronWeltPelaFuxuan(config))
+# # visualizationList.append(AcheronSilverWolfPelaLuocha(config)) # retired, just use fuxuan
 
 # # Argenti Teams
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
@@ -172,23 +179,24 @@ visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
 # # visualizationList.append(LunaePelaTingyunLuocha(config))
 # # visualizationList.append(LunaePelaYukongLuocha(config))
 
-# # # Kafka Teams
-# # config['enemySpeed'] = 190 / 1.125
-# # config['numEnemies'] = 3
+# # Kafka Teams
+# config['enemySpeed'] = 190 / 1.125
+# config['numEnemies'] = 3
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-# # visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
-# # visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-# # visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
-# # visualizationList.append(KafkaSampoRuanMeiLuocha(config))
-# # visualizationList.append(KafkaGuinaifenLukaLuocha(config))
-# # visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
-# # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
+visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
+visualizationList.append(AstaGuinaifenBlackSwanLuocha(config))
+# visualizationList.append(KafkaGuinaifenSampoLuocha(config))
+# visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
+# visualizationList.append(KafkaSampoRuanMeiLuocha(config))
+# visualizationList.append(KafkaGuinaifenLukaLuocha(config))
+# visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
+# visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
-# # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
-# # visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
-# # visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
-# # visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
-# # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 
 # # Qingque Teams
 # visualizationList.append(QingqueHanabiPelaFuxuan(config))

@@ -60,10 +60,7 @@ def ClaraTopazAstaLuocha(config):
     # Asta Buffs
     AstaCharacter.applyChargingBuff(team)
     AstaCharacter.applyTraceBuff(team)
-
-    # Luocha's uptime is lower because he is very fast with the multiplication light cone
-    AstaCharacter.applyUltBuff([TopazCharacter,ClaraCharacter,AstaCharacter],uptime=1.0)
-    AstaCharacter.applyUltBuff([LuochaCharacter],uptime=0.75)
+    AstaCharacter.applyUltBuff(team,rotation=2.0)
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff([TopazCharacter],uptime=1.0)
@@ -105,7 +102,10 @@ def ClaraTopazAstaLuocha(config):
     numbyAdvanceForwards = topazTurns / 2 + claraFollowups * 3 / 8 # treat clara followups as 0.375 advances because they might be out of sync    
     TopazRotation.append(TopazCharacter.useTalent(windfall=False) * (numbyTurns + numbyAdvanceForwards)) # about 1 talent per basic/skill
 
-    AstaRotation = [AstaCharacter.useSkill() * 2,
+    numBasicAsta = 0.0
+    numSkillAsta = 2.0
+    AstaRotation = [AstaCharacter.useBasic() * numBasicAsta,
+                    AstaCharacter.useSkill() * numSkillAsta,
                     AstaCharacter.useUltimate() * 1,]
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
@@ -139,7 +139,7 @@ def ClaraTopazAstaLuocha(config):
 
     ClaraEstimate = DefaultEstimator(f'Clara: 2E {numSvarogCounters:.1f}T 1Q', ClaraRotation, ClaraCharacter, config)
     TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
-    AstaEstimate = DefaultEstimator(f'Slow Asta: 2E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
+    AstaEstimate = DefaultEstimator(f'Asta: {numBasicAsta:.1f}N {numSkillAsta:.1f}E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
                                     AstaRotation, AstaCharacter, config)
     LuochaEstimate = DefaultEstimator(f'Luocha: 3N 1E 1Q, S{LuochaCharacter.lightcone.superposition:d} {LuochaCharacter.lightcone.name}', 
                                     LuochaRotation, LuochaCharacter, config)
