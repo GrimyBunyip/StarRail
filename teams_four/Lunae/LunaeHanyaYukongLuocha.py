@@ -11,7 +11,6 @@ from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
-from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
@@ -33,13 +32,13 @@ def LunaeHanyaYukongLuocha(config):
     YukongCharacter = Yukong(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
                             substats = {'CR': 7, 'CD': 12, 'SPD.flat': 6, 'RES': 3}),
                             lightcone = PlanetaryRendezvous(**config),
-                            relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
+                            relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                             **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                                     substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'RES': 3}),
                                     lightcone = Multiplication(**config),
-                                    relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
+                                    relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                                     **config)
     
     team = [LunaeCharacter, HanyaCharacter, YukongCharacter, LuochaCharacter]
@@ -48,12 +47,10 @@ def LunaeHanyaYukongLuocha(config):
     # Broken Keel Buffs
     for character in [LunaeCharacter, YukongCharacter, LuochaCharacter]:
         character.addStat('CD',description='Broken Keel from Hanya',amount=0.1)
-        
-    # Penacony Buff
     for character in [LunaeCharacter, HanyaCharacter, LuochaCharacter]:
-        character.addStat('DMG.imaginary',description='Penacony from Yukong',amount=0.1)
+        character.addStat('CD',description='Broken Keel from Yukong',amount=0.1)
     for character in [LunaeCharacter, HanyaCharacter, YukongCharacter]:
-        character.addStat('DMG.imaginary',description='Penacony from Luocha',amount=0.1)
+        character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
         
     # Yukong imaginary damage trace
     for character in [LunaeCharacter, LuochaCharacter]:

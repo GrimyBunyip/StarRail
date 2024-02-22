@@ -77,7 +77,7 @@ class Lunae(BaseCharacter):
                 retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
                 retval.skillpoints = 1.0
                 retval.actionvalue = 1.0 + self.getAdvanceForward(type)
-            retval.damage = self.getTotalMotionValue(f'basic_{i+1:d}',type)
+            retval.damage = self.getTotalMotionValue(f'basic_{hitNum:d}',type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg(type)
             retval.damage *= self.getVulnerability(type)

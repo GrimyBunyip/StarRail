@@ -9,8 +9,8 @@ from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
+from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
-from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
@@ -34,13 +34,13 @@ def LunaeTingyunYukongLuocha(config):
     YukongCharacter = Yukong(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ER'],
                             substats = {'CR': 8, 'CD': 12, 'SPD.flat': 5, 'RES': 3}),
                             lightcone = PlanetaryRendezvous(**config),
-                            relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
+                            relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                             **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                             substats = {'ATK.percent': 5, 'SPD.flat': 12, 'HP.percent': 4, 'RES': 7}),
                             lightcone = Multiplication(**config),
-                            relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
+                            relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                             **config)
     
     team = [LunaeCharacter, TingyunCharacter, YukongCharacter, LuochaCharacter]

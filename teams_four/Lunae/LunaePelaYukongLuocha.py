@@ -8,10 +8,8 @@ from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
-from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
@@ -35,13 +33,13 @@ def LunaePelaYukongLuocha(config):
     YukongCharacter = Yukong(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
                             substats = {'CR': 7, 'CD': 12, 'SPD.flat': 6, 'RES': 3}),
                             lightcone = PlanetaryRendezvous(**config),
-                            relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
+                            relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                             **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                                     substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'RES': 3}),
                                     lightcone = Multiplication(**config),
-                                    relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
+                                    relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                                     **config)
     
     team = [LunaeCharacter, PelaCharacter, YukongCharacter, LuochaCharacter]
@@ -50,12 +48,10 @@ def LunaePelaYukongLuocha(config):
     # Broken Keel Buffs
     for character in [LunaeCharacter, YukongCharacter, LuochaCharacter]:
         character.addStat('CD',description='Broken Keel from Pela',amount=0.1)
-        
-    # Penacony Buff
     for character in [LunaeCharacter, PelaCharacter, LuochaCharacter]:
-        character.addStat('DMG.imaginary',description='Penacony from Yukong',amount=0.1)
+        character.addStat('CD',description='Broken Keel from Yukong',amount=0.1)
     for character in [LunaeCharacter, PelaCharacter, YukongCharacter]:
-        character.addStat('DMG.imaginary',description='Penacony from Luocha',amount=0.1)
+        character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
         
     # Pela Debuffs, 3 turn pela rotation
     PelaCharacter.applyUltDebuff(team,rotationDuration=3)

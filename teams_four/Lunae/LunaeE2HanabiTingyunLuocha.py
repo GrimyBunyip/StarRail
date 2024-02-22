@@ -10,7 +10,6 @@ from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
@@ -45,7 +44,7 @@ def LunaeE2HanabiTingyunLuocha(config):
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'RES': 3}),
                             lightcone = Multiplication(**config),
-                            relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
+                            relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                             **config)
     
     team = [LunaeCharacter, HanabiCharacter, TingyunCharacter, LuochaCharacter]
@@ -53,7 +52,7 @@ def LunaeE2HanabiTingyunLuocha(config):
     #%% Lunae Hanabi Tingyun Luocha Team Buffs
     # Penacony Buff
     for character in [LunaeCharacter, HanabiCharacter, TingyunCharacter]:
-        character.addStat('DMG.imaginary',description='Penacony from Luocha',amount=0.1)
+        character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
     for character in [LunaeCharacter, LuochaCharacter, TingyunCharacter]:
         character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
 
@@ -79,6 +78,8 @@ def LunaeE2HanabiTingyunLuocha(config):
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(LunaeCharacter)
+    TingyunCharacter.applyUltBuff(LunaeCharacter,ultUptime=2.0/3.0,type=['ultimate']) # tingyun ultimate bonus applies to 2 out of 3 ultimates
+    TingyunCharacter.applyUltBuff(LunaeCharacter,ultUptime=3.0/7.0,type=['enhancedBasic']) # tingyun ultimate bonus applies to 3 out of 7 enhanceds
 
     #%% Print Statements
     for character in team:
@@ -97,6 +98,7 @@ def LunaeE2HanabiTingyunLuocha(config):
     
     LunaeRotation = [  # 140 energy needed. EndTurn needed to factor in his buffs
                 LunaeCharacter.useBasic() * numBasicLunae,
+                LunaeCharacter.endTurn(),
                 LunaeCharacter.useSkill() * 3 * numEnhancedLunae,
                 LunaeCharacter.useEnhancedBasic3() * numEnhancedLunae, # -3 SP, 40 energy
                 LunaeCharacter.useUltimate(), # +2 SP, 5 energy
@@ -104,7 +106,7 @@ def LunaeE2HanabiTingyunLuocha(config):
                 TingyunCharacter.useBenediction(['basic','enhancedBasic']) * numEnhancedLunae, # apply benedictions with buffs
                 TingyunCharacter.useBenediction(['ultimate']) * 1,
                 LunaeCharacter.endTurn(),
-                HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - LunaeCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * lunaeRotation, 
+                HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - LunaeCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * (numBasicLunae + numEnhancedLunae - 1.0), 
     ]
 
     numBasicTingyun = 1.5

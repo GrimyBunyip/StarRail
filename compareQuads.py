@@ -104,26 +104,26 @@ from visualizer.visualizer import visualize
 visualizationList = []
 
 config = copy(Configuration)
-config['numEnemies'] = 3
+config['numEnemies'] = 2
 config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
 
-# # Acheron Teams
-# visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
-# visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
-# visualizationList.append(AcheronE2AstaPelaFuxuan(config))
-# visualizationList.append(AcheronE2RuanMeiPelaFuxuan(config))
-# visualizationList.append(AcheronE2HanabiPelaFuxuan(config))
-# visualizationList.append(AcheronS1SilverWolfPelaFuxuan(config))
-# visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
-# visualizationList.append(AcheronWeltPelaFuxuan(config))
-# visualizationList.append(AcheronKafkaBlackSwanGallagher(config))
-# visualizationList.append(AcheronKafkaPelaGallagher(config))
-# # visualizationList.append(AcheronE2S1BronyaPelaLuocha(config)) # retired, luocha calcs
-# # visualizationList.append(AcheronKafkaBlackSwanLuocha(config))
-# # visualizationList.append(AcheronKafkaPelaLuocha(config))
-# # visualizationList.append(AcheronSilverWolfPelaLuocha(config)) # retired, just use fuxuan
+# Acheron Teams
+visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
+visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
+visualizationList.append(AcheronE2AstaPelaFuxuan(config))
+visualizationList.append(AcheronE2RuanMeiPelaFuxuan(config))
+visualizationList.append(AcheronE2HanabiPelaFuxuan(config))
+visualizationList.append(AcheronS1SilverWolfPelaFuxuan(config))
+visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
+visualizationList.append(AcheronWeltPelaFuxuan(config))
+visualizationList.append(AcheronKafkaBlackSwanGallagher(config))
+visualizationList.append(AcheronKafkaPelaGallagher(config))
+# visualizationList.append(AcheronE2S1BronyaPelaLuocha(config)) # retired, luocha calcs
+# visualizationList.append(AcheronKafkaBlackSwanLuocha(config))
+# visualizationList.append(AcheronKafkaPelaLuocha(config))
+# visualizationList.append(AcheronSilverWolfPelaLuocha(config)) # retired, just use fuxuan
 
 # # Argenti Teams
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
@@ -181,16 +181,16 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
 # # visualizationList.append(JingyuanTingyunTopazLuocha(config))
 
-# Lunae Teams
-visualizationList.append(LunaeE2HanabiTingyunLuocha(config))
-visualizationList.append(LunaeHanabiTingyunLuocha(config))
-# visualizationList.append(LunaeHanyaTingyunLuocha(config))
-# visualizationList.append(LunaeHanyaYukongLuocha(config))
-# visualizationList.append(LunaeHanyaPelaLuocha(config))
-# visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
-# visualizationList.append(LunaeTingyunYukongLuocha(config))
-# visualizationList.append(LunaePelaTingyunLuocha(config))
-# visualizationList.append(LunaePelaYukongLuocha(config))
+# # Lunae Teams
+# visualizationList.append(LunaeHanabiTingyunLuocha(config))
+# # visualizationList.append(LunaeHanyaTingyunLuocha(config))
+# # visualizationList.append(LunaeHanyaYukongLuocha(config))
+# # visualizationList.append(LunaeHanyaPelaLuocha(config))
+# # visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
+# # visualizationList.append(LunaeTingyunYukongLuocha(config))
+# # visualizationList.append(LunaePelaTingyunLuocha(config))
+# # visualizationList.append(LunaePelaYukongLuocha(config))
+# # # visualizationList.append(LunaeE2HanabiTingyunLuocha(config))
 
 # # Kafka Teams
 # # config['enemySpeed'] = 190 / 1.125

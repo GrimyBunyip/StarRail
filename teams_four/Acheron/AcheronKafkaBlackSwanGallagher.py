@@ -136,6 +136,8 @@ def AcheronKafkaBlackSwanGallagher(config):
     GallagherRotation = [GallagherCharacter.useBasic() * numBasicGallagher,
                          GallagherCharacter.useEnhancedBasic() * numEnhancedGallagher,
                          GallagherCharacter.useUltimate() * 1,]
+    if GallagherCharacter.lightcone.name == 'Multiplication':
+        GallagherRotation[-1].actionvalue += 0.20 # advance foward cannot exceed a certain amount
 
     #%% Acheron Kafka BlackSwan Gallagher Rotation Math
     numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')

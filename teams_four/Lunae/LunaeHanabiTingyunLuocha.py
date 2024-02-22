@@ -10,7 +10,6 @@ from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
@@ -42,7 +41,7 @@ def LunaeHanabiTingyunLuocha(config):
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'RES': 3}),
                             lightcone = Multiplication(**config),
-                            relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
+                            relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                             **config)
     
     team = [LunaeCharacter, HanabiCharacter, TingyunCharacter, LuochaCharacter]
@@ -50,7 +49,7 @@ def LunaeHanabiTingyunLuocha(config):
     #%% Lunae Hanabi Tingyun Luocha Team Buffs
     # Penacony Buff
     for character in [LunaeCharacter, HanabiCharacter, TingyunCharacter]:
-        character.addStat('DMG.imaginary',description='Penacony from Luocha',amount=0.1)
+        character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
     for character in [LunaeCharacter, LuochaCharacter, TingyunCharacter]:
         character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
 

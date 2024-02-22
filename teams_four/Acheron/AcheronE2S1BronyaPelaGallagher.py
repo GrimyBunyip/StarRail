@@ -119,6 +119,8 @@ def AcheronE2S1BronyaPelaGallagher(config):
     GallagherRotation = [GallagherCharacter.useBasic() * numBasicGallagher,
                          GallagherCharacter.useEnhancedBasic() * numEnhancedGallagher,
                          GallagherCharacter.useUltimate() * 1,]
+    if GallagherCharacter.lightcone.name == 'Multiplication':
+        GallagherRotation[-1].actionvalue += 0.20 # advance foward cannot exceed a certain amount
 
     #%% Acheron Bronya Pela Gallagher Rotation Math
 

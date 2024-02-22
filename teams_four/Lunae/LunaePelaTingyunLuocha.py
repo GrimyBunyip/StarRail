@@ -8,11 +8,8 @@ from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
-from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
-from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
@@ -44,7 +41,7 @@ def LunaePelaTingyunLuocha(config):
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'RES': 3}),
                             lightcone = Multiplication(**config),
-                            relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
+                            relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                             **config)
     
     team = [LunaeCharacter, PelaCharacter, TingyunCharacter, LuochaCharacter]
@@ -53,10 +50,8 @@ def LunaePelaTingyunLuocha(config):
     # Broken Keel Buffs
     for character in [LunaeCharacter, TingyunCharacter, LuochaCharacter]:
         character.addStat('CD',description='Broken Keel from Pela',amount=0.1)
-        
-    # Penacony Buff
     for character in [LunaeCharacter, PelaCharacter, TingyunCharacter]:
-        character.addStat('DMG.imaginary',description='Penacony from Luocha',amount=0.1)
+        character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
         
     # Pela Debuffs, 3 turn pela rotation
     PelaCharacter.applyUltDebuff(team,rotationDuration=3)
