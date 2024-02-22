@@ -86,9 +86,11 @@ def JingyuanTingyunAstaLuocha(config):
         character.print()
 
     #%% JingYuan Tingyun Asta Luocha Rotations
+    numBasicTingyun = 2.0
+    numSkillTingyun = 1.0
     TingyunRotation = [ 
-            TingyunCharacter.useBasic() * 2, 
-            TingyunCharacter.useSkill(),
+            TingyunCharacter.useBasic() * numBasicTingyun, 
+            TingyunCharacter.useSkill() * numSkillTingyun,
             TingyunCharacter.useUltimate(),
     ]
         
@@ -135,7 +137,7 @@ def JingyuanTingyunAstaLuocha(config):
     LuochaRotation = [x * JingYuanRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
     JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q', JingYuanRotation, JingYuanCharacter, config)
-    TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 
+    TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, {numBasicTingyun:.1f}N {numSkillTingyun:.1f}E 1Q, 12 spd substats', 
                                     TingyunRotation, TingyunCharacter, config)
     AstaEstimate = DefaultEstimator(f'Asta: {numBasicAsta:.1f}N {numSkillAsta:.1f}E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
                                     AstaRotation, AstaCharacter, config)

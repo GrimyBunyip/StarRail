@@ -99,9 +99,11 @@ def DrRatioTingyunSilverWolfLuocha(config):
             SilverWolfCharacter.useUltimate() * numUltSW, #
     ]
     
+    numBasicTingyun = 2.0
+    numSkillTingyun = 1.0
     TingyunRotation = [ 
-            TingyunCharacter.useBasic() * 2, 
-            TingyunCharacter.useSkill(),
+            TingyunCharacter.useBasic() * numBasicTingyun, 
+            TingyunCharacter.useSkill() * numSkillTingyun,
             TingyunCharacter.useUltimate(),
     ]
 

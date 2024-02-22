@@ -85,9 +85,11 @@ def JingyuanTingyunHanabiLuocha(config):
         character.print()
 
     #%% JingYuan Tingyun Hanabi Luocha Rotations
+    numBasicTingyun = 2.0
+    numSkillTingyun = 1.0
     TingyunRotation = [ 
-            TingyunCharacter.useBasic() * 2, 
-            TingyunCharacter.useSkill(),
+            TingyunCharacter.useBasic() * numBasicTingyun, 
+            TingyunCharacter.useSkill() * numSkillTingyun,
             TingyunCharacter.useUltimate(),
     ]
         
@@ -151,7 +153,7 @@ def JingyuanTingyunHanabiLuocha(config):
     HanabiRotation.append(DanceDanceDanceEffect)
 
     JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q', JingYuanRotation, JingYuanCharacter, config)
-    TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 
+    TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, {numBasicTingyun:.1f}N {numSkillTingyun:.1f}E 1Q, 12 spd substats', 
                                     TingyunRotation, TingyunCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)

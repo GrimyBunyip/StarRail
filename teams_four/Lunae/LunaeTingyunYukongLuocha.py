@@ -91,9 +91,11 @@ def LunaeTingyunYukongLuocha(config):
         character.print()
 
     #%% Lunae Tingyun Yukong Luocha Rotations
+    numBasicTingyun = 2.0
+    numSkillTingyun = 1.0
     TingyunRotation = [ 
-            TingyunCharacter.useBasic() * 2, 
-            TingyunCharacter.useSkill(),
+            TingyunCharacter.useBasic() * numBasicTingyun, 
+            TingyunCharacter.useSkill() * numSkillTingyun,
             TingyunCharacter.useUltimate(),
     ]
         

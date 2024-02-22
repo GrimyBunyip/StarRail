@@ -80,9 +80,11 @@ def JingyuanTingyunTopazLuocha(config):
         character.print()
 
     #%% JingYuan Tingyun Topaz Luocha Rotations
+    numBasicTingyun = 2.0
+    numSkillTingyun = 1.0
     TingyunRotation = [ 
-            TingyunCharacter.useBasic() * 2, 
-            TingyunCharacter.useSkill(),
+            TingyunCharacter.useBasic() * numBasicTingyun, 
+            TingyunCharacter.useSkill() * numSkillTingyun,
             TingyunCharacter.useUltimate(),
     ]
         
@@ -139,7 +141,7 @@ def JingyuanTingyunTopazLuocha(config):
 
     JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q', JingYuanRotation, JingYuanCharacter, config)
     TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.1f}E {numBasicTopaz:.1f}N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
-    TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 
+    TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, {numBasicTingyun:.1f}N {numSkillTingyun:.1f}E 1Q, 12 spd substats', 
                                     TingyunRotation, TingyunCharacter, config)
     LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 
                                     LuochaRotation, LuochaCharacter, config)

@@ -102,9 +102,11 @@ def SeeleMaxSilverWolfTingyunFuxuan(config):
             SilverWolfCharacter.useUltimate() * numUltSW, #
     ]
 
+    numBasicTingyun = 2.0
+    numSkillTingyun = 1.0
     TingyunRotation = [ 
-            TingyunCharacter.useBasic() * 2, 
-            TingyunCharacter.useSkill(),
+            TingyunCharacter.useBasic() * numBasicTingyun, 
+            TingyunCharacter.useSkill() * numSkillTingyun,
             TingyunCharacter.useUltimate(),
     ]
     
@@ -136,7 +138,7 @@ def SeeleMaxSilverWolfTingyunFuxuan(config):
     FuxuanRotation = [x * SeeleRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
 
     SeeleEstimate = DefaultEstimator(f'Seele Max Resurgence: {numBasic:.1f}N Resurgence({numSkill:.1f}E1Q)', SeeleRotation, SeeleCharacter, config)
-    TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 
+    TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, {numBasicTingyun:.1f}N {numSkillTingyun:.1f}E 1Q, 12 spd substats', 
                                     TingyunRotation, TingyunCharacter, config)
     SilverWolfEstimate = DefaultEstimator(f'SilverWolf {numBasicSW:.0f}N {numSkillSW:.0f}E {numUltSW:.0f}Q', SilverWolfRotation, SilverWolfCharacter, config)
     FuxuanEstimate = DefaultEstimator(f'Fuxuan: 2N 1E 1Q, S{FuxuanCharacter.lightcone.superposition:.0f} {FuxuanCharacter.lightcone.name}',

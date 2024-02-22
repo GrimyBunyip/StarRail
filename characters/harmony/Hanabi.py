@@ -34,17 +34,17 @@ class Hanabi(BaseCharacter):
             character.addStat('ATK.percent',description='Hanabi Trace',amount=0.3 if numQuantum >= 3 else 0.15 if numQuantum == 2 else 0.05,type='quantum')
             character.addStat('DMG',description='Hanabi Talent',amount=0.066 if self.eidolon >= 5 else 0.06, stacks=3)
             
-    def applyUltBuff(self, team:list, uptime:float):
+    def applyUltBuff(self, team:list, uptime:float,type:list=None):
         for character in team:
             character:BaseCharacter
             character.addStat('DMG',description='Hanabi Ult',
                                 amount=0.108 if self.eidolon >= 5 else 0.10,
-                                stacks=3, uptime=uptime)
+                                stacks=3, uptime=uptime,type=type)
         
-    def applySkillBuff(self,character:BaseCharacter,uptime:float):
+    def applySkillBuff(self,character:BaseCharacter,uptime:float,type:list=None):
         character.addStat('CD',description='Hanabi Skill',
                             amount=((0.264 * self.getTotalStat('CD') + 0.495) if self.eidolon >= 3 else (0.24 * self.getTotalStat('CD') + 0.45)),
-                            uptime=uptime)
+                            uptime=uptime,type=type)
         
     def useBasic(self):
         retval = BaseEffect()

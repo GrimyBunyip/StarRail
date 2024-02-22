@@ -17,14 +17,17 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
-def LunaeHanabiTingyunLuocha(config):
+def LunaeE2HanabiTingyunLuocha(config):
     #%% Lunae Hanabi Tingyun Luocha Characters
     
+    originalFivestarEidolons = config['fivestarEidolons']
+    config['fivestarEidolons'] = 2
     LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
                             substats = {'CR': 11, 'CD': 9, 'ATK.percent': 5, 'BreakEffect': 3}),
                             lightcone = OnTheFallOfAnAeon(uptime=1.0,**config),
                             relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = RutilantArena(),
                             **config)
+    config['fivestarEidolons'] = originalFivestarEidolons
 
     TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
@@ -56,25 +59,26 @@ def LunaeHanabiTingyunLuocha(config):
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
-    HanabiCharacter.applySkillBuff(character=LunaeCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
-    
-    # Past and Future
-    LunaeCharacter.addStat('DMG',description='Past and Future',amount=0.32)
+    HanabiCharacter.applySkillBuff(character=LunaeCharacter,uptime=1.0,type=['ultimate']) # hanabi skill buff always applies to ultiamtes
+    HanabiCharacter.applySkillBuff(character=LunaeCharacter,uptime=6.0/7.0,type=['enhancedBasic']) # hanabi skill buff applies to 6 of 7 enhanced basics 
             
+    # Past and Future
+    LunaeCharacter.addStat('DMG',description='Past and Future',amount=0.32,uptime=1.0,type=['ultimate'])
+    LunaeCharacter.addStat('DMG',description='Past and Future',amount=0.32,uptime=6.0/7.0,type=['enhancedBasic'])
+    
     # Tingyun Messenger Buff
     LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc Tingyun',amount=0.12,uptime=1.0/4.0)
-    for character in [LunaeCharacter, HanabiCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc Tingyun',amount=0.12,uptime=1.0/3.0)
+    LunaeCharacter.addStat('SPD.percent',description='Messenger 4 pc Tingyun',amount=0.12,uptime=1.0/4.0)
+    HanabiCharacter.addStat('SPD.percent',description='Messenger 4 pc Tingyun',amount=0.12,uptime=1.0/3.0)
     
     # Hanabi Messenger Buff
     LuochaCharacter.addStat('SPD.percent',description='Messenger 4 pc Hanabi',amount=0.12,uptime=1.0/4.0)
-    for character in [LunaeCharacter, HanabiCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc Hanabi',amount=0.12,uptime=1.0/3.0)
+    LunaeCharacter.addStat('SPD.percent',description='Messenger 4 pc Hanabi',amount=0.12,uptime=1.0/4.0)
+    HanabiCharacter.addStat('SPD.percent',description='Messenger 4 pc Hanabi',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(LunaeCharacter)
-    TingyunCharacter.applyUltBuff(LunaeCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/LunaeCharacter.getTotalStat('SPD'))
 
     #%% Print Statements
     for character in team:
@@ -88,19 +92,23 @@ def LunaeHanabiTingyunLuocha(config):
                     HanabiCharacter.useUltimate()]
         
     # Lunae should be about the same speed as tingyun, estimate 2.3 turn rotations
-    lunaeRotation = 2.3
+    numBasicLunae = 2.0 / 3.0
+    numEnhancedLunae = 7.0 / 3.0
+    
     LunaeRotation = [  # 140 energy needed. EndTurn needed to factor in his buffs
-                LunaeCharacter.useSkill() * 3 * lunaeRotation,
-                LunaeCharacter.useEnhancedBasic3() * lunaeRotation, # -3 SP, 40 energy
+                LunaeCharacter.useBasic() * numBasicLunae,
+                LunaeCharacter.useSkill() * 3 * numEnhancedLunae,
+                LunaeCharacter.useEnhancedBasic3() * numEnhancedLunae, # -3 SP, 40 energy
                 LunaeCharacter.useUltimate(), # +2 SP, 5 energy
-                TingyunCharacter.useBenediction(['basic','enhancedBasic']) * 2, # apply benedictions with buffs
+                TingyunCharacter.useBenediction(['basic']) * numBasicLunae, # apply benedictions with buffs
+                TingyunCharacter.useBenediction(['basic','enhancedBasic']) * numEnhancedLunae, # apply benedictions with buffs
                 TingyunCharacter.useBenediction(['ultimate']) * 1,
                 LunaeCharacter.endTurn(),
                 HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - LunaeCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * lunaeRotation, 
     ]
 
-    numBasicTingyun = 2.0
-    numSkillTingyun = 1.0
+    numBasicTingyun = 1.5
+    numSkillTingyun = 1.5
     TingyunRotation = [ 
             TingyunCharacter.useBasic() * numBasicTingyun, 
             TingyunCharacter.useSkill() * numSkillTingyun,
@@ -131,7 +139,7 @@ def LunaeHanabiTingyunLuocha(config):
     TingyunRotation = [x * LunaeRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     LuochaRotation = [x * LunaeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
-    LunaeEstimate = DefaultEstimator(f'Lunae: {lunaeRotation:.1f}N^3 1Q', LunaeRotation, LunaeCharacter, config)
+    LunaeEstimate = DefaultEstimator(f'Lunae E{LunaeCharacter.eidolon:.0f}: {numBasicLunae:.1f}N {numEnhancedLunae:.1f}N^3 1Q', LunaeRotation, LunaeCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, {numBasicTingyun:.1f}N {numSkillTingyun:.1f}E 1Q, 12 spd substats', 

@@ -57,8 +57,10 @@ class Lunae(BaseCharacter):
         self.addStat('CD',description='Lunae Trace',amount=0.24,uptime=self.joltAnewUptime)
         
         # Eidolons
+        if self.eidolon >= 2:
+            self.addStat('AdvanceForward',description='Lunae E2',amount=1.0,type=['ultimate'])
         if self.eidolon >= 6:
-            self.addStat('ResPen',description='e6',amount=0.2,stacks=self.reignStacks)
+            self.addStat('ResPen',description='Lunae E6',amount=0.2,stacks=self.reignStacks)
 
         # Gear
         self.equipGear()
@@ -174,7 +176,7 @@ class Lunae(BaseCharacter):
                 retval.gauge = ( 60.0 * numBlast ) * self.getBreakEfficiency(type)
                 retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
                 retval.skillpoints = 3.0 if self.eidolon >= 2 else 2.0
-                retval.actionvalue = -1.0 if self.eidolon >= 2 else 0.0
+                retval.actionvalue = 0.0 + self.getAdvanceForward(type)
             retval.damage = self.getTotalMotionValue(f'ultimate_{hitNum}',type)
             retval.damage *= self.getTotalCrit(type)
             retval.damage *= self.getDmg()

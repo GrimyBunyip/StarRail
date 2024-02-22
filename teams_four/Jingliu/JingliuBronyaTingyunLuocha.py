@@ -141,9 +141,11 @@ def JingliuBronyaTingyunLuocha(config):
     JingliuRotation += [JingliuCharacter.extraTurn() * 0.9 * numSkill / 2.0] # multiply by 0.9 because it tends to overlap with skill advances
     JingliuRotation += [BronyaCharacter.useAdvanceForward() * (numSkill / 4.0 + numEnhanced / 2.0)] #This jingliu rotation is 2.5 + 0.75 = 3.25 turns
 
+    numBasicTingyun = 2.0
+    numSkillTingyun = 1.0
     TingyunRotation = [ 
-            TingyunCharacter.useBasic() * 2, 
-            TingyunCharacter.useSkill(),
+            TingyunCharacter.useBasic() * numBasicTingyun, 
+            TingyunCharacter.useSkill() * numSkillTingyun,
             TingyunCharacter.useUltimate(),
     ]
 
@@ -181,7 +183,7 @@ def JingliuBronyaTingyunLuocha(config):
                                                     JingliuRotation, JingliuCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
-    TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats', 
+    TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, {numBasicTingyun:.1f}N {numSkillTingyun:.1f}E 1Q, 12 spd substats', 
                                     TingyunRotation, TingyunCharacter, config)
     LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name),
                                     LuochaRotation, LuochaCharacter, config)
