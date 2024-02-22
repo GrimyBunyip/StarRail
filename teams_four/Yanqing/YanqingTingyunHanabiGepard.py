@@ -5,24 +5,18 @@ from characters.hunt.Yanqing import Yanqing
 from characters.harmony.Tingyun import Tingyun
 from characters.harmony.Hanabi import Hanabi
 from estimator.DefaultEstimator import DefaultEstimator
-from lightCones.abundance.Multiplication import Multiplication
-from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.hunt.Swordplay import Swordplay
-from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from lightCones.preservation.LandausChoice import LandausChoice
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SpaceSealingStation import SpaceSealingStation
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
-from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
 from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
-from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 
 def YanqingTingyunHanabiGepard(config):
     #%% Yanqing Tingyun Hanabi Gepard Characters
