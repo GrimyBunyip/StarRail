@@ -14,7 +14,10 @@ from teams_four.Acheron.AcheronKafkaBlackSwanLuocha import AcheronKafkaBlackSwan
 from teams_four.Acheron.AcheronKafkaPelaGallagher import AcheronKafkaPelaGallagher
 from teams_four.Acheron.AcheronKafkaPelaLuocha import AcheronKafkaPelaLuocha
 from teams_four.Acheron.AcheronS1SilverWolfPelaFuxuan import AcheronS1SilverWolfPelaFuxuan
+from teams_four.Acheron.AcheronS1SilverWolfPelaGallagher import AcheronS1SilverWolfPelaGallagher
+from teams_four.Acheron.AcheronSilverWolfPelaAventurine import AcheronSilverWolfPelaAventurine
 from teams_four.Acheron.AcheronSilverWolfPelaFuxuan import AcheronSilverWolfPelaFuxuan
+from teams_four.Acheron.AcheronSilverWolfPelaGallagher import AcheronSilverWolfPelaGallagher
 from teams_four.Acheron.AcheronSilverWolfPelaLuocha import AcheronSilverWolfPelaLuocha
 from teams_four.Acheron.AcheronWeltPelaFuxuan import AcheronWeltPelaFuxuan
 from teams_four.Argenti.ArgentiBronyaPelaHuohuo import ArgentiBronyaPelaHuohuo
@@ -115,13 +118,13 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # Acheron Teams
 config['numEnemies'] = 3
 
-# E2S1 Comparisons
-visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
-visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
-visualizationList.append(AcheronE2S1BronyaPelaLuocha(config))
-visualizationList.append(AcheronE2S1KafkaBlackSwanGallagher(config))
-visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
-visualizationList.append(AcheronE2S1HanyaKafkaGallagher(config))
+# # E2S1 Comparisons
+# visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
+# visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
+# visualizationList.append(AcheronE2S1BronyaPelaLuocha(config))
+# visualizationList.append(AcheronE2S1KafkaBlackSwanGallagher(config))
+# visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
+# visualizationList.append(AcheronE2S1HanyaKafkaGallagher(config))
 
 # # E2 Comparisons
 # visualizationList.append(AcheronE2AstaPelaFuxuan(config))
@@ -129,7 +132,10 @@ visualizationList.append(AcheronE2S1HanyaKafkaGallagher(config))
 # visualizationList.append(AcheronE2HanabiPelaFuxuan(config))
 
 # # E0 Comparisons
-# visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
+visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
+visualizationList.append(AcheronSilverWolfPelaLuocha(config))
+visualizationList.append(AcheronSilverWolfPelaGallagher(config))
+visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 # visualizationList.append(AcheronWeltPelaFuxuan(config))
 # visualizationList.append(AcheronKafkaBlackSwanGallagher(config))
 # visualizationList.append(AcheronKafkaPelaGallagher(config))
@@ -137,7 +143,7 @@ visualizationList.append(AcheronE2S1HanyaKafkaGallagher(config))
 # visualizationList.append(AcheronKafkaPelaLuocha(config))
 
 # visualizationList.append(AcheronS1SilverWolfPelaFuxuan(config))
-# # visualizationList.append(AcheronSilverWolfPelaLuocha(config)) # retired, just use fuxuan
+# visualizationList.append(AcheronS1SilverWolfPelaGallagher(config))
 
 # # Argenti Teams
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))

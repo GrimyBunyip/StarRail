@@ -86,9 +86,10 @@ def AcheronE2S1BronyaPelaGallagher(config):
 
     #%% Acheron Bronya Pela Gallagher Rotations
     
-    numStacks =  (4/3) * PelaCharacter.getTotalStat('SPD') / BronyaCharacter.getTotalStat('SPD') # 4 stacks per 3 basics
-    numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
+    numStacks =  (4/3) * PelaCharacter.getTotalStat('SPD') # 4 stacks per 3 basics
+    numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
     numStacks *= 0.5 # halve the stacks from outside of Acheron because of Bronya
+    numStacks /= BronyaCharacter.getTotalStat('SPD')
     numStacks += 1 + 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2, plus 1 from S1 
     
     numSkillAcheron = 9.0 / numStacks

@@ -83,7 +83,7 @@ def AcheronE2S1HanabiPelaFuxuan(config):
 
     #%% Acheron Hanabi Pela Fuxuan Rotations
     
-    numStacks =  (4/3) * PelaCharacter.getTotalStat('SPD') # 4 pela attacks per 3 turn rotation
+    numStacks =  1.0 * PelaCharacter.getTotalStat('SPD') # 3 pela attacks per 3 turn rotation
     numStacks /= HanabiCharacter.getTotalStat('SPD')
     numStacks += 1 + 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2, plus 1 from S1 
     
