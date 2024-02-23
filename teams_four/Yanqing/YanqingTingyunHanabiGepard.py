@@ -14,7 +14,7 @@ from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SpaceSealingStation import SpaceSealingStation
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc
-from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
+from relicSets.relicSets.KnightOfPurityPalace import KnightOfPurityPalace2pc, KnightOfPurityPalace4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
 
@@ -44,7 +44,7 @@ def YanqingTingyunHanabiGepard(config):
     GepardCharacter = Gepard(RelicStats(mainstats = ['ER', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
                             substats = {'DEF.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                             lightcone = LandausChoice(**config),
-                            relicsetone = LongevousDisciple2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
+                            relicsetone = KnightOfPurityPalace2pc(), relicsettwo = KnightOfPurityPalace4pc(), planarset = PenaconyLandOfDreams(),
                             **config)
     
     team = [YanqingCharacter, TingyunCharacter, HanabiCharacter, GepardCharacter]
@@ -120,9 +120,11 @@ def YanqingTingyunHanabiGepard(config):
                        HanabiCharacter.useSkill() * numSkillHanabi,
                     HanabiCharacter.useUltimate()]
 
-    GepardRotation = [GepardCharacter.useBasic() * 3,
-                    GepardCharacter.useUltimate() * 1,]
-
+    numBasicGepard = 3.0
+    numSkillGepard = 0.0
+    GepardRotation = [GepardCharacter.useBasic() * numBasicGepard,
+                      GepardCharacter.useSkill() * numSkillGepard,
+                      GepardCharacter.useUltimate() * 1,]
     #%% Yanqing Tingyun Hanabi Gepard Rotation Math
 
     totalYanqingEffect = sumEffects(YanqingRotation)
@@ -153,7 +155,7 @@ def YanqingTingyunHanabiGepard(config):
                                     TingyunRotation, TingyunCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)
-    GepardEstimate = DefaultEstimator('Gepard: 3N 1Q, S{:.0f} {}'.format(GepardCharacter.lightcone.superposition, GepardCharacter.lightcone.name),
+    GepardEstimate = DefaultEstimator(f'Gepard: {numBasicGepard:.1f}N {numSkillGepard:.1f}E 1Q, S{GepardCharacter.lightcone.superposition:.0f} {GepardCharacter.lightcone.name}',
                                     GepardRotation, GepardCharacter, config)
 
     return([YanqingEstimate, TingyunEstimate, HanabiEstimate, GepardEstimate])

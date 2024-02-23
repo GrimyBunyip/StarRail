@@ -6,15 +6,13 @@ from characters.harmony.Tingyun import Tingyun
 from characters.harmony.RuanMei import RuanMei
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
-from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.hunt.Swordplay import Swordplay
 from lightCones.preservation.LandausChoice import LandausChoice
-from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SpaceSealingStation import SpaceSealingStation
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc
-from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
+from relicSets.relicSets.KnightOfPurityPalace import KnightOfPurityPalace2pc, KnightOfPurityPalace4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
@@ -47,7 +45,7 @@ def YanqingTingyunRuanMeiGepard(config):
     GepardCharacter = Gepard(RelicStats(mainstats = ['ER', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
                             substats = {'DEF.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                             lightcone = LandausChoice(**config),
-                            relicsetone = LongevousDisciple2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
+                            relicsetone = KnightOfPurityPalace2pc(), relicsettwo = KnightOfPurityPalace4pc(), planarset = PenaconyLandOfDreams(),
                             **config)
     
     team = [YanqingCharacter, TingyunCharacter, RuanMeiCharacter, GepardCharacter]
@@ -116,9 +114,11 @@ def YanqingTingyunRuanMeiGepard(config):
                        RuanMeiCharacter.useSkill() * numSkillRuanMei,
                     RuanMeiCharacter.useUltimate()]
 
-    GepardRotation = [GepardCharacter.useBasic() * 3,
-                    GepardCharacter.useUltimate() * 1,]
-
+    numBasicGepard = 3.0
+    numSkillGepard = 0.0
+    GepardRotation = [GepardCharacter.useBasic() * numBasicGepard,
+                      GepardCharacter.useSkill() * numSkillGepard,
+                      GepardCharacter.useUltimate() * 1,]
     #%% Yanqing Tingyun RuanMei Gepard Rotation Math
 
     totalYanqingEffect = sumEffects(YanqingRotation)
@@ -149,7 +149,7 @@ def YanqingTingyunRuanMeiGepard(config):
                                     TingyunRotation, TingyunCharacter, config)
     RuanMeiEstimate = DefaultEstimator(f'RuanMei {numSkillRuanMei:.1f}E {numBasicRuanMei:.1f}N S{RuanMeiCharacter.lightcone.superposition:.0f} {RuanMeiCharacter.lightcone.name}, 12 Spd Substats', 
                                     RuanMeiRotation, RuanMeiCharacter, config)
-    GepardEstimate = DefaultEstimator('Gepard: 3N 1Q, S{:.0f} {}'.format(GepardCharacter.lightcone.superposition, GepardCharacter.lightcone.name),
+    GepardEstimate = DefaultEstimator(f'Gepard: {numBasicGepard:.1f}N {numSkillGepard:.1f}E 1Q, S{GepardCharacter.lightcone.superposition:.0f} {GepardCharacter.lightcone.name}',
                                     GepardRotation, GepardCharacter, config)
 
     return([YanqingEstimate, TingyunEstimate, RuanMeiEstimate, GepardEstimate])

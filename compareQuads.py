@@ -18,6 +18,7 @@ from teams_four.Acheron.AcheronS1SilverWolfPelaGallagher import AcheronS1SilverW
 from teams_four.Acheron.AcheronSilverWolfPelaAventurine import AcheronSilverWolfPelaAventurine
 from teams_four.Acheron.AcheronSilverWolfPelaFuxuan import AcheronSilverWolfPelaFuxuan
 from teams_four.Acheron.AcheronSilverWolfPelaGallagher import AcheronSilverWolfPelaGallagher
+from teams_four.Acheron.AcheronSilverWolfPelaGepard import AcheronSilverWolfPelaGepard
 from teams_four.Acheron.AcheronSilverWolfPelaLuocha import AcheronSilverWolfPelaLuocha
 from teams_four.Acheron.AcheronWeltPelaFuxuan import AcheronWeltPelaFuxuan
 from teams_four.Argenti.ArgentiBronyaPelaHuohuo import ArgentiBronyaPelaHuohuo
@@ -132,6 +133,7 @@ config['numEnemies'] = 3
 # visualizationList.append(AcheronE2HanabiPelaFuxuan(config))
 
 # # E0 Comparisons
+visualizationList.append(AcheronSilverWolfPelaGepard(config))
 visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
 visualizationList.append(AcheronSilverWolfPelaLuocha(config))
 visualizationList.append(AcheronSilverWolfPelaGallagher(config))
