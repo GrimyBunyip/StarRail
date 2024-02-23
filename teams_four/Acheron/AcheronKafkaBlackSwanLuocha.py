@@ -68,8 +68,8 @@ def AcheronKafkaBlackSwanLuocha(config):
     #
     percent_basics = 0.5
     numStacks = 1.0 * percent_basics # Assume Acheron generates 1 stack when she skills
-    numStacks += (7 / 3) * KafkaCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 7 Kafka attacks per 3 turn wolf rotation
-    numStacks +=  (6 / 5) * BlackSwanCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 6 BlackSwan attacks per 5 turn wolf rotation
+    numStacks += (7/3) * KafkaCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 7 Kafka attacks per 3 turn rotation
+    numStacks +=  (6/5) * BlackSwanCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 6 BlackSwan attacks per 5 turn rotation
     
     numSkillAcheron = 9.0 / numStacks
     numBasicAcheron = numSkillAcheron * percent_basics

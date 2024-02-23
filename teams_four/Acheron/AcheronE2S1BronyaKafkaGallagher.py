@@ -2,23 +2,26 @@ from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Gallagher import Gallagher
 from characters.nihility.Acheron import Acheron
-from characters.nihility.Pela import Pela
+from characters.nihility.Kafka import Kafka
 from characters.harmony.Bronya import Bronya
-from estimator.DefaultEstimator import DefaultEstimator
+from estimator.DefaultEstimator import DefaultEstimator, DotEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.nihility.AlongThePassingShore import AlongThePassingShore
+from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
+from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
+from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronE2S1BronyaPelaGallagher(config):
-    #%% Acheron Bronya Pela Gallagher Characters
+def AcheronE2S1BronyaKafkaGallagher(config):
+    #%% Acheron Bronya Kafka Gallagher Characters
     originalFivestarEidolons = config['fivestarEidolons']
     config['fivestarEidolons'] = 2
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
@@ -34,11 +37,11 @@ def AcheronE2S1BronyaPelaGallagher(config):
                         lightcone = PastAndFuture(**config),
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                         **config)
-
-    PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
-                            substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                            lightcone = ResolutionShinesAsPearlsOfSweat(**config),
-                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = BrokenKeel(),
+    
+    KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
+                            substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
+                            lightcone = PatienceIsAllYouNeed(**config),
+                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(stacks=2), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
 
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
@@ -47,34 +50,20 @@ def AcheronE2S1BronyaPelaGallagher(config):
                             relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
                             **config)
     
-    team = [AcheronCharacter, BronyaCharacter, PelaCharacter, GallagherCharacter]
+    team = [AcheronCharacter, BronyaCharacter, KafkaCharacter, GallagherCharacter]
 
-    #%% Acheron Bronya Pela Gallagher Team Buffs
-    for character in [BronyaCharacter, AcheronCharacter, GallagherCharacter]:
-        character.addStat('CD',description='Broken Keel from Pela',amount=0.1)
-    for character in [PelaCharacter, AcheronCharacter, GallagherCharacter]:
+    #%% Acheron Bronya Kafka Gallagher Team Buffs
+    for character in [KafkaCharacter, AcheronCharacter, GallagherCharacter]:
         character.addStat('CD',description='Broken Keel from Bronya',amount=0.1)
-
-    # Pela Debuffs, 3 turn pela rotation
-    PelaCharacter.applyUltDebuff(team,rotationDuration=3)
-        
-    # Resolution Shines as Pearls of Sweat uptime
-    sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-    sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
-    sweatUptime = min(1.0, sweatUptime)
-    for character in [AcheronCharacter, BronyaCharacter, PelaCharacter, GallagherCharacter]:
-        character.addStat('DefShred',description='Resolution Sweat',
-                        amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
-                        uptime=sweatUptime)
         
     # Bronya Messenger 4 pc
-    for character in [AcheronCharacter, PelaCharacter, GallagherCharacter]:
+    for character in [AcheronCharacter, KafkaCharacter, GallagherCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)
         
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
     BronyaCharacter.applyUltBuff(AcheronCharacter,uptime=0.25) # only get Bronya ult buff every 4 bronya turns
-    BronyaCharacter.applyUltBuff(PelaCharacter,uptime=0.5) # only get Bronya ult buff every 4 bronya turns
+    BronyaCharacter.applyUltBuff(KafkaCharacter,uptime=0.5) # only get Bronya ult buff every 4 bronya turns
     BronyaCharacter.applyUltBuff(GallagherCharacter,uptime=0.5) # only get Bronya ult buff every 4 bronya turns
     
     # Apply Gallagher Debuff
@@ -84,11 +73,12 @@ def AcheronE2S1BronyaPelaGallagher(config):
     for character in team:
         character.print()
 
-    #%% Acheron Bronya Pela Gallagher Rotations
+    #%% Acheron Bronya Kafka Gallagher Rotations
     
-    numStacks =  (4/3) * PelaCharacter.getTotalStat('SPD') / BronyaCharacter.getTotalStat('SPD') # 4 stacks per 3 basics
-    numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
+    numStacks =  2 * KafkaCharacter.getTotalStat('SPD') # 2 stacks per kafka turn
+    numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
     numStacks *= 0.5 # halve the stacks from outside of Acheron because of Bronya
+    numStacks /= BronyaCharacter.getTotalStat('SPD')
     numStacks += 1 + 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2, plus 1 from S1 
     
     numSkillAcheron = 9.0 / numStacks
@@ -105,10 +95,19 @@ def AcheronE2S1BronyaPelaGallagher(config):
     AcheronRotation += [AcheronCharacter.useUltimate_aoe(num_stacks=3.0) * 3.0]
     AcheronRotation += [AcheronCharacter.useUltimate_end()]
     AcheronRotation += [BronyaCharacter.useAdvanceForward() * numSkillAcheron * 0.5] # Half of the turns
-
-    numBasicPela = 3.0
-    PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
-                    PelaCharacter.useUltimate(),]
+    
+    numBasicKafka = 4.0
+    numSkillKafka = 0.0
+    numTalentKafka = numBasicKafka + numSkillKafka
+    numUltKafka = 1.0
+    extraDots = []
+    extraDotsUlt = []
+    KafkaRotation = [
+            KafkaCharacter.useBasic() * numBasicKafka,
+            KafkaCharacter.useSkill(extraDots=extraDots) * numSkillKafka,
+            KafkaCharacter.useTalent() * numTalentKafka,
+            KafkaCharacter.useUltimate(extraDots=extraDotsUlt) * numUltKafka,
+    ]
 
     BronyaRotation = [BronyaCharacter.useSkill() * 4,
                     BronyaCharacter.useUltimate(),]
@@ -121,35 +120,37 @@ def AcheronE2S1BronyaPelaGallagher(config):
     if GallagherCharacter.lightcone.name == 'Multiplication':
         GallagherRotation[-1].actionvalue += 0.20 # advance foward cannot exceed a certain amount
 
-    #%% Acheron Bronya Pela Gallagher Rotation Math
+    #%% Acheron Bronya Kafka Gallagher Rotation Math
+    numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
+    numDotKafka = min(numDotKafka, 2 * numUltKafka * KafkaCharacter.numEnemies + 2 * numTalentKafka)
 
     totalAcheronEffect = sumEffects(AcheronRotation)
-    totalPelaEffect = sumEffects(PelaRotation)
+    totalKafkaEffect = sumEffects(KafkaRotation)
     totalBronyaEffect = sumEffects(BronyaRotation)
     totalGallagherEffect = sumEffects(GallagherRotation)
 
     AcheronRotationDuration = totalAcheronEffect.actionvalue * 100.0 / AcheronCharacter.getTotalStat('SPD')
-    PelaRotationDuration = totalPelaEffect.actionvalue * 100.0 / PelaCharacter.getTotalStat('SPD')
+    KafkaRotationDuration = totalKafkaEffect.actionvalue * 100.0 / KafkaCharacter.getTotalStat('SPD')
     BronyaRotationDuration = totalBronyaEffect.actionvalue * 100.0 / BronyaCharacter.getTotalStat('SPD')
     GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')
     print('Acheron: ',AcheronRotationDuration)
-    print('Pela: ',PelaRotationDuration)
+    print('Kafka: ',KafkaRotationDuration)
     print('Bronya: ',BronyaRotationDuration)
     print('Gallagher: ',GallagherRotationDuration)
 
     # Scale other character's rotation
-    PelaRotation = [x * AcheronRotationDuration / PelaRotationDuration for x in PelaRotation]
+    KafkaRotation = [x * AcheronRotationDuration / KafkaRotationDuration for x in KafkaRotation]
     BronyaRotation = [x * AcheronRotationDuration / BronyaRotationDuration for x in BronyaRotation]
     GallagherRotation = [x * AcheronRotationDuration / GallagherRotationDuration for x in GallagherRotation]
 
     AcheronEstimate = DefaultEstimator(f'Acheron E{AcheronCharacter.eidolon:d} S{AcheronCharacter.lightcone.superposition:d} {AcheronCharacter.lightcone.shortname}: {numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
-    PelaEstimate = DefaultEstimator(f'Pela: 3N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
-                                    PelaRotation, PelaCharacter, config)
+    KafkaEstimate = DefaultEstimator(f'Kafka {numBasicKafka:.0f}N {numSkillKafka:.0f}E {numTalentKafka:.0f}T {numUltKafka:.0f}Q {numDotKafka:.1f}Dot, {KafkaCharacter.lightcone.name} S{KafkaCharacter.lightcone.superposition}',
+                                    KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
     GallagherEstimate = DefaultEstimator(f'Gallagher: {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q, S{GallagherCharacter.lightcone.superposition:d} {GallagherCharacter.lightcone.name}', 
                                     GallagherRotation, GallagherCharacter, config)
 
-    return([AcheronEstimate, BronyaEstimate, PelaEstimate, GallagherEstimate])
+    return([AcheronEstimate, BronyaEstimate, KafkaEstimate, GallagherEstimate])

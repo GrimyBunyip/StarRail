@@ -86,8 +86,10 @@ def AcheronE2S1BronyaPelaLuocha(config):
 
     #%% Acheron Bronya Pela Luocha Rotations
     
-    numStacks = 1 + 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2, plus 1 from S1 
-    numStacks +=  0.5 * (4 / 3) * PelaCharacter.getTotalStat('SPD') / BronyaCharacter.getTotalStat('SPD') # 0.5 because of bronya, otherwise Pela is doing 4 stacks per 3 basics
+    numStacks +=  (4/3) * PelaCharacter.getTotalStat('SPD')# 0.5 because of bronya, otherwise Pela is doing 4 stacks per 3 basics
+    numStacks *= 0.5 # bronya letting acheron take 2 turns per bronya turn
+    numStacks /= BronyaCharacter.getTotalStat('SPD')
+    numStacks += 1 + 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2, plus 1 from S1 
     
     numSkillAcheron = 9.0 / numStacks
     print(f"{numStacks * AcheronCharacter.getTotalStat('SPD'):.2f} stack rate")

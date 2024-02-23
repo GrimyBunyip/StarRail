@@ -86,10 +86,11 @@ def AcheronE2RuanMeiPelaFuxuan(config):
 
     #%% Acheron Ruan Mei Pela Fuxuan Rotations
     
-    numStacks = 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2
-    numStacks += (3 / 2) * PelaCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 3 pela attacks per 2 turn wolf rotation
-    numStacks += (2/3) * (2/3) * RuanMeiCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD')
-    numStacks += (2/3) * FuxuanCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD')
+    numStacks = (3/2) * PelaCharacter.getTotalStat('SPD') # 3 pela attacks per 2 turn rotation
+    numStacks += (2/3) * (2/3) * RuanMeiCharacter.getTotalStat('SPD')
+    numStacks += (2/3) * FuxuanCharacter.getTotalStat('SPD')
+    numStacks /= AcheronCharacter.getTotalStat('SPD')
+    numStacks += 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2
     
     numSkillAcheron = 9.0 / numStacks
     print(f"{numStacks * AcheronCharacter.getTotalStat('SPD'):.2f} stack rate")

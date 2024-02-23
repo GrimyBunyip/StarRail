@@ -6,8 +6,8 @@ from characters.nihility.BlackSwan import BlackSwan
 from characters.nihility.Kafka import Kafka
 from estimator.DefaultEstimator import DefaultEstimator, DotEstimator
 from lightCones.abundance.Multiplication import Multiplication
+from lightCones.nihility.AlongThePassingShore import AlongThePassingShore
 from lightCones.nihility.EyesOfThePrey import EyesOfThePrey
-from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
@@ -17,14 +17,17 @@ from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronKafkaBlackSwanGallagher(config):
+def AcheronE2S1KafkaBlackSwanGallagher(config):
     #%% Acheron Kafka BlackSwan Gallagher Characters
+    originalFivestarEidolons = config['fivestarEidolons']
+    config['fivestarEidolons'] = 2
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
-                            substats = {'CR': 10, 'CD': 10, 'ATK.percent': 5, 'SPD.flat': 3}),
-                            lightcone = GoodNightAndSleepWell(**config),
+                            substats = {'CR': 8, 'CD': 6, 'ATK.percent': 3, 'SPD.flat': 11}),
+                            lightcone = AlongThePassingShore(**config),
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
                             **config)
+    config['fivestarEidolons'] = originalFivestarEidolons
     
     KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
@@ -67,11 +70,11 @@ def AcheronKafkaBlackSwanGallagher(config):
     
     #
     percent_basics = 0.5
-    numStacks = 2.0 * KafkaCharacter.getTotalStat('SPD') # 2 stacks per kafka turn
+    numStacks = 2 * KafkaCharacter.getTotalStat('SPD') # 2 stacks per kafka turn
     numStacks +=  (6/5) * BlackSwanCharacter.getTotalStat('SPD') # 6 BlackSwan attacks per 5 turn rotation
     numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
     numStacks /= AcheronCharacter.getTotalStat('SPD')
-    numStacks += 1.0 * percent_basics # Assume Acheron generates 1 stack when she skills
+    numStacks += 1.0 + 1.0 + 1.0 * percent_basics # Assume Acheron generates 2 stacks when she basics and 3 when she skills
     
     numSkillAcheron = 9.0 / numStacks
     numBasicAcheron = numSkillAcheron * percent_basics

@@ -2,42 +2,44 @@ from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Gallagher import Gallagher
 from characters.nihility.Acheron import Acheron
-from characters.nihility.Pela import Pela
 from characters.nihility.Kafka import Kafka
+from characters.harmony.Hanya import Hanya
 from estimator.DefaultEstimator import DefaultEstimator, DotEstimator
 from lightCones.abundance.Multiplication import Multiplication
-from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
+from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
+from lightCones.nihility.AlongThePassingShore import AlongThePassingShore
 from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
-from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
-from relicSets.relicSets.BandOfSizzlingThunder import BandOfSizzlingThunder2pc, BandOfSizzlingThunder4pc
-from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
+from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronKafkaPelaGallagher(config):
-    #%% Acheron Kafka Pela Gallagher Characters
+def AcheronE2S1HanyaKafkaGallagher(config):
+    #%% Acheron Hanya Kafka Gallagher Characters
+    originalFivestarEidolons = config['fivestarEidolons']
+    config['fivestarEidolons'] = 2
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
-                            substats = {'CR': 10, 'CD': 10, 'ATK.percent': 5, 'SPD.flat': 3}),
-                            lightcone = GoodNightAndSleepWell(**config),
+                            substats = {'CR': 4, 'CD': 12, 'ATK.percent': 9, 'ATK.flat': 3}),
+                            lightcone = AlongThePassingShore(**config),
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
+                            **config)
+    config['fivestarEidolons'] = originalFivestarEidolons
+
+    HanyaCharacter = Hanya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ER'],
+                            substats = {'CR': 8, 'SPD.flat': 12, 'CD': 5, 'ATK.percent': 3}),
+                            lightcone = MemoriesOfThePast(**config),
+                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = FleetOfTheAgeless(),
                             **config)
     
     KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
                             lightcone = PatienceIsAllYouNeed(**config),
-                            relicsetone = BandOfSizzlingThunder2pc(), relicsettwo = BandOfSizzlingThunder4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                            **config)
-
-    PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
-                            substats = {'RES': 6, 'SPD.flat': 12, 'EHR': 7, 'HP.percent': 3}),
-                            lightcone = ResolutionShinesAsPearlsOfSweat(**config),
-                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = FleetOfTheAgeless(),
+                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(stacks=2), planarset = FirmamentFrontlineGlamoth(stacks=2),
                             **config)
 
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
@@ -46,40 +48,32 @@ def AcheronKafkaPelaGallagher(config):
                             relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
                             **config)
     
-    team = [AcheronCharacter, KafkaCharacter, PelaCharacter, GallagherCharacter]
+    team = [AcheronCharacter, HanyaCharacter, KafkaCharacter, GallagherCharacter]
 
-    #%% Acheron Kafka Pela Gallagher Team Buffs
+    #%% Acheron Hanya Kafka Gallagher Team Buffs
     for character in [KafkaCharacter, AcheronCharacter, GallagherCharacter]:
-        character.addStat('ATK.percent',description='Fleet from Pela',amount=0.08)
+        character.addStat('ATK.percent',description='Fleet from Hanya',amount=0.08)
+        
+    # Hanya Messenger 4 pc
+    for character in [AcheronCharacter, KafkaCharacter, GallagherCharacter]:
+        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 
-    # Pela Debuffs, 3 turn pela rotation
-    PelaCharacter.applyUltDebuff(team,rotationDuration=3)
-        
-    # Resolution Shines as Pearls of Sweat uptime
-    sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed
-    sweatUptime += (2.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed / PelaCharacter.numEnemies
-    sweatUptime = min(1.0, sweatUptime)
-    for character in [AcheronCharacter, KafkaCharacter, PelaCharacter, GallagherCharacter]:
-        character.addStat('DefShred',description='Resolution Sweat',
-                        amount=0.11 + 0.01 * PelaCharacter.lightcone.superposition,
-                        uptime=sweatUptime)
-    
-    # Apply Gallagher Debuff
-    GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
-        
+    # Hanya Buffs
+    HanyaCharacter.applyBurdenBuff(team)
+    HanyaCharacter.applyUltBuff(AcheronCharacter,uptime=1.0)
     #%% Print Statements
     for character in team:
         character.print()
 
-    #%% Acheron Kafka Pela Gallagher Rotations
+    #%% Acheron Hanya Kafka Gallagher Rotations
     
-    numStacks = 2 * KafkaCharacter.getTotalStat('SPD') # 2 stacks per kafka turn
-    numStacks +=  (4/3) * PelaCharacter.getTotalStat('SPD') # 4 pela attacks per 3 turn rotation
+    numStacks =  2 * KafkaCharacter.getTotalStat('SPD') # 2 stacks per kafka turn
     numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
     numStacks /= AcheronCharacter.getTotalStat('SPD')
-    numStacks += 1 # Assume Acheron generates 1 stack when she skills
+    numStacks += 1 + 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2, plus 1 from S1 
     
     numSkillAcheron = 9.0 / numStacks
+    print(f"{numStacks * AcheronCharacter.getTotalStat('SPD'):.2f} stack rate")
 
     AcheronRotation = [ 
             AcheronCharacter.useSkill() * numSkillAcheron,
@@ -88,20 +82,23 @@ def AcheronKafkaPelaGallagher(config):
             AcheronCharacter.useUltimate_end(),
     ]
     
-    numSkill = 3.0
-    numTalent = 3.0
-    numUlt = 1.0
+    numBasicKafka = 0.0
+    numSkillKafka = 3.0
+    numTalentKafka = numBasicKafka + numSkillKafka
+    numUltKafka = 1.0
     extraDots = []
     extraDotsUlt = []
     KafkaRotation = [
-            KafkaCharacter.useSkill(extraDots=extraDots) * numSkill,
-            KafkaCharacter.useTalent() * numTalent,
-            KafkaCharacter.useUltimate(extraDots=extraDotsUlt) * numUlt,
+            KafkaCharacter.useBasic() * numBasicKafka,
+            KafkaCharacter.useSkill(extraDots=extraDots) * numSkillKafka,
+            KafkaCharacter.useTalent() * numTalentKafka,
+            KafkaCharacter.useUltimate(extraDots=extraDotsUlt) * numUltKafka,
     ]
-
-    numBasicPela = 3.0
-    PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
-                    PelaCharacter.useUltimate(),]
+    
+    numHanyaSkill = 3
+    numHanyaUlt = 1
+    HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
+                    HanyaCharacter.useUltimate() * numHanyaUlt]
 
     numBasicGallagher = 4.0
     numEnhancedGallagher = 1.0
@@ -111,37 +108,38 @@ def AcheronKafkaPelaGallagher(config):
     if GallagherCharacter.lightcone.name == 'Multiplication':
         GallagherRotation[-1].actionvalue += 0.20 # advance foward cannot exceed a certain amount
 
-    #%% Acheron Kafka Pela Gallagher Rotation Math
+    #%% Acheron Hanya Kafka Gallagher Rotation Math
     numDotKafka = DotEstimator(KafkaRotation, KafkaCharacter, config, dotMode='alwaysAll')
-    numDotKafka = min(numDotKafka, 2 * numUlt * KafkaCharacter.numEnemies + 2 * numTalent)
+    numDotKafka = min(numDotKafka, 2 * numUltKafka * KafkaCharacter.numEnemies + 2 * numTalentKafka)
 
     totalAcheronEffect = sumEffects(AcheronRotation)
-    totalPelaEffect = sumEffects(PelaRotation)
     totalKafkaEffect = sumEffects(KafkaRotation)
+    totalHanyaEffect = sumEffects(HanyaRotation)
     totalGallagherEffect = sumEffects(GallagherRotation)
 
     AcheronRotationDuration = totalAcheronEffect.actionvalue * 100.0 / AcheronCharacter.getTotalStat('SPD')
-    PelaRotationDuration = totalPelaEffect.actionvalue * 100.0 / PelaCharacter.getTotalStat('SPD')
     KafkaRotationDuration = totalKafkaEffect.actionvalue * 100.0 / KafkaCharacter.getTotalStat('SPD')
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
     GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')
     print('Acheron: ',AcheronRotationDuration)
-    print('Pela: ',PelaRotationDuration)
     print('Kafka: ',KafkaRotationDuration)
+    print('Hanya: ',HanyaRotationDuration)
     print('Gallagher: ',GallagherRotationDuration)
 
     # Scale other character's rotation
-    PelaRotation = [x * AcheronRotationDuration / PelaRotationDuration for x in PelaRotation]
     KafkaRotation = [x * AcheronRotationDuration / KafkaRotationDuration for x in KafkaRotation]
+    HanyaRotation = [x * AcheronRotationDuration / HanyaRotationDuration for x in HanyaRotation]
     GallagherRotation = [x * AcheronRotationDuration / GallagherRotationDuration for x in GallagherRotation]
 
-    AcheronEstimate = DefaultEstimator(f'Acheron E{AcheronCharacter.eidolon:d} S{AcheronCharacter.lightcone.superposition:d} {AcheronCharacter.lightcone.name}: {numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
-    PelaEstimate = DefaultEstimator(f'Pela: 3N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
-                                    PelaRotation, PelaCharacter, config)
-    KafkaEstimate = DefaultEstimator(f'Kafka {numSkill:.0f}E {numTalent:.0f}T {numUlt:.0f}Q {numDotKafka:.1f}Dot, {KafkaCharacter.lightcone.name} S{KafkaCharacter.lightcone.superposition}',
+    AcheronEstimate = DefaultEstimator(f'Acheron E{AcheronCharacter.eidolon:d} S{AcheronCharacter.lightcone.superposition:d} {AcheronCharacter.lightcone.shortname}: {numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
+    KafkaEstimate = DefaultEstimator(f'Kafka {numBasicKafka:.0f}N {numSkillKafka:.0f}E {numTalentKafka:.0f}T {numUltKafka:.0f}Q {numDotKafka:.1f}Dot, {KafkaCharacter.lightcone.name} S{KafkaCharacter.lightcone.superposition}',
                                     KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
+    HanyaEstimate = DefaultEstimator('Hanya {:.0f}E {:.0f}Q S{:.0f} {}, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt,
+                                    HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name), 
+                                    HanyaRotation, HanyaCharacter, config)
     GallagherEstimate = DefaultEstimator(f'Gallagher: {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q, S{GallagherCharacter.lightcone.superposition:d} {GallagherCharacter.lightcone.name}', 
                                     GallagherRotation, GallagherCharacter, config)
 
-    return([AcheronEstimate, PelaEstimate, KafkaEstimate, GallagherEstimate])
+    return([AcheronEstimate, HanyaEstimate, KafkaEstimate, GallagherEstimate])

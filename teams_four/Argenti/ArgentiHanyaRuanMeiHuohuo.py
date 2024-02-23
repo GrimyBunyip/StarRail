@@ -78,7 +78,7 @@ def ArgentiHanyaRuanMeiHuohuo(config):
         character.print()
 
     #%% Argenti Hanya RuanMei Huohuo Rotations
-    numHanyaSkill = 4
+    numHanyaSkill = 3
     numHanyaUlt = 1
     HanyaRotation = [HanyaCharacter.useSkill() * numHanyaSkill,
                     HanyaCharacter.useUltimate() * numHanyaUlt]

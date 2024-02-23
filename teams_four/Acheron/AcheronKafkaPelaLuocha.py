@@ -75,9 +75,10 @@ def AcheronKafkaPelaLuocha(config):
 
     #%% Acheron Kafka Pela Luocha Rotations
     
-    numStacks = 1 # Assume Acheron generates 1 stack when she skills
-    numStacks += (7 / 3) * KafkaCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 7 Kafka attacks per 3 turn wolf rotation
-    numStacks +=  (4 / 3) * PelaCharacter.getTotalStat('SPD') / AcheronCharacter.getTotalStat('SPD') # 4 pela attacks per 3 turn wolf rotation
+    numStacks = 2.0 * KafkaCharacter.getTotalStat('SPD') # 2 stacks per kafka turn
+    numStacks +=  (4/3) * PelaCharacter.getTotalStat('SPD') # 4 pela attacks per 3 turn
+    numStacks /= AcheronCharacter.getTotalStat('SPD')
+    numStacks += 1 # Assume Acheron generates 1 stack when she skills
     
     numSkillAcheron = 9.0 / numStacks
 
