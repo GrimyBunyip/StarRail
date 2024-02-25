@@ -88,7 +88,7 @@ def ArgentiRuanMeiTingyunHuohuo(config):
 
     # Argenti & Tingyun Rotation
     TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 3.0
-    HuohuoEnergyPerTurn = (36.0 if HuohuoCharacter.eidolon >= 5 else 36.0) / 4.0
+    HuohuoEnergyPerTurn = ArgentiCharacter.maxEnergy * (0.21 if HuohuoCharacter.eidolon >= 5 else 0.20)  / 4.0
     numSkill = (180.0 - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (30.0 + TingyunEnergyPerTurn + HuohuoEnergyPerTurn + 3 * ArgentiCharacter.numEnemies)
     numUlt = 1
 
@@ -122,7 +122,7 @@ def ArgentiRuanMeiTingyunHuohuo(config):
     HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
 
     ArgentiRotation.append(HuohuoCharacter.giveUltEnergy(ArgentiCharacter) * ArgentiRotationDuration / HuohuoRotationDuration)
-    ArgentiRotation.append(TingyunCharacter.giveUltEnergy() * ArgentiRotationDuration / HuohuoRotationDuration)
+    ArgentiRotation.append(TingyunCharacter.giveUltEnergy() * ArgentiRotationDuration / TingyunRotationDuration)
 
     print('##### Rotation Durations #####')
     print('Argenti: ',ArgentiRotationDuration)

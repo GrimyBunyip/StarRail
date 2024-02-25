@@ -97,6 +97,10 @@ def JingyuanTingyunHanabiLuocha(config):
 
     numSkill = 2.0 + 2.0 * longToShort
     numUlt = 1.0
+    
+    TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 3.0  # let's say half the time, huohuo can shave off a turn
+    numSkill = (130.0 - 5.0) / (30.0 + TingyunEnergyPerTurn)
+    numUlt = 1
     numTalents = ( 3 * numSkill * lordSpeed / HanabiCharacter.getTotalStat('SPD') / 0.92 )  + 2 * numSkill + 3 # 0.92 to account for S5 dance dance Dance
     JingYuanRotation = [
         JingYuanCharacter.useSkill() * numSkill,

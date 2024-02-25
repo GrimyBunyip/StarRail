@@ -9,6 +9,7 @@ from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorial
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from lightCones.preservation.LandausChoice import LandausChoice
+from lightCones.preservation.TrendOfTheUniversalMarket import TrendOfTheUniversalMarket
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
@@ -41,7 +42,7 @@ def AcheronSilverWolfPelaGepard(config):
 
     GepardCharacter = Gepard(RelicStats(mainstats = ['ER', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
                             substats = {'DEF.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
-                            lightcone = LandausChoice(**config),
+                            lightcone = TrendOfTheUniversalMarket(**config),
                             relicsetone = KnightOfPurityPalace2pc(), relicsettwo = KnightOfPurityPalace4pc(), planarset = BrokenKeel(),
                             **config)
     
@@ -66,8 +67,8 @@ def AcheronSilverWolfPelaGepard(config):
                         uptime=sweatUptime)
 
     # Silver Wolf Debuffs
-    SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, GepardCharacter],rotationDuration=3.0)
-    SilverWolfCharacter.applyDebuffs([AcheronCharacter, PelaCharacter],targetingUptime=1.0/AcheronCharacter.numEnemies,rotationDuration=3.0) # Acheron and pela won't consistently target the debuffed enemy    
+    SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, GepardCharacter],numSkillUses=2)
+    SilverWolfCharacter.applyDebuffs([AcheronCharacter, PelaCharacter],targetingUptime=1.0/AcheronCharacter.numEnemies,numSkillUses=2) # Acheron and pela won't consistently target the debuffed enemy    
     #%% Print Statements
     for character in team:
         character.print()
@@ -76,7 +77,10 @@ def AcheronSilverWolfPelaGepard(config):
     
     numStacks = (4/3) * SilverWolfCharacter.getTotalStat('SPD') # 4 silver wolf attacks per 3 turn rotation
     numStacks +=  1.0 * PelaCharacter.getTotalStat('SPD') # 3 pela attacks per 3 turn rotation
-    numStacks += 1.0 * GepardCharacter.getTotalStat('SPD') # 1.0 stacks per gepard attack
+    numStacks += (1/7) * GepardCharacter.getTotalStat('SPD') # gepard occasionally skills, wolf skill is typically more valuable despite not giving +1 stack
+    if GepardCharacter.lightcone.name == 'Trend of the Universal Market':
+        enemyChanceToHitGepard = (6*4) / (6*4+4+4+4)
+        numStacks += enemyChanceToHitGepard * GepardCharacter.numEnemies * GepardCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
     numStacks /= AcheronCharacter.getTotalStat('SPD')
     numStacks += 1 # Assume Acheron generates 1 stack when she skills
     
@@ -90,8 +94,8 @@ def AcheronSilverWolfPelaGepard(config):
             AcheronCharacter.useUltimate_end(),
     ]
 
-    numBasicSW = 2.0
-    numSkillSW = 1.0
+    numBasicSW = 0.0
+    numSkillSW = 2.0
     numUltSW = 1
     SilverWolfRotation = [ # 
             SilverWolfCharacter.useBasic() * numBasicSW, #
@@ -103,8 +107,8 @@ def AcheronSilverWolfPelaGepard(config):
     PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
                     PelaCharacter.useUltimate(),]
 
-    numBasicGepard = 0
-    numSkillGepard = 3.0
+    numBasicGepard = 3.0 * 6.0 / 7.0
+    numSkillGepard = 3.0 * 1.0 / 7.0
     GepardRotation = [GepardCharacter.useBasic() * numBasicGepard,
                       GepardCharacter.useSkill() * numSkillGepard,
                       GepardCharacter.useUltimate() * 1,]

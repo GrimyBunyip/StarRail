@@ -84,7 +84,7 @@ def ArgentiHanyaRuanMeiHuohuo(config):
                     HanyaCharacter.useUltimate() * numHanyaUlt]
 
     # Argenti & RuanMei Rotation
-    HuohuoEnergyPerTurn = (36.0 if HuohuoCharacter.eidolon >= 5 else 36.0) / 4.0
+    HuohuoEnergyPerTurn = ArgentiCharacter.maxEnergy * (0.21 if HuohuoCharacter.eidolon >= 5 else 0.20)  / 4.0
     numSkill = (180.0 - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (30.0 + HuohuoEnergyPerTurn + 3 * ArgentiCharacter.numEnemies)
     numUlt = 1
 

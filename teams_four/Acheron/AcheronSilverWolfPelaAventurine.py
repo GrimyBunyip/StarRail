@@ -10,6 +10,7 @@ from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from lightCones.preservation.DestinysThreadsForewoven import DestinysThreadsForewoven
+from lightCones.preservation.InherentlyUnjustDestiny import InherentlyUnjustDestiny
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
@@ -42,7 +43,7 @@ def AcheronSilverWolfPelaAventurine(config):
 
     AventurineCharacter = Aventurine(RelicStats(mainstats = ['DEF.percent', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
                             substats = {'CR': 8, 'CD': 12, 'SPD.flat': 5, 'DEF.percent': 3}),
-                            lightcone = DestinysThreadsForewoven(defense=3250,**config),
+                            lightcone = InherentlyUnjustDestiny(defense=3250,**config),
                             leverage_cr=0.40 * 3250 / 3600,
                             relicsetone = KnightOfPurityPalace2pc(), relicsettwo = KnightOfPurityPalace4pc(), planarset = BrokenKeel(),
                             **config)
@@ -78,10 +79,21 @@ def AcheronSilverWolfPelaAventurine(config):
         character.print()
 
     #%% Acheron Silver Wolf Pela Aventurine Rotations
+
+    numBasicAventurine = 4.0
+    numTalentAventurine = 4.0 # stacks from ultimate
+    numEnemyAttacks = AventurineCharacter.numEnemies * AventurineCharacter.enemySpeed / AventurineCharacter.getTotalStat('SPD') # extra stacks from people getting hit per turn
+    numEnemyAttacks *= (1.0 + (6*1) / (6*1 + 6 + 4 + 4)) # extra stacks from when Aventurine is Targeted
+    numTalentAventurine += numBasicAventurine * numEnemyAttacks
     
     numStacks = (3/2) * SilverWolfCharacter.getTotalStat('SPD') # 3 silver wolf attacks per 2 turn rotation
     numStacks +=  1.0 * PelaCharacter.getTotalStat('SPD') # 3 pela attacks per 3 turn rotation
     numStacks += (1/4) * AventurineCharacter.getTotalStat('SPD') # 1 debuff per 4 turn rotation
+    if AventurineCharacter.lightcone.name == 'Inherently Unjust Destiny':
+        numStacks += (numTalentAventurine / 7.0 / numBasicAventurine) * AventurineCharacter.getTotalStat('SPD') 
+        for character in team:
+            character.addStat('Vulnerability',description='Inherently Injust Destiny',
+                        amount=0.07 + 0.01 * AventurineCharacter.lightcone.superposition)
     numStacks /= AcheronCharacter.getTotalStat('SPD')
     numStacks += 1 # Assume Acheron generates 1 stack when she skills
     
@@ -107,12 +119,7 @@ def AcheronSilverWolfPelaAventurine(config):
     numBasicPela = 3.0
     PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
                     PelaCharacter.useUltimate(),]
-
-    numBasicAventurine = 4.0
-    numTalentAventurine = 4.0 # stacks from ultimate
-    numEnemyAttacks = AventurineCharacter.numEnemies * AventurineCharacter.enemySpeed / AventurineCharacter.getTotalStat('SPD') # extra stacks from people getting hit per turn
-    numEnemyAttacks *= (1.0 + (6*1) / (5*6 + 6 + 4 + 4)) # extra stacks from when Aventurine is Targeted
-    numTalentAventurine += numBasicAventurine * numEnemyAttacks
+    
     AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
                            AventurineCharacter.useTalent() * numTalentAventurine,
                            AventurineCharacter.useUltimate() * 1,]

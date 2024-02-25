@@ -52,7 +52,7 @@ def YanqingTingyunRuanMeiGepard(config):
 
     #%% Yanqing Tingyun RuanMei Gepard Team Buffs
     for character in [TingyunCharacter, YanqingCharacter, RuanMeiCharacter]:
-        character.addStat('DMG.icee',description='Penacony from Gepard',amount=0.1)
+        character.addStat('DMG.ice',description='Penacony from Gepard',amount=0.1)
     for character in [TingyunCharacter, YanqingCharacter, GepardCharacter]:
         character.addStat('DMG.ice',description='Penacony from RuanMei',amount=0.1)
 

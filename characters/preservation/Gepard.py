@@ -18,7 +18,9 @@ class Gepard(BaseCharacter):
 
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1),
-                                         BaseMV(area='single', stat='def', value=0.35)] #easiest way to implement this talent
+                                         BaseMV(area='single', stat='def', value=0.35, eidolonThreshold=5, eidolonBonus=0.035)] #easiest way to implement this talent
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=2.0, eidolonThreshold=5, eidolonBonus=0.2),
+                                         BaseMV(area='single', stat='def', value=0.7, eidolonThreshold=5, eidolonBonus=0.07)] #easiest way to implement this talent
 
         # Talents
 

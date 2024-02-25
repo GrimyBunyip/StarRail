@@ -42,13 +42,24 @@ class Acheron(BaseCharacter):
         # Eidolons
         if self.eidolon >= 1:
             self.addStat('CR',description='Acheron e1',amount=0.18,uptime=self.e1Uptime)
-        
+        if self.eidolon >= 6:
+            self.addStat('CD',description='Acheron e6',amount=0.60)
+
         # Gear
         self.equipGear()
+        
+    def applyE4Debuff(self,team:list,rotationDuration:float):
+        if self.eidolon >= 4:
+            uptime = (2.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
+            uptime = min(1.0, uptime)
+            for character in team:
+                character:BaseCharacter
+                character.addStat('Vulnerability',description='Acheron E4',
+                            amount=0.12, type=['ultimate'])
 
     def useBasic(self):
         retval = BaseEffect()
-        type = ['basic']
+        type = ['basic','ultimate'] if self.eidolon >= 6 else ['basic']
         retval.damage = self.getTotalMotionValue('basic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
@@ -64,7 +75,7 @@ class Acheron(BaseCharacter):
     def useSkill(self):
         num_adjacent = min(2.0, self.numEnemies - 1.0)
         retval = BaseEffect()
-        type = ['skill']
+        type = ['skill','ultimate'] if self.eidolon >= 6 else ['skill']
         retval.damage = self.getTotalMotionValue('skill',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

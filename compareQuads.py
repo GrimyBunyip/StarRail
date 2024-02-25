@@ -1,14 +1,18 @@
 from copy import copy
 from settings.BaseConfiguration import Configuration
 from teams_four.Acheron.AcheronE2AstaPelaFuxuan import AcheronE2AstaPelaFuxuan
+from teams_four.Acheron.AcheronE2BronyaKafkaGallagher import AcheronE2BronyaKafkaGallagher
+from teams_four.Acheron.AcheronE2BronyaPelaGallagher import AcheronE2BronyaPelaGallagher
 from teams_four.Acheron.AcheronE2S1BronyaKafkaGallagher import AcheronE2S1BronyaKafkaGallagher
 from teams_four.Acheron.AcheronE2S1BronyaPelaGallagher import AcheronE2S1BronyaPelaGallagher
 from teams_four.Acheron.AcheronE2S1BronyaPelaLuocha import AcheronE2S1BronyaPelaLuocha
 from teams_four.Acheron.AcheronE2HanabiPelaFuxuan import AcheronE2HanabiPelaFuxuan
 from teams_four.Acheron.AcheronE2RuanMeiPelaFuxuan import AcheronE2RuanMeiPelaFuxuan
+from teams_four.Acheron.AcheronE2S1HanabiKafkaGallagher import AcheronE2S1HanabiKafkaGallagher
 from teams_four.Acheron.AcheronE2S1HanabiPelaFuxuan import AcheronE2S1HanabiPelaFuxuan
 from teams_four.Acheron.AcheronE2S1HanyaKafkaGallagher import AcheronE2S1HanyaKafkaGallagher
 from teams_four.Acheron.AcheronE2S1KafkaBlackSwanGallagher import AcheronE2S1KafkaBlackSwanGallagher
+from teams_four.Acheron.AcheronE6S1BronyaKafkaGallagher import AcheronE6S1BronyaKafkaGallagher
 from teams_four.Acheron.AcheronKafkaBlackSwanGallagher import AcheronKafkaBlackSwanGallagher
 from teams_four.Acheron.AcheronKafkaBlackSwanLuocha import AcheronKafkaBlackSwanLuocha
 from teams_four.Acheron.AcheronKafkaPelaGallagher import AcheronKafkaPelaGallagher
@@ -49,6 +53,7 @@ from teams_four.Jingliu.JingliuBronyaRuanMeiLuocha import JingliuBronyaRuanMeiLu
 from teams_four.Jingliu.JingliuBronyaTingyunLuocha import JingliuBronyaTingyunLuocha
 from teams_four.Jingliu.JingliuHanyaBladeHuohuo import JingliuHanyaBladeHuohuo
 from teams_four.Jingliu.JingliuRuanMeiBladeLuocha import JingliuRuanMeiBladeLuocha
+from teams_four.Jingyuan.JingyuanHanabiTingyunHuohuo import JingYuanHanabiTingyunHuohuo
 from teams_four.Jingyuan.JingyuanTingyunAstaLuocha import JingyuanTingyunAstaLuocha
 from teams_four.Jingyuan.JingyuanTingyunHanabiFuxuan import JingyuanTingyunHanabiFuxuan
 from teams_four.Jingyuan.JingyuanTingyunHanabiLuocha import JingyuanTingyunHanabiLuocha
@@ -104,6 +109,7 @@ from teams_four.Xueyi.XueyiAstaTopazFuxuan import XueyiAstaTopazFuxuan
 from teams_four.Xueyi.XueyiHanabiPelaFuxuan import XueyiHanabiPelaFuxuan
 from teams_four.Xueyi.XueyiHanabiTingyunFuxuan import XueyiHanabiTingyunFuxuan
 from teams_four.Xueyi.XueyiHanyaPelaFuxuan import XueyiHanyaPelaFuxuan
+from teams_four.Yanqing.YanqingTingyunHanabiAventurine import YanqingTingyunHanabiAventurine
 from teams_four.Yanqing.YanqingTingyunHanabiGepard import YanqingTingyunHanabiGepard
 from teams_four.Yanqing.YanqingTingyunRuanMeiGepard import YanqingTingyunRuanMeiGepard
 from visualizer.visualizer import visualize
@@ -112,40 +118,47 @@ visualizationList = []
 
 config = copy(Configuration)
 config['numEnemies'] = 2
-config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
+config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
 
-# Acheron Teams
-config['numEnemies'] = 3
+# # Acheron Teams
+# # E6S1 Comparisons
+# # visualizationList.append(AcheronE6S1BronyaKafkaGallagher(config))
 
 # # E2S1 Comparisons
-# visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
-# visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
-# visualizationList.append(AcheronE2S1BronyaPelaLuocha(config))
-# visualizationList.append(AcheronE2S1KafkaBlackSwanGallagher(config))
-# visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
-# visualizationList.append(AcheronE2S1HanyaKafkaGallagher(config))
+# # visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
+# # visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
+# # visualizationList.append(AcheronE2S1BronyaPelaLuocha(config))
+# # visualizationList.append(AcheronE2S1KafkaBlackSwanGallagher(config))
+# # visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
+# # visualizationList.append(AcheronE2S1HanabiKafkaGallagher(config))
+# # visualizationList.append(AcheronE2S1HanyaKafkaGallagher(config))
 
 # # E2 Comparisons
-# visualizationList.append(AcheronE2AstaPelaFuxuan(config))
-# visualizationList.append(AcheronE2RuanMeiPelaFuxuan(config))
-# visualizationList.append(AcheronE2HanabiPelaFuxuan(config))
+# # visualizationList.append(AcheronE2BronyaKafkaGallagher(config))
+# # visualizationList.append(AcheronE2BronyaPelaGallagher(config))
+# # visualizationList.append(AcheronE2AstaPelaFuxuan(config))
+# # visualizationList.append(AcheronE2RuanMeiPelaFuxuan(config))
+# # visualizationList.append(AcheronE2HanabiPelaFuxuan(config))
+
+# # E0S1 Comparisons
+# visualizationList.append(AcheronS1SilverWolfPelaGallagher(config))
+# # visualizationList.append(AcheronS1SilverWolfPelaFuxuan(config))
+
+# # E0 S1 on Allies Comparisons
+# visualizationList.append(AcheronKafkaPelaGallagher(config))
+# # visualizationList.append(AcheronKafkaBlackSwanGallagher(config))
+# # visualizationList.append(AcheronKafkaBlackSwanLuocha(config))
+# # visualizationList.append(AcheronKafkaPelaLuocha(config))
+# visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 
 # # E0 Comparisons
-visualizationList.append(AcheronSilverWolfPelaGepard(config))
-visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
-visualizationList.append(AcheronSilverWolfPelaLuocha(config))
-visualizationList.append(AcheronSilverWolfPelaGallagher(config))
-visualizationList.append(AcheronSilverWolfPelaAventurine(config))
-# visualizationList.append(AcheronWeltPelaFuxuan(config))
-# visualizationList.append(AcheronKafkaBlackSwanGallagher(config))
-# visualizationList.append(AcheronKafkaPelaGallagher(config))
-# visualizationList.append(AcheronKafkaBlackSwanLuocha(config))
-# visualizationList.append(AcheronKafkaPelaLuocha(config))
-
-# visualizationList.append(AcheronS1SilverWolfPelaFuxuan(config))
-# visualizationList.append(AcheronS1SilverWolfPelaGallagher(config))
+# visualizationList.append(AcheronSilverWolfPelaGallagher(config))
+# # visualizationList.append(AcheronSilverWolfPelaGepard(config))
+# # visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
+# # visualizationList.append(AcheronSilverWolfPelaLuocha(config))
+# # visualizationList.append(AcheronWeltPelaFuxuan(config))
 
 # # Argenti Teams
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
@@ -196,12 +209,13 @@ visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 # # visualizationList.append(JingliuRuanMeiBladeLuocha(config))
 # # visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
-# # Jingyuan Teams
-# visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
-# # visualizationList.append(JingyuanTingyunHanabiLuocha(config))
-# # visualizationList.append(JingyuanTingyunAstaLuocha(config))
-# # visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
-# # visualizationList.append(JingyuanTingyunTopazLuocha(config))
+# Jingyuan Teams
+visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
+visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
+# visualizationList.append(JingyuanTingyunHanabiLuocha(config))
+# visualizationList.append(JingyuanTingyunAstaLuocha(config))
+# visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
+# visualizationList.append(JingyuanTingyunTopazLuocha(config))
 
 # # Lunae Teams
 # visualizationList.append(LunaeHanabiTingyunLuocha(config))
@@ -216,7 +230,7 @@ visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 
 # # Kafka Teams
 # # config['enemySpeed'] = 190 / 1.125
-# # config['numEnemies'] = 3
+# # config['numEnemies'] = 2
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # # visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
 # # visualizationList.append(KafkaGuinaifenSampoLuocha(config))
@@ -228,8 +242,8 @@ visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 
 # # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
 # # visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
-# # visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+# # visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 
 # # Qingque Teams
@@ -252,14 +266,15 @@ visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 # # visualizationList.append(TopazTingyunHanyaFuxuan(config))
 
 # # Xueyi Teams
-# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
-# # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
+# # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
+# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
 # # visualizationList.append(XueyiHanabiPelaFuxuan(config,breakRatio=0.5))
 # # visualizationList.append(XueyiHanyaPelaFuxuan(config,breakRatio=0.5)) # dont like the break assumptions here
 # # visualizationList.append(XueyiAstaTopazFuxuan(config)) # needs review, why is the SP so negative? also this team makes no sense
 
 # # YanqingTeam
-# visualizationList.append(YanqingTingyunHanabiGepard(config))
+# visualizationList.append(YanqingTingyunHanabiAventurine(config))
+# # visualizationList.append(YanqingTingyunHanabiGepard(config))
 # # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
 
 #%% Visualization

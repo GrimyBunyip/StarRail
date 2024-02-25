@@ -31,8 +31,10 @@ class Aventurine(BaseCharacter):
         # Gear
         self.equipGear()
         
-    def applyUltDebuff(self,team:list, rotationDuration:float=4.0):
-        ultUptime = (3.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed / self.numEnemies
+    def applyUltDebuff(self,team:list, rotationDuration:float=4.0,targetingUptime:float=None):
+        ultUptime = (3.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
+        if targetingUptime is None:
+            ultUptime /= self.numEnemies
         ultUptime = min(1.0, ultUptime)
         for character in team:
             character.addStat('CD',description='Aventurine Ultimate',
