@@ -98,6 +98,7 @@ def JingyuanTingyunHanyaFuxuan(config):
         
     # JingYuan & Tingyun Rotation
     TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 3.0  # let's say half the time, huohuo can shave off a turn
+    TingyunEnergyPerTurn *= TingyunCharacter.getTotalStat('SPD') / JingYuanCharacter.getTotalStat('SPD')
     numSkill = (130.0 - 5.0) / (30.0 + TingyunEnergyPerTurn)
     numUlt = 1
 

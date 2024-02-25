@@ -91,6 +91,8 @@ def ArgentiHanabiTingyunHuohuo(config):
     # Argenti & Tingyun Rotation
     TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 2.75  # let's say half the time, huohuo can shave off a turn
     HuohuoEnergyPerTurn = ArgentiCharacter.maxEnergy * (0.21 if HuohuoCharacter.eidolon >= 5 else 0.20)  / 4.0
+    TingyunEnergyPerTurn *= TingyunCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')
+    HuohuoEnergyPerTurn *= HuohuoCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')
     numSkill = (180.0 - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (30.0 + TingyunEnergyPerTurn + HuohuoEnergyPerTurn + 3 * ArgentiCharacter.numEnemies)
     numUlt = 1
 

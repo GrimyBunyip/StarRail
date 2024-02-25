@@ -87,8 +87,8 @@ def JingyuanTingyunAstaLuocha(config):
 
     # JingYuan & Tingyun Rotation
     TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 3.2  # let's say half the time, huohuo can shave off a turn
-    HuohuoEnergyPerTurn = JingYuanCharacter.maxEnergy * (0.21 if HuohuoCharacter.eidolon >= 5 else 0.20)  / 4.0
-    numSkill = (130.0 - 5.0) / (30.0 + TingyunEnergyPerTurn + HuohuoEnergyPerTurn)
+    TingyunEnergyPerTurn *= TingyunCharacter.getTotalStat('SPD') / JingYuanCharacter.getTotalStat('SPD')
+    numSkill = (130.0 - 5.0) / (30.0 + TingyunEnergyPerTurn)
     numUlt = 1
             
     lordSpeed = 0.85 # close enough of an estimate

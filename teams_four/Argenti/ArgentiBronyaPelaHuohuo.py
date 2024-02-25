@@ -87,6 +87,7 @@ def ArgentiBronyaPelaHuohuo(config):
 
     # Assume Bronya skill buff applies to skills, and only applies a fraction of the time to the remaining abilities
     HuohuoEnergyPerRotation = ArgentiCharacter.maxEnergy * (0.21 if HuohuoCharacter.eidolon >= 5 else 0.20)  / 2.0 # estimate about huohuo ult every 2 ults
+    HuohuoEnergyPerTurn *= HuohuoCharacter.getTotalStat('SPD') / ArgentiCharacter.getTotalStat('SPD')
     numSkill = (180.0 / ArgentiCharacter.getER() - 5.0 - HuohuoEnergyPerRotation) / (30.0 + 3.0 * ArgentiCharacter.numEnemies)
     numUlt = 1.0
 
