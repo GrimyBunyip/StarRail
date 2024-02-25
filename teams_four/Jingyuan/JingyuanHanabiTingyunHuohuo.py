@@ -9,6 +9,7 @@ from lightCones.abundance.PostOpConversation import PostOpConversation
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
+from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
@@ -33,7 +34,7 @@ def JingYuanHanabiTingyunHuohuo(config):
 
     TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
                         substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
-                        lightcone = MemoriesOfThePast(**config),
+                        lightcone = PlanetaryRendezvous(**config),
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = PenaconyLandOfDreams(),
                         benedictionTarget=JingYuanCharacter,
                         **config)
@@ -62,7 +63,11 @@ def JingYuanHanabiTingyunHuohuo(config):
         
     # Tingyun Messenger 4 pc
     for character in [JingYuanCharacter, HanabiCharacter, HuohuoCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/2.75) # let's say half the time, huohuo can shave off a turn
+        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.2) # let's say half the time, huohuo can shave off a turn
+    
+    # Tingyun Planetary
+    for character in team:
+        character.addStat('DMG.lightning',description='Planetary from Tingyun',amount=0.24)
     
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
@@ -70,12 +75,11 @@ def JingYuanHanabiTingyunHuohuo(config):
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/2.75) # let's say half the time huohuo can shave off a turn
     
     # Huohuo Buffs
-    HuohuoCharacter.applyUltBuff([TingyunCharacter,HanabiCharacter],uptime=2.0/4.0)
-    HuohuoCharacter.applyUltBuff([JingYuanCharacter],uptime=2.0/5.0)
+    HuohuoCharacter.applyUltBuff([TingyunCharacter,HanabiCharacter, JingYuanCharacter],uptime=2.0/4.0)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(JingYuanCharacter)
-    TingyunCharacter.applyUltBuff(JingYuanCharacter,tingRotationDuration=2.75)  # let's say half the time, huohuo can shave off a turn
+    TingyunCharacter.applyUltBuff(JingYuanCharacter,tingRotationDuration=3.2)
     
     #%% Print Statements
     for character in team:
@@ -89,7 +93,7 @@ def JingYuanHanabiTingyunHuohuo(config):
                     HanabiCharacter.useUltimate()]
 
     # JingYuan & Tingyun Rotation
-    TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 2.75  # let's say half the time, huohuo can shave off a turn
+    TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 3.2  # let's say half the time, huohuo can shave off a turn
     HuohuoEnergyPerTurn = JingYuanCharacter.maxEnergy * (0.21 if HuohuoCharacter.eidolon >= 5 else 0.20)  / 4.0
     numSkill = (130.0 - 5.0) / (30.0 + TingyunEnergyPerTurn + HuohuoEnergyPerTurn)
     numUlt = 1
@@ -106,8 +110,8 @@ def JingYuanHanabiTingyunHuohuo(config):
     ]
 
     TingyunRotation = [ 
-            TingyunCharacter.useBasic() * 1.75, # let's say half the time, huohuo can shave off a turn 
-            TingyunCharacter.useSkill(),
+            TingyunCharacter.useBasic() * 3.2 * 2.0 / 3.0, # let's say half the time, huohuo can shave off a turn 
+            TingyunCharacter.useSkill() * 3.2 * 1.0 / 3.0,
             TingyunCharacter.useUltimate(),
     ]
 
@@ -116,6 +120,31 @@ def JingYuanHanabiTingyunHuohuo(config):
                     HuohuoCharacter.useUltimate() * 1,]
 
     #%% JingYuan Hanabi Tingyun Huohuo Rotation Math
+    totalJingYuanEffect = sumEffects(JingYuanRotation)
+    totalHanabiEffect = sumEffects(HanabiRotation)
+    totalTingyunEffect = sumEffects(TingyunRotation)
+    totalHuohuoEffect = sumEffects(HuohuoRotation)
+
+    JingYuanRotationDuration = totalJingYuanEffect.actionvalue * 100.0 / JingYuanCharacter.getTotalStat('SPD')
+    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
+    TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
+    HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
+    
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24
+    JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    JingYuanRotation.append(DanceDanceDanceEffect * JingYuanRotationDuration / HanabiRotationDuration)
+    
+    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TingyunRotation.append(DanceDanceDanceEffect * TingyunRotationDuration / HanabiRotationDuration)
+    
+    HuohuoCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HuohuoRotation.append(DanceDanceDanceEffect * HuohuoRotationDuration / HanabiRotationDuration)
+    
+    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanabiRotation.append(DanceDanceDanceEffect)
+    
     totalJingYuanEffect = sumEffects(JingYuanRotation)
     totalHanabiEffect = sumEffects(HanabiRotation)
     totalTingyunEffect = sumEffects(TingyunRotation)
@@ -140,27 +169,12 @@ def JingYuanHanabiTingyunHuohuo(config):
     TingyunRotation = [x * JingYuanRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     HuohuoRotation = [x * JingYuanRotationDuration / HuohuoRotationDuration for x in HuohuoRotation]
 
-    # Apply Dance Dance Dance Effect
-    DanceDanceDanceEffect = BaseEffect()
-    DanceDanceDanceEffect.actionvalue = -0.24 * JingYuanRotationDuration / HanabiRotationDuration
-    JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    JingYuanRotation.append(DanceDanceDanceEffect)
-    
-    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TingyunRotation.append(DanceDanceDanceEffect)
-    
-    HuohuoCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HuohuoRotation.append(DanceDanceDanceEffect)
-    
-    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanabiRotation.append(DanceDanceDanceEffect)
-
     JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q', JingYuanRotation, JingYuanCharacter, config)
-    HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
-                                    HanabiRotation, HanabiCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',
                                     TingyunRotation, TingyunCharacter, config)
+    HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
+                                    HanabiRotation, HanabiCharacter, config)
     HuohuoEstimate = DefaultEstimator('Huohuo: 3N 1E 1Q, S{:.0f} {}'.format(HuohuoCharacter.lightcone.superposition, HuohuoCharacter.lightcone.name),
                                     HuohuoRotation, HuohuoCharacter, config)
 
-    return([JingYuanEstimate, HanabiEstimate, TingyunEstimate, HuohuoEstimate])
+    return([JingYuanEstimate, TingyunEstimate, HanabiEstimate, HuohuoEstimate])

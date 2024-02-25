@@ -125,6 +125,31 @@ def ClaraTingyunHanabiLuocha(config):
     HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * ClaraRotationDuration / HanabiRotationDuration
+    ClaraCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    ClaraRotation.append(DanceDanceDanceEffect * ClaraRotationDuration / HanabiRotationDuration)
+    
+    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TingyunRotation.append(DanceDanceDanceEffect * TingyunRotationDuration / HanabiRotationDuration)
+    
+    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    LuochaRotation.append(DanceDanceDanceEffect * LuochaRotationDuration / HanabiRotationDuration)
+    
+    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanabiRotation.append(DanceDanceDanceEffect)
+    
+    totalClaraEffect = sumEffects(ClaraRotation)
+    totalTingyunEffect = sumEffects(TingyunRotation)
+    totalHanabiEffect = sumEffects(HanabiRotation)
+    totalLuochaEffect = sumEffects(LuochaRotation)
+
+    ClaraRotationDuration = totalClaraEffect.actionvalue * 100.0 / ClaraCharacter.getTotalStat('SPD')
+    TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
+    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
+    LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
+
     ClaraRotation.append(TingyunCharacter.giveUltEnergy() * ClaraRotationDuration / TingyunRotationDuration)
     
     print('##### Rotation Durations #####')
@@ -137,21 +162,6 @@ def ClaraTingyunHanabiLuocha(config):
     TingyunRotation = [x * ClaraRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     HanabiRotation = [x * ClaraRotationDuration / HanabiRotationDuration for x in HanabiRotation]
     LuochaRotation = [x * ClaraRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-
-    # Apply Dance Dance Dance Effect
-    DanceDanceDanceEffect = BaseEffect()
-    DanceDanceDanceEffect.actionvalue = -0.24 * ClaraRotationDuration / HanabiRotationDuration
-    ClaraCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    ClaraRotation.append(DanceDanceDanceEffect)
-    
-    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TingyunRotation.append(DanceDanceDanceEffect)
-    
-    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    LuochaRotation.append(DanceDanceDanceEffect)
-    
-    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanabiRotation.append(DanceDanceDanceEffect)
 
     ClaraEstimate = DefaultEstimator(f'Clara: {numSkillClara:.1f}E {numSvarogCounters:.1f}T 1Q', ClaraRotation, ClaraCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',

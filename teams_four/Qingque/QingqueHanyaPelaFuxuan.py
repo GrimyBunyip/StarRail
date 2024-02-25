@@ -135,6 +135,31 @@ def QingqueHanyaPelaFuxuan(config):
     PelaRotationDuration = totalPelaEffect.actionvalue * 100.0 / PelaCharacter.getTotalStat('SPD')
     FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * QingqueRotationDuration / HanyaRotationDuration
+    QingqueCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    QingqueRotation.append(DanceDanceDanceEffect * QingqueRotationDuration / HanyaRotationDuration)
+    
+    PelaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    PelaRotation.append(DanceDanceDanceEffect * PelaRotationDuration / HanyaRotationDuration)
+    
+    FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    FuxuanRotation.append(DanceDanceDanceEffect * FuxuanRotationDuration / HanyaRotationDuration)
+    
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(DanceDanceDanceEffect)
+    
+    totalQingqueEffect = sumEffects(QingqueRotation)
+    totalPelaEffect = sumEffects(PelaRotation)
+    totalHanyaEffect = sumEffects(HanyaRotation)
+    totalFuxuanEffect = sumEffects(FuxuanRotation)
+
+    QingqueRotationDuration = totalQingqueEffect.actionvalue * 100.0 / QingqueCharacter.getTotalStat('SPD')
+    PelaRotationDuration = totalPelaEffect.actionvalue * 100.0 / PelaCharacter.getTotalStat('SPD')
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+    FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
+
     print('##### Rotation Durations #####')
     print('Qingque: ',QingqueRotationDuration)
     print('Hanya: ',HanyaRotationDuration)
@@ -145,22 +170,6 @@ def QingqueHanyaPelaFuxuan(config):
     HanyaRotation = [x * QingqueRotationDuration / HanyaRotationDuration for x in HanyaRotation]
     PelaRotation = [x * QingqueRotationDuration / PelaRotationDuration for x in PelaRotation]
     FuxuanRotation = [x * QingqueRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
-
-    # Apply Dance Dance Dance Effect
-    DanceDanceDanceEffect = BaseEffect()
-    DanceDanceDanceEffect.actionvalue = -0.24 * QingqueRotationDuration / HanyaRotationDuration
-
-    QingqueCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    QingqueRotation.append(DanceDanceDanceEffect)
-    
-    PelaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    PelaRotation.append(DanceDanceDanceEffect)
-    
-    FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    FuxuanRotation.append(DanceDanceDanceEffect)
-    
-    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanyaRotation.append(DanceDanceDanceEffect)
 
     QingqueEstimate = DefaultEstimator('Qingque 14E 5Enh 1Q', QingqueRotation, QingqueCharacter, config)
     HanyaEstimate = DefaultEstimator(f'Hanya: {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition:.0f} {HanyaCharacter.lightcone.name}, 12 Spd Substats', 

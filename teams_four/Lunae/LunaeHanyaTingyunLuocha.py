@@ -124,25 +124,35 @@ def LunaeHanyaTingyunLuocha(config):
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
-    # scale other character's rotation
-    HanyaRotation = [x * LunaeRotationDuration / HanyaRotationDuration for x in HanyaRotation]
-    TingyunRotation = [x * LunaeRotationDuration / TingyunRotationDuration for x in TingyunRotation]
-    LuochaRotation = [x * LunaeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
     DanceDanceDanceEffect.actionvalue = -0.24 * LunaeRotationDuration / HanyaRotationDuration
     LunaeCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    LunaeRotation.append(DanceDanceDanceEffect)
+    LunaeRotation.append(DanceDanceDanceEffect * LunaeRotationDuration / HanyaRotationDuration)
     
     TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TingyunRotation.append(DanceDanceDanceEffect)
+    TingyunRotation.append(DanceDanceDanceEffect * TingyunRotationDuration / HanyaRotationDuration)
     
     LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    LuochaRotation.append(DanceDanceDanceEffect)
+    LuochaRotation.append(DanceDanceDanceEffect * LuochaRotationDuration / HanyaRotationDuration)
     
     HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     HanyaRotation.append(DanceDanceDanceEffect)
+    
+    totalLunaeEffect = sumEffects(LunaeRotation)
+    totalTingyunEffect = sumEffects(TingyunRotation)
+    totalHanyaEffect = sumEffects(HanyaRotation)
+    totalLuochaEffect = sumEffects(LuochaRotation)
+
+    LunaeRotationDuration = totalLunaeEffect.actionvalue * 100.0 / LunaeCharacter.getTotalStat('SPD')
+    TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+    LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
+
+    # scale other character's rotation
+    HanyaRotation = [x * LunaeRotationDuration / HanyaRotationDuration for x in HanyaRotation]
+    TingyunRotation = [x * LunaeRotationDuration / TingyunRotationDuration for x in TingyunRotation]
+    LuochaRotation = [x * LunaeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
     LunaeEstimate = DefaultEstimator(f'Lunae: {numLunaeBasic:.1f}N^3 1Q', LunaeRotation, LunaeCharacter, config)
     HanyaEstimate = DefaultEstimator(f'Hanya {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition:.0f} {HanyaCharacter.lightcone.name}, 12 Spd Substats', 

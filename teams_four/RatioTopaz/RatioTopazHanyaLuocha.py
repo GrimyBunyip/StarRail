@@ -122,6 +122,31 @@ def DrRatioTopazHanyaLuocha(config):
     HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * DrRatioRotationDuration / HanyaRotationDuration
+    DrRatioCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    DrRatioRotation.append(DanceDanceDanceEffect * DrRatioRotationDuration / HanyaRotationDuration)
+    
+    TopazCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TopazRotation.append(DanceDanceDanceEffect * TopazRotationDuration / HanyaRotationDuration)
+    
+    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    LuochaRotation.append(DanceDanceDanceEffect * LuochaRotationDuration / HanyaRotationDuration)
+    
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(DanceDanceDanceEffect)
+    
+    totalDrRatioEffect = sumEffects(DrRatioRotation)
+    totalTopazEffect = sumEffects(TopazRotation)
+    totalHanyaEffect = sumEffects(HanyaRotation)
+    totalLuochaEffect = sumEffects(LuochaRotation)
+
+    DrRatioRotationDuration = totalDrRatioEffect.actionvalue * 100.0 / DrRatioCharacter.getTotalStat('SPD')
+    TopazRotationDuration = totalTopazEffect.actionvalue * 100.0 / TopazCharacter.getTotalStat('SPD')
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+    LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
+
     print('##### Rotation Durations #####')
     print('DrRatio: ',DrRatioRotationDuration)
     print('Topaz: ',TopazRotationDuration)
@@ -132,21 +157,6 @@ def DrRatioTopazHanyaLuocha(config):
     TopazRotation = [x * DrRatioRotationDuration / TopazRotationDuration for x in TopazRotation]
     HanyaRotation = [x * DrRatioRotationDuration / HanyaRotationDuration for x in HanyaRotation]
     LuochaRotation = [x * DrRatioRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-
-    # Apply Dance Dance Dance Effect
-    DanceDanceDanceEffect = BaseEffect()
-    DanceDanceDanceEffect.actionvalue = -0.24 * DrRatioRotationDuration / HanyaRotationDuration
-    DrRatioCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    DrRatioRotation.append(DanceDanceDanceEffect)
-    
-    TopazCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TopazRotation.append(DanceDanceDanceEffect)
-    
-    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    LuochaRotation.append(DanceDanceDanceEffect)
-    
-    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanyaRotation.append(DanceDanceDanceEffect)
 
     DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.1f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
     TopazEstimate = DefaultEstimator(f'Topaz: {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numbyTurns + numbyAdvanceForwards:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)

@@ -72,15 +72,6 @@ def JingyuanTingyunAstaLuocha(config):
     TingyunCharacter.applySkillBuff(JingYuanCharacter)
     TingyunCharacter.applyUltBuff(JingYuanCharacter)
 
-    # Tingyun and Jing Yuan are going to be out of sync so we just need to try and math out an average rotation
-    print('Jing Yuan Speed: ', JingYuanCharacter.getTotalStat('SPD'), ' Tingyun Speed: ', TingyunCharacter.getTotalStat('SPD'))
-    jyShortRotation = 2 / JingYuanCharacter.getTotalStat('SPD')
-    jyLongRotation = 4 / JingYuanCharacter.getTotalStat('SPD')
-    tyRotation = 3 / TingyunCharacter.getTotalStat('SPD')
-
-    longToShort = (tyRotation - jyShortRotation) / jyLongRotation
-    print('LongToShort Ratio', longToShort)
-
     #%% Print Statements
     for character in team:
         character.print()
@@ -93,11 +84,14 @@ def JingyuanTingyunAstaLuocha(config):
             TingyunCharacter.useSkill() * numSkillTingyun,
             TingyunCharacter.useUltimate(),
     ]
-        
-    lordSpeed = 0.85 # close enough of an estimate
 
-    numSkill = 2.0 + 2.0 * longToShort
-    numUlt = 1.0
+    # JingYuan & Tingyun Rotation
+    TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 3.2  # let's say half the time, huohuo can shave off a turn
+    HuohuoEnergyPerTurn = JingYuanCharacter.maxEnergy * (0.21 if HuohuoCharacter.eidolon >= 5 else 0.20)  / 4.0
+    numSkill = (130.0 - 5.0) / (30.0 + TingyunEnergyPerTurn + HuohuoEnergyPerTurn)
+    numUlt = 1
+            
+    lordSpeed = 0.85 # close enough of an estimate
     numTalents = ( 3 * numSkill * lordSpeed / JingYuanCharacter.getTotalStat('SPD') )  + 2 * numSkill + 3
     JingYuanRotation = [
         JingYuanCharacter.useSkill() * numSkill,

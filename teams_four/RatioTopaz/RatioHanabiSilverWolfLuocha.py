@@ -122,6 +122,31 @@ def DrRatioHanabiSilverWolfLuocha(config):
     HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * DrRatioRotationDuration / HanabiRotationDuration
+    DrRatioCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    DrRatioRotation.append(DanceDanceDanceEffect * DrRatioRotationDuration / HanabiRotationDuration)
+    
+    SilverWolfCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    SilverWolfRotation.append(DanceDanceDanceEffect * SilverWolfRotationDuration / HanabiRotationDuration)
+    
+    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    LuochaRotation.append(DanceDanceDanceEffect * LuochaRotationDuration / HanabiRotationDuration)
+    
+    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanabiRotation.append(DanceDanceDanceEffect)
+    
+    totalDrRatioEffect = sumEffects(DrRatioRotation)
+    totalSilverWolfEffect = sumEffects(SilverWolfRotation)
+    totalHanabiEffect = sumEffects(HanabiRotation)
+    totalLuochaEffect = sumEffects(LuochaRotation)
+
+    DrRatioRotationDuration = totalDrRatioEffect.actionvalue * 100.0 / DrRatioCharacter.getTotalStat('SPD')
+    SilverWolfRotationDuration = totalSilverWolfEffect.actionvalue * 100.0 / SilverWolfCharacter.getTotalStat('SPD')
+    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
+    LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
+
     print('##### Rotation Durations #####')
     print('DrRatio: ',DrRatioRotationDuration)
     print('SilverWolf: ',SilverWolfRotationDuration)
@@ -132,21 +157,6 @@ def DrRatioHanabiSilverWolfLuocha(config):
     SilverWolfRotation = [x * DrRatioRotationDuration / SilverWolfRotationDuration for x in SilverWolfRotation]
     HanabiRotation = [x * DrRatioRotationDuration / HanabiRotationDuration for x in HanabiRotation]
     LuochaRotation = [x * DrRatioRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-
-    # Apply Dance Dance Dance Effect
-    DanceDanceDanceEffect = BaseEffect()
-    DanceDanceDanceEffect.actionvalue = -0.24 * DrRatioRotationDuration / HanabiRotationDuration
-    DrRatioCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    DrRatioRotation.append(DanceDanceDanceEffect)
-    
-    SilverWolfCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    SilverWolfRotation.append(DanceDanceDanceEffect)
-    
-    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    LuochaRotation.append(DanceDanceDanceEffect)
-    
-    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanabiRotation.append(DanceDanceDanceEffect)
 
     DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.1f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 

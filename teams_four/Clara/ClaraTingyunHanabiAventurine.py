@@ -122,7 +122,31 @@ def ClaraTingyunHanabiAventurine(config):
                            AventurineCharacter.useUltimate() * 1,]
 
     #%% Clara Tingyun Hanabi Aventurine Rotation Math
+    totalClaraEffect = sumEffects(ClaraRotation)
+    totalTingyunEffect = sumEffects(TingyunRotation)
+    totalHanabiEffect = sumEffects(HanabiRotation)
+    totalAventurineEffect = sumEffects(AventurineRotation)
 
+    ClaraRotationDuration = totalClaraEffect.actionvalue * 100.0 / ClaraCharacter.getTotalStat('SPD')
+    TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
+    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
+    AventurineRotationDuration = totalAventurineEffect.actionvalue * 100.0 / AventurineCharacter.getTotalStat('SPD')
+
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * ClaraRotationDuration / HanabiRotationDuration
+    ClaraCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    ClaraRotation.append(DanceDanceDanceEffect * ClaraRotationDuration / HanabiRotationDuration)
+    
+    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TingyunRotation.append(DanceDanceDanceEffect * TingyunRotationDuration / HanabiRotationDuration)
+    
+    AventurineCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    AventurineRotation.append(DanceDanceDanceEffect * AventurineRotationDuration / HanabiRotationDuration)
+    
+    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanabiRotation.append(DanceDanceDanceEffect)
+    
     totalClaraEffect = sumEffects(ClaraRotation)
     totalTingyunEffect = sumEffects(TingyunRotation)
     totalHanabiEffect = sumEffects(HanabiRotation)
@@ -145,21 +169,6 @@ def ClaraTingyunHanabiAventurine(config):
     TingyunRotation = [x * ClaraRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     HanabiRotation = [x * ClaraRotationDuration / HanabiRotationDuration for x in HanabiRotation]
     AventurineRotation = [x * ClaraRotationDuration / AventurineRotationDuration for x in AventurineRotation]
-
-    # Apply Dance Dance Dance Effect
-    DanceDanceDanceEffect = BaseEffect()
-    DanceDanceDanceEffect.actionvalue = -0.24 * ClaraRotationDuration / HanabiRotationDuration
-    ClaraCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    ClaraRotation.append(DanceDanceDanceEffect)
-    
-    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TingyunRotation.append(DanceDanceDanceEffect)
-    
-    AventurineCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    AventurineRotation.append(DanceDanceDanceEffect)
-    
-    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanabiRotation.append(DanceDanceDanceEffect)
 
     ClaraEstimate = DefaultEstimator(f'Clara: {numSkillClara:.1f}E {numSvarogCounters:.1f}T 1Q', ClaraRotation, ClaraCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',

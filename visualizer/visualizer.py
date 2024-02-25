@@ -83,7 +83,7 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
             
             teamEffect += actionEffect + dotEffect + breakEffect
             
-        #assert abs(sum(teamValue)*cycles - teamEffect.damage) < 0.0000001, 'mismatching total effect damage and bar length'
+        assert abs(sum(teamValue)*cycles - teamEffect.damage) < 0.0000001, 'mismatching total effect damage and bar length'
         
         values.append(teamValue)
         colors.append(teamColor)

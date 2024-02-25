@@ -71,15 +71,6 @@ def JingyuanTingyunHanabiLuocha(config):
     TingyunCharacter.applySkillBuff(JingYuanCharacter)
     TingyunCharacter.applyUltBuff(JingYuanCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/JingYuanCharacter.getTotalStat('SPD'))
 
-    # Tingyun and Jing Yuan are going to be out of sync so we just need to try and math out an average rotation
-    print('Jing Yuan Speed: ', HanabiCharacter.getTotalStat('SPD'), ' Tingyun Speed: ', TingyunCharacter.getTotalStat('SPD'))
-    jyShortRotation = 2 / HanabiCharacter.getTotalStat('SPD')
-    jyLongRotation = 4 / HanabiCharacter.getTotalStat('SPD')
-    tyRotation = 3 / TingyunCharacter.getTotalStat('SPD')
-
-    longToShort = (tyRotation - jyShortRotation) / jyLongRotation
-    print('LongToShort Ratio', longToShort)
-
     #%% Print Statements
     for character in team:
         character.print()
@@ -93,14 +84,12 @@ def JingyuanTingyunHanabiLuocha(config):
             TingyunCharacter.useUltimate(),
     ]
         
-    lordSpeed = 0.85 # close enough of an estimate
-
-    numSkill = 2.0 + 2.0 * longToShort
-    numUlt = 1.0
-    
+    # JingYuan & Tingyun Rotation
     TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 3.0  # let's say half the time, huohuo can shave off a turn
     numSkill = (130.0 - 5.0) / (30.0 + TingyunEnergyPerTurn)
     numUlt = 1
+
+    lordSpeed = 0.85 # close enough of an estimate
     numTalents = ( 3 * numSkill * lordSpeed / HanabiCharacter.getTotalStat('SPD') / 0.92 )  + 2 * numSkill + 3 # 0.92 to account for S5 dance dance Dance
     JingYuanRotation = [
         JingYuanCharacter.useSkill() * numSkill,
@@ -134,27 +123,35 @@ def JingyuanTingyunHanabiLuocha(config):
     HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
-    JingYuanRotation.append(TingyunCharacter.giveUltEnergy() * JingYuanRotationDuration / TingyunRotationDuration)
+    # Apply Dance Dance Dance Effect
+    DanceDanceDanceEffect = BaseEffect()
+    DanceDanceDanceEffect.actionvalue = -0.24 * JingYuanRotationDuration / HanabiRotationDuration
+    JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    JingYuanRotation.append(DanceDanceDanceEffect * JingYuanRotationDuration / HanabiRotationDuration)
+    
+    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TingyunRotation.append(DanceDanceDanceEffect * TingyunRotationDuration / HanabiRotationDuration)
+    
+    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    LuochaRotation.append(DanceDanceDanceEffect * LuochaRotationDuration / HanabiRotationDuration)
+    
+    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanabiRotation.append(DanceDanceDanceEffect)
+    
+    totalJingYuanEffect = sumEffects(JingYuanRotation)
+    totalTingyunEffect = sumEffects(TingyunRotation)
+    totalHanabiEffect = sumEffects(HanabiRotation)
+    totalLuochaEffect = sumEffects(LuochaRotation)
+
+    JingYuanRotationDuration = totalJingYuanEffect.actionvalue * 100.0 / JingYuanCharacter.getTotalStat('SPD')
+    TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
+    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
+    LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
     # scale other character's rotation
     TingyunRotation = [x * JingYuanRotationDuration / TingyunRotationDuration for x in TingyunRotation]
     HanabiRotation = [x * JingYuanRotationDuration / HanabiRotationDuration for x in HanabiRotation]
     LuochaRotation = [x * JingYuanRotationDuration / LuochaRotationDuration for x in LuochaRotation]
-
-    # Apply Dance Dance Dance Effect
-    DanceDanceDanceEffect = BaseEffect()
-    DanceDanceDanceEffect.actionvalue = -0.24 * JingYuanRotationDuration / HanabiRotationDuration
-    JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    JingYuanRotation.append(DanceDanceDanceEffect)
-    
-    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TingyunRotation.append(DanceDanceDanceEffect)
-    
-    LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    LuochaRotation.append(DanceDanceDanceEffect)
-    
-    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanabiRotation.append(DanceDanceDanceEffect)
 
     JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q', JingYuanRotation, JingYuanCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, {numBasicTingyun:.1f}N {numSkillTingyun:.1f}E 1Q, 12 spd substats', 

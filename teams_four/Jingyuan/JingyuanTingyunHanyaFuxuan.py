@@ -96,10 +96,12 @@ def JingyuanTingyunHanyaFuxuan(config):
             TingyunCharacter.useUltimate(),
     ]
         
-    lordSpeed = 0.85 # close enough of an estimate
+    # JingYuan & Tingyun Rotation
+    TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 3.0  # let's say half the time, huohuo can shave off a turn
+    numSkill = (130.0 - 5.0) / (30.0 + TingyunEnergyPerTurn)
+    numUlt = 1
 
-    numSkill = 2.0 + 2.0 * longToShort
-    numUlt = 1.0
+    lordSpeed = 0.85 # close enough of an estimate
     numTalents = ( 3 * numSkill * lordSpeed / JingYuanCharacter.getTotalStat('SPD') )  + 2 * numSkill + 3
     JingYuanRotation = [
         JingYuanCharacter.useSkill() * numSkill,
@@ -107,7 +109,6 @@ def JingyuanTingyunHanyaFuxuan(config):
         JingYuanCharacter.useTalent() * numTalents,
         TingyunCharacter.useBenediction(['skill']) * numSkill,
         TingyunCharacter.useBenediction(['ultimate']),
-        TingyunCharacter.giveUltEnergy(),
     ]
     
     numHanyaSkill = 4
@@ -130,25 +131,37 @@ def JingyuanTingyunHanyaFuxuan(config):
     HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
     FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
-    # scale other character's rotation
-    TingyunRotation = [x * JingYuanRotationDuration / TingyunRotationDuration for x in TingyunRotation]
-    HanyaRotation = [x * JingYuanRotationDuration / HanyaRotationDuration for x in HanyaRotation]
-    FuxuanRotation = [x * JingYuanRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
-
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
     DanceDanceDanceEffect.actionvalue = -0.24 * JingYuanRotationDuration / HanyaRotationDuration
     JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    JingYuanRotation.append(DanceDanceDanceEffect)
+    JingYuanRotation.append(DanceDanceDanceEffect * JingYuanRotationDuration / HanyaRotationDuration)
     
     TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TingyunRotation.append(DanceDanceDanceEffect)
+    TingyunRotation.append(DanceDanceDanceEffect * TingyunRotationDuration / HanyaRotationDuration)
     
     FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    FuxuanRotation.append(DanceDanceDanceEffect)
+    FuxuanRotation.append(DanceDanceDanceEffect * FuxuanRotationDuration / HanyaRotationDuration)
     
     HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     HanyaRotation.append(DanceDanceDanceEffect)
+    
+    totalJingYuanEffect = sumEffects(JingYuanRotation)
+    totalTingyunEffect = sumEffects(TingyunRotation)
+    totalHanyaEffect = sumEffects(HanyaRotation)
+    totalFuxuanEffect = sumEffects(FuxuanRotation)
+
+    JingYuanRotationDuration = totalJingYuanEffect.actionvalue * 100.0 / JingYuanCharacter.getTotalStat('SPD')
+    TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+    FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
+
+    JingYuanRotation.append(TingyunCharacter.giveUltEnergy() * JingYuanRotationDuration / TingyunRotationDuration)
+
+    # scale other character's rotation
+    TingyunRotation = [x * JingYuanRotationDuration / TingyunRotationDuration for x in TingyunRotation]
+    HanyaRotation = [x * JingYuanRotationDuration / HanyaRotationDuration for x in HanyaRotation]
+    FuxuanRotation = [x * JingYuanRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
 
     JingYuanEstimate = DefaultEstimator(f'Jing Yuan {numSkill:.1f}E {numUlt:.0f}Q', JingYuanRotation, JingYuanCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, {numBasicTingyun:.1f}N {numSkillTingyun:.1f}E 1Q, 12 spd substats', 
