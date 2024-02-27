@@ -158,8 +158,8 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 
 # # E0 Comparisons
-visualizationList.append(AcheronSilverWolfPelaGallagher(config))
 visualizationList.append(AcheronGuinaifenPelaGallagher(config))
+visualizationList.append(AcheronSilverWolfPelaGallagher(config))
 # # visualizationList.append(AcheronSilverWolfPelaGepard(config))
 # # visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
 # # visualizationList.append(AcheronSilverWolfPelaLuocha(config))

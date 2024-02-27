@@ -11,6 +11,7 @@ from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
+from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
@@ -27,10 +28,10 @@ def AcheronGuinaifenPelaGallagher(config):
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
                             **config)
 
-    GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
+    GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ER', 'DMG.fire'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 4, 'BreakEffect': 4}),
                             lightcone = BeforeTheTutorialMissionStarts(**config),
-                            relicsetone = Pioneer2pc(), relicsettwo = FiresmithOfLavaForging2pc(), planarset = BrokenKeel(),
+                            relicsetone = Pioneer2pc(), relicsettwo = FiresmithOfLavaForging2pc(), planarset = PenaconyLandOfDreams(),
                             firekissStacks=2.0,
                             **config)
 
@@ -78,7 +79,7 @@ def AcheronGuinaifenPelaGallagher(config):
 
     #%% Acheron Silver Wolf Pela Gallagher Rotations
     
-    numStacks = GuinaifenCharacter.getTotalStat('SPD') # 1 guinaifen attacks per 3 turn rotation
+    numStacks = (3.0/2.0) * GuinaifenCharacter.getTotalStat('SPD') # 3 guinaifen attacks per 2 turn rotation
     numStacks +=  1.0 * PelaCharacter.getTotalStat('SPD') # 3 pela attacks per 3 turn rotation
     numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
     numStacks /= AcheronCharacter.getTotalStat('SPD')
@@ -93,7 +94,7 @@ def AcheronGuinaifenPelaGallagher(config):
             AcheronCharacter.useUltimate_end(),
     ]
 
-    numSkillGuinaifen = 3.0
+    numSkillGuinaifen = 2.0
     numBasicGuinaifen = 0.0
     numUltGuinaifen = 1.0
 

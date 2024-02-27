@@ -26,7 +26,7 @@ def AcheronSilverWolfPelaGallagher(config):
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
                             **config)
 
-    SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR', 'BreakEffect'],
+    SilverWolfCharacter = SilverWolf(RelicStats(mainstats = ['ER', 'SPD.flat', 'EHR', 'DMG.quantum'],
                             substats = {'SPD.flat':12,'BreakEffect':8, 'ATK.percent': 5, 'ATK.flat': 3}),
                             lightcone = BeforeTheTutorialMissionStarts(**config),
                             relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
