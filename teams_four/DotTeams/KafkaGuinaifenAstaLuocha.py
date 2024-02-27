@@ -99,7 +99,7 @@ def KafkaGuinaifenAstaLuocha(config):
     GuinaifenRotation = [ # 
             GuinaifenCharacter.useSkill() * numSkillGuinaifen,
             GuinaifenCharacter.useBasic() * numBasicGuinaifen,
-            GuinaifenCharacter.useUltimate() * numUlt,
+            GuinaifenCharacter.useUltimate() * numUltGuinaifen,
     ]
 
     numBasicAsta = 1.5
@@ -137,8 +137,8 @@ def KafkaGuinaifenAstaLuocha(config):
 
     KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
                                     KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-    GuinaifenEstimate = DefaultEstimator('E6 Guinaifen S5 GNSW {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(numBasicGuinaifen, numSkillGuinaifen, numUltGuinaifen, numDotGuinaifen),
-                                        GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
+    GuinaifenEstimate = DefaultEstimator(f'E6 Guinaifen S{GuinaifenCharacter.lightcone.superposition:d} {GuinaifenCharacter.lightcone.name} {GuinaifenCharacter.firekissStacks:.0f}Firekiss {numBasicGuinaifen:.0f}N {numSkillGuinaifen:.0f}E {numUltGuinaifen:.0f}Q {numDotGuinaifen:.1f}Dot',
+                                                                                                            GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
     AstaEstimate = DefaultEstimator(f'Asta: {numBasicAsta:.1f}N {numSkillAsta:.1f}E 1Q, S{AstaCharacter.lightcone.superposition:d} {AstaCharacter.lightcone.name}', 
                                     AstaRotation, AstaCharacter, config)
     LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name), 

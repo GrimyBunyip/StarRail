@@ -99,6 +99,8 @@ def JingYuanHanabiTingyunHuohuo(config):
     HuohuoEnergyPerTurn *= HuohuoCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')
     numSkill = (130.0 - 5.0) / (30.0 + TingyunEnergyPerTurn + HuohuoEnergyPerTurn)
     numUlt = 1
+    
+    JingYuanCharacter.getTotalStat('SPD')
 
     lordSpeed = 0.85 # close enough of an estimate
     numTalents = ( 3 * numSkill * lordSpeed / HanabiCharacter.getTotalStat('SPD') / 0.92 )  + 2 * numSkill + 3 # 0.92 to account for S5 dance dance Dance

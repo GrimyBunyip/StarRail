@@ -178,8 +178,7 @@ def KafkaGuinaifenBlackSwanLuocha(config):
 
     KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
                                     KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-    GuinaifenEstimate = DefaultEstimator('E6 Guinaifen S{:.0f} {} {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(GuinaifenCharacter.lightcone.superposition, GuinaifenCharacter.lightcone.name,
-                                                                                                            numBasicGuinaifen, numSkillGuinaifen, numUltGuinaifen, numDotGuinaifen),
+    GuinaifenEstimate = DefaultEstimator(f'E6 Guinaifen S{GuinaifenCharacter.lightcone.superposition:d} {GuinaifenCharacter.lightcone.name} {GuinaifenCharacter.firekissStacks:.0f}Firekiss {numBasicGuinaifen:.0f}N {numSkillGuinaifen:.0f}E {numUltGuinaifen:.0f}Q {numDotGuinaifen:.1f}Dot',
                                                                                                             GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
     BlackSwanEstimate = DefaultEstimator(f'BlackSwan S{BlackSwanCharacter.lightcone.superposition:.0f} {BlackSwanCharacter.lightcone.name} {numBasicBlackSwan:.0f}N {numSkillBlackSwan:.0f}E {numUltBlackSwan:.0f}Q {numDotBlackSwan:.1f}Dot {BlackSwanCharacter.sacramentStacks:.1f}Sacrament', 
                                                                                                 BlackSwanRotation, BlackSwanCharacter, config, numDot=numDotBlackSwan)

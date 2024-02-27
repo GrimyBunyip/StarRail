@@ -17,7 +17,8 @@ class InTheNameOfTheWorld(BaseLightCone):
                                     amount=0.20 + 0.04 * self.superposition,
                                     uptime=self.uptime)
             char.addStat('ATK.percent',description=self.name,
-                                    amount=0.20 + 0.04 * self.superposition)
+                                    amount=0.20 + 0.04 * self.superposition,
+                                    type=['skill'])
             char.addStat('EHR',description=self.name,
                                     amount=0.15 + 0.03 * self.superposition,
                                     type=['skill'])

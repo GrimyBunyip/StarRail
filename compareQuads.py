@@ -13,6 +13,7 @@ from teams_four.Acheron.AcheronE2S1HanabiPelaFuxuan import AcheronE2S1HanabiPela
 from teams_four.Acheron.AcheronE2S1HanyaKafkaGallagher import AcheronE2S1HanyaKafkaGallagher
 from teams_four.Acheron.AcheronE2S1KafkaBlackSwanGallagher import AcheronE2S1KafkaBlackSwanGallagher
 from teams_four.Acheron.AcheronE6S1BronyaKafkaGallagher import AcheronE6S1BronyaKafkaGallagher
+from teams_four.Acheron.AcheronGuinaifenPelaGallagher import AcheronGuinaifenPelaGallagher
 from teams_four.Acheron.AcheronKafkaBlackSwanGallagher import AcheronKafkaBlackSwanGallagher
 from teams_four.Acheron.AcheronKafkaBlackSwanLuocha import AcheronKafkaBlackSwanLuocha
 from teams_four.Acheron.AcheronKafkaPelaGallagher import AcheronKafkaPelaGallagher
@@ -44,9 +45,12 @@ from teams_four.Clara.ClaraTingyunHanabiFuxuanEscapade import ClaraTingyunHanabi
 from teams_four.Clara.ClaraTingyunHanabiLuocha import ClaraTingyunHanabiLuocha
 from teams_four.Clara.ClaraTingyunHanyaLuocha import ClaraTingyunHanyaLuocha
 from teams_four.Clara.ClaraTingyunPelaLuocha import ClaraTingyunPelaLuocha
+from teams_four.Clara.ClaraTingyunRuanMeiFuxuan import ClaraTingyunRuanMeiFuxuan
+from teams_four.Clara.ClaraTingyunRuanMeiLuocha import ClaraTingyunRuanMeiLuocha
 from teams_four.Clara.ClaraTingyunTopazLuocha import ClaraTingyunTopazLuocha
 from teams_four.Clara.ClaraTopazAstaLuocha import ClaraTopazAstaLuocha
 from teams_four.Clara.ClaraTopazHanyaLuocha import ClaraTopazHanyaLuocha
+from teams_four.DotTeams.KafkaE1S1RuanMeiE1BlackSwanE1Luocha import KafkaE1S1RuanMeiE1BlackSwanE1Luocha
 from teams_four.Jingliu.JingliuBronyaHanabiLuocha import JingliuBronyaHanabiLuocha
 from teams_four.Jingliu.JingliuBronyaPelaLuocha import JingliuBronyaPelaLuocha
 from teams_four.Jingliu.JingliuBronyaRuanMeiLuocha import JingliuBronyaRuanMeiLuocha
@@ -117,7 +121,7 @@ from visualizer.visualizer import visualize
 visualizationList = []
 
 config = copy(Configuration)
-config['numEnemies'] = 2
+config['numEnemies'] = 3
 config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
@@ -127,7 +131,7 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronE6S1BronyaKafkaGallagher(config))
 
 # # E2S1 Comparisons
-# # visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
+# visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
 # # visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
 # # visualizationList.append(AcheronE2S1BronyaPelaLuocha(config))
 # # visualizationList.append(AcheronE2S1KafkaBlackSwanGallagher(config))
@@ -136,7 +140,7 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronE2S1HanyaKafkaGallagher(config))
 
 # # E2 Comparisons
-# # visualizationList.append(AcheronE2BronyaKafkaGallagher(config))
+# visualizationList.append(AcheronE2BronyaKafkaGallagher(config))
 # # visualizationList.append(AcheronE2BronyaPelaGallagher(config))
 # # visualizationList.append(AcheronE2AstaPelaFuxuan(config))
 # # visualizationList.append(AcheronE2RuanMeiPelaFuxuan(config))
@@ -151,131 +155,136 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronKafkaBlackSwanGallagher(config))
 # # visualizationList.append(AcheronKafkaBlackSwanLuocha(config))
 # # visualizationList.append(AcheronKafkaPelaLuocha(config))
-# visualizationList.append(AcheronSilverWolfPelaAventurine(config))
+# # visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 
 # # E0 Comparisons
-# visualizationList.append(AcheronSilverWolfPelaGallagher(config))
+visualizationList.append(AcheronSilverWolfPelaGallagher(config))
+visualizationList.append(AcheronGuinaifenPelaGallagher(config))
 # # visualizationList.append(AcheronSilverWolfPelaGepard(config))
 # # visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
 # # visualizationList.append(AcheronSilverWolfPelaLuocha(config))
 # # visualizationList.append(AcheronWeltPelaFuxuan(config))
 
-# Argenti Teams
-visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
-# visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
-# visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
-# visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
-# visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
-# visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
+# # Argenti Teams
+# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+# # visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
+# # visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
+# # visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
+# # visualizationList.append(ArgentiHanyaRuanMeiHuohuo(config))
+# # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
-# Blade Teams
-visualizationList.append(BladeBronyaHanabiLuocha(config))
-# visualizationList.append(BladeBronyaRuanMeiLuocha(config))
-# visualizationList.append(BladeBronyaPelaLynx(config))
-# visualizationList.append(BladeBronyaPelaLuocha(config))
+# # Blade Teams
+# visualizationList.append(BladeBronyaHanabiLuocha(config))
+# # visualizationList.append(BladeBronyaRuanMeiLuocha(config))
+# # visualizationList.append(BladeBronyaPelaLynx(config))
+# # visualizationList.append(BladeBronyaPelaLuocha(config))
 
-# visualizationList.append(BladeBronyaPelaFuxuan(config)) # 100% vow uptime with fu xuan
-# visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
+# # visualizationList.append(BladeBronyaPelaFuxuan(config)) # 100% vow uptime with fu xuan
+# # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
 
 # Clara Teams
-visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-# visualizationList.append(ClaraTingyunHanabiAventurine(config))
-# visualizationList.append(ClaraTingyunHanabiLuocha(config))
-# visualizationList.append(ClaraTingyunHanyaLuocha(config))
-# visualizationList.append(ClaraTopazAstaLuocha(config))
-# visualizationList.append(ClaraTopazHanyaLuocha(config))
-# visualizationList.append(ClaraTingyunPelaLuocha(config))
-# visualizationList.append(ClaraTingyunTopazLuocha(config))
-# visualizationList.append(ClaraSilverWolfPelaLuocha(config))
-# visualizationList.append(ClaraTingyunHanabiFuxuanEscapade(config))
+# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+# # visualizationList.append(ClaraTingyunHanabiAventurine(config))
+# # visualizationList.append(ClaraTingyunHanabiLuocha(config))
+# # visualizationList.append(ClaraTingyunRuanMeiFuxuan(config))
+# # visualizationList.append(ClaraTingyunRuanMeiLuocha(config))
+# # visualizationList.append(ClaraTingyunHanyaLuocha(config))
+# # visualizationList.append(ClaraTopazAstaLuocha(config))
+# # visualizationList.append(ClaraTopazHanyaLuocha(config))
+# # # visualizationList.append(ClaraTingyunPelaLuocha(config))
+# # # visualizationList.append(ClaraTingyunTopazLuocha(config))
+# # # visualizationList.append(ClaraSilverWolfPelaLuocha(config))
+# # # visualizationList.append(ClaraTingyunHanabiFuxuanEscapade(config))
 
-# Dr Ratio Teams
-visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
-# visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
-# visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
-# visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
-# visualizationList.append(DrRatioTopazAstaLuocha(config))
-# visualizationList.append(DrRatioTopazHanyaLuocha(config))
-# visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
-# visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
-# visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
-# visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
+# # Dr Ratio Teams
+# visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
+# # visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
+# # visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
+# # visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
+# # visualizationList.append(DrRatioTopazAstaLuocha(config))
+# # visualizationList.append(DrRatioTopazHanyaLuocha(config))
+# # visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
+# # visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
+# # visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
+# # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
 
-# Jingliu Teams
-visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-# visualizationList.append(JingliuBronyaHanabiLuocha(config))
-# visualizationList.append(JingliuBronyaTingyunLuocha(config))
-# visualizationList.append(JingliuBronyaPelaLuocha(config))
-# visualizationList.append(JingliuRuanMeiBladeLuocha(config))
-# visualizationList.append(JingliuHanyaBladeHuohuo(config))
+# # Jingliu Teams
+# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+# # visualizationList.append(JingliuBronyaHanabiLuocha(config))
+# # visualizationList.append(JingliuBronyaTingyunLuocha(config))
+# # visualizationList.append(JingliuBronyaPelaLuocha(config))
+# # visualizationList.append(JingliuRuanMeiBladeLuocha(config))
+# # visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
-# Jingyuan Teams
-visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
-# visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
-# visualizationList.append(JingyuanTingyunHanabiLuocha(config))
-# visualizationList.append(JingyuanTingyunAstaLuocha(config))
-# visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
-# visualizationList.append(JingyuanTingyunTopazLuocha(config))
+# # Jingyuan Teams
+# visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
+# # visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
+# # visualizationList.append(JingyuanTingyunHanabiLuocha(config))
+# # visualizationList.append(JingyuanTingyunAstaLuocha(config))
+# # visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
+# # visualizationList.append(JingyuanTingyunTopazLuocha(config))
 
-# Lunae Teams
-visualizationList.append(LunaeHanabiTingyunLuocha(config))
-# visualizationList.append(LunaeHanyaTingyunLuocha(config))
-# visualizationList.append(LunaeHanyaYukongLuocha(config))
-# visualizationList.append(LunaeHanyaPelaLuocha(config))
-# visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
-# visualizationList.append(LunaeTingyunYukongLuocha(config))
-# visualizationList.append(LunaePelaTingyunLuocha(config))
-# visualizationList.append(LunaePelaYukongLuocha(config))
-# # visualizationList.append(LunaeE2HanabiTingyunLuocha(config))
+# # Lunae Teams
+# visualizationList.append(LunaeHanabiTingyunLuocha(config))
+# # visualizationList.append(LunaeHanyaTingyunLuocha(config))
+# # visualizationList.append(LunaeHanyaYukongLuocha(config))
+# # visualizationList.append(LunaeHanyaPelaLuocha(config))
+# # visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
+# # visualizationList.append(LunaeTingyunYukongLuocha(config))
+# # visualizationList.append(LunaePelaTingyunLuocha(config))
+# # visualizationList.append(LunaePelaYukongLuocha(config))
+# # # visualizationList.append(LunaeE2HanabiTingyunLuocha(config))
 
-# Kafka Teams
-# config['enemySpeed'] = 190 / 1.125
-# config['numEnemies'] = 2
-visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-# visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
-# visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-# visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
-# visualizationList.append(KafkaSampoRuanMeiLuocha(config))
-# visualizationList.append(KafkaGuinaifenLukaLuocha(config))
-# visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
-# visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
+# # Kafka Teams
+# # config['enemySpeed'] = 190 / 1.125
+# # config['numEnemies'] = 2
+# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+# # visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
+# # visualizationList.append(KafkaGuinaifenSampoLuocha(config))
+# # visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
+# # visualizationList.append(KafkaSampoRuanMeiLuocha(config))
+# # visualizationList.append(KafkaGuinaifenLukaLuocha(config))
+# # visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
+# # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
-# visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
-# visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
-# visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
-# visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
-# visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
+# # visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
+# # visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+# # visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
+# # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
+# # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
 
-# Qingque Teams
-visualizationList.append(QingqueHanabiPelaFuxuan(config))
-# visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
-# visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
-# visualizationList.append(QingqueHanyaPelaFuxuan(config))
+# # visualizationList.append(KafkaE1S1RuanMeiE1BlackSwanE1Luocha(config))
 
-# Seele Teams
-visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
-# visualizationList.append(SeeleMaxSilverWolfTingyunFuxuan(config))
-# visualizationList.append(SeeleMaxSilverWolfRuanMeiFuxuan(config))
-# visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
-# visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))
-# visualizationList.append(SeeleMidSilverWolfBronyaFuxuan(config))
-# visualizationList.append(SeeleNoneSilverWolfHanabiLuocha(config))
+# # Qingque Teams
+# visualizationList.append(QingqueHanabiPelaFuxuan(config))
+# # visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
+# # visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
+# # visualizationList.append(QingqueHanyaPelaFuxuan(config))
 
-# Solo Topaz Teams
-visualizationList.append(TopazTingyunHanabiFuxuan(config))
-# visualizationList.append(TopazTingyunHanyaFuxuan(config))
+# # Seele Teams
+# visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
+# # visualizationList.append(SeeleMaxSilverWolfTingyunFuxuan(config))
+# # visualizationList.append(SeeleMaxSilverWolfRuanMeiFuxuan(config))
+# # visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
+# # visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))
+# # visualizationList.append(SeeleMidSilverWolfBronyaFuxuan(config))
+# # visualizationList.append(SeeleNoneSilverWolfHanabiLuocha(config))
 
-# Xueyi Teams
-# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
-visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
-# visualizationList.append(XueyiHanabiPelaFuxuan(config,breakRatio=0.5))
-# visualizationList.append(XueyiHanyaPelaFuxuan(config,breakRatio=0.5)) # dont like the break assumptions here
-# visualizationList.append(XueyiAstaTopazFuxuan(config)) # needs review, why is the SP so negative? also this team makes no sense
+# # Solo Topaz Teams
+# visualizationList.append(TopazTingyunHanabiFuxuan(config))
+# # visualizationList.append(TopazTingyunHanyaFuxuan(config))
 
-# YanqingTeam
-visualizationList.append(YanqingTingyunHanabiAventurine(config))
-# visualizationList.append(YanqingTingyunHanabiGepard(config))
-# visualizationList.append(YanqingTingyunRuanMeiGepard(config))
+# # Xueyi Teams
+# # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
+# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
+# # visualizationList.append(XueyiHanabiPelaFuxuan(config,breakRatio=0.5))
+# # visualizationList.append(XueyiHanyaPelaFuxuan(config,breakRatio=0.5)) # dont like the break assumptions here
+# # visualizationList.append(XueyiAstaTopazFuxuan(config)) # needs review, why is the SP so negative? also this team makes no sense
+
+# # YanqingTeam
+# visualizationList.append(YanqingTingyunHanabiAventurine(config))
+# # visualizationList.append(YanqingTingyunHanabiGepard(config))
+# # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
 
 #%% Visualization
 # Visualize

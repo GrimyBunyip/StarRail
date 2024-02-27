@@ -25,7 +25,7 @@ def BladeBronyaRuanMeiLuocha(config):
     RuanMeiCharacter = RuanMei(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'DEF.percent', 'ER'],
                         substats = {'DEF.percent': 3, 'BreakEffect': 12, 'SPD.flat': 8, 'HP.percent': 5}),
                         lightcone = MemoriesOfThePast(**config),
-                        relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
+                        relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = PenaconyLandOfDreams(),
                         **config)
     
     BladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'HP.percent'],
@@ -52,6 +52,8 @@ def BladeBronyaRuanMeiLuocha(config):
     # Broken Keel Buff
     for character in [BladeCharacter, BronyaCharacter, RuanMeiCharacter]:
         character.addStat('CD',description='Broken Keel Luocha',amount=0.10)
+    for character in [BladeCharacter, BronyaCharacter, RuanMeiCharacter]:
+        character.addStat('DMG.wind',description='Penacony Luocha',amount=0.10)
     for character in [BladeCharacter, RuanMeiCharacter, LuochaCharacter]:
         character.addStat('DMG.wind',description='Penacony Bronya',amount=0.10)
 

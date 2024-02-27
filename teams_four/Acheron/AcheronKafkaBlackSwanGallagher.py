@@ -22,7 +22,7 @@ def AcheronKafkaBlackSwanGallagher(config):
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                             substats = {'CR': 10, 'CD': 10, 'ATK.percent': 5, 'SPD.flat': 3}),
                             lightcone = GoodNightAndSleepWell(**config),
-                            relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
+                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
                             **config)
     

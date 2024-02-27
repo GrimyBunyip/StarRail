@@ -50,7 +50,7 @@ class Acheron(BaseCharacter):
         
     def applyE4Debuff(self,team:list,rotationDuration:float):
         if self.eidolon >= 4:
-            uptime = (2.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
+            uptime = (3.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
             uptime = min(1.0, uptime)
             for character in team:
                 character:BaseCharacter

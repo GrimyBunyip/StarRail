@@ -27,15 +27,20 @@ class Kafka(BaseCharacter):
         # Talents
         
         # Eidolons
-        if self.eidolon >= 1:
-            self.addStat('DMG',description='e1',amount=0.30,type=['dot'],uptime=1.0 / self.numEnemies)
-        if self.eidolon >= 2:
-            self.addStat('DMG',description='e2',amount=0.25,type=['dot'])
         if self.eidolon >= 4:
-            self.addStat('BonusEnergyAttack',description='e4',amount=2.0,type=['dot'])
+            self.addStat('BonusEnergyAttack',description='Kafka e4',amount=2.0,type=['dot'])
         
         # Gear
         self.equipGear()
+        
+    def applyE1Debuff(self,team:list):
+        if self.eidolon >= 1:
+            uptime = 2.0 * self.getTotalStat('SPD') / self.enemySpeed / self.numEnemies
+            uptime = min(1.0, uptime)
+            for character in team:
+                character:BaseCharacter
+                character.addStat('Vulnerability',description='Kafka E1',
+                            amount=0.30,uptime=uptime,type=['dot'])
 
     def useBasic(self):
         retval = BaseEffect()

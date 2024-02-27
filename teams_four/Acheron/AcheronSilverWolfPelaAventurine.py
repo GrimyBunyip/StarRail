@@ -43,7 +43,7 @@ def AcheronSilverWolfPelaAventurine(config):
 
     AventurineCharacter = Aventurine(RelicStats(mainstats = ['DEF.percent', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
                             substats = {'CR': 8, 'CD': 12, 'SPD.flat': 5, 'DEF.percent': 3}),
-                            lightcone = InherentlyUnjustDestiny(defense=3250,**config),
+                            lightcone = DestinysThreadsForewoven(defense=3250,**config),
                             leverage_cr=0.40 * 3250 / 3600,
                             relicsetone = KnightOfPurityPalace2pc(), relicsettwo = KnightOfPurityPalace4pc(), planarset = BrokenKeel(),
                             **config)

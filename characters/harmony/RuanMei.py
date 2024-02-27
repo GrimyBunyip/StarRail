@@ -46,12 +46,15 @@ class RuanMei(BaseCharacter):
                               uptime=self.weaknessBrokenUptime)
             if character.name != 'Ruan Mei;':
                 character.addStat('SPD.percent',description='talent',amount=0.104 if self.eidolon >= 3 else 0.10)
-             
+
     def applyUltBuff(self,team:list,uptime:float):
         for character in team:
             character:BaseCharacter
             character.addStat('ResPen', description='Ruan Mei Ult', 
                               amount=0.27 if self.eidolon >= 3 else 0.25, uptime=uptime)
+            
+            if self.eidolon >= 1:
+                character.addStat('DefShred', description='Ruan Mei E1', amount=0.20, uptime=uptime)
         
     def applySkillBuff(self,team:list,uptime:float):
         for character in team:

@@ -49,6 +49,10 @@ class BlackSwan(BaseCharacter):
             character:BaseCharacter
             character.addStat('DefShred',description='Black Swan Skill',
                         amount=0.22 if self.eidolon >= 3 else 0.208,uptime=uptime)
+            
+            if self.eidolon >= 1:
+                character.addStat('Vulnerability',description='Black Swan E1',amount=0.25,
+                                type=['lightning','wind','physical','fire'])
         
     def applyUltDebuff(self,team:list,rotationDuration:float):
         uptime = (2.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
