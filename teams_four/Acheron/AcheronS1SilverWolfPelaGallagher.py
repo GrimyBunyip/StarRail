@@ -66,6 +66,9 @@ def AcheronS1SilverWolfPelaGallagher(config):
     # Silver Wolf Debuffs
     SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, GallagherCharacter],numSkillUses=2)
     SilverWolfCharacter.applyDebuffs([AcheronCharacter, PelaCharacter],targetingUptime=1.0/AcheronCharacter.numEnemies,numSkillUses=2) # Acheron and pela won't consistently target the debuffed enemy
+    
+    # Apply Gallagher Debuff
+    GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
     #%% Print Statements
     for character in team:
         character.print()

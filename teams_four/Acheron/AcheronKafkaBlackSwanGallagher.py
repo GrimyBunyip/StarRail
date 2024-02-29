@@ -33,7 +33,7 @@ def AcheronKafkaBlackSwanGallagher(config):
                             **config)
 
     BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'SPD.flat', 'ATK.percent', 'DMG.wind'],
-                            substats = {'ATK.percent': 12, 'SPD.flat': 8, 'EHR': 5, 'BreakEffect': 3}),
+                            substats = {'ATK.percent': 12, 'SPD.flat': 8, 'EHR': 5, 'ATK.flat': 3}),
                             lightcone = EyesOfThePrey(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
                             **config)

@@ -7,6 +7,7 @@ from characters.hunt.Topaz import Topaz
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
+from lightCones.hunt.FinalVictor import FinalVictor
 from lightCones.hunt.Swordplay import Swordplay
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
@@ -20,7 +21,7 @@ def TopazTingyunHanabiFuxuan(config):
     #%% Topaz Tingyun Hanabi Fuxuan Characters
     TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'ATK.percent', 'CR', 'ATK.percent'],
                         substats = {'CR': 12, 'CD': 8, 'ATK.percent': 5, 'ATK.flat': 3}),
-                        lightcone = Swordplay(**config),
+                        lightcone = FinalVictor(**config),
                         relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
                         **config)
 

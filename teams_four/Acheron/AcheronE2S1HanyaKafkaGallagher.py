@@ -61,6 +61,9 @@ def AcheronE2S1HanyaKafkaGallagher(config):
     # Hanya Buffs
     HanyaCharacter.applyBurdenBuff(team)
     HanyaCharacter.applyUltBuff(AcheronCharacter,uptime=1.0)
+    
+    # Apply Gallagher Debuff
+    GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
     #%% Print Statements
     for character in team:
         character.print()

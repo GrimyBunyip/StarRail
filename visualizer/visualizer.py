@@ -158,6 +158,6 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
     plt.axis("off")
     plt.xticks([])
     plt.yticks([])
-    plt.title('Star Rail Damage per Cycle Calculator | 12 8 5 3 relic substat split | no techniques\nDoTs, including break dots, already at max stacks where possible. Also many copies of GNSW may be assumed. So nihility numbers may look very big!\nDark Left Bar is damage from abilities, including dot explosions. Middle bar is dot ticks. Light right bar is break damage and break dot ticks.\n{} targets: {} with {} HP, {} Toughness, {:.2f} speed'.format(config['numEnemies'], config['enemyType'], config['enemyMaxHP'], config['enemyToughness'], config['enemySpeed']))
+    plt.title('Star Rail Damage per Cycle Calculator | 12 8 5 3 relic substat split | no techniques\nDoTs, including break dots, are calculated at average stacks for an infinite rotation, unless otherwise stated. Also many copies of GNSW may be assumed. So nihility numbers may look very big!\nDark Left Bar is damage from abilities, including dot explosions. Middle bar is dot ticks. Light right bar is break damage and break dot ticks.\n{} targets: {} with {} HP, {} Toughness, {:.2f} speed'.format(config['numEnemies'], config['enemyType'], config['enemyMaxHP'], config['enemyToughness'], config['enemySpeed']))
     plt.tight_layout()
     plt.savefig(visualizerPath)

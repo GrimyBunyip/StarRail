@@ -6,9 +6,10 @@ from characters.nihility.Pela import Pela
 from characters.nihility.Guinaifen import Guinaifen
 from estimator.DefaultEstimator import DefaultEstimator, DotEstimator
 from lightCones.abundance.Multiplication import Multiplication
+from lightCones.nihility.AlongThePassingShore import AlongThePassingShore
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
-from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
+from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
@@ -19,11 +20,11 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronGuinaifenPelaGallagher(config):
+def AcheronS1GuinaifenPelaGallagher(config):
     #%% Acheron Silver Wolf Pela Gallagher Characters
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                             substats = {'CR': 10, 'CD': 10, 'ATK.percent': 5, 'SPD.flat': 3}),
-                            lightcone = GoodNightAndSleepWell(**config),
+                            lightcone = AlongThePassingShore(**config),
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
                             **config)
@@ -52,8 +53,6 @@ def AcheronGuinaifenPelaGallagher(config):
     #%% Acheron Silver Wolf Pela Gallagher Team Buffs
     for character in [GuinaifenCharacter, AcheronCharacter, GallagherCharacter]:
         character.addStat('CD',description='Broken Keel from Pela',amount=0.1)
-    for character in [PelaCharacter, AcheronCharacter, GallagherCharacter]:
-        character.addStat('CD',description='Broken Keel from Guinaifen',amount=0.1)
 
     # Pela Debuffs, 3 turn pela rotation
     PelaCharacter.applyUltDebuff(team,rotationDuration=3)
@@ -72,7 +71,6 @@ def AcheronGuinaifenPelaGallagher(config):
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
-        
     #%% Print Statements
     for character in team:
         character.print()
@@ -83,9 +81,10 @@ def AcheronGuinaifenPelaGallagher(config):
     numStacks +=  1.0 * PelaCharacter.getTotalStat('SPD') # 3 pela attacks per 3 turn rotation
     numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
     numStacks /= AcheronCharacter.getTotalStat('SPD')
-    numStacks += 1 # Assume Acheron generates 1 stack when she skills
+    numStacks += 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from S1
     
     numSkillAcheron = 9.0 / numStacks
+    print(f"{numStacks * AcheronCharacter.getTotalStat('SPD'):.2f} stack rate")
 
     AcheronRotation = [ 
             AcheronCharacter.useSkill() * numSkillAcheron,
@@ -140,7 +139,7 @@ def AcheronGuinaifenPelaGallagher(config):
     GuinaifenRotation = [x * AcheronRotationDuration / GuinaifenRotationDuration for x in GuinaifenRotation]
     GallagherRotation = [x * AcheronRotationDuration / GallagherRotationDuration for x in GallagherRotation]
 
-    AcheronEstimate = DefaultEstimator(f'Acheron E{AcheronCharacter.eidolon:d} S{AcheronCharacter.lightcone.superposition:d} {AcheronCharacter.lightcone.name}: {numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
+    AcheronEstimate = DefaultEstimator(f'Acheron E{AcheronCharacter.eidolon:d} S{AcheronCharacter.lightcone.superposition:d} {AcheronCharacter.lightcone.shortname}: {numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
     PelaEstimate = DefaultEstimator(f'Pela: 3N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)
     GuinaifenEstimate = DefaultEstimator(f'E6 Guinaifen S{GuinaifenCharacter.lightcone.superposition:d} {GuinaifenCharacter.lightcone.name} {GuinaifenCharacter.firekissStacks:.0f}Firekiss {numBasicGuinaifen:.0f}N {numSkillGuinaifen:.0f}E {numUltGuinaifen:.0f}Q {numDotGuinaifen:.1f}Dot',

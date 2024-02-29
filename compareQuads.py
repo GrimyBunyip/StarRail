@@ -14,10 +14,12 @@ from teams_four.Acheron.AcheronE2S1HanyaKafkaGallagher import AcheronE2S1HanyaKa
 from teams_four.Acheron.AcheronE2S1KafkaBlackSwanGallagher import AcheronE2S1KafkaBlackSwanGallagher
 from teams_four.Acheron.AcheronE6S1BronyaKafkaGallagher import AcheronE6S1BronyaKafkaGallagher
 from teams_four.Acheron.AcheronGuinaifenPelaGallagher import AcheronGuinaifenPelaGallagher
+from teams_four.Acheron.AcheronGuinaifenPelaGepard import AcheronGuinaifenPelaGepard
 from teams_four.Acheron.AcheronKafkaBlackSwanGallagher import AcheronKafkaBlackSwanGallagher
 from teams_four.Acheron.AcheronKafkaBlackSwanLuocha import AcheronKafkaBlackSwanLuocha
 from teams_four.Acheron.AcheronKafkaPelaGallagher import AcheronKafkaPelaGallagher
 from teams_four.Acheron.AcheronKafkaPelaLuocha import AcheronKafkaPelaLuocha
+from teams_four.Acheron.AcheronS1GuinaifenPelaGallagher import AcheronS1GuinaifenPelaGallagher
 from teams_four.Acheron.AcheronS1SilverWolfPelaFuxuan import AcheronS1SilverWolfPelaFuxuan
 from teams_four.Acheron.AcheronS1SilverWolfPelaGallagher import AcheronS1SilverWolfPelaGallagher
 from teams_four.Acheron.AcheronSilverWolfPelaAventurine import AcheronSilverWolfPelaAventurine
@@ -121,8 +123,8 @@ from visualizer.visualizer import visualize
 visualizationList = []
 
 config = copy(Configuration)
-config['numEnemies'] = 3
-config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
+config['numEnemies'] = 2
+config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
 
@@ -147,20 +149,22 @@ config['enemySpeed'] = 190 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronE2HanabiPelaFuxuan(config))
 
 # # E0S1 Comparisons
-# visualizationList.append(AcheronS1SilverWolfPelaGallagher(config))
+# visualizationList.append(AcheronS1GuinaifenPelaGallagher(config))
+# # visualizationList.append(AcheronS1SilverWolfPelaGallagher(config))
 # # visualizationList.append(AcheronS1SilverWolfPelaFuxuan(config))
 
 # # E0 S1 on Allies Comparisons
 # visualizationList.append(AcheronKafkaPelaGallagher(config))
-# # visualizationList.append(AcheronKafkaBlackSwanGallagher(config))
+# visualizationList.append(AcheronKafkaBlackSwanGallagher(config))
 # # visualizationList.append(AcheronKafkaBlackSwanLuocha(config))
 # # visualizationList.append(AcheronKafkaPelaLuocha(config))
 # # visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 
 # # E0 Comparisons
-visualizationList.append(AcheronGuinaifenPelaGallagher(config))
-visualizationList.append(AcheronSilverWolfPelaGallagher(config))
-# # visualizationList.append(AcheronSilverWolfPelaGepard(config))
+# visualizationList.append(AcheronGuinaifenPelaGallagher(config))
+# visualizationList.append(AcheronSilverWolfPelaGallagher(config))
+# visualizationList.append(AcheronGuinaifenPelaGepard(config))
+# visualizationList.append(AcheronSilverWolfPelaGepard(config))
 # # visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
 # # visualizationList.append(AcheronSilverWolfPelaLuocha(config))
 # # visualizationList.append(AcheronWeltPelaFuxuan(config))
@@ -248,7 +252,7 @@ visualizationList.append(AcheronSilverWolfPelaGallagher(config))
 # # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
 # # visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
-# # visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))

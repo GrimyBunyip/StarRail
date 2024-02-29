@@ -41,7 +41,7 @@ def KafkaRuanMeiBlackSwanLuochaPatience(config):
     # But I'll just generously assume you are able to get there
 
     BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'ATK.percent', 'ATK.percent', 'DMG.wind'],
-                        substats = {'ATK.percent': 12, 'SPD.flat': 5, 'EHR': 8, 'BreakEffect': 3}),
+                        substats = {'ATK.percent': 12, 'SPD.flat': 5, 'EHR': 8, 'ATK.flat': 3}),
                         lightcone = EyesOfThePrey(**config),
                         relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
                         **config)
