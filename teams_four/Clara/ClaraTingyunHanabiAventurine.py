@@ -42,7 +42,7 @@ def ClaraTingyunHanabiAventurine(config):
     AventurineCharacter = Aventurine(RelicStats(mainstats = ['DEF.percent', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
                             substats = {'CR': 8, 'CD': 12, 'SPD.flat': 5, 'DEF.percent': 3}),
                             lightcone = DestinysThreadsForewoven(defense=3250,**config),
-                            leverage_cr=0.40 * 3250 / 3600,
+                            leverage_cr=0.48 * 3250 / 4000,
                             relicsetone = KnightOfPurityPalace2pc(), relicsettwo = KnightOfPurityPalace4pc(), planarset = BrokenKeel(),
                             **config)
     
@@ -57,7 +57,7 @@ def ClaraTingyunHanabiAventurine(config):
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=ClaraCharacter,uptime=1.0)
-    HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
+    HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
     
     # Hanabi Messenger 4 pc
     for character in [ClaraCharacter, TingyunCharacter, AventurineCharacter]:
@@ -113,7 +113,7 @@ def ClaraTingyunHanabiAventurine(config):
 
     numBasicAventurine = 4.0
     numTalentAventurine = 4.0 # stacks from ultimate
-    numTalentAventurine += numBasicAventurine # extra stacks from clara followups, limited by Aventurine turns
+    numTalentAventurine += 3 * numBasicAventurine # extra stacks from clara followups, limited by Aventurine turns
     numEnemyAttacks = AventurineCharacter.numEnemies * AventurineCharacter.enemySpeed / AventurineCharacter.getTotalStat('SPD') # extra stacks from people getting hit per turn
     numEnemyAttacks *= (1.0 + (6*1) / (5*6 + 6 + 4 + 4)) # extra stacks from when Aventurine is Targeted
     numTalentAventurine += numBasicAventurine * numEnemyAttacks

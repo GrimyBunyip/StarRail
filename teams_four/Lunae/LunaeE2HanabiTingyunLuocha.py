@@ -58,7 +58,7 @@ def LunaeE2HanabiTingyunLuocha(config):
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
-    HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
+    HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
     HanabiCharacter.applySkillBuff(character=LunaeCharacter,uptime=1.0,type=['ultimate']) # hanabi skill buff always applies to ultiamtes
     HanabiCharacter.applySkillBuff(character=LunaeCharacter,uptime=6.0/7.0,type=['enhancedBasic']) # hanabi skill buff applies to 6 of 7 enhanced basics 
             

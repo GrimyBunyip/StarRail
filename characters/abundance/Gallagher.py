@@ -38,7 +38,6 @@ class Gallagher(BaseCharacter):
         uptime = (3.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
         uptime = min(1.0, uptime)
         amount = 0.12 if self.eidolon >= 3 else 0.012
-        amount += 0.08 if self.eidolon >= 2 else 0.0
         for character in team:
             character:BaseCharacter
             character.addStat('Vulnerability',description='Gallagher Besotted',

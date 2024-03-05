@@ -58,7 +58,7 @@ def YanqingTingyunHanabiGepard(config):
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=YanqingCharacter,uptime=1.0)
-    HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
+    HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
     
     # Past and Future
     YanqingCharacter.addStat('DMG',description='Past and Future',amount=0.32)

@@ -28,6 +28,7 @@ from teams_four.Acheron.AcheronSilverWolfPelaGallagher import AcheronSilverWolfP
 from teams_four.Acheron.AcheronSilverWolfPelaGepard import AcheronSilverWolfPelaGepard
 from teams_four.Acheron.AcheronSilverWolfPelaLuocha import AcheronSilverWolfPelaLuocha
 from teams_four.Acheron.AcheronWeltPelaFuxuan import AcheronWeltPelaFuxuan
+from teams_four.Acheron.AcheronWeltPelaGallagher import AcheronWeltPelaGallagher
 from teams_four.Argenti.ArgentiBronyaPelaHuohuo import ArgentiBronyaPelaHuohuo
 from teams_four.Argenti.ArgentiHanabiTingyunHuohuo import ArgentiHanabiTingyunHuohuo
 from teams_four.Argenti.ArgentiHanyaRuanMeiHuohuo import ArgentiHanyaRuanMeiHuohuo
@@ -59,6 +60,7 @@ from teams_four.Jingliu.JingliuBronyaRuanMeiLuocha import JingliuBronyaRuanMeiLu
 from teams_four.Jingliu.JingliuBronyaTingyunLuocha import JingliuBronyaTingyunLuocha
 from teams_four.Jingliu.JingliuHanyaBladeHuohuo import JingliuHanyaBladeHuohuo
 from teams_four.Jingliu.JingliuRuanMeiBladeLuocha import JingliuRuanMeiBladeLuocha
+from teams_four.Jingyuan.JingyuanHanabiS1TingyunHuohuo import JingYuanHanabiS1TingyunHuohuo
 from teams_four.Jingyuan.JingyuanHanabiTingyunHuohuo import JingYuanHanabiTingyunHuohuo
 from teams_four.Jingyuan.JingyuanTingyunAstaLuocha import JingyuanTingyunAstaLuocha
 from teams_four.Jingyuan.JingyuanTingyunHanabiFuxuan import JingyuanTingyunHanabiFuxuan
@@ -168,6 +170,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
 # # visualizationList.append(AcheronSilverWolfPelaLuocha(config))
 # # visualizationList.append(AcheronWeltPelaFuxuan(config))
+# # visualizationList.append(AcheronWeltPelaGallagher(config))
 
 # # Argenti Teams
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
@@ -187,16 +190,16 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
 
 # Clara Teams
-# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-# # visualizationList.append(ClaraTingyunHanabiAventurine(config))
-# # visualizationList.append(ClaraTingyunHanabiLuocha(config))
+visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+visualizationList.append(ClaraTingyunHanabiAventurine(config))
+# visualizationList.append(ClaraTingyunHanabiLuocha(config))
 # # visualizationList.append(ClaraTingyunRuanMeiFuxuan(config))
 # # visualizationList.append(ClaraTingyunRuanMeiLuocha(config))
 # # visualizationList.append(ClaraTingyunHanyaLuocha(config))
-# # visualizationList.append(ClaraTopazAstaLuocha(config))
-# # visualizationList.append(ClaraTopazHanyaLuocha(config))
+visualizationList.append(ClaraTopazAstaLuocha(config))
+visualizationList.append(ClaraTopazHanyaLuocha(config))
 # # # visualizationList.append(ClaraTingyunPelaLuocha(config))
-# # # visualizationList.append(ClaraTingyunTopazLuocha(config))
+visualizationList.append(ClaraTingyunTopazLuocha(config))
 # # # visualizationList.append(ClaraSilverWolfPelaLuocha(config))
 # # # visualizationList.append(ClaraTingyunHanabiFuxuanEscapade(config))
 
@@ -216,7 +219,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # # visualizationList.append(JingliuBronyaHanabiLuocha(config))
 # # visualizationList.append(JingliuBronyaTingyunLuocha(config))
-# # visualizationList.append(JingliuBronyaPelaLuocha(config))
+# visualizationList.append(JingliuBronyaPelaLuocha(config))
 # # visualizationList.append(JingliuRuanMeiBladeLuocha(config))
 # # visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
@@ -227,10 +230,11 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(JingyuanTingyunAstaLuocha(config))
 # # visualizationList.append(JingyuanTingyunHanyaFuxuan(config))
 # # visualizationList.append(JingyuanTingyunTopazLuocha(config))
+# visualizationList.append(JingYuanHanabiS1TingyunHuohuo(config))
 
 # # Lunae Teams
 # visualizationList.append(LunaeHanabiTingyunLuocha(config))
-# # visualizationList.append(LunaeHanyaTingyunLuocha(config))
+# visualizationList.append(LunaeHanyaTingyunLuocha(config))
 # # visualizationList.append(LunaeHanyaYukongLuocha(config))
 # # visualizationList.append(LunaeHanyaPelaLuocha(config))
 # # visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
@@ -251,8 +255,8 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 # # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
-# # visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
-visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))

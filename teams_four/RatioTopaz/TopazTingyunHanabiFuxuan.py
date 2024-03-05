@@ -63,7 +63,7 @@ def TopazTingyunHanabiFuxuan(config):
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=TopazCharacter,uptime=1.0)
-    HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
+    HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
     
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff([TopazCharacter],uptime=1.0)

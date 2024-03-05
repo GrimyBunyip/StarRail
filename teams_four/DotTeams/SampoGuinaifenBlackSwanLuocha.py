@@ -37,7 +37,7 @@ def SampoGuinaifenBlackSwanLuocha(config):
     # But I'll just generously assume you are able to get there
 
     BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                            substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 5, 'BreakEffect': 3}),
+                            substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 5, 'ATK.flat': 3}),
                             lightcone = EyesOfThePrey(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
                             **config)

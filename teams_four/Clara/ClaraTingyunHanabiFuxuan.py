@@ -56,7 +56,7 @@ def ClaraTingyunHanabiFuxuan(config):
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=ClaraCharacter,uptime=1.0)
-    HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
+    HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
     
     # Hanabi Messenger 4 pc
     for character in [ClaraCharacter, TingyunCharacter, FuxuanCharacter]:

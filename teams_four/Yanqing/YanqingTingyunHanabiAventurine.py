@@ -45,7 +45,7 @@ def YanqingTingyunHanabiAventurine(config):
     AventurineCharacter = Aventurine(RelicStats(mainstats = ['DEF.percent', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
                             substats = {'CR': 8, 'CD': 12, 'SPD.flat': 5, 'DEF.percent': 3}),
                             lightcone = DestinysThreadsForewoven(defense=3250,**config),
-                            leverage_cr=0.40 * 3250 / 3600,
+                            leverage_cr=0.48 * 3250 / 4000,
                             relicsetone = KnightOfPurityPalace2pc(), relicsettwo = KnightOfPurityPalace4pc(), planarset = BrokenKeel(),
                             **config)
     
@@ -60,7 +60,7 @@ def YanqingTingyunHanabiAventurine(config):
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=YanqingCharacter,uptime=1.0)
-    HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
+    HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
     
     # Past and Future
     YanqingCharacter.addStat('DMG',description='Past and Future',amount=0.32)

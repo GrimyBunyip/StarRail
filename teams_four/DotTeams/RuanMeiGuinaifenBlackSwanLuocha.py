@@ -42,7 +42,7 @@ def RuanMeiGuinaifenBlackSwanLuocha(config):
     # But I'll just generously assume you are able to get there
 
     BlackSwanCharacter = BlackSwan(RelicStats(mainstats = ['EHR', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
-                            substats = {'ATK.percent': 12, 'SPD.flat': 5, 'EHR': 8, 'BreakEffect': 3}),
+                            substats = {'ATK.percent': 12, 'SPD.flat': 5, 'EHR': 8, 'ATK.flat': 3}),
                             lightcone = EyesOfThePrey(**config),
                             sacramentStacks=5.0, # we do not consistently reach def shred stacks here, this number will be recalculated below
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(stacks=2), planarset = PanCosmicCommercialEnterprise(),

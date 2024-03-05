@@ -70,7 +70,7 @@ def QingqueHanabiPelaFuxuan(config):
     # Hanabi Buffs
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=QingqueCharacter,uptime=1.0)
-    HanabiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
+    HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
     
     # Fu Xuan Buffs
     FuxuanCharacter.applySkillBuff(team)
