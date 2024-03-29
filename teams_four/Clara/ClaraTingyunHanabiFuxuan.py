@@ -88,7 +88,7 @@ def ClaraTingyunHanabiFuxuan(config):
 
     ClaraRotation = [ # 110 max energy
             ClaraCharacter.useSkill() * numSkillClara,
-            ClaraCharacter.useMarkOfSvarog() * numSvarogCounters, 
+            ClaraCharacter.useMarkOfSvarog() * numSkillClara, 
             ClaraCharacter.useTalent(enhanced=True) * numEnhancedTalents,
             ClaraCharacter.useUltimate(),
             ClaraCharacter.useTalent(enhanced=False) * numUnenhancedTalents,

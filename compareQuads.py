@@ -136,11 +136,11 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # # E2S1 Comparisons
 # visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
-# # visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
+# visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
 # # visualizationList.append(AcheronE2S1BronyaPelaLuocha(config))
 # # visualizationList.append(AcheronE2S1KafkaBlackSwanGallagher(config))
-# # visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
-# # visualizationList.append(AcheronE2S1HanabiKafkaGallagher(config))
+# visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
+# visualizationList.append(AcheronE2S1HanabiKafkaGallagher(config))
 # # visualizationList.append(AcheronE2S1HanyaKafkaGallagher(config))
 
 # # E2 Comparisons
@@ -167,7 +167,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(AcheronSilverWolfPelaGallagher(config))
 # visualizationList.append(AcheronGuinaifenPelaGepard(config))
 # visualizationList.append(AcheronSilverWolfPelaGepard(config))
-# # visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
+# visualizationList.append(AcheronSilverWolfPelaFuxuan(config))
 # # visualizationList.append(AcheronSilverWolfPelaLuocha(config))
 # # visualizationList.append(AcheronWeltPelaFuxuan(config))
 # # visualizationList.append(AcheronWeltPelaGallagher(config))
@@ -191,15 +191,15 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # Clara Teams
 visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-visualizationList.append(ClaraTingyunHanabiAventurine(config))
+# visualizationList.append(ClaraTingyunHanabiAventurine(config))
 # visualizationList.append(ClaraTingyunHanabiLuocha(config))
 # # visualizationList.append(ClaraTingyunRuanMeiFuxuan(config))
 # # visualizationList.append(ClaraTingyunRuanMeiLuocha(config))
 # # visualizationList.append(ClaraTingyunHanyaLuocha(config))
-visualizationList.append(ClaraTopazAstaLuocha(config))
-visualizationList.append(ClaraTopazHanyaLuocha(config))
+# visualizationList.append(ClaraTopazAstaLuocha(config))
+# visualizationList.append(ClaraTopazHanyaLuocha(config))
 # # # visualizationList.append(ClaraTingyunPelaLuocha(config))
-visualizationList.append(ClaraTingyunTopazLuocha(config))
+# visualizationList.append(ClaraTingyunTopazLuocha(config))
 # # # visualizationList.append(ClaraSilverWolfPelaLuocha(config))
 # # # visualizationList.append(ClaraTingyunHanabiFuxuanEscapade(config))
 
@@ -235,11 +235,11 @@ visualizationList.append(ClaraTingyunTopazLuocha(config))
 # # Lunae Teams
 # visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaTingyunLuocha(config))
-# # visualizationList.append(LunaeHanyaYukongLuocha(config))
+# visualizationList.append(LunaeHanyaYukongLuocha(config))
 # # visualizationList.append(LunaeHanyaPelaLuocha(config))
 # # visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
 # # visualizationList.append(LunaeTingyunYukongLuocha(config))
-# # visualizationList.append(LunaePelaTingyunLuocha(config))
+# visualizationList.append(LunaePelaTingyunLuocha(config))
 # # visualizationList.append(LunaePelaYukongLuocha(config))
 # # # visualizationList.append(LunaeE2HanabiTingyunLuocha(config))
 
