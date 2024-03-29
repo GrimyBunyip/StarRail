@@ -12,25 +12,17 @@ class Robin(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                benedictionTarget:BaseCharacter=None,
-                speedUptime:float=1.0/3.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Robin')
         
-        self.benedictionTarget = benedictionTarget
-        self.speedUptime = speedUptime
-
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.096)]
 
         # Talents
-        self.addStat('SPD.percent',description='Robin Trace',amount=0.20,uptime=self.speedUptime)
-        self.addStat('DMG',description='Robin Trace',amount=0.40,type=['basic'])
 
         # Eidolons
-        if self.eidolon >= 2:
-            self.addStat('BonusEnergyTurn',description='Robin Trace',amount=5.0)
         
         # Gear
         self.equipGear()
@@ -48,28 +40,30 @@ class Robin(BaseCharacter):
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
-        
-        retval += self.useTalent()
         return retval
     
-    def applySkillBuff(self,character:BaseCharacter,uptime:float=1.0):
-        character.addStat('ATK.percent',description='Benediction',
-                                amount=0.55 if self.eidolon >= 5 else 0.50,
-                                uptime=uptime)
+    def applyTalentBuff(self,team:list):
+        for character in team:
+            character.addStat('CD',description='Robin Talent Buff',
+                                    amount=0.23 if self.eidolon >= 5 else 0.20)
+            character.addStat('CD',description='Robin Trace Buff',
+                                    amount=0.1,
+                                    type=['followup'])
+    
+    def applySkillBuff(self,team:list,uptime:float=1.0):
+        for character in team:
+            character.addStat('DMG',description='Robin Skill Buff',
+                                    amount=0.55 if self.eidolon >= 3 else 0.50,
+                                    uptime=uptime)
         
-    def applyUltBuff(self,character:BaseCharacter,tingRotationDuration:float=3.0,targetSpdMult:float=1.0,ultUptime=None,type:list=None):
-        if ultUptime is None:
-            e1Uptime = self.getTotalStat('SPD') / character.getTotalStat('SPD') / targetSpdMult / tingRotationDuration
-            ultUptime = e1Uptime * 2.0
-            
-            e1Uptime = min(1.0,e1Uptime)
-            ultUptime = min(1.0,ultUptime)
-        else:
-            ultUptime = ultUptime
-            e1Uptime = 0.0
-        
-        character.addStat('SPD.percent',description='Robin E1',amount=0.20,uptime=e1Uptime)
-        character.addStat('DMG',description='Robin Ult',amount=0.56 if self.eidolon >= 3 else 0.5,uptime=ultUptime,type=type)
+    def applyUltBuff(self,team:list,uptime:float=1.0):
+        for character in team:
+            character.addStat('ATK.percent',description='Robin Ultimate Buff',
+                                    amount=0.2432 if self.eidolon >= 3 else 0.228,
+                                    uptime=uptime)
+            character.addStat('ATK.flat',description='Robin Ultimate Buff',
+                                    amount=230 if self.eidolon >= 3 else 200,
+                                    uptime=uptime)
 
     def useSkill(self):
         retval = BaseEffect()
@@ -85,31 +79,31 @@ class Robin(BaseCharacter):
         type = ['ultimate']
         retval.energy = 5.0 * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
+        retval.actionvalue -= 100.0 / 90.0 + 100.0 / self.getTotalStat('SPD') # apply reverse advance for ultimate
+        self.addDebugInfo(retval,type)
+        return retval
+    
+    def useAdvanceTrace(self):
+        retval = BaseEffect()
+        type = ['trace']
+        retval.actionvalue = 0.25
         self.addDebugInfo(retval,type)
         return retval
     
     def useTalent(self):
         retval = BaseEffect()
-        type = ['basic','talent']
-        retval.damage = 0.66 if self.eidolon >= 5 else 0.6
-        retval.damage *= self.benedictionTarget.getTotalStat('ATK',type,self.element)
-        retval.damage *= self.benedictionTarget.getTotalCrit(type,self.element)
-        retval.damage *= self.benedictionTarget.getDmg(type,self.element)
-        retval.damage = self.benedictionTarget.applyDamageMultipliers(retval.damage,type,self.element)
-        self.addDebugInfo(retval,type,'Robin Talent Damage')
+        type = ['talent']
+        retval.energy = 3.0 if self.eidolon >= 2 else 2.0
+        self.addDebugInfo(retval,type)
         return retval
     
-    def useBenediction(self, type:list):
+    def useConcertoDamage(self, type:list):
         retval = BaseEffect()
-        retval.damage = self.benedictionTarget.getTotalStat('ATK',type,self.element) * (0.44 if self.eidolon >= 5 else 0.4)
-        retval.damage *= self.benedictionTarget.getTotalCrit(type,self.element)
-        retval.damage *= 1.0 + self.benedictionTarget.getTotalStat('DMG',type,self.element)
-        retval.damage = self.benedictionTarget.applyDamageMultipliers(retval.damage,type,self.element)
-        self.addDebugInfo(retval,type,'Robin Benediction Damage')
-        return retval
-    
-    def giveUltEnergy(self):
-        retval = BaseEffect()
-        retval.energy = 60.0 if self.eidolon >= 6 else 50.0
-        self.addDebugInfo(retval,['Robin Energy'],'Robin Ult Energy')
+        type = ['ultimate']
+        retval.damage = self.getTotalMotionValue('ultimate',type)
+        retval.damage *= 1.0 + 1.0 * 1.5 # static crit 
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        self.addDebugInfo(retval,type)
         return retval
