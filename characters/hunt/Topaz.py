@@ -46,7 +46,7 @@ class Topaz(BaseCharacter):
     def applyVulnerabilityDebuff(self,team:list,uptime:float):
         for character in team:
             character:BaseCharacter
-            character.addStat('Vulnerability',description='skill',amount=0.55 if self.eidolon >= 3 else 0.5,type=['followup'],uptime=uptime)
+            character.addStat('Vulnerability',description='Topaz Skill Debuff',amount=0.55 if self.eidolon >= 3 else 0.5,type=['followup'],uptime=uptime)
         
     def useBasic(self):
         retval = BaseEffect()

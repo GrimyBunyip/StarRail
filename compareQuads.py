@@ -101,6 +101,7 @@ from teams_four.RatioTopaz.RatioTopazAstaLuocha import DrRatioTopazAstaLuocha
 from teams_four.RatioTopaz.RatioHanyaSilverWolfLuocha import DrRatioHanyaSilverWolfLuocha
 from teams_four.RatioTopaz.RatioTopazHanyaLuocha import DrRatioTopazHanyaLuocha
 from teams_four.RatioTopaz.RatioTopazRuanMeiLuocha import DrRatioTopazRuanMeiLuocha
+from teams_four.RatioTopaz.RatioTopazS1RobinAventurine import DrRatioTopazS1RobinAventurine
 from teams_four.RatioTopaz.RatioTopazSilverWolfLuocha import DrRatioTopazSilverWolfLuocha
 from teams_four.DotTeams.RuanMeiGuinaifenBlackSwanLuocha import RuanMeiGuinaifenBlackSwanLuocha
 from teams_four.DotTeams.SampoGuinaifenBlackSwanLuocha import SampoGuinaifenBlackSwanLuocha
@@ -204,6 +205,7 @@ visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # # # visualizationList.append(ClaraTingyunHanabiFuxuanEscapade(config))
 
 # # Dr Ratio Teams
+visualizationList.append(DrRatioTopazS1RobinAventurine(config))
 # visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
 # # visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
 # # visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
@@ -216,7 +218,7 @@ visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
 
 # # Jingliu Teams
-# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # # visualizationList.append(JingliuBronyaHanabiLuocha(config))
 # # visualizationList.append(JingliuBronyaTingyunLuocha(config))
 # visualizationList.append(JingliuBronyaPelaLuocha(config))
@@ -233,7 +235,7 @@ visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(JingYuanHanabiS1TingyunHuohuo(config))
 
 # # Lunae Teams
-# visualizationList.append(LunaeHanabiTingyunLuocha(config))
+visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaYukongLuocha(config))
 # # visualizationList.append(LunaeHanyaPelaLuocha(config))

@@ -79,12 +79,6 @@ def AcheronSilverWolfPelaAventurine(config):
         character.print()
 
     #%% Acheron Silver Wolf Pela Aventurine Rotations
-
-    numBasicAventurine = 4.0
-    numTalentAventurine = 4.0 # stacks from ultimate
-    numEnemyAttacks = AventurineCharacter.numEnemies * AventurineCharacter.enemySpeed / AventurineCharacter.getTotalStat('SPD') # extra stacks from people getting hit per turn
-    numEnemyAttacks *= (1.0 + (6*1) / (6*1 + 6 + 4 + 4)) # extra stacks from when Aventurine is Targeted
-    numTalentAventurine += numBasicAventurine * numEnemyAttacks
     
     numStacks = (3/2) * SilverWolfCharacter.getTotalStat('SPD') # 3 silver wolf attacks per 2 turn rotation
     numStacks +=  1.0 * PelaCharacter.getTotalStat('SPD') # 3 pela attacks per 3 turn rotation
@@ -119,6 +113,12 @@ def AcheronSilverWolfPelaAventurine(config):
     numBasicPela = 3.0
     PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
                     PelaCharacter.useUltimate(),]
+
+    numBasicAventurine = 4.0
+    numTalentAventurine = 4.0 # stacks from ultimate
+    numEnemyAttacks = AventurineCharacter.numEnemies * AventurineCharacter.enemySpeed / AventurineCharacter.getTotalStat('SPD') # extra stacks from people getting hit per turn
+    numEnemyAttacks += (1.0 + (6*1) / (6*1 + 6 + 4 + 4)) # extra stacks from when Aventurine is Targeted
+    numTalentAventurine += numBasicAventurine * numEnemyAttacks
     
     AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
                            AventurineCharacter.useTalent() * numTalentAventurine,

@@ -56,13 +56,13 @@ class Robin(BaseCharacter):
                                     amount=0.55 if self.eidolon >= 3 else 0.50,
                                     uptime=uptime)
         
-    def applyUltBuff(self,team:list,uptime:float=1.0):
+    def applyUltBuff(self,team:list,uptime=0.5):
+        amount = self.getTotalStat('ATK')
+        amount *= 0.2432 if self.eidolon >= 3 else 0.228
+        amount += 230 if self.eidolon >= 3 else 200
         for character in team:
-            character.addStat('ATK.percent',description='Robin Ultimate Buff',
-                                    amount=0.2432 if self.eidolon >= 3 else 0.228,
-                                    uptime=uptime)
             character.addStat('ATK.flat',description='Robin Ultimate Buff',
-                                    amount=230 if self.eidolon >= 3 else 200,
+                                    amount=amount,
                                     uptime=uptime)
 
     def useSkill(self):
@@ -79,7 +79,7 @@ class Robin(BaseCharacter):
         type = ['ultimate']
         retval.energy = 5.0 * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
-        retval.actionvalue -= 100.0 / 90.0 + 100.0 / self.getTotalStat('SPD') # apply reverse advance for ultimate
+        retval.actionvalue += self.getTotalStat('SPD') / 90.0 - 1.0 # apply reverse advance for ultimate
         self.addDebugInfo(retval,type)
         return retval
     
@@ -99,11 +99,16 @@ class Robin(BaseCharacter):
     
     def useConcertoDamage(self, type:list):
         retval = BaseEffect()
-        type = ['ultimate']
         retval.damage = self.getTotalMotionValue('ultimate',type)
         retval.damage *= 1.0 + 1.0 * 1.5 # static crit 
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         self.addDebugInfo(retval,type)
+        return retval
+    
+    def useAdvanceForward(self, advanceAmount:float=1.0):
+        retval = BaseEffect()
+        retval.actionvalue = max(-1.0,-advanceAmount)
+        self.addDebugInfo(retval,['Advance Forward'],'Robin Advance Forward')
         return retval

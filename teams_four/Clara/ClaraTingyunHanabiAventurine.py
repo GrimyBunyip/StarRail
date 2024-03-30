@@ -115,7 +115,7 @@ def ClaraTingyunHanabiAventurine(config):
     numTalentAventurine = 4.0 # stacks from ultimate
     numTalentAventurine += 3 * numBasicAventurine # extra stacks from clara followups, limited by Aventurine turns
     numEnemyAttacks = AventurineCharacter.numEnemies * AventurineCharacter.enemySpeed / AventurineCharacter.getTotalStat('SPD') # extra stacks from people getting hit per turn
-    numEnemyAttacks *= (1.0 + (6*1) / (5*6 + 6 + 4 + 4)) # extra stacks from when Aventurine is Targeted
+    numEnemyAttacks += (1.0 + (6*1) / (5*6 + 6 + 4 + 4)) # extra stacks from when Aventurine is Targeted
     numTalentAventurine += numBasicAventurine * numEnemyAttacks
     AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
                            AventurineCharacter.useTalent() * numTalentAventurine,

@@ -129,7 +129,7 @@ def YanqingTingyunHanabiAventurine(config):
     numTalentAventurine = 4.0 # stacks from ultimate
     numTalentAventurine = 0.85 * numBasicAventurine # estimate 15% of the time yanqing fails to followup
     numEnemyAttacks = AventurineCharacter.numEnemies * AventurineCharacter.enemySpeed / AventurineCharacter.getTotalStat('SPD') # extra stacks from people getting hit per turn
-    numEnemyAttacks *= (1.0 + (6*1) / (6*1 + 6 + 4 + 4)) # extra stacks from when Aventurine is Targeted
+    numEnemyAttacks += (1.0 + (6*1) / (6*1 + 6 + 4 + 4)) # extra stacks from when Aventurine is Targeted
     numTalentAventurine += numBasicAventurine * numEnemyAttacks
     AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
                            AventurineCharacter.useTalent() * numTalentAventurine,
