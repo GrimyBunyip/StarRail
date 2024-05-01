@@ -191,7 +191,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
 
 # Clara Teams
-visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(ClaraTingyunHanabiAventurine(config))
 # visualizationList.append(ClaraTingyunHanabiLuocha(config))
 # # visualizationList.append(ClaraTingyunRuanMeiFuxuan(config))
@@ -206,7 +206,7 @@ visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 
 # # Dr Ratio Teams
 visualizationList.append(DrRatioTopazS1RobinAventurine(config))
-# visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
+visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
 # # visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
 # # visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
 # # visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
@@ -218,7 +218,7 @@ visualizationList.append(DrRatioTopazS1RobinAventurine(config))
 # # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
 
 # # Jingliu Teams
-visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # # visualizationList.append(JingliuBronyaHanabiLuocha(config))
 # # visualizationList.append(JingliuBronyaTingyunLuocha(config))
 # visualizationList.append(JingliuBronyaPelaLuocha(config))
@@ -235,7 +235,7 @@ visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # visualizationList.append(JingYuanHanabiS1TingyunHuohuo(config))
 
 # # Lunae Teams
-visualizationList.append(LunaeHanabiTingyunLuocha(config))
+# visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaYukongLuocha(config))
 # # visualizationList.append(LunaeHanyaPelaLuocha(config))

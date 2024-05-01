@@ -55,12 +55,6 @@ def DrRatioTopazS1RobinAventurine(config):
     for character in [TopazCharacter, DrRatioCharacter, AventurineCharacter]:
         character.addStat('CD',description='Broken Keel from Robin',amount=0.1)
 
-    # Robin Buffs
-    RobinCharacter.applyTalentBuff(team)
-    RobinCharacter.applySkillBuff(team)
-    RobinUltUptime = 0.5 # assume about half of our attacks get robin buff
-    RobinCharacter.applyUltBuff([DrRatioCharacter,TopazCharacter,AventurineCharacter],uptime=RobinUltUptime)
-
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
     
@@ -69,6 +63,12 @@ def DrRatioTopazS1RobinAventurine(config):
     
     # Aventurine Buffs
     AventurineCharacter.applyUltDebuff(team=team,rotationDuration=4.0,targetingUptime=1.0)
+
+    # Robin Buffs
+    RobinCharacter.applyTalentBuff(team)
+    RobinCharacter.applySkillBuff(team)
+    RobinUltUptime = 0.5 # assume about half of our attacks get robin buff
+    RobinCharacter.applyUltBuff([DrRatioCharacter,TopazCharacter,AventurineCharacter],uptime=RobinUltUptime)
 
     #%% Print Statements
     for character in team:

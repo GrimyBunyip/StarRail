@@ -21,6 +21,7 @@ class Robin(BaseCharacter):
         self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.096)]
 
         # Talents
+        self.addStat('BonusEnergyAttack', description='talent', amount=5, type=['skill'])
 
         # Eidolons
         
@@ -47,7 +48,7 @@ class Robin(BaseCharacter):
             character.addStat('CD',description='Robin Talent Buff',
                                     amount=0.23 if self.eidolon >= 5 else 0.20)
             character.addStat('CD',description='Robin Trace Buff',
-                                    amount=0.1,
+                                    amount=0.25,
                                     type=['followup'])
     
     def applySkillBuff(self,team:list,uptime:float=1.0):
