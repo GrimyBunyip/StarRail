@@ -9,11 +9,9 @@ from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
-from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
-from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
+from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
@@ -23,7 +21,7 @@ def BladeBronyaHanabiLuocha(config):
     BladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'HP.percent', 'CR', 'HP.percent'],
                         substats = {'CR': 8, 'CD': 12, 'HP.flat': 3, 'HP.percent': 5}),
                         lightcone = ASecretVow(**config,uptime=0.0),
-                        relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = InertSalsotto(),
+                        relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = RutilantArena(),
                         **config)
 
     BronyaCharacter = Bronya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'ER'],
@@ -56,7 +54,7 @@ def BladeBronyaHanabiLuocha(config):
         character.addStat('DMG.wind',description='Penacony Bronya',amount=0.10)
 
     # Bronya Planetary Rendezvous
-    BladeCharacter.addStat('DMG',description='Planetary Rendezvous',amount=0.09 + 0.03 * BronyaCharacter.lightcone.superposition)
+    BladeCharacter.addStat('DMG.wind',description='Planetary Rendezvous',amount=0.09 + 0.03 * BronyaCharacter.lightcone.superposition)
 
     # Messenger 4 pc from Bronya
     for character in [BladeCharacter, HanabiCharacter, LuochaCharacter]:
@@ -73,6 +71,7 @@ def BladeBronyaHanabiLuocha(config):
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
     BronyaCharacter.applyUltBuff(BladeCharacter,uptime=1.0/4.0) # estimate 1 bronya buff per 4 rotations
+    BronyaCharacter.applyUltBuff(LuochaCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / LuochaCharacter.getTotalStat('SPD') / 0.8)
 
     #%% Print Statements
     for character in team:

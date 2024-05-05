@@ -7,12 +7,11 @@ from characters.nihility.Pela import Pela
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
-from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
+from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 
@@ -21,7 +20,7 @@ def BladeBronyaPelaFuxuan(config):
     BladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'HP.percent'],
                         substats = {'CR': 12, 'CD': 8, 'SPD.flat': 5, 'HP.percent': 3}),
                         lightcone = ASecretVow(uptime=1.0,**config),
-                        relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = InertSalsotto(),
+                        relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = RutilantArena(),
                         hpLossTally = 0.25,
                         **config)
 
@@ -55,7 +54,7 @@ def BladeBronyaPelaFuxuan(config):
         character.addStat('DMG.wind',description='Penacony Bronya',amount=0.10)
 
     # Bronya Planetary Rendezvous
-    BladeCharacter.addStat('DMG',description='Planetary Rendezvous',amount=0.09 + 0.03 * BronyaCharacter.lightcone.superposition)
+    BladeCharacter.addStat('DMG.wind',description='Planetary Rendezvous',amount=0.09 + 0.03 * BronyaCharacter.lightcone.superposition)
 
     # Messenger 4 pc
     for character in [BladeCharacter, PelaCharacter, FuxuanCharacter]:
@@ -77,6 +76,8 @@ def BladeBronyaPelaFuxuan(config):
     BronyaCharacter.applyTraceBuff(team)
     BronyaCharacter.applyUltBuff(BladeCharacter,uptime=1.0/4.0) # estimate 1 bronya buff per 4 rotations
     BronyaCharacter.applySkillBuff(BladeCharacter,uptime=1.0/2.0) # estimate 1 bronya skill buff per 2 blade attacks
+    BronyaCharacter.applyUltBuff(PelaCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / PelaCharacter.getTotalStat('SPD'))
+    BronyaCharacter.applyUltBuff(FuxuanCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / FuxuanCharacter.getTotalStat('SPD'))
     
     # Fu Xuan Buffs
     FuxuanCharacter.applySkillBuff(team)

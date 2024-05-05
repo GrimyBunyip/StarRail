@@ -10,9 +10,8 @@ from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
-from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
+from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
@@ -30,7 +29,7 @@ def BladeBronyaRuanMeiFuxuan(config):
     BladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'HP.percent'],
                         substats = {'CR': 12, 'CD': 8, 'SPD.flat': 5, 'HP.percent': 3}),
                         lightcone = ASecretVow(uptime=1.0,**config),
-                        relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = InertSalsotto(),
+                        relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = RutilantArena(),
                         hpLossTally = 0.25,
                         **config)
 
@@ -71,6 +70,8 @@ def BladeBronyaRuanMeiFuxuan(config):
     BronyaCharacter.applyTraceBuff(team)
     BronyaCharacter.applyUltBuff(BladeCharacter,uptime=1.0/4.0) # estimate 1 bronya buff per 4 rotations
     BronyaCharacter.applySkillBuff(BladeCharacter,uptime=1.0/2.0) # estimate 1 bronya skill buff per 2 blade attacks
+    BronyaCharacter.applyUltBuff(RuanMeiCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / RuanMeiCharacter.getTotalStat('SPD'))
+    BronyaCharacter.applyUltBuff(FuxuanCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / FuxuanCharacter.getTotalStat('SPD'))
     
     # Fu Xuan Buffs
     FuxuanCharacter.applySkillBuff(team)
