@@ -3,7 +3,7 @@ from baseClasses.BaseLightCone import BaseLightCone
 
 class WorrisomeBlissful(BaseLightCone):
     def __init__(self,
-                stacks:float = 0.0,
+                stacks:float = 2.0,
                 **config):
         self.loadConeStats('Worrisome, Blissful')
         self.setSuperposition(config)

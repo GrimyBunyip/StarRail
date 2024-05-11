@@ -12,11 +12,11 @@ from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
-from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
+from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
 
 def DrRatioTopazS1RobinFuxuan(config):
     #%% DrRatio Topaz Robin Fuxuan Characters
@@ -38,7 +38,7 @@ def DrRatioTopazS1RobinFuxuan(config):
     RobinCharacter = Robin(RelicStats(mainstats = ['ER', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
                                     substats = {'ATK.percent': 8, 'SPD.flat': 12, 'RES': 3, 'ATK.flat': 5}),
                                     lightcone = ForTomorrowsJourney(**config),
-                                    relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = MusketeerOfWildWheat2pc(uptime=0.5), planarset = BrokenKeel(),
+                                    relicsetone = Prisoner2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = BrokenKeel(),
                                     **config)
 
     FuxuanCharacter = Fuxuan(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
@@ -57,6 +57,9 @@ def DrRatioTopazS1RobinFuxuan(config):
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
+    # Topaz S1 Buff
+    for character in [DrRatioCharacter, RobinCharacter, FuxuanCharacter]:
+        character.addStat('CD',description='Worrisome Blissful', amount=0.10 + 0.02 * TopazCharacter.lightcone.superposition)
     
     # Dr Ratio Buff
     DrRatioCharacter.applyTalentBuff(team)

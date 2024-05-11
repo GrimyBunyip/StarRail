@@ -100,7 +100,11 @@ from teams_four.RatioTopaz.RatioRuanMeiSilverWolfLuocha import DrRatioRuanMeiSil
 from teams_four.RatioTopaz.RatioTingyunSilverWolfLuocha import DrRatioTingyunSilverWolfLuocha
 from teams_four.RatioTopaz.RatioTopazAstaLuocha import DrRatioTopazAstaLuocha
 from teams_four.RatioTopaz.RatioHanyaSilverWolfLuocha import DrRatioHanyaSilverWolfLuocha
+from teams_four.RatioTopaz.RatioTopazE1RobinAventurine import DrRatioTopazE1RobinAventurine
+from teams_four.RatioTopaz.RatioTopazE1RobinFuxuan import DrRatioTopazE1RobinFuxuan
 from teams_four.RatioTopaz.RatioTopazHanyaLuocha import DrRatioTopazHanyaLuocha
+from teams_four.RatioTopaz.RatioTopazRobinAventurine import DrRatioTopazRobinAventurine
+from teams_four.RatioTopaz.RatioTopazRobinFuxuan import DrRatioTopazRobinFuxuan
 from teams_four.RatioTopaz.RatioTopazRuanMeiLuocha import DrRatioTopazRuanMeiLuocha
 from teams_four.RatioTopaz.RatioTopazS1RobinAventurine import DrRatioTopazS1RobinAventurine
 from teams_four.RatioTopaz.RatioTopazS1RobinFuxuan import DrRatioTopazS1RobinFuxuan
@@ -128,7 +132,7 @@ from visualizer.visualizer import visualize
 visualizationList = []
 
 config = copy(Configuration)
-config['numEnemies'] = 3
+config['numEnemies'] = 2
 config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
@@ -176,7 +180,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronWeltPelaGallagher(config))
 
 # # Argenti Teams
-visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # # visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
 # # visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
 # # visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
@@ -194,7 +198,7 @@ visualizationList.append(BladeBronyaJadeLuocha(config))
 # # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
 
 # Clara Teams
-visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(ClaraTingyunHanabiAventurine(config))
 # visualizationList.append(ClaraTingyunHanabiLuocha(config))
 # # visualizationList.append(ClaraTingyunRuanMeiFuxuan(config))
@@ -209,7 +213,11 @@ visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 
 # # Dr Ratio Teams
 # visualizationList.append(DrRatioTopazS1RobinAventurine(config))
+# visualizationList.append(DrRatioTopazE1RobinAventurine(config))
+# visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(DrRatioTopazS1RobinFuxuan(config))
+# visualizationList.append(DrRatioTopazE1RobinFuxuan(config))
+# visualizationList.append(DrRatioTopazRobinFuxuan(config))
 # visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
 # # visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
 # # visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
@@ -222,7 +230,7 @@ visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
 
 # # Jingliu Teams
-visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # # visualizationList.append(JingliuBronyaHanabiLuocha(config))
 # # visualizationList.append(JingliuBronyaTingyunLuocha(config))
 # visualizationList.append(JingliuBronyaPelaLuocha(config))
@@ -239,7 +247,7 @@ visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # visualizationList.append(JingYuanHanabiS1TingyunHuohuo(config))
 
 # # Lunae Teams
-visualizationList.append(LunaeHanabiTingyunLuocha(config))
+# visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaYukongLuocha(config))
 # # visualizationList.append(LunaeHanyaPelaLuocha(config))

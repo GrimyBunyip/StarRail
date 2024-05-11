@@ -1,36 +1,37 @@
 from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
-from characters.preservation.Aventurine import Aventurine
+from characters.preservation.Fuxuan import Fuxuan
 from characters.hunt.DrRatio import DrRatio
 from characters.harmony.Robin import Robin
 from characters.hunt.Topaz import Topaz
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.harmony.ForTomorrowsJourney import ForTomorrowsJourney
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
-from lightCones.hunt.WorrisomeBlissful import WorrisomeBlissful
-from lightCones.preservation.DestinysThreadsForewoven import DestinysThreadsForewoven
+from lightCones.hunt.Swordplay import Swordplay
+from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
-from relicSets.relicSets.KnightOfPurityPalace import KnightOfPurityPalace2pc, KnightOfPurityPalace4pc
+from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
 
-def DrRatioTopazS1RobinAventurine(config):
-    #%% DrRatio Topaz Robin Aventurine Characters
+def DrRatioTopazRobinFuxuan(config):
+    #%% DrRatio Topaz Robin Fuxuan Characters
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
                                     substats = {'CD': 5, 'CR': 8, 'ATK.percent': 3, 'SPD.flat': 12}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = Pioneer2pc(),
-                                    relicsettwo = Pioneer4pc(),
+                                    relicsettwo = Pioneer4pc(stacks=2),
                                     planarset = IzumoGenseiAndTakamaDivineRealm(),
-                                    debuffStacks=4.0, # assume a bit more than 3 average with S1 Topaz
+                                    debuffStacks=3.0, # assume a bit more than 2 average with no third consistent 3rd debuff
                                     **config)
 
     TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'CR', 'ATK.percent'],
                                     substats = {'CR': 7, 'CD': 9, 'ATK.percent': 3, 'SPD.flat': 9}),
-                                    lightcone = WorrisomeBlissful(**config), # S1 topaz here so Ratio has consistent chances
+                                    lightcone = Swordplay(**config), # S1 topaz here so Ratio has consistent chances
                                     relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = IzumoGenseiAndTakamaDivineRealm(),
                                     **config)
 
@@ -40,69 +41,65 @@ def DrRatioTopazS1RobinAventurine(config):
                                     relicsetone = Prisoner2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = BrokenKeel(),
                                     **config)
 
-    AventurineCharacter = Aventurine(RelicStats(mainstats = ['DEF.percent', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
-                                    substats = {'CR': 3, 'CD': 5, 'SPD.flat': 10, 'DEF.percent': 10}),
-                                    lightcone = DestinysThreadsForewoven(defense=4000,**config),
-                                    leverage_cr=0.48,
-                                    relicsetone = KnightOfPurityPalace2pc(), relicsettwo = KnightOfPurityPalace4pc(), planarset = BrokenKeel(),
-                                    **config)
+    FuxuanCharacter = Fuxuan(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
+                            substats = {'HP.percent': 7, 'SPD.flat': 12, 'DEF.percent': 3, 'RES': 6}),
+                            lightcone = DayOneOfMyNewLife(**config),
+                            relicsetone = LongevousDisciple2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+                            **config)
     
-    team = [DrRatioCharacter, TopazCharacter, RobinCharacter, AventurineCharacter]
+    team = [DrRatioCharacter, TopazCharacter, RobinCharacter, FuxuanCharacter]
 
-    #%% DrRatio Topaz Robin Aventurine Team Buffs
+    #%% DrRatio Topaz Robin Fuxuan Team Buffs
     for character in [TopazCharacter, DrRatioCharacter, RobinCharacter]:
-        character.addStat('CD',description='Broken Keel from Aventurine',amount=0.1)
-    for character in [TopazCharacter, DrRatioCharacter, AventurineCharacter]:
+        character.addStat('CD',description='Broken Keel from Fuxuan',amount=0.1)
+    for character in [TopazCharacter, DrRatioCharacter, FuxuanCharacter]:
         character.addStat('CD',description='Broken Keel from Robin',amount=0.1)
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
-    # Topaz S1 Buff
-    for character in [DrRatioCharacter, RobinCharacter, AventurineCharacter]:
-        character.addStat('CD',description='Worrisome Blissful', amount=0.10 + 0.02 * TopazCharacter.lightcone.superposition)
     
     # Dr Ratio Buff
     DrRatioCharacter.applyTalentBuff(team)
     
-    # Aventurine Buffs
-    AventurineCharacter.applyUltDebuff(team=team,rotationDuration=4.0,targetingUptime=1.0)
+    # Fu Xuan Buffs
+    FuxuanCharacter.applySkillBuff(team)
 
     # Robin Buffs
     RobinCharacter.applyTalentBuff(team)
     RobinCharacter.applySkillBuff(team)
     RobinUltUptime = 0.5 # assume about half of our attacks get robin buff
-    RobinCharacter.applyUltBuff([DrRatioCharacter,TopazCharacter,AventurineCharacter],uptime=RobinUltUptime)
+    RobinCharacter.applyUltBuff([DrRatioCharacter,TopazCharacter,FuxuanCharacter],uptime=RobinUltUptime)
 
     #%% Print Statements
     for character in team:
         character.print()
 
-    #%% DrRatio Topaz Robin Aventurine Rotations
+    #%% DrRatio Topaz Robin Fuxuan Rotations
     # assume 154 ish spd ratio and topaz, ratio slower than Topaz, and 134 ish spd robin
     # this optimizes use of robin's advance forward, while keeping numby math good-ish
     # we'll look at what a 4 turn rotation looks like for ratio and topaz here
 
     # Turn 1 (based on the 154 spd characters)
     # Robin Ult
-    # Topaz Ult -> Ratio Ult -> Aventurine Ult -> Ratio Followup -> Numby attack
+    # Topaz Ult -> Ratio Ult -> Fuxuan Ult -> Ratio Followup -> Numby attack
     # Topaz Skill -> Numby Attack
     # Ratio Skill -> Ratio followup -> Numby half turn
-    # Aventurine Basic
+    # Fuxuan Basic
     
     # Turn 2 
     # Numby Attack -> Topaz Skill -> Numby half turn
     # Ratio Skill -> Ratio followup -> Numby attack
-    # Aventurine Basic
+    # Fuxuan Basic
     
     # Turn 3 - Concerto Expired
     # Topaz Basic -> Numby Attack
     # Ratio Skill -> Ratio followup -> Numby half turn
-    # Aventurine Basic
+    # Fuxuan Basic
     
     # Turn 4
     # Numby Attack -> Topaz Basic -> Numby half turn
     # Ratio Skill -> Ratio followup -> Numby attack
-    # Aventurine Basic
+    # Fuxuan Basic
     
     numBasicRobin = 2.0
     numSkillRobin = 1.0
@@ -113,7 +110,7 @@ def DrRatioTopazS1RobinAventurine(config):
     
     numSkillRatio = 3.5
     numUltRatio = 1.0
-    numTalentRatio = numSkillRatio + 2 * numUltRatio
+    numTalentRatio = numSkillRatio * 0.8 + 2 * numUltRatio # multiply 0.8 for no extra debuff teams
     
     DrRatioRotation = []
     DrRatioRotation += [DrRatioCharacter.useSkill() * numSkillRatio]
@@ -142,63 +139,50 @@ def DrRatioTopazS1RobinAventurine(config):
     RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['followup']) * numTalentTopaz * RobinUltUptime]
     TopazRotation += [RobinCharacter.useAdvanceForward()] 
 
-    numBasicAventurine = 4.0
-    numTalentAventurine = 4.0 # stacks from ultimate
-    numEnemyAttacks = AventurineCharacter.numEnemies * AventurineCharacter.enemySpeed / AventurineCharacter.getTotalStat('SPD') # extra stacks from people getting hit per turn
-    numEnemyAttacks += (1.0 + (6*1) / (6*1 + 4 + 3 + 3)) # extra stacks from when Aventurine is Targeted
-    numTalentAventurine += numBasicAventurine * numEnemyAttacks
+    FuxuanRotation = [FuxuanCharacter.useBasic() * 2,
+                    FuxuanCharacter.useSkill() * 1,
+                    FuxuanCharacter.useUltimate() * 1,]
     
-    numFollowups = (numTalentTopaz + 2.0) * TopazCharacter.getTotalStat('SPD') / 4.0 # Topaz gets about this many followup attacks per her turns, 4 turn rotation
-    numFollowups += (numTalentRatio) * DrRatioCharacter.getTotalStat('SPD') / 4.0 # Ratio gets about this many followup attacks per his turns, 4 turn rotation
-    numFollowups /= AventurineCharacter.getTotalStat('SPD')
-    numTalentAventurine += numBasicAventurine * numFollowups
-    
-    AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
-                          AventurineCharacter.useTalent() * numTalentAventurine,
-                          AventurineCharacter.useUltimate() * 1,
-                          RobinCharacter.useAdvanceForward(),]
+    RobinRotationFuxuan = [RobinCharacter.useTalent() * 2]
+    RobinRotationFuxuan += [RobinCharacter.useConcertoDamage(['basic']) * 2 * RobinUltUptime]
 
-    RobinRotationAventurine = [RobinCharacter.useTalent() * (numBasicAventurine + numTalentAventurine / 7.0)]
-    RobinRotationAventurine += [RobinCharacter.useConcertoDamage(['basic']) * numBasicAventurine * RobinUltUptime]
-    RobinRotationAventurine += [RobinCharacter.useConcertoDamage(['followup']) * (numTalentAventurine / 7.0) * RobinUltUptime]
-
-    #%% DrRatio Topaz Robin Aventurine Rotation Math
+    #%% DrRatio Topaz Robin Fuxuan Rotation Math
 
     totalDrRatioEffect = sumEffects(DrRatioRotation)
     totalTopazEffect = sumEffects(TopazRotation)
     totalRobinEffect = sumEffects(RobinRotation)
-    totalAventurineEffect = sumEffects(AventurineRotation)
+    totalFuxuanEffect = sumEffects(FuxuanRotation)
 
     DrRatioRotationDuration = totalDrRatioEffect.actionvalue * 100.0 / DrRatioCharacter.getTotalStat('SPD')
     TopazRotationDuration = totalTopazEffect.actionvalue * 100.0 / TopazCharacter.getTotalStat('SPD')
     RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
-    AventurineRotationDuration = totalAventurineEffect.actionvalue * 100.0 / AventurineCharacter.getTotalStat('SPD')
+    FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
     
 
     print('##### Rotation Durations #####')
     print('DrRatio: ',DrRatioRotationDuration)
     print('Topaz: ',TopazRotationDuration)
     print('Robin: ',RobinRotationDuration)
-    print('Aventurine: ',AventurineRotationDuration)
+    print('Fuxuan: ',FuxuanRotationDuration)
 
     # Scale other character's rotation
     TopazRotation = [x * DrRatioRotationDuration / TopazRotationDuration for x in TopazRotation]
     RobinRotationTopaz = [x * DrRatioRotationDuration / TopazRotationDuration for x in RobinRotationTopaz]
     RobinRotation = [x * DrRatioRotationDuration / RobinRotationDuration for x in RobinRotation]
-    AventurineRotation = [x * DrRatioRotationDuration / AventurineRotationDuration for x in AventurineRotation]
-    RobinRotationAventurine = [x * DrRatioRotationDuration / AventurineRotationDuration for x in RobinRotationAventurine]
+    FuxuanRotation = [x * DrRatioRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
+    RobinRotationFuxuan = [x * DrRatioRotationDuration / FuxuanRotationDuration for x in RobinRotationFuxuan]
     
     RobinRotation += RobinRotationRatio
     RobinRotation += RobinRotationTopaz
-    RobinRotation += RobinRotationAventurine
+    RobinRotation += RobinRotationFuxuan
     totalRobinEffect = sumEffects(RobinRotation)
 
     DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.1f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
-    TopazEstimate = DefaultEstimator(f'Topaz: S{TopazCharacter.lightcone.superposition:d} {TopazCharacter.lightcone.name} {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numTalentTopaz:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
+    TopazEstimate = DefaultEstimator(f'Topaz: {TopazCharacter.lightcone.name} {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numTalentTopaz:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
     RobinEstimate = DefaultEstimator(f'Robin: {numBasicRobin:.1f}N {numSkillRobin:.1f}E 1Q, S{RobinCharacter.lightcone.superposition:d} {RobinCharacter.lightcone.name}', 
                                     RobinRotation, RobinCharacter, config)
-    AventurineEstimate = DefaultEstimator(f'Aventurine: {numBasicAventurine:.0f}N {numTalentAventurine:.1f}T 1Q, S{AventurineCharacter.lightcone.superposition:.0f} {AventurineCharacter.lightcone.name}',
-                                    AventurineRotation, AventurineCharacter, config)
+    FuxuanEstimate = DefaultEstimator('Fuxuan: 2N 1E 1Q, S{:.0f} {}'.format(FuxuanCharacter.lightcone.superposition, FuxuanCharacter.lightcone.name),
+                                    FuxuanRotation, FuxuanCharacter, config)
 
-    return([DrRatioEstimate, TopazEstimate, AventurineEstimate, RobinEstimate])
+    return([DrRatioEstimate, TopazEstimate, FuxuanEstimate, RobinEstimate])
 

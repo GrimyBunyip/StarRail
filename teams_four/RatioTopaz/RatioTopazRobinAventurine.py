@@ -7,7 +7,7 @@ from characters.hunt.Topaz import Topaz
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.harmony.ForTomorrowsJourney import ForTomorrowsJourney
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
-from lightCones.hunt.WorrisomeBlissful import WorrisomeBlissful
+from lightCones.hunt.Swordplay import Swordplay
 from lightCones.preservation.DestinysThreadsForewoven import DestinysThreadsForewoven
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
@@ -17,20 +17,20 @@ from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
 
-def DrRatioTopazS1RobinAventurine(config):
+def DrRatioTopazRobinAventurine(config):
     #%% DrRatio Topaz Robin Aventurine Characters
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
                                     substats = {'CD': 5, 'CR': 8, 'ATK.percent': 3, 'SPD.flat': 12}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = Pioneer2pc(),
-                                    relicsettwo = Pioneer4pc(),
+                                    relicsettwo = Pioneer4pc(stacks=2),
                                     planarset = IzumoGenseiAndTakamaDivineRealm(),
-                                    debuffStacks=4.0, # assume a bit more than 3 average with S1 Topaz
+                                    debuffStacks=3.0, # assume a bit more than 2 average with no third consistent 3rd debuff
                                     **config)
 
     TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'CR', 'ATK.percent'],
                                     substats = {'CR': 7, 'CD': 9, 'ATK.percent': 3, 'SPD.flat': 9}),
-                                    lightcone = WorrisomeBlissful(**config), # S1 topaz here so Ratio has consistent chances
+                                    lightcone = Swordplay(**config), # S1 topaz here so Ratio has consistent chances
                                     relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = IzumoGenseiAndTakamaDivineRealm(),
                                     **config)
 
@@ -57,9 +57,6 @@ def DrRatioTopazS1RobinAventurine(config):
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
-    # Topaz S1 Buff
-    for character in [DrRatioCharacter, RobinCharacter, AventurineCharacter]:
-        character.addStat('CD',description='Worrisome Blissful', amount=0.10 + 0.02 * TopazCharacter.lightcone.superposition)
     
     # Dr Ratio Buff
     DrRatioCharacter.applyTalentBuff(team)
@@ -113,7 +110,7 @@ def DrRatioTopazS1RobinAventurine(config):
     
     numSkillRatio = 3.5
     numUltRatio = 1.0
-    numTalentRatio = numSkillRatio + 2 * numUltRatio
+    numTalentRatio = numSkillRatio * 0.8 + 2 * numUltRatio # multiply 0.8 for no extra debuff teams
     
     DrRatioRotation = []
     DrRatioRotation += [DrRatioCharacter.useSkill() * numSkillRatio]
@@ -194,7 +191,7 @@ def DrRatioTopazS1RobinAventurine(config):
     totalRobinEffect = sumEffects(RobinRotation)
 
     DrRatioEstimate = DefaultEstimator(f'DrRatio: {numSkillRatio:.1f}E {numTalentRatio:.1f}T {numUltRatio:.0f}Q, max debuffs on target', DrRatioRotation, DrRatioCharacter, config)
-    TopazEstimate = DefaultEstimator(f'Topaz: S{TopazCharacter.lightcone.superposition:d} {TopazCharacter.lightcone.name} {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numTalentTopaz:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
+    TopazEstimate = DefaultEstimator(f'Topaz: {TopazCharacter.lightcone.name} {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numTalentTopaz:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
     RobinEstimate = DefaultEstimator(f'Robin: {numBasicRobin:.1f}N {numSkillRobin:.1f}E 1Q, S{RobinCharacter.lightcone.superposition:d} {RobinCharacter.lightcone.name}', 
                                     RobinRotation, RobinCharacter, config)
     AventurineEstimate = DefaultEstimator(f'Aventurine: {numBasicAventurine:.0f}N {numTalentAventurine:.1f}T 1Q, S{AventurineCharacter.lightcone.superposition:.0f} {AventurineCharacter.lightcone.name}',

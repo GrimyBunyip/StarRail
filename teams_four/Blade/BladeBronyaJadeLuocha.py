@@ -121,17 +121,20 @@ def BladeBronyaJadeLuocha(config):
     
     num_adjacents = min( JadeCharacter.numEnemies - 1, 2 )
     numTalentJade = 0
+    numSkillDamageJade = 0
     
     # apply blade attack stacks first
     numTalentJade += (numBasic + numUlt) * (1 + num_adjacents)
     numTalentJade += numTalent * BladeCharacter.numEnemies
     numTalentJade *= JadeRotationDuration / BladeRotationDuration
+    numSkillDamageJade += numTalentJade
 
     # apply jade's own attack stacks
     numTalentJade += numBasicJade * (1 + num_adjacents)
     numTalentJade += 1.0 * JadeCharacter.numEnemies
     numTalentJade /= 8
     JadeRotation += [JadeCharacter.useTalent() * numTalentJade]
+    JadeRotation += [JadeCharacter.useSkillDamage() * numSkillDamageJade]
     
     print('##### Rotation Durations #####')
     print('Blade: ',BladeRotationDuration)
