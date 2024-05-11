@@ -132,7 +132,7 @@ from visualizer.visualizer import visualize
 visualizationList = []
 
 config = copy(Configuration)
-config['numEnemies'] = 2
+config['numEnemies'] = 5
 config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
@@ -170,7 +170,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 
 # # E0 Comparisons
-# visualizationList.append(AcheronGuinaifenPelaGallagher(config))
+visualizationList.append(AcheronGuinaifenPelaGallagher(config))
 # visualizationList.append(AcheronSilverWolfPelaGallagher(config))
 # visualizationList.append(AcheronGuinaifenPelaGepard(config))
 # visualizationList.append(AcheronSilverWolfPelaGepard(config))
@@ -180,7 +180,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronWeltPelaGallagher(config))
 
 # # Argenti Teams
-# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # # visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
 # # visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
 # # visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
@@ -188,17 +188,17 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
 # # Blade Teams
-visualizationList.append(BladeBronyaHanabiLuocha(config))
 visualizationList.append(BladeBronyaJadeLuocha(config))
-# # visualizationList.append(BladeBronyaRuanMeiLuocha(config))
-# # visualizationList.append(BladeBronyaPelaLynx(config))
-# # visualizationList.append(BladeBronyaPelaLuocha(config))
+# visualizationList.append(BladeBronyaHanabiLuocha(config))
+# visualizationList.append(BladeBronyaRuanMeiLuocha(config))
+# visualizationList.append(BladeBronyaPelaLuocha(config))
+# visualizationList.append(BladeBronyaPelaLynx(config))
 
 # # visualizationList.append(BladeBronyaPelaFuxuan(config)) # 100% vow uptime with fu xuan
 # # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
 
 # Clara Teams
-# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(ClaraTingyunHanabiAventurine(config))
 # visualizationList.append(ClaraTingyunHanabiLuocha(config))
 # # visualizationList.append(ClaraTingyunRuanMeiFuxuan(config))
@@ -214,15 +214,15 @@ visualizationList.append(BladeBronyaJadeLuocha(config))
 # # Dr Ratio Teams
 # visualizationList.append(DrRatioTopazS1RobinAventurine(config))
 # visualizationList.append(DrRatioTopazE1RobinAventurine(config))
-# visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(DrRatioTopazS1RobinFuxuan(config))
 # visualizationList.append(DrRatioTopazE1RobinFuxuan(config))
+visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(DrRatioTopazRobinFuxuan(config))
 # visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
-# # visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
-# # visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
-# # visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
-# # visualizationList.append(DrRatioTopazAstaLuocha(config))
+# visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
+# visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
+# visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
+# visualizationList.append(DrRatioTopazAstaLuocha(config))
 # # visualizationList.append(DrRatioTopazHanyaLuocha(config))
 # # visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
 # # visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
@@ -230,7 +230,7 @@ visualizationList.append(BladeBronyaJadeLuocha(config))
 # # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
 
 # # Jingliu Teams
-# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # # visualizationList.append(JingliuBronyaHanabiLuocha(config))
 # # visualizationList.append(JingliuBronyaTingyunLuocha(config))
 # visualizationList.append(JingliuBronyaPelaLuocha(config))
@@ -238,7 +238,7 @@ visualizationList.append(BladeBronyaJadeLuocha(config))
 # # visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
 # # Jingyuan Teams
-# visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
+visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
 # # visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
 # # visualizationList.append(JingyuanTingyunHanabiLuocha(config))
 # # visualizationList.append(JingyuanTingyunAstaLuocha(config))
@@ -247,7 +247,7 @@ visualizationList.append(BladeBronyaJadeLuocha(config))
 # visualizationList.append(JingYuanHanabiS1TingyunHuohuo(config))
 
 # # Lunae Teams
-# visualizationList.append(LunaeHanabiTingyunLuocha(config))
+visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaTingyunLuocha(config))
 # visualizationList.append(LunaeHanyaYukongLuocha(config))
 # # visualizationList.append(LunaeHanyaPelaLuocha(config))
@@ -260,7 +260,7 @@ visualizationList.append(BladeBronyaJadeLuocha(config))
 # # Kafka Teams
 # # config['enemySpeed'] = 190 / 1.125
 # # config['numEnemies'] = 2
-# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # # visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
 # # visualizationList.append(KafkaGuinaifenSampoLuocha(config))
 # # visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
@@ -278,13 +278,13 @@ visualizationList.append(BladeBronyaJadeLuocha(config))
 # # visualizationList.append(KafkaE1S1RuanMeiE1BlackSwanE1Luocha(config))
 
 # # Qingque Teams
-# visualizationList.append(QingqueHanabiPelaFuxuan(config))
+visualizationList.append(QingqueHanabiPelaFuxuan(config))
 # # visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
 # # visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
 # # visualizationList.append(QingqueHanyaPelaFuxuan(config))
 
 # # Seele Teams
-# visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
+visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
 # # visualizationList.append(SeeleMaxSilverWolfTingyunFuxuan(config))
 # # visualizationList.append(SeeleMaxSilverWolfRuanMeiFuxuan(config))
 # # visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
@@ -298,13 +298,13 @@ visualizationList.append(BladeBronyaJadeLuocha(config))
 
 # # Xueyi Teams
 # # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
-# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
+visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
 # # visualizationList.append(XueyiHanabiPelaFuxuan(config,breakRatio=0.5))
 # # visualizationList.append(XueyiHanyaPelaFuxuan(config,breakRatio=0.5)) # dont like the break assumptions here
 # # visualizationList.append(XueyiAstaTopazFuxuan(config)) # needs review, why is the SP so negative? also this team makes no sense
 
 # # YanqingTeam
-# visualizationList.append(YanqingTingyunHanabiAventurine(config))
+visualizationList.append(YanqingTingyunHanabiAventurine(config))
 # # visualizationList.append(YanqingTingyunHanabiGepard(config))
 # # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
 
