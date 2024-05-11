@@ -79,7 +79,7 @@ class Jingliu(BaseCharacter):
     
     def extraTurn(self):
         retval = BaseEffect()
-        type = ['extra turn']
+        type = ['Jingliu Advance Forward']
         retval.actionvalue = -1.0
         self.addDebugInfo(retval,type,'Jingliu Advance Forward 100%')
         return retval        

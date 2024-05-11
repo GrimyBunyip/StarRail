@@ -85,7 +85,7 @@ class Clara(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.energy = 5.0 * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
