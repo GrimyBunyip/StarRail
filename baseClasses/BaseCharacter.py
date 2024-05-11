@@ -23,6 +23,16 @@ EMPTY_STATS = {  # character stats
                 'EHR':[], 'BreakEffect':[], 'BreakEfficiency':[],
                 }
 
+BREAK_MULTIPLIERS = {
+    'physical': 2.0,
+    'fire': 2.0,
+    'ice': 1.0,
+    'lightning': 1.0,
+    'wind': 1.5,
+    'quantum': 0.5,
+    'imaginary': 0.5,
+}
+
 STATS_FILEPATH = 'settings\CharacterStats.csv'
 if os.name == 'posix':
     STATS_FILEPATH = STATS_FILEPATH.replace('\\','/')
@@ -251,19 +261,9 @@ class BaseCharacter(object):
         retval = BaseEffect()
         type = ['break']
 
-        breakMultipliers = {
-            'physical': 2.0,
-            'fire': 2.0,
-            'ice': 1.0,
-            'lightning': 1.0,
-            'wind': 1.5,
-            'quantum': 0.5,
-            'imaginary': 0.5,
-        }
-
         baseDotDamage = self.breakLevelMultiplier
         baseDotDamage *= 0.5 + self.enemyToughness / 120
-        baseDotDamage *= breakMultipliers[self.element]
+        baseDotDamage *= BREAK_MULTIPLIERS[self.element]
         baseDotDamage *= self.getBreakEffect(type)
         baseDotDamage *= self.getVulnerability(type)
         baseDotDamage = self.applyDamageMultipliers(baseDotDamage,type)

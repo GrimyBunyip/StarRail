@@ -17,9 +17,6 @@ class Jade(BaseCharacter):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Jade')
         self.talentStacks = talentStacks
-        # will need to update eidolons later
-        # for now assuming 3 = talent and skill
-        # 5 = basic and ult
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=0.9, eidolonThreshold=5, eidolonBonus=0.09),

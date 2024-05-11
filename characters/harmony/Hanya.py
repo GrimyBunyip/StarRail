@@ -73,7 +73,7 @@ class Hanya(BaseCharacter):
         self.addDebugInfo(retval,type)
         return retval
 
-    def useUltimate(self, targetCharacter:BaseCharacter = None):
+    def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
         retval.energy = 5.0 * self.getER(type)
