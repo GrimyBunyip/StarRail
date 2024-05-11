@@ -21,11 +21,8 @@ class ImaginaryTrailblazer(BaseCharacter):
         self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=0.5, eidolonThreshold=3, eidolonBonus=0.05)]
 
         # Talents
-        self.addStat('BonusEnergyAttack',description='ImaginaryTrailblazer Trace',amount=2,stacks=self.burdenTriggers,type=['skill'])
 
         # Eidolons
-        if self.eidolon >= 2:
-            self.addStat('SPD.percent',description='e2',amount=0.2,uptime=self.e2Uptime)
         
         # Gear
         self.equipGear()

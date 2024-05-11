@@ -10,8 +10,7 @@ from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.erudition.EternalCalculus import EternalCalculus
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.InertSalsotto import InertSalsotto
-from relicSets.planarSets.RutilantArena import RutilantArena
+from relicSets.planarSets.DuranDynastyOfRunningWolves import DuranDynastyOfRunningWolves
 from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
@@ -23,7 +22,7 @@ def BladeBronyaJadeLuocha(config):
     BladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CR', 'DMG.wind'],
                         substats = {'CR': 8, 'CD': 12, 'HP.percent': 5, 'SPD.flat': 3}),
                         lightcone = ASecretVow(uptime=0.0,**config),
-                        relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = RutilantArena(),
+                        relicsetone = LongevousDisciple2pc(), relicsettwo = LongevousDisciple4pc(), planarset = DuranDynastyOfRunningWolves(),
                         **config)
 
     BronyaCharacter = Bronya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'ER'],
@@ -35,7 +34,7 @@ def BladeBronyaJadeLuocha(config):
     JadeCharacter = Jade(RelicStats(mainstats = ['CR', 'DMG.quantum', 'ATK.percent', 'ATK.percent'],
                         substats = {'CR': 12, 'CD': 8, 'ATK.percent': 5, 'SPD.flat': 3}),
                         lightcone = EternalCalculus(**config),
-                        relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = InertSalsotto(),
+                        relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = DuranDynastyOfRunningWolves(),
                         **config)
     
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],

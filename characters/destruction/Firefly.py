@@ -76,7 +76,7 @@ class Firefly(BaseCharacter):
         retval.gauge = 45.0 * self.getBreakEfficiency(type)
         retval.energy = ( 0.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        retval.actionvalue = (1.0 + self.getAdvanceForward(type)) * self.getModifiedAV()
         self.addDebugInfo(retval,type)
         return retval
 
@@ -107,7 +107,7 @@ class Firefly(BaseCharacter):
         retval.gauge = ( 90.0 + 45.0 * num_adjacents ) * self.getBreakEfficiency(type)
         retval.energy = ( 0.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        retval.actionvalue = (1.0 + self.getAdvanceForward(type)) * self.getModifiedAV()
         self.addDebugInfo(retval,type)
         return retval
 
@@ -119,9 +119,16 @@ class Firefly(BaseCharacter):
         self.addDebugInfo(retval,type)
         return retval
     
-    def extraTurn(self):
+    def getModifiedAV(self):
+        # returns the approximate Action Value cost of an enhanced skill or basic
+        # apply this to extra turn as well for simplicity
+        speed = self.getTotalStat('SPD')
+        actionValue = speed / (speed + 55.0 if self.eidolon >= 5 else 50.0)
+        return actionValue
+    
+    def extraTurn(self,advanceType=['skill','enhancedSkill']):
         retval = BaseEffect()
         type = ['Firefly Advance Forward']
-        retval.actionvalue = -1.0
+        retval.actionvalue = -(1.0 + self.getAdvanceForward(advanceType)) * self.getModifiedAV()
         self.addDebugInfo(retval,type,'Firefly Advance Forward 100%')
         return retval        

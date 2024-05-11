@@ -23,6 +23,8 @@ class BaseMV:
             amount = mv * char.getTotalStat('DEF',type=type)
         elif self.stat == 'hp':
             amount = mv * char.getTotalStat('HP',type=type)
+        elif self.stat == 'BreakEffect':
+            amount = mv * char.getTotalStat('BreakEffect',type=type)
         else:
             raise ValueError('invalid stat selected for BaseMV')
                 
