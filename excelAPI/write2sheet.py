@@ -34,6 +34,7 @@ DEBUG_COLUMN_NAMES = [
     'DMG', 'CR', 'CD',
     'Vulnerability',
     'ResPen', 'DefShred',
+    'BreakEffect',
 ]
 
 def writeVisualizationList(visInfoList:list,path:str,sheetname:str):
@@ -140,7 +141,7 @@ def writeVisualizationList(visInfoList:list,path:str,sheetname:str):
         current_row += max(len(totalEffect.debugInfo),len(equipment)-2)+1
         
         for i in range(current_row-initial_row-1):
-            for j in range(20):
+            for j in range(21):
                 current_cell = sheet.cell(row=current_row-i-2,column=j+1)
                 current_cell.fill = PatternFill(start_color=color,end_color=color,fill_type='solid')
                 current_cell.alignment = left_align

@@ -12,9 +12,11 @@ class ImaginaryTrailblazer(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
+                overrideEidolon:int=6,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Imaginary Trailblazer')
+        self.eidolon=overrideEidolon
 
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
@@ -34,23 +36,23 @@ class ImaginaryTrailblazer(BaseCharacter):
             
     def applyUltBuff(self,team:list, uptime=1.0):
         for character in team:
-                character.addStat('BreakEffect',description='Imaginary Trailblazer Ultimate',amount=0.30,uptime=uptime)
+                character.addStat('BreakEffect',description='Imaginary Trailblazer Ultimate',
+                                  amount=0.33 if self.eidolon >= 5 else 0.3,uptime=uptime)
                 
-    def useSuperBreak(self,character:BaseCharacter,baseGauge:float):
+    def useSuperBreak(self,character:BaseCharacter,baseGauge:float,extraTypes:list=[]):
         retval = BaseEffect()
-        type = ['break']
+        type = ['break'] + extraTypes
 
         superBreakDamage = character.breakLevelMultiplier
         superBreakDamage *= baseGauge / 30.0
-        superBreakDamage *= character.getBreakEfficiency(type)
         superBreakDamage *= 1.7 - 0.1 * character.numEnemies # talent
-        superBreakDamage *= BREAK_MULTIPLIERS[character.element]
+        # superBreakDamage *= BREAK_MULTIPLIERS[character.element] # does not seem to scale off type
         superBreakDamage *= character.getBreakEffect(type)
         superBreakDamage *= character.getVulnerability(type)
         superBreakDamage = character.applyDamageMultipliers(superBreakDamage,type)
 
         retval.damage = superBreakDamage
-        self.addDebugInfo(retval,type,'Break Damage')
+        character.addDebugInfo(retval,type,f'Super Break Damage {character.name}')
         
         # factor in uptime
         retval *= character.weaknessBrokenUptime

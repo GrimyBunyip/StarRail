@@ -329,7 +329,7 @@ class BaseCharacter(object):
         debugEntry.append(effect.skillpoints)
         debugEntry.append(effect.gauge)
         debugEntry.append(effect.actionvalue)
-        for stat in ['SPD', 'ATK', 'HP', 'DEF', 'DMG', 'CR', 'CD', 'Vulnerability', 'ResPen', 'DefShred'] :
+        for stat in ['SPD', 'ATK', 'HP', 'DEF', 'DMG', 'CR', 'CD', 'Vulnerability', 'ResPen', 'DefShred','BreakEffect'] :
             debugEntry.append([self.getTotalStat(stat,type),getStatComments(self,stat,type)])
         effect.debugInfo.append(debugEntry)
         effect.debugCount.append(1)
