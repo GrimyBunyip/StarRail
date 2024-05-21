@@ -41,7 +41,7 @@ class ImaginaryTrailblazer(BaseCharacter):
                 
     def useSuperBreak(self,character:BaseCharacter,baseGauge:float,extraTypes:list=[]):
         retval = BaseEffect()
-        type = ['break'] + extraTypes
+        type = ['break','superBreak'] + extraTypes
 
         superBreakDamage = character.breakLevelMultiplier
         superBreakDamage *= baseGauge / 30.0

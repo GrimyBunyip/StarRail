@@ -14,7 +14,7 @@ class ForgeOfTheKalpagniLantern(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('SPD.percent',description=self.shortname,
                                 amount=0.06)
-        char.addStat('CD',description=self.shortname,
+        char.addStat('BreakEffect',description=self.shortname,
                                 amount=0.40,
                                 uptime=self.uptime)
         # party wide buffs not yet implemented

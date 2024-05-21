@@ -1,11 +1,11 @@
 from baseClasses.BaseCharacter import BaseCharacter
 from baseClasses.BaseLightCone import BaseLightCone
 
-class IndelliblePromise(BaseLightCone):
+class IndeliblePromise(BaseLightCone):
     def __init__(self,
                 uptime:float = 1.0,
                 **config):
-        self.loadConeStats('Indellible Promise')
+        self.loadConeStats('Indelible Promise')
         self.setSuperposition(config)
         self.uptime = uptime
         self.nameAffix = f'{uptime:.2f} Uptime'
@@ -21,4 +21,4 @@ class IndelliblePromise(BaseLightCone):
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration
-    IndelliblePromise(**Configuration).print()
+    IndeliblePromise(**Configuration).print()

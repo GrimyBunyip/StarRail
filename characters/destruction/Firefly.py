@@ -13,30 +13,27 @@ class Firefly(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
+                attackForTalent:float=2900,
                 breakEffectMV:float=3.6,
-                breakEffectTalent:float=0.6,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Firefly')
-        self.breakEffectMV = min(3.6,breakEffectMV)
-        self.breakEffectTalent = min(0.6,breakEffectTalent)
+        self.attackForTalent=attackForTalent
+        self.breakEffectMV=breakEffectMV
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=2.5, eidolonThreshold=3, eidolonBonus=0.2)]
+        self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.2)]
 
-        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=2.5, eidolonThreshold=3, eidolonBonus=0.25)]
-        self.motionValueDict['enhancedSkill'] = [BaseMV(area='single', stat='atk', value=4.0+0.5*self.breakEffectMV, eidolonThreshold=3, eidolonBonus=0.32),
-                                                BaseMV(area='adjacent', stat='atk', value=2.0+0.25*self.breakEffectMV, eidolonThreshold=3, eidolonBonus=0.16)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.20)]
+        self.motionValueDict['enhancedSkill'] = [BaseMV(area='single', stat='atk', value=2.0+0.2*self.breakEffectMV, eidolonThreshold=3, eidolonBonus=0.2),
+                                                BaseMV(area='adjacent', stat='atk', value=2.0+0.1*self.breakEffectMV, eidolonThreshold=3, eidolonBonus=0.16)]
 
         self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256),
                                             BaseMV(area='adjacent', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.128)]
         
         # Talents
-        self.addStat('DefShred',description='Firefly Talent',
-                     amount=0.40 if self.breakEffectMV >= 3.6 else 0.30 if self.breakEffectMV >= 2.5 else 0.0,
-                     type=['enhancedSkill','enhancedBasic'])
-        self.addStat('BreakEffect',description='Firefly Talent', amount=breakEffectTalent)
+        self.addStat('BreakEffect',description='Firefly Talent',amount=(attackForTalent-1600)*0.1/100)
         
         # Eidolons
 
@@ -46,8 +43,8 @@ class Firefly(BaseCharacter):
     def applyUltVulnerability(self,team:list,uptime=None):
         uptime = self.weaknessBrokenUptime if uptime is None else uptime
         for character in team:
-            self.addStat('Vulnerability',description='Firefly Ult',
-                         amount=0.1296 if self.eidolon >= 5 else 0.12,
+            character.addStat('Vulnerability',description='Firefly Ult',
+                         amount=0.225 if self.eidolon >= 5 else 0.20833,
                          uptime=uptime)
 
     def useBasic(self):
@@ -76,7 +73,7 @@ class Firefly(BaseCharacter):
         retval.gauge = 45.0 * self.getBreakEfficiency(type)
         retval.energy = ( 0.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = 1.0
-        retval.actionvalue = (1.0 + self.getAdvanceForward(type)) * self.getModifiedAV()
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
 
@@ -89,7 +86,7 @@ class Firefly(BaseCharacter):
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
-        retval.energy = ( 120.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
+        retval.energy = ( 144.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
@@ -107,7 +104,7 @@ class Firefly(BaseCharacter):
         retval.gauge = ( 90.0 + 45.0 * num_adjacents ) * self.getBreakEfficiency(type)
         retval.energy = ( 0.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
-        retval.actionvalue = (1.0 + self.getAdvanceForward(type)) * self.getModifiedAV(setSpeed=setSpeed)
+        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
 
@@ -118,18 +115,29 @@ class Firefly(BaseCharacter):
         retval.actionvalue = self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
-    
-    def getModifiedAV(self, setSpeed=None):
-        # returns the approximate Action Value cost of an enhanced skill or basic
-        # apply this to extra turn as well for simplicity
-        speed = self.getTotalStat('SPD')
-        newSpeed = (speed +(55.0 if self.eidolon >= 5 else 50.0)) if setSpeed is None else setSpeed
-        actionValue = speed / newSpeed
-        return actionValue
+                
+    def useSuperBreak(self):
+        retval = BaseEffect()
+        type = ['break','superBreak']
+
+        totalBreakEffect = self.getTotalStat('BreakEffect')
+        superBreakDamage = self.breakLevelMultiplier
+        superBreakDamage *= 0.5 if totalBreakEffect >= 3.6 else (0.35 if totalBreakEffect >= 2.0 else 0.0)
+        # superBreakDamage *= BREAK_MULTIPLIERS[self.element] # does not seem to scale off type
+        superBreakDamage *= self.getBreakEffect(type)
+        superBreakDamage *= self.getVulnerability(type)
+        superBreakDamage = self.applyDamageMultipliers(superBreakDamage,type)
+
+        retval.damage = superBreakDamage
+        self.addDebugInfo(retval,type,f'Super Break Damage {self.name}')
+        
+        # factor in uptime
+        retval *= self.weaknessBrokenUptime
+        return retval
     
     def extraTurn(self,advanceType=['skill','enhancedSkill'],setSpeed=None):
         retval = BaseEffect()
         type = ['Firefly Advance Forward']
-        retval.actionvalue = -(1.0 + self.getAdvanceForward(advanceType)) * self.getModifiedAV(setSpeed=setSpeed)
+        retval.actionvalue = -(1.0 + self.getAdvanceForward(advanceType))
         self.addDebugInfo(retval,type,'Firefly Advance Forward 100%')
-        return retval        
+        return retval

@@ -19,6 +19,7 @@ from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, 
 
 def FireflyBronyaRuanMeiGallagher(config):
     #%% Firefly Bronya RuanMei Gallagher Characters
+    # DEPRECATED BY 2.3V3 beta
     
     # do ruan mei first because she needs to alter the enemy speed and toughness uptime
     RuanMeiCharacter = RuanMei(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'DEF.percent', 'ER'],

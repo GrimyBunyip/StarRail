@@ -25,5 +25,8 @@ class IronCavalryAgainstTheScourge4pc(RelicSet):
 
     def equipTo(self, char:BaseCharacter):
         char.addStat('DefShred',description=self.shortname,
-                                        amount=0.18 if self.breakEffect >= 2.5 else 0.10 if self.breakEffect >= 1.5 else 0.0,
+                                        amount=0.10 if self.breakEffect >= 1.5 else 0.0,
                                         type=['break'])
+        char.addStat('DefShred',description=self.shortname,
+                                        amount=0.15 if self.breakEffect >= 2.5 else 0.0,
+                                        type=['superBreak'])

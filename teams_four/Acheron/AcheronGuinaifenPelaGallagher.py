@@ -22,7 +22,7 @@ from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, 
 def AcheronGuinaifenPelaGallagher(config):
     #%% Acheron Silver Wolf Pela Gallagher Characters
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
-                            substats = {'CR': 10, 'CD': 10, 'ATK.percent': 5, 'SPD.flat': 3}),
+                            substats = {'CR': 10, 'CD': 10, 'ATK.percent': 5, 'SPD.flat': 4}),
                             lightcone = GoodNightAndSleepWell(**config),
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),

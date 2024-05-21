@@ -22,7 +22,7 @@ class Jade(BaseCharacter):
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=0.9, eidolonThreshold=5, eidolonBonus=0.09),
                                          BaseMV(area='adjacent', stat='atk', value=0.3, eidolonThreshold=5, eidolonBonus=0.03)]
 
-        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=0.2, eidolonThreshold=3, eidolonBonus=0.02)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=0.16, eidolonThreshold=3, eidolonBonus=0.016)]
 
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.192)]
         self.motionValueDict['enhancedTalent'] = [BaseMV(area='all', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.064)]
