@@ -22,11 +22,11 @@ class Jade(BaseCharacter):
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=0.9, eidolonThreshold=5, eidolonBonus=0.09),
                                          BaseMV(area='adjacent', stat='atk', value=0.3, eidolonThreshold=5, eidolonBonus=0.03)]
 
-        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=0.16, eidolonThreshold=3, eidolonBonus=0.016)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=0.25, eidolonThreshold=3, eidolonBonus=0.02)]
 
-        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.192)]
-        self.motionValueDict['enhancedTalent'] = [BaseMV(area='all', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.064)]
-
+        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.24)]
+        
+        self.motionValueDict['enhancedTalent'] = [BaseMV(area='all', stat='atk', value=0.8, eidolonThreshold=3, eidolonBonus=0.08)]
         self.motionValueDict['talent'] = [BaseMV(area='all', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
         
         # Talents
@@ -110,7 +110,7 @@ class Jade(BaseCharacter):
     def useEnhancedTalent(self):
         retval = BaseEffect()
         type = ['talent','followup']
-        retval.damage = self.getTotalMotionValue('talent',type)
+        retval.damage = self.getTotalMotionValue('enhancedTalent',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
