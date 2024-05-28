@@ -27,13 +27,10 @@ class Firefly(BaseCharacter):
 
         self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.20)]
         self.motionValueDict['enhancedSkill'] = [BaseMV(area='single', stat='atk', value=2.0+0.2*self.breakEffectMV, eidolonThreshold=3, eidolonBonus=0.2),
-                                                BaseMV(area='adjacent', stat='atk', value=2.0+0.1*self.breakEffectMV, eidolonThreshold=3, eidolonBonus=0.16)]
-
-        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=3.2, eidolonThreshold=5, eidolonBonus=0.256),
-                                            BaseMV(area='adjacent', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.128)]
+                                                BaseMV(area='adjacent', stat='atk', value=1.0+0.1*self.breakEffectMV, eidolonThreshold=3, eidolonBonus=0.1)]
         
         # Talents
-        self.addStat('BreakEffect',description='Firefly Talent',amount=(attackForTalent-1600)*0.1/100)
+        self.addStat('BreakEffect',description='Firefly Talent',amount=(attackForTalent-1800)*0.008/10)
         
         # Eidolons
 
@@ -86,7 +83,7 @@ class Firefly(BaseCharacter):
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
-        retval.energy = ( 144.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
+        retval.energy = ( 240.0 * (0.55 if self.eidolon >= 3 else 0.5) + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)

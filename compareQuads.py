@@ -42,6 +42,7 @@ from teams_four.Blade.BladeBronyaPelaLuocha import BladeBronyaPelaLuocha
 from teams_four.Blade.BladeBronyaPelaLynx import BladeBronyaPelaLynx
 from teams_four.Blade.BladeBronyaRuanMeiFuxuan import BladeBronyaRuanMeiFuxuan
 from teams_four.Blade.BladeBronyaRuanMeiLuocha import BladeBronyaRuanMeiLuocha
+from teams_four.Blade.JadeBronyaRuanMeiLuocha import JadeBronyaRuanMeiLuocha
 from teams_four.Clara.ClaraSilverWolfPelaLuocha import ClaraSilverWolfPelaLuocha
 from teams_four.Clara.ClaraTingyunHanabiAventurine import ClaraTingyunHanabiAventurine
 from teams_four.Clara.ClaraTingyunHanabiFuxuan import ClaraTingyunHanabiFuxuan
@@ -134,7 +135,7 @@ from visualizer.visualizer import visualize
 visualizationList = []
 
 config = copy(Configuration)
-config['numEnemies'] = 3
+config['numEnemies'] = 5
 config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
@@ -190,6 +191,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
 # # Blade Teams
+# visualizationList.append(JadeBronyaRuanMeiLuocha(config))
 # visualizationList.append(BladeBronyaJadeLuocha(config))
 # visualizationList.append(BladeBronyaHanabiLuocha(config))
 # visualizationList.append(BladeBronyaRuanMeiLuocha(config))
@@ -233,7 +235,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
 
 # # Firefly Teams
-visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyBronyaRuanMeiGallagher(config)) # retire this team, it isn't good
 
 # # Jingliu Teams
@@ -314,6 +316,22 @@ visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(YanqingTingyunHanabiAventurine(config))
 # # visualizationList.append(YanqingTingyunHanabiGepard(config))
 # # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
+
+# Team Comparisons
+visualizationList.append(AcheronGuinaifenPelaGallagher(config))
+visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+visualizationList.append(BladeBronyaJadeLuocha(config))
+visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+visualizationList.append(DrRatioTopazRobinAventurine(config))
+visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
+visualizationList.append(LunaeHanabiTingyunLuocha(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+visualizationList.append(QingqueHanabiPelaFuxuan(config))
+visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
+visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
+visualizationList.append(YanqingTingyunHanabiAventurine(config))
 
 #%% Visualization
 # Visualize
