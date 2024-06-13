@@ -6,8 +6,7 @@ from characters.harmony.RuanMei import RuanMei
 from characters.harmony.ImaginaryTrailblazer import ImaginaryTrailblazer
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
-from lightCones.destruction.IndeliblePromise import IndeliblePromise
-from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
+from lightCones.destruction.WhereaboutsShouldDreamsRest import WhereaboutsShouldDreamsRest
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
@@ -17,7 +16,7 @@ from relicSets.relicSets.IronCavalryAgainstTheScourge import IronCavalryAgainstT
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 from relicSets.relicSets.WatchmakerMasterOfDreamMachinations import Watchmaker2pc, Watchmaker4pc
 
-def FireflyTrailblazerRuanMeiGallagher(config):
+def FireflyS1TrailblazerRuanMeiGallagher(config):
     #%% Firefly Trailblazer RuanMei Gallagher Characters
     
     # do ruan mei first because she needs to alter the enemy speed and toughness uptime
@@ -29,8 +28,8 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     
     FireflyCharacter = Firefly(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'SPD.flat', 'BreakEffect'],
                                     substats = {'SPD.flat': 12, 'ATK.flat': 3, 'BreakEffect': 8, 'ATK.percent': 5}),
-                                    attackForTalent=3700,
-                                    lightcone = OnTheFallOfAnAeon(**config,uptime=1.0),
+                                    attackForTalent=2900,
+                                    lightcone = WhereaboutsShouldDreamsRest(**config),
                                     relicsetone = IronCavalryAgainstTheScourge2pc(), relicsettwo = IronCavalryAgainstTheScourge4pc(), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
 
@@ -69,6 +68,10 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
+    
+    # halve weakness broken uptime for e2, 1.2 for s1
+    for character in team:
+        character.weaknessBrokenUptime = 1.0 - (1.0 - character.weaknessBrokenUptime) / 1.2
 
     #%% Print Statements
     for character in team:

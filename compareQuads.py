@@ -57,6 +57,9 @@ from teams_four.Clara.ClaraTopazAstaLuocha import ClaraTopazAstaLuocha
 from teams_four.Clara.ClaraTopazHanyaLuocha import ClaraTopazHanyaLuocha
 from teams_four.DotTeams.KafkaE1S1RuanMeiE1BlackSwanE1Luocha import KafkaE1S1RuanMeiE1BlackSwanE1Luocha
 from teams_four.Firefly.FireflyBronyaRuanMeiGallagher import FireflyBronyaRuanMeiGallagher
+from teams_four.Firefly.FireflyE2S1TraiblazerRuanMeiGallagher import FireflyE2S1TrailblazerRuanMeiGallagher
+from teams_four.Firefly.FireflyE2TraiblazerRuanMeiGallagher import FireflyE2TrailblazerRuanMeiGallagher
+from teams_four.Firefly.FireflyS1TraiblazerRuanMeiGallagher import FireflyS1TrailblazerRuanMeiGallagher
 from teams_four.Firefly.FireflyTraiblazerRuanMeiGallagher import FireflyTrailblazerRuanMeiGallagher
 from teams_four.Jingliu.JingliuBronyaHanabiLuocha import JingliuBronyaHanabiLuocha
 from teams_four.Jingliu.JingliuBronyaPelaLuocha import JingliuBronyaPelaLuocha
@@ -135,10 +138,26 @@ from visualizer.visualizer import visualize
 visualizationList = []
 
 config = copy(Configuration)
-config['numEnemies'] = 5
+config['numEnemies'] = 3
 config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
+
+# # Team Comparisons
+# visualizationList.append(AcheronGuinaifenPelaGallagher(config))
+# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+# visualizationList.append(BladeBronyaJadeLuocha(config))
+# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+# visualizationList.append(DrRatioTopazRobinAventurine(config))
+# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+# visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
+# visualizationList.append(LunaeHanabiTingyunLuocha(config))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+# visualizationList.append(QingqueHanabiPelaFuxuan(config))
+# visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
+# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
+# visualizationList.append(YanqingTingyunHanabiAventurine(config))
 
 # # Acheron Teams
 # # E6S1 Comparisons
@@ -191,12 +210,12 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
 # # Blade Teams
-# visualizationList.append(JadeBronyaRuanMeiLuocha(config))
-# visualizationList.append(BladeBronyaJadeLuocha(config))
+visualizationList.append(BladeBronyaJadeLuocha(config))
 # visualizationList.append(BladeBronyaHanabiLuocha(config))
 # visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 # visualizationList.append(BladeBronyaPelaLuocha(config))
-# visualizationList.append(BladeBronyaPelaLynx(config))
+# # visualizationList.append(JadeBronyaRuanMeiLuocha(config))
+# # visualizationList.append(BladeBronyaPelaLynx(config))
 
 # # visualizationList.append(BladeBronyaPelaFuxuan(config)) # 100% vow uptime with fu xuan
 # # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
@@ -236,6 +255,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # # Firefly Teams
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+# visualizationList.append(FireflyS1TrailblazerRuanMeiGallagher(config))
+# visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
+# visualizationList.append(FireflyE2S1TrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyBronyaRuanMeiGallagher(config)) # retire this team, it isn't good
 
 # # Jingliu Teams
@@ -316,22 +338,6 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(YanqingTingyunHanabiAventurine(config))
 # # visualizationList.append(YanqingTingyunHanabiGepard(config))
 # # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
-
-# Team Comparisons
-visualizationList.append(AcheronGuinaifenPelaGallagher(config))
-visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
-visualizationList.append(BladeBronyaJadeLuocha(config))
-visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-visualizationList.append(DrRatioTopazRobinAventurine(config))
-visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
-visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
-visualizationList.append(LunaeHanabiTingyunLuocha(config))
-visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-visualizationList.append(QingqueHanabiPelaFuxuan(config))
-visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
-visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
-visualizationList.append(YanqingTingyunHanabiAventurine(config))
 
 #%% Visualization
 # Visualize

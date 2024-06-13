@@ -33,6 +33,8 @@ class Firefly(BaseCharacter):
         self.addStat('BreakEffect',description='Firefly Talent',amount=(attackForTalent-1800)*0.008/10)
         
         # Eidolons
+        if self.eidolon >= 1:
+            self.addStat('DefShred',description='Firefly E1', amount=0.15, type=['enhancedSkill'])
 
         # Gear
         self.equipGear()
@@ -100,7 +102,7 @@ class Firefly(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = ( 90.0 + 45.0 * num_adjacents ) * self.getBreakEfficiency(type)
         retval.energy = ( 0.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
-        retval.skillpoints = -1.0
+        retval.skillpoints = 0.0 if self.eidolon >= 1 else -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
@@ -113,9 +115,9 @@ class Firefly(BaseCharacter):
         self.addDebugInfo(retval,type)
         return retval
                 
-    def useSuperBreak(self):
+    def useSuperBreak(self,extraTypes:list=[]):
         retval = BaseEffect()
-        type = ['break','superBreak']
+        type = ['break','superBreak'] + extraTypes
 
         totalBreakEffect = self.getTotalStat('BreakEffect')
         superBreakDamage = self.breakLevelMultiplier

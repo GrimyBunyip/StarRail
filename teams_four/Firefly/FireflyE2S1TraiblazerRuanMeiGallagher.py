@@ -6,8 +6,7 @@ from characters.harmony.RuanMei import RuanMei
 from characters.harmony.ImaginaryTrailblazer import ImaginaryTrailblazer
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
-from lightCones.destruction.IndeliblePromise import IndeliblePromise
-from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
+from lightCones.destruction.WhereaboutsShouldDreamsRest import WhereaboutsShouldDreamsRest
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
@@ -17,7 +16,7 @@ from relicSets.relicSets.IronCavalryAgainstTheScourge import IronCavalryAgainstT
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 from relicSets.relicSets.WatchmakerMasterOfDreamMachinations import Watchmaker2pc, Watchmaker4pc
 
-def FireflyTrailblazerRuanMeiGallagher(config):
+def FireflyE2S1TrailblazerRuanMeiGallagher(config):
     #%% Firefly Trailblazer RuanMei Gallagher Characters
     
     # do ruan mei first because she needs to alter the enemy speed and toughness uptime
@@ -27,14 +26,17 @@ def FireflyTrailblazerRuanMeiGallagher(config):
                                     relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
                                     **config)
     
+    originalFivestarEidolons = config['fivestarEidolons']
+    config['fivestarEidolons'] = 2
     FireflyCharacter = Firefly(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'SPD.flat', 'BreakEffect'],
                                     substats = {'SPD.flat': 12, 'ATK.flat': 3, 'BreakEffect': 8, 'ATK.percent': 5}),
-                                    attackForTalent=3700,
-                                    lightcone = OnTheFallOfAnAeon(**config,uptime=1.0),
+                                    attackForTalent=2900,
+                                    lightcone = WhereaboutsShouldDreamsRest(**config),
                                     relicsetone = IronCavalryAgainstTheScourge2pc(), relicsettwo = IronCavalryAgainstTheScourge4pc(), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
+    config['fivestarEidolons'] = originalFivestarEidolons
 
-    TrailblazerCharacter = ImaginaryTrailblazer(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'DEF.percent', 'BreakEffect'],
+    TrailblazerCharacter = ImaginaryTrailblazer(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'DEF.percent', 'ER'],
                                     substats = {'BreakEffect': 12, 'SPD.flat': 8, 'HP.percent': 5, 'DEF.percent': 3}),
                                     lightcone = DanceDanceDance(**config),
                                     relicsetone = Watchmaker2pc(), relicsettwo = Watchmaker4pc(uptime=0.0), planarset = ForgeOfTheKalpagniLantern(),
@@ -52,7 +54,7 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     for character in team:
         character.addStat('DMG.fire',description='Penacony from Gallagher',amount=0.1)
     for character in team:
-        character.addStat('BreakEffect',description='Watchmaker 4pc', amount=0.30, uptime=0.66)
+        character.addStat('BreakEffect',description='Watchmaker 4pc', amount=0.30)
 
     # RuanMei Buffs, 3 turn RuanMei rotation
     RuanMeiCharacter.applyWeaknessModifiers(team=team)
@@ -69,6 +71,10 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
+    
+    # halve weakness broken uptime for e2, 1.2 for s1
+    for character in team:
+        character.weaknessBrokenUptime = 1.0 - (1.0 - character.weaknessBrokenUptime) / 2.0 / 1.2
 
     #%% Print Statements
     for character in team:
@@ -98,13 +104,14 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     ]
 
     FireflyCharacter.applyUltVulnerability([FireflyCharacter],uptime=1.0)
-    FireflyRotation += [FireflyCharacter.useEnhancedSkill() * numEnhancedFirefly]
+    FireflyRotation += [FireflyCharacter.useEnhancedSkill() * numEnhancedFirefly * 2] # multiply by 2 because of e2
+    FireflyRotation[-1].actionvalue *= 0.5
     FireflyRotation += [FireflyCharacter.useSuperBreak(extraTypes=['skill','enhancedSkill']) * numEnhancedFirefly]
     TrailblazerRotationFirefly += [TrailblazerCharacter.useSuperBreak(character=FireflyCharacter, 
                                                                       baseGauge=FireflyCharacter.useEnhancedSkill().gauge,
                                                                       extraTypes=['skill','enhancedSkill']) * numEnhancedFirefly]
 
-    numBasicTrailblazer = 1.0
+    numBasicTrailblazer = 0.0
     numSkillTrailblazer = 2.0
     TrailblazerRotation = [ # 130 max energy
             TrailblazerCharacter.useBasic() * numBasicTrailblazer,
