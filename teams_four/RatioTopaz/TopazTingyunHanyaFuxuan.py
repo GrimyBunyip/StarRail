@@ -1,3 +1,4 @@
+from copy import deepcopy
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.preservation.Fuxuan import Fuxuan
@@ -132,27 +133,31 @@ def TopazTingyunHanyaFuxuan(config):
 
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
+
+    DanceDanceDanceEffect.actionvalue = -0.24
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(deepcopy(DanceDanceDanceEffect))
+    totalHanyaEffect = sumEffects(HanyaRotation)
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+
     DanceDanceDanceEffect.actionvalue = -0.24 * TopazRotationDuration / HanyaRotationDuration
     TopazCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TopazRotation.append(DanceDanceDanceEffect * TopazRotationDuration / HanyaRotationDuration)
+    TopazRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * TingyunRotationDuration / HanyaRotationDuration
     TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TingyunRotation.append(DanceDanceDanceEffect * TingyunRotationDuration / HanyaRotationDuration)
+    TingyunRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * FuxuanRotationDuration / HanyaRotationDuration
     FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    FuxuanRotation.append(DanceDanceDanceEffect * FuxuanRotationDuration / HanyaRotationDuration)
+    FuxuanRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanyaRotation.append(DanceDanceDanceEffect)
-    
-    totalTopazEffect = sumEffects(TopazRotation)
     totalTingyunEffect = sumEffects(TingyunRotation)
-    totalHanyaEffect = sumEffects(HanyaRotation)
+    totalTopazEffect = sumEffects(TopazRotation)
     totalFuxuanEffect = sumEffects(FuxuanRotation)
 
     TopazRotationDuration = totalTopazEffect.actionvalue * 100.0 / TopazCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
-    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
     FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')

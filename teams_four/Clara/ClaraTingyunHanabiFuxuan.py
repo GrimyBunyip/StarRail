@@ -1,3 +1,4 @@
+from copy import deepcopy
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.preservation.Fuxuan import Fuxuan
@@ -128,27 +129,31 @@ def ClaraTingyunHanabiFuxuan(config):
 
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
+
+    DanceDanceDanceEffect.actionvalue = -0.24
+    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanabiRotation.append(deepcopy(DanceDanceDanceEffect))
+    totalHanabiEffect = sumEffects(HanabiRotation)
+    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
+
     DanceDanceDanceEffect.actionvalue = -0.24 * ClaraRotationDuration / HanabiRotationDuration
     ClaraCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    ClaraRotation.append(DanceDanceDanceEffect * ClaraRotationDuration / HanabiRotationDuration)
+    ClaraRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * TingyunRotationDuration / HanabiRotationDuration
     TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TingyunRotation.append(DanceDanceDanceEffect * TingyunRotationDuration / HanabiRotationDuration)
+    TingyunRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * FuxuanRotationDuration / HanabiRotationDuration
     FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    FuxuanRotation.append(DanceDanceDanceEffect * FuxuanRotationDuration / HanabiRotationDuration)
+    FuxuanRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanabiRotation.append(DanceDanceDanceEffect)
-    
-    totalClaraEffect = sumEffects(ClaraRotation)
     totalTingyunEffect = sumEffects(TingyunRotation)
-    totalHanabiEffect = sumEffects(HanabiRotation)
+    totalClaraEffect = sumEffects(ClaraRotation)
     totalFuxuanEffect = sumEffects(FuxuanRotation)
 
     ClaraRotationDuration = totalClaraEffect.actionvalue * 100.0 / ClaraCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
-    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
     FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
     ClaraRotation.append(TingyunCharacter.giveUltEnergy() * ClaraRotationDuration / TingyunRotationDuration)

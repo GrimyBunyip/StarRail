@@ -1,3 +1,4 @@
+from copy import deepcopy
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Huohuo import Huohuo
@@ -133,29 +134,33 @@ def JingYuanHanabiTingyunHuohuo(config):
     HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
     HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
-    
+
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
+
     DanceDanceDanceEffect.actionvalue = -0.24
-    JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    JingYuanRotation.append(DanceDanceDanceEffect * JingYuanRotationDuration / HanabiRotationDuration)
-    
-    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TingyunRotation.append(DanceDanceDanceEffect * TingyunRotationDuration / HanabiRotationDuration)
-    
-    HuohuoCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HuohuoRotation.append(DanceDanceDanceEffect * HuohuoRotationDuration / HanabiRotationDuration)
-    
     HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanabiRotation.append(DanceDanceDanceEffect)
-    
-    totalJingYuanEffect = sumEffects(JingYuanRotation)
+    HanabiRotation.append(deepcopy(DanceDanceDanceEffect))
     totalHanabiEffect = sumEffects(HanabiRotation)
+    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
+
+    DanceDanceDanceEffect.actionvalue = -0.24 * JingYuanRotationDuration / HanabiRotationDuration
+    JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    JingYuanRotation.append(deepcopy(DanceDanceDanceEffect))
+    
+    DanceDanceDanceEffect.actionvalue = -0.24 * TingyunRotationDuration / HanabiRotationDuration
+    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TingyunRotation.append(deepcopy(DanceDanceDanceEffect))
+    
+    DanceDanceDanceEffect.actionvalue = -0.24 * HuohuoRotationDuration / HanabiRotationDuration
+    HuohuoCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HuohuoRotation.append(deepcopy(DanceDanceDanceEffect))
+    
     totalTingyunEffect = sumEffects(TingyunRotation)
+    totalJingYuanEffect = sumEffects(JingYuanRotation)
     totalHuohuoEffect = sumEffects(HuohuoRotation)
 
     JingYuanRotationDuration = totalJingYuanEffect.actionvalue * 100.0 / JingYuanCharacter.getTotalStat('SPD')
-    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
     HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
 

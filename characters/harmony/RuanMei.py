@@ -93,7 +93,6 @@ class RuanMei(BaseCharacter):
         retval = BaseEffect()
         type = ['ultimate']
         retval.energy = 5.0 * self.getER(type)
-        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         breakEffect = self.useBreak()
         retval.damage = (0.54 if self.eidolon >= 3 else 0.50) * breakEffect.damage
         self.addDebugInfo(retval,type)

@@ -1,3 +1,4 @@
+from copy import deepcopy
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Luocha import Luocha
@@ -85,7 +86,7 @@ def JingyuanTingyunHanabiLuocha(config):
     ]
         
     # JingYuan & Tingyun Rotation
-    TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 3.0  # let's say half the time, huohuo can shave off a turn
+    TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 3.0
     TingyunEnergyPerTurn *= TingyunCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')
     numSkill = (130.0 - 5.0) / (30.0 + TingyunEnergyPerTurn)
     numUlt = 1
@@ -126,27 +127,31 @@ def JingyuanTingyunHanabiLuocha(config):
 
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
+
+    DanceDanceDanceEffect.actionvalue = -0.24
+    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanabiRotation.append(deepcopy(DanceDanceDanceEffect))
+    totalHanabiEffect = sumEffects(HanabiRotation)
+    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
+
     DanceDanceDanceEffect.actionvalue = -0.24 * JingYuanRotationDuration / HanabiRotationDuration
     JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    JingYuanRotation.append(DanceDanceDanceEffect * JingYuanRotationDuration / HanabiRotationDuration)
+    JingYuanRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * TingyunRotationDuration / HanabiRotationDuration
     TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TingyunRotation.append(DanceDanceDanceEffect * TingyunRotationDuration / HanabiRotationDuration)
+    TingyunRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * LuochaRotationDuration / HanabiRotationDuration
     LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    LuochaRotation.append(DanceDanceDanceEffect * LuochaRotationDuration / HanabiRotationDuration)
+    LuochaRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanabiRotation.append(DanceDanceDanceEffect)
-    
-    totalJingYuanEffect = sumEffects(JingYuanRotation)
     totalTingyunEffect = sumEffects(TingyunRotation)
-    totalHanabiEffect = sumEffects(HanabiRotation)
+    totalJingYuanEffect = sumEffects(JingYuanRotation)
     totalLuochaEffect = sumEffects(LuochaRotation)
 
     JingYuanRotationDuration = totalJingYuanEffect.actionvalue * 100.0 / JingYuanCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
-    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
     # scale other character's rotation

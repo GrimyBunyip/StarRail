@@ -1,3 +1,4 @@
+from copy import deepcopy
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.erudition.Qingque import Qingque
@@ -133,27 +134,31 @@ def QingqueHanyaSilverWolfFuxuan(config):
 
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
+
+    DanceDanceDanceEffect.actionvalue = -0.24
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(deepcopy(DanceDanceDanceEffect))
+    totalHanyaEffect = sumEffects(HanyaRotation)
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+
     DanceDanceDanceEffect.actionvalue = -0.24 * QingqueRotationDuration / HanyaRotationDuration
     QingqueCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    QingqueRotation.append(DanceDanceDanceEffect * QingqueRotationDuration / HanyaRotationDuration)
+    QingqueRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * SilverWolfRotationDuration / HanyaRotationDuration
     SilverWolfCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    SilverWolfRotation.append(DanceDanceDanceEffect * SilverWolfRotationDuration / HanyaRotationDuration)
+    SilverWolfRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * FuxuanRotationDuration / HanyaRotationDuration
     FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    FuxuanRotation.append(DanceDanceDanceEffect * FuxuanRotationDuration / HanyaRotationDuration)
+    FuxuanRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanyaRotation.append(DanceDanceDanceEffect)
-    
-    totalQingqueEffect = sumEffects(QingqueRotation)
     totalSilverWolfEffect = sumEffects(SilverWolfRotation)
-    totalHanyaEffect = sumEffects(HanyaRotation)
+    totalQingqueEffect = sumEffects(QingqueRotation)
     totalFuxuanEffect = sumEffects(FuxuanRotation)
 
     QingqueRotationDuration = totalQingqueEffect.actionvalue * 100.0 / QingqueCharacter.getTotalStat('SPD')
     SilverWolfRotationDuration = totalSilverWolfEffect.actionvalue * 100.0 / SilverWolfCharacter.getTotalStat('SPD')
-    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
     FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')

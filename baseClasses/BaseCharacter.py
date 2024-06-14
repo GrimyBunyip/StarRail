@@ -245,7 +245,7 @@ class BaseCharacter(object):
         retval = BaseEffect()
         type = ['ultimate']
         retval.energy = 5.0 * self.getER(type)
-        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        retval.actionvalue = self.getAdvanceForward(type)
         return retval
 
     def useTalent(self):

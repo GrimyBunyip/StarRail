@@ -1,3 +1,4 @@
+from copy import deepcopy
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.preservation.Fuxuan import Fuxuan
@@ -121,27 +122,31 @@ def XueyiHanyaPelaFuxuan(config, breakRatio:float=0.5):
 
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
+
+    DanceDanceDanceEffect.actionvalue = -0.24
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(deepcopy(DanceDanceDanceEffect))
+    totalHanyaEffect = sumEffects(HanyaRotation)
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+
     DanceDanceDanceEffect.actionvalue = -0.24 * XueyiRotationDuration / HanyaRotationDuration
     XueyiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    XueyiRotation.append(DanceDanceDanceEffect * XueyiRotationDuration / HanyaRotationDuration)
+    XueyiRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * PelaRotationDuration / HanyaRotationDuration
     PelaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    PelaRotation.append(DanceDanceDanceEffect * PelaRotationDuration / HanyaRotationDuration)
+    PelaRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * FuxuanRotationDuration / HanyaRotationDuration
     FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    FuxuanRotation.append(DanceDanceDanceEffect * FuxuanRotationDuration / HanyaRotationDuration)
+    FuxuanRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanyaRotation.append(DanceDanceDanceEffect)
-    
-    totalXueyiEffect = sumEffects(XueyiRotation)
     totalPelaEffect = sumEffects(PelaRotation)
-    totalHanyaEffect = sumEffects(HanyaRotation)
+    totalXueyiEffect = sumEffects(XueyiRotation)
     totalFuxuanEffect = sumEffects(FuxuanRotation)
 
     XueyiRotationDuration = totalXueyiEffect.actionvalue * 100.0 / XueyiCharacter.getTotalStat('SPD')
     PelaRotationDuration = totalPelaEffect.actionvalue * 100.0 / PelaCharacter.getTotalStat('SPD')
-    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
     FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
     # scale other character's rotation

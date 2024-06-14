@@ -1,3 +1,4 @@
+from copy import deepcopy
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Gallagher import Gallagher
@@ -82,10 +83,11 @@ def FireflyS1TrailblazerRuanMeiGallagher(config):
     # times 2 as the rotation is 2 of her turns long
 
     numSkillFirefly = 2.0
-    numEnhancedFirefly = 3.0
+    numEnhancedFirefly = 4.0
     numUltFirefly = 1.0
     fireflySpd = FireflyCharacter.getTotalStat('SPD')
-    fireflySpdMod = numEnhancedFirefly - numEnhancedFirefly * fireflySpd / (fireflySpd + (65.0 if FireflyCharacter.eidolon >= 5 else 60.0))
+    fireflySpdMod = 1.0 - fireflySpd / (fireflySpd + (65.0 if FireflyCharacter.eidolon >= 5 else 60.0))
+    fireflySpdMod *= numEnhancedFirefly - 1.0
     FireflyRotation = [ 
             FireflyCharacter.useSkill() * numSkillFirefly,
             FireflyCharacter.useSuperBreak(extraTypes=['skill']) * numSkillFirefly,
@@ -164,27 +166,31 @@ def FireflyS1TrailblazerRuanMeiGallagher(config):
     RuanMeiRotationDuration = totalRuanMeiEffect.actionvalue * 100.0 / RuanMeiCharacter.getTotalStat('SPD')
     GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
 
-    # Apply Dance Dance Dance Effect
+    # Apply Dance Dance Dance Effect twice per Firefly Rotation
     DanceDanceDanceEffect = BaseEffect()
-    DanceDanceDanceEffect.actionvalue = -0.24 * FireflyRotationDuration / TrailblazerRotationDuration
+
+    DanceDanceDanceEffect.actionvalue = -0.48 * FireflyCharacter.getTotalStat('SPD') / (FireflyCharacter.getTotalStat('SPD') + 60.0)
     FireflyCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    FireflyRotation.append(DanceDanceDanceEffect * FireflyRotationDuration / TrailblazerRotationDuration)
-    
-    RuanMeiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    RuanMeiRotation.append(DanceDanceDanceEffect * RuanMeiRotationDuration / TrailblazerRotationDuration)
-    
-    GallagherCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    GallagherRotation.append(DanceDanceDanceEffect * GallagherRotationDuration / TrailblazerRotationDuration)
-    
-    TrailblazerCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TrailblazerRotation.append(DanceDanceDanceEffect)
-    
+    FireflyRotation.append(deepcopy(DanceDanceDanceEffect))
     totalFireflyEffect = sumEffects(FireflyRotation)
+    FireflyRotationDuration = totalFireflyEffect.actionvalue * 100.0 / FireflyCharacter.getTotalStat('SPD')
+
+    DanceDanceDanceEffect.actionvalue = -0.48 * TrailblazerRotationDuration / FireflyRotationDuration
+    TrailblazerCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TrailblazerRotation.append(deepcopy(DanceDanceDanceEffect))
+    
+    DanceDanceDanceEffect.actionvalue = -0.48 * RuanMeiRotationDuration / FireflyRotationDuration
+    RuanMeiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    RuanMeiRotation.append(deepcopy(DanceDanceDanceEffect))
+    
+    DanceDanceDanceEffect.actionvalue = -0.48 * GallagherRotationDuration / FireflyRotationDuration
+    GallagherCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    GallagherRotation.append(deepcopy(DanceDanceDanceEffect))
+    
     totalRuanMeiEffect = sumEffects(RuanMeiRotation)
     totalTrailblazerEffect = sumEffects(TrailblazerRotation)
     totalGallagherEffect = sumEffects(GallagherRotation)
 
-    FireflyRotationDuration = totalFireflyEffect.actionvalue * 100.0 / FireflyCharacter.getTotalStat('SPD')
     TrailblazerRotationDuration = totalTrailblazerEffect.actionvalue * 100.0 / TrailblazerCharacter.getTotalStat('SPD')
     RuanMeiRotationDuration = totalRuanMeiEffect.actionvalue * 100.0 / RuanMeiCharacter.getTotalStat('SPD')
     GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')

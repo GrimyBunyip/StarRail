@@ -210,7 +210,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
 # # Blade Teams
-visualizationList.append(BladeBronyaJadeLuocha(config))
+# visualizationList.append(BladeBronyaJadeLuocha(config))
 # visualizationList.append(BladeBronyaHanabiLuocha(config))
 # visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 # visualizationList.append(BladeBronyaPelaLuocha(config))
@@ -254,10 +254,10 @@ visualizationList.append(BladeBronyaJadeLuocha(config))
 # # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
 
 # # Firefly Teams
-# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
-# visualizationList.append(FireflyS1TrailblazerRuanMeiGallagher(config))
-# visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
-# visualizationList.append(FireflyE2S1TrailblazerRuanMeiGallagher(config))
+visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+visualizationList.append(FireflyS1TrailblazerRuanMeiGallagher(config))
+visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
+visualizationList.append(FireflyE2S1TrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyBronyaRuanMeiGallagher(config)) # retire this team, it isn't good
 
 # # Jingliu Teams

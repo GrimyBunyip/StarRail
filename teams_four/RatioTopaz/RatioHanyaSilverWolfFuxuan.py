@@ -1,3 +1,4 @@
+from copy import deepcopy
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.preservation.Fuxuan import Fuxuan
@@ -124,27 +125,31 @@ def DrRatioHanyaSilverWolfFuxuan(config):
 
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
+
+    DanceDanceDanceEffect.actionvalue = -0.24
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(deepcopy(DanceDanceDanceEffect))
+    totalHanyaEffect = sumEffects(HanyaRotation)
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+
     DanceDanceDanceEffect.actionvalue = -0.24 * DrRatioRotationDuration / HanyaRotationDuration
     DrRatioCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    DrRatioRotation.append(DanceDanceDanceEffect * DrRatioRotationDuration / HanyaRotationDuration)
+    DrRatioRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * SilverWolfRotationDuration / HanyaRotationDuration
     SilverWolfCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    SilverWolfRotation.append(DanceDanceDanceEffect * SilverWolfRotationDuration / HanyaRotationDuration)
+    SilverWolfRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * FuxuanRotationDuration / HanyaRotationDuration
     FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    FuxuanRotation.append(DanceDanceDanceEffect * FuxuanRotationDuration / HanyaRotationDuration)
+    FuxuanRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanyaRotation.append(DanceDanceDanceEffect)
-    
-    totalDrRatioEffect = sumEffects(DrRatioRotation)
     totalSilverWolfEffect = sumEffects(SilverWolfRotation)
-    totalHanyaEffect = sumEffects(HanyaRotation)
+    totalDrRatioEffect = sumEffects(DrRatioRotation)
     totalFuxuanEffect = sumEffects(FuxuanRotation)
 
     DrRatioRotationDuration = totalDrRatioEffect.actionvalue * 100.0 / DrRatioCharacter.getTotalStat('SPD')
     SilverWolfRotationDuration = totalSilverWolfEffect.actionvalue * 100.0 / SilverWolfCharacter.getTotalStat('SPD')
-    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
     FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')

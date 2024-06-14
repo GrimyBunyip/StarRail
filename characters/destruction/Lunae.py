@@ -184,6 +184,7 @@ class Lunae(BaseCharacter):
             retval.damage = self.applyDamageMultipliers(retval.damage,type)
             self.addDebugInfo(retval,type,f'Lunae Ultimate Hit {hitNum}')
         
+        retval.actionvalue = self.getAdvanceForward(type)
         self.addHeart()
         return retval
     

@@ -1,3 +1,4 @@
+from copy import deepcopy
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Luocha import Luocha
@@ -121,27 +122,31 @@ def DrRatioHanyaSilverWolfLuocha(config):
 
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
+
+    DanceDanceDanceEffect.actionvalue = -0.24
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(deepcopy(DanceDanceDanceEffect))
+    totalHanyaEffect = sumEffects(HanyaRotation)
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+
     DanceDanceDanceEffect.actionvalue = -0.24 * DrRatioRotationDuration / HanyaRotationDuration
     DrRatioCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    DrRatioRotation.append(DanceDanceDanceEffect * DrRatioRotationDuration / HanyaRotationDuration)
+    DrRatioRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * SilverWolfRotationDuration / HanyaRotationDuration
     SilverWolfCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    SilverWolfRotation.append(DanceDanceDanceEffect * SilverWolfRotationDuration / HanyaRotationDuration)
+    SilverWolfRotation.append(deepcopy(DanceDanceDanceEffect))
     
+    DanceDanceDanceEffect.actionvalue = -0.24 * LuochaRotationDuration / HanyaRotationDuration
     LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    LuochaRotation.append(DanceDanceDanceEffect * LuochaRotationDuration / HanyaRotationDuration)
+    LuochaRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanyaRotation.append(DanceDanceDanceEffect)
-    
-    totalDrRatioEffect = sumEffects(DrRatioRotation)
     totalSilverWolfEffect = sumEffects(SilverWolfRotation)
-    totalHanyaEffect = sumEffects(HanyaRotation)
+    totalDrRatioEffect = sumEffects(DrRatioRotation)
     totalLuochaEffect = sumEffects(LuochaRotation)
 
     DrRatioRotationDuration = totalDrRatioEffect.actionvalue * 100.0 / DrRatioCharacter.getTotalStat('SPD')
     SilverWolfRotationDuration = totalSilverWolfEffect.actionvalue * 100.0 / SilverWolfCharacter.getTotalStat('SPD')
-    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')

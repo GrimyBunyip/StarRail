@@ -1,3 +1,4 @@
+from copy import deepcopy
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Luocha import Luocha
@@ -124,27 +125,31 @@ def DrRatioTopazHanyaLuocha(config):
 
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
+
+    DanceDanceDanceEffect.actionvalue = -0.24
+    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HanyaRotation.append(deepcopy(DanceDanceDanceEffect))
+    totalHanyaEffect = sumEffects(HanyaRotation)
+    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+
+    DanceDanceDanceEffect.actionvalue = -0.24 * TopazRotationDuration / HanyaRotationDuration
+    TopazCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    TopazRotation.append(deepcopy(DanceDanceDanceEffect))
+    
     DanceDanceDanceEffect.actionvalue = -0.24 * DrRatioRotationDuration / HanyaRotationDuration
     DrRatioCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    DrRatioRotation.append(DanceDanceDanceEffect * DrRatioRotationDuration / HanyaRotationDuration)
+    DrRatioRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    TopazCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TopazRotation.append(DanceDanceDanceEffect * TopazRotationDuration / HanyaRotationDuration)
-    
+    DanceDanceDanceEffect.actionvalue = -0.24 * LuochaRotationDuration / HanyaRotationDuration
     LuochaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    LuochaRotation.append(DanceDanceDanceEffect * LuochaRotationDuration / HanyaRotationDuration)
-    
-    HanyaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanyaRotation.append(DanceDanceDanceEffect)
+    LuochaRotation.append(deepcopy(DanceDanceDanceEffect))
     
     totalDrRatioEffect = sumEffects(DrRatioRotation)
     totalTopazEffect = sumEffects(TopazRotation)
-    totalHanyaEffect = sumEffects(HanyaRotation)
     totalLuochaEffect = sumEffects(LuochaRotation)
 
-    DrRatioRotationDuration = totalDrRatioEffect.actionvalue * 100.0 / DrRatioCharacter.getTotalStat('SPD')
     TopazRotationDuration = totalTopazEffect.actionvalue * 100.0 / TopazCharacter.getTotalStat('SPD')
-    HanyaRotationDuration = totalHanyaEffect.actionvalue * 100.0 / HanyaCharacter.getTotalStat('SPD')
+    DrRatioRotationDuration = totalDrRatioEffect.actionvalue * 100.0 / DrRatioCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')
