@@ -30,7 +30,7 @@ class Firefly(BaseCharacter):
                                                 BaseMV(area='adjacent', stat='atk', value=1.0+0.1*self.breakEffectMV, eidolonThreshold=3, eidolonBonus=0.1)]
         
         # Talents
-        self.addStat('BreakEffect',description='Firefly Talent',amount=(attackForTalent-1800)*0.008/10)
+        self.addStat('BreakEffect',description='Firefly Talent',amount=(attackForTalent-1800)*0.01/10)
         
         # Eidolons
         if self.eidolon >= 1:
@@ -91,7 +91,7 @@ class Firefly(BaseCharacter):
         self.addDebugInfo(retval,type)
         return retval
 
-    def useEnhancedSkill(self, setSpeed=None):
+    def useEnhancedSkill(self):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
         type = ['skill','enhancedSkill']

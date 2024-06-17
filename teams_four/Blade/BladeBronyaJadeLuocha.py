@@ -8,9 +8,11 @@ from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.erudition.EternalCalculus import EternalCalculus
+from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.DuranDynastyOfRunningWolves import DuranDynastyOfRunningWolves
+from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc, GeniusOfBrilliantStars4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
@@ -33,7 +35,7 @@ def BladeBronyaJadeLuocha(config):
 
     JadeCharacter = Jade(RelicStats(mainstats = ['CR', 'DMG.quantum', 'ATK.percent', 'ATK.percent'],
                         substats = {'CR': 12, 'CD': 8, 'ATK.percent': 5, 'SPD.flat': 3}),
-                        lightcone = EternalCalculus(**config),
+                        lightcone = TheSeriousnessOfBreakfast(**config),
                         relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = DuranDynastyOfRunningWolves(),
                         **config)
     

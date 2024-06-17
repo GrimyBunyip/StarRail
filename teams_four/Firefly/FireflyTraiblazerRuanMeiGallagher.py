@@ -30,7 +30,7 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     
     FireflyCharacter = Firefly(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'SPD.flat', 'BreakEffect'],
                                     substats = {'SPD.flat': 12, 'ATK.flat': 3, 'BreakEffect': 8, 'ATK.percent': 5}),
-                                    attackForTalent=3700,
+                                    attackForTalent=3250,
                                     lightcone = OnTheFallOfAnAeon(**config,uptime=1.0),
                                     relicsetone = IronCavalryAgainstTheScourge2pc(), relicsettwo = IronCavalryAgainstTheScourge4pc(), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
@@ -84,7 +84,7 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     numUltFirefly = 1.0
     fireflySpd = FireflyCharacter.getTotalStat('SPD')
     fireflySpdMod = 1.0 - fireflySpd / (fireflySpd + (65.0 if FireflyCharacter.eidolon >= 5 else 60.0))
-    fireflySpdMod *= numEnhancedFirefly - 1.0
+    fireflySpdMod *= numEnhancedFirefly
     FireflyRotation = [ 
             FireflyCharacter.useSkill() * numSkillFirefly,
             FireflyCharacter.useSuperBreak(extraTypes=['skill']) * numSkillFirefly,
@@ -163,40 +163,32 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     RuanMeiRotationDuration = totalRuanMeiEffect.actionvalue * 100.0 / RuanMeiCharacter.getTotalStat('SPD')
     GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
 
-    # Apply Dance Dance Dance Effect twice per Firefly Rotation
+    # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
 
-    DanceDanceDanceEffect.actionvalue = -0.48 * FireflyCharacter.getTotalStat('SPD') / (FireflyCharacter.getTotalStat('SPD') + 60.0)
-    FireflyCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    FireflyRotation.append(deepcopy(DanceDanceDanceEffect))
-    totalFireflyEffect = sumEffects(FireflyRotation)
-    FireflyRotationDuration = totalFireflyEffect.actionvalue * 100.0 / FireflyCharacter.getTotalStat('SPD')
-
-    DanceDanceDanceEffect.actionvalue = -0.48 * TrailblazerRotationDuration / FireflyRotationDuration
+    DanceDanceDanceEffect.actionvalue = -0.24
     TrailblazerCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     TrailblazerRotation.append(deepcopy(DanceDanceDanceEffect))
+    totalTrailblazerEffect = sumEffects(TrailblazerRotation)
+    TrailblazerRotationDuration = totalTrailblazerEffect.actionvalue * 100.0 / TrailblazerCharacter.getTotalStat('SPD')
+
+    DanceDanceDanceEffect.actionvalue = -0.24 * FireflyRotationDuration / TrailblazerRotationDuration
+    FireflyCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    FireflyRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    DanceDanceDanceEffect.actionvalue = -0.48 * RuanMeiRotationDuration / FireflyRotationDuration
+    DanceDanceDanceEffect.actionvalue = -0.24 * RuanMeiRotationDuration / TrailblazerRotationDuration
     RuanMeiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     RuanMeiRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    DanceDanceDanceEffect.actionvalue = -0.48 * GallagherRotationDuration / FireflyRotationDuration
+    DanceDanceDanceEffect.actionvalue = -0.24 * GallagherRotationDuration / TrailblazerRotationDuration
     GallagherCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     GallagherRotation.append(deepcopy(DanceDanceDanceEffect))
     
     totalRuanMeiEffect = sumEffects(RuanMeiRotation)
-    totalTrailblazerEffect = sumEffects(TrailblazerRotation)
+    totalFireflyEffect = sumEffects(FireflyRotation)
     totalGallagherEffect = sumEffects(GallagherRotation)
 
-    TrailblazerRotationDuration = totalTrailblazerEffect.actionvalue * 100.0 / TrailblazerCharacter.getTotalStat('SPD')
-    RuanMeiRotationDuration = totalRuanMeiEffect.actionvalue * 100.0 / RuanMeiCharacter.getTotalStat('SPD')
-    GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
-    
-    totalRuanMeiEffect = sumEffects(RuanMeiRotation)
-    totalTrailblazerEffect = sumEffects(TrailblazerRotation)
-    totalGallagherEffect = sumEffects(GallagherRotation)
-
-    TrailblazerRotationDuration = totalTrailblazerEffect.actionvalue * 100.0 / TrailblazerCharacter.getTotalStat('SPD')
+    FireflyRotationDuration = totalFireflyEffect.actionvalue * 100.0 / FireflyCharacter.getTotalStat('SPD')
     RuanMeiRotationDuration = totalRuanMeiEffect.actionvalue * 100.0 / RuanMeiCharacter.getTotalStat('SPD')
     GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
 
@@ -218,7 +210,7 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     TrailblazerRotation += TrailblazerRotationGallagher
     totalTrailblazerEffect = sumEffects(TrailblazerRotation)
 
-    FireflyEstimate = DefaultEstimator(f'E2 Firefly {FireflyCharacter.weaknessBrokenUptime:.2f} Weakness Uptime: {numSkillFirefly:.1f}E {2*numEnhancedFirefly:.1f}Enh {numUltFirefly:.0f}Q S{FireflyCharacter.lightcone.superposition:d} {FireflyCharacter.lightcone.shortname}', FireflyRotation, FireflyCharacter, config)
+    FireflyEstimate = DefaultEstimator(f'E{FireflyCharacter.eidolon} Firefly {FireflyCharacter.weaknessBrokenUptime:.2f} Weakness Uptime: {numSkillFirefly:.1f}E {2*numEnhancedFirefly:.1f}Enh {numUltFirefly:.0f}Q S{FireflyCharacter.lightcone.superposition:d} {FireflyCharacter.lightcone.shortname}', FireflyRotation, FireflyCharacter, config)
     TrailblazerEstimate = DefaultEstimator(f'Trailblazer: {numSkillTrailblazer:.0f}E {numBasicTrailblazer:.0f}N Q S{TrailblazerCharacter.lightcone.superposition:d} {TrailblazerCharacter.lightcone.name}', TrailblazerRotation, TrailblazerCharacter, config)
     RuanMeiEstimate = DefaultEstimator(f'Ruan Mei: {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q, S{RuanMeiCharacter.lightcone.superposition:d} {RuanMeiCharacter.lightcone.name}', 
                                     RuanMeiRotation, RuanMeiCharacter, config)

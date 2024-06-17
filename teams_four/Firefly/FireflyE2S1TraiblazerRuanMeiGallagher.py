@@ -32,9 +32,9 @@ def FireflyE2S1TrailblazerRuanMeiGallagher(config):
     config['fivestarEidolons'] = 2
     FireflyCharacter = Firefly(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'SPD.flat', 'BreakEffect'],
                                     substats = {'SPD.flat': 12, 'ATK.flat': 3, 'BreakEffect': 8, 'ATK.percent': 5}),
-                                    attackForTalent=2900,
+                                    attackForTalent=2470,
                                     lightcone = WhereaboutsShouldDreamsRest(**config),
-                                    relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = ForgeOfTheKalpagniLantern(),
+                                    relicsetone = IronCavalryAgainstTheScourge2pc(), relicsettwo = IronCavalryAgainstTheScourge4pc(), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
     config['fivestarEidolons'] = originalFivestarEidolons
 
@@ -87,11 +87,11 @@ def FireflyE2S1TrailblazerRuanMeiGallagher(config):
     # times 2 as the rotation is 2 of her turns long
 
     numSkillFirefly = 2.0
-    numEnhancedFirefly = 5.0 # 246.4 spd firefly should be able to squeeze in a 5th enhanced turn with S5 dance dance
+    numEnhancedFirefly = 4.0
     numUltFirefly = 1.0
     fireflySpd = FireflyCharacter.getTotalStat('SPD')
     fireflySpdMod = 1.0 - fireflySpd / (fireflySpd + (65.0 if FireflyCharacter.eidolon >= 5 else 60.0))
-    fireflySpdMod *= numEnhancedFirefly - 1.0
+    fireflySpdMod *= numEnhancedFirefly
     FireflyRotation = [ 
             FireflyCharacter.useSkill() * numSkillFirefly,
             FireflyCharacter.useSuperBreak(extraTypes=['skill']) * numSkillFirefly,
@@ -107,8 +107,9 @@ def FireflyE2S1TrailblazerRuanMeiGallagher(config):
     ]
 
     FireflyCharacter.applyUltVulnerability([FireflyCharacter],uptime=1.0)
-    FireflyRotation += [FireflyCharacter.useEnhancedSkill() * numEnhancedFirefly * 2] # multiply by 2 because of e2
-    FireflyRotation[-1].actionvalue *= 0.5
+    numEnhancedFirefly *= 1.5 if FireflyCharacter.eidolon >= 2.0 else 1.0
+    FireflyRotation += [FireflyCharacter.useEnhancedSkill() * numEnhancedFirefly]
+    FireflyRotation[-1].actionvalue *= 2.0 / 3.0
     FireflyRotation += [FireflyCharacter.useSuperBreak(extraTypes=['skill','enhancedSkill']) * numEnhancedFirefly]
     TrailblazerRotationFirefly += [TrailblazerCharacter.useSuperBreak(character=FireflyCharacter, 
                                                                       baseGauge=FireflyCharacter.useEnhancedSkill().gauge,
@@ -218,7 +219,7 @@ def FireflyE2S1TrailblazerRuanMeiGallagher(config):
     TrailblazerRotation += TrailblazerRotationGallagher
     totalTrailblazerEffect = sumEffects(TrailblazerRotation)
 
-    FireflyEstimate = DefaultEstimator(f'E2 Firefly {FireflyCharacter.weaknessBrokenUptime:.2f} Weakness Uptime: {numSkillFirefly:.1f}E {2*numEnhancedFirefly:.1f}Enh {numUltFirefly:.0f}Q S{FireflyCharacter.lightcone.superposition:d} {FireflyCharacter.lightcone.shortname}', FireflyRotation, FireflyCharacter, config)
+    FireflyEstimate = DefaultEstimator(f'E{FireflyCharacter.eidolon} Firefly {FireflyCharacter.weaknessBrokenUptime:.2f} Weakness Uptime: {numSkillFirefly:.1f}E {2*numEnhancedFirefly:.1f}Enh {numUltFirefly:.0f}Q S{FireflyCharacter.lightcone.superposition:d} {FireflyCharacter.lightcone.shortname}', FireflyRotation, FireflyCharacter, config)
     TrailblazerEstimate = DefaultEstimator(f'Trailblazer: {numSkillTrailblazer:.0f}E {numBasicTrailblazer:.0f}N Q S{TrailblazerCharacter.lightcone.superposition:d} {TrailblazerCharacter.lightcone.name}', TrailblazerRotation, TrailblazerCharacter, config)
     RuanMeiEstimate = DefaultEstimator(f'Ruan Mei: {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q, S{RuanMeiCharacter.lightcone.superposition:d} {RuanMeiCharacter.lightcone.name}', 
                                     RuanMeiRotation, RuanMeiCharacter, config)

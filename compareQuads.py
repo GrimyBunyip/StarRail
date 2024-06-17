@@ -144,16 +144,16 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 #%% Team Imports
 
 # # Team Comparisons
+# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(AcheronGuinaifenPelaGallagher(config))
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # visualizationList.append(BladeBronyaJadeLuocha(config))
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
-# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
 # visualizationList.append(LunaeHanabiTingyunLuocha(config))
-# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(QingqueHanabiPelaFuxuan(config))
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
 # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
