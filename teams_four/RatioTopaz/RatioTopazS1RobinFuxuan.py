@@ -6,6 +6,7 @@ from characters.harmony.Robin import Robin
 from characters.hunt.Topaz import Topaz
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.harmony.ForTomorrowsJourney import ForTomorrowsJourney
+from lightCones.harmony.PoisedToBloom import PoisedToBloom
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.hunt.WorrisomeBlissful import WorrisomeBlissful
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
@@ -37,7 +38,7 @@ def DrRatioTopazS1RobinFuxuan(config):
 
     RobinCharacter = Robin(RelicStats(mainstats = ['ER', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
                                     substats = {'ATK.percent': 8, 'SPD.flat': 12, 'RES': 3, 'ATK.flat': 5}),
-                                    lightcone = ForTomorrowsJourney(**config),
+                                    lightcone = PoisedToBloom(**config),
                                     relicsetone = Prisoner2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = BrokenKeel(),
                                     **config)
 
@@ -54,6 +55,8 @@ def DrRatioTopazS1RobinFuxuan(config):
         character.addStat('CD',description='Broken Keel from Fuxuan',amount=0.1)
     for character in [TopazCharacter, DrRatioCharacter, FuxuanCharacter]:
         character.addStat('CD',description='Broken Keel from Robin',amount=0.1)
+    for character in [TopazCharacter, DrRatioCharacter]:
+        character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
