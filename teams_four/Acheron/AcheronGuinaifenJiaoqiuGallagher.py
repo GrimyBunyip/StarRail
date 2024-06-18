@@ -113,9 +113,11 @@ def AcheronGuinaifenJiaoqiuGallagher(config):
             GuinaifenCharacter.useUltimate(extraDots=extraDots) * numUltGuinaifen,
     ]
 
-    numBasicJiaoqiu = 4.0
+    numBasicJiaoqiu = 1.0
+    numSkillJiaoqiu = 2.0
     JiaoqiuRotation = [JiaoqiuCharacter.useBasic() * numBasicJiaoqiu,
-                    JiaoqiuCharacter.useUltimate(),]
+                       JiaoqiuCharacter.useSkill() * numSkillJiaoqiu,
+                        JiaoqiuCharacter.useUltimate(),]
 
     numBasicGallagher = 4.0
     numEnhancedGallagher = 1.0
@@ -152,7 +154,7 @@ def AcheronGuinaifenJiaoqiuGallagher(config):
     GallagherRotation = [x * AcheronRotationDuration / GallagherRotationDuration for x in GallagherRotation]
 
     AcheronEstimate = DefaultEstimator(f'Acheron E{AcheronCharacter.eidolon:d} S{AcheronCharacter.lightcone.superposition:d} {AcheronCharacter.lightcone.name}: {numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
-    JiaoqiuEstimate = DefaultEstimator(f'Jiaoqiu: {numBasicJiaoqiu:.0f}N 1Q {JiaoqiuCharacter.talentStacks:.0f} Roasts, S{JiaoqiuCharacter.lightcone.superposition:d} {JiaoqiuCharacter.lightcone.name}', 
+    JiaoqiuEstimate = DefaultEstimator(f'Jiaoqiu: {numBasicJiaoqiu:.0f}N {numSkillJiaoqiu:.0f}E 1Q {JiaoqiuCharacter.talentStacks:.0f} Roasts, S{JiaoqiuCharacter.lightcone.superposition:d} {JiaoqiuCharacter.lightcone.name}', 
                                     JiaoqiuRotation, JiaoqiuCharacter, config, numDot=numDotJiaoqiu)
     GuinaifenEstimate = DefaultEstimator(f'E6 Guinaifen S{GuinaifenCharacter.lightcone.superposition:d} {GuinaifenCharacter.lightcone.shortname} {GuinaifenCharacter.firekissStacks:.0f} Firekiss {numBasicGuinaifen:.0f}N {numSkillGuinaifen:.0f}E {numUltGuinaifen:.0f}Q {numDotGuinaifen:.1f}Dot',
                                                                                                             GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)

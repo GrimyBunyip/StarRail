@@ -24,7 +24,7 @@ def ClaraTingyunTopazLuocha(config):
     #%% Clara Tingyun Topaz Luocha Characters
     ClaraCharacter = Clara(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
                             substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
-                            lightcone = OnTheFallOfAnAeon(uptime = 0.25, stacks=5.0, **config),
+                            lightcone = OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config),
                             relicsetone = ChampionOfStreetwiseBoxing2pc(),
                             relicsettwo = ChampionOfStreetwiseBoxing4pc(),
                             planarset = InertSalsotto(),

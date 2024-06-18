@@ -4,6 +4,8 @@ from teams_four.Acheron.AcheronE2AstaPelaFuxuan import AcheronE2AstaPelaFuxuan
 from teams_four.Acheron.AcheronE2BronyaJiaoqiuGallagher import AcheronE2BronyaJiaoqiuGallagher
 from teams_four.Acheron.AcheronE2BronyaKafkaGallagher import AcheronE2BronyaKafkaGallagher
 from teams_four.Acheron.AcheronE2BronyaPelaGallagher import AcheronE2BronyaPelaGallagher
+from teams_four.Acheron.AcheronE2S1BronyaJiaoqiuE1Gallagher import AcheronE2S1BronyaJiaoqiuE1Gallagher
+from teams_four.Acheron.AcheronE2S1BronyaJiaoqiuE2Gallagher import AcheronE2S1BronyaJiaoqiuE2Gallagher
 from teams_four.Acheron.AcheronE2S1BronyaJiaoqiuGallagher import AcheronE2S1BronyaJiaoqiuGallagher
 from teams_four.Acheron.AcheronE2S1BronyaKafkaGallagher import AcheronE2S1BronyaKafkaGallagher
 from teams_four.Acheron.AcheronE2S1BronyaPelaGallagher import AcheronE2S1BronyaPelaGallagher
@@ -138,6 +140,8 @@ from teams_four.Xueyi.XueyiHanyaPelaFuxuan import XueyiHanyaPelaFuxuan
 from teams_four.Yanqing.YanqingTingyunHanabiAventurine import YanqingTingyunHanabiAventurine
 from teams_four.Yanqing.YanqingTingyunHanabiGepard import YanqingTingyunHanabiGepard
 from teams_four.Yanqing.YanqingTingyunRuanMeiGepard import YanqingTingyunRuanMeiGepard
+from teams_four.Yunli.YunliS1TingyunHanabiHuohuo import YunliS1TingyunHanabiHuohuo
+from teams_four.Yunli.YunliTingyunHanabiHuohuo import YunliTingyunHanabiHuohuo
 from visualizer.visualizer import visualize
 
 visualizationList = []
@@ -163,19 +167,24 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
 # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
 # visualizationList.append(YanqingTingyunHanabiAventurine(config))
+# visualizationList.append(YunliTingyunHanabiHuohuo(config))
 
 # # Acheron Teams
 # # E6S1 Comparisons
 # # visualizationList.append(AcheronE6S1BronyaKafkaGallagher(config))
 
 # E2S1 Comparisons
-visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
+
+visualizationList.append(AcheronE2S1BronyaJiaoqiuE2Gallagher(config))
+visualizationList.append(AcheronE2S1BronyaJiaoqiuE1Gallagher(config))
+
+# visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
 visualizationList.append(AcheronE2S1BronyaJiaoqiuGallagher(config))
 # visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
 # # visualizationList.append(AcheronE2S1BronyaPelaLuocha(config))
 # # visualizationList.append(AcheronE2S1KafkaBlackSwanGallagher(config))
 # visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
-visualizationList.append(AcheronE2S1HanabiKafkaGallagher(config))
+# visualizationList.append(AcheronE2S1HanabiKafkaGallagher(config))
 visualizationList.append(AcheronE2S1HanabiJiaoqiuGallagher(config))
 # # visualizationList.append(AcheronE2S1HanyaKafkaGallagher(config))
 
@@ -348,6 +357,10 @@ visualizationList.append(AcheronGuinaifenJiaoqiuGallagher(config))
 # visualizationList.append(YanqingTingyunHanabiAventurine(config))
 # # visualizationList.append(YanqingTingyunHanabiGepard(config))
 # # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
+
+# # YunliTeam
+# visualizationList.append(YunliTingyunHanabiHuohuo(config))
+# visualizationList.append(YunliS1TingyunHanabiHuohuo(config))
 
 #%% Visualization
 # Visualize

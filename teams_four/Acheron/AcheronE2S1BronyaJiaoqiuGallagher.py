@@ -64,7 +64,8 @@ def AcheronE2S1BronyaJiaoqiuGallagher(config):
 
     # Jiaoqiu Debuffs, 3 turn Jiaoqiu rotation
     JiaoqiuCharacter.applyTalentDebuff(team)
-    JiaoqiuCharacter.applyUltDebuff(team)
+    jiaoqiuUltUptime = 0.75
+    JiaoqiuCharacter.applyUltDebuff(team, uptime=jiaoqiuUltUptime)
         
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
@@ -81,34 +82,40 @@ def AcheronE2S1BronyaJiaoqiuGallagher(config):
 
     #%% Acheron Bronya Jiaoqiu Gallagher Rotations
     
-    numStacks =  (5.0 / 4.0) * JiaoqiuCharacter.getTotalStat('SPD') # 5 Jiaoqiu attacks per 4 turn rotation
+    numStacks =  (4.0 / 3.0) * JiaoqiuCharacter.getTotalStat('SPD') # 4 Jiaoqiu attacks per 3 turn rotation
     numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
     jiaoqiuUltChance = 1.0 * 0.6 * (0.62 if JiaoqiuCharacter.eidolon >= 5 else 0.60)
     jiaoqiuUltChance *= 1.0 + JiaoqiuCharacter.getTotalStat('EHR')
     jiaoqiuUltChance = min(1.0, jiaoqiuUltChance)
-    numStacks += jiaoqiuUltChance * JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
+    numStacks += jiaoqiuUltUptime * jiaoqiuUltChance * JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
     numStacks *= 0.5 # halve the stacks from outside of Acheron because of Bronya
     numStacks /= BronyaCharacter.getTotalStat('SPD')
     numStacks += 1 + 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2, plus 1 from S1 
     
-    numSkillAcheron = 9.0 / numStacks
+    numStacksSkill = 9.0
+    numSkillAcheron = numStacksSkill / numStacks
+    numBasicAcheron = (9.0 - numStacksSkill) / (numStacks - 1.0)
     print(f"{numStacks * AcheronCharacter.getTotalStat('SPD'):.2f} stack rate")
 
     AcheronRotation = []
 
-    AcheronRotation += [AcheronCharacter.useSkill() * numSkillAcheron * 0.5] # half of acheron skills will not be bronya buffed
+    AcheronRotation += [AcheronCharacter.useSkill() * numSkillAcheron * 0.5,
+                        AcheronCharacter.useBasic() * numBasicAcheron * 0.5,] # half of acheron skills will not be bronya buffed
     
     BronyaCharacter.applySkillBuff(AcheronCharacter,uptime=1.0)
     AcheronCharacter.addStat('DMG',description='Past and Future', amount=0.12 + 0.04 * BronyaCharacter.lightcone.superposition)
     AcheronRotation += [AcheronCharacter.useSkill() * numSkillAcheron * 0.5]
+    AcheronRotation += [AcheronCharacter.useBasic() * numBasicAcheron * 0.5]
     AcheronRotation += [AcheronCharacter.useUltimate_st() * 3]
     AcheronRotation += [AcheronCharacter.useUltimate_aoe(num_stacks=3.0) * 3.0]
     AcheronRotation += [AcheronCharacter.useUltimate_end()]
     AcheronRotation += [BronyaCharacter.useAdvanceForward() * numSkillAcheron * 0.5] # Half of the turns
 
     numBasicJiaoqiu = 4.0
+    numSkillJiaoqiu = 0.0
     JiaoqiuRotation = [JiaoqiuCharacter.useBasic() * numBasicJiaoqiu,
-                    JiaoqiuCharacter.useUltimate(),]
+                       JiaoqiuCharacter.useSkill() * numSkillJiaoqiu,
+                        JiaoqiuCharacter.useUltimate(),]
 
     BronyaRotation = [BronyaCharacter.useSkill() * 4,
                     BronyaCharacter.useUltimate(),]
@@ -122,7 +129,7 @@ def AcheronE2S1BronyaJiaoqiuGallagher(config):
         GallagherRotation[-1].actionvalue += 0.20 # advance foward cannot exceed a certain amount
 
     #%% Acheron Bronya Jiaoqiu Gallagher Rotation Math
-    numDotJiaoqiu = DotEstimator(JiaoqiuRotation, JiaoqiuCharacter, config, dotMode='alwaysAll')
+    numDotJiaoqiu = DotEstimator(JiaoqiuRotation, JiaoqiuCharacter, config, dotMode='alwaysAll') * jiaoqiuUltUptime
     JiaoqiuRotation += [JiaoqiuCharacter.useCritDot() * numDotJiaoqiu]
 
     totalAcheronEffect = sumEffects(AcheronRotation)
@@ -146,8 +153,8 @@ def AcheronE2S1BronyaJiaoqiuGallagher(config):
     BronyaRotation = [x * AcheronRotationDuration / BronyaRotationDuration for x in BronyaRotation]
     GallagherRotation = [x * AcheronRotationDuration / GallagherRotationDuration for x in GallagherRotation]
 
-    AcheronEstimate = DefaultEstimator(f'Acheron E{AcheronCharacter.eidolon:d} S{AcheronCharacter.lightcone.superposition:d} {AcheronCharacter.lightcone.shortname}: {numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
-    JiaoqiuEstimate = DefaultEstimator(f'Jiaoqiu: {numBasicJiaoqiu:.0f}N 1Q {JiaoqiuCharacter.talentStacks:.0f} Roasts, S{JiaoqiuCharacter.lightcone.superposition:d} {JiaoqiuCharacter.lightcone.name}', 
+    AcheronEstimate = DefaultEstimator(f'Acheron E{AcheronCharacter.eidolon:d} S{AcheronCharacter.lightcone.superposition:d} {AcheronCharacter.lightcone.shortname}: {numBasicAcheron:.1f}N {numSkillAcheron:.1f}E{numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
+    JiaoqiuEstimate = DefaultEstimator(f'Jiaoqiu E{JiaoqiuCharacter.eidolon:d}: {numBasicJiaoqiu:.0f}N {numSkillJiaoqiu:.0f}E 1Q {JiaoqiuCharacter.talentStacks:.0f} Roasts, S{JiaoqiuCharacter.lightcone.superposition:d} {JiaoqiuCharacter.lightcone.name}', 
                                     JiaoqiuRotation, JiaoqiuCharacter, config, numDot=numDotJiaoqiu)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)

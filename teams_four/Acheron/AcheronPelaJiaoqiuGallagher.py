@@ -105,8 +105,10 @@ def AcheronPelaJiaoqiuGallagher(config):
                     PelaCharacter.useUltimate(),]
 
     numBasicJiaoqiu = 3.0
+    numSkillJiaoqiu = 0.0
     JiaoqiuRotation = [JiaoqiuCharacter.useBasic() * numBasicJiaoqiu,
-                    JiaoqiuCharacter.useUltimate(),]
+                       JiaoqiuCharacter.useSkill() * numSkillJiaoqiu,
+                        JiaoqiuCharacter.useUltimate(),]
 
     numBasicGallagher = 4.0
     numEnhancedGallagher = 1.0
@@ -142,7 +144,7 @@ def AcheronPelaJiaoqiuGallagher(config):
     GallagherRotation = [x * AcheronRotationDuration / GallagherRotationDuration for x in GallagherRotation]
 
     AcheronEstimate = DefaultEstimator(f'Acheron E{AcheronCharacter.eidolon:d} S{AcheronCharacter.lightcone.superposition:d} {AcheronCharacter.lightcone.name}: {numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
-    JiaoqiuEstimate = DefaultEstimator(f'Jiaoqiu: {numBasicJiaoqiu:.0f}N 1Q {JiaoqiuCharacter.talentStacks:.0f} Roasts, S{JiaoqiuCharacter.lightcone.superposition:d} {JiaoqiuCharacter.lightcone.name}', 
+    JiaoqiuEstimate = DefaultEstimator(f'Jiaoqiu: {numBasicJiaoqiu:.0f}N {numSkillJiaoqiu:.0f}E 1Q {JiaoqiuCharacter.talentStacks:.0f} Roasts, S{JiaoqiuCharacter.lightcone.superposition:d} {JiaoqiuCharacter.lightcone.name}', 
                                     JiaoqiuRotation, JiaoqiuCharacter, config, numDot=numDotJiaoqiu)
     PelaEstimate = DefaultEstimator(f'Pela: 2E 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)

@@ -1,11 +1,13 @@
 from copy import deepcopy
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
-from characters.preservation.Fuxuan import Fuxuan
-from characters.destruction.Clara import Clara
+from characters.abundance.Huohuo import Huohuo
+from characters.destruction.Yunli import Yunli
 from characters.harmony.Tingyun import Tingyun
 from characters.harmony.Hanabi import Hanabi
 from estimator.DefaultEstimator import DefaultEstimator
+from lightCones.abundance.PostOpConversation import PostOpConversation
+from lightCones.destruction.DanceAtSunset import DanceAtSunset
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
@@ -16,12 +18,13 @@ from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
+from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 
-def ClaraTingyunHanabiFuxuan(config):
-    #%% Clara Tingyun Hanabi Fuxuan Characters
-    ClaraCharacter = Clara(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
+def YunliS1TingyunHanabiHuohuo(config):
+    #%% Yunli Tingyun Hanabi Huohuo Characters
+    YunliCharacter = Yunli(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
                             substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'BreakEffect': 3}),
-                            lightcone = OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config),
+                            lightcone = DanceAtSunset(**config),
                             relicsetone = ChampionOfStreetwiseBoxing2pc(),
                             relicsettwo = ChampionOfStreetwiseBoxing4pc(),
                             planarset = InertSalsotto(),
@@ -31,7 +34,7 @@ def ClaraTingyunHanabiFuxuan(config):
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                             lightcone = MemoriesOfThePast(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = SprightlyVonwacq(),
-                            benedictionTarget=ClaraCharacter,
+                            benedictionTarget=YunliCharacter,
                             **config)
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
@@ -40,63 +43,58 @@ def ClaraTingyunHanabiFuxuan(config):
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
-    FuxuanCharacter = Fuxuan(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
-                            substats = {'HP.percent': 7, 'SPD.flat': 12, 'DEF.percent': 3, 'RES': 6}),
-                            lightcone = DayOneOfMyNewLife(**config),
-                            relicsetone = LongevousDisciple2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
-                            **config)
+    HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
+                        substats = {'HP.percent': 7, 'SPD.flat': 12, 'HP.flat': 3, 'RES': 6}),
+                        lightcone = PostOpConversation(**config),
+                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+                        **config)
     
-    team = [ClaraCharacter, TingyunCharacter, HanabiCharacter, FuxuanCharacter]
+    team = [YunliCharacter, TingyunCharacter, HanabiCharacter, HuohuoCharacter]
 
-    #%% Clara Tingyun Hanabi Fuxuan Team Buffs
-    for character in [TingyunCharacter, ClaraCharacter, HanabiCharacter]:
-        character.addStat('CD',description='Broken Keel from Fuxuan',amount=0.1)
-    for character in [TingyunCharacter, ClaraCharacter, FuxuanCharacter]:
+    #%% Yunli Tingyun Hanabi Huohuo Team Buffs
+    for character in [TingyunCharacter, YunliCharacter, HanabiCharacter]:
+        character.addStat('CD',description='Broken Keel from Huohuo',amount=0.1)
+    for character in [TingyunCharacter, YunliCharacter, HuohuoCharacter]:
         character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
-    HanabiCharacter.applySkillBuff(character=ClaraCharacter,uptime=1.0)
+    HanabiCharacter.applySkillBuff(character=YunliCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
     
     # Hanabi Messenger 4 pc
-    for character in [ClaraCharacter, TingyunCharacter, FuxuanCharacter]:
+    for character in [YunliCharacter, TingyunCharacter, HuohuoCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Messenger Buff
-    for character in [ClaraCharacter, HanabiCharacter, FuxuanCharacter]:
+    for character in [YunliCharacter, HanabiCharacter, HuohuoCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Buffs
-    TingyunCharacter.applySkillBuff(ClaraCharacter)
-    TingyunCharacter.applyUltBuff(ClaraCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/ClaraCharacter.getTotalStat('SPD'))
+    TingyunCharacter.applySkillBuff(YunliCharacter)
+    TingyunCharacter.applyUltBuff(YunliCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/YunliCharacter.getTotalStat('SPD'))
     
-    # Fu Xuan Buffs
-    FuxuanCharacter.applySkillBuff(team)
+    # Huohuo Buffs
+    HuohuoCharacter.applyUltBuff([TingyunCharacter,HanabiCharacter, YunliCharacter],uptime=2.0/4.0)
 
     #%% Print Statements
     for character in team:
         character.print()
 
-    #%% Clara Tingyun Hanabi Fuxuan Rotations
+    #%% Yunli Tingyun Hanabi Huohuo Rotations
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
-    numSkillClara = 1.25
-    numEnemyAttacks = ClaraCharacter.enemySpeed * ClaraCharacter.numEnemies * numSkillClara / (HanabiCharacter.getTotalStat('SPD') / 0.92 ) # enemy attacks now scale to hanabi speed, account for S5 dance dance in denominator
-    numEnhancedTalents = 2
-    numUnenhancedTalents = (numEnemyAttacks - numEnhancedTalents) * (5*6) / (5*6 + 6 + 4 + 4)
-    numSvarogCounters = numEnemyAttacks * (5*6) / (5*6 + 6 + 4 + 4)
+    numSkillYunli = 2.0
+    numUltYunli = 2.0
+    
+    numEnemyAttacks = YunliCharacter.enemySpeed * YunliCharacter.numEnemies * numSkillYunli / (HanabiCharacter.getTotalStat('SPD') / 0.92 ) # enemy attacks now scale to hanabi speed, account for S5 dance dance in denominator
+    numTalentYunli = (numEnemyAttacks - numUltYunli) * (5*6) / (5*6 + 4 + 4 + 4)
 
-    ClaraRotation = [ # 110 max energy
-            ClaraCharacter.useSkill() * numSkillClara,
-            ClaraCharacter.useMarkOfSvarog() * numSkillClara, 
-            ClaraCharacter.useTalent(enhanced=True) * numEnhancedTalents,
-            ClaraCharacter.useUltimate(),
-            ClaraCharacter.useTalent(enhanced=False) * numUnenhancedTalents,
-            TingyunCharacter.useBenediction(['skill']) * numSkillClara,
-            TingyunCharacter.useBenediction(['talent','followup']) * numEnhancedTalents,
-            TingyunCharacter.useBenediction(['talent','followup']) * numUnenhancedTalents,
-            HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - ClaraCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * numSkillClara,
+    YunliRotation = [
+            YunliCharacter.useSkill() * numSkillYunli,
+            YunliCharacter.useTalent() * numTalentYunli,
+            YunliCharacter.useEnhancedUltimate() * numUltYunli,
+            HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - YunliCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * numSkillYunli,
     ]
     
     TingyunRotation = [ 
@@ -111,21 +109,21 @@ def ClaraTingyunHanabiFuxuan(config):
                        HanabiCharacter.useSkill() * numSkillHanabi,
                     HanabiCharacter.useUltimate()]
 
-    FuxuanRotation = [FuxuanCharacter.useBasic() * 2,
-                    FuxuanCharacter.useSkill() * 1,
-                    FuxuanCharacter.useUltimate() * 1,]
+    HuohuoRotation = [HuohuoCharacter.useBasic() * 3,
+                    HuohuoCharacter.useSkill() * 1,
+                    HuohuoCharacter.useUltimate() * 1,]
 
-    #%% Clara Tingyun Hanabi Fuxuan Rotation Math
+    #%% Yunli Tingyun Hanabi Huohuo Rotation Math
 
-    totalClaraEffect = sumEffects(ClaraRotation)
+    totalYunliEffect = sumEffects(YunliRotation)
     totalTingyunEffect = sumEffects(TingyunRotation)
     totalHanabiEffect = sumEffects(HanabiRotation)
-    totalFuxuanEffect = sumEffects(FuxuanRotation)
+    totalHuohuoEffect = sumEffects(HuohuoRotation)
 
-    ClaraRotationDuration = totalClaraEffect.actionvalue * 100.0 / ClaraCharacter.getTotalStat('SPD')
+    YunliRotationDuration = totalYunliEffect.actionvalue * 100.0 / YunliCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
     HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
-    FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
+    HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
 
     # Apply Dance Dance Dance Effect
     DanceDanceDanceEffect = BaseEffect()
@@ -136,46 +134,47 @@ def ClaraTingyunHanabiFuxuan(config):
     totalHanabiEffect = sumEffects(HanabiRotation)
     HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
 
-    DanceDanceDanceEffect.actionvalue = -0.24 * ClaraRotationDuration / HanabiRotationDuration
-    ClaraCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    ClaraRotation.append(deepcopy(DanceDanceDanceEffect))
+    DanceDanceDanceEffect.actionvalue = -0.24 * YunliRotationDuration / HanabiRotationDuration
+    YunliCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    YunliRotation.append(deepcopy(DanceDanceDanceEffect))
     
     DanceDanceDanceEffect.actionvalue = -0.24 * TingyunRotationDuration / HanabiRotationDuration
     TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     TingyunRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    DanceDanceDanceEffect.actionvalue = -0.24 * FuxuanRotationDuration / HanabiRotationDuration
-    FuxuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    FuxuanRotation.append(deepcopy(DanceDanceDanceEffect))
+    DanceDanceDanceEffect.actionvalue = -0.24 * HuohuoRotationDuration / HanabiRotationDuration
+    HuohuoCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    HuohuoRotation.append(deepcopy(DanceDanceDanceEffect))
     
     totalTingyunEffect = sumEffects(TingyunRotation)
-    totalClaraEffect = sumEffects(ClaraRotation)
-    totalFuxuanEffect = sumEffects(FuxuanRotation)
+    totalYunliEffect = sumEffects(YunliRotation)
+    totalHuohuoEffect = sumEffects(HuohuoRotation)
 
-    ClaraRotationDuration = totalClaraEffect.actionvalue * 100.0 / ClaraCharacter.getTotalStat('SPD')
+    YunliRotationDuration = totalYunliEffect.actionvalue * 100.0 / YunliCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
-    FuxuanRotationDuration = totalFuxuanEffect.actionvalue * 100.0 / FuxuanCharacter.getTotalStat('SPD')
+    HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
 
-    ClaraRotation.append(TingyunCharacter.giveUltEnergy() * ClaraRotationDuration / TingyunRotationDuration)
+    YunliRotation.append(HuohuoCharacter.giveUltEnergy(YunliCharacter) * YunliRotationDuration / HuohuoRotationDuration)
+    YunliRotation.append(TingyunCharacter.giveUltEnergy() * YunliRotationDuration / TingyunRotationDuration)
     
     print('##### Rotation Durations #####')
-    print('Clara: ',ClaraRotationDuration)
+    print('Yunli: ',YunliRotationDuration)
     print('Tingyun: ',TingyunRotationDuration)
     print('Hanabi: ',HanabiRotationDuration)
-    print('Fuxuan: ',FuxuanRotationDuration)
+    print('Huohuo: ',HuohuoRotationDuration)
 
     # Scale other character's rotation
-    TingyunRotation = [x * ClaraRotationDuration / TingyunRotationDuration for x in TingyunRotation]
-    HanabiRotation = [x * ClaraRotationDuration / HanabiRotationDuration for x in HanabiRotation]
-    FuxuanRotation = [x * ClaraRotationDuration / FuxuanRotationDuration for x in FuxuanRotation]
+    TingyunRotation = [x * YunliRotationDuration / TingyunRotationDuration for x in TingyunRotation]
+    HanabiRotation = [x * YunliRotationDuration / HanabiRotationDuration for x in HanabiRotation]
+    HuohuoRotation = [x * YunliRotationDuration / HuohuoRotationDuration for x in HuohuoRotation]
 
-    ClaraEstimate = DefaultEstimator(f'Clara: {numSkillClara:.1f}E {numSvarogCounters:.1f}T 1Q', ClaraRotation, ClaraCharacter, config)
+    YunliEstimate = DefaultEstimator(f'Yunli: {numSkillYunli:.1f}E {numTalentYunli:.0f}T {numUltYunli:.0f}Q', YunliRotation, YunliCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',
                                     TingyunRotation, TingyunCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)
-    FuxuanEstimate = DefaultEstimator('Fuxuan: 2N 1E 1Q, S{:.0f} {}'.format(FuxuanCharacter.lightcone.superposition, FuxuanCharacter.lightcone.name),
-                                    FuxuanRotation, FuxuanCharacter, config)
+    HuohuoEstimate = DefaultEstimator('Huohuo: 2N 1E 1Q, S{:.0f} {}'.format(HuohuoCharacter.lightcone.superposition, HuohuoCharacter.lightcone.name),
+                                    HuohuoRotation, HuohuoCharacter, config)
 
-    return([ClaraEstimate, TingyunEstimate, HanabiEstimate, FuxuanEstimate])
+    return([YunliEstimate, TingyunEstimate, HanabiEstimate, HuohuoEstimate])
 

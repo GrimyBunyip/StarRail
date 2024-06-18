@@ -9,7 +9,6 @@ from lightCones.abundance.Multiplication import Multiplication
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.nihility.AlongThePassingShore import AlongThePassingShore
 from lightCones.nihility.EyesOfThePrey import EyesOfThePrey
-from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
@@ -23,13 +22,13 @@ from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronE2BronyaJiaoqiuGallagher(config):
+def AcheronE2S1BronyaJiaoqiuE1Gallagher(config):
     #%% Acheron Bronya Jiaoqiu Gallagher Characters
     originalFivestarEidolons = config['fivestarEidolons']
     config['fivestarEidolons'] = 2
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                             substats = {'CR': 8, 'CD': 6, 'ATK.percent': 3, 'SPD.flat': 11}),
-                            lightcone = GoodNightAndSleepWell(**config),
+                            lightcone = AlongThePassingShore(**config),
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
                             **config)
@@ -41,11 +40,15 @@ def AcheronE2BronyaJiaoqiuGallagher(config):
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                         **config)
 
+    originalFivestarEidolons = config['fivestarEidolons']
+    config['fivestarEidolons'] = 1
     JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'EHR', 'ER'],
                             substats = {'CD': 3, 'CR': 5, 'EHR': 12, 'SPD.flat': 8}),
                             lightcone = EyesOfThePrey(**config),
                             relicsetone = Pioneer2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PanCosmicCommercialEnterprise(),
+                            talentStacks=3,
                             **config)
+    config['fivestarEidolons'] = originalFivestarEidolons
 
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
                             substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
@@ -65,8 +68,8 @@ def AcheronE2BronyaJiaoqiuGallagher(config):
 
     # Jiaoqiu Debuffs, 3 turn Jiaoqiu rotation
     JiaoqiuCharacter.applyTalentDebuff(team)
-    jiaoqiuUltUptime=0.75
-    JiaoqiuCharacter.applyUltDebuff(team,uptime=jiaoqiuUltUptime)
+    jiaoqiuUltUptime = 0.75
+    JiaoqiuCharacter.applyUltDebuff(team, uptime=jiaoqiuUltUptime)
         
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
@@ -91,7 +94,7 @@ def AcheronE2BronyaJiaoqiuGallagher(config):
     numStacks += jiaoqiuUltUptime * jiaoqiuUltChance * JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
     numStacks *= 0.5 # halve the stacks from outside of Acheron because of Bronya
     numStacks /= BronyaCharacter.getTotalStat('SPD')
-    numStacks += 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2
+    numStacks += 1 + 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2, plus 1 from S1 
     
     numStacksSkill = 9.0
     numSkillAcheron = numStacksSkill / numStacks
