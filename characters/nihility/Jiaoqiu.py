@@ -26,7 +26,8 @@ class Jiaoqiu(BaseCharacter):
         self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.8),
                                         BaseMV(area='adjacent', stat='atk', value=0.9),]
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=2.0)]
-        self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=3.0 if self.eidolon >= 1 else 1.5)]
+        self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=3.0 if self.eidolon >= 2 else 0.0)]
+        self.motionValueDict['critDot'] = [BaseMV(area='single', stat='atk', value=1.5)]
         
         # Talents
         hearthKindle = min(2.4, 0.6*int((self.ehr-0.8)/0.15))
@@ -45,8 +46,8 @@ class Jiaoqiu(BaseCharacter):
         for character in team:
             character:BaseCharacter
             character.addStat('Vulnerability',description='Ashen Roast',
-                     amount=0.15, # TODO UPDATE EIDOLON
-                     stacks=self.talentStacks)
+                     amount=0.15 + 0.05 * (self.talentStacks - 1.0), # TODO UPDATE EIDOLON
+                     )
         
     def applyUltDebuff(self,team:list,uptime:float=1.0):
         for character in team:
@@ -105,4 +106,15 @@ class Jiaoqiu(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.energy = self.getBonusEnergyAttack(type) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
+        return retval
+
+    def useCritDot(self):
+        retval = BaseEffect()
+        type = ['talent']
+        retval.damage = self.getTotalMotionValue('critDot',type)
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.energy = self.getBonusEnergyAttack(type) * self.getER(type)
         return retval

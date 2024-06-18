@@ -1,8 +1,10 @@
 from copy import copy
 from settings.BaseConfiguration import Configuration
 from teams_four.Acheron.AcheronE2AstaPelaFuxuan import AcheronE2AstaPelaFuxuan
+from teams_four.Acheron.AcheronE2BronyaJiaoqiuGallagher import AcheronE2BronyaJiaoqiuGallagher
 from teams_four.Acheron.AcheronE2BronyaKafkaGallagher import AcheronE2BronyaKafkaGallagher
 from teams_four.Acheron.AcheronE2BronyaPelaGallagher import AcheronE2BronyaPelaGallagher
+from teams_four.Acheron.AcheronE2S1BronyaJiaoqiuGallagher import AcheronE2S1BronyaJiaoqiuGallagher
 from teams_four.Acheron.AcheronE2S1BronyaKafkaGallagher import AcheronE2S1BronyaKafkaGallagher
 from teams_four.Acheron.AcheronE2S1BronyaPelaGallagher import AcheronE2S1BronyaPelaGallagher
 from teams_four.Acheron.AcheronE2S1BronyaPelaLuocha import AcheronE2S1BronyaPelaLuocha
@@ -164,8 +166,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # E6S1 Comparisons
 # # visualizationList.append(AcheronE6S1BronyaKafkaGallagher(config))
 
-# # E2S1 Comparisons
+# E2S1 Comparisons
 # visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
+# visualizationList.append(AcheronE2S1BronyaJiaoqiuGallagher(config))
 # visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
 # # visualizationList.append(AcheronE2S1BronyaPelaLuocha(config))
 # # visualizationList.append(AcheronE2S1KafkaBlackSwanGallagher(config))
@@ -175,6 +178,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # # E2 Comparisons
 # visualizationList.append(AcheronE2BronyaKafkaGallagher(config))
+# visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config))
 # # visualizationList.append(AcheronE2BronyaPelaGallagher(config))
 # # visualizationList.append(AcheronE2AstaPelaFuxuan(config))
 # # visualizationList.append(AcheronE2RuanMeiPelaFuxuan(config))
@@ -193,8 +197,8 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 
 # # E0 Comparisons
-visualizationList.append(AcheronGuinaifenJiaoqiuGallagher(config))
-visualizationList.append(AcheronGuinaifenPelaGallagher(config))
+# visualizationList.append(AcheronGuinaifenJiaoqiuGallagher(config))
+# visualizationList.append(AcheronGuinaifenPelaGallagher(config))
 # visualizationList.append(AcheronSilverWolfPelaGallagher(config))
 # visualizationList.append(AcheronGuinaifenPelaGepard(config))
 # visualizationList.append(AcheronSilverWolfPelaGepard(config))
@@ -223,7 +227,7 @@ visualizationList.append(AcheronGuinaifenPelaGallagher(config))
 # # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
 
 # Clara Teams
-# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(ClaraTingyunHanabiAventurine(config))
 # visualizationList.append(ClaraTingyunHanabiLuocha(config))
 # # visualizationList.append(ClaraTingyunRuanMeiFuxuan(config))
