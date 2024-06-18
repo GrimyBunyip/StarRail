@@ -137,7 +137,7 @@ def KafkaGuinaifenSampoLuocha(config):
 
     KafkaEstimate = DefaultEstimator('Kafka {:.0f}E {:.0f}T {:.0f}Q {:.1f}Dot'.format(numSkill, numTalent, numUlt, numDotKafka),
                                     KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-    GuinaifenEstimate = DefaultEstimator(f'E6 Guinaifen S{GuinaifenCharacter.lightcone.superposition:d} {GuinaifenCharacter.lightcone.name} {GuinaifenCharacter.firekissStacks:.0f}Firekiss {numBasicGuinaifen:.0f}N {numSkillGuinaifen:.0f}E {numUltGuinaifen:.0f}Q {numDotGuinaifen:.1f}Dot',
+    GuinaifenEstimate = DefaultEstimator(f'E6 Guinaifen S{GuinaifenCharacter.lightcone.superposition:d} {GuinaifenCharacter.lightcone.name} {GuinaifenCharacter.firekissStacks:.0f} Firekiss {numBasicGuinaifen:.0f}N {numSkillGuinaifen:.0f}E {numUltGuinaifen:.0f}Q {numDotGuinaifen:.1f}Dot',
                                                                                                             GuinaifenRotation, GuinaifenCharacter, config, numDot=numDotGuinaifen)
     SampoEstimate = DefaultEstimator('Sampo S{:.0f} {} {:.0f}N {:.0f}E {:.0f}Q {:.1f}Dot'.format(SampoCharacter.lightcone.superposition, SampoCharacter.lightcone.name, 
                                                                                                 numBasicSampo, numSkillSampo, numUltSampo, numDotSampo), 

@@ -4,7 +4,7 @@ from baseClasses.BaseLightCone import BaseLightCone
 class ResolutionShinesAsPearlsOfSweat(BaseLightCone):
     def __init__(self,
                 **config):
-        self.loadConeStats('Resolution Shines As Pearls of Sweat')
+        self.loadConeStats('Resolution Shines As Pearls of Sweat', shortname='Resolution')
         self.setSuperposition(config)
 
     def equipTo(self, char:BaseCharacter):

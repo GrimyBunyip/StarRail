@@ -13,6 +13,7 @@ from teams_four.Acheron.AcheronE2S1HanabiPelaFuxuan import AcheronE2S1HanabiPela
 from teams_four.Acheron.AcheronE2S1HanyaKafkaGallagher import AcheronE2S1HanyaKafkaGallagher
 from teams_four.Acheron.AcheronE2S1KafkaBlackSwanGallagher import AcheronE2S1KafkaBlackSwanGallagher
 from teams_four.Acheron.AcheronE6S1BronyaKafkaGallagher import AcheronE6S1BronyaKafkaGallagher
+from teams_four.Acheron.AcheronGuinaifenJiaoqiuGallagher import AcheronGuinaifenJiaoqiuGallagher
 from teams_four.Acheron.AcheronGuinaifenPelaGallagher import AcheronGuinaifenPelaGallagher
 from teams_four.Acheron.AcheronGuinaifenPelaGepard import AcheronGuinaifenPelaGepard
 from teams_four.Acheron.AcheronKafkaBlackSwanGallagher import AcheronKafkaBlackSwanGallagher
@@ -192,7 +193,8 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 
 # # E0 Comparisons
-# visualizationList.append(AcheronGuinaifenPelaGallagher(config))
+visualizationList.append(AcheronGuinaifenJiaoqiuGallagher(config))
+visualizationList.append(AcheronGuinaifenPelaGallagher(config))
 # visualizationList.append(AcheronSilverWolfPelaGallagher(config))
 # visualizationList.append(AcheronGuinaifenPelaGepard(config))
 # visualizationList.append(AcheronSilverWolfPelaGepard(config))
@@ -235,12 +237,12 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # # visualizationList.append(ClaraTingyunHanabiFuxuanEscapade(config))
 
 # # Dr Ratio Teams
-visualizationList.append(DrRatioTopazS1RobinAventurine(config))
-visualizationList.append(DrRatioTopazE1RobinAventurine(config))
-visualizationList.append(DrRatioTopazS1RobinFuxuan(config))
-visualizationList.append(DrRatioTopazE1RobinFuxuan(config))
+# visualizationList.append(DrRatioTopazS1RobinAventurine(config))
+# visualizationList.append(DrRatioTopazE1RobinAventurine(config))
+# visualizationList.append(DrRatioTopazS1RobinFuxuan(config))
+# visualizationList.append(DrRatioTopazE1RobinFuxuan(config))
 
-visualizationList.append(DrRatioTopazRobinAventurine(config))
+# visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(DrRatioTopazRobinFuxuan(config))
 # visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
 # visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
