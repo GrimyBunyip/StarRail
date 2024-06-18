@@ -13,7 +13,7 @@ class Jiaoqiu(BaseCharacter):
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
                 ehr:float=1.4,
-                talentStacks:float=3.0,
+                talentStacks:float=2.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Jiaoqiu')
@@ -21,11 +21,10 @@ class Jiaoqiu(BaseCharacter):
         self.talentStacks = talentStacks
         
         # Motion Values should be set before talents or gear
-        # TO DO FIX e3 and e5 bonuses
-        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0)]
-        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.8),
-                                        BaseMV(area='adjacent', stat='atk', value=0.9),]
-        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=2.0)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.8, eidolonThreshold=3, eidolonBonus=0.18),
+                                        BaseMV(area='adjacent', stat='atk', value=0.9, eidolonThreshold=3, eidolonBonus=0.09),]
+        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=2.0, eidolonThreshold=5, eidolonBonus=0.16)]
         self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=3.0 if self.eidolon >= 2 else 0.0)]
         self.motionValueDict['critDot'] = [BaseMV(area='single', stat='atk', value=1.5)]
         
@@ -43,17 +42,22 @@ class Jiaoqiu(BaseCharacter):
         self.equipGear()
         
     def applyTalentDebuff(self,team:list):
+        roastBonus = 0.165 if self.eidolon >= 5 else 0.15
+        roastBonus += (0.055 if self.eidolon >= 5 else 0.05) * (self.talentStacks - 1.0)
         for character in team:
             character:BaseCharacter
             character.addStat('Vulnerability',description='Ashen Roast',
-                     amount=0.15 + 0.05 * (self.talentStacks - 1.0), # TODO UPDATE EIDOLON
+                     amount=roastBonus,
                      )
+            if self.eidolon >= 1:
+                character.addStat('DMG', description='Jiaoqiu E1',
+                                  amount=0.48)
         
     def applyUltDebuff(self,team:list,uptime:float=1.0):
         for character in team:
             character:BaseCharacter
             character.addStat('Vulnerability',description='Ashen Roast',
-                     amount=0.15, # TODO UPDATE EIDOLON
+                     amount=0.162 if self.eidolon >= 5 else 0.15,
                      uptime=uptime,
                      type=['ultimate'])
 
@@ -91,6 +95,12 @@ class Jiaoqiu(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
+        retval.damage = self.getTotalMotionValue('ultimate',type)
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 60.0 * self.numEnemies * self.getBreakEfficiency(type)
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)

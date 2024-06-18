@@ -10,6 +10,7 @@ from teams_four.Acheron.AcheronE2S1BronyaPelaGallagher import AcheronE2S1BronyaP
 from teams_four.Acheron.AcheronE2S1BronyaPelaLuocha import AcheronE2S1BronyaPelaLuocha
 from teams_four.Acheron.AcheronE2HanabiPelaFuxuan import AcheronE2HanabiPelaFuxuan
 from teams_four.Acheron.AcheronE2RuanMeiPelaFuxuan import AcheronE2RuanMeiPelaFuxuan
+from teams_four.Acheron.AcheronE2S1HanabiJiaoqiuGallagher import AcheronE2S1HanabiJiaoqiuGallagher
 from teams_four.Acheron.AcheronE2S1HanabiKafkaGallagher import AcheronE2S1HanabiKafkaGallagher
 from teams_four.Acheron.AcheronE2S1HanabiPelaFuxuan import AcheronE2S1HanabiPelaFuxuan
 from teams_four.Acheron.AcheronE2S1HanyaKafkaGallagher import AcheronE2S1HanyaKafkaGallagher
@@ -22,6 +23,7 @@ from teams_four.Acheron.AcheronKafkaBlackSwanGallagher import AcheronKafkaBlackS
 from teams_four.Acheron.AcheronKafkaBlackSwanLuocha import AcheronKafkaBlackSwanLuocha
 from teams_four.Acheron.AcheronKafkaPelaGallagher import AcheronKafkaPelaGallagher
 from teams_four.Acheron.AcheronKafkaPelaLuocha import AcheronKafkaPelaLuocha
+from teams_four.Acheron.AcheronPelaJiaoqiuGallagher import AcheronPelaJiaoqiuGallagher
 from teams_four.Acheron.AcheronS1GuinaifenPelaGallagher import AcheronS1GuinaifenPelaGallagher
 from teams_four.Acheron.AcheronS1SilverWolfPelaFuxuan import AcheronS1SilverWolfPelaFuxuan
 from teams_four.Acheron.AcheronS1SilverWolfPelaGallagher import AcheronS1SilverWolfPelaGallagher
@@ -149,7 +151,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Team Comparisons
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-# visualizationList.append(AcheronGuinaifenPelaGallagher(config))
+# visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # visualizationList.append(BladeBronyaJadeLuocha(config))
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
@@ -167,18 +169,19 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronE6S1BronyaKafkaGallagher(config))
 
 # E2S1 Comparisons
-# visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
-# visualizationList.append(AcheronE2S1BronyaJiaoqiuGallagher(config))
+visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
+visualizationList.append(AcheronE2S1BronyaJiaoqiuGallagher(config))
 # visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
 # # visualizationList.append(AcheronE2S1BronyaPelaLuocha(config))
 # # visualizationList.append(AcheronE2S1KafkaBlackSwanGallagher(config))
 # visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
-# visualizationList.append(AcheronE2S1HanabiKafkaGallagher(config))
+visualizationList.append(AcheronE2S1HanabiKafkaGallagher(config))
+visualizationList.append(AcheronE2S1HanabiJiaoqiuGallagher(config))
 # # visualizationList.append(AcheronE2S1HanyaKafkaGallagher(config))
 
 # # E2 Comparisons
 # visualizationList.append(AcheronE2BronyaKafkaGallagher(config))
-# visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config))
+visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config))
 # # visualizationList.append(AcheronE2BronyaPelaGallagher(config))
 # # visualizationList.append(AcheronE2AstaPelaFuxuan(config))
 # # visualizationList.append(AcheronE2RuanMeiPelaFuxuan(config))
@@ -197,7 +200,8 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronSilverWolfPelaAventurine(config))
 
 # # E0 Comparisons
-# visualizationList.append(AcheronGuinaifenJiaoqiuGallagher(config))
+visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
+visualizationList.append(AcheronGuinaifenJiaoqiuGallagher(config))
 # visualizationList.append(AcheronGuinaifenPelaGallagher(config))
 # visualizationList.append(AcheronSilverWolfPelaGallagher(config))
 # visualizationList.append(AcheronGuinaifenPelaGepard(config))
@@ -227,7 +231,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
 
 # Clara Teams
-visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(ClaraTingyunHanabiAventurine(config))
 # visualizationList.append(ClaraTingyunHanabiLuocha(config))
 # # visualizationList.append(ClaraTingyunRuanMeiFuxuan(config))

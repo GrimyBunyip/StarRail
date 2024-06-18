@@ -26,7 +26,7 @@ def AcheronE2S1HanabiKafkaGallagher(config):
     originalFivestarEidolons = config['fivestarEidolons']
     config['fivestarEidolons'] = 2
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
-                            substats = {'CR': 4, 'CD': 12, 'ATK.percent': 9, 'ATK.flat': 3}),
+                            substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'ATK.flat': 3}),
                             lightcone = AlongThePassingShore(**config),
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),

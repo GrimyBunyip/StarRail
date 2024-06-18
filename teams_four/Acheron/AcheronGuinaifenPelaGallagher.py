@@ -54,7 +54,7 @@ def AcheronGuinaifenPelaGallagher(config):
         character.addStat('CD',description='Broken Keel from Pela',amount=0.1)
 
     # Pela Debuffs, 3 turn pela rotation
-    PelaCharacter.applyUltDebuff(team,rotationDuration=3)
+    PelaCharacter.applyUltDebuff(team,rotationDuration=2)
         
     # Resolution Shines as Pearls of Sweat uptime
     sweatUptime = (1.0 / 3.0) * PelaCharacter.getTotalStat('SPD') / PelaCharacter.enemySpeed

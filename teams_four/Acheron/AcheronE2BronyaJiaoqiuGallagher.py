@@ -41,8 +41,8 @@ def AcheronE2BronyaJiaoqiuGallagher(config):
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                         **config)
 
-    JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'EHR', 'ER'],
-                            substats = {'ATK.percent': 5, 'SPD.flat': 8, 'EHR': 12, 'ATK.flat': 3}),
+    JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'EHR', 'ER'],
+                            substats = {'CD': 3, 'CR': 5, 'EHR': 12, 'SPD.flat': 8}),
                             lightcone = EyesOfThePrey(**config),
                             relicsetone = Pioneer2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PanCosmicCommercialEnterprise(),
                             **config)
@@ -82,10 +82,11 @@ def AcheronE2BronyaJiaoqiuGallagher(config):
 
     #%% Acheron Bronya Jiaoqiu Gallagher Rotations
     
-    numStacks =  1.0 * JiaoqiuCharacter.getTotalStat('SPD') # 4 Jiaoqiu attacks per 4 turn rotation
+    numStacks =  (5.0 / 4.0) * JiaoqiuCharacter.getTotalStat('SPD') # 5 Jiaoqiu attacks per 4 turn rotation
     numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
-    jiaoqiuUltChance = 1.0 * 0.6 * 0.5 # TO DO: update with eidolon info
+    jiaoqiuUltChance = 1.0 * 0.6 * (0.62 if JiaoqiuCharacter.eidolon >= 5 else 0.60)
     jiaoqiuUltChance *= 1.0 + JiaoqiuCharacter.getTotalStat('EHR')
+    jiaoqiuUltChance = min(1.0, jiaoqiuUltChance)
     numStacks += jiaoqiuUltChance * JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
     numStacks *= 0.5 # halve the stacks from outside of Acheron because of Bronya
     numStacks /= BronyaCharacter.getTotalStat('SPD')
@@ -122,7 +123,6 @@ def AcheronE2BronyaJiaoqiuGallagher(config):
         GallagherRotation[-1].actionvalue += 0.20 # advance foward cannot exceed a certain amount
 
     #%% Acheron Bronya Jiaoqiu Gallagher Rotation Math
-    numDotJiaoqiu = DotEstimator(JiaoqiuRotation, JiaoqiuCharacter, config, dotMode='alwaysAll')
     numDotJiaoqiu = DotEstimator(JiaoqiuRotation, JiaoqiuCharacter, config, dotMode='alwaysAll')
     JiaoqiuRotation += [JiaoqiuCharacter.useCritDot() * numDotJiaoqiu]
 
