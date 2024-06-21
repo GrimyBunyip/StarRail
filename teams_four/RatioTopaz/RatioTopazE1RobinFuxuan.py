@@ -32,7 +32,7 @@ def DrRatioTopazE1RobinFuxuan(config):
 
     TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'CR', 'ATK.percent'],
                                     substats = {'CR': 7, 'CD': 9, 'ATK.percent': 3, 'SPD.flat': 9}),
-                                    lightcone = Swordplay(**config), # S1 topaz here so Ratio has consistent chances
+                                    lightcone = Swordplay(**config),
                                     relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = IzumoGenseiAndTakamaDivineRealm(),
                                     **config)
 

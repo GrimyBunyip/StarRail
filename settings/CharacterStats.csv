@@ -33,8 +33,8 @@ Guinaifen,582.12,441,882,106,0.05,0.5,100,120,fire,nihility,4,https://static.wik
 Bailu,562.72,485.1,1319.47,98,0.05,0.5,100,100,lightning,abundance,5,https://static.wikia.nocookie.net/houkai-star-rail/images/4/47/Character_Bailu_Icon.png,0,0.225,0.28,0,0.067,0,0,0,0,0,0,0,0,0
 Jingliu,679.14,485.1,1435.9,96,0.05,0.87,125,140,ice,destruction,5,https://static.wikia.nocookie.net/houkai-star-rail/images/f/f9/Character_Jingliu_Icon.png,0,0,0.1,0,0,0,0,0,0,0,0,0,0,9
 Lunae,698.54,363.83,1241.86,102,0.17,0.5,125,140,imaginary,destruction,5,https://static.wikia.nocookie.net/houkai-star-rail/images/2/2a/Character_Dan_Heng_%E2%80%A2_Imbibitor_Lunae_Icon.png,0,0,0.1,0,0,0,0,0,0,0,0,0.224,0,0
-Physical Trailblazer,620.93,460.84,1203.05,100,0.05,0.5,125,120,physical,destruction,4,https://static.wikia.nocookie.net/houkai-star-rail/images/1/11/Character_Trailblazer_Icon.png,0.28,0.125,0.18,0,0,0,0,0,0,0,0,0,0,0
-Fire Trailblazer,601.52,606.37,1241.86,95,0.05,0.5,150,120,fire,preservation,4,https://static.wikia.nocookie.net/houkai-star-rail/images/1/11/Character_Trailblazer_Icon.png,0.18,0.35,0.1,0,0,0,0,0,0,0,0,0,0,0
+Physical Trailblazer,620.93,460.84,1203.05,100,0.05,0.5,125,120,physical,destruction,4,https://static.wikia.nocookie.net/houkai-star-rail/images/8/89/Character_Trailblazer_%28Destruction%29_Icon.png,0.28,0.125,0.18,0,0,0,0,0,0,0,0,0,0,0
+Fire Trailblazer,601.52,606.37,1241.86,95,0.05,0.5,150,120,fire,preservation,4,https://static.wikia.nocookie.net/houkai-star-rail/images/8/89/Character_Trailblazer_%28Destruction%29_Icon.png,0.18,0.35,0.1,0,0,0,0,0,0,0,0,0,0,0
 Argenti,737.35,363.83,1047.82,103,0.05,0.5,75,180,physical,erudition,5,https://static.wikia.nocookie.net/houkai-star-rail/images/c/c0/Character_Argenti_Icon.png,0.28,0,0.1,0,0,0,0,0,0,0.144,0,0,0,0
 Huohuo,601.52,509.36,1358.28,98,0.05,0.5,100,140,wind,abundance,5,https://static.wikia.nocookie.net/houkai-star-rail/images/6/68/Character_Huohuo_Icon.png,0,0,0.28,0,0.18,0,0,0,0,0,0,0,0,5
 Hanya,564.48,352.8,917.28,110,0.05,0.5,100,140,physical,harmony,4,https://static.wikia.nocookie.net/houkai-star-rail/images/9/99/Character_Hanya_Icon.png,0.28,0,0.1,0,0,0,0,0,0,0,0,0,0,9
@@ -49,7 +49,7 @@ Acheron,698.54,363.83,1125.43,101,0.05,0.74,100,0,lightning,nihility,5,https://s
 Gallagher,529.2,441,1305.36,98,0.05,0.5,100,110,fire,abundance,4,https://static.wikia.nocookie.net/houkai-star-rail/images/1/12/Character_Gallagher_Icon.png,0,0,0.18,0,0.28,0,0,0,0,0,0,0,0.133,0
 Robin,640.33,485.1,1280.66,102,0.05,0.5,100,160,physical,harmony,5,https://static.wikia.nocookie.net/houkai-star-rail/images/7/72/Character_Robin_Icon.png,0.28,0,0.18,0,0,0,0,0,0,0,0,0,0,5
 Boothill,620.93,436.59,1203.05,107,0.05,0.5,75,120,physical,hunt,5,https://static.wikia.nocookie.net/houkai-star-rail/images/7/78/Character_Boothill_Icon.png,0.18,0,0.1,0,0,0,0,0,0,0,0,0,0.373,0
-Imaginary Trailblazer,446.29,679.14,1086.62,105,0.05,0.5,100,140,imaginary,harmony,5,https://static.wikia.nocookie.net/houkai-star-rail/images/1/11/Character_Trailblazer_Icon.png,0,0,0,0,0.1,0,0,0,0,0,0,0.144,0.373,0
+Imaginary Trailblazer,446.29,679.14,1086.62,105,0.05,0.5,100,140,imaginary,harmony,5,https://static.wikia.nocookie.net/houkai-star-rail/images/8/89/Character_Trailblazer_%28Destruction%29_Icon.png,0,0,0,0,0.1,0,0,0,0,0,0,0.144,0.373,0
 Firefly,523.91,776.16,815,104,0.05,0.5,125,240,fire,destruction,5,https://static.wikia.nocookie.net/houkai-star-rail/images/9/9e/Character_Firefly_Icon.png,0,0,0,0,0.18,0,0,0,0,0,0,0,0.373,5
 Jade,659.74,509.36,1086.62,103,0.05,0.5,75,140,quantum,erudition,5,https://static.wikia.nocookie.net/houkai-star-rail/images/f/fd/Character_Jade_Icon.png,0.18,0,0,0,0.1,0,0,0,0,0,0.224,0,0,0
 Imaginary March 7th,564.48,418.95,917.28,107,0.169,0.5,75,110,imaginary,hunt,4,https://static.wikia.nocookie.net/houkai-star-rail/images/7/7b/Character_March_7th_%28The_Hunt%29_Icon.png,0.28,0.125,0,0,0,0,0,0,0,0,0,0,0,0
