@@ -20,7 +20,7 @@ from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, 
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
 def JingliuBronyaMarchLuocha(config):
-    #%% Jingliu Bronya ImaginaryMarch Luocha Characters
+    #%% Jingliu Bronya March Luocha Characters
     
     JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
                         substats = {'CR': 12, 'CD': 6, 'SPD.flat': 7, 'ATK.percent': 3}),
@@ -28,7 +28,7 @@ def JingliuBronyaMarchLuocha(config):
                         relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
                         **config)
 
-    ImaginaryMarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
+    MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
                                     substats = {'CD': 8, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = WastelanderOfBanditryDesert2pc(),
@@ -49,25 +49,25 @@ def JingliuBronyaMarchLuocha(config):
                         relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
-    team = [JingliuCharacter, BronyaCharacter, ImaginaryMarchCharacter, LuochaCharacter]
+    team = [JingliuCharacter, BronyaCharacter, MarchCharacter, LuochaCharacter]
 
-    #%% Jingliu Bronya ImaginaryMarch Luocha Team Buffs
+    #%% Jingliu Bronya March Luocha Team Buffs
     # only enhanced skills have rutilant arena buff
     JingliuCharacter.addStat('DMG',description='Rutilant Arena', amount=0.20, type=['enhancedSkill']) # take care of rutilant arena manually
 
     # Broken Keel and Penacony Buff
-    for character in [JingliuCharacter, BronyaCharacter, ImaginaryMarchCharacter]:
+    for character in [JingliuCharacter, BronyaCharacter, MarchCharacter]:
         character.addStat('CD',description='Broken Keel Luocha',amount=0.10)
-    for character in [JingliuCharacter, ImaginaryMarchCharacter, LuochaCharacter]:
+    for character in [JingliuCharacter, MarchCharacter, LuochaCharacter]:
         character.addStat('CD',description='Broken Keel Bronya',amount=0.10)
 
     # Messenger 4 pc Bronya
-    for character in [JingliuCharacter, ImaginaryMarchCharacter, LuochaCharacter]: # uptime 1.0 because bronya casts every 4 jingliu turns
+    for character in [JingliuCharacter, MarchCharacter, LuochaCharacter]: # uptime 1.0 because bronya casts every 4 jingliu turns
         character.addStat('SPD.percent',description='Messenger 4 pc Bronya',amount=0.12,uptime=1.0/4.0)
 
     # March Buff
-    ImaginaryMarchCharacter.applySkillBuff(JingliuCharacter)
-    ImaginaryMarchCharacter.applyE6Buff(JingliuCharacter,uptime=0.5)
+    MarchCharacter.applySkillBuff(JingliuCharacter)
+    MarchCharacter.applyE6Buff(JingliuCharacter,uptime=0.5)
         
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
@@ -76,7 +76,7 @@ def JingliuBronyaMarchLuocha(config):
     for character in team:
         character.print()
 
-    #%% Jingliu Bronya ImaginaryMarch Luocha Rotations
+    #%% Jingliu Bronya March Luocha Rotations
     BronyaRotation = [BronyaCharacter.useSkill() * 4,
                     BronyaCharacter.useUltimate(),]
 
@@ -110,11 +110,11 @@ def JingliuBronyaMarchLuocha(config):
     
     numBasicMarch = 2.0
     numEnhancedMarch = 1.4
-    ImaginaryMarchRotation = []
-    ImaginaryMarchRotation += [ImaginaryMarchCharacter.useBasic() * numBasicMarch]
-    ImaginaryMarchRotation += [ImaginaryMarchCharacter.useFollowup() * numBasicMarch]
-    ImaginaryMarchRotation += [ImaginaryMarchCharacter.useEnhancedBasic(actionValue=0.0, numHits=5.0, chance=0.8) * numEnhancedMarch]
-    ImaginaryMarchRotation += [ImaginaryMarchCharacter.useUltimate()] 
+    MarchRotation = []
+    MarchRotation += [MarchCharacter.useBasic() * numBasicMarch]
+    MarchRotation += [MarchCharacter.useFollowup() * numBasicMarch]
+    MarchRotation += [MarchCharacter.useEnhancedBasic(actionValue=0.0, numHits=5.0, chance=0.8) * numEnhancedMarch]
+    MarchRotation += [MarchCharacter.useUltimate()] 
 
     LuochaRotation = [LuochaCharacter.useBasic() * 3,
                     LuochaCharacter.useUltimate() * 1,
@@ -122,39 +122,39 @@ def JingliuBronyaMarchLuocha(config):
     LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
     LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
 
-    #%% Jingliu Bronya ImaginaryMarch Luocha Rotation Math
+    #%% Jingliu Bronya March Luocha Rotation Math
     totalJingliuEffect = sumEffects(JingliuRotation)
     totalBronyaEffect = sumEffects(BronyaRotation)
-    totalImaginaryMarchEffect = sumEffects(ImaginaryMarchRotation)
+    totalMarchEffect = sumEffects(MarchRotation)
     totalLuochaEffect = sumEffects(LuochaRotation)
 
     JingliuRotationDuration = totalJingliuEffect.actionvalue * 100.0 / JingliuCharacter.getTotalStat('SPD')
     BronyaRotationDuration = totalBronyaEffect.actionvalue * 100.0 / BronyaCharacter.getTotalStat('SPD')
-    ImaginaryMarchRotationDuration = totalImaginaryMarchEffect.actionvalue * 100.0 / ImaginaryMarchCharacter.getTotalStat('SPD')
+    MarchRotationDuration = totalMarchEffect.actionvalue * 100.0 / MarchCharacter.getTotalStat('SPD')
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')
     print('Jingliu: ',JingliuRotationDuration)
     print('Bronya: ',BronyaRotationDuration)
-    print('Ruan Mei: ',ImaginaryMarchRotationDuration)
+    print('Ruan Mei: ',MarchRotationDuration)
     print('Luocha: ',LuochaRotationDuration)
 
     # scale other character's rotation
     BronyaRotation = [x * JingliuRotationDuration / BronyaRotationDuration for x in BronyaRotation]
-    ImaginaryMarchRotation = [x * JingliuRotationDuration / ImaginaryMarchRotationDuration for x in ImaginaryMarchRotation]
+    MarchRotation = [x * JingliuRotationDuration / MarchRotationDuration for x in MarchRotation]
     LuochaRotation = [x * JingliuRotationDuration / LuochaRotationDuration for x in LuochaRotation]
     
     # calculate total number of breaks for Ruan Mei Talent
-    totalEffect = sumEffects(JingliuRotation + BronyaRotation + ImaginaryMarchRotation + LuochaRotation)
-    numBreaks = totalEffect.gauge * ImaginaryMarchCharacter.weaknessBrokenUptime / ImaginaryMarchCharacter.enemyToughness
-    ImaginaryMarchRotation.append(ImaginaryMarchCharacter.useTalent() * numBreaks)
+    totalEffect = sumEffects(JingliuRotation + BronyaRotation + MarchRotation + LuochaRotation)
+    numBreaks = totalEffect.gauge * MarchCharacter.weaknessBrokenUptime / MarchCharacter.enemyToughness
+    MarchRotation.append(MarchCharacter.useTalent() * numBreaks)
 
     JingliuEstimate = DefaultEstimator('Jingliu {:.0f}E {:.0f}Moon {:.0f}Q'.format(numSkill, numEnhanced, numUlt),
                                                     JingliuRotation, JingliuCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
-    ImaginaryMarchEstimate = DefaultEstimator(f'ImaginaryMarch: {numBasicMarch:.1f}N {numEnhancedMarch:.1f}Enh 1Q', ImaginaryMarchRotation, ImaginaryMarchCharacter, config)
+    MarchEstimate = DefaultEstimator(f'March: {numBasicMarch:.1f}N {numEnhancedMarch:.1f}Enh 1Q', MarchRotation, MarchCharacter, config)
     LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name),
                                     LuochaRotation, LuochaCharacter, config)
 
-    return([JingliuEstimate, BronyaEstimate, ImaginaryMarchEstimate, LuochaEstimate])
+    return([JingliuEstimate, BronyaEstimate, MarchEstimate, LuochaEstimate])

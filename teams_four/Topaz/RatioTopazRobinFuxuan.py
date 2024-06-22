@@ -124,7 +124,7 @@ def DrRatioTopazRobinFuxuan(config):
     RobinRotationRatio += [RobinCharacter.useConcertoDamage(['skill']) * numSkillRatio * RobinUltUptime]
     RobinRotationRatio += [RobinCharacter.useConcertoDamage(['ultimate']) * RobinUltUptime]
     RobinRotationRatio += [RobinCharacter.useConcertoDamage(['followup']) * (numTalentRatio - 2.0) * RobinUltUptime]
-    DrRatioRotation += [RobinCharacter.useAdvanceForward()] 
+    DrRatioRotation += [RobinCharacter.useAdvanceForward() * numSkillRatio / 5.0] 
 
     numBasicTopaz = 2.0
     numSkillTopaz = 2.0
@@ -140,11 +140,12 @@ def DrRatioTopazRobinFuxuan(config):
     RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['basic','followup']) * numBasicTopaz * RobinUltUptime]
     RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['skill','followup']) * numSkillTopaz * RobinUltUptime]
     RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['followup']) * numTalentTopaz * RobinUltUptime]
-    TopazRotation += [RobinCharacter.useAdvanceForward()] 
+    TopazRotation += [RobinCharacter.useAdvanceForward() * (numBasicTopaz + numSkillTopaz) / 5.0] 
 
     FuxuanRotation = [FuxuanCharacter.useBasic() * 2,
                     FuxuanCharacter.useSkill() * 1,
-                    FuxuanCharacter.useUltimate() * 1,]
+                    FuxuanCharacter.useUltimate() * 1,
+                    RobinCharacter.useAdvanceForward() * 2 / 5,]
     
     RobinRotationFuxuan = [RobinCharacter.useTalent() * 2]
     RobinRotationFuxuan += [RobinCharacter.useConcertoDamage(['basic']) * 2 * RobinUltUptime]

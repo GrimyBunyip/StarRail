@@ -70,7 +70,9 @@ from teams_four.Firefly.FireflyBronyaRuanMeiGallagher import FireflyBronyaRuanMe
 from teams_four.Firefly.FireflyE2S1TraiblazerRuanMeiGallagher import FireflyE2S1TrailblazerRuanMeiGallagher
 from teams_four.Firefly.FireflyE2TraiblazerRuanMeiGallagher import FireflyE2TrailblazerRuanMeiGallagher
 from teams_four.Firefly.FireflyS1TraiblazerRuanMeiGallagher import FireflyS1TrailblazerRuanMeiGallagher
+from teams_four.Firefly.FireflyTraiblazerMarchGallagher import FireflyTrailblazerMarchGallagher
 from teams_four.Firefly.FireflyTraiblazerRuanMeiGallagher import FireflyTrailblazerRuanMeiGallagher
+from teams_four.Firefly.MarchTraiblazerRuanMeiGallagher import MarchTrailblazerRuanMeiGallagher
 from teams_four.Jingliu.JingliuBronyaHanabiLuocha import JingliuBronyaHanabiLuocha
 from teams_four.Jingliu.JingliuBronyaMarchLuocha import JingliuBronyaMarchLuocha
 from teams_four.Jingliu.JingliuBronyaPelaLuocha import JingliuBronyaPelaLuocha
@@ -110,23 +112,23 @@ from teams_four.Qingque.QingqueHanabiPelaFuxuan import QingqueHanabiPelaFuxuan
 from teams_four.Qingque.QingqueHanabiSilverWolfLuocha import QingqueHanabiSilverWolfLuocha
 from teams_four.Qingque.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.Qingque.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
-from teams_four.RatioTopaz.MarchTopazRobinAventurine import MarchTopazRobinAventurine
-from teams_four.RatioTopaz.RatioBronyaSilverWolfLuocha import DrRatioBronyaSilverWolfLuocha
-from teams_four.RatioTopaz.RatioHanabiSilverWolfLuocha import DrRatioHanabiSilverWolfLuocha
-from teams_four.RatioTopaz.RatioHanyaSilverWolfFuxuan import DrRatioHanyaSilverWolfFuxuan
-from teams_four.RatioTopaz.RatioRuanMeiSilverWolfLuocha import DrRatioRuanMeiSilverWolfLuocha
-from teams_four.RatioTopaz.RatioTingyunSilverWolfLuocha import DrRatioTingyunSilverWolfLuocha
-from teams_four.RatioTopaz.RatioTopazAstaLuocha import DrRatioTopazAstaLuocha
-from teams_four.RatioTopaz.RatioHanyaSilverWolfLuocha import DrRatioHanyaSilverWolfLuocha
-from teams_four.RatioTopaz.RatioTopazE1RobinAventurine import DrRatioTopazE1RobinAventurine
-from teams_four.RatioTopaz.RatioTopazE1RobinFuxuan import DrRatioTopazE1RobinFuxuan
-from teams_four.RatioTopaz.RatioTopazHanyaLuocha import DrRatioTopazHanyaLuocha
-from teams_four.RatioTopaz.RatioTopazRobinAventurine import DrRatioTopazRobinAventurine
-from teams_four.RatioTopaz.RatioTopazRobinFuxuan import DrRatioTopazRobinFuxuan
-from teams_four.RatioTopaz.RatioTopazRuanMeiLuocha import DrRatioTopazRuanMeiLuocha
-from teams_four.RatioTopaz.RatioTopazS1RobinAventurine import DrRatioTopazS1RobinAventurine
-from teams_four.RatioTopaz.RatioTopazS1RobinFuxuan import DrRatioTopazS1RobinFuxuan
-from teams_four.RatioTopaz.RatioTopazSilverWolfLuocha import DrRatioTopazSilverWolfLuocha
+from teams_four.Topaz.MarchTopazRobinAventurine import MarchTopazRobinAventurine
+from teams_four.Topaz.RatioBronyaSilverWolfLuocha import DrRatioBronyaSilverWolfLuocha
+from teams_four.Topaz.RatioHanabiSilverWolfLuocha import DrRatioHanabiSilverWolfLuocha
+from teams_four.Topaz.RatioHanyaSilverWolfFuxuan import DrRatioHanyaSilverWolfFuxuan
+from teams_four.Topaz.RatioRuanMeiSilverWolfLuocha import DrRatioRuanMeiSilverWolfLuocha
+from teams_four.Topaz.RatioTingyunSilverWolfLuocha import DrRatioTingyunSilverWolfLuocha
+from teams_four.Topaz.RatioTopazAstaLuocha import DrRatioTopazAstaLuocha
+from teams_four.Topaz.RatioHanyaSilverWolfLuocha import DrRatioHanyaSilverWolfLuocha
+from teams_four.Topaz.RatioTopazE1RobinAventurine import DrRatioTopazE1RobinAventurine
+from teams_four.Topaz.RatioTopazE1RobinFuxuan import DrRatioTopazE1RobinFuxuan
+from teams_four.Topaz.RatioTopazHanyaLuocha import DrRatioTopazHanyaLuocha
+from teams_four.Topaz.RatioTopazRobinAventurine import DrRatioTopazRobinAventurine
+from teams_four.Topaz.RatioTopazRobinFuxuan import DrRatioTopazRobinFuxuan
+from teams_four.Topaz.RatioTopazRuanMeiLuocha import DrRatioTopazRuanMeiLuocha
+from teams_four.Topaz.RatioTopazS1RobinAventurine import DrRatioTopazS1RobinAventurine
+from teams_four.Topaz.RatioTopazS1RobinFuxuan import DrRatioTopazS1RobinFuxuan
+from teams_four.Topaz.RatioTopazSilverWolfLuocha import DrRatioTopazSilverWolfLuocha
 from teams_four.DotTeams.RuanMeiGuinaifenBlackSwanLuocha import RuanMeiGuinaifenBlackSwanLuocha
 from teams_four.DotTeams.SampoGuinaifenBlackSwanLuocha import SampoGuinaifenBlackSwanLuocha
 from teams_four.Seele.SeeleMaxSilverWolfBronyaLuocha import SeeleMaxSilverWolfBronyaLuocha
@@ -136,8 +138,8 @@ from teams_four.Seele.SeeleMaxSilverWolfTingyunFuxuan import SeeleMaxSilverWolfT
 from teams_four.Seele.SeeleMidSilverWolfBronyaFuxuan import SeeleMidSilverWolfBronyaFuxuan
 from teams_four.Seele.SeeleMidSilverWolfBronyaLuocha import SeeleMidSilverWolfBronyaLuocha
 from teams_four.Seele.SeeleNoneSilverWolfHanabiFuxuan import SeeleNoneSilverWolfHanabiLuocha
-from teams_four.RatioTopaz.TopazTingyunHanabiFuxuan import TopazTingyunHanabiFuxuan
-from teams_four.RatioTopaz.TopazTingyunHanyaFuxuan import TopazTingyunHanyaFuxuan
+from teams_four.Topaz.TopazTingyunHanabiFuxuan import TopazTingyunHanabiFuxuan
+from teams_four.Topaz.TopazTingyunHanyaFuxuan import TopazTingyunHanyaFuxuan
 from teams_four.Xueyi.XueyiAstaTopazFuxuan import XueyiAstaTopazFuxuan
 from teams_four.Xueyi.XueyiHanabiPelaFuxuan import XueyiHanabiPelaFuxuan
 from teams_four.Xueyi.XueyiHanabiTingyunFuxuan import XueyiHanabiTingyunFuxuan
@@ -157,22 +159,27 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
-# # Team Comparisons
+# # Backloaded Teams
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
+# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+# visualizationList.append(YunliTingyunHanabiHuohuo(config))
+
+# # Team Comparisons
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # visualizationList.append(BladeBronyaJadeLuocha(config))
-# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
 # visualizationList.append(LunaeHanabiTingyunLuocha(config))
+# visualizationList.append(MarchTopazRobinAventurine(config))
 # visualizationList.append(QingqueHanabiPelaFuxuan(config))
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
+
+# low dps teams
 # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
 # visualizationList.append(YanqingTingyunHanabiAventurine(config))
-# visualizationList.append(YunliTingyunHanabiHuohuo(config))
 
 # # Acheron Teams
 # # E6S1 Comparisons
@@ -287,13 +294,16 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(FireflyS1TrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyE2S1TrailblazerRuanMeiGallagher(config))
+
+# visualizationList.append(FireflyTrailblazerMarchGallagher(config)) # retire this team, it isnt good
+# visualizationList.append(MarchTrailblazerRuanMeiGallagher(config)) # retire this team, it isnt good
 # visualizationList.append(FireflyBronyaRuanMeiGallagher(config)) # retire this team, it isn't good
 
 # # Jingliu Teams
 # visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-# visualizationList.append(JingliuBronyaMarchLuocha(config))
 # # visualizationList.append(JingliuBronyaHanabiLuocha(config))
 # # visualizationList.append(JingliuBronyaTingyunLuocha(config))
+# visualizationList.append(JingliuBronyaMarchLuocha(config))
 # visualizationList.append(JingliuBronyaPelaLuocha(config))
 # # visualizationList.append(JingliuRuanMeiBladeLuocha(config))
 # # visualizationList.append(JingliuHanyaBladeHuohuo(config))

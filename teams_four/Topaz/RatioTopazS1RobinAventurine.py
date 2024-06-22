@@ -127,7 +127,7 @@ def DrRatioTopazS1RobinAventurine(config):
     RobinRotationRatio += [RobinCharacter.useConcertoDamage(['skill']) * numSkillRatio * RobinUltUptime]
     RobinRotationRatio += [RobinCharacter.useConcertoDamage(['ultimate']) * RobinUltUptime]
     RobinRotationRatio += [RobinCharacter.useConcertoDamage(['followup']) * (numTalentRatio - 2.0) * RobinUltUptime]
-    DrRatioRotation += [RobinCharacter.useAdvanceForward()] 
+    DrRatioRotation += [RobinCharacter.useAdvanceForward() * numSkillRatio / 5.0] 
 
     numBasicTopaz = 2.0
     numSkillTopaz = 2.0
@@ -143,7 +143,7 @@ def DrRatioTopazS1RobinAventurine(config):
     RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['basic','followup']) * numBasicTopaz * RobinUltUptime]
     RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['skill','followup']) * numSkillTopaz * RobinUltUptime]
     RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['followup']) * numTalentTopaz * RobinUltUptime]
-    TopazRotation += [RobinCharacter.useAdvanceForward()] 
+    TopazRotation += [RobinCharacter.useAdvanceForward() * (numBasicTopaz + numSkillTopaz) / 5.0] 
 
     numBasicAventurine = 4.0
     numTalentAventurine = 4.0 # stacks from ultimate
@@ -159,7 +159,7 @@ def DrRatioTopazS1RobinAventurine(config):
     AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
                           AventurineCharacter.useTalent() * numTalentAventurine,
                           AventurineCharacter.useUltimate() * 1,
-                          RobinCharacter.useAdvanceForward(),]
+                          RobinCharacter.useAdvanceForward() * numBasicAventurine / 5.0,]
 
     RobinRotationAventurine = [RobinCharacter.useTalent() * (numBasicAventurine + numTalentAventurine / 7.0)]
     RobinRotationAventurine += [RobinCharacter.useConcertoDamage(['basic']) * numBasicAventurine * RobinUltUptime]

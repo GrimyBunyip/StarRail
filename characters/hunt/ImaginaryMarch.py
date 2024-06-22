@@ -27,10 +27,10 @@ class ImaginaryMarch(BaseCharacter):
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0 + skillMV, eidolonThreshold=3, eidolonBonus=0.1)]
         self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=1.0 + skillMV, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['followup'] = [BaseMV(area='single', stat='atk', value=0.6 + skillMV)]
 
         self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.192)]
         
-        self.motionValueDict['followup'] = [BaseMV(area='single', stat='atk', value=0.6)]
 
         # Talents
         self.addStat('DMG',description='March 7th Talent',
@@ -115,6 +115,10 @@ class ImaginaryMarch(BaseCharacter):
         return retval
 
     def useFollowup(self):
+        skillGauge = 1.0
+        if self.master.path == 'hunt' in ['harmony', 'nihility', 'preservation', 'abundance']:
+            skillGauge = 2.0
+            
         retval = BaseEffect()
         type = ['followup']
         retval.damage = self.getTotalMotionValue('followup',type)
@@ -122,7 +126,7 @@ class ImaginaryMarch(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = 15.0 * self.getBreakEfficiency(type)
+        retval.gauge = 15.0 * self.getBreakEfficiency(type) * skillGauge
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = 0.0 - self.getAdvanceForward(type)    
         self.addDebugInfo(retval,type)    
