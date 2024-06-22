@@ -300,7 +300,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Firefly Teams
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyS1TrailblazerRuanMeiGallagher(config))
-# visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
+visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyE2S1TrailblazerRuanMeiGallagher(config))
 
 # visualizationList.append(FireflyTrailblazerMarchGallagher(config)) # retire this team, it isnt good
@@ -388,9 +388,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
 
 # # YunliTeam
-visualizationList.append(YunliTingyunHanabiLynx(config))
-visualizationList.append(YunliTingyunHanabiHuohuo(config))
-visualizationList.append(YunliS1TingyunHanabiHuohuo(config))
+# visualizationList.append(YunliTingyunHanabiLynx(config))
+# visualizationList.append(YunliTingyunHanabiHuohuo(config))
+# visualizationList.append(YunliS1TingyunHanabiHuohuo(config))
 
 #%% Visualization
 # Visualize

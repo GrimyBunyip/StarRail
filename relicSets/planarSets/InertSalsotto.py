@@ -16,9 +16,5 @@ class InertSalsotto(RelicSet):
                                 amount=0.08)
         char.addStat('DMG',description=self.shortname,
                                 amount=0.15,
-                                type=['ultimate'],
-                                uptime=self.uptime)
-        char.addStat('DMG',description=self.shortname,
-                                amount=0.15,
-                                type=['followup'],
+                                type=['ultimate','followup'],
                                 uptime=self.uptime)
