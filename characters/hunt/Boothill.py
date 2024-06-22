@@ -82,18 +82,19 @@ class Boothill(BaseCharacter):
         self.addDebugInfo(retval,type)
     
         breakEffect = BaseEffect()
-        type = ['break']
+        breakType = ['break']
 
         baseDotDamage = self.breakLevelMultiplier
-        baseDotDamage *= 1.7 if self.trickshotChance >= 3 else 1.2 if self.trickshotChance == 2 else 0.7
+        baseDotDamage *= 1.7 if self.trickshotStacks >= 3 else 1.2 if self.trickshotStacks == 2 else 0.7
         baseDotDamage *= 0.5 + min(self.enemyToughness, 30.0*16) / 120
+        baseDotDamage *= self.weaknessBrokenUptime
         baseDotDamage *= BREAK_MULTIPLIERS[self.element]
-        baseDotDamage *= self.getBreakEffect(type)
-        baseDotDamage *= self.getVulnerability(type)
-        baseDotDamage = self.applyDamageMultipliers(baseDotDamage,type)
+        baseDotDamage *= self.getBreakEffect(breakType)
+        baseDotDamage *= self.getVulnerability(breakType)
+        baseDotDamage = self.applyDamageMultipliers(baseDotDamage,breakType)
 
         retval.damage = baseDotDamage
-        self.addDebugInfo(retval,type,'Break Damage')
+        self.addDebugInfo(breakEffect,breakType,'Break Damage')
         retval += breakEffect
         return retval
 

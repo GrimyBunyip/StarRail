@@ -53,6 +53,8 @@ from teams_four.Blade.BladeBronyaPelaLynx import BladeBronyaPelaLynx
 from teams_four.Blade.BladeBronyaRuanMeiFuxuan import BladeBronyaRuanMeiFuxuan
 from teams_four.Blade.BladeBronyaRuanMeiLuocha import BladeBronyaRuanMeiLuocha
 from teams_four.Blade.JadeBronyaRuanMeiLuocha import JadeBronyaRuanMeiLuocha
+from teams_four.Boothill.BoothillBronyaRuanMeiGallagher import BoothillBronyaRuanMeiGallagher
+from teams_four.Boothill.BoothillTraiblazerRuanMeiGallagher import BoothillTrailblazerRuanMeiGallagher
 from teams_four.Clara.ClaraSilverWolfPelaLuocha import ClaraSilverWolfPelaLuocha
 from teams_four.Clara.ClaraTingyunHanabiAventurine import ClaraTingyunHanabiAventurine
 from teams_four.Clara.ClaraTingyunHanabiFuxuan import ClaraTingyunHanabiFuxuan
@@ -155,6 +157,7 @@ visualizationList = []
 
 config = copy(Configuration)
 config['numEnemies'] = 3
+config['enemyToughness'] = 300 # I normally set this to 300, but maybe 480 makes sense to minimize bias against boothill
 config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
@@ -169,6 +172,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Team Comparisons
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # visualizationList.append(BladeBronyaJadeLuocha(config))
+# visualizationList.append(BoothillTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
@@ -254,6 +258,10 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # # visualizationList.append(BladeBronyaPelaFuxuan(config)) # 100% vow uptime with fu xuan
 # # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
+
+# # Boothill Teams
+visualizationList.append(BoothillBronyaRuanMeiGallagher(config))
+visualizationList.append(BoothillTrailblazerRuanMeiGallagher(config))
 
 # Clara Teams
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))

@@ -6,7 +6,7 @@ Configuration = {
     'enemyType': 'elite', # options are elite or basic
 
     'enemyMaxHP': 250000, # used for calculation of break effects exclusively, it's roughly the HP of an elite
-    'enemyToughness': 300, # used for calculation of break effects exclusively, most elites have 300
+    'enemyToughness': 300, # used for calculation of break effects exclusively, most elites used to have 300
     'breakLevelMultiplier': 3767.5533, # base level multiplier for break effects
 
     'enemyRes': 0.0, # assume you aren't fighting enemies that are resistant to you

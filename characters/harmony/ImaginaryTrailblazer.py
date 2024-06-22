@@ -52,10 +52,10 @@ class ImaginaryTrailblazer(BaseCharacter):
         superBreakDamage = character.applyDamageMultipliers(superBreakDamage,type)
 
         retval.damage = superBreakDamage
-        character.addDebugInfo(retval,type,f'Super Break Damage {character.name}')
-        
         # factor in uptime
         retval *= character.weaknessBrokenUptime
+        character.addDebugInfo(retval,type,f'Super Break Damage {character.name}')
+        
         return retval
         
 

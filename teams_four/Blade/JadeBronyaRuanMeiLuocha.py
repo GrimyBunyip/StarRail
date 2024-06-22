@@ -64,7 +64,7 @@ def JadeBronyaRuanMeiLuocha(config):
     BronyaCharacter.applyUltBuff(JadeCharacter,uptime=1.0/4.0) # estimate 1 bronya buff per 4 turn rotations
     BronyaCharacter.applySkillBuff(JadeCharacter,uptime=1.0/2.0) # estimate 1 bronya skill buff per 2 jade attacks
     BronyaCharacter.applyUltBuff(JadeCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / JadeCharacter.getTotalStat('SPD'))
-    BronyaCharacter.applyUltBuff(LuochaCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / LuochaCharacter.getTotalStat('SPD') / 0.8)
+    BronyaCharacter.applyUltBuff(LuochaCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / LuochaCharacter.getTotalStat('SPD') / 0.8) # 0.8 for multiplication
     JadeCharacter.addStat('DMG',description='Past and Future', amount=0.12 + 0.04 * BronyaCharacter.lightcone.superposition, uptime=0.5)
 
     #%% Print Statements

@@ -128,10 +128,10 @@ class Firefly(BaseCharacter):
         superBreakDamage = self.applyDamageMultipliers(superBreakDamage,type)
 
         retval.damage = superBreakDamage
-        self.addDebugInfo(retval,type,f'Super Break Damage {self.name}')
-        
         # factor in uptime
         retval *= self.weaknessBrokenUptime
+        self.addDebugInfo(retval,type,f'Super Break Damage {self.name}')
+        
         return retval
     
     def extraTurn(self,advanceType=['skill','enhancedSkill'],setSpeed=None):
