@@ -82,7 +82,7 @@ def BladeBronyaPelaLynx(config):
 
     # Lynx Buffs    
     LynxBuffUptime = LynxCharacter.getTotalStat('SPD') / BladeCharacter.getTotalStat('SPD') / 3.0 / 2.0
-    LynxCharacter.applySkillBuff(BladeCharacter,uptime=LynxBuffUptime) # multiply by 2 because 
+    LynxCharacter.applySkillBuff(BladeCharacter,uptime=LynxBuffUptime)
 
     #%% Print Statements
     for character in team:
@@ -112,9 +112,11 @@ def BladeBronyaPelaLynx(config):
     PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
                     PelaCharacter.useUltimate(),]
 
-    LynxRotation = [LynxCharacter.useBasic() * 2,
-                    LynxCharacter.useSkill() * 1,
-                    LynxCharacter.useUltimate() * 1,]
+    numBasicLynx = 2.0
+    numSkillLynx = 1.0
+    LynxRotation = [LynxCharacter.useBasic() * numBasicLynx,
+                    LynxCharacter.useSkill() * numSkillLynx,
+                    LynxCharacter.useUltimate(),]
 
     #%% Blade Bronya Pela Lynx Rotation Math
     totalBladeEffect = sumEffects(BladeRotation)
@@ -144,7 +146,7 @@ def BladeBronyaPelaLynx(config):
                                     BronyaRotation, BronyaCharacter, config)
     PelaEstimate = DefaultEstimator(f'Pela: {numBasicPela:.0f}N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)
-    LynxEstimate = DefaultEstimator('Lynx: 2N 1E 1Q, S{:.0f} {}'.format(LynxCharacter.lightcone.superposition, LynxCharacter.lightcone.name),
+    LynxEstimate = DefaultEstimator(f'Lynx: {numBasicLynx:.1f}N {numSkillLynx:.1f}E 1Q, S{LynxCharacter.lightcone.superposition:.0f} {LynxCharacter.lightcone.name}',
                                     LynxRotation, LynxCharacter, config)
 
     return([BladeEstimate, BronyaEstimate, PelaEstimate, LynxEstimate])
