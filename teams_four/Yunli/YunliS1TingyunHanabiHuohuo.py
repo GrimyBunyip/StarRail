@@ -7,6 +7,7 @@ from characters.harmony.Tingyun import Tingyun
 from characters.harmony.Hanabi import Hanabi
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.PostOpConversation import PostOpConversation
+from lightCones.abundance.QuidProQuo import QuidProQuo
 from lightCones.destruction.DanceAtSunset import DanceAtSunset
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
@@ -45,7 +46,7 @@ def YunliS1TingyunHanabiHuohuo(config):
 
     HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
                         substats = {'HP.percent': 7, 'SPD.flat': 12, 'HP.flat': 3, 'RES': 6}),
-                        lightcone = PostOpConversation(**config),
+                        lightcone = QuidProQuo(**config),
                         relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
@@ -84,7 +85,7 @@ def YunliS1TingyunHanabiHuohuo(config):
     #%% Yunli Tingyun Hanabi Huohuo Rotations
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
-    numSkillYunli = 2.0
+    numSkillYunli = 1.7
     numUltYunli = 2.0
     
     numEnemyAttacks = YunliCharacter.enemySpeed * YunliCharacter.numEnemies * numSkillYunli / (HanabiCharacter.getTotalStat('SPD') / 0.92 ) # enemy attacks now scale to hanabi speed, account for S5 dance dance in denominator
@@ -109,9 +110,11 @@ def YunliS1TingyunHanabiHuohuo(config):
                        HanabiCharacter.useSkill() * numSkillHanabi,
                     HanabiCharacter.useUltimate()]
 
-    HuohuoRotation = [HuohuoCharacter.useBasic() * 3,
-                    HuohuoCharacter.useSkill() * 1,
-                    HuohuoCharacter.useUltimate() * 1,]
+    numHuohuoBasic = 3.0
+    numHuohuoSkill = 1.0
+    HuohuoRotation = [HuohuoCharacter.useBasic() * numHuohuoBasic,
+                    HuohuoCharacter.useSkill() * numHuohuoSkill,
+                    HuohuoCharacter.useUltimate(),]
 
     #%% Yunli Tingyun Hanabi Huohuo Rotation Math
 
@@ -157,6 +160,13 @@ def YunliS1TingyunHanabiHuohuo(config):
     YunliRotation.append(HuohuoCharacter.giveUltEnergy(YunliCharacter) * YunliRotationDuration / HuohuoRotationDuration)
     YunliRotation.append(TingyunCharacter.giveUltEnergy() * YunliRotationDuration / TingyunRotationDuration)
     
+    QPQEffect = BaseEffect()
+    QPQEffect.energy = 16.0 
+    QPQEffect.energy *= 4 # 4  huohuo turns
+    QPQEffect.energy *= 3 / (1 + 3 + 1 + 1) # let's say yunli is 3x more likely to get quid pro quo energy
+    
+    YunliRotation.append(QPQEffect * YunliRotationDuration / HuohuoRotationDuration)
+    
     print('##### Rotation Durations #####')
     print('Yunli: ',YunliRotationDuration)
     print('Tingyun: ',TingyunRotationDuration)
@@ -173,7 +183,7 @@ def YunliS1TingyunHanabiHuohuo(config):
                                     TingyunRotation, TingyunCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)
-    HuohuoEstimate = DefaultEstimator('Huohuo: 2N 1E 1Q, S{:.0f} {}'.format(HuohuoCharacter.lightcone.superposition, HuohuoCharacter.lightcone.name),
+    HuohuoEstimate = DefaultEstimator(f'Huohuo: {numHuohuoBasic:.0f}N {numHuohuoSkill:.0f}E 1Q, S{HuohuoCharacter.lightcone.superposition:.0f} {HuohuoCharacter.lightcone.name}',
                                     HuohuoRotation, HuohuoCharacter, config)
 
     return([YunliEstimate, TingyunEstimate, HanabiEstimate, HuohuoEstimate])

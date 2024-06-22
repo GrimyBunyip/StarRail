@@ -98,9 +98,11 @@ def ArgentiHanyaRuanMeiHuohuo(config):
                        RuanMeiCharacter.useSkill() * numSkillRuanMei,
                     RuanMeiCharacter.useUltimate()]
 
-    HuohuoRotation = [HuohuoCharacter.useBasic() * 3,
-                    HuohuoCharacter.useSkill() * 1,
-                    HuohuoCharacter.useUltimate() * 1,]
+    numHuohuoBasic = 3.0
+    numHuohuoSkill = 1.0
+    HuohuoRotation = [HuohuoCharacter.useBasic() * numHuohuoBasic,
+                    HuohuoCharacter.useSkill() * numHuohuoSkill,
+                    HuohuoCharacter.useUltimate(),]
 
     #%% Argenti Hanya RuanMei Huohuo Rotation Math
     totalArgentiEffect = sumEffects(ArgentiRotation)
@@ -138,7 +140,7 @@ def ArgentiHanyaRuanMeiHuohuo(config):
                                     HanyaRotation, HanyaCharacter, config)
     RuanMeiEstimate = DefaultEstimator(f'Ruan Mei: {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q, S{RuanMeiCharacter.lightcone.superposition:d} {RuanMeiCharacter.lightcone.name}', 
                                     RuanMeiRotation, RuanMeiCharacter, config)
-    HuohuoEstimate = DefaultEstimator('Huohuo: 3N 1E 1Q, S{:.0f} {}'.format(HuohuoCharacter.lightcone.superposition, HuohuoCharacter.lightcone.name),
+    HuohuoEstimate = DefaultEstimator(f'Huohuo: {numHuohuoBasic:.0f}N {numHuohuoSkill:.0f}E 1Q, S{HuohuoCharacter.lightcone.superposition:.0f} {HuohuoCharacter.lightcone.name}',
                                     HuohuoRotation, HuohuoCharacter, config)
 
     return([ArgentiEstimate, HanyaEstimate, RuanMeiEstimate, HuohuoEstimate])

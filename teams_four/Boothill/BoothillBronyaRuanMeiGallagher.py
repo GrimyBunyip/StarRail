@@ -78,7 +78,7 @@ def BoothillBronyaRuanMeiGallagher(config):
     
     # assume that weakness broken uptime is increased by 1 ult, and an extra 1.5 because let's say boothill breaks fast
     for character in team:
-        character.weaknessBrokenUptime = 1.0 - (1.0 - character.weaknessBrokenUptime) / 1.4 / 1.5
+        character.weaknessBrokenUptime = 1.0 - (1.0 - character.weaknessBrokenUptime) / 1.4
 
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)

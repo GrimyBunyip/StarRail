@@ -157,7 +157,7 @@ visualizationList = []
 
 config = copy(Configuration)
 config['numEnemies'] = 3
-config['enemyToughness'] = 300 # I normally set this to 300, but maybe 480 makes sense to minimize bias against boothill
+config['enemyToughness'] = 300 # mostly consider tweaking this for boothill
 config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
 #%% Team Imports
@@ -166,13 +166,12 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
-# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-# visualizationList.append(YunliTingyunHanabiHuohuo(config))
+visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+visualizationList.append(YunliTingyunHanabiHuohuo(config))
 
 # # Team Comparisons
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # visualizationList.append(BladeBronyaJadeLuocha(config))
-# visualizationList.append(BoothillTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
@@ -260,8 +259,8 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
 
 # # Boothill Teams
-visualizationList.append(BoothillBronyaRuanMeiGallagher(config))
-visualizationList.append(BoothillTrailblazerRuanMeiGallagher(config))
+# visualizationList.append(BoothillTrailblazerRuanMeiGallagher(config))
+# visualizationList.append(BoothillBronyaRuanMeiGallagher(config))
 
 # Clara Teams
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
@@ -389,7 +388,7 @@ visualizationList.append(BoothillTrailblazerRuanMeiGallagher(config))
 
 # # YunliTeam
 # visualizationList.append(YunliTingyunHanabiHuohuo(config))
-# visualizationList.append(YunliS1TingyunHanabiHuohuo(config))
+visualizationList.append(YunliS1TingyunHanabiHuohuo(config))
 
 #%% Visualization
 # Visualize

@@ -112,9 +112,11 @@ def ArgentiHanyaTingyunHuohuo(config):
             TingyunCharacter.useUltimate(),
     ]
 
-    HuohuoRotation = [HuohuoCharacter.useBasic() * 3,
-                    HuohuoCharacter.useSkill() * 1,
-                    HuohuoCharacter.useUltimate() * 1,]
+    numHuohuoBasic = 3.0
+    numHuohuoSkill = 1.0
+    HuohuoRotation = [HuohuoCharacter.useBasic() * numHuohuoBasic,
+                    HuohuoCharacter.useSkill() * numHuohuoSkill,
+                    HuohuoCharacter.useUltimate(),]
 
     #%% Argenti Hanya Tingyun Huohuo Rotation Math
     totalArgentiEffect = sumEffects(ArgentiRotation)
@@ -148,7 +150,7 @@ def ArgentiHanyaTingyunHuohuo(config):
                                     HanyaRotation, HanyaCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',
                                     TingyunRotation, TingyunCharacter, config)
-    HuohuoEstimate = DefaultEstimator('Huohuo: 3N 1E 1Q, S{:.0f} {}'.format(HuohuoCharacter.lightcone.superposition, HuohuoCharacter.lightcone.name),
+    HuohuoEstimate = DefaultEstimator(f'Huohuo: {numHuohuoBasic:.0f}N {numHuohuoSkill:.0f}E 1Q, S{HuohuoCharacter.lightcone.superposition:.0f} {HuohuoCharacter.lightcone.name}',
                                     HuohuoRotation, HuohuoCharacter, config)
 
     return([ArgentiEstimate, HanyaEstimate, TingyunEstimate, HuohuoEstimate])

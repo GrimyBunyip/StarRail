@@ -128,7 +128,7 @@ def DrRatioTopazRobinAventurine(config):
 
     numBasicTopaz = 2.0
     numSkillTopaz = 2.0
-    numTalentTopaz = 5.0 # rough estimate
+    numTalentTopaz = (numBasicTopaz + numSkillTopaz) * 1.5 + 1.0 # rough estimate
     TopazRotation = []
     TopazRotation += [TopazCharacter.useBasic() * numBasicTopaz]
     TopazRotation += [TopazCharacter.useSkill() * numSkillTopaz]
