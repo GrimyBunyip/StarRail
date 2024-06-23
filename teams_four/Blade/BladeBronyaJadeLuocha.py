@@ -95,8 +95,8 @@ def BladeBronyaJadeLuocha(config):
     numTalent = (0.75 + numBasic * 2 + numUlt * 2 + numHitsTaken) / 4.0 # minus 1 on numTalent because let's assume the talent also procs jade consume
     BladeRotation.append(BladeCharacter.useTalent() * numTalent)
 
-    numBasicJade = 4.0
-    numSkillJade = 2.0
+    numBasicJade = 2.0
+    numSkillJade = 1.0
     JadeRotation = [JadeCharacter.useBasic() * numBasicJade,
                     JadeCharacter.useSkill() * numSkillJade,
                     JadeCharacter.useUltimate(),
@@ -133,6 +133,7 @@ def BladeBronyaJadeLuocha(config):
     numTalentJade += numBasicJade * (1 + num_adjacents)
     numTalentJade += 1.0 * JadeCharacter.numEnemies
     numTalentJade /= 8
+    numTalentJade -= 2 # subtract enhanced talents
     JadeRotation += [JadeCharacter.useTalent() * numTalentJade]
     JadeRotation += [JadeCharacter.useSkillDamage() * numSkillDamageJade]
     
@@ -151,7 +152,7 @@ def BladeBronyaJadeLuocha(config):
                                     BladeRotation, BladeCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
-    JadeEstimate = DefaultEstimator(f'Jade: {numBasicJade:.0f}N {numSkillJade:.0f}E {numTalentJade:.1f}T 1Q, S{JadeCharacter.lightcone.superposition:d} {JadeCharacter.lightcone.name}', 
+    JadeEstimate = DefaultEstimator(f'Jade: {numBasicJade:.1f}N {numSkillJade:.1f}E {numTalentJade:.1f}T 1Q, S{JadeCharacter.lightcone.superposition:d} {JadeCharacter.lightcone.name}', 
                                     JadeRotation, JadeCharacter, config)
     LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name),
                                     LuochaRotation, LuochaCharacter, config)

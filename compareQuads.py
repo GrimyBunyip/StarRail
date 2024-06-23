@@ -44,6 +44,7 @@ from teams_four.Argenti.ArgentiHanabiTingyunHuohuo import ArgentiHanabiTingyunHu
 from teams_four.Argenti.ArgentiHanyaRuanMeiHuohuo import ArgentiHanyaRuanMeiHuohuo
 from teams_four.Argenti.ArgentiHanyaTingyunFuxuan import ArgentiHanyaTingyunFuxuan
 from teams_four.Argenti.ArgentiHanyaTingyunHuohuo import ArgentiHanyaTingyunHuohuo
+from teams_four.Argenti.ArgentiJadeTingyunHuohuo import ArgentiJadeTingyunHuohuo
 from teams_four.Argenti.ArgentiRuanMeiTingyunHuohuo import ArgentiRuanMeiTingyunHuohuo
 from teams_four.Blade.BladeBronyaHanabiLuocha import BladeBronyaHanabiLuocha
 from teams_four.Blade.BladeBronyaJadeLuocha import BladeBronyaJadeLuocha
@@ -241,6 +242,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronWeltPelaGallagher(config))
 
 # # Argenti Teams
+# visualizationList.append(ArgentiJadeTingyunHuohuo(config))
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # # visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
 # # visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
