@@ -27,7 +27,7 @@ def MarchTopazRobinAventurine(config):
                                     **config)
 
     MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
-                                    substats = {'CD': 5, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 7}),
+                                    substats = {'CD': 6, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 7}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = WastelanderOfBanditryDesert2pc(),
                                     relicsettwo = WastelanderOfBanditryDesert4pc(uptimeCD=0.0),
@@ -85,13 +85,30 @@ def MarchTopazRobinAventurine(config):
                     RobinCharacter.useSkill() * numSkillRobin,
                     RobinCharacter.useUltimate() * 1,]
     RobinCharacter.applyUltBuff([RobinCharacter],uptime=1.0) # apply robin buff after we calculate damage for her basics
+
+    numBasicTopaz = 0.0
+    numSkillTopaz = 3.5
+    numTalentTopaz = (numBasicTopaz + numSkillTopaz) * 1.25 + 1.0 # rough estimate
+    TopazRotation = []
+    TopazRotation += [TopazCharacter.useBasic() * numBasicTopaz]
+    TopazRotation += [TopazCharacter.useSkill() * numSkillTopaz]
+    TopazRotation += [TopazCharacter.useUltimate()]
+    TopazRotation += [TopazCharacter.useTalent(windfall=True) * 2.0] # two talents from windfall
+    TopazRotation += [TopazCharacter.useTalent(windfall=False) * (numTalentTopaz - 1.0)] # deducted windfall advances
+    
+    RobinRotationTopaz = [RobinCharacter.useTalent() * (numBasicTopaz + numSkillTopaz + numTalentTopaz + 2.0)]
+    RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['basic','followup']) * numBasicTopaz * RobinUltUptime]
+    RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['skill','followup']) * numSkillTopaz * RobinUltUptime]
+    RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['followup']) * numTalentTopaz * RobinUltUptime]
+    TopazRotation += [RobinCharacter.useAdvanceForward() * (numSkillTopaz + numBasicTopaz) / 4.0]
     
     numBasicMarch = 2.0
+    numFollowupMarch = numBasicMarch
     numEnhancedMarch = 1.2
     
     MarchRotation = []
     MarchRotation += [MarchCharacter.useBasic() * numBasicMarch]
-    MarchRotation += [MarchCharacter.useFollowup() * numBasicMarch]
+    MarchRotation += [MarchCharacter.useFollowup() * numFollowupMarch]
     MarchRotation += [MarchCharacter.useEnhancedBasic(actionValue=0.0, numHits=5.0, chance=0.8) * numEnhancedMarch]
     MarchRotation += [MarchCharacter.useUltimate()] 
 
@@ -99,24 +116,8 @@ def MarchTopazRobinAventurine(config):
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['basic']) * numBasicMarch * RobinUltUptime]
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['basic','enhancedBasic']) * numEnhancedMarch * RobinUltUptime]
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['ultimate']) * RobinUltUptime]
-    RobinRotationMarch += [RobinCharacter.useConcertoDamage(['followup']) * numBasicMarch * RobinUltUptime]
+    RobinRotationMarch += [RobinCharacter.useConcertoDamage(['followup']) * numFollowupMarch * RobinUltUptime]
     MarchRotation += [RobinCharacter.useAdvanceForward() * numBasicMarch / 4.0] 
-
-    numBasicTopaz = 0.0
-    numSkillTopaz = 3.5
-    numTalentTopaz = (numBasicTopaz + numSkillTopaz) * 1.25 # rough estimate
-    TopazRotation = []
-    TopazRotation += [TopazCharacter.useBasic() * numBasicTopaz]
-    TopazRotation += [TopazCharacter.useSkill() * numSkillTopaz]
-    TopazRotation += [TopazCharacter.useUltimate()]
-    TopazRotation += [TopazCharacter.useTalent(windfall=True) * 2.0] # two talents from windfall
-    TopazRotation += [TopazCharacter.useTalent(windfall=False) * numTalentTopaz]
-    
-    RobinRotationTopaz = [RobinCharacter.useTalent() * (numBasicTopaz + numSkillTopaz + numTalentTopaz + 2.0)]
-    RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['basic','followup']) * numBasicTopaz * RobinUltUptime]
-    RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['skill','followup']) * numSkillTopaz * RobinUltUptime]
-    RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['followup']) * numTalentTopaz * RobinUltUptime]
-    TopazRotation += [RobinCharacter.useAdvanceForward() * (numSkillTopaz + numBasicTopaz) / 4.0]
 
     numBasicAventurine = 4.0
     numTalentAventurine = 4.0 # stacks from ultimate

@@ -61,7 +61,7 @@ class ImaginaryMarch(BaseCharacter):
         
     def useBasic(self):
         skillGauge = 1.0
-        if self.master.path == 'hunt' in ['harmony', 'nihility', 'preservation', 'abundance']:
+        if self.master.path in ['harmony', 'nihility', 'preservation', 'abundance']:
             skillGauge = 2.0
             
         retval = BaseEffect()
@@ -80,7 +80,7 @@ class ImaginaryMarch(BaseCharacter):
 
     def useEnhancedBasic(self, actionValue:float=1.0, numHits:float=1.0, chance:float=0.6):
         skillGauge = 1.0
-        if self.master.path == 'hunt' in ['harmony', 'nihility', 'preservation', 'abundance']:
+        if self.master.path in ['harmony', 'nihility', 'preservation', 'abundance']:
             skillGauge = 2.0
             
         retval = BaseEffect()
@@ -116,7 +116,7 @@ class ImaginaryMarch(BaseCharacter):
 
     def useFollowup(self):
         skillGauge = 1.0
-        if self.master.path == 'hunt' in ['harmony', 'nihility', 'preservation', 'abundance']:
+        if self.master.path in ['harmony', 'nihility', 'preservation', 'abundance']:
             skillGauge = 2.0
             
         retval = BaseEffect()

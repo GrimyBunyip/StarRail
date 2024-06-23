@@ -173,15 +173,15 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Team Comparisons
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # visualizationList.append(BladeBronyaJadeLuocha(config))
-# visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-# visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
 # visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(MarchTopazRobinAventurine(config))
-# visualizationList.append(QingqueHanabiPelaFuxuan(config))
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
 
 # low dps teams
+# visualizationList.append(DrRatioTopazRobinAventurine(config))
+# visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
+# visualizationList.append(QingqueHanabiPelaFuxuan(config))
 # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
 # visualizationList.append(YanqingTingyunHanabiAventurine(config))
 
@@ -277,30 +277,10 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # # visualizationList.append(ClaraSilverWolfPelaLuocha(config))
 # # # visualizationList.append(ClaraTingyunHanabiFuxuanEscapade(config))
 
-# # Dr Ratio Teams
-# visualizationList.append(DrRatioTopazS1RobinAventurine(config))
-# visualizationList.append(DrRatioTopazE1RobinAventurine(config))
-# visualizationList.append(DrRatioTopazS1RobinFuxuan(config))
-# visualizationList.append(DrRatioTopazE1RobinFuxuan(config))
-
-# visualizationList.append(MarchTopazRobinAventurine(config))
-# visualizationList.append(DrRatioTopazRobinAventurine(config))
-# visualizationList.append(DrRatioTopazRobinFuxuan(config))
-# visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
-# visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
-# visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
-# visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
-# visualizationList.append(DrRatioTopazAstaLuocha(config))
-# # visualizationList.append(DrRatioTopazHanyaLuocha(config))
-# # visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
-# # visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
-# # visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
-# # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
-
 # # Firefly Teams
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyS1TrailblazerRuanMeiGallagher(config))
-visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
+# visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyE2S1TrailblazerRuanMeiGallagher(config))
 
 # visualizationList.append(FireflyTrailblazerMarchGallagher(config)) # retire this team, it isnt good
@@ -371,9 +351,25 @@ visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
 # # visualizationList.append(SeeleMidSilverWolfBronyaFuxuan(config))
 # # visualizationList.append(SeeleNoneSilverWolfHanabiLuocha(config))
 
-# # Solo Topaz Teams
-# visualizationList.append(TopazTingyunHanabiFuxuan(config))
-# # visualizationList.append(TopazTingyunHanyaFuxuan(config))
+# # Topaz Teams
+# visualizationList.append(DrRatioTopazS1RobinAventurine(config))
+# visualizationList.append(DrRatioTopazE1RobinAventurine(config))
+# visualizationList.append(DrRatioTopazS1RobinFuxuan(config))
+# visualizationList.append(DrRatioTopazE1RobinFuxuan(config))
+
+# visualizationList.append(MarchTopazRobinAventurine(config))
+# visualizationList.append(DrRatioTopazRobinAventurine(config))
+# visualizationList.append(DrRatioTopazRobinFuxuan(config))
+# visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
+# visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
+# visualizationList.append(DrRatioHanabiSilverWolfLuocha(config))
+# visualizationList.append(DrRatioTingyunSilverWolfLuocha(config))
+# visualizationList.append(DrRatioTopazAstaLuocha(config))
+# # visualizationList.append(DrRatioTopazHanyaLuocha(config))
+# # visualizationList.append(DrRatioTopazRuanMeiLuocha(config))
+# # visualizationList.append(DrRatioRuanMeiSilverWolfLuocha(config))
+# # visualizationList.append(DrRatioTopazSilverWolfLuocha(config))
+# # visualizationList.append(DrRatioBronyaSilverWolfLuocha(config)) # might be a bit of an underbaked team.
 
 # # Xueyi Teams
 # # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))

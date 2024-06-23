@@ -134,7 +134,7 @@ def DrRatioTopazRobinAventurine(config):
     TopazRotation += [TopazCharacter.useSkill() * numSkillTopaz]
     TopazRotation += [TopazCharacter.useUltimate()]
     TopazRotation += [TopazCharacter.useTalent(windfall=True) * 2.0] # two talents from windfall
-    TopazRotation += [TopazCharacter.useTalent(windfall=False) * numTalentTopaz]
+    TopazRotation += [TopazCharacter.useTalent(windfall=False) * (numTalentTopaz - 1.0)] # deducted windfall advances
     
     RobinRotationTopaz = [RobinCharacter.useTalent() * (numBasicTopaz + numSkillTopaz + numTalentTopaz + 2.0)]
     RobinRotationTopaz += [RobinCharacter.useConcertoDamage(['basic','followup']) * numBasicTopaz * RobinUltUptime]

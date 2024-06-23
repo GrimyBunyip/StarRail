@@ -40,10 +40,10 @@ def MarchTrailblazerRuanMeiGallagher(config):
                                     **config)
 
     MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'CR', 'DMG.imaginary'],
-                                    substats = {'CD': 5, 'CR': 3, 'BreakEffect': 12, 'SPD.flat': 8}),
+                                    substats = {'CD': 5, 'CR': 3, 'BreakEffect': 8, 'SPD.flat': 12}),
                                     lightcone = CruisingInTheStellarSea(**config),
-                                    relicsetone = ThiefOfShootingMeteor2pc(),
-                                    relicsettwo = ThiefOfShootingMeteor4pc(),
+                                    relicsetone = IronCavalryAgainstTheScourge2pc(),
+                                    relicsettwo = IronCavalryAgainstTheScourge4pc(),
                                     planarset = TaliaKingdomOfBanditry(),
                                     master=TrailblazerCharacter,
                                     **config)
