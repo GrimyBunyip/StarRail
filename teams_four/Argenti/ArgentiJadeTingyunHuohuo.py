@@ -136,7 +136,6 @@ def ArgentiJadeTingyunHuohuo(config):
     numTalentJade += numBasicJade * (1 + num_adjacents)
     numTalentJade += 1.0 * JadeCharacter.numEnemies
     numTalentJade /= 8
-    numTalentJade -= 2 # subtract enhanced talents
     JadeRotation += [JadeCharacter.useTalent() * numTalentJade]
     JadeRotation += [JadeCharacter.useSkillDamage() * numSkillDamageJade]
 

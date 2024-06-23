@@ -251,9 +251,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
 # # Blade Teams
-# visualizationList.append(BladeBronyaJadeLuocha(config))
-# visualizationList.append(BladeBronyaHanabiLuocha(config))
-# visualizationList.append(BladeBronyaRuanMeiLuocha(config))
+visualizationList.append(BladeBronyaJadeLuocha(config))
+visualizationList.append(BladeBronyaHanabiLuocha(config))
+visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 # visualizationList.append(BladeBronyaPelaLuocha(config))
 # # visualizationList.append(JadeBronyaRuanMeiLuocha(config))
 # # visualizationList.append(BladeBronyaPelaLynx(config))
