@@ -33,8 +33,4 @@ class GrandDuke4pc(RelicSet):
                                 amount=0.06,stacks=self.followupStacks,type=['followup'])
         # may need to tweak this for characters that aren't jing yuan or similar
         char.addStat('ATK.percent',description=self.shortname,
-                     amount=0.06,stacks=self.stacks,uptime=self.uptime,type=['basic'])
-        char.addStat('ATK.percent',description=self.shortname,
-                     amount=0.06,stacks=self.stacks,uptime=self.uptime,type=['skill'])
-        char.addStat('ATK.percent',description=self.shortname,
-                     amount=0.06,stacks=self.stacks,uptime=self.uptime,type=['ultimate'])
+                     amount=0.06,stacks=self.stacks,uptime=self.uptime,type=['basic','skill','ultimate'])
