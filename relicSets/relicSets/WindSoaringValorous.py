@@ -16,7 +16,7 @@ class WindSoaringValorous4pc(RelicSet):
     def __init__(self,
                 graphic:str='',
                 shortname:str='Wind Soaring 4pc',
-                uptime = 0.0,
+                uptime = 1.0,
                 **config):
         self.graphic = graphic
         self.shortname = shortname

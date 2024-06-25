@@ -69,7 +69,7 @@ def AcheronE2S1BronyaJiaoqiuE2Gallagher(config):
     # Jiaoqiu Debuffs, 3 turn Jiaoqiu rotation
     JiaoqiuCharacter.applyTalentDebuff(team)
     jiaoqiuUltUptime = 0.75
-    JiaoqiuCharacter.applyUltDebuff(team)
+    JiaoqiuCharacter.applyUltDebuff(team,jiaoqiuUltUptime)
         
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)

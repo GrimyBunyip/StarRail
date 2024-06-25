@@ -20,14 +20,15 @@ from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseB
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
+from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, WindSoaringValorous4pc
 
 def YunliTingyunHanabiLynx(config):
     #%% Yunli Tingyun Hanabi Lynx Characters
     YunliCharacter = Yunli(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
                             substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'BreakEffect': 3}),
                             lightcone = OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config),
-                            relicsetone = ChampionOfStreetwiseBoxing2pc(),
-                            relicsettwo = ChampionOfStreetwiseBoxing4pc(),
+                            relicsetone = WindSoaringValorous2pc(),
+                            relicsettwo = WindSoaringValorous4pc(),
                             planarset = InertSalsotto(),
                             **config)
 

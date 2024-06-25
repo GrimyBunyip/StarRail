@@ -56,6 +56,7 @@ from teams_four.Blade.BladeBronyaRuanMeiLuocha import BladeBronyaRuanMeiLuocha
 from teams_four.Blade.JadeBronyaRuanMeiLuocha import JadeBronyaRuanMeiLuocha
 from teams_four.Boothill.BoothillBronyaRuanMeiGallagher import BoothillBronyaRuanMeiGallagher
 from teams_four.Boothill.BoothillTraiblazerRuanMeiGallagher import BoothillTrailblazerRuanMeiGallagher
+from teams_four.Clara.ClaraS1TingyunHanabiFuxuan import ClaraS1TingyunHanabiFuxuan
 from teams_four.Clara.ClaraSilverWolfPelaLuocha import ClaraSilverWolfPelaLuocha
 from teams_four.Clara.ClaraTingyunHanabiAventurine import ClaraTingyunHanabiAventurine
 from teams_four.Clara.ClaraTingyunHanabiFuxuan import ClaraTingyunHanabiFuxuan
@@ -69,6 +70,8 @@ from teams_four.Clara.ClaraTingyunTopazLuocha import ClaraTingyunTopazLuocha
 from teams_four.Clara.ClaraTopazAstaLuocha import ClaraTopazAstaLuocha
 from teams_four.Clara.ClaraTopazHanyaLuocha import ClaraTopazHanyaLuocha
 from teams_four.DotTeams.KafkaE1S1RuanMeiE1BlackSwanE1Luocha import KafkaE1S1RuanMeiE1BlackSwanE1Luocha
+from teams_four.DotTeams.KafkaGuinaifenJiaoqiuE2Luocha import KafkaGuinaifenJiaoqiuE2Luocha
+from teams_four.DotTeams.KafkaJiaoqiuE2BlackSwanLuocha import KafkaJiaoqiuE2BlackSwanLuocha
 from teams_four.Firefly.FireflyBronyaRuanMeiGallagher import FireflyBronyaRuanMeiGallagher
 from teams_four.Firefly.FireflyE2S1TraiblazerRuanMeiGallagher import FireflyE2S1TrailblazerRuanMeiGallagher
 from teams_four.Firefly.FireflyE2TraiblazerRuanMeiGallagher import FireflyE2TrailblazerRuanMeiGallagher
@@ -251,9 +254,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
 # # Blade Teams
-visualizationList.append(BladeBronyaJadeLuocha(config))
-visualizationList.append(BladeBronyaHanabiLuocha(config))
-visualizationList.append(BladeBronyaRuanMeiLuocha(config))
+# visualizationList.append(BladeBronyaJadeLuocha(config))
+# visualizationList.append(BladeBronyaHanabiLuocha(config))
+# visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 # visualizationList.append(BladeBronyaPelaLuocha(config))
 # # visualizationList.append(JadeBronyaRuanMeiLuocha(config))
 # # visualizationList.append(BladeBronyaPelaLynx(config))
@@ -266,6 +269,7 @@ visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 # visualizationList.append(BoothillBronyaRuanMeiGallagher(config))
 
 # Clara Teams
+# visualizationList.append(ClaraS1TingyunHanabiFuxuan(config))
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(ClaraTingyunHanabiAventurine(config))
 # visualizationList.append(ClaraTingyunHanabiLuocha(config))
@@ -336,6 +340,8 @@ visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 # # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
 
+# visualizationList.append(KafkaJiaoqiuE2BlackSwanLuocha(config))
+# visualizationList.append(KafkaGuinaifenJiaoqiuE2Luocha(config))
 # # visualizationList.append(KafkaE1S1RuanMeiE1BlackSwanE1Luocha(config))
 
 # # Qingque Teams
