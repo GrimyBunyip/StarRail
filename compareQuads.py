@@ -47,6 +47,7 @@ from teams_four.Argenti.ArgentiHanyaTingyunHuohuo import ArgentiHanyaTingyunHuoh
 from teams_four.Argenti.ArgentiJadeTingyunHuohuo import ArgentiJadeTingyunHuohuo
 from teams_four.Argenti.ArgentiRuanMeiTingyunHuohuo import ArgentiRuanMeiTingyunHuohuo
 from teams_four.Blade.BladeBronyaHanabiLuocha import BladeBronyaHanabiLuocha
+from teams_four.Blade.BladeBronyaJadeHanya import BladeBronyaJadeHanya
 from teams_four.Blade.BladeBronyaJadeLuocha import BladeBronyaJadeLuocha
 from teams_four.Blade.BladeBronyaPelaFuxuan import BladeBronyaPelaFuxuan
 from teams_four.Blade.BladeBronyaPelaLuocha import BladeBronyaPelaLuocha
@@ -254,6 +255,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
 # # Blade Teams
+visualizationList.append(BladeBronyaJadeHanya(config))
 visualizationList.append(BladeBronyaJadeLuocha(config))
 # visualizationList.append(BladeBronyaHanabiLuocha(config))
 # visualizationList.append(BladeBronyaRuanMeiLuocha(config))
