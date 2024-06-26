@@ -189,8 +189,9 @@ def BladeBronyaJadeHanya(config):
                                     BronyaRotation, BronyaCharacter, config)
     JadeEstimate = DefaultEstimator(f'Jade: {numBasicJade:.1f}N {numSkillJade:.1f}E {numTalentJade:.1f}T 1Q, S{JadeCharacter.lightcone.superposition:d} {JadeCharacter.lightcone.name}', 
                                     JadeRotation, JadeCharacter, config)
-    HanyaEstimate = DefaultEstimator('Hanya: 3N 1E 1Q, S{:.0f} {}'.format(HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name),
+    HanyaEstimate = DefaultEstimator(f'Hanya {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition:.0f} {HanyaCharacter.lightcone.name}, 12 Spd Substats',
                                     HanyaRotation, HanyaCharacter, config)
+
 
     return([BladeEstimate, BronyaEstimate, JadeEstimate, HanyaEstimate])
 

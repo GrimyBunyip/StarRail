@@ -139,8 +139,7 @@ def AcheronE2S1HanyaKafkaGallagher(config):
     AcheronEstimate = DefaultEstimator(f'Acheron E{AcheronCharacter.eidolon:d} S{AcheronCharacter.lightcone.superposition:d} {AcheronCharacter.lightcone.shortname}: {numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
     KafkaEstimate = DefaultEstimator(f'Kafka {numBasicKafka:.0f}N {numSkillKafka:.0f}E {numTalentKafka:.0f}T {numUltKafka:.0f}Q {numDotKafka:.1f}Dot, {KafkaCharacter.lightcone.name} S{KafkaCharacter.lightcone.superposition}',
                                     KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-    HanyaEstimate = DefaultEstimator('Hanya {:.0f}E {:.0f}Q S{:.0f} {}, 12 Spd Substats'.format(numHanyaSkill, numHanyaUlt,
-                                    HanyaCharacter.lightcone.superposition, HanyaCharacter.lightcone.name), 
+    HanyaEstimate = DefaultEstimator(f'Hanya {numHanyaSkill:.0f}E {numHanyaUlt:.0f}Q S{HanyaCharacter.lightcone.superposition:.0f} {HanyaCharacter.lightcone.name}, 12 Spd Substats',
                                     HanyaRotation, HanyaCharacter, config)
     GallagherEstimate = DefaultEstimator(f'Gallagher: {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q, S{GallagherCharacter.lightcone.superposition:d} {GallagherCharacter.lightcone.name}', 
                                     GallagherRotation, GallagherCharacter, config)
