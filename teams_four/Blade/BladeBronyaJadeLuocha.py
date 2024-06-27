@@ -121,6 +121,7 @@ def BladeBronyaJadeLuocha(config):
     LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
     
     num_adjacents = min( JadeCharacter.numEnemies - 1, 2 )
+    num_adjacents = min(num_adjacents,2) if JadeCharacter.eidolon >= 1 else num_adjacents
     numTalentJade = 0
     numSkillDamageJade = 0
     
@@ -152,7 +153,7 @@ def BladeBronyaJadeLuocha(config):
                                     BladeRotation, BladeCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
-    JadeEstimate = DefaultEstimator(f'Jade: {numBasicJade:.1f}N {numSkillJade:.1f}E {numTalentJade:.1f}T 1Q, S{JadeCharacter.lightcone.superposition:d} {JadeCharacter.lightcone.name}', 
+    JadeEstimate = DefaultEstimator(f'Jade: {numBasicJade:.1f}N {numSkillJade:.1f}E {numTalentJade:.1f}T 1Q, E{JadeCharacter.eidolon:d} S{JadeCharacter.lightcone.superposition:d} {JadeCharacter.lightcone.name}', 
                                     JadeRotation, JadeCharacter, config)
     LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name),
                                     LuochaRotation, LuochaCharacter, config)

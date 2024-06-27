@@ -68,7 +68,7 @@ class Gallagher(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 90.0 * self.getBreakEfficiency(type)
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
-        retval.skillpoints = 0.0
+        retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval

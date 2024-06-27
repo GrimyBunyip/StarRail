@@ -169,7 +169,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 #%% Team Imports
 
 # # Backloaded Teams
-# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
@@ -177,9 +177,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # # Team Comparisons
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
-# visualizationList.append(BladeBronyaJadeLuocha(config))
-# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-# visualizationList.append(LunaeHanabiTingyunLuocha(config))
+visualizationList.append(BladeBronyaJadeLuocha(config))
+visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(MarchTopazRobinAventurine(config))
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
 
@@ -255,10 +255,10 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
 # # Blade Teams
-visualizationList.append(BladeBronyaJadeHanya(config))
-visualizationList.append(BladeBronyaJadeLuocha(config))
-visualizationList.append(BladeBronyaHanabiLuocha(config))
-visualizationList.append(BladeBronyaRuanMeiLuocha(config))
+# visualizationList.append(BladeBronyaJadeHanya(config))
+# visualizationList.append(BladeBronyaJadeLuocha(config))
+# visualizationList.append(BladeBronyaHanabiLuocha(config))
+# visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 # visualizationList.append(BladeBronyaPelaLuocha(config))
 # # visualizationList.append(JadeBronyaRuanMeiLuocha(config))
 # # visualizationList.append(BladeBronyaPelaLynx(config))

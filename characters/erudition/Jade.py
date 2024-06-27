@@ -36,6 +36,9 @@ class Jade(BaseCharacter):
         self.addStat('ATK.percent',description='Pawned Asset',
                      amount=0.005,
                      stacks=self.talentStacks)
+        
+        # Eidolons
+        self.addStat('DMG',description='Jade E1',amount=0.36,type=['talent'])
 
         # Gear
         self.equipGear()
