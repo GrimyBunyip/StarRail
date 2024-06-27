@@ -76,6 +76,8 @@ from teams_four.Clara.ClaraTopazHanyaLuocha import ClaraTopazHanyaLuocha
 from teams_four.DotTeams.KafkaE1S1RuanMeiE1BlackSwanE1Luocha import KafkaE1S1RuanMeiE1BlackSwanE1Luocha
 from teams_four.DotTeams.KafkaGuinaifenJiaoqiuE2Luocha import KafkaGuinaifenJiaoqiuE2Luocha
 from teams_four.DotTeams.KafkaJiaoqiuE2BlackSwanLuocha import KafkaJiaoqiuE2BlackSwanLuocha
+from teams_four.DotTeams.KafkaRobinBlackSwanGallagherPatience import KafkaRobinBlackSwanGallagherPatience
+from teams_four.DotTeams.KafkaRobinBlackSwanHuohuoPatience import KafkaRobinBlackSwanHuohuoPatience
 from teams_four.Firefly.FireflyBronyaRuanMeiGallagher import FireflyBronyaRuanMeiGallagher
 from teams_four.Firefly.FireflyE2S1TraiblazerRuanMeiGallagher import FireflyE2S1TrailblazerRuanMeiGallagher
 from teams_four.Firefly.FireflyE2TraiblazerRuanMeiGallagher import FireflyE2TrailblazerRuanMeiGallagher
@@ -343,8 +345,10 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 # # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
-visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
-visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaRuanMeiBlackSwanLuochaPatience(config))
+# visualizationList.append(KafkaRobinBlackSwanHuohuoPatience(config))
+# visualizationList.append(KafkaRobinBlackSwanGallagherPatience(config))
 # # visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
