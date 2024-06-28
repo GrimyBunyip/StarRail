@@ -102,7 +102,7 @@ class Yunli(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = ( 30.0 + 30.0 * num_adjacent ) * self.getBreakEfficiency(type)
+        retval.gauge = ( 30.0 + 30.0 * num_adjacent + 15.0 * 6 ) * self.getBreakEfficiency(type)
         retval.energy = ( 10.0 + 5.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.actionvalue = 0.0 - self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)

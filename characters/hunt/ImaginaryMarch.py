@@ -126,7 +126,7 @@ class ImaginaryMarch(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = 15.0 * self.getBreakEfficiency(type) * skillGauge
+        retval.gauge = 30.0 * self.getBreakEfficiency(type) * skillGauge
         retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
         retval.actionvalue = 0.0 - self.getAdvanceForward(type)    
         self.addDebugInfo(retval,type)    

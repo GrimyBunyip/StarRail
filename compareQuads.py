@@ -177,7 +177,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
-# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(YunliTingyunHanabiLynx(config))
 
 # # Team Comparisons
@@ -405,9 +405,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
 
 # # YunliTeam
-# visualizationList.append(YunliTingyunHanabiLynx(config))
-# visualizationList.append(YunliTingyunHanabiHuohuo(config))
-# visualizationList.append(YunliS1TingyunHanabiHuohuo(config))
+visualizationList.append(YunliTingyunHanabiLynx(config))
+visualizationList.append(YunliTingyunHanabiHuohuo(config))
+visualizationList.append(YunliS1TingyunHanabiHuohuo(config))
 
 #%% Visualization
 # Visualize
