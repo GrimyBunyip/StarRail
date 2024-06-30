@@ -5,6 +5,7 @@ from characters.destruction.Xueyi import Xueyi
 from characters.harmony.Hanabi import Hanabi
 from characters.harmony.Tingyun import Tingyun
 from estimator.DefaultEstimator import DefaultEstimator
+from lightCones.destruction.IndeliblePromise import IndeliblePromise
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
@@ -18,9 +19,9 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 
 def XueyiHanabiTingyunFuxuan(config, breakRatio:float=0.5):
     #%% Xueyi Hanabi Tingyun Fuxuan Characters
-    XueyiCharacter = Xueyi(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'BreakEffect'],
+    XueyiCharacter = Xueyi(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'BreakEffect'],
                             substats = {'CR': 12, 'CD': 8, 'BreakEffect': 5, 'ATK.percent': 3}),
-                            lightcone = OnTheFallOfAnAeon(uptime=1.0,**config),
+                            lightcone = IndeliblePromise(uptime=1.0,**config),
                             relicsetone = GeniusOfBrilliantStars2pc(), relicsettwo = GeniusOfBrilliantStars4pc(), planarset = InertSalsotto(),
                             **config)
 
