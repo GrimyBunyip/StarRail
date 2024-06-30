@@ -59,6 +59,7 @@ from teams_four.Blade.JadeBronyaRuanMeiLuocha import JadeBronyaRuanMeiLuocha
 from teams_four.Boothill.BoothillBronyaRuanMeiGallagher import BoothillBronyaRuanMeiGallagher
 from teams_four.Boothill.BoothillTraiblazerRuanMeiGallagher import BoothillTrailblazerRuanMeiGallagher
 from teams_four.Clara.ClaraE1TingyunHanabiFuxuan import ClaraE1TingyunHanabiFuxuan
+from teams_four.Clara.ClaraE3S1TingyunHanabiFuxuan import ClaraE3S1TingyunHanabiFuxuan
 from teams_four.Clara.ClaraS1TingyunHanabiFuxuan import ClaraS1TingyunHanabiFuxuan
 from teams_four.Clara.ClaraSilverWolfPelaLuocha import ClaraSilverWolfPelaLuocha
 from teams_four.Clara.ClaraTingyunHanabiAventurine import ClaraTingyunHanabiAventurine
@@ -160,8 +161,10 @@ from teams_four.Yanqing.YanqingTingyunHanabiAventurine import YanqingTingyunHana
 from teams_four.Yanqing.YanqingTingyunHanabiGepard import YanqingTingyunHanabiGepard
 from teams_four.Yanqing.YanqingTingyunRuanMeiGepard import YanqingTingyunRuanMeiGepard
 from teams_four.Yunli.YunliS1TingyunHanabiHuohuo import YunliS1TingyunHanabiHuohuo
+from teams_four.Yunli.YunliS1TingyunRobinHuohuo import YunliS1TingyunRobinHuohuo
 from teams_four.Yunli.YunliTingyunHanabiHuohuo import YunliTingyunHanabiHuohuo
 from teams_four.Yunli.YunliTingyunHanabiLynx import YunliTingyunHanabiLynx
+from teams_four.Yunli.YunliTingyunRobinHuohuo import YunliTingyunRobinHuohuo
 from visualizer.visualizer import visualize
 
 visualizationList = []
@@ -261,7 +264,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(ArgentiBronyaPelaHuohuo(config)) #calculation is suspicious to me
 
 # # Blade Teams
-visualizationList.append(BladeBronyaJadeLuocha(config))
+# visualizationList.append(BladeBronyaJadeLuocha(config))
 # visualizationList.append(BladeBronyaHanabiLuocha(config))
 # visualizationList.append(BladeBronyaRuanMeiLuocha(config))
 # visualizationList.append(BladeBronyaPelaLuocha(config))
@@ -279,6 +282,7 @@ visualizationList.append(BladeBronyaJadeLuocha(config))
 # Clara Teams
 # visualizationList.append(ClaraS1TingyunHanabiFuxuan(config))
 # visualizationList.append(ClaraE1TingyunHanabiFuxuan(config))
+# visualizationList.append(ClaraE3S1TingyunHanabiFuxuan(config))
 
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 # visualizationList.append(ClaraTingyunHanabiHuohuo(config))
@@ -399,15 +403,17 @@ visualizationList.append(BladeBronyaJadeLuocha(config))
 # # visualizationList.append(XueyiHanyaPelaFuxuan(config,breakRatio=0.5)) # dont like the break assumptions here
 # # visualizationList.append(XueyiAstaTopazFuxuan(config)) # needs review, why is the SP so negative? also this team makes no sense
 
-# # YanqingTeam
+# # Yanqing Team
 # visualizationList.append(YanqingTingyunHanabiAventurine(config))
 # # visualizationList.append(YanqingTingyunHanabiGepard(config))
 # # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
 
-# # YunliTeam
-# visualizationList.append(YunliTingyunHanabiLynx(config))
-# visualizationList.append(YunliTingyunHanabiHuohuo(config))
-# visualizationList.append(YunliS1TingyunHanabiHuohuo(config))
+# # Yunli Team
+visualizationList.append(YunliTingyunHanabiLynx(config))
+visualizationList.append(YunliTingyunHanabiHuohuo(config))
+visualizationList.append(YunliTingyunRobinHuohuo(config))
+visualizationList.append(YunliS1TingyunRobinHuohuo(config))
+visualizationList.append(YunliS1TingyunHanabiHuohuo(config))
 
 #%% Visualization
 # Visualize
