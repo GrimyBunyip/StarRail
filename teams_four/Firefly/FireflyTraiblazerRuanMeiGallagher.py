@@ -30,7 +30,7 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     
     FireflyCharacter = Firefly(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'SPD.flat', 'BreakEffect'],
                                     substats = {'SPD.flat': 12, 'ATK.flat': 3, 'BreakEffect': 8, 'ATK.percent': 5}),
-                                    attackForTalent=3250,
+                                    attackForTalent=3251.7,
                                     lightcone = OnTheFallOfAnAeon(**config,uptime=1.0),
                                     relicsetone = IronCavalryAgainstTheScourge2pc(), relicsettwo = IronCavalryAgainstTheScourge4pc(), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
