@@ -20,7 +20,7 @@ from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingClou
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def KafkaRuanMeiBlackSwanLuochaPatience(config):
+def KafkaS1RuanMeiBlackSwanLuocha(config):
     #%% Kafka RuanMei BlackSwan Luocha
     
     # do ruan mei first because she needs to alter the enemy speed and toughness uptime

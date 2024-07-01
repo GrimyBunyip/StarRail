@@ -84,7 +84,7 @@ def AcheronE2S1HanabiJiaoqiuE1Gallagher(config):
     #%% Acheron Hanabi Jiaoqiu Gallagher Rotations
     
     numStacks =  (4.0 / 3.0) * JiaoqiuCharacter.getTotalStat('SPD') # 4 Jiaoqiu attacks per 3 turn rotation
-    numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
+    numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 5 debuffs per 4 turn rotation
     jiaoqiuUltChance = 1.0 * 0.6 * (0.62 if JiaoqiuCharacter.eidolon >= 5 else 0.60)
     jiaoqiuUltChance *= 1.0 + JiaoqiuCharacter.getTotalStat('EHR')
     jiaoqiuUltChance = min(1.0, jiaoqiuUltChance)

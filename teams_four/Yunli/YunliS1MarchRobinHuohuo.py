@@ -3,7 +3,7 @@ from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Huohuo import Huohuo
 from characters.destruction.Yunli import Yunli
-from characters.harmony.Tingyun import Tingyun
+from characters.hunt.ImaginaryMarch import ImaginaryMarch
 from characters.harmony.Robin import Robin
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.PostOpConversation import PostOpConversation
@@ -13,36 +13,44 @@ from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.ForTomorrowsJourney import ForTomorrowsJourney
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
+from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
+from lightCones.hunt.Swordplay import Swordplay
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
+from relicSets.planarSets.DuranDynastyOfRunningWolves import DuranDynastyOfRunningWolves
 from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
+from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
+from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
 from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
+from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, WindSoaringValorous4pc
 
-def YunliS1TingyunRobinHuohuo(config):
-    #%% Yunli Tingyun Robin Huohuo Characters
+def YunliS1MarchRobinHuohuo(config):
+    #%% Yunli March Robin Huohuo Characters
     YunliCharacter = Yunli(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
-                            substats = {'CD': 10, 'CR': 10, 'ATK.percent': 4, 'SPD.flat': 4}),
+                            substats = {'CD': 10, 'CR': 10, 'ATK.percent': 5, 'SPD.flat': 3}),
                             lightcone = DanceAtSunset(**config),
                             relicsetone = WindSoaringValorous2pc(),
                             relicsettwo = WindSoaringValorous4pc(),
                             planarset = InertSalsotto(),
                             **config)
 
-    TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
-                            substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
-                            lightcone = DanceDanceDance(**config),
-                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = FleetOfTheAgeless(),
-                            benedictionTarget=YunliCharacter,
-                            **config)
+    MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
+                                    substats = {'CD': 8, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
+                                    lightcone = CruisingInTheStellarSea(**config),
+                                    relicsetone = WastelanderOfBanditryDesert2pc(),
+                                    relicsettwo = WastelanderOfBanditryDesert4pc(uptimeCD=0.0),
+                                    planarset = RutilantArena(),
+                                    master=YunliCharacter,
+                                    **config)
     
     RobinCharacter = Robin(RelicStats(mainstats = ['ER', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
                             substats = {'ATK.percent': 11, 'SPD.flat': 9, 'RES': 3, 'ATK.flat': 5}),
@@ -56,43 +64,37 @@ def YunliS1TingyunRobinHuohuo(config):
                         relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
-    team = [YunliCharacter, TingyunCharacter, RobinCharacter, HuohuoCharacter]
+    team = [YunliCharacter, MarchCharacter, RobinCharacter, HuohuoCharacter]
 
-    #%% Yunli Tingyun Robin Huohuo Team Buffs
-    for character in [TingyunCharacter, YunliCharacter, RobinCharacter]:
+    #%% Yunli March Robin Huohuo Team Buffs
+    for character in [MarchCharacter, YunliCharacter, RobinCharacter]:
         character.addStat('CD',description='Broken Keel from Huohuo',amount=0.1)
-    for character in [RobinCharacter, YunliCharacter, RobinCharacter]:
-        character.addStat('ATK.percent',description='Fleet from Tingyun',amount=0.08)
 
     # Robin Buffs
     RobinCharacter.applyTalentBuff(team)
     RobinCharacter.applySkillBuff(team)
     RobinUltUptime = 0.5 # assume better robin ult uptime because of shorter robin rotation
-    RobinCharacter.applyUltBuff([YunliCharacter,TingyunCharacter,HuohuoCharacter],uptime=RobinUltUptime)
-        
-    # Tingyun Messenger Buff
-    for character in [YunliCharacter, RobinCharacter, HuohuoCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-        
-    # Tingyun Buffs
-    TingyunCharacter.applySkillBuff(YunliCharacter)
-    TingyunCharacter.applyUltBuff(YunliCharacter,targetSpdMult=RobinCharacter.getTotalStat('SPD')/YunliCharacter.getTotalStat('SPD'))
+    RobinCharacter.applyUltBuff([YunliCharacter,MarchCharacter,HuohuoCharacter],uptime=RobinUltUptime)
+    
+    # March Buff
+    MarchCharacter.applySkillBuff(YunliCharacter)
+    MarchCharacter.applyE6Buff(YunliCharacter,uptime=1.0)
     
     # Huohuo Buffs
-    HuohuoCharacter.applyUltBuff([TingyunCharacter,RobinCharacter, YunliCharacter],uptime=2.0/4.0)
+    HuohuoCharacter.applyUltBuff([MarchCharacter,RobinCharacter, YunliCharacter],uptime=2.0/4.0)
 
     #%% Print Statements
     for character in team:
         character.print()
 
-    #%% Yunli Tingyun Robin Huohuo Rotations
+    #%% Yunli March Robin Huohuo Rotations
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
-    numSkillYunli = 1.35
+    numSkillYunli = 1.66
     numUltYunli = 2.0
     
     numEnemyAttacks = YunliCharacter.enemySpeed * YunliCharacter.numEnemies * numSkillYunli / (RobinCharacter.getTotalStat('SPD') / 0.92 ) # enemy attacks now scale to Robin speed, account for S5 dance dance in denominator
-    numTalentYunli = (numEnemyAttacks - numUltYunli) * (5*6) / (5*6 + 4 + 4 + 4)
+    numTalentYunli = (numEnemyAttacks - numUltYunli) * (5*6) / (5*6 + 3 + 4 + 4)
 
     YunliRotation = [
             YunliCharacter.useSkill() * numSkillYunli,
@@ -105,17 +107,24 @@ def YunliS1TingyunRobinHuohuo(config):
     RobinRotationYunli += [RobinCharacter.useConcertoDamage(['skill']) * numSkillYunli * RobinUltUptime]
     RobinRotationYunli += [RobinCharacter.useConcertoDamage(['followup']) * numTalentYunli * RobinUltUptime]
     RobinRotationYunli += [RobinCharacter.useConcertoDamage(['followup','ultimate']) * numUltYunli * RobinUltUptime]
+
+    numBasicMarch = 2.0
+    numFollowupMarch = numBasicMarch * YunliCharacter.getTotalStat('SPD') / MarchCharacter.getTotalStat('SPD')
+    numEnhancedMarch = 1.0
     
-    TingyunRotation = [ 
-        TingyunCharacter.useBasic() * 2, 
-        TingyunCharacter.useSkill(),
-        TingyunCharacter.useUltimate(),
-        RobinCharacter.useAdvanceForward() * 3.0 / 4.0,
-    ]
-    
-    RobinRotationTingyun = [RobinCharacter.useTalent() * (2.0)]
-    RobinRotationTingyun += [RobinCharacter.useConcertoDamage(['basic']) * 2.0 * RobinUltUptime]
-    
+    MarchRotation = []
+    MarchRotation += [MarchCharacter.useBasic() * numBasicMarch]
+    MarchRotation += [MarchCharacter.useFollowup() * numFollowupMarch]
+    MarchRotation += [MarchCharacter.useEnhancedBasic(actionValue=0.0, numHits=5.0, chance=0.8) * numEnhancedMarch]
+    MarchRotation += [MarchCharacter.useUltimate()] 
+
+    RobinRotationMarch = [RobinCharacter.useTalent() * (2.0 * numBasicMarch + numEnhancedMarch + 1.0)]
+    RobinRotationMarch += [RobinCharacter.useConcertoDamage(['basic']) * numBasicMarch * RobinUltUptime]
+    RobinRotationMarch += [RobinCharacter.useConcertoDamage(['basic','enhancedBasic']) * numEnhancedMarch * RobinUltUptime]
+    RobinRotationMarch += [RobinCharacter.useConcertoDamage(['ultimate']) * RobinUltUptime]
+    RobinRotationMarch += [RobinCharacter.useConcertoDamage(['followup']) * numFollowupMarch * RobinUltUptime]
+    MarchRotation += [RobinCharacter.useAdvanceForward() * numBasicMarch / 5.0] 
+        
     numBasicRobin = 2.0
     numSkillRobin = 1.0
     RobinRotation = [RobinCharacter.useBasic() * numBasicRobin,
@@ -124,8 +133,8 @@ def YunliS1TingyunRobinHuohuo(config):
     RobinCharacter.applyUltBuff([RobinCharacter],uptime=1.0) # apply robin buff after we calculate damage for her basics
 
 
-    numHuohuoBasic = 3.0
-    numHuohuoSkill = 1.0
+    numHuohuoBasic = 2.0
+    numHuohuoSkill = 2.0
     HuohuoRotation = [HuohuoCharacter.useBasic() * numHuohuoBasic,
                     HuohuoCharacter.useSkill() * numHuohuoSkill,
                     HuohuoCharacter.useUltimate(),
@@ -134,15 +143,15 @@ def YunliS1TingyunRobinHuohuo(config):
     RobinRotationHuohuo = [RobinCharacter.useTalent() * (3.0)]
     RobinRotationHuohuo += [RobinCharacter.useConcertoDamage(['basic']) * 3.0 * RobinUltUptime]
 
-    #%% Yunli Tingyun Robin Huohuo Rotation Math
+    #%% Yunli March Robin Huohuo Rotation Math
 
     totalYunliEffect = sumEffects(YunliRotation)
-    totalTingyunEffect = sumEffects(TingyunRotation)
+    totalMarchEffect = sumEffects(MarchRotation)
     totalRobinEffect = sumEffects(RobinRotation)
     totalHuohuoEffect = sumEffects(HuohuoRotation)
 
     YunliRotationDuration = totalYunliEffect.actionvalue * 100.0 / YunliCharacter.getTotalStat('SPD')
-    TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
+    MarchRotationDuration = totalMarchEffect.actionvalue * 100.0 / MarchCharacter.getTotalStat('SPD')
     RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
     HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
 
@@ -159,24 +168,23 @@ def YunliS1TingyunRobinHuohuo(config):
     YunliCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     YunliRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    DanceDanceDanceEffect.actionvalue = -0.24 * TingyunRotationDuration / RobinRotationDuration
-    TingyunCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    TingyunRotation.append(deepcopy(DanceDanceDanceEffect))
+    DanceDanceDanceEffect.actionvalue = -0.24 * MarchRotationDuration / RobinRotationDuration
+    MarchCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    MarchRotation.append(deepcopy(DanceDanceDanceEffect))
     
     DanceDanceDanceEffect.actionvalue = -0.24 * HuohuoRotationDuration / RobinRotationDuration
     HuohuoCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     HuohuoRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    totalTingyunEffect = sumEffects(TingyunRotation)
+    totalMarchEffect = sumEffects(MarchRotation)
     totalYunliEffect = sumEffects(YunliRotation)
     totalHuohuoEffect = sumEffects(HuohuoRotation)
 
     YunliRotationDuration = totalYunliEffect.actionvalue * 100.0 / YunliCharacter.getTotalStat('SPD')
-    TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
+    MarchRotationDuration = totalMarchEffect.actionvalue * 100.0 / MarchCharacter.getTotalStat('SPD')
     HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
 
     YunliRotation.append(HuohuoCharacter.giveUltEnergy(YunliCharacter) * YunliRotationDuration / HuohuoRotationDuration)
-    YunliRotation.append(TingyunCharacter.giveUltEnergy() * YunliRotationDuration / TingyunRotationDuration)
     
     QPQEffect = BaseEffect()
     QPQEffect.energy = 16.0 
@@ -187,29 +195,28 @@ def YunliS1TingyunRobinHuohuo(config):
     
     print('##### Rotation Durations #####')
     print('Yunli: ',YunliRotationDuration)
-    print('Tingyun: ',TingyunRotationDuration)
+    print('March: ',MarchRotationDuration)
     print('Robin: ',RobinRotationDuration)
     print('Huohuo: ',HuohuoRotationDuration)
 
     # Scale other character's rotation
-    TingyunRotation = [x * YunliRotationDuration / TingyunRotationDuration for x in TingyunRotation]
-    RobinRotationTingyun = [x * YunliRotationDuration / TingyunRotationDuration for x in RobinRotationTingyun]
+    MarchRotation = [x * YunliRotationDuration / MarchRotationDuration for x in MarchRotation]
+    RobinRotationMarch = [x * YunliRotationDuration / MarchRotationDuration for x in RobinRotationMarch]
     RobinRotation = [x * YunliRotationDuration / RobinRotationDuration for x in RobinRotation]
     HuohuoRotation = [x * YunliRotationDuration / HuohuoRotationDuration for x in HuohuoRotation]
     RobinRotationHuohuo = [x * YunliRotationDuration / HuohuoRotationDuration for x in RobinRotationHuohuo]
     
     RobinRotation += RobinRotationYunli
-    RobinRotation += RobinRotationTingyun
+    RobinRotation += RobinRotationMarch
     RobinRotation += RobinRotationHuohuo
     totalRobinEffect = sumEffects(RobinRotation)
 
     YunliEstimate = DefaultEstimator(f'Yunli: {numSkillYunli:.1f}E {numTalentYunli:.1f}T {numUltYunli:.0f}Q', YunliRotation, YunliCharacter, config)
-    TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',
-                                    TingyunRotation, TingyunCharacter, config)
+    MarchEstimate = DefaultEstimator(f'March: {numBasicMarch:.1f}N {numEnhancedMarch:.1f}Enh 1Q', MarchRotation, MarchCharacter, config)
     RobinEstimate = DefaultEstimator(f'Robin: {numBasicRobin:.1f}N {numSkillRobin:.1f}E 1Q, S{RobinCharacter.lightcone.superposition:d} {RobinCharacter.lightcone.name}', 
                                     RobinRotation, RobinCharacter, config)
     HuohuoEstimate = DefaultEstimator(f'Huohuo: {numHuohuoBasic:.0f}N {numHuohuoSkill:.0f}E 1Q, S{HuohuoCharacter.lightcone.superposition:.0f} {HuohuoCharacter.lightcone.name}',
                                     HuohuoRotation, HuohuoCharacter, config)
 
-    return([YunliEstimate, TingyunEstimate, RobinEstimate, HuohuoEstimate])
+    return([YunliEstimate, MarchEstimate, RobinEstimate, HuohuoEstimate])
 

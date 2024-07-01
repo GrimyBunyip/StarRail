@@ -24,7 +24,7 @@ from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingClou
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def KafkaRobinBlackSwanGallagherPatience(config):
+def KafkaS1RobinBlackSwanGallagher(config):
     #%% Kafka Robin BlackSwan Gallagher
     
     RobinCharacter = Robin(RelicStats(mainstats = ['ER', 'ATK.percent', 'ATK.percent', 'ATK.percent'],

@@ -12,7 +12,7 @@ class Guinaifen(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                firekissStacks:float=4.0,
+                firekissStacks:float=3.0, # assume 3.0 stacks out of 4, max stacks might be hard to reach
                 burnUptime:float=1.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)

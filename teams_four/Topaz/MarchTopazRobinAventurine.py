@@ -104,7 +104,7 @@ def MarchTopazRobinAventurine(config):
     
     numBasicMarch = 2.0
     numFollowupMarch = numBasicMarch
-    numEnhancedMarch = 1.2
+    numEnhancedMarch = 1.0
     
     MarchRotation = []
     MarchRotation += [MarchCharacter.useBasic() * numBasicMarch]
