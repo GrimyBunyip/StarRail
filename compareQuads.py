@@ -77,10 +77,9 @@ from teams_four.Clara.ClaraTopazAstaLuocha import ClaraTopazAstaLuocha
 from teams_four.Clara.ClaraTopazHanyaLuocha import ClaraTopazHanyaLuocha
 from teams_four.DotTeams.KafkaE1S1RuanMeiE1BlackSwanE1Luocha import KafkaE1S1RuanMeiE1BlackSwanE1Luocha
 from teams_four.DotTeams.KafkaGuinaifenJiaoqiuE2Luocha import KafkaGuinaifenJiaoqiuE2Luocha
-from teams_four.DotTeams.KafkaJiaoqiuE2BlackSwanLuocha import KafkaJiaoqiuE2BlackSwanLuocha
+from teams_four.DotTeams.KafkaJiaoqiuBlackSwanLuocha import KafkaJiaoqiuBlackSwanLuocha
 from teams_four.DotTeams.KafkaS1RobinBlackSwanGallagher import KafkaS1RobinBlackSwanGallagher
 from teams_four.DotTeams.KafkaRobinBlackSwanHuohuoPatience import KafkaRobinBlackSwanHuohuoPatience
-from teams_four.DotTeams.KafkaS1JiaoqiuE2BlackSwanLuocha import KafkaS1JiaoqiuE2BlackSwanLuocha
 from teams_four.Firefly.FireflyBronyaRuanMeiGallagher import FireflyBronyaRuanMeiGallagher
 from teams_four.Firefly.FireflyE2S1TraiblazerRuanMeiGallagher import FireflyE2S1TrailblazerRuanMeiGallagher
 from teams_four.Firefly.FireflyE2TraiblazerRuanMeiGallagher import FireflyE2TrailblazerRuanMeiGallagher
@@ -355,16 +354,17 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 # # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
-# visualizationList.append(KafkaS1GuinaifenBlackSwanLuocha(config))
-# visualizationList.append(KafkaS1RuanMeiBlackSwanLuocha(config))
-# visualizationList.append(KafkaS1RobinBlackSwanGallagher(config))
-# visualizationList.append(KafkaS1JiaoqiuE2BlackSwanLuocha(config))
+visualizationList.append(KafkaS1GuinaifenBlackSwanLuocha(config))
+visualizationList.append(KafkaS1RuanMeiBlackSwanLuocha(config))
+visualizationList.append(KafkaS1RobinBlackSwanGallagher(config))
+# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,kafkaPatience=True,jiaoqiuEidolon=2))
 # visualizationList.append(KafkaRobinBlackSwanHuohuoPatience(config))
 # # visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
 
-# visualizationList.append(KafkaJiaoqiuE2BlackSwanLuocha(config))
+# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config))
+# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,jiaoqiuEidolon=2))
 # visualizationList.append(KafkaGuinaifenJiaoqiuE2Luocha(config))
 # # visualizationList.append(KafkaE1S1RuanMeiE1BlackSwanE1Luocha(config))
 
