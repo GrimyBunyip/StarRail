@@ -17,6 +17,7 @@ from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGla
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
+from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
@@ -43,10 +44,11 @@ def AcheronE2S1HanabiJiaoqiuE2Gallagher(config):
 
     originalFivestarEidolons = config['fivestarEidolons']
     config['fivestarEidolons'] = 2
-    JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'EHR', 'ER'],
-                            substats = {'CD': 3, 'CR': 5, 'EHR': 12, 'SPD.flat': 8}),
+    JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'ATK.percent', 'EHR', 'ER'],
+                            substats = {'ATK.flat': 3, 'SPD.flat': 5, 'EHR': 12, 'ATK.percent': 8}),
                             lightcone = EyesOfThePrey(**config),
-                            relicsetone = Pioneer2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PanCosmicCommercialEnterprise(),
+                            relicsetone = Pioneer2pc(), relicsettwo = FiresmithOfLavaForging2pc(), planarset = SprightlyVonwacq(),
+                            talentStacks=3,
                             **config)
     config['fivestarEidolons'] = originalFivestarEidolons
 
