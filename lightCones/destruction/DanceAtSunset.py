@@ -5,9 +5,10 @@ class DanceAtSunset(BaseLightCone):
     def __init__(self,
                 uptime:float = 1.0,
                 stacks:float = 2.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Dance at Sunset')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.uptime = uptime
         self.stacks = stacks
 

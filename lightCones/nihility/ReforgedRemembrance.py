@@ -4,9 +4,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 class ReforgedRemembrance(BaseLightCone):
     def __init__(self,
                 stacks:float=4.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Reforged Remembrance')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):

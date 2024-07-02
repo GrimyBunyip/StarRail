@@ -4,9 +4,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 class SleepLikeTheDead(BaseLightCone):
     def __init__(self,
                 uptime:float = 0.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Sleep Like the Dead')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.uptime = uptime
         self.nameAffix = f'{uptime:.2f} Uptime'
 

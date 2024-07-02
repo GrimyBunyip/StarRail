@@ -3,9 +3,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 
 class LandausChoice(BaseLightCone):
     def __init__(self,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Landau\'s Choice')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
 
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)

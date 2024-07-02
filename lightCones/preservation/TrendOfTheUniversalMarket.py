@@ -4,9 +4,10 @@ from baseClasses.BaseMV import BaseMV
 
 class TrendOfTheUniversalMarket(BaseLightCone):
     def __init__(self,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Trend of the Universal Market')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
 
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)

@@ -4,9 +4,10 @@ import math
 
 class InTheNight(BaseLightCone):
     def __init__(self,
+                superposition:int=None,
                 **config):
         self.loadConeStats('In the Night')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
 
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)

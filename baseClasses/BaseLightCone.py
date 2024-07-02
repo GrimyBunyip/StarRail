@@ -36,8 +36,10 @@ class BaseLightCone(object):
             else:
                 self.__dict__[column] = data
                 
-    def setSuperposition(self, config:dict):
-        if self.rarity == '3':
+    def setSuperposition(self, superposition, config:dict):
+        if superposition is not None:
+            self.superposition = superposition
+        elif self.rarity == '3':
             self.superposition = config['threestarSuperpositions']
         elif self.rarity == '4':
             self.superposition = config['fourstarSuperpositions']

@@ -4,9 +4,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 class TheBirthOfTheSelf(BaseLightCone):
     def __init__(self,
                 uptime:float=0.5,
+                superposition:int=None,
                 **config):
         self.loadConeStats('The Birth of the Self')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.uptime = uptime
         self.nameAffix = f'{uptime:.2f} Uptime'
 

@@ -6,9 +6,10 @@ class BaptismOfPureThought(BaseLightCone):
     def __init__(self,
                 stacks:float = 3.0,
                 uptime:float = 0.5,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Baptism of Pure Thought')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.stacks = stacks
         self.uptime = uptime
 

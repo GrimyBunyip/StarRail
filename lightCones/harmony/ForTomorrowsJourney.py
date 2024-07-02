@@ -4,9 +4,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 class ForTomorrowsJourney(BaseLightCone):
     def __init__(self,
                  uptime=1.0/3.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('For Tomorrow\'s Journey')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):

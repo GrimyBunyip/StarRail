@@ -5,9 +5,10 @@ class EternalCalculus(BaseLightCone):
     def __init__(self,
                 uptimeAtk:float=1.0,
                 uptimeSpd:float=1.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Eternal Calculus')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.uptimeAtk = uptimeAtk
         self.uptimeSpd = uptimeSpd
 

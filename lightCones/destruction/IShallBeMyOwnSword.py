@@ -5,9 +5,10 @@ class IShallBeMyOwnSword(BaseLightCone):
     def __init__(self,
                 atkStacks = 3.0,
                 defShredUptime:float = 1.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('I Shall Be My Own Sword')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.atkStacks = atkStacks
         self.defShredUptime = defShredUptime
 

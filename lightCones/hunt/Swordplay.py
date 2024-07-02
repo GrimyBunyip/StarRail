@@ -4,9 +4,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 class Swordplay(BaseLightCone):
     def __init__(self, 
                 stacks:int = 5,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Swordplay')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):

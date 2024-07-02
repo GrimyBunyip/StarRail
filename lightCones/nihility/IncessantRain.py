@@ -5,9 +5,10 @@ class IncessantRain(BaseLightCone):
     def __init__(self,
                 uptime:float=1.0,
                 uptimeAether:float=1.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Incessant Rain')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.uptime = uptime
         self.uptimeAether = uptimeAether
 

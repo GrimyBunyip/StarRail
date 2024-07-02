@@ -5,9 +5,10 @@ from baseClasses.BaseMV import BaseMV
 class PatienceIsAllYouNeed(BaseLightCone):
     def __init__(self,
                 stacks:float=3.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Patience Is All You Need')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):

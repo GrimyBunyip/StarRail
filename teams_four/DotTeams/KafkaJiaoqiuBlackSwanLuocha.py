@@ -19,31 +19,24 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 
-def KafkaJiaoqiuBlackSwanLuocha(config, kafkaPatience:bool=False, jiaoqiuEidolon:int=None):
+def KafkaJiaoqiuBlackSwanLuocha(config, kafkaSuperposition:int=0, jiaoqiuEidolon:int=None):
     #%% Kafka Jiaoqiu BlackSwan Luocha
-    if kafkaPatience: 
-        KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
-                            substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
-                            lightcone = PatienceIsAllYouNeed(**config),
-                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                            **config)
-    else:
-        KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
-                            substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
-                            lightcone = GoodNightAndSleepWell(**config),
-                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=1),
-                            **config)
+    kafkaLightCone = PatienceIsAllYouNeed(superposition=kafkaSuperposition,**config) if kafkaSuperposition > 0 else GoodNightAndSleepWell(**config)
+    firmamentStacks = 2 if kafkaSuperposition > 0 else 1
+    KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
+                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
+                        lightcone = kafkaLightCone,
+                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=firmamentStacks),
+                        **config)
 
-    originalFivestarEidolons = config['fivestarEidolons']
-    config['fivestarEidolons'] = jiaoqiuEidolon if jiaoqiuEidolon is not None else config['fivestarEidolons']
     numJiaoqiuStacks = 3 if jiaoqiuEidolon is not None and jiaoqiuEidolon >= 1 else 2
     JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'ATK.percent', 'ER'],
                             substats = {'ATK.flat': 3, 'EHR': 5, 'ATK.percent': 12, 'SPD.flat': 8}),
                             lightcone = BeforeTheTutorialMissionStarts(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = PanCosmicCommercialEnterprise(),
                             talentStacks=numJiaoqiuStacks,
+                            eidolon=jiaoqiuEidolon,
                             **config)
-    config['fivestarEidolons'] = originalFivestarEidolons
 
     # I'm just going to assume 100% uptime on firmament frontline glamoth
     # Kafka and Jiaoqiu are a few substats short of base 160 with a 12 substat cap

@@ -18,20 +18,15 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 
-def KafkaGuinaifenBlackSwanLuocha(config, kafkaPatience:bool=False):
+def KafkaGuinaifenBlackSwanLuocha(config, kafkaSuperposition:int=0):
     #%% Kafka Guinaifen BlackSwan Luocha
-    if kafkaPatience:
-        KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
-                            substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
-                            lightcone = PatienceIsAllYouNeed(**config),
-                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                            **config)
-    else:
-        KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
-                            substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
-                            lightcone = GoodNightAndSleepWell(**config),
-                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=1),
-                            **config)
+    kafkaLightCone = PatienceIsAllYouNeed(superposition=kafkaSuperposition,**config) if kafkaSuperposition > 0 else GoodNightAndSleepWell(**config)
+    firmamentStacks = 2 if kafkaSuperposition > 0 else 1
+    KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
+                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
+                        lightcone = kafkaLightCone,
+                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=firmamentStacks),
+                        **config)
 
     GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.fire'],
                             substats = {'ATK.percent': 7, 'SPD.flat': 13, 'EHR': 4, 'BreakEffect': 4}),
@@ -88,7 +83,7 @@ def KafkaGuinaifenBlackSwanLuocha(config, kafkaPatience:bool=False):
     # Napkin Math for stacks applied
     
     numDots = 3 
-    numDots += 1 if kafkaPatience else 0
+    numDots += 1 if kafkaSuperposition else 0
     adjacentStackRate = 2 * (BlackSwanCharacter.numEnemies - 1) / BlackSwanCharacter.numEnemies
     dotStackRate = numDots * KafkaCharacter.numEnemies
     

@@ -4,9 +4,10 @@ from baseClasses.BaseMV import BaseMV
 
 class ThisIsMe(BaseLightCone):
     def __init__(self,
+                superposition:int=None,
                 **config):
         self.loadConeStats('This Is Me!')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
 
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)

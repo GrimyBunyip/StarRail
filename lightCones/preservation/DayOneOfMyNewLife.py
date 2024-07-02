@@ -3,9 +3,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 
 class DayOneOfMyNewLife(BaseLightCone):
     def __init__(self,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Day One of My New Life')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
 
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)

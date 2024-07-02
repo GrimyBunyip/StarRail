@@ -3,9 +3,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 
 class AnInstanceBeforeAGaze(BaseLightCone):
     def __init__(self,
+                superposition:int=None,
                 **config):
         self.loadConeStats('An Instance Before A Gaze')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
 
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)

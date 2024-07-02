@@ -4,9 +4,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 class DestinysThreadsForewoven(BaseLightCone):
     def __init__(self,
                  defense:float=4000,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Destiny\'s Threads Forewoven')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.defense = min(4000,defense)
 
     def equipTo(self, char:BaseCharacter):

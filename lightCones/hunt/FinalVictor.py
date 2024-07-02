@@ -4,9 +4,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 class FinalVictor(BaseLightCone):
     def __init__(self,
                 stacks:float = 2.57,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Final Victor')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):

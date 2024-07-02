@@ -5,9 +5,10 @@ class YetHopeIsPriceless(BaseLightCone):
     def __init__(self,
                 cd:float=2.80,
                 uptime:float=1.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Yet Hope Is Priceless')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.cd = cd
         self.uptime = uptime
 

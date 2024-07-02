@@ -5,9 +5,10 @@ class CruisingInTheStellarSea(BaseLightCone):
     def __init__(self,
                 uptimeHP:float = 0.5,
                 uptimeDefeat:float = 0.5,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Cruising in the Stellar Sea')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.uptimeHP = uptimeHP
         self.uptimeDefeat = uptimeDefeat
         self.nameAffix = f'{uptimeDefeat:.2f} Uptime'

@@ -201,14 +201,14 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # E2S1 Comparisons
 
-visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
-visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
+# visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
+# visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
 
-visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=1))
-visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=1))
+# visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=1))
+# visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=1))
 
-visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1))
-visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
+# visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1))
+# visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
 # visualizationList.append(AcheronE2S1HanabiPelaGallagher(config))
@@ -338,7 +338,7 @@ visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperpos
 # # Kafka Teams
 # # config['enemySpeed'] = 190 / 1.125
 # # config['numEnemies'] = 2
-# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # # visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
 # # visualizationList.append(KafkaGuinaifenSampoLuocha(config))
 # # visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
@@ -347,17 +347,17 @@ visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperpos
 # # visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 # # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
-# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config, kafkaPatience=True))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config, kafkaSuperposition=True))
 # visualizationList.append(KafkaS1RuanMeiBlackSwanLuocha(config))
 # visualizationList.append(KafkaS1RobinBlackSwanGallagher(config))
-# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,kafkaPatience=True,jiaoqiuEidolon=2))
+# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,kafkaSuperposition=True,jiaoqiuEidolon=2))
 # visualizationList.append(KafkaRobinBlackSwanHuohuoPatience(config))
 # # visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
 
-# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config))
-# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,jiaoqiuEidolon=2))
+visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config))
+visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,jiaoqiuEidolon=2))
 # visualizationList.append(KafkaGuinaifenJiaoqiuE2Luocha(config))
 # # visualizationList.append(KafkaE1S1RuanMeiE1BlackSwanE1Luocha(config))
 

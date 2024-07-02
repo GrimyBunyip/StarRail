@@ -4,9 +4,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 class TheMolesWelcomeYou(BaseLightCone):
     def __init__(self,
                 stacks:int = 3, # you gain 1 stack for each type of basic, skill, ultimate.
+                superposition:int=None,
                 **config):
         self.loadConeStats('The Moles Welcome You')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):

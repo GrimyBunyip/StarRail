@@ -5,9 +5,10 @@ class OnTheFallOfAnAeon(BaseLightCone):
     def __init__(self,
                 uptime:float = 0.5,
                 stacks:float = 4.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('On the Fall of an Aeon')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.uptime = uptime
         self.stacks = min(4.0,stacks)
         self.nameAffix = f'{uptime:.2f} Uptime'

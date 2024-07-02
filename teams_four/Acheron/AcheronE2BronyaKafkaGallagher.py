@@ -23,7 +23,7 @@ from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, 
 
 def AcheronE2BronyaKafkaGallagher(config, acheronSuperposition:int=0):
     #%% Acheron Bronya Kafka Gallagher Characters
-    acheronLightCone = AlongThePassingShore(**config) if acheronSuperposition >= 1 else GoodNightAndSleepWell(**config)
+    acheronLightCone = AlongThePassingShore(superposition=acheronSuperposition,**config) if acheronSuperposition >= 1 else GoodNightAndSleepWell(**config)
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                         substats = {'CR': 8, 'CD': 6, 'ATK.percent': 3, 'SPD.flat': 11}),
                         lightcone = acheronLightCone,

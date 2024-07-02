@@ -4,9 +4,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 class WorrisomeBlissful(BaseLightCone):
     def __init__(self,
                 stacks:float = 2.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Worrisome, Blissful')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):

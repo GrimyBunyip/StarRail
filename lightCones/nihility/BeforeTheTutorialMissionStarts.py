@@ -4,9 +4,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 class BeforeTheTutorialMissionStarts(BaseLightCone):
     def __init__(self,
                 uptime:float = 1.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Before the Tutorial Mission Starts')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.uptime=uptime
 
     def equipTo(self, char:BaseCharacter):

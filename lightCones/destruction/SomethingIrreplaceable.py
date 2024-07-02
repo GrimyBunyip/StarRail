@@ -4,9 +4,10 @@ from baseClasses.BaseLightCone import BaseLightCone
 class SomethingIrreplaceable(BaseLightCone):
     def __init__(self,
                 uptime:float = 1.0,
+                superposition:int=None,
                 **config):
         self.loadConeStats('Something Irreplaceable')
-        self.setSuperposition(config)
+        self.setSuperposition(superposition,config)
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
