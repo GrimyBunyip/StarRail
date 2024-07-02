@@ -16,9 +16,11 @@ class Acheron(BaseCharacter):
                 thunder_core_uptime:float = 1.0,
                 thunder_core_stacks:float = 3.0,
                 e1Uptime:float = 1.0,
+                eidolon:int = None,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Acheron')
+        self.eidolon = eidolon if eidolon is not None else self.eidolon
         self.num_other_nihility = num_other_nihility
         self.thunder_core_uptime = thunder_core_uptime
         self.thunder_core_stacks = thunder_core_stacks

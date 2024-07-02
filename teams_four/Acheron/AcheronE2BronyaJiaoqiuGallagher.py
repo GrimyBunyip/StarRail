@@ -26,26 +26,14 @@ from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, 
 
 def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuEidolon:int=None):
     #%% Acheron Bronya Jiaoqiu Gallagher Characters
-    originalFivestarEidolons = config['fivestarEidolons']
-    config['fivestarEidolons'] = 2
-    if acheronSuperposition >= 0:
-        originalFivestarSuperposition = config['fivestarSuperpositions']
-        config['fivestarSuperpositions'] = acheronSuperposition
-        AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
-                            substats = {'CR': 8, 'CD': 6, 'ATK.percent': 3, 'SPD.flat': 11}),
-                            lightcone = AlongThePassingShore(**config),
-                            relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
-                            planarset = IzumoGenseiAndTakamaDivineRealm(),
-                            **config)
-        config['fivestarSuperpositions'] = originalFivestarSuperposition
-    else:
-        AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
-                            substats = {'CR': 8, 'CD': 6, 'ATK.percent': 3, 'SPD.flat': 11}),
-                            lightcone = GoodNightAndSleepWell(**config),
-                            relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
-                            planarset = IzumoGenseiAndTakamaDivineRealm(),
-                            **config)
-    config['fivestarEidolons'] = originalFivestarEidolons
+    acheronLightCone = AlongThePassingShore(**config) if acheronSuperposition >= 1 else GoodNightAndSleepWell(**config)
+    AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
+                        substats = {'CR': 8, 'CD': 6, 'ATK.percent': 3, 'SPD.flat': 11}),
+                        lightcone = acheronLightCone,
+                        relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
+                        planarset = IzumoGenseiAndTakamaDivineRealm(),
+                        eidolon=2,
+                        **config)
     
     BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'HP.percent', 'CD', 'ER'],
                         substats = {'CD': 12, 'SPD.flat': 8, 'HP.percent': 5, 'DEF.percent': 3}),
@@ -53,22 +41,19 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                         **config)
 
-    originalFivestarEidolons = config['fivestarEidolons']
-    config['fivestarEidolons'] = jiaoqiuEidolon if jiaoqiuEidolon is not None else config['fivestarEidolons']
-    jiaoqiuTalentStacks= 3 if jiaoqiuEidolon is not None and jiaoqiuEidolon >= 1 else 2
     JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'ATK.percent', 'EHR', 'ER'],
-                            substats = {'ATK.flat': 3, 'SPD.flat': 5, 'EHR': 12, 'ATK.percent': 8}),
-                            lightcone = EyesOfThePrey(**config),
-                            relicsetone = Pioneer2pc(), relicsettwo = FiresmithOfLavaForging2pc(), planarset = SprightlyVonwacq(),
-                            talentStacks=jiaoqiuTalentStacks,
-                            **config)
-    config['fivestarEidolons'] = originalFivestarEidolons
+                        substats = {'ATK.flat': 3, 'SPD.flat': 5, 'EHR': 12, 'ATK.percent': 8}),
+                        lightcone = EyesOfThePrey(**config),
+                        relicsetone = Pioneer2pc(), relicsettwo = FiresmithOfLavaForging2pc(), planarset = SprightlyVonwacq(),
+                        talentStacks=3 if jiaoqiuEidolon is not None and jiaoqiuEidolon >= 1 else 2,
+                        eidolon=jiaoqiuEidolon,
+                        **config)
 
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
-                            substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
-                            lightcone = Multiplication(**config),
-                            relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
-                            **config)
+                        substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
+                        lightcone = Multiplication(**config),
+                        relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
+                        **config)
     
     team = [AcheronCharacter, BronyaCharacter, JiaoqiuCharacter, GallagherCharacter]
 

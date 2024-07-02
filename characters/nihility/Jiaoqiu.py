@@ -14,9 +14,11 @@ class Jiaoqiu(BaseCharacter):
                 planarset:RelicSet=None,
                 ehr:float=1.4,
                 talentStacks:float=2.0,
+                eidolon:int=None,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Jiaoqiu')
+        self.eidolon = eidolon if eidolon is not None else self.eidolon
         self.ehr=ehr
         self.talentStacks = talentStacks
         

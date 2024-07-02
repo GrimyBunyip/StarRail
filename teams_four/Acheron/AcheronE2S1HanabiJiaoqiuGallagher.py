@@ -9,32 +9,25 @@ from lightCones.abundance.Multiplication import Multiplication
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.nihility.AlongThePassingShore import AlongThePassingShore
 from lightCones.nihility.EyesOfThePrey import EyesOfThePrey
-from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
-from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
-from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
+from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
-from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc
-from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
-from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronE2S1HanabiJiaoqiuGallagher(config, jiaoqiuEidolon:int=None):
+def AcheronE2S1HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuEidolon:int=None):
     #%% Acheron Hanabi Jiaoqiu Gallagher Characters
-    originalFivestarEidolons = config['fivestarEidolons']
-    config['fivestarEidolons'] = 2
+    acheronLightCone = AlongThePassingShore(**config) if acheronSuperposition >= 1 else GoodNightAndSleepWell(**config)
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                             substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'ATK.flat': 3}),
-                            lightcone = AlongThePassingShore(**config),
+                            lightcone = acheronLightCone,
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
+                            eidolon=2,
                             **config)
-    config['fivestarEidolons'] = originalFivestarEidolons
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                         substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
@@ -42,22 +35,19 @@ def AcheronE2S1HanabiJiaoqiuGallagher(config, jiaoqiuEidolon:int=None):
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                         **config)
 
-    originalFivestarEidolons = config['fivestarEidolons']
-    config['fivestarEidolons'] = jiaoqiuEidolon if jiaoqiuEidolon is not None else config['fivestarEidolons']
-    jiaoqiuTalentStacks= 3 if jiaoqiuEidolon is not None and jiaoqiuEidolon >= 1 else 2
     JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'ATK.percent', 'EHR', 'ER'],
-                            substats = {'ATK.flat': 3, 'SPD.flat': 5, 'EHR': 12, 'ATK.percent': 8}),
-                            lightcone = EyesOfThePrey(**config),
-                            relicsetone = Pioneer2pc(), relicsettwo = FiresmithOfLavaForging2pc(), planarset = SprightlyVonwacq(),
-                            talentStacks=jiaoqiuTalentStacks,
-                            **config)
-    config['fivestarEidolons'] = originalFivestarEidolons
+                        substats = {'ATK.flat': 3, 'SPD.flat': 5, 'EHR': 12, 'ATK.percent': 8}),
+                        lightcone = EyesOfThePrey(**config),
+                        relicsetone = Pioneer2pc(), relicsettwo = FiresmithOfLavaForging2pc(), planarset = SprightlyVonwacq(),
+                        talentStacks=3 if jiaoqiuEidolon is not None and jiaoqiuEidolon >= 1 else 2,
+                        eidolon=jiaoqiuEidolon,
+                        **config)
 
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
-                            substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
-                            lightcone = Multiplication(**config),
-                            relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
-                            **config)
+                        substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
+                        lightcone = Multiplication(**config),
+                        relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
+                        **config)
     
     team = [AcheronCharacter, HanabiCharacter, JiaoqiuCharacter, GallagherCharacter]
 
