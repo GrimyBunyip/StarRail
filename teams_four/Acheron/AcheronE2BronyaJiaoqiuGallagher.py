@@ -17,17 +17,29 @@ from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGla
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
+from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronE2BronyaJiaoqiuGallagher(config):
+def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuEidolon:int=None):
     #%% Acheron Bronya Jiaoqiu Gallagher Characters
     originalFivestarEidolons = config['fivestarEidolons']
     config['fivestarEidolons'] = 2
-    AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
+    if acheronSuperposition >= 0:
+        originalFivestarSuperposition = config['fivestarSuperpositions']
+        config['fivestarSuperpositions'] = acheronSuperposition
+        AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
+                            substats = {'CR': 8, 'CD': 6, 'ATK.percent': 3, 'SPD.flat': 11}),
+                            lightcone = AlongThePassingShore(**config),
+                            relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
+                            planarset = IzumoGenseiAndTakamaDivineRealm(),
+                            **config)
+        config['fivestarSuperpositions'] = originalFivestarSuperposition
+    else:
+        AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                             substats = {'CR': 8, 'CD': 6, 'ATK.percent': 3, 'SPD.flat': 11}),
                             lightcone = GoodNightAndSleepWell(**config),
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
@@ -41,11 +53,16 @@ def AcheronE2BronyaJiaoqiuGallagher(config):
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                         **config)
 
-    JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'EHR', 'ER'],
-                            substats = {'CD': 3, 'CR': 5, 'EHR': 12, 'SPD.flat': 8}),
+    originalFivestarEidolons = config['fivestarEidolons']
+    config['fivestarEidolons'] = jiaoqiuEidolon if jiaoqiuEidolon is not None else config['fivestarEidolons']
+    jiaoqiuTalentStacks= 3 if jiaoqiuEidolon is not None and jiaoqiuEidolon >= 1 else 2
+    JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'ATK.percent', 'EHR', 'ER'],
+                            substats = {'ATK.flat': 3, 'SPD.flat': 5, 'EHR': 12, 'ATK.percent': 8}),
                             lightcone = EyesOfThePrey(**config),
-                            relicsetone = Pioneer2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PanCosmicCommercialEnterprise(),
+                            relicsetone = Pioneer2pc(), relicsettwo = FiresmithOfLavaForging2pc(), planarset = SprightlyVonwacq(),
+                            talentStacks=jiaoqiuTalentStacks,
                             **config)
+    config['fivestarEidolons'] = originalFivestarEidolons
 
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
                             substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
@@ -65,8 +82,8 @@ def AcheronE2BronyaJiaoqiuGallagher(config):
 
     # Jiaoqiu Debuffs, 3 turn Jiaoqiu rotation
     JiaoqiuCharacter.applyTalentDebuff(team)
-    jiaoqiuUltUptime=0.75
-    JiaoqiuCharacter.applyUltDebuff(team,uptime=jiaoqiuUltUptime)
+    jiaoqiuUltUptime = 0.75
+    JiaoqiuCharacter.applyUltDebuff(team, uptime=jiaoqiuUltUptime)
         
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
@@ -91,7 +108,8 @@ def AcheronE2BronyaJiaoqiuGallagher(config):
     numStacks += jiaoqiuUltUptime * jiaoqiuUltChance * JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
     numStacks *= 0.5 # halve the stacks from outside of Acheron because of Bronya
     numStacks /= BronyaCharacter.getTotalStat('SPD')
-    numStacks += 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2
+    numStacks += 1 + 1
+    numStacks += 1 if AcheronCharacter.lightcone.name == 'Along the Passing Shore' else 0
     
     numStacksSkill = 9.0
     numSkillAcheron = numStacksSkill / numStacks
