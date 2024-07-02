@@ -4,16 +4,12 @@ from teams_four.Acheron.AcheronE2AstaPelaFuxuan import AcheronE2AstaPelaFuxuan
 from teams_four.Acheron.AcheronE2BronyaJiaoqiuGallagher import AcheronE2BronyaJiaoqiuGallagher
 from teams_four.Acheron.AcheronE2BronyaKafkaGallagher import AcheronE2BronyaKafkaGallagher
 from teams_four.Acheron.AcheronE2BronyaPelaGallagher import AcheronE2BronyaPelaGallagher
-from teams_four.Acheron.AcheronE2S1BronyaJiaoqiuE1Gallagher import AcheronE2S1BronyaJiaoqiuE1Gallagher
-from teams_four.Acheron.AcheronE2S1BronyaJiaoqiuE2Gallagher import AcheronE2S1BronyaJiaoqiuE2Gallagher
 from teams_four.Acheron.AcheronE2S1BronyaJiaoqiuGallagher import AcheronE2S1BronyaJiaoqiuGallagher
 from teams_four.Acheron.AcheronE2S1BronyaKafkaGallagher import AcheronE2S1BronyaKafkaGallagher
 from teams_four.Acheron.AcheronE2S1BronyaPelaGallagher import AcheronE2S1BronyaPelaGallagher
 from teams_four.Acheron.AcheronE2S1BronyaPelaLuocha import AcheronE2S1BronyaPelaLuocha
 from teams_four.Acheron.AcheronE2HanabiPelaFuxuan import AcheronE2HanabiPelaFuxuan
 from teams_four.Acheron.AcheronE2RuanMeiPelaFuxuan import AcheronE2RuanMeiPelaFuxuan
-from teams_four.Acheron.AcheronE2S1HanabiJiaoqiuE1Gallagher import AcheronE2S1HanabiJiaoqiuE1Gallagher
-from teams_four.Acheron.AcheronE2S1HanabiJiaoqiuE2Gallagher import AcheronE2S1HanabiJiaoqiuE2Gallagher
 from teams_four.Acheron.AcheronE2S1HanabiJiaoqiuGallagher import AcheronE2S1HanabiJiaoqiuGallagher
 from teams_four.Acheron.AcheronE2S1HanabiKafkaGallagher import AcheronE2S1HanabiKafkaGallagher
 from teams_four.Acheron.AcheronE2S1HanabiPelaFuxuan import AcheronE2S1HanabiPelaFuxuan
@@ -207,14 +203,14 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # E2S1 Comparisons
 
-# visualizationList.append(AcheronE2S1BronyaJiaoqiuE2Gallagher(config))
-# visualizationList.append(AcheronE2S1BronyaJiaoqiuE1Gallagher(config))
+visualizationList.append(AcheronE2S1BronyaJiaoqiuGallagher(config, jiaoqiuEidolon=2))
+visualizationList.append(AcheronE2S1BronyaJiaoqiuGallagher(config, jiaoqiuEidolon=2))
 
-# visualizationList.append(AcheronE2S1HanabiJiaoqiuE2Gallagher(config))
-# visualizationList.append(AcheronE2S1HanabiJiaoqiuE1Gallagher(config))
+visualizationList.append(AcheronE2S1HanabiJiaoqiuGallagher(config, jiaoqiuEidolon=1))
+visualizationList.append(AcheronE2S1HanabiJiaoqiuGallagher(config, jiaoqiuEidolon=1))
 
-# visualizationList.append(AcheronE2S1BronyaJiaoqiuGallagher(config))
-# visualizationList.append(AcheronE2S1HanabiJiaoqiuGallagher(config))
+visualizationList.append(AcheronE2S1BronyaJiaoqiuGallagher(config))
+visualizationList.append(AcheronE2S1HanabiJiaoqiuGallagher(config))
 # visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
 # visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
 # visualizationList.append(AcheronE2S1HanabiPelaGallagher(config))
@@ -353,9 +349,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 # # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
-visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config, kafkaPatience=True))
-visualizationList.append(KafkaS1RuanMeiBlackSwanLuocha(config))
-visualizationList.append(KafkaS1RobinBlackSwanGallagher(config))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config, kafkaPatience=True))
+# visualizationList.append(KafkaS1RuanMeiBlackSwanLuocha(config))
+# visualizationList.append(KafkaS1RobinBlackSwanGallagher(config))
 # visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,kafkaPatience=True,jiaoqiuEidolon=2))
 # visualizationList.append(KafkaRobinBlackSwanHuohuoPatience(config))
 # # visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
