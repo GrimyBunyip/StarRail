@@ -122,7 +122,6 @@ def AcheronE2S1HanabiJiaoqiuGallagher(config):
 
     #%% Acheron Hanabi Jiaoqiu Gallagher Rotation Math
     numDotJiaoqiu = DotEstimator(JiaoqiuRotation, JiaoqiuCharacter, config, dotMode='alwaysAll')
-    JiaoqiuRotation += [JiaoqiuCharacter.useCritDot() * numDotJiaoqiu]
 
     totalAcheronEffect = sumEffects(AcheronRotation)
     totalJiaoqiuEffect = sumEffects(JiaoqiuRotation)

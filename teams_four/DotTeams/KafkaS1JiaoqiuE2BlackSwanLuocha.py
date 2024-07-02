@@ -142,7 +142,6 @@ def KafkaS1JiaoqiuE2BlackSwanLuocha(config):
 
     #%% Kafka Jiaoqiu BlackSwan Luocha Rotation Math
     numDotJiaoqiu = DotEstimator(JiaoqiuRotation, JiaoqiuCharacter, config, dotMode='alwaysAll') * jiaoqiuUltUptime
-    JiaoqiuRotation += [JiaoqiuCharacter.useCritDot() * numDotJiaoqiu]
     numDotBlackSwan = DotEstimator(BlackSwanRotation, BlackSwanCharacter, config, dotMode='alwaysAll')
     
     totalKafkaEffect = sumEffects(KafkaRotation)

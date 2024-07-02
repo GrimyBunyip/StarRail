@@ -130,7 +130,6 @@ def AcheronGuinaifenJiaoqiuGallagher(config):
     #%% Acheron Silver Wolf Jiaoqiu Gallagher Rotation Math
     numDotGuinaifen = DotEstimator(GuinaifenRotation, GuinaifenCharacter, config, dotMode='alwaysBlast')
     numDotJiaoqiu = DotEstimator(JiaoqiuRotation, JiaoqiuCharacter, config, dotMode='alwaysAll')
-    JiaoqiuRotation += [JiaoqiuCharacter.useCritDot() * numDotJiaoqiu]
 
     totalAcheronEffect = sumEffects(AcheronRotation)
     totalJiaoqiuEffect = sumEffects(JiaoqiuRotation)

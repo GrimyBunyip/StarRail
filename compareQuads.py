@@ -173,7 +173,7 @@ from visualizer.visualizer import visualize
 visualizationList = []
 
 config = copy(Configuration)
-config['numEnemies'] = 3
+config['numEnemies'] = 5
 config['enemyToughness'] = 300 # mostly consider tweaking this for boothill
 config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
@@ -258,8 +258,8 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(AcheronWeltPelaGallagher(config))
 
 # # Argenti Teams
-# visualizationList.append(ArgentiJadeTingyunHuohuo(config))
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+# visualizationList.append(ArgentiJadeTingyunHuohuo(config))
 # # visualizationList.append(ArgentiHanyaTingyunHuohuo(config))
 # # visualizationList.append(ArgentiHanyaTingyunFuxuan(config))
 # # visualizationList.append(ArgentiRuanMeiTingyunHuohuo(config))
@@ -304,7 +304,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Firefly Teams
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyS1TrailblazerRuanMeiGallagher(config))
-visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
+# visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyE2S1TrailblazerRuanMeiGallagher(config))
 
 # visualizationList.append(FireflyTrailblazerMarchGallagher(config)) # retire this team, it isnt good

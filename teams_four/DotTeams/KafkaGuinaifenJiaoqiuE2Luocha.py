@@ -121,7 +121,6 @@ def KafkaGuinaifenJiaoqiuE2Luocha(config):
     numDotGuinaifen = DotEstimator(GuinaifenRotation, GuinaifenCharacter, config, dotMode='alwaysBlast')
     numDotGuinaifen = min(numDotGuinaifen, 2.0 * numSkillGuinaifen * min(3.0, GuinaifenCharacter.numEnemies))
     numDotJiaoqiu = DotEstimator(JiaoqiuRotation, JiaoqiuCharacter, config, dotMode='alwaysAll') * jiaoqiuUltUptime
-    JiaoqiuRotation += [JiaoqiuCharacter.useCritDot() * numDotJiaoqiu]
     
     totalKafkaEffect = sumEffects(KafkaRotation)
     totalGuinaifenEffect = sumEffects(GuinaifenRotation)
