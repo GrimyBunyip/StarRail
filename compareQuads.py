@@ -69,6 +69,7 @@ from teams_four.Clara.ClaraTingyunHanabiHuohuo import ClaraTingyunHanabiHuohuo
 from teams_four.Clara.ClaraTingyunHanabiLuocha import ClaraTingyunHanabiLuocha
 from teams_four.Clara.ClaraTingyunHanyaLuocha import ClaraTingyunHanyaLuocha
 from teams_four.Clara.ClaraTingyunPelaLuocha import ClaraTingyunPelaLuocha
+from teams_four.Clara.ClaraTingyunRobinHuohuo import ClaraTingyunRobinHuohuo
 from teams_four.Clara.ClaraTingyunRuanMeiFuxuan import ClaraTingyunRuanMeiFuxuan
 from teams_four.Clara.ClaraTingyunRuanMeiLuocha import ClaraTingyunRuanMeiLuocha
 from teams_four.Clara.ClaraTingyunTopazLuocha import ClaraTingyunTopazLuocha
@@ -173,7 +174,7 @@ from visualizer.visualizer import visualize
 visualizationList = []
 
 config = copy(Configuration)
-config['numEnemies'] = 5
+config['numEnemies'] = 3
 config['enemyToughness'] = 300 # mostly consider tweaking this for boothill
 config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns from toughness break
 
@@ -192,6 +193,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # visualizationList.append(LunaeHanabiTingyunLuocha(config))
 # visualizationList.append(MarchTopazRobinAventurine(config))
+# visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
 
 # low dps teams
@@ -215,9 +217,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # visualizationList.append(AcheronE2S1BronyaJiaoqiuGallagher(config))
 # visualizationList.append(AcheronE2S1HanabiJiaoqiuGallagher(config))
-# visualizationList.append(AcheronE2S1HanabiPelaGallagher(config))
 # visualizationList.append(AcheronE2S1BronyaKafkaGallagher(config))
 # visualizationList.append(AcheronE2S1BronyaPelaGallagher(config))
+# visualizationList.append(AcheronE2S1HanabiPelaGallagher(config))
 # # visualizationList.append(AcheronE2S1BronyaPelaLuocha(config))
 # # visualizationList.append(AcheronE2S1KafkaBlackSwanGallagher(config))
 # visualizationList.append(AcheronE2S1HanabiPelaFuxuan(config))
@@ -288,6 +290,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(ClaraE3S1TingyunHanabiFuxuan(config))
 
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+# visualizationList.append(ClaraTingyunRobinHuohuo(config))
 # visualizationList.append(ClaraTingyunHanabiHuohuo(config))
 # visualizationList.append(ClaraTingyunHanabiAventurine(config))
 # visualizationList.append(ClaraTingyunHanabiLuocha(config))
@@ -416,10 +419,11 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(YunliTingyunHanabiLynx(config))
 # visualizationList.append(YunliTingyunHanabiHuohuo(config))
 # visualizationList.append(YunliTingyunRobinHuohuo(config))
-# visualizationList.append(YunliS1TopazRobinHuohuo(config))
-# visualizationList.append(YunliS1MarchRobinHuohuo(config))
 # visualizationList.append(YunliS1TingyunRobinHuohuo(config))
 # visualizationList.append(YunliS1TingyunHanabiHuohuo(config))
+
+# visualizationList.append(YunliS1TopazRobinHuohuo(config))
+# visualizationList.append(YunliS1MarchRobinHuohuo(config))
 
 #%% Visualization
 # Visualize
