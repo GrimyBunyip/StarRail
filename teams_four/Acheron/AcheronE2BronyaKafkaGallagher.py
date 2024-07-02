@@ -21,17 +21,16 @@ from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronE2BronyaKafkaGallagher(config):
+def AcheronE2BronyaKafkaGallagher(config, acheronSuperposition:int=0):
     #%% Acheron Bronya Kafka Gallagher Characters
-    originalFivestarEidolons = config['fivestarEidolons']
-    config['fivestarEidolons'] = 2
+    acheronLightCone = AlongThePassingShore(**config) if acheronSuperposition >= 1 else GoodNightAndSleepWell(**config)
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
-                            substats = {'CR': 8, 'CD': 6, 'ATK.percent': 3, 'SPD.flat': 11}),
-                            lightcone = GoodNightAndSleepWell(**config),
-                            relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
-                            planarset = IzumoGenseiAndTakamaDivineRealm(),
-                            **config)
-    config['fivestarEidolons'] = originalFivestarEidolons
+                        substats = {'CR': 8, 'CD': 6, 'ATK.percent': 3, 'SPD.flat': 11}),
+                        lightcone = acheronLightCone,
+                        relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
+                        planarset = IzumoGenseiAndTakamaDivineRealm(),
+                        eidolon=2,
+                        **config)
     
     BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'HP.percent', 'CD', 'ER'],
                         substats = {'CD': 12, 'SPD.flat': 8, 'HP.percent': 5, 'DEF.percent': 3}),
@@ -40,16 +39,16 @@ def AcheronE2BronyaKafkaGallagher(config):
                         **config)
     
     KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
-                            substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
-                            lightcone = PatienceIsAllYouNeed(**config),
-                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(stacks=2), planarset = FirmamentFrontlineGlamoth(stacks=2),
-                            **config)
+                        substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
+                        lightcone = PatienceIsAllYouNeed(**config),
+                        relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(stacks=2), planarset = FirmamentFrontlineGlamoth(stacks=2),
+                        **config)
 
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
-                            substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
-                            lightcone = Multiplication(**config),
-                            relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
-                            **config)
+                        substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
+                        lightcone = Multiplication(**config),
+                        relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
+                        **config)
     
     team = [AcheronCharacter, BronyaCharacter, KafkaCharacter, GallagherCharacter]
 
@@ -80,7 +79,8 @@ def AcheronE2BronyaKafkaGallagher(config):
     numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
     numStacks *= 0.5 # halve the stacks from outside of Acheron because of Bronya
     numStacks /= BronyaCharacter.getTotalStat('SPD')
-    numStacks += 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2
+    numStacks += 1 + 1
+    numStacks += 1 if AcheronCharacter.lightcone.name == 'Along the Passing Shore' else 0
     
     numSkillAcheron = 9.0 / numStacks
     print(f"{numStacks * AcheronCharacter.getTotalStat('SPD'):.2f} stack rate")

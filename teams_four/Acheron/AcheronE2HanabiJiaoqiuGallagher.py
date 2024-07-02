@@ -18,7 +18,7 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronE2S1HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuEidolon:int=None):
+def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuEidolon:int=None):
     #%% Acheron Hanabi Jiaoqiu Gallagher Characters
     acheronLightCone = AlongThePassingShore(**config) if acheronSuperposition >= 1 else GoodNightAndSleepWell(**config)
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
@@ -83,8 +83,9 @@ def AcheronE2S1HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqi
     jiaoqiuUltChance = min(1.0, jiaoqiuUltChance)
     numStacks += jiaoqiuUltChance * JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
     numStacks /= HanabiCharacter.getTotalStat('SPD')
-    numStacks += 1 + 1 + 1 # Assume Acheron generates 1 stack when she skills, plus 1 from E2, plus 1 from S1 
-    
+    numStacks += 1 + 1
+    numStacks += 1 if AcheronCharacter.lightcone.name == 'Along the Passing Shore' else 0
+        
     numSkillAcheron = 9.0 / numStacks
     print(f"{numStacks * AcheronCharacter.getTotalStat('SPD'):.2f} stack rate")
 
