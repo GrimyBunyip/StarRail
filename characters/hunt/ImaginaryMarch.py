@@ -13,11 +13,11 @@ class ImaginaryMarch(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                e1Uptime:float=1.0,
+                e6Uptime:float=1.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Imaginary March 7th')
-        self.e1Uptime = e1Uptime
+        self.e6Uptime = e6Uptime
         self.master=master
         
         skillMV = 0.0
@@ -26,7 +26,7 @@ class ImaginaryMarch(BaseCharacter):
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0 + skillMV, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=1.0 + skillMV, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=0.8 + skillMV, eidolonThreshold=3, eidolonBonus=0.08)]
         self.motionValueDict['followup'] = [BaseMV(area='single', stat='atk', value=0.6 + skillMV)]
 
         self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.192)]
@@ -36,17 +36,19 @@ class ImaginaryMarch(BaseCharacter):
         self.addStat('DMG',description='March 7th Talent',
                      amount=0.88 if self.eidolon >= 5 else 0.8,
                      type=['enhancedBasic'])
-        self.addStat('SPD.percent',description='March 7th Talent',amount=0.1)
         
         # Eidolons
         if self.eidolon >= 1:
-            self.addStat('CD',description='March 7th E1',
-                         amount=0.36,
-                         uptime=self.e1Uptime,
-                         type=['enhancedBasic'])
+            self.addStat('SPD.percent',description='March 7th E1',amount=0.1)
             
         if self.eidolon >= 4:
             self.addStat('BonusEnergyAttack',description='March 7th E4',amount=5.0,type=['basic','skill','enhancedBasic'])
+            
+        if self.eidolon >= 6:
+            self.addStat('CD',description='March 7th E6',
+                         amount=0.50,
+                         uptime=self.e6Uptime,
+                         type=['enhancedBasic'])
         
         # Gear
         self.equipGear()
@@ -55,9 +57,8 @@ class ImaginaryMarch(BaseCharacter):
         target.addStat('SPD.percent',description='March 7th Skill Buff',amount=0.1)
         
     def applyE6Buff(self,target:BaseCharacter,uptime:float=1.0):
-        if self.eidolon >= 6:
-            target.addStat('CD',description='March 7th e6 buff',amount=0.6,uptime=uptime)
-            target.addStat('BreakEffect',description='March 7th e6 buff',amount=0.36,uptime=uptime)
+        target.addStat('CD',description='March 7th Talent Buff',amount=0.6,uptime=uptime)
+        target.addStat('BreakEffect',description='March 7th Talent buff',amount=0.36,uptime=uptime)
         
     def useBasic(self):
         skillGauge = 1.0
