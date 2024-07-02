@@ -103,7 +103,6 @@ from teams_four.Jingyuan.JingyuanTingyunHanyaFuxuan import JingyuanTingyunHanyaF
 from teams_four.Jingyuan.JingyuanTingyunTopazLuocha import JingyuanTingyunTopazLuocha
 from teams_four.DotTeams.KafkaGuinaifenAstaLuocha import KafkaGuinaifenAstaLuocha
 from teams_four.DotTeams.KafkaGuinaifenBlackSwanLuocha import KafkaGuinaifenBlackSwanLuocha
-from teams_four.DotTeams.KafkaS1GuinaifenBlackSwanLuocha import KafkaS1GuinaifenBlackSwanLuocha
 from teams_four.DotTeams.KafkaGuinaifenRuanMeiLuochaPatience import KafkaGuinaifenRuanMeiLuochaPatience
 from teams_four.DotTeams.KafkaHanyaBlackSwanLuochaPatience import KafkaHanyaBlackSwanLuochaPatience
 from teams_four.DotTeams.KafkaPelaBlackSwanLuochaPatience import KafkaPelaBlackSwanLuochaPatience
@@ -354,7 +353,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
 # # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
-visualizationList.append(KafkaS1GuinaifenBlackSwanLuocha(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config, kafkaPatience=True))
 visualizationList.append(KafkaS1RuanMeiBlackSwanLuocha(config))
 visualizationList.append(KafkaS1RobinBlackSwanGallagher(config))
 # visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,kafkaPatience=True,jiaoqiuEidolon=2))

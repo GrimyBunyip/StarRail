@@ -8,6 +8,7 @@ from estimator.DefaultEstimator import DefaultEstimator, DotEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.nihility.EyesOfThePrey import EyesOfThePrey
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
+from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
@@ -17,9 +18,16 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 
-def KafkaGuinaifenBlackSwanLuocha(config):
+def KafkaGuinaifenBlackSwanLuocha(config, kafkaPatience:bool=False):
     #%% Kafka Guinaifen BlackSwan Luocha
-    KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
+    if kafkaPatience:
+        KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
+                            substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
+                            lightcone = PatienceIsAllYouNeed(**config),
+                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=2),
+                            **config)
+    else:
+        KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'BreakEffect': 5, 'ATK.flat': 3}),
                             lightcone = GoodNightAndSleepWell(**config),
                             relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(), planarset = FirmamentFrontlineGlamoth(stacks=1),
@@ -79,7 +87,8 @@ def KafkaGuinaifenBlackSwanLuocha(config):
     #%% Kafka Guinaifen BlackSwan Luocha Rotations
     # Napkin Math for stacks applied
     
-    numDots = 3
+    numDots = 3 
+    numDots += 1 if kafkaPatience else 0
     adjacentStackRate = 2 * (BlackSwanCharacter.numEnemies - 1) / BlackSwanCharacter.numEnemies
     dotStackRate = numDots * KafkaCharacter.numEnemies
     
