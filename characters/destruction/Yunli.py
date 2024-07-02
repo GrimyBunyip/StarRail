@@ -24,12 +24,12 @@ class Yunli(BaseCharacter):
         self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12),
                                          BaseMV(area='adjacent', stat='atk', value=0.6, eidolonThreshold=3, eidolonBonus=0.06),]
         
-        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.192),
-                                            BaseMV(area='adjacent', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.096),]
+        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=2.0, eidolonThreshold=5, eidolonBonus=0.16),
+                                            BaseMV(area='adjacent', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.08),]
         
-        self.motionValueDict['enhancedUltimate'] = [BaseMV(area='single', stat='atk', value=2.4, eidolonThreshold=5, eidolonBonus=0.192),
-                                                    BaseMV(area='adjacent', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.096),
-                                                    BaseMV(area='single', stat='atk', value=6*0.8, eidolonThreshold=5, eidolonBonus=6*0.064),]
+        self.motionValueDict['enhancedUltimate'] = [BaseMV(area='single', stat='atk', value=2.0, eidolonThreshold=5, eidolonBonus=0.16),
+                                                    BaseMV(area='adjacent', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.08),
+                                                    BaseMV(area='single', stat='atk', value=6*0.6, eidolonThreshold=5, eidolonBonus=6*0.048),]
         
         self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.12),
                                          BaseMV(area='adjacent', stat='atk', value=0.6, eidolonThreshold=5, eidolonBonus=0.06),]     
