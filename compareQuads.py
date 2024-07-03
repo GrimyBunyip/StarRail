@@ -44,11 +44,8 @@ from teams_four.Clara.ClaraTingyunRuanMeiLuocha import ClaraTingyunRuanMeiLuocha
 from teams_four.Clara.ClaraTingyunTopazLuocha import ClaraTingyunTopazLuocha
 from teams_four.Clara.ClaraTopazAstaLuocha import ClaraTopazAstaLuocha
 from teams_four.Clara.ClaraTopazHanyaLuocha import ClaraTopazHanyaLuocha
-from teams_four.DotTeams.KafkaE1S1RuanMeiE1BlackSwanE1Luocha import KafkaE1S1RuanMeiE1BlackSwanE1Luocha
-from teams_four.DotTeams.KafkaGuinaifenJiaoqiuE2Luocha import KafkaGuinaifenJiaoqiuE2Luocha
 from teams_four.DotTeams.KafkaJiaoqiuBlackSwanLuocha import KafkaJiaoqiuBlackSwanLuocha
 from teams_four.DotTeams.KafkaS1RobinBlackSwanGallagher import KafkaS1RobinBlackSwanGallagher
-from teams_four.DotTeams.KafkaRobinBlackSwanHuohuoPatience import KafkaRobinBlackSwanHuohuoPatience
 from teams_four.Firefly.FireflyBronyaRuanMeiGallagher import FireflyBronyaRuanMeiGallagher
 from teams_four.Firefly.FireflyE2S1TraiblazerRuanMeiGallagher import FireflyE2S1TrailblazerRuanMeiGallagher
 from teams_four.Firefly.FireflyE2TraiblazerRuanMeiGallagher import FireflyE2TrailblazerRuanMeiGallagher
@@ -70,17 +67,10 @@ from teams_four.Jingyuan.JingyuanTingyunHanabiFuxuan import JingyuanTingyunHanab
 from teams_four.Jingyuan.JingyuanTingyunHanabiLuocha import JingyuanTingyunHanabiLuocha
 from teams_four.Jingyuan.JingyuanTingyunHanyaFuxuan import JingyuanTingyunHanyaFuxuan
 from teams_four.Jingyuan.JingyuanTingyunTopazLuocha import JingyuanTingyunTopazLuocha
-from teams_four.DotTeams.KafkaGuinaifenAstaLuocha import KafkaGuinaifenAstaLuocha
 from teams_four.DotTeams.KafkaGuinaifenBlackSwanLuocha import KafkaGuinaifenBlackSwanLuocha
-from teams_four.DotTeams.KafkaGuinaifenRuanMeiLuochaPatience import KafkaGuinaifenRuanMeiLuochaPatience
-from teams_four.DotTeams.KafkaHanyaBlackSwanLuochaPatience import KafkaHanyaBlackSwanLuochaPatience
-from teams_four.DotTeams.KafkaPelaBlackSwanLuochaPatience import KafkaPelaBlackSwanLuochaPatience
 from teams_four.DotTeams.KafkaS1RuanMeiBlackSwanLuocha import KafkaS1RuanMeiBlackSwanLuocha
-from teams_four.DotTeams.KafkaGuinaifenHanyaLuocha import KafkaGuinaifenHanyaLuocha
 from teams_four.DotTeams.KafkaGuinaifenLukaLuocha import KafkaGuinaifenLukaLuocha
-from teams_four.DotTeams.KafkaGuinaifenRuanMeiLuocha import KafkaGuinaifenRuanMeiLuocha
 from teams_four.DotTeams.KafkaGuinaifenSampoLuocha import KafkaGuinaifenSampoLuocha
-from teams_four.DotTeams.KafkaSampoRuanMeiLuocha import KafkaSampoRuanMeiLuocha
 from teams_four.Lunae.LunaeE2HanabiTingyunLuocha import LunaeE2HanabiTingyunLuocha
 from teams_four.Lunae.LunaeHanabiTingyunLuocha import LunaeHanabiTingyunLuocha
 from teams_four.Lunae.LunaeHanyaPelaLuocha import LunaeHanyaPelaLuocha
@@ -111,8 +101,6 @@ from teams_four.Topaz.RatioTopazRuanMeiLuocha import DrRatioTopazRuanMeiLuocha
 from teams_four.Topaz.RatioTopazS1RobinAventurine import DrRatioTopazS1RobinAventurine
 from teams_four.Topaz.RatioTopazS1RobinFuxuan import DrRatioTopazS1RobinFuxuan
 from teams_four.Topaz.RatioTopazSilverWolfLuocha import DrRatioTopazSilverWolfLuocha
-from teams_four.DotTeams.RuanMeiGuinaifenBlackSwanLuocha import RuanMeiGuinaifenBlackSwanLuocha
-from teams_four.DotTeams.SampoGuinaifenBlackSwanLuocha import SampoGuinaifenBlackSwanLuocha
 from teams_four.Seele.SeeleMaxSilverWolfBronyaLuocha import SeeleMaxSilverWolfBronyaLuocha
 from teams_four.Seele.SeeleMaxSilverWolfHanabiFuxuan import SeeleMaxSilverWolfHanabiFuxuan
 from teams_four.Seele.SeeleMaxSilverWolfRuanMeiFuxuan import SeeleMaxSilverWolfRuanMeiFuxuan
@@ -279,28 +267,20 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Kafka Teams
 # # config['enemySpeed'] = 190 / 1.125
 # # config['numEnemies'] = 2
+# # E0 S0 Teams
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-# # visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
+# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config))
 # # visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-# # visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
-# # visualizationList.append(KafkaSampoRuanMeiLuocha(config))
 # # visualizationList.append(KafkaGuinaifenLukaLuocha(config))
-# # visualizationList.append(KafkaGuinaifenHanyaLuocha(config))
-# # visualizationList.append(RuanMeiGuinaifenBlackSwanLuocha(config))
 
+# # S1 Teams
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config, kafkaSuperposition=True))
 # visualizationList.append(KafkaS1RuanMeiBlackSwanLuocha(config))
 # visualizationList.append(KafkaS1RobinBlackSwanGallagher(config))
 # visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,kafkaSuperposition=True,jiaoqiuEidolon=2))
-# visualizationList.append(KafkaRobinBlackSwanHuohuoPatience(config))
-# # visualizationList.append(KafkaPelaBlackSwanLuochaPatience(config))
-# # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
-# # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
 
-# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config))
+# # E1+ teams
 # visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,jiaoqiuEidolon=2))
-# visualizationList.append(KafkaGuinaifenJiaoqiuE2Luocha(config))
-# # visualizationList.append(KafkaE1S1RuanMeiE1BlackSwanE1Luocha(config))
 
 # # Qingque Teams
 # visualizationList.append(QingqueHanabiPelaFuxuan(config))

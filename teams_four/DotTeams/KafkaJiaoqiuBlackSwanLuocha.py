@@ -80,6 +80,7 @@ def KafkaJiaoqiuBlackSwanLuocha(config, kafkaSuperposition:int=0, jiaoqiuEidolon
     # Napkin Math for stacks applied
     
     numDots = 3
+    numDots += 1 if kafkaSuperposition >= 1 else 0
     adjacentStackRate = 2 * (BlackSwanCharacter.numEnemies - 1) / BlackSwanCharacter.numEnemies
     dotStackRate = numDots * KafkaCharacter.numEnemies
     
