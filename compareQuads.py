@@ -6,6 +6,7 @@ from teams_four.Acheron.AcheronE2BronyaPelaGallagher import AcheronE2BronyaPelaG
 from teams_four.Acheron.AcheronE2HanabiJiaoqiuGallagher import AcheronE2HanabiJiaoqiuGallagher
 from teams_four.Acheron.AcheronE2HanabiKafkaGallagher import AcheronE2HanabiKafkaGallagher
 from teams_four.Acheron.AcheronE2HanabiPelaGallagher import AcheronE2HanabiPelaGallagher
+from teams_four.Acheron.AcheronGuinaifenPelaGallagher import AcheronGuinaifenPelaGallagher
 from teams_four.Acheron.AcheronKafkaBlackSwanGallagher import AcheronKafkaBlackSwanGallagher
 from teams_four.Acheron.AcheronPelaJiaoqiuGallagher import AcheronPelaJiaoqiuGallagher
 from teams_four.Argenti.ArgentiBronyaPelaHuohuo import ArgentiBronyaPelaHuohuo
@@ -170,7 +171,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # # Acheron Teams
 
-# # high investment teams
+# # E2 Teams
 # visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
 # visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
 
@@ -187,8 +188,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(AcheronKafkaBlackSwanGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronHanabiKafkaGallagher(config, acheronSuperposition=1))
 
-# # E0 Comparisons
+# # E0 teams
 # visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
+# visualizationList.append(AcheronGuinaifenPelaGallagher(config))
 
 # # Argenti Teams
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
