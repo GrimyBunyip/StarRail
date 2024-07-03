@@ -27,7 +27,7 @@ class Jiaoqiu(BaseCharacter):
         self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.5, eidolonThreshold=3, eidolonBonus=0.15),
                                         BaseMV(area='adjacent', stat='atk', value=0.9, eidolonThreshold=3, eidolonBonus=0.09),]
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.08)]
-        self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=1.8 + 3.0 if self.eidolon >= 2 else 0.0, eidolonThreshold=5, eidolonBonus=0.18)] # check this
+        self.motionValueDict['dot'] = [BaseMV(area='single', stat='atk', value=4.8 if self.eidolon >= 2 else 1.8, eidolonThreshold=5, eidolonBonus=0.18)] # check this
         
         # Talents
         hearthKindle = min(2.4, 0.6*int((self.ehr-0.8)/0.15))

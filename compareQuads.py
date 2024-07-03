@@ -177,7 +177,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-# visualizationList.append(YunliTingyunHanabiLynx(config))
+# visualizationList.append(YunliTingyunRobinHuohuo(config))
 
 # # Team Comparisons
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
@@ -189,7 +189,6 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
 
 # low dps teams
-# visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
 # visualizationList.append(QingqueHanabiPelaFuxuan(config))
 # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
@@ -338,7 +337,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Kafka Teams
 # # config['enemySpeed'] = 190 / 1.125
 # # config['numEnemies'] = 2
-visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # # visualizationList.append(SampoGuinaifenBlackSwanLuocha(config))
 # # visualizationList.append(KafkaGuinaifenSampoLuocha(config))
 # # visualizationList.append(KafkaGuinaifenRuanMeiLuocha(config))
@@ -356,8 +355,8 @@ visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # # visualizationList.append(KafkaHanyaBlackSwanLuochaPatience(config))
 # # visualizationList.append(KafkaGuinaifenRuanMeiLuochaPatience(config))
 
-visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config))
-visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,jiaoqiuEidolon=2))
+# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config))
+# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,jiaoqiuEidolon=2))
 # visualizationList.append(KafkaGuinaifenJiaoqiuE2Luocha(config))
 # # visualizationList.append(KafkaE1S1RuanMeiE1BlackSwanE1Luocha(config))
 
