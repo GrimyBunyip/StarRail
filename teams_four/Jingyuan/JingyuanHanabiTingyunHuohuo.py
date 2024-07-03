@@ -120,10 +120,10 @@ def JingYuanHanabiTingyunHuohuo(config):
             TingyunCharacter.useUltimate(),
     ]
 
-    numHuohuoBasic = 3.0
-    numHuohuoSkill = 1.0
-    HuohuoRotation = [HuohuoCharacter.useBasic() * numHuohuoBasic,
-                    HuohuoCharacter.useSkill() * numHuohuoSkill,
+    numBasicHuohuo = 3.0
+    numSkillHuohuo = 1.0
+    HuohuoRotation = [HuohuoCharacter.useBasic() * numBasicHuohuo,
+                    HuohuoCharacter.useSkill() * numSkillHuohuo,
                     HuohuoCharacter.useUltimate(),]
 
     #%% JingYuan Hanabi Tingyun Huohuo Rotation Math
@@ -185,7 +185,7 @@ def JingYuanHanabiTingyunHuohuo(config):
                                     TingyunRotation, TingyunCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)
-    HuohuoEstimate = DefaultEstimator(f'Huohuo: {numHuohuoBasic:.0f}N {numHuohuoSkill:.0f}E 1Q, S{HuohuoCharacter.lightcone.superposition:.0f} {HuohuoCharacter.lightcone.name}',
+    HuohuoEstimate = DefaultEstimator(f'Huohuo: {numBasicHuohuo:.0f}N {numSkillHuohuo:.0f}E 1Q, S{HuohuoCharacter.lightcone.superposition:.0f} {HuohuoCharacter.lightcone.name}',
                                     HuohuoRotation, HuohuoCharacter, config)
 
     return([JingYuanEstimate, TingyunEstimate, HanabiEstimate, HuohuoEstimate])

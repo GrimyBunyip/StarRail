@@ -84,6 +84,7 @@ from teams_four.Qingque.QingqueHanabiPelaFuxuan import QingqueHanabiPelaFuxuan
 from teams_four.Qingque.QingqueHanabiSilverWolfLuocha import QingqueHanabiSilverWolfLuocha
 from teams_four.Qingque.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.Qingque.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
+from teams_four.Seele.SilverWolfMarchRobinHuohuo import SilverWolfMarchRobinHuohuo
 from teams_four.Topaz.MarchTopazRobinAventurine import MarchTopazRobinAventurine
 from teams_four.Topaz.RatioBronyaSilverWolfLuocha import DrRatioBronyaSilverWolfLuocha
 from teams_four.Topaz.RatioHanabiSilverWolfLuocha import DrRatioHanabiSilverWolfLuocha
@@ -299,7 +300,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(DrRatioTopazS1RobinFuxuan(config))
 # visualizationList.append(DrRatioTopazE1RobinFuxuan(config))
 
-# visualizationList.append(MarchTopazRobinAventurine(config))
+visualizationList.append(MarchTopazRobinAventurine(config))
+visualizationList.append(SilverWolfMarchRobinHuohuo(config, silverwolfEidolon=1))
+visualizationList.append(SilverWolfMarchRobinHuohuo(config, silverwolfEidolon=6))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(DrRatioTopazRobinFuxuan(config))
 # visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))

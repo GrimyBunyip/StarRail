@@ -32,7 +32,8 @@ class Lynx(BaseCharacter):
                             uptime=min(1.0,uptime))
         character.addStat('Taunt.percent',description='Lynx Skill Taunt Boost',amount=5.0,uptime=min(1.0,2.0*uptime))
         if self.eidolon >= 4:
-            character.addStat('ATK.flat',description='Lynx E6',amount=self.getTotalStat('HP') * 0.03,uptime=min(1.0,uptime))
+            atkBuff = self.getTotalStat('HP') * 0.03
+            character.addStat('ATK.flat',description='Lynx E6',amount=atkBuff,uptime=min(1.0,uptime))
         if self.eidolon >= 6:
             character.addStat('HP.flat',description='Lynx E6',amount=self.getTotalStat('HP') * 0.06,uptime=min(1.0,uptime))
         

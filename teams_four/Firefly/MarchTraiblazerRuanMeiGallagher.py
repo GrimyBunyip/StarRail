@@ -74,7 +74,7 @@ def MarchTrailblazerRuanMeiGallagher(config):
     
     # March Buff
     MarchCharacter.applySkillBuff(TrailblazerCharacter)
-    MarchCharacter.applyE6Buff(TrailblazerCharacter,uptime=1.0)
+    MarchCharacter.applyTalentBuff(TrailblazerCharacter,uptime=1.0)
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)

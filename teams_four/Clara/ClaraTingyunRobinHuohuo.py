@@ -128,12 +128,12 @@ def ClaraTingyunRobinHuohuo(config):
                     RobinCharacter.useUltimate() * 1,]
     RobinCharacter.applyUltBuff([RobinCharacter],uptime=1.0) # apply robin buff after we calculate damage for her basics
 
-    numHuohuoBasic = 3.0
-    numHuohuoSkill = 1.0
-    HuohuoRotation = [HuohuoCharacter.useBasic() * numHuohuoBasic,
-                    HuohuoCharacter.useSkill() * numHuohuoSkill,
+    numBasicHuohuo = 3.0
+    numSkillHuohuo = 1.0
+    HuohuoRotation = [HuohuoCharacter.useBasic() * numBasicHuohuo,
+                    HuohuoCharacter.useSkill() * numSkillHuohuo,
                     HuohuoCharacter.useUltimate(),
-                    RobinCharacter.useAdvanceForward() * (numHuohuoBasic + numHuohuoSkill) / 4.0]
+                    RobinCharacter.useAdvanceForward() * (numBasicHuohuo + numSkillHuohuo) / 4.0]
     
     RobinRotationHuohuo = [RobinCharacter.useTalent() * (3.0)]
     RobinRotationHuohuo += [RobinCharacter.useConcertoDamage(['basic']) * 3.0 * RobinUltUptime]
@@ -198,7 +198,7 @@ def ClaraTingyunRobinHuohuo(config):
                                     TingyunRotation, TingyunCharacter, config)
     RobinEstimate = DefaultEstimator(f'Robin {numSkillRobin:.1f}E {numBasicRobin:.1f}N S{RobinCharacter.lightcone.superposition:.0f} {RobinCharacter.lightcone.name}, 12 Spd Substats', 
                                     RobinRotation, RobinCharacter, config)
-    HuohuoEstimate = DefaultEstimator(f'Huohuo: {numHuohuoBasic:.0f}N {numHuohuoSkill:.0f}E 1Q, S{HuohuoCharacter.lightcone.superposition:.0f} {HuohuoCharacter.lightcone.name}',
+    HuohuoEstimate = DefaultEstimator(f'Huohuo: {numBasicHuohuo:.0f}N {numSkillHuohuo:.0f}E 1Q, S{HuohuoCharacter.lightcone.superposition:.0f} {HuohuoCharacter.lightcone.name}',
                                     HuohuoRotation, HuohuoCharacter, config)
 
     return([ClaraEstimate, TingyunEstimate, RobinEstimate, HuohuoEstimate])

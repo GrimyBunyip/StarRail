@@ -105,10 +105,10 @@ def ArgentiBronyaPelaHuohuo(config):
     PelaRotation = [PelaCharacter.useBasic() * numBasicPela,
                     PelaCharacter.useUltimate(),]
 
-    numHuohuoBasic = 3.0
-    numHuohuoSkill = 1.0
-    HuohuoRotation = [HuohuoCharacter.useBasic() * numHuohuoBasic,
-                    HuohuoCharacter.useSkill() * numHuohuoSkill,
+    numBasicHuohuo = 3.0
+    numSkillHuohuo = 1.0
+    HuohuoRotation = [HuohuoCharacter.useBasic() * numBasicHuohuo,
+                    HuohuoCharacter.useSkill() * numSkillHuohuo,
                     HuohuoCharacter.useUltimate(),]
 
     #%% Argenti Bronya Pela Huohuo Rotation Math
@@ -141,7 +141,7 @@ def ArgentiBronyaPelaHuohuo(config):
                                     BronyaRotation, BronyaCharacter, config)
     PelaEstimate = DefaultEstimator(f'Pela: {numBasicPela:.0f}N 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)
-    HuohuoEstimate = DefaultEstimator(f'Huohuo: {numHuohuoBasic:.0f}N {numHuohuoSkill:.0f}E 1Q, S{HuohuoCharacter.lightcone.superposition:.0f} {HuohuoCharacter.lightcone.name}',
+    HuohuoEstimate = DefaultEstimator(f'Huohuo: {numBasicHuohuo:.0f}N {numSkillHuohuo:.0f}E 1Q, S{HuohuoCharacter.lightcone.superposition:.0f} {HuohuoCharacter.lightcone.name}',
                                     HuohuoRotation, HuohuoCharacter, config)
     
     return([ArgentiEstimate, BronyaEstimate, PelaEstimate, HuohuoEstimate])

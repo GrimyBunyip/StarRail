@@ -14,9 +14,11 @@ class SilverWolf(BaseCharacter):
                 planarset:RelicSet=None,
                 talentSpdUptime:float=1.0,
                 numDebuffs:float=5.0,
+                eidolon:int=None,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Silver Wolf')
+        self.eidolon = eidolon if eidolon is not None else self.eidolon
         self.talentSpdUptime = talentSpdUptime
         self.numDebuffs = numDebuffs
         

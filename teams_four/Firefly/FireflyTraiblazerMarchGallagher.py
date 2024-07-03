@@ -65,7 +65,7 @@ def FireflyTrailblazerMarchGallagher(config):
     
     # March Buff
     MarchCharacter.applySkillBuff(FireflyCharacter)
-    MarchCharacter.applyE6Buff(FireflyCharacter,uptime=MarchCharacter.getTotalStat('SPD') / (FireflyCharacter.getTotalStat('SPD') + 60.0))
+    MarchCharacter.applyTalentBuff(FireflyCharacter,uptime=MarchCharacter.getTotalStat('SPD') / (FireflyCharacter.getTotalStat('SPD') + 60.0))
 
     #%% Print Statements
     for character in team:

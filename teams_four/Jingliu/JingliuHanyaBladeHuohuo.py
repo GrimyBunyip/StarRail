@@ -108,10 +108,10 @@ def JingliuHanyaBladeHuohuo(config):
     numTalentBlade = (numBasicBlade / 4.0 + (1 + jingliuDrainRate) * numBasicBlade + numUltBlade + numHitsTaken) / 5.0 # skill, basics, ult, hits taken
     BladeRotation.append(BladeCharacter.useTalent() * numTalentBlade)
 
-    numHuohuoBasic = 3.0
-    numHuohuoSkill = 1.0
-    HuohuoRotation = [HuohuoCharacter.useBasic() * numHuohuoBasic,
-                    HuohuoCharacter.useSkill() * numHuohuoSkill,
+    numBasicHuohuo = 3.0
+    numSkillHuohuo = 1.0
+    HuohuoRotation = [HuohuoCharacter.useBasic() * numBasicHuohuo,
+                    HuohuoCharacter.useSkill() * numSkillHuohuo,
                     HuohuoCharacter.useUltimate(),]
 
     #%% Jingliu Hanya Blade Huohuo Rotation Math

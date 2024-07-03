@@ -56,7 +56,7 @@ class ImaginaryMarch(BaseCharacter):
     def applySkillBuff(self,target:BaseCharacter):
         target.addStat('SPD.percent',description='March 7th Skill Buff',amount=0.1)
         
-    def applyE6Buff(self,target:BaseCharacter,uptime:float=1.0):
+    def applyTalentBuff(self,target:BaseCharacter,uptime:float=1.0):
         target.addStat('CD',description='March 7th Talent Buff',amount=0.6,uptime=uptime)
         target.addStat('BreakEffect',description='March 7th Talent buff',amount=0.36,uptime=uptime)
         

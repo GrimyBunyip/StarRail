@@ -67,7 +67,7 @@ def JingliuBronyaMarchLuocha(config):
 
     # March Buff
     MarchCharacter.applySkillBuff(JingliuCharacter)
-    MarchCharacter.applyE6Buff(JingliuCharacter,uptime=0.5)
+    MarchCharacter.applyTalentBuff(JingliuCharacter,uptime=0.5)
         
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
