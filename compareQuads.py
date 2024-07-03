@@ -3,19 +3,11 @@ from settings.BaseConfiguration import Configuration
 from teams_four.Acheron.AcheronE2BronyaJiaoqiuGallagher import AcheronE2BronyaJiaoqiuGallagher
 from teams_four.Acheron.AcheronE2BronyaKafkaGallagher import AcheronE2BronyaKafkaGallagher
 from teams_four.Acheron.AcheronE2BronyaPelaGallagher import AcheronE2BronyaPelaGallagher
-from teams_four.Acheron.AcheronE2RuanMeiPelaFuxuan import AcheronE2RuanMeiPelaFuxuan
 from teams_four.Acheron.AcheronE2HanabiJiaoqiuGallagher import AcheronE2HanabiJiaoqiuGallagher
-from teams_four.Acheron.AcheronE2S1HanabiKafkaGallagher import AcheronE2S1HanabiKafkaGallagher
-from teams_four.Acheron.AcheronE2S1HanabiPelaGallagher import AcheronE2S1HanabiPelaGallagher
-from teams_four.Acheron.AcheronE2S1KafkaBlackSwanGallagher import AcheronE2S1KafkaBlackSwanGallagher
-from teams_four.Acheron.AcheronGuinaifenJiaoqiuGallagher import AcheronGuinaifenJiaoqiuGallagher
-from teams_four.Acheron.AcheronGuinaifenPelaGallagher import AcheronGuinaifenPelaGallagher
-from teams_four.Acheron.AcheronGuinaifenPelaGepard import AcheronGuinaifenPelaGepard
+from teams_four.Acheron.AcheronE2HanabiKafkaGallagher import AcheronE2HanabiKafkaGallagher
+from teams_four.Acheron.AcheronE2HanabiPelaGallagher import AcheronE2HanabiPelaGallagher
 from teams_four.Acheron.AcheronKafkaBlackSwanGallagher import AcheronKafkaBlackSwanGallagher
-from teams_four.Acheron.AcheronKafkaPelaGallagher import AcheronKafkaPelaGallagher
 from teams_four.Acheron.AcheronPelaJiaoqiuGallagher import AcheronPelaJiaoqiuGallagher
-from teams_four.Acheron.AcheronSilverWolfPelaAventurine import AcheronSilverWolfPelaAventurine
-from teams_four.Acheron.AcheronSilverWolfPelaGallagher import AcheronSilverWolfPelaGallagher
 from teams_four.Argenti.ArgentiBronyaPelaHuohuo import ArgentiBronyaPelaHuohuo
 from teams_four.Argenti.ArgentiHanabiTingyunHuohuo import ArgentiHanabiTingyunHuohuo
 from teams_four.Argenti.ArgentiHanyaRuanMeiHuohuo import ArgentiHanyaRuanMeiHuohuo
@@ -178,8 +170,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # # Acheron Teams
 
-# E2S1 Comparisons
-
+# # high investment teams
 # visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
 # visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
 
@@ -188,28 +179,16 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
+
 # visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
-# visualizationList.append(AcheronE2S1HanabiPelaGallagher(config))
-# # visualizationList.append(AcheronE2S1KafkaBlackSwanGallagher(config))
-# visualizationList.append(AcheronE2S1HanabiKafkaGallagher(config))
+# visualizationList.append(AcheronE2BronyaPelaGallagher(config, acheronSuperposition=1))
+# visualizationList.append(AcheronE2HanabiPelaGallagher(config, acheronSuperposition=1))
 
-# # E2 Comparisons
-# visualizationList.append(AcheronE2BronyaKafkaGallagher(config))
-# visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config))
-# # visualizationList.append(AcheronE2BronyaPelaGallagher(config))
-# # visualizationList.append(AcheronE2RuanMeiPelaFuxuan(config))
-
-# # E0 S1 on Allies Comparisons
-# visualizationList.append(AcheronKafkaPelaGallagher(config))
-# visualizationList.append(AcheronKafkaBlackSwanGallagher(config))
-# # visualizationList.append(AcheronSilverWolfPelaAventurine(config))
+# visualizationList.append(AcheronKafkaBlackSwanGallagher(config, acheronSuperposition=1))
+# visualizationList.append(AcheronHanabiKafkaGallagher(config, acheronSuperposition=1))
 
 # # E0 Comparisons
 # visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
-# visualizationList.append(AcheronGuinaifenJiaoqiuGallagher(config))
-# visualizationList.append(AcheronGuinaifenPelaGallagher(config))
-# visualizationList.append(AcheronSilverWolfPelaGallagher(config))
-# visualizationList.append(AcheronGuinaifenPelaGepard(config))
 
 # # Argenti Teams
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))

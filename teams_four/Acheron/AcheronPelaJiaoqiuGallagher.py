@@ -22,7 +22,7 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronPelaJiaoqiuGallagher(config, acheronSuperposition:int=0):
+def AcheronPelaJiaoqiuGallagher(config, acheronEidolon:int=None, acheronSuperposition:int=0):
     #%% Acheron Silver Wolf Jiaoqiu Gallagher Characters
     acheronLightCone = AlongThePassingShore(superposition=acheronSuperposition,**config) if acheronSuperposition >= 1 else GoodNightAndSleepWell(**config)
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
@@ -30,6 +30,7 @@ def AcheronPelaJiaoqiuGallagher(config, acheronSuperposition:int=0):
                             lightcone = acheronLightCone,
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
+                            eidolon = acheronEidolon,
                             **config)
 
     PelaCharacter = Pela(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'EHR', 'ER'],
@@ -92,6 +93,7 @@ def AcheronPelaJiaoqiuGallagher(config, acheronSuperposition:int=0):
     numStacks += jiaoqiuUltChance * JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
     numStacks /= AcheronCharacter.getTotalStat('SPD')
     numStacks += 1 # Assume Acheron generates 1 stack when she skills
+    numStacks += 1 if acheronEidolon >= 2 else 0
     numStacks += 1 if AcheronCharacter.lightcone.name == 'Along the Passing Shore' else 0
     
     numSkillAcheron = 9.0 / numStacks

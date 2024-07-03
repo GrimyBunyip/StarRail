@@ -18,14 +18,15 @@ from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronKafkaBlackSwanGallagher(config, acheronSuperposition:int=0):
+def AcheronKafkaBlackSwanGallagher(config, acheronEidolon:int=None, acheronSuperposition:int=0):
     #%% Acheron Kafka BlackSwan Gallagher Characters
     acheronLightCone = AlongThePassingShore(superposition=acheronSuperposition,**config) if acheronSuperposition >= 1 else GoodNightAndSleepWell(**config)
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
-                            substats = {'CR': 10, 'CD': 10, 'ATK.percent': 5, 'SPD.flat': 3}),
+                            substats = {'CR': 8, 'CD': 6, 'ATK.percent': 3, 'SPD.flat': 11}),
                             lightcone = acheronLightCone,
-                            relicsetone = Prisoner2pc(), relicsettwo = Prisoner4pc(),
+                            relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
+                            eidolon = acheronEidolon,
                             **config)
     
     KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
@@ -69,11 +70,12 @@ def AcheronKafkaBlackSwanGallagher(config, acheronSuperposition:int=0):
     
     #
     percent_basics = 0.5
-    numStacks = 2.0 * KafkaCharacter.getTotalStat('SPD') # 2 stacks per kafka turn
+    numStacks = 2 * KafkaCharacter.getTotalStat('SPD') # 2 stacks per kafka turn
     numStacks +=  (6/5) * BlackSwanCharacter.getTotalStat('SPD') # 6 BlackSwan attacks per 5 turn rotation
     numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
     numStacks /= AcheronCharacter.getTotalStat('SPD')
-    numStacks += 1.0 * percent_basics # Assume Acheron generates 1 stack when she skills
+    numStacks += 1.0 * percent_basics # Assume Acheron generates 1 stacks when she basics and 2 when she skills
+    numStacks += 1 if acheronEidolon >= 2 else 0
     numStacks += 1 if AcheronCharacter.lightcone.name == 'Along the Passing Shore' else 0
     
     numSkillAcheron = 9.0 / numStacks
