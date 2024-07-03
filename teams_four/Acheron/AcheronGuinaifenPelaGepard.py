@@ -5,6 +5,7 @@ from characters.nihility.Acheron import Acheron
 from characters.nihility.Pela import Pela
 from characters.nihility.Guinaifen import Guinaifen
 from estimator.DefaultEstimator import DefaultEstimator, DotEstimator
+from lightCones.nihility.AlongThePassingShore import AlongThePassingShore
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
@@ -20,11 +21,12 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronGuinaifenPelaGepard(config):
+def AcheronGuinaifenPelaGepard(config, acheronSuperposition:int=0):
     #%% Acheron Silver Wolf Pela Gepard Characters
+    acheronLightCone = AlongThePassingShore(superposition=acheronSuperposition,**config) if acheronSuperposition >= 1 else GoodNightAndSleepWell(**config)
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                             substats = {'CR': 8, 'CD': 12, 'ATK.percent': 5, 'SPD.flat': 3}),
-                            lightcone = GoodNightAndSleepWell(**config),
+                            lightcone = acheronLightCone,
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
                             **config)
@@ -84,6 +86,7 @@ def AcheronGuinaifenPelaGepard(config):
         numStacks += enemyChanceToHitGepard * GepardCharacter.numEnemies * GepardCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
     numStacks /= AcheronCharacter.getTotalStat('SPD')
     numStacks += 1 # Assume Acheron generates 1 stack when she skills
+    numStacks += 1 if AcheronCharacter.lightcone.name == 'Along the Passing Shore' else 0
     
     numSkillAcheron = 9.0 / numStacks
     print(f"{numStacks * AcheronCharacter.getTotalStat('SPD'):.2f} stack rate")

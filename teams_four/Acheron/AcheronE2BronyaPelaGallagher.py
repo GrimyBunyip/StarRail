@@ -18,17 +18,15 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronE2BronyaPelaGallagher(config):
+def AcheronE2BronyaPelaGallagher(config, acheronSuperposition:int=0):
     #%% Acheron Bronya Pela Gallagher Characters
-    originalFivestarEidolons = config['fivestarEidolons']
-    config['fivestarEidolons'] = 2
+    acheronLightCone = AlongThePassingShore(superposition=acheronSuperposition,**config) if acheronSuperposition >= 1 else GoodNightAndSleepWell(**config)
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                             substats = {'CR': 8, 'CD': 6, 'ATK.percent': 3, 'SPD.flat': 11}),
-                            lightcone = GoodNightAndSleepWell(**config),
+                            lightcone = acheronLightCone,
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
                             **config)
-    config['fivestarEidolons'] = originalFivestarEidolons
     
     BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'HP.percent', 'CD', 'ER'],
                         substats = {'CD': 12, 'SPD.flat': 8, 'HP.percent': 5, 'DEF.percent': 3}),

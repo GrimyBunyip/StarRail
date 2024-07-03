@@ -6,6 +6,7 @@ from characters.nihility.Pela import Pela
 from characters.nihility.SilverWolf import SilverWolf
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
+from lightCones.nihility.AlongThePassingShore import AlongThePassingShore
 from lightCones.nihility.BeforeTheTutorialMissionStarts import BeforeTheTutorialMissionStarts
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
@@ -17,11 +18,12 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def AcheronSilverWolfPelaGallagher(config):
+def AcheronSilverWolfPelaGallagher(config, acheronSuperposition:int=0):
     #%% Acheron Silver Wolf Pela Gallagher Characters
+    acheronLightCone = AlongThePassingShore(superposition=acheronSuperposition,**config) if acheronSuperposition >= 1 else GoodNightAndSleepWell(**config)
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                             substats = {'CR': 10, 'CD': 10, 'ATK.percent': 5, 'SPD.flat': 3}),
-                            lightcone = GoodNightAndSleepWell(**config),
+                            lightcone = acheronLightCone,
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
                             **config)
@@ -80,6 +82,7 @@ def AcheronSilverWolfPelaGallagher(config):
     numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
     numStacks /= AcheronCharacter.getTotalStat('SPD')
     numStacks += 1 # Assume Acheron generates 1 stack when she skills
+    numStacks += 1 if AcheronCharacter.lightcone.name == 'Along the Passing Shore' else 0
     
     numSkillAcheron = 9.0 / numStacks
 
