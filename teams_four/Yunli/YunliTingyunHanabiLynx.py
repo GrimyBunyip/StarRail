@@ -77,7 +77,7 @@ def YunliTingyunHanabiLynx(config):
     TingyunCharacter.applyUltBuff(YunliCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/YunliCharacter.getTotalStat('SPD'))
 
     # Lynx Buffs    
-    LynxBuffUptime = LynxCharacter.getTotalStat('SPD') / YunliCharacter.getTotalStat('SPD') / 3.0
+    LynxBuffUptime = LynxCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD') / 3.0
     LynxCharacter.applySkillBuff(YunliCharacter,uptime=LynxBuffUptime)
 
     #%% Print Statements
@@ -91,7 +91,12 @@ def YunliTingyunHanabiLynx(config):
     numUltYunli = 2.0
     
     numEnemyAttacks = YunliCharacter.enemySpeed * YunliCharacter.numEnemies * numSkillYunli / (HanabiCharacter.getTotalStat('SPD') / 0.92 ) # enemy attacks now scale to hanabi speed, account for S5 dance dance in denominator
-    numTalentYunli = (numEnemyAttacks - numUltYunli) * (5*6) / (5*6 + 4 + 4 + 4)
+    numTalentYunli = (numEnemyAttacks - numUltYunli) 
+    numTalentYunli *= YunliCharacter.getTotalStat('Taunt')
+    numTalentYunli /= (YunliCharacter.getTotalStat('Taunt') + 
+                       TingyunCharacter.getTotalStat('Taunt') + 
+                       HanabiCharacter.getTotalStat('Taunt') + 
+                       LynxCharacter.getTotalStat('Taunt'))
 
     YunliRotation = [
             YunliCharacter.useSkill() * numSkillYunli,

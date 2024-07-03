@@ -30,8 +30,9 @@ class Lynx(BaseCharacter):
         character.addStat('HP.flat',description='Lynx E6',
                             amount=(self.getTotalStat('HP') * 0.08 + 223) if self.eidolon >= 3 else (self.getTotalStat('HP') * 0.075 + 200),
                             uptime=min(1.0,uptime))
+        character.addStat('Taunt.percent',description='Lynx Skill Taunt Boost',amount=5.0,uptime=min(1.0,2.0*uptime))
         if self.eidolon >= 4:
-            character.addStat('ATK.flat',description='Lynx E6',amount=self.getTotalStat('HP') * 0.03,uptime=uptime/3.0)
+            character.addStat('ATK.flat',description='Lynx E6',amount=self.getTotalStat('HP') * 0.03,uptime=min(1.0,uptime))
         if self.eidolon >= 6:
             character.addStat('HP.flat',description='Lynx E6',amount=self.getTotalStat('HP') * 0.06,uptime=min(1.0,uptime))
         

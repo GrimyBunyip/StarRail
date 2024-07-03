@@ -75,7 +75,7 @@ def AcheronKafkaBlackSwanGallagher(config, acheronEidolon:int=None, acheronSuper
     numStacks += 1.25 * (2/4) * GallagherCharacter.getTotalStat('SPD') # 1.25 from multiplication, 2 debuffs per 4 turn rotation
     numStacks /= AcheronCharacter.getTotalStat('SPD')
     numStacks += 1.0 * percent_basics # Assume Acheron generates 1 stacks when she basics and 2 when she skills
-    numStacks += 1 if acheronEidolon >= 2 else 0
+    numStacks += 1 if acheronEidolon is not None and acheronEidolon >= 2 else 0
     numStacks += 1 if AcheronCharacter.lightcone.name == 'Along the Passing Shore' else 0
     
     numSkillAcheron = 9.0 / numStacks

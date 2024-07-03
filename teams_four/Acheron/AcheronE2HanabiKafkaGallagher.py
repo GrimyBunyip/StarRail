@@ -30,6 +30,7 @@ def AcheronE2HanabiKafkaGallagher(config, acheronSuperposition:int=0):
                             lightcone = acheronLightCone,
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
+                            eidolon = 2,
                             **config)
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],

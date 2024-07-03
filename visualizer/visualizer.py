@@ -126,7 +126,7 @@ def visualize(visInfoList:list, visualizerPath:str='visualizer\\visual.png',  **
 
         ax.text(x = LEFT_OFFSET,
                 y = bar.get_y() + bar.get_height() / 2,
-                s = leadChar.longName + 
+                s = leadChar.longName() + 
                     '\nSpd: ' + str(round(speed, 2)) + '    EHR: ' + str(round(effectHitRate, 2)) + 
                     '\nRotation Cycles: ' + str(round(cycles, 2)) + '\n' + 
                     ('' if leadChar.relicsettwo is None else leadChar.relicsettwo.shortname) + 

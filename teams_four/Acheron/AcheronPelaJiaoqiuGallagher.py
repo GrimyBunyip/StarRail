@@ -93,7 +93,7 @@ def AcheronPelaJiaoqiuGallagher(config, acheronEidolon:int=None, acheronSuperpos
     numStacks += jiaoqiuUltChance * JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
     numStacks /= AcheronCharacter.getTotalStat('SPD')
     numStacks += 1 # Assume Acheron generates 1 stack when she skills
-    numStacks += 1 if acheronEidolon >= 2 else 0
+    numStacks += 1 if acheronEidolon is not None and acheronEidolon >= 2 else 0
     numStacks += 1 if AcheronCharacter.lightcone.name == 'Along the Passing Shore' else 0
     
     numSkillAcheron = 9.0 / numStacks

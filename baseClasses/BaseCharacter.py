@@ -89,8 +89,9 @@ class BaseCharacter(object):
                 
         self.initialEnergy = self.maxEnergy * 0.5
         self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
-        
-        self.longName = f'{self.name} E{self.eidolon} {self.lightcone.name} S{self.lightcone.superposition} {self.lightcone.nameAffix}'
+
+    def longName(self):
+        return f'{self.name} E{self.eidolon} {self.lightcone.name} S{self.lightcone.superposition} {self.lightcone.nameAffix}'
 
     def parseName(self, name:str, type:list=None, mathType:str='base'):
         splitname = name.split('.')

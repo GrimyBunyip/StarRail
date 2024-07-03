@@ -22,6 +22,7 @@ class DanceAtSunset(BaseLightCone):
                                     uptime=self.uptime,
                                     stacks=self.stacks,
                                     type=['followup'])
+            char.addStat('Taunt.percent',description=self.name,amount=5.0)
         
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

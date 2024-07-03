@@ -26,6 +26,7 @@ def AcheronE2BronyaPelaGallagher(config, acheronSuperposition:int=0):
                             lightcone = acheronLightCone,
                             relicsetone = Pioneer2pc(), relicsettwo = Pioneer4pc(),
                             planarset = IzumoGenseiAndTakamaDivineRealm(),
+                            eidolon=2,
                             **config)
     
     BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'HP.percent', 'CD', 'ER'],

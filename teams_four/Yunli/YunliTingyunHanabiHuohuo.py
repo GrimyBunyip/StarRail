@@ -8,6 +8,7 @@ from characters.harmony.Hanabi import Hanabi
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.PostOpConversation import PostOpConversation
 from lightCones.abundance.QuidProQuo import QuidProQuo
+from lightCones.destruction.DanceAtSunset import DanceAtSunset
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
@@ -21,11 +22,12 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, WindSoaringValorous4pc
 
-def YunliTingyunHanabiHuohuo(config):
+def YunliTingyunHanabiHuohuo(config, yunliSuperposition:int=0):
     #%% Yunli Tingyun Hanabi Huohuo Characters
+    yunliLightCone = DanceAtSunset(superposition=yunliSuperposition, **config) if yunliSuperposition >= 1 else OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config)
     YunliCharacter = Yunli(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
                             substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'BreakEffect': 3}),
-                            lightcone = OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config),
+                            lightcone = yunliLightCone,
                             relicsetone = WindSoaringValorous2pc(),
                             relicsettwo = WindSoaringValorous4pc(),
                             planarset = InertSalsotto(),
@@ -89,7 +91,12 @@ def YunliTingyunHanabiHuohuo(config):
     numUltYunli = 2.0
     
     numEnemyAttacks = YunliCharacter.enemySpeed * YunliCharacter.numEnemies * numSkillYunli / (HanabiCharacter.getTotalStat('SPD') / 0.92 ) # enemy attacks now scale to hanabi speed, account for S5 dance dance in denominator
-    numTalentYunli = (numEnemyAttacks - numUltYunli) * (5*1) / (5*1 + 4 + 4 + 4)
+    numTalentYunli = (numEnemyAttacks - numUltYunli) 
+    numTalentYunli *= YunliCharacter.getTotalStat('Taunt')
+    numTalentYunli /= (YunliCharacter.getTotalStat('Taunt') + 
+                       TingyunCharacter.getTotalStat('Taunt') + 
+                       HanabiCharacter.getTotalStat('Taunt') + 
+                       HuohuoCharacter.getTotalStat('Taunt'))
 
     YunliRotation = [
             YunliCharacter.useSkill() * numSkillYunli,

@@ -27,11 +27,12 @@ from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingClou
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
 from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, WindSoaringValorous4pc
 
-def YunliTingyunRobinHuohuo(config):
+def YunliTingyunRobinHuohuo(config, yunliSuperposition:int=0):
     #%% Yunli Tingyun Robin Huohuo Characters
+    yunliLightCone = DanceAtSunset(superposition=yunliSuperposition, **config) if yunliSuperposition >= 1 else OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config)
     YunliCharacter = Yunli(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
                             substats = {'CD': 10, 'CR': 10, 'ATK.percent': 4, 'SPD.flat': 4}),
-                            lightcone = OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config),
+                            lightcone = yunliLightCone,
                             relicsetone = WindSoaringValorous2pc(),
                             relicsettwo = WindSoaringValorous4pc(),
                             planarset = InertSalsotto(),
@@ -92,7 +93,12 @@ def YunliTingyunRobinHuohuo(config):
     numUltYunli = 2.0
     
     numEnemyAttacks = YunliCharacter.enemySpeed * YunliCharacter.numEnemies * numSkillYunli / (RobinCharacter.getTotalStat('SPD') / 0.92 ) # enemy attacks now scale to Robin speed, account for S5 dance dance in denominator
-    numTalentYunli = (numEnemyAttacks - numUltYunli) * (5*1) / (5*1 + 4 + 4 + 4)
+    numTalentYunli = (numEnemyAttacks - numUltYunli) 
+    numTalentYunli *= YunliCharacter.getTotalStat('Taunt')
+    numTalentYunli /= (YunliCharacter.getTotalStat('Taunt') + 
+                       TingyunCharacter.getTotalStat('Taunt') + 
+                       RobinCharacter.getTotalStat('Taunt') + 
+                       HuohuoCharacter.getTotalStat('Taunt'))
 
     YunliRotation = [
             YunliCharacter.useSkill() * numSkillYunli,

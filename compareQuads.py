@@ -117,10 +117,6 @@ from teams_four.Xueyi.XueyiHanyaPelaFuxuan import XueyiHanyaPelaFuxuan
 from teams_four.Yanqing.YanqingTingyunHanabiAventurine import YanqingTingyunHanabiAventurine
 from teams_four.Yanqing.YanqingTingyunHanabiGepard import YanqingTingyunHanabiGepard
 from teams_four.Yanqing.YanqingTingyunRuanMeiGepard import YanqingTingyunRuanMeiGepard
-from teams_four.Yunli.YunliS1MarchRobinHuohuo import YunliS1MarchRobinHuohuo
-from teams_four.Yunli.YunliS1TingyunHanabiHuohuo import YunliS1TingyunHanabiHuohuo
-from teams_four.Yunli.YunliS1TingyunRobinHuohuo import YunliS1TingyunRobinHuohuo
-from teams_four.Yunli.YunliS1TopazRobinHuohuo import YunliS1TopazRobinHuohuo
 from teams_four.Yunli.YunliTingyunHanabiHuohuo import YunliTingyunHanabiHuohuo
 from teams_four.Yunli.YunliTingyunHanabiLynx import YunliTingyunHanabiLynx
 from teams_four.Yunli.YunliTingyunRobinHuohuo import YunliTingyunRobinHuohuo
@@ -170,11 +166,11 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
 
 # visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
-# visualizationList.append(AcheronE2BronyaPelaGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2HanabiPelaGallagher(config, acheronSuperposition=1))
 
-# visualizationList.append(AcheronKafkaBlackSwanGallagher(config, acheronSuperposition=1))
-# visualizationList.append(AcheronHanabiKafkaGallagher(config, acheronSuperposition=1))
+# visualizationList.append(AcheronE2HanabiKafkaGallagher(config, acheronSuperposition=1))
+# visualizationList.append(AcheronE2BronyaPelaGallagher(config, acheronSuperposition=1)) 
+# visualizationList.append(AcheronKafkaBlackSwanGallagher(config))
 
 # # E0 teams
 # visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
@@ -333,11 +329,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(YunliTingyunHanabiLynx(config))
 # visualizationList.append(YunliTingyunHanabiHuohuo(config))
 # visualizationList.append(YunliTingyunRobinHuohuo(config))
-# visualizationList.append(YunliS1TingyunRobinHuohuo(config))
-# visualizationList.append(YunliS1TingyunHanabiHuohuo(config))
 
-# visualizationList.append(YunliS1TopazRobinHuohuo(config))
-# visualizationList.append(YunliS1MarchRobinHuohuo(config))
+# visualizationList.append(YunliTingyunRobinHuohuo(config, yunliSuperposition=1))
+# visualizationList.append(YunliTingyunHanabiHuohuo(config, yunliSuperposition=1))
 
 #%% Visualization
 # Visualize
