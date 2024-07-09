@@ -1,3 +1,4 @@
+from baseClasses import BaseLightCone
 from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Luocha import Luocha
@@ -19,7 +20,7 @@ from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, Longevou
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 
-def BladeBronyaJadeLuocha(config):
+def BladeBronyaJadeLuocha(config, jadeCone:BaseLightCone = None):
     #%% Blade Bronya Jade Luocha Characters
     
     BladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CR', 'DMG.wind'],
@@ -36,7 +37,7 @@ def BladeBronyaJadeLuocha(config):
 
     JadeCharacter = Jade(RelicStats(mainstats = ['CR', 'DMG.quantum', 'ATK.percent', 'ATK.percent'],
                         substats = {'CR': 12, 'CD': 8, 'ATK.percent': 5, 'SPD.flat': 3}),
-                        lightcone = TheSeriousnessOfBreakfast(**config),
+                        lightcone = TheSeriousnessOfBreakfast(**config) if jadeCone == None else jadeCone,
                         relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=6.5,stacks=8.0,uptime=1.0), planarset = DuranDynastyOfRunningWolves(),
                         **config)
     
