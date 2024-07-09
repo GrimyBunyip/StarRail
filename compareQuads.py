@@ -235,7 +235,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Jingliu Teams
 # visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 # # visualizationList.append(JingliuBronyaHanabiLuocha(config))
-# # visualizationList.append(JingliuBronyaTingyunLuocha(config))
+# visualizationList.append(JingliuBronyaTingyunLuocha(config))
 # visualizationList.append(JingliuBronyaMarchLuocha(config))
 # visualizationList.append(JingliuBronyaPelaLuocha(config))
 # # visualizationList.append(JingliuRuanMeiBladeLuocha(config))
@@ -274,9 +274,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config, kafkaSuperposition=True))
 # visualizationList.append(KafkaS1RuanMeiBlackSwanLuocha(config))
 # visualizationList.append(KafkaS1RobinBlackSwanGallagher(config))
-# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,kafkaSuperposition=True,jiaoqiuEidolon=2))
 
-# # E1+ teams
+# # E2 Jiaoqiu Teams
+# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,kafkaSuperposition=True,jiaoqiuEidolon=2))
 # visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,jiaoqiuEidolon=2))
 
 # # Qingque Teams
@@ -300,9 +300,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(DrRatioTopazS1RobinFuxuan(config))
 # visualizationList.append(DrRatioTopazE1RobinFuxuan(config))
 
-visualizationList.append(MarchTopazRobinAventurine(config))
-visualizationList.append(SilverWolfMarchRobinHuohuo(config, silverwolfEidolon=1))
-visualizationList.append(SilverWolfMarchRobinHuohuo(config, silverwolfEidolon=6))
+# visualizationList.append(MarchTopazRobinAventurine(config))
+# visualizationList.append(SilverWolfMarchRobinHuohuo(config, silverwolfEidolon=1))
+# visualizationList.append(SilverWolfMarchRobinHuohuo(config, silverwolfEidolon=6))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(DrRatioTopazRobinFuxuan(config))
 # visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))

@@ -34,7 +34,6 @@ class Jiaoqiu(BaseCharacter):
         self.addStat('ATK.percent',description='Jiaoqiu EHR to ATK talent',amount=hearthKindle)
         
         # Eidolons        
-        # E1: When an ally attacks an enemy target afflicted with Roast the Ash, increases DMG dealt by 48%. Each time the Talent triggers Roast the Ash, additionally increases the present Roast the Ash stacks by 1.
         # E2: The Ashen Roast state can be seen as a Burn state. Each stack of Ashen Roast will deal Fire DoT equal to 300% of Jiaoqiu's ATK at the start of the enemy's turn.
         # E4: When the Field exists, reduces enemy target's ATK by 15%.
         # E6: When the enemy target is defeated, existing Roast the Ash stacks will be transferred to a surviving enemy with the lowest amount of Roast the Ash stacks. Increases max Roast the Ash stacks to 9. Every stack of Roast the Ash will reduce all enemies' All-Type RES by 3%.
@@ -52,7 +51,7 @@ class Jiaoqiu(BaseCharacter):
                      )
             if self.eidolon >= 1:
                 character.addStat('DMG', description='Jiaoqiu E1',
-                                  amount=0.48)
+                                  amount=0.40)
         
     def applyUltDebuff(self,team:list,uptime:float=1.0):
         for character in team:
