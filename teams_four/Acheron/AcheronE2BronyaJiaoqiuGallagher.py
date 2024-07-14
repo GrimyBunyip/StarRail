@@ -90,7 +90,10 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     jiaoqiuUltChance = 1.0 * 0.6 * (0.62 if JiaoqiuCharacter.eidolon >= 5 else 0.60)
     jiaoqiuUltChance *= 1.0 + JiaoqiuCharacter.getTotalStat('EHR')
     jiaoqiuUltChance = min(1.0, jiaoqiuUltChance)
-    numStacks += jiaoqiuUltUptime * jiaoqiuUltChance * JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
+    enemyActionRate = JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed
+    jiaoqiuUltRate = 6.0 * JiaoqiuCharacter.getTotalStat('SPD') * jiaoqiuUltUptime / 3.0
+    jiaoqiuStackRate = min(jiaoqiuUltRate, enemyActionRate)
+    numStacks += jiaoqiuUltUptime * jiaoqiuUltChance * jiaoqiuStackRate # stacks from trend, assume each enemy does a single target per turn
     numStacks *= 0.5 # halve the stacks from outside of Acheron because of Bronya
     numStacks /= BronyaCharacter.getTotalStat('SPD')
     numStacks += 1 + 1

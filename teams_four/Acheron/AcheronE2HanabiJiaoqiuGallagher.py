@@ -142,7 +142,7 @@ def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     GallagherRotation = [x * AcheronRotationDuration / GallagherRotationDuration for x in GallagherRotation]
 
     AcheronEstimate = DefaultEstimator(f'Acheron E{AcheronCharacter.eidolon:d} S{AcheronCharacter.lightcone.superposition:d} {AcheronCharacter.lightcone.shortname}: {numSkillAcheron:.1f}E 1Q', AcheronRotation, AcheronCharacter, config)
-    JiaoqiuEstimate = DefaultEstimator(f'Jiaoqiu: {numSkillJiaoqiu:.0f}E {numBasicJiaoqiu:.0f}N {numSkillJiaoqiu:.0f}E 1Q {JiaoqiuCharacter.talentStacks:.0f} Roasts, S{JiaoqiuCharacter.lightcone.superposition:d} {JiaoqiuCharacter.lightcone.name}', 
+    JiaoqiuEstimate = DefaultEstimator(f'Jiaoqiu E{numSkillJiaoqiu:.0f}: {numBasicJiaoqiu:.0f}N {numSkillJiaoqiu:.0f}E 1Q {JiaoqiuCharacter.talentStacks:.0f} Roasts, S{JiaoqiuCharacter.lightcone.superposition:d} {JiaoqiuCharacter.lightcone.name}', 
                                     JiaoqiuRotation, JiaoqiuCharacter, config, numDot=numDotJiaoqiu)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)

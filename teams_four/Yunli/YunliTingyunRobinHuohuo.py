@@ -27,7 +27,7 @@ from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingClou
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
 from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, WindSoaringValorous4pc
 
-def YunliTingyunRobinHuohuo(config, yunliSuperposition:int=0):
+def YunliTingyunRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int=0):
     #%% Yunli Tingyun Robin Huohuo Characters
     yunliLightCone = DanceAtSunset(superposition=yunliSuperposition, **config) if yunliSuperposition >= 1 else OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config)
     YunliCharacter = Yunli(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
@@ -36,6 +36,7 @@ def YunliTingyunRobinHuohuo(config, yunliSuperposition:int=0):
                             relicsetone = WindSoaringValorous2pc(),
                             relicsettwo = WindSoaringValorous4pc(),
                             planarset = InertSalsotto(),
+                            eidolon = yunliEidolon,
                             **config)
 
     TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],

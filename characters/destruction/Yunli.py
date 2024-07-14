@@ -13,10 +13,12 @@ class Yunli(BaseCharacter):
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
                 sunderUptime:float=1.0,
+                eidolon:int=None,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Yunli')
         self.sunderUptime = sunderUptime
+        self.eidolon = eidolon if eidolon is not None else self.eidolon
 
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
@@ -24,12 +26,13 @@ class Yunli(BaseCharacter):
         self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12),
                                          BaseMV(area='adjacent', stat='atk', value=0.6, eidolonThreshold=3, eidolonBonus=0.06),]
         
-        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=2.0, eidolonThreshold=5, eidolonBonus=0.16),
-                                            BaseMV(area='adjacent', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.08),]
+        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=2.2, eidolonThreshold=5, eidolonBonus=0.176),
+                                            BaseMV(area='adjacent', stat='atk', value=1.1, eidolonThreshold=5, eidolonBonus=0.088),]
         
-        self.motionValueDict['enhancedUltimate'] = [BaseMV(area='single', stat='atk', value=2.0, eidolonThreshold=5, eidolonBonus=0.16),
-                                                    BaseMV(area='adjacent', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.08),
-                                                    BaseMV(area='single', stat='atk', value=6*0.6, eidolonThreshold=5, eidolonBonus=6*0.048),]
+        numCull = 9 if self.eidolon >= 1 else 6
+        self.motionValueDict['enhancedUltimate'] = [BaseMV(area='single', stat='atk', value=2.2, eidolonThreshold=5, eidolonBonus=0.176),
+                                                    BaseMV(area='adjacent', stat='atk', value=1.1, eidolonThreshold=5, eidolonBonus=0.088),
+                                                    BaseMV(area='single', stat='atk', value=numCull*0.72, eidolonThreshold=5, eidolonBonus=numCull*0.0576),]
         
         self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=5, eidolonBonus=0.12),
                                          BaseMV(area='adjacent', stat='atk', value=0.6, eidolonThreshold=5, eidolonBonus=0.06),]     
@@ -44,6 +47,8 @@ class Yunli(BaseCharacter):
         self.addStat('BonusEnergyAttack',description='Yunli Counter Energy',amount=15.0,type=['followup'])
         
         # Eidolons
+        if self.eidolon >= 2:
+            self.addStat('DefShred', description='Yunli E2', amount=0.2, type=['followup'])
 
         # Gear
         self.equipGear()

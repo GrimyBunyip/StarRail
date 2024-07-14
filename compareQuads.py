@@ -329,11 +329,13 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
 
 # # Yunli Team
-# visualizationList.append(YunliTingyunHanabiLynx(config))
+visualizationList.append(YunliTingyunHanabiLynx(config))
 # visualizationList.append(YunliTingyunHanabiHuohuo(config))
-# visualizationList.append(YunliTingyunRobinHuohuo(config))
+visualizationList.append(YunliTingyunRobinHuohuo(config))
 
-# visualizationList.append(YunliTingyunRobinHuohuo(config, yunliSuperposition=1))
+visualizationList.append(YunliTingyunRobinHuohuo(config, yunliSuperposition=1))
+visualizationList.append(YunliTingyunRobinHuohuo(config, yunliEidolon=1, yunliSuperposition=1))
+visualizationList.append(YunliTingyunRobinHuohuo(config, yunliEidolon=2, yunliSuperposition=1))
 # visualizationList.append(YunliTingyunHanabiHuohuo(config, yunliSuperposition=1))
 
 #%% Visualization

@@ -90,7 +90,10 @@ def AcheronPelaJiaoqiuGallagher(config, acheronEidolon:int=None, acheronSuperpos
     jiaoqiuUltChance = 1.0 * 0.6 * (0.62 if JiaoqiuCharacter.eidolon >= 5 else 0.60)
     jiaoqiuUltChance *= 1.0 + JiaoqiuCharacter.getTotalStat('EHR')
     jiaoqiuUltChance = min(1.0, jiaoqiuUltChance)
-    numStacks += jiaoqiuUltChance * JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
+    enemyActionRate = JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed
+    jiaoqiuUltRate = 6.0 * JiaoqiuCharacter.getTotalStat('SPD') / 3.0
+    jiaoqiuStackRate = min(jiaoqiuUltRate, enemyActionRate)
+    numStacks += jiaoqiuUltChance * jiaoqiuStackRate # stacks from trend, assume each enemy does a single target per turn
     numStacks /= AcheronCharacter.getTotalStat('SPD')
     numStacks += 1 # Assume Acheron generates 1 stack when she skills
     numStacks += 1 if acheronEidolon is not None and acheronEidolon >= 2 else 0
