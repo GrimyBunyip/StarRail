@@ -20,7 +20,7 @@ class Acheron(BaseCharacter):
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Acheron')
-        self.eidolon = eidolon if eidolon is not None else self.eidolon
+        self.eidolon = self.eidolon if eidolon is None else eidolon
         self.num_other_nihility = num_other_nihility
         self.thunder_core_uptime = thunder_core_uptime
         self.thunder_core_stacks = thunder_core_stacks

@@ -85,6 +85,7 @@ from teams_four.Qingque.QingqueHanabiSilverWolfLuocha import QingqueHanabiSilver
 from teams_four.Qingque.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.Qingque.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
 from teams_four.Seele.SilverWolfMarchRobinHuohuo import SilverWolfMarchRobinHuohuo
+from teams_four.Topaz.MarchTopazE2RobinGallagher import MarchTopazE2RobinGallagher
 from teams_four.Topaz.MarchTopazRobinAventurine import MarchTopazRobinAventurine
 from teams_four.Topaz.RatioBronyaSilverWolfLuocha import DrRatioBronyaSilverWolfLuocha
 from teams_four.Topaz.RatioHanabiSilverWolfLuocha import DrRatioHanabiSilverWolfLuocha
@@ -300,7 +301,8 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(DrRatioTopazS1RobinFuxuan(config))
 # visualizationList.append(DrRatioTopazE1RobinFuxuan(config))
 
-# visualizationList.append(MarchTopazRobinAventurine(config))
+visualizationList.append(MarchTopazE2RobinGallagher(config))
+visualizationList.append(MarchTopazRobinAventurine(config))
 # visualizationList.append(SilverWolfMarchRobinHuohuo(config, silverwolfEidolon=1))
 # visualizationList.append(SilverWolfMarchRobinHuohuo(config, silverwolfEidolon=6))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
@@ -329,13 +331,13 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
 
 # # Yunli Team
-visualizationList.append(YunliTingyunHanabiLynx(config))
+# visualizationList.append(YunliTingyunHanabiLynx(config))
 # visualizationList.append(YunliTingyunHanabiHuohuo(config))
-visualizationList.append(YunliTingyunRobinHuohuo(config))
+# visualizationList.append(YunliTingyunRobinHuohuo(config))
 
-visualizationList.append(YunliTingyunRobinHuohuo(config, yunliSuperposition=1))
-visualizationList.append(YunliTingyunRobinHuohuo(config, yunliEidolon=1, yunliSuperposition=1))
-visualizationList.append(YunliTingyunRobinHuohuo(config, yunliEidolon=2, yunliSuperposition=1))
+# visualizationList.append(YunliTingyunRobinHuohuo(config, yunliSuperposition=1))
+# visualizationList.append(YunliTingyunRobinHuohuo(config, yunliEidolon=1, yunliSuperposition=1))
+# visualizationList.append(YunliTingyunRobinHuohuo(config, yunliEidolon=2, yunliSuperposition=1))
 # visualizationList.append(YunliTingyunHanabiHuohuo(config, yunliSuperposition=1))
 
 #%% Visualization

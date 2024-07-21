@@ -20,8 +20,8 @@ from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
 
 def DrRatioTopazRobinAventurine(config):
     #%% DrRatio Topaz Robin Aventurine Characters
-    DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
-                                    substats = {'CD': 5, 'CR': 8, 'ATK.percent': 3, 'SPD.flat': 12}),
+    DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'ATK.percent'],
+                                    substats = {'CD': 7, 'CR': 8, 'ATK.percent': 3, 'SPD.flat': 12}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = Pioneer2pc(),
                                     relicsettwo = Pioneer4pc(stacks=2),

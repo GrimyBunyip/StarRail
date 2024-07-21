@@ -18,7 +18,7 @@ class Yunli(BaseCharacter):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Yunli')
         self.sunderUptime = sunderUptime
-        self.eidolon = eidolon if eidolon is not None else self.eidolon
+        self.eidolon = self.eidolon if eidolon is None else eidolon
 
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]

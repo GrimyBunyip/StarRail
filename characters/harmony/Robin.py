@@ -12,16 +12,17 @@ class Robin(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
+                eidolon:int=None,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Robin')
+        self.eidolon = self.eidolon if eidolon is None else eidolon
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
         self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.096)]
 
         # Talents
-        self.addStat('BonusEnergyAttack', description='talent', amount=5, type=['skill'])
 
         # Eidolons
         
@@ -63,13 +64,23 @@ class Robin(BaseCharacter):
         amount += 230 if self.eidolon >= 3 else 200
         for character in team:
             character.addStat('ATK.flat',description='Robin Ultimate Buff',
-                                    amount=amount,
-                                    uptime=uptime)
+                                amount=amount,
+                                uptime=uptime)
+            
+            if self.eidolon >= 1:
+                character.addStat('ResPen',description='Robin E1',
+                                amount=0.24,
+                                uptime=uptime)
+                
+            if self.eidolon >= 2:
+                character.addStat('SPD.percent', description='Robin E2',
+                                amount=0.16,
+                                uptime=uptime)
 
     def useSkill(self):
         retval = BaseEffect()
         type = ['skill']
-        retval.energy = ( 30.0 + self.getBonusEnergyTurn(type) ) * self.getER(type)
+        retval.energy = ( 35.0 + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
@@ -95,6 +106,7 @@ class Robin(BaseCharacter):
         retval = BaseEffect()
         type = ['talent']
         retval.energy = 3.0 if self.eidolon >= 2 else 2.0
+        retval.energy *= self.getER(type)
         self.addDebugInfo(retval,type)
         return retval
     

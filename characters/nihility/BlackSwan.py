@@ -51,7 +51,7 @@ class BlackSwan(BaseCharacter):
                         amount=0.22 if self.eidolon >= 3 else 0.208,uptime=uptime)
             
             if self.eidolon >= 1:
-                character.addStat('Vulnerability',description='Black Swan E1',amount=0.25,
+                character.addStat('ResPen',description='Black Swan E1',amount=0.25,
                                 type=['lightning','wind','physical','fire'])
         
     def applyUltDebuff(self,team:list,rotationDuration:float):
