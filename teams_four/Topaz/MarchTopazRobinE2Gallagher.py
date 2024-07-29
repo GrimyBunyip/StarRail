@@ -7,23 +7,20 @@ from characters.harmony.Robin import Robin
 from characters.hunt.Topaz import Topaz
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.QuidProQuo import QuidProQuo
+from lightCones.harmony.FlowingNightglow import FlowingNightglow
 from lightCones.harmony.PoisedToBloom import PoisedToBloom
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.hunt.Swordplay import Swordplay
-from lightCones.preservation.DestinysThreadsForewoven import DestinysThreadsForewoven
-from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
-from relicSets.relicSets.KnightOfPurityPalace import KnightOfPurityPalace2pc, KnightOfPurityPalace4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc, MusketeerOfWildWheat4pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc
-from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
-def MarchTopazE2RobinGallagher(config):
+def MarchTopazRobinE2Gallagher(config, robinSuperposition:int=0):
     #%% March Topaz Robin Gallagher Characters
     TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'CR', 'ATK.percent'],
                                     substats = {'CR': 12, 'CD': 5, 'ATK.percent': 3, 'SPD.flat': 8}),
@@ -40,9 +37,11 @@ def MarchTopazE2RobinGallagher(config):
                                     master=TopazCharacter,
                                     **config)
     
+    RobinUltUptime = 1.0 # assume better robin ult uptime because of shorter robin rotation
+    robinLightCone = FlowingNightglow(superposition=robinSuperposition,uptime=RobinUltUptime,**config) if robinSuperposition >= 1 else PoisedToBloom(**config)
     RobinCharacter = Robin(RelicStats(mainstats = ['ER', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
                                     substats = {'ATK.percent': 12, 'ATK.flat': 8, 'RES': 5, 'SPD.flat': 3}),
-                                    lightcone = PoisedToBloom(**config),
+                                    lightcone = robinLightCone,
                                     relicsetone = Prisoner2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SprightlyVonwacq(),
                                     eidolon=2,
                                     **config)
@@ -56,8 +55,12 @@ def MarchTopazE2RobinGallagher(config):
     team = [MarchCharacter, TopazCharacter, RobinCharacter, GallagherCharacter]
 
     #%% March Topaz Robin Gallagher Team Buffs
-    for character in [TopazCharacter, MarchCharacter]:
-        character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
+    if robinSuperposition == 0:
+        for character in [TopazCharacter, MarchCharacter]:
+            character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
+    if robinSuperposition >= 1:
+        for character in team:
+            character.addStat('DMG',description='Flowing Nightglow',amount=0.36+0.12*robinSuperposition,uptime=RobinUltUptime)
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
@@ -72,7 +75,6 @@ def MarchTopazE2RobinGallagher(config):
     # Robin Buffs
     RobinCharacter.applyTalentBuff(team)
     RobinCharacter.applySkillBuff(team)
-    RobinUltUptime = 1.0 # assume better robin ult uptime because of shorter robin rotation
     RobinCharacter.applyUltBuff([MarchCharacter,TopazCharacter,GallagherCharacter],uptime=RobinUltUptime)
 
     #%% Print Statements
@@ -139,10 +141,9 @@ def MarchTopazE2RobinGallagher(config):
     QPQEffect = BaseEffect()
     QPQEffect.energy = 16.0
     GallagherCharacter.addDebugInfo(QPQEffect,['buff'],'Quid Pro Quo Energy')
-    GallagherRotation.append(deepcopy(QPQEffect) * GallagherCharacter.getER() * 2 / 3)
-    MarchRotation.append(deepcopy(QPQEffect) * MarchCharacter.getER() * 2 / 3)
+    MarchRotation.append(deepcopy(QPQEffect) * MarchCharacter.getER())
     RobinRotation.append(deepcopy(QPQEffect) * 2 * RobinCharacter.getER())
-    TopazRotation.append(deepcopy(QPQEffect) * TopazCharacter.getER() * 2 / 3)
+    TopazRotation.append(deepcopy(QPQEffect) * TopazCharacter.getER())
 
     #%% March Topaz Robin Gallagher Rotation Math
 

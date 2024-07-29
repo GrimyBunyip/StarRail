@@ -99,8 +99,9 @@ class Tingyun(BaseCharacter):
         self.addDebugInfo(retval,type,'Tingyun Talent Damage')
         return retval
     
-    def useBenediction(self, type:list):
+    def useBenediction(self, deprecatedType:list):
         retval = BaseEffect()
+        type = ['additionalDamage']
         retval.damage = self.benedictionTarget.getTotalStat('ATK',type,self.element) * (0.44 if self.eidolon >= 5 else 0.4)
         retval.damage *= self.benedictionTarget.getTotalCrit(type,self.element)
         retval.damage *= 1.0 + self.benedictionTarget.getTotalStat('DMG',type,self.element)

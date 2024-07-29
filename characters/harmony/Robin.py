@@ -110,8 +110,9 @@ class Robin(BaseCharacter):
         self.addDebugInfo(retval,type)
         return retval
     
-    def useConcertoDamage(self, type:list):
+    def useConcertoDamage(self, deprecatedType:list):
         retval = BaseEffect()
+        type = ['additionalDamage']
         retval.damage = self.getTotalMotionValue('ultimate',type)
         retval.damage *= 1.0 + 1.0 * 1.5 # static crit 
         retval.damage *= self.getDmg(type)

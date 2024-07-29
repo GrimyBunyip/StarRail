@@ -1,4 +1,3 @@
-from copy import deepcopy
 from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Huohuo import Huohuo
@@ -6,21 +5,14 @@ from characters.destruction.Yunli import Yunli
 from characters.harmony.Hanabi import Hanabi
 from characters.harmony.Robin import Robin
 from estimator.DefaultEstimator import DefaultEstimator
-from lightCones.abundance.PostOpConversation import PostOpConversation
 from lightCones.abundance.QuidProQuo import QuidProQuo
 from lightCones.destruction.DanceAtSunset import DanceAtSunset
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
-from lightCones.harmony.DanceDanceDance import DanceDanceDance
+from lightCones.harmony.CarveTheMoonWeaveTheClouds import CarveTheMoonWeaveTheClouds
 from lightCones.harmony.ForTomorrowsJourney import ForTomorrowsJourney
-from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
-from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.planarSets.InertSalsotto import InertSalsotto
-from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
-from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
-from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
@@ -41,7 +33,7 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                             substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
-                            lightcone = DanceDanceDance(**config),
+                            lightcone = CarveTheMoonWeaveTheClouds(**config),
                             relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
     
@@ -64,6 +56,12 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
         character.addStat('CD',description='Broken Keel from Huohuo',amount=0.1)
     for character in [RobinCharacter, YunliCharacter, RobinCharacter]:
         character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
+        
+    # Carve the Moon Buffs
+    for character in team:
+        character.addStat('ATK.percent',description='Carve The Moon',amount=0.2, uptime=1.0/3.0)
+        character.addStat('CD',description='Carve The Moon',amount=0.24, uptime=1.0/3.0)
+        character.addStat('ER',description='Carve The Moon',amount=0.12, uptime=1.0/3.0)
 
     # Robin Buffs
     RobinCharacter.applyTalentBuff(team)
@@ -90,10 +88,10 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
     #%% Yunli Hanabi Robin Huohuo Rotations
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
-    numSkillYunli = 2.5
+    numSkillYunli = 2.15 if yunliSuperposition == 0 else 1.75
     numUltYunli = 2.0
     
-    numEnemyAttacks = YunliCharacter.enemySpeed * YunliCharacter.numEnemies * numSkillYunli / (RobinCharacter.getTotalStat('SPD') / 0.92 ) # enemy attacks now scale to Robin speed, account for S5 dance dance in denominator
+    numEnemyAttacks = YunliCharacter.enemySpeed * YunliCharacter.numEnemies * numSkillYunli / RobinCharacter.getTotalStat('SPD') # enemy attacks now scale to Robin speed
     numTalentYunli = (numEnemyAttacks - numUltYunli) 
     numTalentYunli *= YunliCharacter.getTotalStat('Taunt')
     numTalentYunli /= (YunliCharacter.getTotalStat('Taunt') + 
@@ -108,7 +106,7 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
             YunliCharacter.useSkill() * numSkillYunli,
             YunliCharacter.useTalent() * numTalentYunli,
             YunliCharacter.useEnhancedUltimate() * numUltYunli,
-            RobinCharacter.useAdvanceForward() * numSkillYunli / 5.0,
+            RobinCharacter.useAdvanceForward() * (numSkillYunli / 5.0) * (YunliCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')),
             HanabiCharacter.useAdvanceForward(advanceAmount=advanceAmount) * advanceCount,
     ]
     
@@ -152,35 +150,6 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
 
     YunliRotationDuration = totalYunliEffect.actionvalue * 100.0 / YunliCharacter.getTotalStat('SPD')
     HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
-    RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
-    HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
-
-    # Apply Dance Dance Dance Effect
-    DanceDanceDanceEffect = BaseEffect()
-
-    DanceDanceDanceEffect.actionvalue = -0.24
-    HanabiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HanabiRotation.append(deepcopy(DanceDanceDanceEffect))
-    totalHanabiEffect = sumEffects(HanabiRotation)
-    HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
-
-    DanceDanceDanceEffect.actionvalue = -0.24 * YunliRotationDuration / HanabiRotationDuration
-    YunliCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    YunliRotation.append(deepcopy(DanceDanceDanceEffect))
-    
-    DanceDanceDanceEffect.actionvalue = -0.24 * RobinRotationDuration / HanabiRotationDuration
-    RobinCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    RobinRotation.append(deepcopy(DanceDanceDanceEffect))
-    
-    DanceDanceDanceEffect.actionvalue = -0.24 * HuohuoRotationDuration / HanabiRotationDuration
-    HuohuoCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    HuohuoRotation.append(deepcopy(DanceDanceDanceEffect))
-    
-    totalYunliEffect = sumEffects(YunliRotation)
-    totalRobinEffect = sumEffects(RobinRotation)
-    totalHuohuoEffect = sumEffects(HuohuoRotation)
-
-    YunliRotationDuration = totalYunliEffect.actionvalue * 100.0 / YunliCharacter.getTotalStat('SPD')
     RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
     HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
 

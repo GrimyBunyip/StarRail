@@ -182,11 +182,6 @@ def KafkaS1RobinBlackSwanGallagher(config):
     GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
 
     QPQEffect = BaseEffect()
-    QPQEffect.energy = 16.0 
-    QPQEffect.energy *= 0.25 # assume quarter uptime
-    QPQEffect.energy *= (numBasicGallagher + numEnhancedGallagher)
-    GallagherCharacter.addDebugInfo(QPQEffect,['buff'],'Quid Pro Quo Energy')
-    GallagherRotation.append(deepcopy(QPQEffect))
     
     QPQEffect.energy = 16.0 
     QPQEffect.energy *= 0.25 # assume quarter uptime
