@@ -169,9 +169,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=1))
 
 # visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1))
-# visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
+visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
 
-# visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
+visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2HanabiPelaGallagher(config, acheronSuperposition=1))
 
 # visualizationList.append(AcheronE2HanabiKafkaGallagher(config, acheronSuperposition=1))
@@ -230,7 +230,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Firefly Teams
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyS1TrailblazerRuanMeiGallagher(config))
-# visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
+visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyE2S1TrailblazerRuanMeiGallagher(config))
 
 # visualizationList.append(FireflyTrailblazerMarchGallagher(config)) # retire this team, it isnt good
@@ -306,14 +306,14 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(DrRatioTopazS1RobinFuxuan(config))
 # visualizationList.append(DrRatioTopazE1RobinFuxuan(config))
 
-# visualizationList.append(MarchTopazRobinE2Gallagher(config))
-# visualizationList.append(MarchTopazRobinE2Gallagher(config,robinSuperposition=1))
+visualizationList.append(MarchTopazRobinE2Gallagher(config))
+visualizationList.append(MarchTopazRobinE2Gallagher(config,robinSuperposition=1))
 # visualizationList.append(MarchSilverWolfRobinE2Gallagher(config,robinSuperposition=1))
-visualizationList.append(MarchTopazRobinAventurine(config))
-visualizationList.append(MarchBronyaRobinGallagher(config))
+# visualizationList.append(MarchTopazRobinAventurine(config))
+# visualizationList.append(MarchBronyaRobinGallagher(config))
 # visualizationList.append(SilverWolfMarchRobinHuohuo(config, silverwolfEidolon=1))
 # visualizationList.append(SilverWolfMarchRobinHuohuo(config, silverwolfEidolon=6))
-visualizationList.append(DrRatioTopazRobinAventurine(config))
+# visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(DrRatioTopazRobinFuxuan(config))
 # visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
 # visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
