@@ -21,7 +21,7 @@ from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, 
 
 def AcheronE2HanabiPelaGallagher(config, acheronSuperposition:int=0):
     #%% Acheron Hanabi Pela Gallagher Characters
-    acheronLightCone = AlongThePassingShore(superposition=acheronSuperposition,**config) if acheronSuperposition >= 1 else GoodNightAndSleepWell(**config)
+    acheronLightCone = GoodNightAndSleepWell(**config) if acheronSuperposition == 0 else AlongThePassingShore(superposition=acheronSuperposition,**config)
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
                             substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'ATK.flat': 3}),
                             lightcone = acheronLightCone,

@@ -24,12 +24,12 @@ from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, Wind
 
 def FeixiaoMarchRobinAventurine(config, 
                                 feixiaoEidolon:int=None, 
-                                feixiaoSuperposition:int=None, 
+                                feixiaoSuperposition:int=0, 
                                 robinEidolon:int=None, 
-                                robinSuperposition:int=None):
+                                robinSuperposition:int=0):
     #%% March Feixiao Robin Aventurine Characters
 
-    FeixiaoLightcone = CruisingInTheStellarSea(**config) if feixiaoSuperposition is None else IVentureForthToHunt(superposition=feixiaoSuperposition,**config)
+    FeixiaoLightcone = CruisingInTheStellarSea(**config) if feixiaoSuperposition == 0 else IVentureForthToHunt(superposition=feixiaoSuperposition,**config)
     FeixiaoCharacter = Feixiao(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.wind'],
                                     substats = {'CR': 7, 'CD': 10, 'ATK.percent': 3, 'SPD.flat':8}),
                                     lightcone = FeixiaoLightcone,
@@ -40,9 +40,9 @@ def FeixiaoMarchRobinAventurine(config,
                                     **config)
 
     # give March swordplay if Feixiao uses Cruising
-    MarchLightCone = Swordplay(**config) if feixiaoSuperposition is None else CruisingInTheStellarSea(**config)
+    MarchLightCone = Swordplay(**config) if feixiaoSuperposition == 0 else CruisingInTheStellarSea(**config)
     MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
-                                    substats = {'CD': 12, 'CR': 8, 'ATK.percent': 3, 'SPD.flat': 5}),
+                                    substats = {'CD': 8, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
                                     lightcone = MarchLightCone,
                                     relicsetone = MusketeerOfWildWheat2pc(),
                                     relicsettwo = MusketeerOfWildWheat4pc(),
@@ -50,7 +50,7 @@ def FeixiaoMarchRobinAventurine(config,
                                     master=FeixiaoCharacter,
                                     **config)
     
-    RobinLightCone = PoisedToBloom(**config) if robinSuperposition is None else FlowingNightglow(superposition=robinSuperposition,**config)
+    RobinLightCone = PoisedToBloom(**config) if robinSuperposition == 0 else FlowingNightglow(superposition=robinSuperposition,**config)
     RobinCharacter = Robin(RelicStats(mainstats = ['ER', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
                                     substats = {'ATK.percent': 11, 'SPD.flat': 9, 'RES': 3, 'ATK.flat': 5}),
                                     lightcone = RobinLightCone,
@@ -61,7 +61,7 @@ def FeixiaoMarchRobinAventurine(config,
     AventurineCharacter = Aventurine(RelicStats(mainstats = ['DEF.percent', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
                                     substats = {'CR': 3, 'CD': 5, 'SPD.flat': 12, 'DEF.percent': 8}),
                                     lightcone = DestinysThreadsForewoven(defense=4000,**config),
-                                    leverage_cr=0.48,
+                                    leverage_cr = 0.48,
                                     relicsetone = KnightOfPurityPalace2pc(), relicsettwo = KnightOfPurityPalace4pc(), planarset = BrokenKeel(),
                                     **config)
     
@@ -83,8 +83,11 @@ def FeixiaoMarchRobinAventurine(config,
     # Robin Buffs
     RobinCharacter.applyTalentBuff(team)
     RobinCharacter.applySkillBuff(team)
-    RobinUltUptime = 0.5 # assume better robin ult uptime because of shorter robin rotation
-    RobinCharacter.applyUltBuff([MarchCharacter,FeixiaoCharacter,AventurineCharacter],uptime=RobinUltUptime)
+
+    RobinUltUptime = 0.5
+    RobinUltUptimeFeixiao = 0.75 
+    RobinCharacter.applyUltBuff([MarchCharacter,AventurineCharacter],uptime=RobinUltUptime)
+    RobinCharacter.applyUltBuff([FeixiaoCharacter],uptime=RobinUltUptimeFeixiao)
 
     #%% Print Statements
     for character in team:
@@ -115,7 +118,6 @@ def FeixiaoMarchRobinAventurine(config,
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['basic','enhancedBasic']) * numEnhancedMarch * RobinUltUptime]
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['ultimate']) * RobinUltUptime]
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['followup']) * numFollowupMarch * RobinUltUptime]
-    MarchRotation += [RobinCharacter.useAdvanceForward() * numBasicMarch / 4.0] 
 
     numBasicAventurine = 4.0
     numTalentAventurine = 4.0 # stacks from ultimate
@@ -130,8 +132,7 @@ def FeixiaoMarchRobinAventurine(config,
     
     AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
                           AventurineCharacter.useTalent() * numTalentAventurine,
-                          AventurineCharacter.useUltimate() * 1,
-                          RobinCharacter.useAdvanceForward() * numBasicAventurine / 4.0,]
+                          AventurineCharacter.useUltimate() * 1,]
 
     RobinRotationAventurine = [RobinCharacter.useTalent() * (numBasicAventurine + numTalentAventurine / 7.0)]
     RobinRotationAventurine += [RobinCharacter.useConcertoDamage(['basic']) * numBasicAventurine * RobinUltUptime]
@@ -159,20 +160,31 @@ def FeixiaoMarchRobinAventurine(config,
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['skill']) * numSkillFeixiao * RobinUltUptime]
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['followup']) * numFollowupFeixiao * RobinUltUptime]
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['ultimate','followup']) * RobinUltUptime]
-    FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (numBasicFeixiao + numSkillFeixiao) / 4.0]
 
     #%% March Feixiao Robin Aventurine Rotation Math
 
+    # four turn robin advance math
+    totalRobinEffect = sumEffects(RobinRotation)
+    RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
+    
+    fourTurnAV = 400.0
+
+    MarchFourTurns = fourTurnAV * MarchCharacter.useBasic().actionvalue / MarchCharacter.getTotalStat('SPD')
+    FeixiaoFourTurns = fourTurnAV * FeixiaoCharacter.useSkill().actionvalue / FeixiaoCharacter.getTotalStat('SPD')
+    AventurineFourTurns = fourTurnAV * AventurineCharacter.useBasic().actionvalue / AventurineCharacter.getTotalStat('SPD')
+    
+    MarchRotation += [RobinCharacter.useAdvanceForward() * (MarchFourTurns - RobinRotationDuration) * MarchCharacter.getTotalStat('SPD') * numBasicMarch / fourTurnAV]
+    FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (FeixiaoFourTurns - RobinRotationDuration) * FeixiaoCharacter.getTotalStat('SPD') * numFollowupFeixiao / fourTurnAV]
+    AventurineRotation += [RobinCharacter.useAdvanceForward() * (AventurineFourTurns - RobinRotationDuration) * AventurineCharacter.getTotalStat('SPD') * numBasicAventurine / fourTurnAV]
+        
     totalMarchEffect = sumEffects(MarchRotation)
     totalFeixiaoEffect = sumEffects(FeixiaoRotation)
-    totalRobinEffect = sumEffects(RobinRotation)
     totalAventurineEffect = sumEffects(AventurineRotation)
-
+    
     MarchRotationDuration = totalMarchEffect.actionvalue * 100.0 / MarchCharacter.getTotalStat('SPD')
     FeixiaoRotationDuration = totalFeixiaoEffect.actionvalue * 100.0 / FeixiaoCharacter.getTotalStat('SPD')
-    RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
-    AventurineRotationDuration = totalAventurineEffect.actionvalue * 100.0 / AventurineCharacter.getTotalStat('SPD')    
-
+    AventurineRotationDuration = totalAventurineEffect.actionvalue * 100.0 / AventurineCharacter.getTotalStat('SPD')
+    
     print('##### Rotation Durations #####')
     print('March: ',MarchRotationDuration)
     print('Feixiao: ',FeixiaoRotationDuration)

@@ -85,6 +85,7 @@ from teams_four.Qingque.QingqueHanabiSilverWolfLuocha import QingqueHanabiSilver
 from teams_four.Qingque.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.Qingque.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
 from teams_four.RatioTopaz.RatioTopazRobinAventurine import DrRatioTopazRobinAventurine
+from teams_four.Robin.FeixiaoBronyaRobinGallagher import FeixiaoBronyaRobinGallagher
 from teams_four.Seele.SilverWolfMarchRobinHuohuo import SilverWolfMarchRobinHuohuo
 from teams_four.Robin.FeixiaoMarchRobinAventurine import FeixiaoMarchRobinAventurine
 from teams_four.Robin.FeixiaoTopazRobinAventurine import FeixiaoTopazRobinAventurine
@@ -286,15 +287,18 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Robin Teams
 
 # currently baking
-visualizationList.append(FeixiaoMarchRobinAventurine(config, feixiaoEidolon=2))
+# visualizationList.append(FeixiaoMarchRobinAventurine(config, feixiaoEidolon=2))
 
-visualizationList.append(MarchTopazRobinAventurine(config))
-visualizationList.append(FeixiaoTopazRobinAventurine(config))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config))
 visualizationList.append(FeixiaoMarchRobinAventurine(config))
 
-# fully baked
+# Bronya variants
 visualizationList.append(MarchBronyaRobinGallagher(config))
+visualizationList.append(FeixiaoBronyaRobinGallagher(config))
+
+# the old guard
 visualizationList.append(DrRatioTopazRobinAventurine(config))
+visualizationList.append(MarchTopazRobinAventurine(config))
 
 # # Xueyi Teams
 # # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))

@@ -21,7 +21,7 @@ from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, Wind
 
 def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int=0):
     #%% Yunli Hanabi Robin Huohuo Characters
-    yunliLightCone = DanceAtSunset(superposition=yunliSuperposition, **config) if yunliSuperposition >= 1 else OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config)
+    yunliLightCone = OnTheFallOfAnAeon(uptime = 0.5, stacks=4.0, **config) if yunliSuperposition == 0 else DanceAtSunset(superposition=yunliSuperposition, **config)
     YunliCharacter = Yunli(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
                             substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'ATK.flat': 3}),
                             lightcone = yunliLightCone,

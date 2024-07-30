@@ -54,11 +54,11 @@ class ImaginaryMarch(BaseCharacter):
         self.equipGear()
         
     def applySkillBuff(self,target:BaseCharacter):
-        target.addStat('SPD.percent',description='March 7th Skill Buff',amount=0.1)
+        target.addStat('SPD.percent',description='March 7th Skill Buff',amount=0.108 if self.eidolon >= 3 else 0.10)
         
     def applyTalentBuff(self,target:BaseCharacter,uptime:float=1.0):
-        target.addStat('CD',description='March 7th Talent Buff',amount=0.6,uptime=uptime)
-        target.addStat('BreakEffect',description='March 7th Talent buff',amount=0.36,uptime=uptime)
+        target.addStat('CD',description='March 7th Trace Buff',amount=0.6,uptime=uptime)
+        target.addStat('BreakEffect',description='March 7th Trace buff',amount=0.36,uptime=uptime)
         
     def useBasic(self):
         skillGauge = 1.0
