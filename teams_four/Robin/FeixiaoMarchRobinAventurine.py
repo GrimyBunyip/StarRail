@@ -5,8 +5,10 @@ from characters.hunt.ImaginaryMarch import ImaginaryMarch
 from characters.harmony.Robin import Robin
 from characters.hunt.Feixiao import Feixiao
 from estimator.DefaultEstimator import DefaultEstimator
+from lightCones.harmony.FlowingNightglow import FlowingNightglow
 from lightCones.harmony.PoisedToBloom import PoisedToBloom
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
+from lightCones.hunt.IVentureForthToHunt import IVentureForthToHunt
 from lightCones.hunt.Swordplay import Swordplay
 from lightCones.preservation.DestinysThreadsForewoven import DestinysThreadsForewoven
 from relicSets.planarSets.BrokenKeel import BrokenKeel
@@ -20,31 +22,40 @@ from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, WindSoaringValorous4pc
 
-def FeixiaoMarchRobinAventurine(config, feixiaoEidolon:int=None):
+def FeixiaoMarchRobinAventurine(config, 
+                                feixiaoEidolon:int=None, 
+                                feixiaoSuperposition:int=None, 
+                                robinEidolon:int=None, 
+                                robinSuperposition:int=None):
     #%% March Feixiao Robin Aventurine Characters
 
+    FeixiaoLightcone = CruisingInTheStellarSea(**config) if feixiaoSuperposition is None else IVentureForthToHunt(superposition=feixiaoSuperposition,**config)
     FeixiaoCharacter = Feixiao(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.wind'],
                                     substats = {'CR': 7, 'CD': 10, 'ATK.percent': 3, 'SPD.flat':8}),
-                                    lightcone = CruisingInTheStellarSea(**config),
+                                    lightcone = FeixiaoLightcone,
                                     relicsetone = WindSoaringValorous2pc(),
                                     relicsettwo = WindSoaringValorous4pc(),
                                     planarset = DuranDynastyOfRunningWolves(),
                                     eidolon = feixiaoEidolon,
                                     **config)
 
+    # give March swordplay if Feixiao uses Cruising
+    MarchLightCone = Swordplay(**config) if feixiaoSuperposition is None else CruisingInTheStellarSea(**config)
     MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
                                     substats = {'CD': 12, 'CR': 8, 'ATK.percent': 3, 'SPD.flat': 5}),
-                                    lightcone = CruisingInTheStellarSea(**config),
+                                    lightcone = MarchLightCone,
                                     relicsetone = MusketeerOfWildWheat2pc(),
                                     relicsettwo = MusketeerOfWildWheat4pc(),
                                     planarset = IzumoGenseiAndTakamaDivineRealm(),
                                     master=FeixiaoCharacter,
                                     **config)
     
+    RobinLightCone = PoisedToBloom(**config) if robinSuperposition is None else FlowingNightglow(superposition=robinSuperposition,**config)
     RobinCharacter = Robin(RelicStats(mainstats = ['ER', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
                                     substats = {'ATK.percent': 11, 'SPD.flat': 9, 'RES': 3, 'ATK.flat': 5}),
-                                    lightcone = PoisedToBloom(**config),
+                                    lightcone = RobinLightCone,
                                     relicsetone = Prisoner2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SprightlyVonwacq(),
+                                    eidolon=robinEidolon,
                                     **config)
 
     AventurineCharacter = Aventurine(RelicStats(mainstats = ['DEF.percent', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
