@@ -20,7 +20,7 @@ from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, WindSoaringValorous4pc
 
-def FeixiaoMarchRobinAventurine(config):
+def FeixiaoMarchRobinAventurine(config, feixiaoEidolon:int=None):
     #%% March Feixiao Robin Aventurine Characters
 
     FeixiaoCharacter = Feixiao(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.wind'],
@@ -29,6 +29,7 @@ def FeixiaoMarchRobinAventurine(config):
                                     relicsetone = WindSoaringValorous2pc(),
                                     relicsettwo = WindSoaringValorous4pc(),
                                     planarset = DuranDynastyOfRunningWolves(),
+                                    eidolon = feixiaoEidolon,
                                     **config)
 
     MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
@@ -134,7 +135,7 @@ def FeixiaoMarchRobinAventurine(config):
     numBasicFeixiao = 0.0
     numSkillFeixiao = 2.0
     numFollowupFeixiao = (numBasicFeixiao + numSkillFeixiao)
-    numUltFeixiao = numAttacks / 2.0
+    numUltFeixiao = numAttacks * (1.0 if FeixiaoCharacter.eidolon >= 2 else 0.5)
     
     FeixiaoRotation = []
     FeixiaoRotation += [FeixiaoCharacter.useBasic() * numBasicFeixiao]
@@ -179,7 +180,7 @@ def FeixiaoMarchRobinAventurine(config):
     RobinRotation += RobinRotationAventurine
     totalRobinEffect = sumEffects(RobinRotation)
 
-    FeixiaoEstimate = DefaultEstimator(f'Feixiao: {numBasicFeixiao:.1f}N {numSkillFeixiao:.1f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q, S{FeixiaoCharacter.lightcone.superposition:d} {FeixiaoCharacter.lightcone.name}', FeixiaoRotation, FeixiaoCharacter, config)
+    FeixiaoEstimate = DefaultEstimator(f'Feixiao: {numBasicFeixiao:.1f}N {numSkillFeixiao:.1f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q, S{FeixiaoCharacter.lightcone.superposition:d} {FeixiaoCharacter.lightcone.name} E{FeixiaoCharacter.eidolon:d}', FeixiaoRotation, FeixiaoCharacter, config)
     MarchEstimate = DefaultEstimator(f'March: {numBasicMarch:.1f}N {numEnhancedMarch:.1f}Enh 1Q', MarchRotation, MarchCharacter, config)
     RobinEstimate = DefaultEstimator(f'Robin: {numBasicRobin:.1f}N {numSkillRobin:.1f}E 1Q, S{RobinCharacter.lightcone.superposition:d} {RobinCharacter.lightcone.name}', 
                                     RobinRotation, RobinCharacter, config)
