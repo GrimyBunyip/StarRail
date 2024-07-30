@@ -85,6 +85,10 @@ from teams_four.Qingque.QingqueHanabiSilverWolfLuocha import QingqueHanabiSilver
 from teams_four.Qingque.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.Qingque.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
 from teams_four.Seele.SilverWolfMarchRobinHuohuo import SilverWolfMarchRobinHuohuo
+from teams_four.Topaz.FeixiaoBronyaRobinGallagher import FeixiaoBronyaRobinGallagher
+from teams_four.Topaz.FeixiaoMarchRobinAventurine import FeixiaoMarchRobinAventurine
+from teams_four.Topaz.FeixiaoTopazRobinAventurine import FeixiaoTopazRobinAventurine
+from teams_four.Topaz.FeixiaoTopazRobinE2Gallagher import FeixiaoTopazRobinE2Gallagher
 from teams_four.Topaz.MarchBronyaRobinGallagher import MarchBronyaRobinGallagher
 from teams_four.Topaz.MarchSilverWolfRobinE2Gallagher import MarchSilverWolfRobinE2Gallagher
 from teams_four.Topaz.MarchTopazRobinE2Gallagher import MarchTopazRobinE2Gallagher
@@ -169,9 +173,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=1))
 
 # visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1))
-visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
+# visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
 
-visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
+# visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2HanabiPelaGallagher(config, acheronSuperposition=1))
 
 # visualizationList.append(AcheronE2HanabiKafkaGallagher(config, acheronSuperposition=1))
@@ -230,7 +234,7 @@ visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposit
 # # Firefly Teams
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyS1TrailblazerRuanMeiGallagher(config))
-visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
+# visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
 # visualizationList.append(FireflyE2S1TrailblazerRuanMeiGallagher(config))
 
 # visualizationList.append(FireflyTrailblazerMarchGallagher(config)) # retire this team, it isnt good
@@ -308,12 +312,18 @@ visualizationList.append(FireflyE2TrailblazerRuanMeiGallagher(config))
 
 visualizationList.append(MarchTopazRobinE2Gallagher(config))
 visualizationList.append(MarchTopazRobinE2Gallagher(config,robinSuperposition=1))
+visualizationList.append(FeixiaoTopazRobinE2Gallagher(config))
+visualizationList.append(FeixiaoTopazRobinE2Gallagher(config,robinSuperposition=1))
 # visualizationList.append(MarchSilverWolfRobinE2Gallagher(config,robinSuperposition=1))
-# visualizationList.append(MarchTopazRobinAventurine(config))
-# visualizationList.append(MarchBronyaRobinGallagher(config))
+visualizationList.append(MarchBronyaRobinGallagher(config))
+visualizationList.append(FeixiaoBronyaRobinGallagher(config))
+
+visualizationList.append(MarchTopazRobinAventurine(config))
+visualizationList.append(FeixiaoTopazRobinAventurine(config))
+visualizationList.append(FeixiaoMarchRobinAventurine(config))
+visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(SilverWolfMarchRobinHuohuo(config, silverwolfEidolon=1))
 # visualizationList.append(SilverWolfMarchRobinHuohuo(config, silverwolfEidolon=6))
-# visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(DrRatioTopazRobinFuxuan(config))
 # visualizationList.append(DrRatioHanyaSilverWolfFuxuan(config))
 # visualizationList.append(DrRatioHanyaSilverWolfLuocha(config))
