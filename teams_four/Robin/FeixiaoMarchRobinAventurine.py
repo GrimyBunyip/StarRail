@@ -30,8 +30,9 @@ def FeixiaoMarchRobinAventurine(config,
     #%% March Feixiao Robin Aventurine Characters
 
     FeixiaoLightcone = CruisingInTheStellarSea(**config) if feixiaoSuperposition == 0 else IVentureForthToHunt(superposition=feixiaoSuperposition,**config)
+    FeixiaoSubstats = {'CR': 7, 'CD': 10, 'ATK.percent': 3, 'SPD.flat':8} if feixiaoSuperposition == 0 else {'CR': 10, 'CD': 7, 'ATK.percent': 3, 'SPD.flat':8}
     FeixiaoCharacter = Feixiao(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.wind'],
-                                    substats = {'CR': 7, 'CD': 10, 'ATK.percent': 3, 'SPD.flat':8}),
+                                    substats = FeixiaoSubstats),
                                     lightcone = FeixiaoLightcone,
                                     relicsetone = WindSoaringValorous2pc(),
                                     relicsettwo = WindSoaringValorous4pc(),
@@ -40,9 +41,10 @@ def FeixiaoMarchRobinAventurine(config,
                                     **config)
 
     # give March swordplay if Feixiao uses Cruising
-    MarchLightCone = Swordplay(**config) if feixiaoSuperposition == 0 else CruisingInTheStellarSea(**config)
+    MarchLightCone = Swordplay(**config) #if feixiaoSuperposition == 0 else CruisingInTheStellarSea(**config)
+    MarchSubstats = {'CD': 8, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 5} #if feixiaoSuperposition == 0 else {'CD': 11, 'CR': 9, 'ATK.percent': 3, 'SPD.flat': 5}
     MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
-                                    substats = {'CD': 8, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
+                                    substats = MarchSubstats),
                                     lightcone = MarchLightCone,
                                     relicsetone = MusketeerOfWildWheat2pc(),
                                     relicsettwo = MusketeerOfWildWheat4pc(),
@@ -186,8 +188,8 @@ def FeixiaoMarchRobinAventurine(config,
     AventurineRotationDuration = totalAventurineEffect.actionvalue * 100.0 / AventurineCharacter.getTotalStat('SPD')
     
     print('##### Rotation Durations #####')
-    print('March: ',MarchRotationDuration)
-    print('Feixiao: ',FeixiaoRotationDuration)
+    print('March: ',MarchRotationDuration * 2.0)
+    print('Feixiao: ',FeixiaoRotationDuration * 2.0)
     print('Robin: ',RobinRotationDuration)
     print('Aventurine: ',AventurineRotationDuration)
 
@@ -203,11 +205,11 @@ def FeixiaoMarchRobinAventurine(config,
     RobinRotation += RobinRotationAventurine
     totalRobinEffect = sumEffects(RobinRotation)
 
-    FeixiaoEstimate = DefaultEstimator(f'Feixiao: {numBasicFeixiao:.1f}N {numSkillFeixiao:.1f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q, S{FeixiaoCharacter.lightcone.superposition:d} {FeixiaoCharacter.lightcone.name} E{FeixiaoCharacter.eidolon:d}', FeixiaoRotation, FeixiaoCharacter, config)
-    MarchEstimate = DefaultEstimator(f'March: {numBasicMarch:.1f}N {numEnhancedMarch:.1f}Enh 1Q', MarchRotation, MarchCharacter, config)
-    RobinEstimate = DefaultEstimator(f'Robin: {numBasicRobin:.1f}N {numSkillRobin:.1f}E 1Q, S{RobinCharacter.lightcone.superposition:d} {RobinCharacter.lightcone.name}', 
+    FeixiaoEstimate = DefaultEstimator(f'E{FeixiaoCharacter.eidolon} S{FeixiaoCharacter.lightcone.superposition:d} {FeixiaoCharacter.lightcone.name} Feixiao: {numBasicFeixiao:.1f}N {numSkillFeixiao:.1f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q', FeixiaoRotation, FeixiaoCharacter, config)
+    MarchEstimate = DefaultEstimator(f'E{MarchCharacter.eidolon} S{MarchCharacter.lightcone.superposition:d} {MarchCharacter.lightcone.name} March: {numBasicMarch:.1f}N {numEnhancedMarch:.1f}Enh 1Q', MarchRotation, MarchCharacter, config)
+    RobinEstimate = DefaultEstimator(f'E{RobinCharacter.eidolon} S{RobinCharacter.lightcone.superposition:d} {RobinCharacter.lightcone.name} Robin: {numBasicRobin:.1f}N {numSkillRobin:.1f}E 1Q', 
                                     RobinRotation, RobinCharacter, config)
-    AventurineEstimate = DefaultEstimator(f'Aventurine: {numBasicAventurine:.0f}N {numTalentAventurine:.1f}T 1Q, S{AventurineCharacter.lightcone.superposition:.0f} {AventurineCharacter.lightcone.name}',
+    AventurineEstimate = DefaultEstimator(f'E{AventurineCharacter.eidolon} S{AventurineCharacter.lightcone.superposition:.0f} {AventurineCharacter.lightcone.name} Aventurine: {numBasicAventurine:.0f}N {numTalentAventurine:.1f}T 1Q',
                                     AventurineRotation, AventurineCharacter, config)
 
     return([FeixiaoEstimate, MarchEstimate, RobinEstimate, AventurineEstimate])

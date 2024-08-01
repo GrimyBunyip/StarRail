@@ -26,13 +26,13 @@ def MarchBronyaRobinGallagher(config,
                                 robinSuperposition:int=0):
     #%% March Bronya Robin Gallagher Characters
     BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'ER'],
-                                    substats = {'CD': 12, 'SPD.flat': 5, 'HP.percent': 8, 'DEF.percent': 3}),
+                                    substats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                                     lightcone = DanceDanceDance(**config),
                                     relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = SprightlyVonwacq(),
                                     **config)
 
-    MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
-                                    substats = {'CR': 8, 'CD': 9, 'ATK.percent': 3, 'SPD.flat': 8}),
+    MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
+                                    substats = {'CR': 8, 'CD': 12, 'ATK.percent': 3, 'SPD.flat': 5}),
                                     lightcone = CruisingInTheStellarSea(**config),
                                     relicsetone = MusketeerOfWildWheat2pc(),
                                     relicsettwo = MusketeerOfWildWheat4pc(),
@@ -50,7 +50,7 @@ def MarchBronyaRobinGallagher(config,
                                     **config)
 
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
-                                    substats = {'BreakEffect': 12, 'SPD.flat': 2, 'HP.percent': 8, 'RES': 6}),
+                                    substats = {'BreakEffect': 10, 'SPD.flat': 9, 'HP.percent': 3, 'RES': 6}),
                                     lightcone = QuidProQuo(**config),
                                     relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = ThiefOfShootingMeteor2pc(), planarset = SprightlyVonwacq(),
                                     **config)
@@ -128,13 +128,13 @@ def MarchBronyaRobinGallagher(config,
     GallagherRotation = [GallagherCharacter.useBasic() * numBasicGallagher,
                          GallagherCharacter.useSkill() * numSkillGallagher,
                          GallagherCharacter.useEnhancedBasic() * numEnhancedGallagher,
-                         GallagherCharacter.useUltimate() * 1,]
+                         GallagherCharacter.useUltimate() * 1,
+                         BronyaCharacter.useAdvanceForward() * (numBasicGallagher + numSkillGallagher) * 2.0 / 5.0,
+                         DanceDanceDanceEffect * (numBasicGallagher + numSkillGallagher) / 5.0,]
 
     RobinRotationGallagher = [RobinCharacter.useTalent() * (numBasicGallagher + numEnhancedGallagher + 1.0)]
     RobinRotationGallagher += [RobinCharacter.useConcertoDamage(['basic']) * (numBasicGallagher + numEnhancedGallagher) * RobinUltUptime]
     RobinRotationGallagher += [RobinCharacter.useConcertoDamage(['ultimate']) * 1.0 * RobinUltUptime]
-    GallagherRotation += [RobinCharacter.useAdvanceForward() * (numBasicGallagher + numSkillGallagher) / 5.0]
-    GallagherRotation += [DanceDanceDanceEffect * numBasicGallagher / 5.0]
     
     # assume 2 procs go to robin, then other 2 split between the rest
     QPQEffect = BaseEffect()
@@ -147,31 +147,39 @@ def MarchBronyaRobinGallagher(config,
     #%% March Bronya Robin Gallagher Rotation Math
 
     totalRobinEffect = sumEffects(RobinRotation)
-    RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
-
-    threeTurnAV = 300.0
-
-    MarchThreeTurns = threeTurnAV * MarchCharacter.useBasic().actionvalue / MarchCharacter.getTotalStat('SPD')
-    BronyaThreeTurns = threeTurnAV * MarchCharacter.useSkill().actionvalue / MarchCharacter.getTotalStat('SPD')
-    GallagherThreeTurns = threeTurnAV * GallagherCharacter.useBasic().actionvalue / GallagherCharacter.getTotalStat('SPD')
-    
-    MarchRotation += [RobinCharacter.useAdvanceForward() * (MarchThreeTurns - RobinRotationDuration) * MarchCharacter.getTotalStat('SPD') * numBasicMarch / threeTurnAV]
-    BronyaRotation += [RobinCharacter.useAdvanceForward() * (BronyaThreeTurns - RobinRotationDuration) * MarchCharacter.getTotalStat('SPD') * numSkillBronya / threeTurnAV]
-    GallagherRotation += [RobinCharacter.useAdvanceForward() * (GallagherThreeTurns - RobinRotationDuration) * GallagherCharacter.getTotalStat('SPD') * numBasicGallagher / threeTurnAV]
-        
     totalMarchEffect = sumEffects(MarchRotation)
     totalBronyaEffect = sumEffects(BronyaRotation)
     totalGallagherEffect = sumEffects(GallagherRotation)
     
+    RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
     MarchRotationDuration = totalMarchEffect.actionvalue * 100.0 / MarchCharacter.getTotalStat('SPD')
     BronyaRotationDuration = totalBronyaEffect.actionvalue * 100.0 / BronyaCharacter.getTotalStat('SPD')
     GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
 
+    MarchRotationMult = 1.5
+    BronyaRotationMult = 1.0
+    GallagherRotationMult = 1.25
+
+    MarchThreeTurns = MarchRotationDuration * MarchRotationMult
+    BronyaThreeTurns = BronyaRotationDuration * BronyaRotationMult
+    GallagherThreeTurns = GallagherRotationDuration * GallagherRotationMult
+    
+    MarchRotation += [RobinCharacter.useAdvanceForward() * (MarchThreeTurns - RobinRotationDuration) * MarchCharacter.getTotalStat('SPD') / 100 / MarchRotationMult]
+    BronyaRotation += [RobinCharacter.useAdvanceForward() * (BronyaThreeTurns - RobinRotationDuration) * BronyaCharacter.getTotalStat('SPD') / 100 / BronyaRotationMult]
+    GallagherRotation += [RobinCharacter.useAdvanceForward() * (GallagherThreeTurns - RobinRotationDuration) * GallagherCharacter.getTotalStat('SPD') / 100 / GallagherRotationMult]
+        
+    totalMarchEffect = sumEffects(MarchRotation)
+    totalBronyaEffect = sumEffects(BronyaRotation)
+    totalGallagherEffect = sumEffects(GallagherRotation)
+    MarchRotationDuration = totalMarchEffect.actionvalue * 100.0 / MarchCharacter.getTotalStat('SPD')
+    BronyaRotationDuration = totalBronyaEffect.actionvalue * 100.0 / BronyaCharacter.getTotalStat('SPD')
+    GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
+    
     print('##### Rotation Durations #####')
-    print('March: ',MarchRotationDuration)
-    print('Bronya: ',BronyaRotationDuration)
+    print('March: ',MarchRotationDuration * MarchRotationMult)
+    print('Bronya: ',BronyaRotationDuration * BronyaRotationMult)
     print('Robin: ',RobinRotationDuration)
-    print('Gallagher: ',GallagherRotationDuration)
+    print('Gallagher: ',GallagherRotationDuration * GallagherRotationMult)
 
     # Scale other character's rotation
     BronyaRotation = [x * MarchRotationDuration / BronyaRotationDuration for x in BronyaRotation]

@@ -26,19 +26,19 @@ from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, Wind
 
 def FeixiaoBronyaRobinGallagher(config, 
                                 feixiaoEidolon:int=None, 
-                                feixiaoSuperposition:int=0,
+                                feixiaoSuperposition:int=0, 
                                 robinEidolon:int=None, 
                                 robinSuperposition:int=0):
     #%% Feixiao Bronya Robin Gallagher Characters
     BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'ER'],
-                                    substats = {'CD': 12, 'SPD.flat': 5, 'HP.percent': 8, 'DEF.percent': 3}),
+                                    substats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                                     lightcone = DanceDanceDance(**config),
                                     relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = LongevousDisciple2pc(), planarset = SprightlyVonwacq(),
                                     **config)
 
     FeixiaoLightcone = CruisingInTheStellarSea(**config) if feixiaoSuperposition == 0 else IVentureForthToHunt(superposition=feixiaoSuperposition,**config)
     FeixiaoCharacter = Feixiao(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.wind'],
-                                    substats = {'CR': 7, 'CD': 12, 'ATK.percent': 6, 'SPD.flat':3}),
+                                    substats = {'CR': 7, 'CD': 12, 'ATK.percent': 4, 'SPD.flat':5}),
                                     lightcone = FeixiaoLightcone,
                                     relicsetone = WindSoaringValorous2pc(),
                                     relicsettwo = WindSoaringValorous4pc(),
@@ -56,7 +56,7 @@ def FeixiaoBronyaRobinGallagher(config,
                                     **config)
 
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
-                                    substats = {'BreakEffect': 12, 'SPD.flat': 6, 'HP.percent': 4, 'RES': 6}),
+                                    substats = {'BreakEffect': 7, 'SPD.flat': 13, 'HP.percent': 3, 'RES': 6}),
                                     lightcone = QuidProQuo(**config),
                                     relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = ThiefOfShootingMeteor2pc(), planarset = SprightlyVonwacq(),
                                     **config)
@@ -90,11 +90,11 @@ def FeixiaoBronyaRobinGallagher(config,
     #%% Feixiao Bronya Robin Gallagher Rotations
     numBasicRobin = 0.0
     numSkillRobin = 2.0
-    RobinRotation = [RobinCharacter.useBasic() * numBasicRobin,
-                    RobinCharacter.useSkill() * numSkillRobin,
-                    RobinCharacter.useUltimate() * 1,
-                    BronyaCharacter.useAdvanceForward(),]
-    RobinCharacter.applyUltBuff([RobinCharacter],uptime=1.0) # apply robin buff after we calculate damage for her basics
+    RobinRotation = [RobinCharacter.useBasic() * numBasicRobin]
+    RobinRotation += [RobinCharacter.useSkill() * numSkillRobin]
+    RobinCharacter.applyUltBuff([RobinCharacter],uptime=1.0) # do not apply robin buff to her basics or skills
+    RobinRotation += [RobinCharacter.useUltimate() * 1]
+    RobinRotation += [BronyaCharacter.useAdvanceForward()]
 
     DanceDanceDanceEffect = BaseEffect()
     DanceDanceDanceEffect.actionvalue = -0.24
@@ -107,27 +107,29 @@ def FeixiaoBronyaRobinGallagher(config,
             DanceDanceDanceEffect,
     ]
 
-    numBasicGallagher = 2.0
-    numSkillGallagher = 3.0
+    numBasicGallagher = 4.0
+    numSkillGallagher = 0.0
     numEnhancedGallagher = 1.0
     GallagherRotation = [GallagherCharacter.useBasic() * numBasicGallagher,
                          GallagherCharacter.useSkill() * numSkillGallagher,
                          GallagherCharacter.useEnhancedBasic() * numEnhancedGallagher,
-                         GallagherCharacter.useUltimate() * 1,]
+                         GallagherCharacter.useUltimate() * 1,
+                         BronyaCharacter.useAdvanceForward() * (numBasicGallagher + numSkillGallagher) * 2.0 / 5.0,
+                         DanceDanceDanceEffect * (numBasicGallagher + numSkillGallagher) / 5.0,]
 
     RobinRotationGallagher = [RobinCharacter.useTalent() * (numBasicGallagher + numEnhancedGallagher + 1.0)]
     RobinRotationGallagher += [RobinCharacter.useConcertoDamage(['basic']) * (numBasicGallagher + numEnhancedGallagher) * RobinUltUptime]
     RobinRotationGallagher += [RobinCharacter.useConcertoDamage(['ultimate']) * 1.0 * RobinUltUptime]
-    GallagherRotation += [DanceDanceDanceEffect * numBasicGallagher / 5.0]
     
-    # number of attacks in 2 feixiao turns
-    numTurns = 2.0
-    numAttacks = numTurns * 2.0 # feixiao attacks
-    numAttacks += numTurns * (numBasicGallagher + numEnhancedGallagher + 1.0) / numBasicGallagher  # gallagher attacks
     
     numBasicFeixiao = 1.0
     numSkillFeixiao = 2.0
     numFollowupFeixiao = (numBasicFeixiao + numSkillFeixiao)
+
+    numTurns = numBasicFeixiao + numSkillFeixiao
+    numAttacks = numTurns * 2.0 # feixiao attacks
+    numAttacks += numTurns * 2.5  # 5 gallagher basics, 1.25 ult, 1.25 enhanced per 3 gallagher turns
+
     numUltFeixiao = numAttacks * (1.0 if FeixiaoCharacter.eidolon >= 2 else 0.5)
     
     FeixiaoRotation = []
@@ -135,8 +137,6 @@ def FeixiaoBronyaRobinGallagher(config,
     FeixiaoRotation += [FeixiaoCharacter.useSkill() * numSkillFeixiao]
     FeixiaoRotation += [FeixiaoCharacter.useTalent() * numFollowupFeixiao]
     FeixiaoRotation += [FeixiaoCharacter.useUltimate() * numUltFeixiao] 
-    FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (numBasicFeixiao + numSkillFeixiao) / 3.0]
-    FeixiaoRotation += [DanceDanceDanceEffect * (numBasicFeixiao + numSkillFeixiao) / 3.0]
 
     RobinRotationFeixiao = [RobinCharacter.useTalent() * (numBasicFeixiao + numSkillFeixiao + numFollowupFeixiao + 1.0)]
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['basic']) * numBasicFeixiao * RobinUltUptime]
@@ -153,21 +153,40 @@ def FeixiaoBronyaRobinGallagher(config,
 
     #%% Feixiao Bronya Robin Gallagher Rotation Math
 
+    totalRobinEffect = sumEffects(RobinRotation)
     totalFeixiaoEffect = sumEffects(FeixiaoRotation)
     totalBronyaEffect = sumEffects(BronyaRotation)
-    totalRobinEffect = sumEffects(RobinRotation)
     totalGallagherEffect = sumEffects(GallagherRotation)
-
+    
+    RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
     FeixiaoRotationDuration = totalFeixiaoEffect.actionvalue * 100.0 / FeixiaoCharacter.getTotalStat('SPD')
     BronyaRotationDuration = totalBronyaEffect.actionvalue * 100.0 / BronyaCharacter.getTotalStat('SPD')
-    RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
-    GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')    
+    GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
 
+    FeixiaoRotationMult = 1.0
+    BronyaRotationMult = 1.0
+    GallagherRotationMult = 1.25 
+    
+    FeixiaoThreeTurns = FeixiaoRotationDuration * FeixiaoRotationMult
+    BronyaThreeTurns = BronyaRotationDuration * BronyaRotationMult
+    GallagherThreeTurns = GallagherRotationDuration * GallagherRotationMult
+    
+    FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (FeixiaoThreeTurns - RobinRotationDuration) * FeixiaoCharacter.getTotalStat('SPD') / 100 / FeixiaoRotationMult]
+    BronyaRotation += [RobinCharacter.useAdvanceForward() * (BronyaThreeTurns - RobinRotationDuration) * BronyaCharacter.getTotalStat('SPD') / 100 / BronyaRotationMult]
+    GallagherRotation += [RobinCharacter.useAdvanceForward() * (GallagherThreeTurns - RobinRotationDuration) * GallagherCharacter.getTotalStat('SPD') / 100 / GallagherRotationMult]
+        
+    totalFeixiaoEffect = sumEffects(FeixiaoRotation)
+    totalBronyaEffect = sumEffects(BronyaRotation)
+    totalGallagherEffect = sumEffects(GallagherRotation)
+    FeixiaoRotationDuration = totalFeixiaoEffect.actionvalue * 100.0 / FeixiaoCharacter.getTotalStat('SPD')
+    BronyaRotationDuration = totalBronyaEffect.actionvalue * 100.0 / BronyaCharacter.getTotalStat('SPD')
+    GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
+    
     print('##### Rotation Durations #####')
-    print('Feixiao: ',FeixiaoRotationDuration)
-    print('Bronya: ',BronyaRotationDuration)
+    print('Feixiao: ',FeixiaoRotationDuration * FeixiaoRotationMult)
+    print('Bronya: ',BronyaRotationDuration * BronyaRotationMult)
     print('Robin: ',RobinRotationDuration)
-    print('Gallagher: ',GallagherRotationDuration)
+    print('Gallagher: ',GallagherRotationDuration * GallagherRotationMult)
 
     # Scale other character's rotation
     BronyaRotation = [x * FeixiaoRotationDuration / BronyaRotationDuration for x in BronyaRotation]

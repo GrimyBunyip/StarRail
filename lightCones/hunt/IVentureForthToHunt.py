@@ -11,6 +11,7 @@ class IVentureForthToHunt(BaseLightCone):
         self.stacks = stacks
 
     def equipTo(self, char:BaseCharacter):
+        self.addStats(char)
         char.addStat('CR', description=self.name, amount=0.125 + 0.025 * self.superposition)
         char.addStat('DefShred',description=self.name,
                                 amount=0.08 + 0.01 * self.superposition,

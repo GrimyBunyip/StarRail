@@ -13,9 +13,11 @@ class Topaz(BaseCharacter):
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
                 e1Stacks:float=2.0,
+                eidolon:int=None,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Topaz')
+        self.eidolon = self.eidolon if eidolon is None else eidolon
         
         self.e1Stacks = e1Stacks
 
@@ -31,8 +33,6 @@ class Topaz(BaseCharacter):
         self.addStat('CD',description='windfall',amount=0.25,type=['windfall'])
 
         # Eidolons
-        if self.eidolon >= 1:
-            self.addStat('CD',description='e1',amount=0.25,type=['followup'],stacks=self.e1Stacks)
         if self.eidolon >= 2:
             self.addStat('BonusEnergyAttack',description='e2',amount=5.0,type=['talent'])
         if self.eidolon >= 4:
@@ -47,6 +47,11 @@ class Topaz(BaseCharacter):
         for character in team:
             character:BaseCharacter
             character.addStat('Vulnerability',description='Topaz Skill Debuff',amount=0.55 if self.eidolon >= 3 else 0.5,type=['followup'],uptime=uptime)
+        
+        if self.eidolon >= 1:
+            for character in team:
+                character:BaseCharacter
+                character.addStat('CD',description='Topaz e1',amount=0.25,type=['followup'],stacks=self.e1Stacks)
         
     def useBasic(self):
         retval = BaseEffect()

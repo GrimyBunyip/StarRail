@@ -289,16 +289,16 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # currently baking
 # visualizationList.append(FeixiaoMarchRobinAventurine(config, feixiaoEidolon=2))
 
-# visualizationList.append(FeixiaoTopazRobinAventurine(config))
+visualizationList.append(FeixiaoTopazRobinAventurine(config))
 visualizationList.append(FeixiaoMarchRobinAventurine(config))
 
-# Bronya variants
-visualizationList.append(MarchBronyaRobinGallagher(config))
-visualizationList.append(FeixiaoBronyaRobinGallagher(config))
-
 # the old guard
+visualizationList.append(MarchBronyaRobinGallagher(config))
 visualizationList.append(DrRatioTopazRobinAventurine(config))
 visualizationList.append(MarchTopazRobinAventurine(config))
+
+# Retire this Feixiao bronya variant, it is unreliable
+visualizationList.append(FeixiaoBronyaRobinGallagher(config))
 
 # # Xueyi Teams
 # # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
