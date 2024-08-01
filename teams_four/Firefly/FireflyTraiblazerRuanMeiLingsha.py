@@ -227,13 +227,13 @@ def FireflyTrailblazerRuanMeiLingsha(config,
     TrailblazerRotation += TrailblazerRotationLingsha
     totalTrailblazerEffect = sumEffects(TrailblazerRotation)
 
-    FireflyEstimate = DefaultEstimator(f'{FireflyCharacter.rotationPrefix} {FireflyCharacter.weaknessBrokenUptime:.2f} Weakness Uptime: {numSkillFirefly:.1f}E {2*numEnhancedFirefly:.1f}Enh {numUltFirefly:.0f}Q', 
+    FireflyEstimate = DefaultEstimator(f'{FireflyCharacter.fullName()} {FireflyCharacter.weaknessBrokenUptime:.2f} Weakness Uptime: {numSkillFirefly:.1f}E {2*numEnhancedFirefly:.1f}Enh {numUltFirefly:.0f}Q', 
                                        FireflyRotation, FireflyCharacter, config)
-    TrailblazerEstimate = DefaultEstimator(f'{TrailblazerCharacter.rotationPrefix} {numSkillTrailblazer:.0f}E {numBasicTrailblazer:.0f}N Q', 
+    TrailblazerEstimate = DefaultEstimator(f'{TrailblazerCharacter.fullName()} {numSkillTrailblazer:.0f}E {numBasicTrailblazer:.0f}N Q', 
                                            TrailblazerRotation, TrailblazerCharacter, config)
-    RuanMeiEstimate = DefaultEstimator(f'{RuanMeiCharacter.rotationPrefix} {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q', 
+    RuanMeiEstimate = DefaultEstimator(f'{RuanMeiCharacter.fullName()} {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q', 
                                     RuanMeiRotation, RuanMeiCharacter, config)
-    LingshaEstimate = DefaultEstimator(f'{LingshaCharacter.rotationPrefix} {numBasicLingsha:.0f}N {numSkillLingsha:.0f}E {numTalentLingsha:.1f}T 1Q',
+    LingshaEstimate = DefaultEstimator(f'{LingshaCharacter.fullName()} {numBasicLingsha:.0f}N {numSkillLingsha:.0f}E {numTalentLingsha:.1f}T 1Q',
                                     LingshaRotation, LingshaCharacter, config)
 
     return([FireflyEstimate, TrailblazerEstimate, LingshaEstimate, RuanMeiEstimate])

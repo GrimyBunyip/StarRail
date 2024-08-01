@@ -285,6 +285,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # to do:
 # e2 robin teams
 # feixiao march bronya
+# er rope march
 
 visualizationList.append(MarchTopazRobinAventurine(config))
 visualizationList.append(MarchTopazRobinGallagher(config, robinEidolon=2))

@@ -43,9 +43,6 @@ class Topaz(BaseCharacter):
         # Gear
         self.equipGear()
         
-        # Rotation Prefix
-        self.rotationPrefix = f'E{self.eidolon} S{self.lightcone.superposition} {self.lightcone.name} Topaz:'
-        
     def applyVulnerabilityDebuff(self,team:list,uptime:float):
         for character in team:
             character:BaseCharacter

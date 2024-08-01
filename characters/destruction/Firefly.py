@@ -32,9 +32,6 @@ class Firefly(BaseCharacter):
         # Gear
         self.equipGear()
         
-        # Rotation Prefix
-        self.rotationPrefix = f'E{self.eidolon} S{self.lightcone.superposition:d} {self.lightcone.shortname} Firefly:'
-
     def addBreakEffectTalent(self):
         self.addStat('BreakEffect',description='Firefly Talent',amount=(self.getTotalStat('ATK')-1800)*0.008/10)
         breakEffectMV = self.getBreakEffect()

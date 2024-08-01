@@ -33,10 +33,7 @@ class Gallagher(BaseCharacter):
         
         # Gear
         self.equipGear()
-        
-        # Rotation String
-        self.rotationPrefix = f'E{self.eidolon} S{self.lightcone.superposition:d} {self.lightcone.shortname} Gallagher:'
-        
+                
     def applyUltDebuff(self,team:list,rotationDuration:float=4.0):
         uptime = (3.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
         uptime = min(1.0, uptime)

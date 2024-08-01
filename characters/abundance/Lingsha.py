@@ -30,8 +30,6 @@ class Lingsha(BaseCharacter):
         # Gear
         self.equipGear()
         
-        # Rotation Prefix
-        self.rotationPrefix = f'E{self.eidolon} S{self.lightcone.superposition:.0f} {self.lightcone.shortname} Lingsha:'
 
     def addAttackForTalent(self):
         self.addStat('ATK.percent',description='Lingsha Break Talent',amount=min(0.50,0.20 * self.getBreakEffect()))

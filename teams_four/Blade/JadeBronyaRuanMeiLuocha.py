@@ -131,7 +131,7 @@ def JadeBronyaRuanMeiLuocha(config):
     RuanMeiRotation = [x * JadeRotationDuration / RuanMeiRotationDuration for x in RuanMeiRotation]
     LuochaRotation = [x * JadeRotationDuration / LuochaRotationDuration for x in LuochaRotation]
 
-    RuanMeiEstimate = DefaultEstimator(f'{RuanMeiCharacter.rotationPrefix} {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q', 
+    RuanMeiEstimate = DefaultEstimator(f'{RuanMeiCharacter.fullName()} {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q', 
                                     RuanMeiRotation, RuanMeiCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)

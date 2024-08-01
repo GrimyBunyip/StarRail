@@ -175,7 +175,7 @@ def AcheronKafkaBlackSwanGallagher(config, acheronEidolon:int=None, acheronSuper
                                                                                                 BlackSwanRotation, BlackSwanCharacter, config, numDot=numDotBlackSwan)
     KafkaEstimate = DefaultEstimator(f'Kafka {numSkill:.0f}E {numTalent:.0f}T {numUlt:.0f}Q {numDotKafka:.1f}Dot, {KafkaCharacter.lightcone.name} S{KafkaCharacter.lightcone.superposition}',
                                     KafkaRotation, KafkaCharacter, config, numDot=numDotKafka)
-    GallagherEstimate = DefaultEstimator(f'{GallagherCharacter.rotationPrefix} {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q', 
+    GallagherEstimate = DefaultEstimator(f'{GallagherCharacter.fullName()} {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q', 
                                     GallagherRotation, GallagherCharacter, config)
 
     return([AcheronEstimate, BlackSwanEstimate, KafkaEstimate, GallagherEstimate])

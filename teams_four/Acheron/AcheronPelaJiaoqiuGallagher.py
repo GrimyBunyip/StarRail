@@ -155,7 +155,7 @@ def AcheronPelaJiaoqiuGallagher(config, acheronEidolon:int=None, acheronSuperpos
                                     JiaoqiuRotation, JiaoqiuCharacter, config, numDot=numDotJiaoqiu)
     PelaEstimate = DefaultEstimator(f'Pela: 2E 1Q, S{PelaCharacter.lightcone.superposition:d} {PelaCharacter.lightcone.name}', 
                                     PelaRotation, PelaCharacter, config)
-    GallagherEstimate = DefaultEstimator(f'{GallagherCharacter.rotationPrefix} {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q', 
+    GallagherEstimate = DefaultEstimator(f'{GallagherCharacter.fullName()} {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q', 
                                     GallagherRotation, GallagherCharacter, config)
 
     return([AcheronEstimate, PelaEstimate, JiaoqiuEstimate, GallagherEstimate])

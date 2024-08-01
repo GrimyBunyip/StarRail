@@ -47,6 +47,7 @@ class BaseCharacter(object):
     path:str
     element:str
     name:str
+    shortname:str
 
     # define information we would pull from the configuration dictionary and might use
     # helps with autocomplete in vs code
@@ -87,11 +88,15 @@ class BaseCharacter(object):
             else:
                 self.__dict__[column] = data
                 
+        self.shortname = self.name if self.shortname is None else self.shortname
         self.initialEnergy = self.maxEnergy * 0.5
         self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
 
-    def longName(self):
-        return f'{self.name} E{self.eidolon} {self.lightcone.name} S{self.lightcone.superposition} {self.lightcone.nameAffix}'
+    def fullName(self, lightconeAffix = False):
+        if lightconeAffix:
+            return f'E{self.eidolon} S{self.lightcone.superposition} {self.lightcone.shortname} {self.lightcone.nameAffix} {self.shortname}'
+        else:
+            return f'E{self.eidolon} S{self.lightcone.superposition} {self.lightcone.shortname} {self.shortname}'
 
     def parseName(self, name:str, type:list=None, mathType:str='base'):
         splitname = name.split('.')
