@@ -150,7 +150,7 @@ def AcheronE2BronyaPelaGallagher(config, acheronSuperposition:int=0):
                                     PelaRotation, PelaCharacter, config)
     BronyaEstimate = DefaultEstimator(f'E0 Bronya S{BronyaCharacter.lightcone.superposition:d} {BronyaCharacter.lightcone.name}, 12 Spd Substats', 
                                     BronyaRotation, BronyaCharacter, config)
-    GallagherEstimate = DefaultEstimator(f'Gallagher: {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q, S{GallagherCharacter.lightcone.superposition:d} {GallagherCharacter.lightcone.name}', 
+    GallagherEstimate = DefaultEstimator(f'{GallagherCharacter.rotationPrefix} {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q', 
                                     GallagherRotation, GallagherCharacter, config)
 
     return([AcheronEstimate, BronyaEstimate, PelaEstimate, GallagherEstimate])

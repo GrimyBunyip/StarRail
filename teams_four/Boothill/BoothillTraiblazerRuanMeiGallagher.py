@@ -204,10 +204,11 @@ def BoothillTrailblazerRuanMeiGallagher(config):
 
     BoothillEstimate = DefaultEstimator(f'Boothill: {numEnhancedBasic:.1f}Enh {numSkill}E {numUlt:.0f}Q',
                                     BoothillRotation, BoothillCharacter, config)
-    TrailblazerEstimate = DefaultEstimator(f'Trailblazer: {numSkillTrailblazer:.0f}E {numBasicTrailblazer:.0f}N Q S{TrailblazerCharacter.lightcone.superposition:d} {TrailblazerCharacter.lightcone.name}', TrailblazerRotation, TrailblazerCharacter, config)
-    RuanMeiEstimate = DefaultEstimator(f'Ruan Mei: {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q, S{RuanMeiCharacter.lightcone.superposition:d} {RuanMeiCharacter.lightcone.name}', 
+    TrailblazerEstimate = DefaultEstimator(f'{TrailblazerCharacter.rotationPrefix} {numSkillTrailblazer:.0f}E {numBasicTrailblazer:.0f}N Q', 
+                                           TrailblazerRotation, TrailblazerCharacter, config)
+    RuanMeiEstimate = DefaultEstimator(f'{RuanMeiCharacter.rotationPrefix} {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q', 
                                     RuanMeiRotation, RuanMeiCharacter, config)
-    GallagherEstimate = DefaultEstimator(f'Gallagher: {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q, S{GallagherCharacter.lightcone.superposition:d} {GallagherCharacter.lightcone.name}', 
+    GallagherEstimate = DefaultEstimator(f'{GallagherCharacter.rotationPrefix} {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q', 
                                     GallagherRotation, GallagherCharacter, config)
 
     return([BoothillEstimate, TrailblazerEstimate, GallagherEstimate, RuanMeiEstimate])

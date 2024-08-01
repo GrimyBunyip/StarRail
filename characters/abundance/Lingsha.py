@@ -5,46 +5,42 @@ from baseClasses.BaseMV import BaseMV
 from baseClasses.RelicSet import RelicSet
 from baseClasses.RelicStats import RelicStats
 
-class Gallagher(BaseCharacter):
+class Lingsha(BaseCharacter):
     def __init__(self,
                 relicstats:RelicStats,
                 lightcone:BaseLightCone=None,
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
+                breakForTalent:float=2.5,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
-        self.loadCharacterStats('Gallagher')
+        self.loadCharacterStats('Lingsha')
+        self.breakForTalent = breakForTalent
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
-        self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=2.5, eidolonThreshold=3, eidolonBonus=0.25)]
-        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.5, eidolonThreshold=5, eidolonBonus=0.15)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
+        self.motionValueDict['skill'] = [BaseMV(area='all', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.08)]
+        self.motionValueDict['talent'] = [BaseMV(area='all', stat='atk', value=0.9, eidolonThreshold=3, eidolonBonus=0.09)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.5, eidolonThreshold=3, eidolonBonus=0.15)]
 
         # Talents
-        self.addStat('AdvanceForward',description='Gallagher Talent',amount=1.0,type=['ultimate'])
+        self.addStat('BonusEnergyAttack',description='Lingsha Talent',amount=10,type=['basic'])
+        self.addStat('ATK.percent',description='Lingsha Break Talent',amount=min(0.50,0.20 * self.getBreakEffect()))
+        self.addStat('Heal',description='Lingsha Break Talent',amount=min(0.20,0.08 * self.getBreakEffect()))
 
         # Eidolons
-        if self.eidolon >= 1:
-            self.addStat('RES',description='e1',amount=0.50)
-        if self.eidolon >= 6:
-            self.addStat('BreakEffect',description='e6',amount=0.20)
-            self.addStat('BreakEfficiency',description='e6',amount=0.20)
         
         # Gear
         self.equipGear()
         
-        # Rotation String
-        self.rotationPrefix = f'E{self.eidolon} S{self.lightcone.superposition:d} {self.lightcone.shortname} Gallagher:'
-        
-    def applyUltDebuff(self,team:list,rotationDuration:float=4.0):
-        uptime = (3.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
-        uptime = min(1.0, uptime)
-        amount = 0.12 if self.eidolon >= 3 else 0.012
+    def applyUltDebuff(self,team:list, rotationDuration:float=3.0):
+        ultUptime = (2.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
+        ultUptime = min(1.0, ultUptime)
         for character in team:
-            character:BaseCharacter
-            character.addStat('Vulnerability',description='Gallagher Besotted',
-                        amount=amount,uptime=uptime,type=['break'])
+            character.addStat('CD',description='Lingsha Ultimate',
+                            amount=(0.27 if self.eidolon >= 3 else 0.25),
+                            uptime=ultUptime)
         
     def useBasic(self):
         retval = BaseEffect()
@@ -60,19 +56,32 @@ class Gallagher(BaseCharacter):
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
-        
-    def useEnhancedBasic(self):
+
+    def useSkill(self):
         retval = BaseEffect()
-        type = ['enhancedBasic','basic']
-        retval.damage = self.getTotalMotionValue('enhancedBasic',type)
+        type = ['skill']
+        retval.damage = self.getTotalMotionValue('skill',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = 90.0 * self.getBreakEfficiency(type)
-        retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
-        retval.skillpoints = 1.0
+        retval.gauge = 30.0 * self.numEnemies * self.getBreakEfficiency(type)
+        retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
+        retval.skillpoints = -1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        self.addDebugInfo(retval,type)
+        return retval
+
+    def useTalent(self):
+        retval = BaseEffect()
+        type = ['followup']
+        retval.damage = self.getTotalMotionValue('talent',type)
+        retval.damage *= self.getTotalCrit(type)
+        retval.damage *= self.getDmg(type)
+        retval.damage *= self.getVulnerability(type)
+        retval.damage = self.applyDamageMultipliers(retval.damage,type)
+        retval.gauge = 45.0 * self.numEnemies * self.getBreakEfficiency(type)
+        retval.energy = ( 0.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         self.addDebugInfo(retval,type)
         return retval
 

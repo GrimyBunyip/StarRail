@@ -29,6 +29,9 @@ class ImaginaryTrailblazer(BaseCharacter):
         # Gear
         self.equipGear()
         
+        # Rotation Prefix
+        self.rotationPrefix = f'E{self.eidolon} S{self.lightcone.superposition:d} {self.lightcone.shortname} Trailblazer:'
+        
     def applyE4Buff(self,team:list):
         for character in team:
             if character.name != self.name:

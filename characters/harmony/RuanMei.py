@@ -29,6 +29,9 @@ class RuanMei(BaseCharacter):
         # Gear
         self.equipGear()
         
+        # Rotation Prefix
+        self.rotationPrefix = f'E{self.eidolon} S{self.lightcone.superposition:d} {self.lightcone.shortname} Ruan Mei:'
+        
     def applyWeaknessModifiers(self,team:list,enemyTurnsPerBreak:float=2.0):
         # estimate weakness break uptime assuming we break every 2 enemy turns
         for character in team:

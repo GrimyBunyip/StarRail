@@ -13,24 +13,17 @@ class Firefly(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                attackForTalent:float=2900,
-                breakEffectMV:float=3.6,
+                eidolon:int=None,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Firefly')
-        self.attackForTalent=attackForTalent
-        self.breakEffectMV=breakEffectMV
+        self.eidolon = self.eidolon if eidolon is None else eidolon
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
         self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.2)]
 
-        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.20)]
-        self.motionValueDict['enhancedSkill'] = [BaseMV(area='single', stat='atk', value=2.0+0.2*self.breakEffectMV, eidolonThreshold=3, eidolonBonus=0.2),
-                                                BaseMV(area='adjacent', stat='atk', value=1.0+0.1*self.breakEffectMV, eidolonThreshold=3, eidolonBonus=0.1)]
-        
         # Talents
-        self.addStat('BreakEffect',description='Firefly Talent',amount=(attackForTalent-1800)*0.008/10)
         
         # Eidolons
         if self.eidolon >= 1:
@@ -38,6 +31,18 @@ class Firefly(BaseCharacter):
 
         # Gear
         self.equipGear()
+        
+        # Rotation Prefix
+        self.rotationPrefix = f'E{self.eidolon} S{self.lightcone.superposition:d} {self.lightcone.shortname} Firefly:'
+
+    def addBreakEffectTalent(self):
+        self.addStat('BreakEffect',description='Firefly Talent',amount=(self.getTotalStat('ATK')-1800)*0.008/10)
+        breakEffectMV = self.getBreakEffect()
+
+        self.motionValueDict['skill'] = [BaseMV(area='single', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.20)]
+        self.motionValueDict['enhancedSkill'] = [BaseMV(area='single', stat='atk', value=2.0+0.2*breakEffectMV, eidolonThreshold=3, eidolonBonus=0.2),
+                                                BaseMV(area='adjacent', stat='atk', value=1.0+0.1*breakEffectMV, eidolonThreshold=3, eidolonBonus=0.1)]
+
         
     def applyUltVulnerability(self,team:list,uptime=None):
         uptime = self.weaknessBrokenUptime if uptime is None else uptime

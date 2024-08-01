@@ -146,7 +146,7 @@ def ArgentiRuanMeiTingyunHuohuo(config):
 
     ArgentiEstimate = DefaultEstimator(f'Argenti: {numSkill:.1f}E {numUlt:.1f}EnhQ', 
                                             ArgentiRotation, ArgentiCharacter, config)
-    RuanMeiEstimate = DefaultEstimator(f'Ruan Mei: {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q, S{RuanMeiCharacter.lightcone.superposition:d} {RuanMeiCharacter.lightcone.name}', 
+    RuanMeiEstimate = DefaultEstimator(f'{RuanMeiCharacter.rotationPrefix} {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q', 
                                     RuanMeiRotation, RuanMeiCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',
                                     TingyunRotation, TingyunCharacter, config)

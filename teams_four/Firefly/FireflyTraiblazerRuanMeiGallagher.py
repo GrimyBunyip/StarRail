@@ -9,6 +9,7 @@ from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.IndeliblePromise import IndeliblePromise
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
+from lightCones.destruction.WhereaboutsShouldDreamsRest import WhereaboutsShouldDreamsRest
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
@@ -18,7 +19,9 @@ from relicSets.relicSets.IronCavalryAgainstTheScourge import IronCavalryAgainstT
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 from relicSets.relicSets.WatchmakerMasterOfDreamMachinations import Watchmaker2pc, Watchmaker4pc
 
-def FireflyTrailblazerRuanMeiGallagher(config):
+def FireflyTrailblazerRuanMeiGallagher(config,
+                                       fireflyEidolon:int=None,
+                                       fireflySuperposition:int=0):
     #%% Firefly Trailblazer RuanMei Gallagher Characters
     
     # do ruan mei first because she needs to alter the enemy speed and toughness uptime
@@ -28,10 +31,11 @@ def FireflyTrailblazerRuanMeiGallagher(config):
                                     relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
                                     **config)
     
+    fireflyLightcone = OnTheFallOfAnAeon(**config,uptime=1.0) if fireflySuperposition == 0 else WhereaboutsShouldDreamsRest(superposition=fireflySuperposition, **config)
     FireflyCharacter = Firefly(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'SPD.flat', 'BreakEffect'],
                                     substats = {'SPD.flat': 12, 'ATK.flat': 3, 'BreakEffect': 8, 'ATK.percent': 5}),
-                                    attackForTalent=3251.7,
-                                    lightcone = OnTheFallOfAnAeon(**config,uptime=1.0),
+                                    lightcone = fireflyLightcone,
+                                    eidolon = fireflyEidolon,
                                     relicsetone = IronCavalryAgainstTheScourge2pc(), relicsettwo = IronCavalryAgainstTheScourge4pc(), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
 
@@ -70,6 +74,9 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
+    
+    # apply firefly self buffs and MV calculations at the end
+    FireflyCharacter.addBreakEffectTalent()
 
     #%% Print Statements
     for character in team:
@@ -100,13 +107,14 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     ]
 
     FireflyCharacter.applyUltVulnerability([FireflyCharacter],uptime=1.0)
+    numEnhancedFirefly *= 1.5 if FireflyCharacter.eidolon >= 2.0 else 1.0
     FireflyRotation += [FireflyCharacter.useEnhancedSkill() * numEnhancedFirefly]
     FireflyRotation += [FireflyCharacter.useSuperBreak(extraTypes=['skill','enhancedSkill']) * numEnhancedFirefly]
     TrailblazerRotationFirefly += [TrailblazerCharacter.useSuperBreak(character=FireflyCharacter, 
                                                                       baseGauge=FireflyCharacter.useEnhancedSkill().gauge,
                                                                       extraTypes=['skill','enhancedSkill']) * numEnhancedFirefly]
 
-    numBasicTrailblazer = 1.0
+    numBasicTrailblazer = 1.0 if fireflyEidolon == 0 else 1.0
     numSkillTrailblazer = 2.0
     TrailblazerRotation = [ # 130 max energy
             TrailblazerCharacter.useBasic() * numBasicTrailblazer,
@@ -210,11 +218,13 @@ def FireflyTrailblazerRuanMeiGallagher(config):
     TrailblazerRotation += TrailblazerRotationGallagher
     totalTrailblazerEffect = sumEffects(TrailblazerRotation)
 
-    FireflyEstimate = DefaultEstimator(f'E{FireflyCharacter.eidolon} Firefly {FireflyCharacter.weaknessBrokenUptime:.2f} Weakness Uptime: {numSkillFirefly:.1f}E {2*numEnhancedFirefly:.1f}Enh {numUltFirefly:.0f}Q S{FireflyCharacter.lightcone.superposition:d} {FireflyCharacter.lightcone.shortname}', FireflyRotation, FireflyCharacter, config)
-    TrailblazerEstimate = DefaultEstimator(f'Trailblazer: {numSkillTrailblazer:.0f}E {numBasicTrailblazer:.0f}N Q S{TrailblazerCharacter.lightcone.superposition:d} {TrailblazerCharacter.lightcone.name}', TrailblazerRotation, TrailblazerCharacter, config)
-    RuanMeiEstimate = DefaultEstimator(f'Ruan Mei: {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q, S{RuanMeiCharacter.lightcone.superposition:d} {RuanMeiCharacter.lightcone.name}', 
+    FireflyEstimate = DefaultEstimator(f'{FireflyCharacter.rotationPrefix} {FireflyCharacter.weaknessBrokenUptime:.2f} Weakness Uptime: {numSkillFirefly:.1f}E {2*numEnhancedFirefly:.1f}Enh {numUltFirefly:.0f}Q', 
+                                       FireflyRotation, FireflyCharacter, config)
+    TrailblazerEstimate = DefaultEstimator(f'{TrailblazerCharacter.rotationPrefix} {numSkillTrailblazer:.0f}E {numBasicTrailblazer:.0f}N Q', 
+                                           TrailblazerRotation, TrailblazerCharacter, config)
+    RuanMeiEstimate = DefaultEstimator(f'{RuanMeiCharacter.rotationPrefix} {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q', 
                                     RuanMeiRotation, RuanMeiCharacter, config)
-    GallagherEstimate = DefaultEstimator(f'Gallagher: {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q, S{GallagherCharacter.lightcone.superposition:d} {GallagherCharacter.lightcone.name}', 
+    GallagherEstimate = DefaultEstimator(f'{GallagherCharacter.rotationPrefix} {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q', 
                                     GallagherRotation, GallagherCharacter, config)
 
     return([FireflyEstimate, TrailblazerEstimate, GallagherEstimate, RuanMeiEstimate])
