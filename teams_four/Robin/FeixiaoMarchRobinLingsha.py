@@ -68,7 +68,6 @@ def FeixiaoMarchRobinLingsha(config,
     LingshaCharacter = Lingsha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                                     substats = {'SPD.flat': 12, 'BreakEffect': 8, 'ATK.percent': 5, 'ATK.flat': 3}),
                                     lightcone = SharedFeeling(**config),
-                                    breakForTalent=1.4,
                                     relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = IronCavalryAgainstTheScourge2pc(), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
     
@@ -93,6 +92,9 @@ def FeixiaoMarchRobinLingsha(config,
     RobinUltUptimeFeixiao = 0.75 
     RobinCharacter.applyUltBuff([MarchCharacter,LingshaCharacter],uptime=RobinUltUptime)
     RobinCharacter.applyUltBuff([FeixiaoCharacter],uptime=RobinUltUptimeFeixiao)
+    
+    # apply Lingsha self buffs and MV calculations at the end
+    LingshaCharacter.addAttackForTalent()
 
     #%% Print Statements
     for character in team:
@@ -102,7 +104,7 @@ def FeixiaoMarchRobinLingsha(config,
     # assume 154 ish spd March and Feixiao, March slower than Feixiao, and 134 ish spd robin
     
     numBasicRobin = 0.0
-    numSkillRobin = 2.0
+    numSkillRobin = 1.0 if RobinCharacter.eidolon >= 2 else 2.0
     RobinRotation = [RobinCharacter.useBasic() * numBasicRobin,
                     RobinCharacter.useSkill() * numSkillRobin,
                     RobinCharacter.useUltimate() * 1,]
@@ -124,8 +126,8 @@ def FeixiaoMarchRobinLingsha(config,
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['ultimate']) * RobinUltUptime]
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['followup']) * numFollowupMarch * RobinUltUptime]
 
-    numBasicLingsha = 2.0
-    numSkillLingsha = 1.0
+    numBasicLingsha = 0.0 if RobinCharacter.eidolon >= 2 else 2.0
+    numSkillLingsha = 3.0 if RobinCharacter.eidolon >= 2 else 1.0
     numTalentLingsha = 4.0 # 1 from ultimate, 1.5 from autoheal, 1.5 from natural turns
     
     LingshaRotation = [LingshaCharacter.useBasic() * numBasicLingsha,
@@ -165,7 +167,6 @@ def FeixiaoMarchRobinLingsha(config,
 
     #%% March Feixiao Robin Lingsha Rotation Math
 
-    # four turn robin advance math
     totalRobinEffect = sumEffects(RobinRotation)
     RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
     
@@ -207,9 +208,9 @@ def FeixiaoMarchRobinLingsha(config,
 
     FeixiaoEstimate = DefaultEstimator(f'E{FeixiaoCharacter.eidolon} S{FeixiaoCharacter.lightcone.superposition:d} {FeixiaoCharacter.lightcone.name} Feixiao: {numBasicFeixiao:.1f}N {numSkillFeixiao:.1f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q', FeixiaoRotation, FeixiaoCharacter, config)
     MarchEstimate = DefaultEstimator(f'E{MarchCharacter.eidolon} S{MarchCharacter.lightcone.superposition:d} {MarchCharacter.lightcone.name} March: {numBasicMarch:.1f}N {numEnhancedMarch:.1f}Enh 1Q', MarchRotation, MarchCharacter, config)
-    RobinEstimate = DefaultEstimator(f'E{RobinCharacter.eidolon} S{RobinCharacter.lightcone.superposition:d} {RobinCharacter.lightcone.name} Robin: {numBasicRobin:.1f}N {numSkillRobin:.1f}E 1Q', 
+    RobinEstimate = DefaultEstimator(f'{RobinCharacter.rotationPrefix} {numBasicRobin:.1f}N {numSkillRobin:.1f}E 1Q', 
                                     RobinRotation, RobinCharacter, config)
-    LingshaEstimate = DefaultEstimator(f'E{LingshaCharacter.eidolon} S{LingshaCharacter.lightcone.superposition:.0f} {LingshaCharacter.lightcone.name} Lingsha: {numBasicLingsha:.0f}N {numSkillLingsha:.0f}E {numTalentLingsha:.1f}T 1Q',
+    LingshaEstimate = DefaultEstimator(f'{LingshaCharacter.rotationPrefix} {numBasicLingsha:.0f}N {numSkillLingsha:.0f}E {numTalentLingsha:.1f}T 1Q',
                                     LingshaRotation, LingshaCharacter, config)
 
     return([FeixiaoEstimate, MarchEstimate, RobinEstimate, LingshaEstimate])

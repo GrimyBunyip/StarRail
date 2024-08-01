@@ -6,7 +6,7 @@ class DestinysThreadsForewoven(BaseLightCone):
                  defense:float=4000,
                 superposition:int=None,
                 **config):
-        self.loadConeStats('Destiny\'s Threads Forewoven')
+        self.loadConeStats('Destiny\'s Threads Forewoven', shortname='Destiny')
         self.setSuperposition(superposition,config)
         self.defense = min(4000,defense)
 

@@ -7,7 +7,7 @@ class OnTheFallOfAnAeon(BaseLightCone):
                 stacks:float = 4.0,
                 superposition:int=None,
                 **config):
-        self.loadConeStats('On the Fall of an Aeon')
+        self.loadConeStats('On the Fall of an Aeon',shortname='Aeon')
         self.setSuperposition(superposition,config)
         self.uptime = uptime
         self.stacks = min(4.0,stacks)

@@ -12,11 +12,9 @@ class Lingsha(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
-                breakForTalent:float=2.5,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Lingsha')
-        self.breakForTalent = breakForTalent
 
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
@@ -26,13 +24,18 @@ class Lingsha(BaseCharacter):
 
         # Talents
         self.addStat('BonusEnergyAttack',description='Lingsha Talent',amount=10,type=['basic'])
-        self.addStat('ATK.percent',description='Lingsha Break Talent',amount=min(0.50,0.20 * self.getBreakEffect()))
-        self.addStat('Heal',description='Lingsha Break Talent',amount=min(0.20,0.08 * self.getBreakEffect()))
 
         # Eidolons
         
         # Gear
         self.equipGear()
+        
+        # Rotation Prefix
+        self.rotationPrefix = f'E{self.eidolon} S{self.lightcone.superposition:.0f} {self.lightcone.shortname} Lingsha:'
+
+    def addAttackForTalent(self):
+        self.addStat('ATK.percent',description='Lingsha Break Talent',amount=min(0.50,0.20 * self.getBreakEffect()))
+        self.addStat('Heal',description='Lingsha Break Talent',amount=min(0.20,0.08 * self.getBreakEffect()))
         
     def applyUltDebuff(self,team:list, rotationDuration:float=3.0):
         ultUptime = (2.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed

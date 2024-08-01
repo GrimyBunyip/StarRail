@@ -7,7 +7,7 @@ class CruisingInTheStellarSea(BaseLightCone):
                 uptimeDefeat:float = 0.5,
                 superposition:int=None,
                 **config):
-        self.loadConeStats('Cruising in the Stellar Sea')
+        self.loadConeStats('Cruising in the Stellar Sea', 'Cruising')
         self.setSuperposition(superposition,config)
         self.uptimeHP = uptimeHP
         self.uptimeDefeat = uptimeDefeat

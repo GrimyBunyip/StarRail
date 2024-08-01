@@ -47,6 +47,7 @@ from teams_four.Clara.ClaraTopazHanyaLuocha import ClaraTopazHanyaLuocha
 from teams_four.DotTeams.KafkaJiaoqiuBlackSwanLuocha import KafkaJiaoqiuBlackSwanLuocha
 from teams_four.DotTeams.KafkaS1RobinBlackSwanGallagher import KafkaS1RobinBlackSwanGallagher
 from teams_four.Firefly.FireflyTraiblazerRuanMeiGallagher import FireflyTrailblazerRuanMeiGallagher
+from teams_four.Firefly.FireflyTraiblazerRuanMeiLingsha import FireflyTrailblazerRuanMeiLingsha
 from teams_four.Jingliu.JingliuBronyaHanabiLuocha import JingliuBronyaHanabiLuocha
 from teams_four.Jingliu.JingliuBronyaMarchLuocha import JingliuBronyaMarchLuocha
 from teams_four.Jingliu.JingliuBronyaPelaLuocha import JingliuBronyaPelaLuocha
@@ -81,6 +82,8 @@ from teams_four.Qingque.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWo
 from teams_four.RatioTopaz.RatioTopazRobinAventurine import DrRatioTopazRobinAventurine
 from teams_four.Robin.FeixiaoBronyaRobinGallagher import FeixiaoBronyaRobinGallagher
 from teams_four.Robin.FeixiaoMarchRobinLingsha import FeixiaoMarchRobinLingsha
+from teams_four.Robin.FeixiaoMarchTopazAventurine import FeixiaoMarchTopazAventurine
+from teams_four.Robin.MarchTopazRobinGallagher import MarchTopazRobinGallagher
 from teams_four.Seele.SilverWolfMarchRobinHuohuo import SilverWolfMarchRobinHuohuo
 from teams_four.Robin.FeixiaoMarchRobinAventurine import FeixiaoMarchRobinAventurine
 from teams_four.Robin.FeixiaoTopazRobinAventurine import FeixiaoTopazRobinAventurine
@@ -207,9 +210,12 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # # visualizationList.append(ClaraTingyunHanabiFuxuanEscapade(config))
 
 # # Firefly Teams
-visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
-visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=2))
-visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=2, fireflySuperposition=1))
+# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=2))
+# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=2, fireflySuperposition=1))
+# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config))
+# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2))
+# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2, fireflySuperposition=1))
 
 # # Jingliu Teams
 # visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
@@ -277,24 +283,26 @@ visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidol
 # # Robin Teams
 
 # to do:
-# march/ratio topaz robin QPQ gallagher
-# feixiao march robin lingsha
-# feixiao march topaz
+# e2 robin teams
 # feixiao march bronya
 
-# currently baking
-# visualizationList.append(FeixiaoMarchRobinAventurine(config, feixiaoEidolon=2))
+visualizationList.append(MarchTopazRobinAventurine(config))
+visualizationList.append(MarchTopazRobinGallagher(config, robinEidolon=2))
+visualizationList.append(FeixiaoMarchRobinAventurine(config))
+visualizationList.append(FeixiaoMarchRobinAventurine(config, feixiaoEidolon=2))
+visualizationList.append(FeixiaoMarchRobinLingsha(config, robinEidolon=2))
 
+# # aventurine variants
 # visualizationList.append(FeixiaoTopazRobinAventurine(config))
 # visualizationList.append(FeixiaoMarchRobinAventurine(config))
-# visualizationList.append(FeixiaoMarchRobinLingsha(config))
 
 # the old guard
 # visualizationList.append(MarchBronyaRobinGallagher(config))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(MarchTopazRobinAventurine(config))
 
-# Retire this Feixiao bronya variant, it is unreliable
+# Retire these teams for various reasons
+# visualizationList.append(FeixiaoMarchTopazAventurine(config))
 # visualizationList.append(FeixiaoBronyaRobinGallagher(config))
 
 # # Xueyi Teams
