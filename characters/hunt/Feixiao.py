@@ -38,6 +38,9 @@ class Feixiao(BaseCharacter):
         # Gear
         self.equipGear()
         
+        # Rotation Prefix
+        self.rotationPrefix = f'E{self.eidolon} S{self.lightcone.superposition:d} {self.lightcone.name} Feixiao:'
+        
     def useBasic(self):
         retval = BaseEffect()
         type = ['basic']

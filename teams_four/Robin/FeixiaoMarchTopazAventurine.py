@@ -172,9 +172,9 @@ def FeixiaoMarchTopazAventurine(config,
     TopazRotation = [x * FeixiaoRotationDuration / TopazRotationDuration for x in TopazRotation]
     AventurineRotation = [x * FeixiaoRotationDuration / AventurineRotationDuration for x in AventurineRotation]
 
-    FeixiaoEstimate = DefaultEstimator(f'E{FeixiaoCharacter.eidolon} S{FeixiaoCharacter.lightcone.superposition:d} {FeixiaoCharacter.lightcone.name} Feixiao: {numBasicFeixiao:.1f}N {numSkillFeixiao:.1f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q', FeixiaoRotation, FeixiaoCharacter, config)
+    FeixiaoEstimate = DefaultEstimator(f'{FeixiaoCharacter.rotationPrefix} {numBasicFeixiao:.1f}N {numSkillFeixiao:.1f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q', FeixiaoRotation, FeixiaoCharacter, config)
     MarchEstimate = DefaultEstimator(f'E{MarchCharacter.eidolon} S{MarchCharacter.lightcone.superposition:d} {MarchCharacter.lightcone.name} March: {numBasicMarch:.1f}N {numEnhancedMarch:.1f}Enh 1Q', MarchRotation, MarchCharacter, config)
-    TopazEstimate = DefaultEstimator(f'E{TopazCharacter.eidolon:d} Topaz: {TopazCharacter.lightcone.name} {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numTalentTopaz:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
+    TopazEstimate = DefaultEstimator(f'{TopazCharacter.rotationPrefix} {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numTalentTopaz:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
     AventurineEstimate = DefaultEstimator(f'E{AventurineCharacter.eidolon} S{AventurineCharacter.lightcone.superposition:.0f} {AventurineCharacter.lightcone.name} Aventurine: {numBasicAventurine:.0f}N {numTalentAventurine:.1f}T 1Q',
                                     AventurineRotation, AventurineCharacter, config)
 

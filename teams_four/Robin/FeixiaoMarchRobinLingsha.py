@@ -206,7 +206,7 @@ def FeixiaoMarchRobinLingsha(config,
     RobinRotation += RobinRotationLingsha
     totalRobinEffect = sumEffects(RobinRotation)
 
-    FeixiaoEstimate = DefaultEstimator(f'E{FeixiaoCharacter.eidolon} S{FeixiaoCharacter.lightcone.superposition:d} {FeixiaoCharacter.lightcone.name} Feixiao: {numBasicFeixiao:.1f}N {numSkillFeixiao:.1f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q', FeixiaoRotation, FeixiaoCharacter, config)
+    FeixiaoEstimate = DefaultEstimator(f'{FeixiaoCharacter.rotationPrefix} {numBasicFeixiao:.1f}N {numSkillFeixiao:.1f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q', FeixiaoRotation, FeixiaoCharacter, config)
     MarchEstimate = DefaultEstimator(f'E{MarchCharacter.eidolon} S{MarchCharacter.lightcone.superposition:d} {MarchCharacter.lightcone.name} March: {numBasicMarch:.1f}N {numEnhancedMarch:.1f}Enh 1Q', MarchRotation, MarchCharacter, config)
     RobinEstimate = DefaultEstimator(f'{RobinCharacter.rotationPrefix} {numBasicRobin:.1f}N {numSkillRobin:.1f}E 1Q', 
                                     RobinRotation, RobinCharacter, config)
