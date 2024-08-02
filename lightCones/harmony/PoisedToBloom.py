@@ -5,7 +5,7 @@ class PoisedToBloom(BaseLightCone):
     def __init__(self,
                 superposition:int=None,
                 **config):
-        self.loadConeStats('Poised to Bloom')
+        self.loadConeStats('Poised to Bloom', shortname='Poised')
         self.setSuperposition(superposition,config)
 
     def equipTo(self, char:BaseCharacter):

@@ -13,7 +13,7 @@ class Jiaoqiu(BaseCharacter):
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
                 ehr:float=1.4,
-                talentStacks:float=2.0,
+                talentStacks:float=5.0,
                 eidolon:int=None,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)

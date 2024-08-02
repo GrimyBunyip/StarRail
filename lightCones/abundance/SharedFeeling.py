@@ -5,7 +5,7 @@ class SharedFeeling(BaseLightCone):
     def __init__(self,
                 superposition:int=None,
                 **config):
-        self.loadConeStats('Shared Feeling')
+        self.loadConeStats('Shared Feeling', shortname='Shared')
         self.setSuperposition(superposition,config)
 
     def equipTo(self, char:BaseCharacter):

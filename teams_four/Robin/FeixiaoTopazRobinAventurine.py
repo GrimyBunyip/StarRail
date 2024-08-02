@@ -145,12 +145,17 @@ def FeixiaoTopazRobinAventurine(config,
     numTurns = 2.0
     numAttacks = numTurns * 2.0 # feixiao attacks
     numAttacks += numTurns * (numBasicTopaz + numSkillTopaz + numTalentTopaz + 1.0) / (numBasicTopaz + numSkillTopaz)  # Topaz attacks
-    numAttacks += numTurns * (1.0 + numTalentAventurine / numBasicAventurine / 6.0) # aventurine attacks
+    numAttacks += numTurns * (1.0 + numTalentAventurine / 7.0) / numBasicAventurine # aventurine attacks
     
     numBasicFeixiao = 0.5
     numSkillFeixiao = 1.5
     numFollowupFeixiao = (numBasicFeixiao + numSkillFeixiao)
     numUltFeixiao = numAttacks * (1.0 if FeixiaoCharacter.eidolon >= 2 else 0.5)
+    
+    numBasicFeixiao *= 6.0 / numUltFeixiao
+    numSkillFeixiao *= 6.0 / numUltFeixiao
+    numFollowupFeixiao *= 6.0 / numUltFeixiao
+    numUltFeixiao = 6.0
     
     FeixiaoRotation = []
     FeixiaoRotation += [FeixiaoCharacter.useBasic() * numBasicFeixiao]

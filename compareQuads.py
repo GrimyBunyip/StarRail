@@ -152,6 +152,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
+visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=0))
 
 # visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2HanabiPelaGallagher(config, acheronSuperposition=1))
@@ -211,7 +212,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # # Firefly Teams
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
-# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=2))
+visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=2))
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=2, fireflySuperposition=1))
 # visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config))
 # visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2))
@@ -287,9 +288,9 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # feixiao march bronya
 # er rope march
 
-visualizationList.append(MarchTopazRobinAventurine(config))
+# visualizationList.append(MarchTopazRobinAventurine(config))
 visualizationList.append(MarchTopazRobinGallagher(config, robinEidolon=2))
-visualizationList.append(FeixiaoMarchRobinAventurine(config))
+# visualizationList.append(FeixiaoMarchRobinAventurine(config))
 visualizationList.append(FeixiaoMarchRobinAventurine(config, feixiaoEidolon=2))
 visualizationList.append(FeixiaoMarchRobinLingsha(config, robinEidolon=2))
 

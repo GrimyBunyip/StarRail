@@ -132,6 +132,11 @@ def FeixiaoBronyaRobinGallagher(config,
 
     numUltFeixiao = numAttacks * (1.0 if FeixiaoCharacter.eidolon >= 2 else 0.5)
     
+    numBasicFeixiao *= 6.0 / numUltFeixiao
+    numSkillFeixiao *= 6.0 / numUltFeixiao
+    numFollowupFeixiao *= 6.0 / numUltFeixiao
+    numUltFeixiao = 6.0
+    
     FeixiaoRotation = []
     FeixiaoRotation += [FeixiaoCharacter.useBasic() * numBasicFeixiao]
     FeixiaoRotation += [FeixiaoCharacter.useSkill() * numSkillFeixiao]

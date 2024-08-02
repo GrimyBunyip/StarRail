@@ -47,7 +47,7 @@ def FeixiaoMarchRobinLingsha(config,
 
     # give March swordplay if Feixiao uses Cruising
     MarchLightCone = Swordplay(**config) #if feixiaoSuperposition == 0 else CruisingInTheStellarSea(**config)
-    MarchSubstats = {'CD': 8, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 5} #if feixiaoSuperposition == 0 else {'CD': 11, 'CR': 9, 'ATK.percent': 3, 'SPD.flat': 5}
+    MarchSubstats = {'CD': 7, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 6} #if feixiaoSuperposition == 0 else {'CD': 11, 'CR': 9, 'ATK.percent': 3, 'SPD.flat': 5}
     MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
                                     substats = MarchSubstats),
                                     lightcone = MarchLightCone,
@@ -66,7 +66,7 @@ def FeixiaoMarchRobinLingsha(config,
                                     **config)
 
     LingshaCharacter = Lingsha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                                    substats = {'SPD.flat': 12, 'BreakEffect': 8, 'ATK.percent': 5, 'ATK.flat': 3}),
+                                    substats = {'SPD.flat': 13, 'BreakEffect': 7, 'ATK.percent': 5, 'ATK.flat': 3}),
                                     lightcone = SharedFeeling(**config),
                                     relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = IronCavalryAgainstTheScourge2pc(), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
@@ -88,8 +88,8 @@ def FeixiaoMarchRobinLingsha(config,
     RobinCharacter.applyTalentBuff(team)
     RobinCharacter.applySkillBuff(team)
 
-    RobinUltUptime = 0.5
-    RobinUltUptimeFeixiao = 0.75 
+    RobinUltUptime = 1.0 if RobinCharacter.eidolon >= 2 else 0.5
+    RobinUltUptimeFeixiao = 1.0 if RobinCharacter.eidolon >= 2 else 0.75 
     RobinCharacter.applyUltBuff([MarchCharacter,LingshaCharacter],uptime=RobinUltUptime)
     RobinCharacter.applyUltBuff([FeixiaoCharacter],uptime=RobinUltUptimeFeixiao)
     
@@ -128,7 +128,8 @@ def FeixiaoMarchRobinLingsha(config,
 
     numBasicLingsha = 0.0 if RobinCharacter.eidolon >= 2 else 2.0
     numSkillLingsha = 3.0 if RobinCharacter.eidolon >= 2 else 1.0
-    numTalentLingsha = 4.0 # 1 from ultimate, 1.5 from autoheal, 1.5 from natural turns
+    # 1 from ultimate, 1.5 from autoheal, 1.5 from natural turns, but assume 1 and 1 if robin e2
+    numTalentLingsha = 3.0 if RobinCharacter.eidolon >= 2 else 4.0 
     
     LingshaRotation = [LingshaCharacter.useBasic() * numBasicLingsha,
                        LingshaCharacter.useSkill() * numSkillLingsha,
@@ -148,10 +149,15 @@ def FeixiaoMarchRobinLingsha(config,
     numAttacks += numTurns * (numBasicMarch + numFollowupMarch + numEnhancedMarch + 1.0) / numBasicMarch  # march attacks
     numAttacks += numTurns * (1.0 + numBasicLingsha + numSkillLingsha + numTalentLingsha) / (numBasicLingsha + numSkillLingsha) # Lingsha attacks
     
-    numBasicFeixiao = 0.0
-    numSkillFeixiao = 2.0
+    numBasicFeixiao = 1.25 if RobinCharacter.eidolon >= 2 else 0.0
+    numSkillFeixiao = 0.75 if RobinCharacter.eidolon >= 2 else 2.0
     numFollowupFeixiao = (numBasicFeixiao + numSkillFeixiao)
     numUltFeixiao = numAttacks * (1.0 if FeixiaoCharacter.eidolon >= 2 else 0.5)
+    
+    numBasicFeixiao *= 6.0 / numUltFeixiao
+    numSkillFeixiao *= 6.0 / numUltFeixiao
+    numFollowupFeixiao *= 6.0 / numUltFeixiao
+    numUltFeixiao = 6.0
     
     FeixiaoRotation = []
     FeixiaoRotation += [FeixiaoCharacter.useBasic() * numBasicFeixiao]
@@ -170,15 +176,18 @@ def FeixiaoMarchRobinLingsha(config,
     totalRobinEffect = sumEffects(RobinRotation)
     RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
     
-    fourTurnAV = 400.0
+    numTurnAV = 300.0 if RobinCharacter.eidolon >= 2 else 400.0
 
-    MarchFourTurns = fourTurnAV * MarchCharacter.useBasic().actionvalue / MarchCharacter.getTotalStat('SPD')
-    FeixiaoFourTurns = fourTurnAV * FeixiaoCharacter.useSkill().actionvalue / FeixiaoCharacter.getTotalStat('SPD')
-    LingshaFourTurns = fourTurnAV * LingshaCharacter.useBasic().actionvalue / LingshaCharacter.getTotalStat('SPD')
+    MarchNumTurns = numTurnAV * MarchCharacter.useBasic().actionvalue / MarchCharacter.getTotalStat('SPD')
+    FeixiaoActionValue = FeixiaoCharacter.useSkill().actionvalue * numSkillFeixiao
+    FeixiaoActionValue += FeixiaoCharacter.useBasic().actionvalue * numBasicFeixiao
+    FeixiaoActionValue /= numSkillFeixiao + numBasicFeixiao
+    FeixiaoNumTurns = numTurnAV * FeixiaoActionValue / FeixiaoCharacter.getTotalStat('SPD')
+    LingshaNumTurns = numTurnAV * LingshaCharacter.useBasic().actionvalue / LingshaCharacter.getTotalStat('SPD')
     
-    MarchRotation += [RobinCharacter.useAdvanceForward() * (MarchFourTurns - RobinRotationDuration) * MarchCharacter.getTotalStat('SPD') * numBasicMarch / fourTurnAV]
-    FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (FeixiaoFourTurns - RobinRotationDuration) * FeixiaoCharacter.getTotalStat('SPD') * numFollowupFeixiao / fourTurnAV]
-    LingshaRotation += [RobinCharacter.useAdvanceForward() * (LingshaFourTurns - RobinRotationDuration) * LingshaCharacter.getTotalStat('SPD') * (numBasicLingsha + numSkillLingsha) / fourTurnAV]
+    MarchRotation += [RobinCharacter.useAdvanceForward() * (MarchNumTurns - RobinRotationDuration) * MarchCharacter.getTotalStat('SPD') * numBasicMarch / numTurnAV]
+    FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (FeixiaoNumTurns - RobinRotationDuration) * FeixiaoCharacter.getTotalStat('SPD') * numFollowupFeixiao / numTurnAV]
+    LingshaRotation += [RobinCharacter.useAdvanceForward() * (LingshaNumTurns - RobinRotationDuration) * LingshaCharacter.getTotalStat('SPD') * (numBasicLingsha + numSkillLingsha) / numTurnAV]
         
     totalMarchEffect = sumEffects(MarchRotation)
     totalFeixiaoEffect = sumEffects(FeixiaoRotation)
@@ -189,8 +198,8 @@ def FeixiaoMarchRobinLingsha(config,
     LingshaRotationDuration = totalLingshaEffect.actionvalue * 100.0 / LingshaCharacter.getTotalStat('SPD')
     
     print('##### Rotation Durations #####')
-    print('March: ',MarchRotationDuration * 2.0)
-    print('Feixiao: ',FeixiaoRotationDuration * 2.0)
+    print('March: ',MarchRotationDuration * numTurnAV / 100.0 / numBasicMarch)
+    print('Feixiao: ',FeixiaoRotationDuration * numTurnAV / 100.0 / numFollowupFeixiao)
     print('Robin: ',RobinRotationDuration)
     print('Lingsha: ',LingshaRotationDuration)
 

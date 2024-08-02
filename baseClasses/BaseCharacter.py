@@ -88,7 +88,7 @@ class BaseCharacter(object):
             else:
                 self.__dict__[column] = data
                 
-        self.shortname = self.name if self.shortname is None else self.shortname
+        self.shortname = self.shortname if isinstance(self.shortname,str) else self.name
         self.initialEnergy = self.maxEnergy * 0.5
         self.eidolon = self.fourstarEidolons if self.rarity == 4 else self.fivestarEidolons
 
