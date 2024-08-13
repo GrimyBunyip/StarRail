@@ -37,8 +37,8 @@ class Lingsha(BaseCharacter):
         
 
     def addAttackForTalent(self):
-        self.addStat('ATK.percent',description='Lingsha Break Talent',amount=min(0.50,0.20 * self.getBreakEffect()))
-        self.addStat('Heal',description='Lingsha Break Talent',amount=min(0.20,0.08 * self.getBreakEffect()))
+        self.addStat('ATK.percent',description='Lingsha Break Talent',amount=min(0.50,0.25 * self.getBreakEffect()))
+        self.addStat('Heal',description='Lingsha Break Talent',amount=min(0.20,0.10 * self.getBreakEffect()))
         
     def applyUltDebuff(self,team:list, rotationDuration:float=3.0):
         ultUptime = (2.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
@@ -86,7 +86,7 @@ class Lingsha(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = 45.0 * self.numEnemies * self.getBreakEfficiency(type)
+        retval.gauge = 30.0 * self.numEnemies * self.getBreakEfficiency(type)
         retval.energy = ( 0.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         self.addDebugInfo(retval,type)
         return retval
