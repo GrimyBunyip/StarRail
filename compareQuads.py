@@ -152,7 +152,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
-visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=0))
+# visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=0))
 
 # visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2HanabiPelaGallagher(config, acheronSuperposition=1))
@@ -212,10 +212,14 @@ visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperpos
 
 # # Firefly Teams
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
-visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=2))
+# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=2))
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=2, fireflySuperposition=1))
 # visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config))
 # visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2))
+# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2,lingshaSuperposition=1))
+# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2,lingshaEidolon=1))
+# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2,lingshaEidolon=2))
+# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2,lingshaEidolon=2,lingshaSuperposition=1))
 # visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2, fireflySuperposition=1))
 
 # # Jingliu Teams
@@ -289,14 +293,15 @@ visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidol
 # er rope march
 
 # visualizationList.append(MarchTopazRobinAventurine(config))
-visualizationList.append(MarchTopazRobinGallagher(config, robinEidolon=2))
-# visualizationList.append(FeixiaoMarchRobinAventurine(config))
-visualizationList.append(FeixiaoMarchRobinAventurine(config, feixiaoEidolon=2))
-visualizationList.append(FeixiaoMarchRobinLingsha(config, robinEidolon=2))
+# visualizationList.append(MarchTopazRobinGallagher(config, robinEidolon=2))
+visualizationList.append(FeixiaoMarchRobinAventurine(config))
+# visualizationList.append(FeixiaoMarchRobinAventurine(config, feixiaoEidolon=2))
+# visualizationList.append(FeixiaoMarchRobinLingsha(config, robinEidolon=2))
 
 # # aventurine variants
 # visualizationList.append(FeixiaoTopazRobinAventurine(config))
 # visualizationList.append(FeixiaoMarchRobinAventurine(config))
+# visualizationList.append(FeixiaoMarchRobinLingsha(config))
 
 # the old guard
 # visualizationList.append(MarchBronyaRobinGallagher(config))

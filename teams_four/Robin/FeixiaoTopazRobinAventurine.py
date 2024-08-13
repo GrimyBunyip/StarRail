@@ -109,7 +109,7 @@ def FeixiaoTopazRobinAventurine(config,
 
     numBasicTopaz = 2.0
     numSkillTopaz = 2.0
-    numTalentTopaz = (numBasicTopaz + numSkillTopaz) * 1.0 + 1.0 # rough estimate
+    numTalentTopaz = (numBasicTopaz + numSkillTopaz) * 1.25 + 1.0 # rough estimate
     TopazRotation = []
     TopazRotation += [TopazCharacter.useBasic() * numBasicTopaz]
     TopazRotation += [TopazCharacter.useSkill() * numSkillTopaz]

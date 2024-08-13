@@ -6,6 +6,7 @@ from characters.harmony.Robin import Robin
 from characters.hunt.Feixiao import Feixiao
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.harmony.FlowingNightglow import FlowingNightglow
+from lightCones.harmony.ForTomorrowsJourney import ForTomorrowsJourney
 from lightCones.harmony.PoisedToBloom import PoisedToBloom
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.hunt.IVentureForthToHunt import IVentureForthToHunt
@@ -54,7 +55,7 @@ def FeixiaoMarchRobinAventurine(config,
     
     RobinLightCone = PoisedToBloom(**config) if robinSuperposition == 0 else FlowingNightglow(superposition=robinSuperposition,**config)
     RobinCharacter = Robin(RelicStats(mainstats = ['ER', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
-                                    substats = {'ATK.percent': 11, 'SPD.flat': 9, 'RES': 3, 'ATK.flat': 5}),
+                                    substats = {'ATK.percent': 11, 'SPD.flat': 9, 'RES': 3, 'ATK.flat': 6}),
                                     lightcone = RobinLightCone,
                                     relicsetone = Prisoner2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SprightlyVonwacq(),
                                     eidolon=robinEidolon,
@@ -72,8 +73,9 @@ def FeixiaoMarchRobinAventurine(config,
     #%% March Feixiao Robin Aventurine Team Buffs
     for character in [FeixiaoCharacter, MarchCharacter, RobinCharacter]:
         character.addStat('CD',description='Broken Keel from Aventurine',amount=0.1)
-    for character in [FeixiaoCharacter, MarchCharacter]:
-        character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
+    if RobinCharacter.lightcone.name == 'Poised to Bloom':
+        for character in [FeixiaoCharacter, MarchCharacter]:
+            character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
     
     # March Buff
     MarchCharacter.applySkillBuff(FeixiaoCharacter)

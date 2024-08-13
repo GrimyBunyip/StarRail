@@ -6,6 +6,7 @@ from characters.destruction.Firefly import Firefly
 from characters.harmony.RuanMei import RuanMei
 from characters.harmony.ImaginaryTrailblazer import ImaginaryTrailblazer
 from estimator.DefaultEstimator import DefaultEstimator
+from lightCones.abundance.EchoesOfTheCoffin import EchoesOfTheCoffin
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.destruction.WhereaboutsShouldDreamsRest import WhereaboutsShouldDreamsRest
@@ -21,7 +22,9 @@ from relicSets.relicSets.WatchmakerMasterOfDreamMachinations import Watchmaker2p
 
 def FireflyTrailblazerRuanMeiLingsha(config,
                                        fireflyEidolon:int=None,
-                                       fireflySuperposition:int=0):
+                                       fireflySuperposition:int=0,
+                                       lingshaEidolon:int=None,
+                                       lingshaSuperposition:int=0,):
     #%% Firefly Trailblazer RuanMei Lingsha Characters
     
     # do ruan mei first because she needs to alter the enemy speed and toughness uptime
@@ -46,9 +49,11 @@ def FireflyTrailblazerRuanMeiLingsha(config,
                                     relicsetone = Watchmaker2pc(), relicsettwo = Watchmaker4pc(uptime=0.0), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
 
+    lingshaLightcone = EchoesOfTheCoffin(**config) if lingshaSuperposition == 0 else Multiplication(**config)
     LingshaCharacter = Lingsha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                                     substats = {'SPD.flat': 12, 'BreakEffect': 8, 'ATK.percent': 5, 'ATK.flat': 3}),
-                                    lightcone = Multiplication(**config),
+                                    lightcone = lingshaLightcone,
+                                    eidolon = lingshaEidolon,
                                     relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = IronCavalryAgainstTheScourge2pc(), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
     
@@ -74,7 +79,16 @@ def FireflyTrailblazerRuanMeiLingsha(config,
     FireflyCharacter.applyUltVulnerability(team=[TrailblazerCharacter, LingshaCharacter, RuanMeiCharacter])
     
     # Apply Lingsha Debuff
-    LingshaCharacter.applyUltDebuff(team=team,rotationDuration=3.0)
+    lingshaUltRotation = 2.0 if LingshaCharacter.lightcone.name == 'Echoes of the Coffin' else 3.0
+    LingshaCharacter.applyUltDebuff(team=team,rotationDuration=lingshaUltRotation)
+    if LingshaCharacter.eidolon >= 2:
+        for character in team:
+            character.addStat('BreakEffect',description='Lingsha E2',amount=0.4)
+    if LingshaCharacter.lightcone.name == 'Echoes of the Coffin':
+        for character in team:
+            character.addStat('SPD.flat',description='Echoes of the Coffin', 
+                              amount=10 + 2 * LingshaCharacter.lightcone.superposition,
+                              uptime=min(1.0, 1.0 / lingshaUltRotation))
     
     # apply Firefly and Lingsha self buffs and MV calculations at the end
     FireflyCharacter.addBreakEffectTalent()
@@ -142,9 +156,11 @@ def FireflyTrailblazerRuanMeiLingsha(config,
                                                           extraTypes=['basic']) * numBasicRuanMei
     ]
 
-    numBasicLingsha = 2.0
+    numBasicLingsha = 1.0 if LingshaCharacter.lightcone.name == 'Echoes of the Coffin' else 2.0
     numSkillLingsha = 1.0
-    numTalentLingsha = 4.0 # 1 from ultimate, 1.5 from autoheal, 1.5 from natural turns
+    # 1 from ultimate, 1.5 from autoheal, 1.5 from natural turns
+    # 1 from ultimate, 1 from autoheal, 1 from natural turns if S1
+    numTalentLingsha = 3.0 if LingshaCharacter.lightcone.name == 'Echoes of the Coffin' else 4.0
     
     LingshaRotation = [LingshaCharacter.useBasic() * numBasicLingsha,
                        LingshaCharacter.useSkill() * numSkillLingsha,
