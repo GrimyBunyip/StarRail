@@ -27,12 +27,15 @@ def FeixiaoMarchRobinAventurine(config,
                                 feixiaoEidolon:int=None, 
                                 feixiaoSuperposition:int=0, 
                                 robinEidolon:int=None, 
-                                robinSuperposition:int=0):
+                                robinSuperposition:int=0,):
     #%% March Feixiao Robin Aventurine Characters
 
     FeixiaoLightcone = CruisingInTheStellarSea(**config) if feixiaoSuperposition == 0 else IVentureForthToHunt(superposition=feixiaoSuperposition,**config)
-    FeixiaoSubstats = {'CR': 7, 'CD': 9, 'ATK.percent': 3, 'SPD.flat':9} if feixiaoSuperposition == 0 else {'CR': 10, 'CD': 6, 'ATK.percent': 3, 'SPD.flat':9}
-    FeixiaoCharacter = Feixiao(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.wind'],
+    FeixiaoSubstats = {'CR': 7, 'CD': 12, 'ATK.percent': 4, 'SPD.flat':5} if feixiaoSuperposition == 0 else {'CR': 10, 'CD': 11, 'ATK.percent': 3, 'SPD.flat':4}
+    if robinEidolon is not None and robinEidolon >= 2:
+        FeixiaoSubstats['SPD.flat'] += 1
+        FeixiaoSubstats['CD'] -= 1
+    FeixiaoCharacter = Feixiao(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind'],
                                     substats = FeixiaoSubstats),
                                     lightcone = FeixiaoLightcone,
                                     relicsetone = WindSoaringValorous2pc(),
@@ -43,7 +46,10 @@ def FeixiaoMarchRobinAventurine(config,
 
     # give March swordplay if Feixiao uses Cruising
     MarchLightCone = Swordplay(**config) #if feixiaoSuperposition == 0 else CruisingInTheStellarSea(**config)
-    MarchSubstats = {'CD': 8, 'CR': 12, 'ATK.percent': 3, 'SPD.flat': 5} #if feixiaoSuperposition == 0 else {'CD': 11, 'CR': 9, 'ATK.percent': 3, 'SPD.flat': 5}
+    MarchSubstats = {'CD': 8, 'CR': 12, 'ATK.percent': 4, 'SPD.flat': 4} #if feixiaoSuperposition == 0 else {'CD': 11, 'CR': 9, 'ATK.percent': 3, 'SPD.flat': 5}
+    if robinEidolon is not None and robinEidolon >= 2:
+        MarchSubstats['SPD.flat'] += 2
+        MarchSubstats['CD'] -= 2
     MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
                                     substats = MarchSubstats),
                                     lightcone = MarchLightCone,
@@ -88,10 +94,8 @@ def FeixiaoMarchRobinAventurine(config,
     RobinCharacter.applyTalentBuff(team)
     RobinCharacter.applySkillBuff(team)
 
-    RobinUltUptime = 0.5
-    RobinUltUptimeFeixiao = 0.75 
-    RobinCharacter.applyUltBuff([MarchCharacter,AventurineCharacter],uptime=RobinUltUptime)
-    RobinCharacter.applyUltBuff([FeixiaoCharacter],uptime=RobinUltUptimeFeixiao)
+    RobinUltUptime = 0.5 if RobinCharacter.eidolon < 2 else 1.0
+    RobinCharacter.applyUltBuff([FeixiaoCharacter, MarchCharacter,AventurineCharacter],uptime=RobinUltUptime)
 
     #%% Print Statements
     for character in team:
@@ -101,20 +105,23 @@ def FeixiaoMarchRobinAventurine(config,
     # assume 154 ish spd March and Feixiao, March slower than Feixiao, and 134 ish spd robin
     
     numBasicRobin = 0.0
-    numSkillRobin = 2.0
+    numSkillRobin = 2.0 if RobinCharacter.eidolon < 2 else 1.0
     RobinRotation = [RobinCharacter.useBasic() * numBasicRobin,
                     RobinCharacter.useSkill() * numSkillRobin,
                     RobinCharacter.useUltimate() * 1,]
     RobinCharacter.applyUltBuff([RobinCharacter],uptime=1.0) # apply robin buff after we calculate damage for her basics
     
+    # 4 charges from march basics and followups. 
+    # 6 charges from fei skills and followups. 1 ish more from ult
     numBasicMarch = 2.0
     numFollowupMarch = numBasicMarch
-    numEnhancedMarch = 1.0
+    numEnhancedMarch = 1.5
     
     MarchRotation = []
     MarchRotation += [MarchCharacter.useBasic() * numBasicMarch]
     MarchRotation += [MarchCharacter.useFollowup() * numFollowupMarch]
-    MarchRotation += [MarchCharacter.useEnhancedBasic(actionValue=0.0, numHits=5.0, chance=0.8) * numEnhancedMarch]
+    MarchRotation += [MarchCharacter.useEnhancedBasic(actionValue=0.0, numHits=5.0, chance=0.8) ]
+    MarchRotation += [MarchCharacter.useEnhancedBasic(actionValue=0.0, numHits=3.0, chance=0.6) * (numEnhancedMarch - 1.0)]
     MarchRotation += [MarchCharacter.useUltimate()] 
 
     RobinRotationMarch = [RobinCharacter.useTalent() * (2.0 * numBasicMarch + numEnhancedMarch + 1.0)]
@@ -129,7 +136,7 @@ def FeixiaoMarchRobinAventurine(config,
     numEnemyAttacks += (1.0 + (6*1) / (6*1 + 4 + 3 + 3)) # extra stacks from when Aventurine is Targeted
     numTalentAventurine += numBasicAventurine * numEnemyAttacks
     
-    numFollowups = FeixiaoCharacter.getTotalStat('SPD') # Feixiao gets followup per turn
+    numFollowups = 2.5 * FeixiaoCharacter.getTotalStat('SPD') # Feixiao gets followup per turn
     numFollowups += MarchCharacter.getTotalStat('SPD') # March gets about 1 followup per turn
     numFollowups /= AventurineCharacter.getTotalStat('SPD')
     numTalentAventurine += numBasicAventurine * numFollowups
@@ -144,19 +151,19 @@ def FeixiaoMarchRobinAventurine(config,
     
     # number of attacks in 2 feixiao turns
     numTurns = 2.0
-    numAttacks = numTurns * 2.0 # feixiao attacks
+    numAttacks = numTurns * 3.0 # feixiao attacks
     numAttacks += numTurns * (numBasicMarch + numFollowupMarch + numEnhancedMarch + 1.0) / numBasicMarch  # march attacks
     numAttacks += numTurns * (1.0 + numTalentAventurine / 7.0) / numBasicAventurine # aventurine attacks
     
     numBasicFeixiao = 0.0
     numSkillFeixiao = 2.0
-    numFollowupFeixiao = (numBasicFeixiao + numSkillFeixiao)
-    numUltFeixiao = numAttacks * (1.0 if FeixiaoCharacter.eidolon >= 2 else 0.5)
+    numFollowupFeixiao = (numBasicFeixiao + 2.0 * numSkillFeixiao)
+    numUltFeixiao = numAttacks * 0.5 + (numFollowupFeixiao if FeixiaoCharacter.eidolon >= 2 else 0.0)
     
     numBasicFeixiao *= 6.0 / numUltFeixiao
     numSkillFeixiao *= 6.0 / numUltFeixiao
     numFollowupFeixiao *= 6.0 / numUltFeixiao
-    numUltFeixiao = 6.0
+    numUltFeixiao = 1.0
     
     FeixiaoRotation = []
     FeixiaoRotation += [FeixiaoCharacter.useBasic() * numBasicFeixiao]
@@ -176,15 +183,15 @@ def FeixiaoMarchRobinAventurine(config,
     totalRobinEffect = sumEffects(RobinRotation)
     RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
     
-    fourTurnAV = 400.0
+    numTurnAV = 300.0 if RobinCharacter.eidolon >= 2 else 400.0
 
-    MarchFourTurns = fourTurnAV * MarchCharacter.useBasic().actionvalue / MarchCharacter.getTotalStat('SPD')
-    FeixiaoFourTurns = fourTurnAV * FeixiaoCharacter.useSkill().actionvalue / FeixiaoCharacter.getTotalStat('SPD')
-    AventurineFourTurns = fourTurnAV * AventurineCharacter.useBasic().actionvalue / AventurineCharacter.getTotalStat('SPD')
+    MarchFourTurns = numTurnAV * MarchCharacter.useBasic().actionvalue / MarchCharacter.getTotalStat('SPD')
+    FeixiaoFourTurns = numTurnAV * FeixiaoCharacter.useSkill().actionvalue / FeixiaoCharacter.getTotalStat('SPD')
+    AventurineFourTurns = numTurnAV * AventurineCharacter.useBasic().actionvalue / AventurineCharacter.getTotalStat('SPD')
     
-    MarchRotation += [RobinCharacter.useAdvanceForward() * (MarchFourTurns - RobinRotationDuration) * MarchCharacter.getTotalStat('SPD') * numBasicMarch / fourTurnAV]
-    FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (FeixiaoFourTurns - RobinRotationDuration) * FeixiaoCharacter.getTotalStat('SPD') * numFollowupFeixiao / fourTurnAV]
-    AventurineRotation += [RobinCharacter.useAdvanceForward() * (AventurineFourTurns - RobinRotationDuration) * AventurineCharacter.getTotalStat('SPD') * numBasicAventurine / fourTurnAV]
+    MarchRotation += [RobinCharacter.useAdvanceForward() * (MarchFourTurns - RobinRotationDuration) * MarchCharacter.getTotalStat('SPD') * numBasicMarch / numTurnAV]
+    FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (FeixiaoFourTurns - RobinRotationDuration) * FeixiaoCharacter.getTotalStat('SPD') * (numBasicFeixiao + numSkillFeixiao) / numTurnAV]
+    AventurineRotation += [RobinCharacter.useAdvanceForward() * (AventurineFourTurns - RobinRotationDuration) * AventurineCharacter.getTotalStat('SPD') * numBasicAventurine / numTurnAV]
         
     totalMarchEffect = sumEffects(MarchRotation)
     totalFeixiaoEffect = sumEffects(FeixiaoRotation)
@@ -212,7 +219,7 @@ def FeixiaoMarchRobinAventurine(config,
     RobinRotation += RobinRotationAventurine
     totalRobinEffect = sumEffects(RobinRotation)
 
-    FeixiaoEstimate = DefaultEstimator(f'{FeixiaoCharacter.fullName()} {numBasicFeixiao:.1f}N {numSkillFeixiao:.1f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q', FeixiaoRotation, FeixiaoCharacter, config)
+    FeixiaoEstimate = DefaultEstimator(f'{FeixiaoCharacter.fullName()} {numSkillFeixiao:.2f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q', FeixiaoRotation, FeixiaoCharacter, config)
     MarchEstimate = DefaultEstimator(f'{MarchCharacter.fullName()} {numBasicMarch:.1f}N {numEnhancedMarch:.1f}Enh 1Q', MarchRotation, MarchCharacter, config)
     RobinEstimate = DefaultEstimator(f'{RobinCharacter.fullName()} {numBasicRobin:.1f}N {numSkillRobin:.1f}E 1Q', 
                                     RobinRotation, RobinCharacter, config)

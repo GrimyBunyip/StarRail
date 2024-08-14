@@ -44,10 +44,10 @@ class Bronya(BaseCharacter):
                             amount=((0.168 * self.getTotalStat('CD') + 0.216) if self.eidolon >= 3 else (0.16 * self.getTotalStat('CD') + 0.2)),
                             uptime=uptime)
         
-    def applySkillBuff(self,character:BaseCharacter,uptime:float):
+    def applySkillBuff(self,character:BaseCharacter,uptime:float,type:list=None):
         character.addStat('DMG',description='Bronya Skill',
                             amount=0.726 if self.eidolon >= 5 else 0.66,
-                            uptime=uptime)
+                            uptime=uptime, type=type)
         
     def useBasic(self):
         retval = BaseEffect()

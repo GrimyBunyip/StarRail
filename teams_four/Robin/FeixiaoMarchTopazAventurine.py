@@ -31,8 +31,8 @@ def FeixiaoMarchTopazAventurine(config,
     #%% March Feixiao Topaz Aventurine Characters
 
     FeixiaoLightcone = CruisingInTheStellarSea(**config) if feixiaoSuperposition == 0 else IVentureForthToHunt(superposition=feixiaoSuperposition,**config)
-    FeixiaoSubstats = {'CR': 7, 'CD': 12, 'ATK.percent': 6, 'ATK.flat':3} if feixiaoSuperposition == 0 else {'CR': 10, 'CD': 12, 'ATK.percent': 5, 'ATK.flat':3}
-    FeixiaoCharacter = Feixiao(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.wind'],
+    FeixiaoSubstats = {'CR': 7, 'CD': 12, 'ATK.percent': 4, 'SPD.flat':5} if feixiaoSuperposition == 0 else {'CR': 10, 'CD': 12, 'ATK.percent': 3, 'SPD.flat':5}
+    FeixiaoCharacter = Feixiao(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind'],
                                     substats = FeixiaoSubstats),
                                     lightcone = FeixiaoLightcone,
                                     relicsetone = WindSoaringValorous2pc(),
@@ -98,7 +98,7 @@ def FeixiaoMarchTopazAventurine(config,
 
     numBasicTopaz = 0.0
     numSkillTopaz = 3.5
-    numTalentTopaz = (numBasicTopaz + numSkillTopaz) * 2.0 + 1.0 # rough estimate
+    numTalentTopaz = (numBasicTopaz + numSkillTopaz) * 3.0 + 1.0 # rough estimate
     TopazRotation = []
     TopazRotation += [TopazCharacter.useBasic() * numBasicTopaz]
     TopazRotation += [TopazCharacter.useSkill() * numSkillTopaz]
@@ -122,9 +122,9 @@ def FeixiaoMarchTopazAventurine(config,
     numEnemyAttacks += (1.0 + (6*1) / (6*1 + 4 + 3 + 3)) # extra stacks from when Aventurine is Targeted
     numTalentAventurine += numBasicAventurine * numEnemyAttacks
     
-    numFollowups = FeixiaoCharacter.getTotalStat('SPD') # Feixiao gets followup per turn
+    numFollowups = 2.5 * FeixiaoCharacter.getTotalStat('SPD') # Feixiao gets about 2.5 followup per turn
     numFollowups += MarchCharacter.getTotalStat('SPD') # March gets about 1 followup per turn
-    numFollowups += 3.25 * TopazCharacter.getTotalStat('SPD') # March gets about 3.25 followup per turn
+    numFollowups += TopazCharacter.getTotalStat('SPD') * (numTalentTopaz + numBasicTopaz + numSkillTopaz) / (numBasicTopaz + numSkillTopaz)
     numFollowups /= AventurineCharacter.getTotalStat('SPD')
     numTalentAventurine += numBasicAventurine * numFollowups
     
@@ -134,20 +134,20 @@ def FeixiaoMarchTopazAventurine(config,
     
     # number of attacks in 2 feixiao turns
     numTurns = 2.0
-    numAttacks = numTurns * 2.0 # feixiao attacks
+    numAttacks = numTurns * 3.0 # feixiao attacks
     numAttacks += numTurns * (numBasicMarch + numFollowupMarch + numEnhancedMarch + 1.0) / numBasicMarch  # march attacks
     numAttacks += numTurns * (1.0 + numTalentAventurine / 7.0) / numBasicAventurine # aventurine attacks
     numAttacks += numTurns * (numBasicTopaz + numSkillTopaz + numTalentTopaz) / (numBasicTopaz + numSkillTopaz)
     
     numBasicFeixiao = 0.0
     numSkillFeixiao = 2.0
-    numFollowupFeixiao = (numBasicFeixiao + numSkillFeixiao)
-    numUltFeixiao = numAttacks * (1.0 if FeixiaoCharacter.eidolon >= 2 else 0.5)
+    numFollowupFeixiao = (numBasicFeixiao + 2.0 * numSkillFeixiao)
+    numUltFeixiao = numAttacks * 0.5 + (numFollowupFeixiao if FeixiaoCharacter.eidolon >= 2 else 0.0)
     
     numBasicFeixiao *= 6.0 / numUltFeixiao
     numSkillFeixiao *= 6.0 / numUltFeixiao
     numFollowupFeixiao *= 6.0 / numUltFeixiao
-    numUltFeixiao = 6.0
+    numUltFeixiao = 1.0
     
     FeixiaoRotation = []
     FeixiaoRotation += [FeixiaoCharacter.useBasic() * numBasicFeixiao]
@@ -177,7 +177,7 @@ def FeixiaoMarchTopazAventurine(config,
     TopazRotation = [x * FeixiaoRotationDuration / TopazRotationDuration for x in TopazRotation]
     AventurineRotation = [x * FeixiaoRotationDuration / AventurineRotationDuration for x in AventurineRotation]
 
-    FeixiaoEstimate = DefaultEstimator(f'{FeixiaoCharacter.fullName()} {numBasicFeixiao:.1f}N {numSkillFeixiao:.1f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q', FeixiaoRotation, FeixiaoCharacter, config)
+    FeixiaoEstimate = DefaultEstimator(f'{FeixiaoCharacter.fullName()} {numSkillFeixiao:.2f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q', FeixiaoRotation, FeixiaoCharacter, config)
     MarchEstimate = DefaultEstimator(f'{MarchCharacter.fullName()} {numBasicMarch:.1f}N {numEnhancedMarch:.1f}Enh 1Q', MarchRotation, MarchCharacter, config)
     TopazEstimate = DefaultEstimator(f'{TopazCharacter.fullName()} {numSkillTopaz:.0f}E {numBasicTopaz:.0f}N {numTalentTopaz:.1f}T Q Windfall(2T)', TopazRotation, TopazCharacter, config)
     AventurineEstimate = DefaultEstimator(f'E{AventurineCharacter.eidolon} S{AventurineCharacter.lightcone.superposition:.0f} {AventurineCharacter.lightcone.name} Aventurine: {numBasicAventurine:.0f}N {numTalentAventurine:.1f}T 1Q',

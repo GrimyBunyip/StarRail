@@ -24,7 +24,7 @@ class Feixiao(BaseCharacter):
         self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=1.1, eidolonThreshold=5, eidolonBonus=0.11)]
         self.motionValueDict['ultimateGun'] = [BaseMV(area='single', stat='atk', value=0.60 + 0.3, eidolonThreshold=3, eidolonBonus=0.048 + 0.03)]
         self.motionValueDict['ultimateAxe'] = [BaseMV(area='single', stat='atk', value=0.60 + 0.3, eidolonThreshold=3, eidolonBonus=0.048 + 0.03)]
-        self.motionValueDict['ultimateFinal'] = [BaseMV(area='single', stat='atk', value=7.0 + 1.6, eidolonThreshold=3, eidolonBonus=0.596 + 0.128)]
+        self.motionValueDict['ultimateFinal'] = [BaseMV(area='single', stat='atk', value=1.6, eidolonThreshold=3, eidolonBonus=0.128)]
         
         # Talents
         self.addStat('BreakEfficiency',description='Ultimate Weakness Break Efficiency',amount=1.0,type=['ultimate'])
@@ -67,9 +67,9 @@ class Feixiao(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate','followup']
-        retval.damage = self.getTotalMotionValue('ultimateGun',type) * self.weaknessBrokenUptime * 6
-        retval.damage += self.getTotalMotionValue('ultimateAxe',type) * (1.0 - self.weaknessBrokenUptime) * 6
-        retval.damage += self.getTotalMotionValue('ultimateFinal',type)
+        retval.damage = self.getTotalMotionValue('ultimateGun',type) * self.weaknessBrokenUptime * 6 * ( 1.25 if self.eidolon >= 1 else 1.0 )
+        retval.damage += self.getTotalMotionValue('ultimateAxe',type) * (1.0 - self.weaknessBrokenUptime) * 6 * ( 1.25 if self.eidolon >= 1 else 1.0 )
+        retval.damage += self.getTotalMotionValue('ultimateFinal',type) * ( 1.5 if self.eidolon >= 1 else 1.0 )
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)

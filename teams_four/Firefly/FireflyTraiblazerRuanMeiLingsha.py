@@ -6,14 +6,13 @@ from characters.destruction.Firefly import Firefly
 from characters.harmony.RuanMei import RuanMei
 from characters.harmony.ImaginaryTrailblazer import ImaginaryTrailblazer
 from estimator.DefaultEstimator import DefaultEstimator
-from lightCones.abundance.EchoesOfTheCoffin import EchoesOfTheCoffin
-from lightCones.abundance.Multiplication import Multiplication
+from lightCones.abundance.ScentAloneStaysTrue import ScentAloneStaysTrue
+from lightCones.abundance.QuidProQuo import QuidProQuo
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.destruction.WhereaboutsShouldDreamsRest import WhereaboutsShouldDreamsRest
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
-from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.IronCavalryAgainstTheScourge import IronCavalryAgainstTheScourge2pc, IronCavalryAgainstTheScourge4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
@@ -49,12 +48,12 @@ def FireflyTrailblazerRuanMeiLingsha(config,
                                     relicsetone = Watchmaker2pc(), relicsettwo = Watchmaker4pc(uptime=0.0), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
 
-    lingshaLightcone = EchoesOfTheCoffin(**config) if lingshaSuperposition == 0 else Multiplication(**config)
+    lingshaLightcone = ScentAloneStaysTrue(**config) if lingshaSuperposition == 0 else QuidProQuo(**config)
     LingshaCharacter = Lingsha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                                    substats = {'SPD.flat': 12, 'BreakEffect': 8, 'ATK.percent': 5, 'ATK.flat': 3}),
+                                    substats = {'SPD.flat': 5, 'BreakEffect': 12, 'ATK.percent': 8, 'ATK.flat': 3}),
                                     lightcone = lingshaLightcone,
                                     eidolon = lingshaEidolon,
-                                    relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = IronCavalryAgainstTheScourge2pc(), planarset = ForgeOfTheKalpagniLantern(),
+                                    relicsetone = IronCavalryAgainstTheScourge4pc(), relicsettwo = IronCavalryAgainstTheScourge2pc(), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
     
     team = [FireflyCharacter, TrailblazerCharacter, RuanMeiCharacter, LingshaCharacter]
@@ -79,15 +78,15 @@ def FireflyTrailblazerRuanMeiLingsha(config,
     FireflyCharacter.applyUltVulnerability(team=[TrailblazerCharacter, LingshaCharacter, RuanMeiCharacter])
     
     # Apply Lingsha Debuff
-    lingshaUltRotation = 2.0 if LingshaCharacter.lightcone.name == 'Echoes of the Coffin' else 3.0
+    lingshaUltRotation = 3.0
     LingshaCharacter.applyUltDebuff(team=team,rotationDuration=lingshaUltRotation)
     if LingshaCharacter.eidolon >= 2:
         for character in team:
             character.addStat('BreakEffect',description='Lingsha E2',amount=0.4)
-    if LingshaCharacter.lightcone.name == 'Echoes of the Coffin':
+    if LingshaCharacter.lightcone.name == 'Scent Alone Stays True':
         for character in team:
-            character.addStat('SPD.flat',description='Echoes of the Coffin', 
-                              amount=10 + 2 * LingshaCharacter.lightcone.superposition,
+            character.addStat('Vulnerability',description='Scent Alone Stays True', 
+                              amount=0.14 + 0.04 * LingshaCharacter.lightcone.superposition,
                               uptime=min(1.0, 1.0 / lingshaUltRotation))
     
     # apply Firefly and Lingsha self buffs and MV calculations at the end
@@ -156,11 +155,10 @@ def FireflyTrailblazerRuanMeiLingsha(config,
                                                           extraTypes=['basic']) * numBasicRuanMei
     ]
 
-    numBasicLingsha = 1.0 if LingshaCharacter.lightcone.name == 'Echoes of the Coffin' else 2.0
+    numBasicLingsha = 2.0
     numSkillLingsha = 1.0
-    # 1 from ultimate, 1.5 from autoheal, 1.5 from natural turns
-    # 1 from ultimate, 1 from autoheal, 1 from natural turns if S1
-    numTalentLingsha = 3.0 if LingshaCharacter.lightcone.name == 'Echoes of the Coffin' else 4.0
+    # 1 from ultimate, 1.0 from autoheal, 2.0 from natural turns
+    numTalentLingsha = 4.0
     
     LingshaRotation = [LingshaCharacter.useBasic() * numBasicLingsha,
                        LingshaCharacter.useSkill() * numSkillLingsha,

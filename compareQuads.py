@@ -80,8 +80,7 @@ from teams_four.Qingque.QingqueHanabiSilverWolfLuocha import QingqueHanabiSilver
 from teams_four.Qingque.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.Qingque.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
 from teams_four.RatioTopaz.RatioTopazRobinAventurine import DrRatioTopazRobinAventurine
-from teams_four.Robin.FeixiaoBronyaRobinGallagher import FeixiaoBronyaRobinGallagher
-from teams_four.Robin.FeixiaoMarchRobinLingsha import FeixiaoMarchRobinLingsha
+from teams_four.Robin.FeixiaoBronyaTopazLingsha import FeixiaoBronyaTopazLingsha
 from teams_four.Robin.FeixiaoMarchTopazAventurine import FeixiaoMarchTopazAventurine
 from teams_four.Robin.MarchTopazRobinGallagher import MarchTopazRobinGallagher
 from teams_four.Seele.SilverWolfMarchRobinHuohuo import SilverWolfMarchRobinHuohuo
@@ -294,14 +293,13 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # visualizationList.append(MarchTopazRobinAventurine(config))
 # visualizationList.append(MarchTopazRobinGallagher(config, robinEidolon=2))
-visualizationList.append(FeixiaoMarchRobinAventurine(config))
-# visualizationList.append(FeixiaoMarchRobinAventurine(config, feixiaoEidolon=2))
-# visualizationList.append(FeixiaoMarchRobinLingsha(config, robinEidolon=2))
-
-# # aventurine variants
-# visualizationList.append(FeixiaoTopazRobinAventurine(config))
 # visualizationList.append(FeixiaoMarchRobinAventurine(config))
-# visualizationList.append(FeixiaoMarchRobinLingsha(config))
+
+# Feixiao Teams
+# visualizationList.append(FeixiaoTopazRobinAventurine(config))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
+visualizationList.append(FeixiaoMarchRobinAventurine(config))
+# visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2))
 
 # the old guard
 # visualizationList.append(MarchBronyaRobinGallagher(config))
@@ -309,8 +307,8 @@ visualizationList.append(FeixiaoMarchRobinAventurine(config))
 # visualizationList.append(MarchTopazRobinAventurine(config))
 
 # Retire these teams for various reasons
+# visualizationList.append(FeixiaoBronyaTopazLingsha(config))
 # visualizationList.append(FeixiaoMarchTopazAventurine(config))
-# visualizationList.append(FeixiaoBronyaRobinGallagher(config))
 
 # # Xueyi Teams
 # # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
