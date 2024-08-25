@@ -21,7 +21,8 @@ class Lingsha(BaseCharacter):
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
         self.motionValueDict['skill'] = [BaseMV(area='all', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.08)]
-        self.motionValueDict['talent'] = [BaseMV(area='all', stat='atk', value=0.9, eidolonThreshold=3, eidolonBonus=0.09)]
+        self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=0.75, eidolonThreshold=3, eidolonBonus=0.075),
+                                          BaseMV(area='all', stat='atk', value=0.75, eidolonThreshold=3, eidolonBonus=0.075)]
         self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.5, eidolonThreshold=3, eidolonBonus=0.15)]
 
         # Talents
@@ -86,7 +87,7 @@ class Lingsha(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = 30.0 * self.numEnemies * self.getBreakEfficiency(type)
+        retval.gauge = (30.0 + 30.0 * self.numEnemies) * self.getBreakEfficiency(type)
         retval.energy = ( 0.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         self.addDebugInfo(retval,type)
         return retval

@@ -142,7 +142,7 @@ def FeixiaoMarchTopazAventurine(config,
     numBasicFeixiao = 0.0
     numSkillFeixiao = 2.0
     numFollowupFeixiao = (numBasicFeixiao + 2.0 * numSkillFeixiao)
-    numUltFeixiao = numAttacks * 0.5 + (numFollowupFeixiao if FeixiaoCharacter.eidolon >= 2 else 0.0)
+    numUltFeixiao = numAttacks * 0.5 + (3.0 if FeixiaoCharacter.eidolon >= 2 else 0.0)
     
     numBasicFeixiao *= 6.0 / numUltFeixiao
     numSkillFeixiao *= 6.0 / numUltFeixiao

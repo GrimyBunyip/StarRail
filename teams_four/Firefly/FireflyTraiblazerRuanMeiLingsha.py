@@ -48,7 +48,7 @@ def FireflyTrailblazerRuanMeiLingsha(config,
                                     relicsetone = Watchmaker2pc(), relicsettwo = Watchmaker4pc(uptime=0.0), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
 
-    lingshaLightcone = ScentAloneStaysTrue(**config) if lingshaSuperposition == 0 else QuidProQuo(**config)
+    lingshaLightcone = QuidProQuo(**config) if lingshaSuperposition == 0 else ScentAloneStaysTrue(**config)
     LingshaCharacter = Lingsha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                                     substats = {'SPD.flat': 5, 'BreakEffect': 12, 'ATK.percent': 8, 'ATK.flat': 3}),
                                     lightcone = lingshaLightcone,

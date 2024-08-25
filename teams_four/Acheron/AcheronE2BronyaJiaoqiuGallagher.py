@@ -45,7 +45,6 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
                         substats = {'ATK.flat': 3, 'SPD.flat': 5, 'EHR': 12, 'ATK.percent': 8}),
                         lightcone = EyesOfThePrey(**config),
                         relicsetone = Pioneer2pc(), relicsettwo = FiresmithOfLavaForging2pc(), planarset = SprightlyVonwacq(),
-                        talentStacks=3 if jiaoqiuEidolon is not None and jiaoqiuEidolon >= 1 else 2,
                         eidolon=jiaoqiuEidolon,
                         **config)
 
@@ -91,9 +90,9 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     jiaoqiuUltChance *= 1.0 + JiaoqiuCharacter.getTotalStat('EHR')
     jiaoqiuUltChance = min(1.0, jiaoqiuUltChance)
     enemyActionRate = JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed
-    jiaoqiuUltRate = 6.0 * JiaoqiuCharacter.getTotalStat('SPD') * jiaoqiuUltUptime / 3.0
+    jiaoqiuUltRate = 6.0 * JiaoqiuCharacter.getTotalStat('SPD') / 3.0
     jiaoqiuStackRate = min(jiaoqiuUltRate, enemyActionRate)
-    numStacks += jiaoqiuUltUptime * jiaoqiuUltChance * jiaoqiuStackRate # stacks from trend, assume each enemy does a single target per turn
+    numStacks += jiaoqiuUltChance * jiaoqiuStackRate # stacks from trend, assume each enemy does a single target per turn
     numStacks *= 0.5 # halve the stacks from outside of Acheron because of Bronya
     numStacks /= BronyaCharacter.getTotalStat('SPD')
     numStacks += 1 + 1

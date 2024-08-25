@@ -29,7 +29,7 @@ class Feixiao(BaseCharacter):
         # Talents
         self.addStat('BreakEfficiency',description='Ultimate Weakness Break Efficiency',amount=1.0,type=['ultimate'])
         self.addStat('ATK.percent',description='Feixiao Talent',amount=0.48)
-        self.addStat('CD',description='Feixiao Talent',amount=0.36,type=['ultimate'])
+        self.addStat('CD',description='Feixiao Talent',amount=0.36,type=['followup'])
 
         # Eidolons
         

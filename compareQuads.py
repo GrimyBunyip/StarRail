@@ -81,11 +81,13 @@ from teams_four.Qingque.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.Qingque.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
 from teams_four.RatioTopaz.RatioTopazRobinAventurine import DrRatioTopazRobinAventurine
 from teams_four.Robin.FeixiaoBronyaTopazLingsha import FeixiaoBronyaTopazLingsha
+from teams_four.Robin.FeixiaoMarchRobinLynx import FeixiaoMarchRobinLynx
 from teams_four.Robin.FeixiaoMarchTopazAventurine import FeixiaoMarchTopazAventurine
-from teams_four.Robin.MarchTopazRobinGallagher import MarchTopazRobinGallagher
+from teams_four.Robin.FeixiaoMarchRobinGallagher import FeixiaoMarchRobinGallagher
+from teams_four.Robin.FeixiaoTopazRobinAventurine import FeixiaoTopazRobinAventurine
 from teams_four.Seele.SilverWolfMarchRobinHuohuo import SilverWolfMarchRobinHuohuo
 from teams_four.Robin.FeixiaoMarchRobinAventurine import FeixiaoMarchRobinAventurine
-from teams_four.Robin.FeixiaoTopazRobinAventurine import FeixiaoTopazRobinAventurine
+from teams_four.Robin.FeixiaoMarchRobinGallagher import FeixiaoMarchRobinGallagher
 from teams_four.Robin.MarchBronyaRobinGallagher import MarchBronyaRobinGallagher
 from teams_four.Robin.MarchTopazRobinAventurine import MarchTopazRobinAventurine
 from teams_four.Seele.SeeleMaxSilverWolfBronyaLuocha import SeeleMaxSilverWolfBronyaLuocha
@@ -143,17 +145,10 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Acheron Teams
 
 # # E2 Teams
-# visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
-# visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
+visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
+visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
 
-# visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=1))
-# visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=1))
-
-# visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1))
-# visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
-# visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=0))
-
-# visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
+visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2HanabiPelaGallagher(config, acheronSuperposition=1))
 
 # visualizationList.append(AcheronE2HanabiKafkaGallagher(config, acheronSuperposition=1))
@@ -292,18 +287,19 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # er rope march
 
 # visualizationList.append(MarchTopazRobinAventurine(config))
-# visualizationList.append(MarchTopazRobinGallagher(config, robinEidolon=2))
 # visualizationList.append(FeixiaoMarchRobinAventurine(config))
 
 # Feixiao Teams
 # visualizationList.append(FeixiaoTopazRobinAventurine(config))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
-visualizationList.append(FeixiaoMarchRobinAventurine(config))
-# visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2))
+# visualizationList.append(FeixiaoMarchRobinAventurine(config))
+# visualizationList.append(FeixiaoMarchRobinGallagher(config, robinEidolon=2))
+# visualizationList.append(FeixiaoMarchRobinLynx(config, robinEidolon=2))
 
 # the old guard
 # visualizationList.append(MarchBronyaRobinGallagher(config))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
+# visualizationList.append(DrRatioTopazRobinAventurine(config, DrRatioSuperposition=1))
 # visualizationList.append(MarchTopazRobinAventurine(config))
 
 # Retire these teams for various reasons

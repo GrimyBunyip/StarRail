@@ -8,7 +8,7 @@ class BaptismOfPureThought(BaseLightCone):
                 uptime:float = 0.5,
                 superposition:int=None,
                 **config):
-        self.loadConeStats('Baptism of Pure Thought')
+        self.loadConeStats('Baptism of Pure Thought', shortname='Baptism')
         self.setSuperposition(superposition,config)
         self.stacks = stacks
         self.uptime = uptime
@@ -22,8 +22,8 @@ class BaptismOfPureThought(BaseLightCone):
                                     amount=0.05 + 0.01 * self.superposition,
                                     stacks=self.stacks)
             char.addStat('DefShred',description=self.name,
-                                    amount=0.17 + 0.03 * self.superposition,
-                                    uptime=self.uptime)
+                                    amount=0.20 + 0.04 * self.superposition,
+                                    uptime=self.uptime,type=['followup'])
             char.addStat('DMG',description=self.name,
                                     amount=0.30 + 0.06 * self.superposition,
                                     uptime=self.uptime)

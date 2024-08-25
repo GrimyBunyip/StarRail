@@ -1,31 +1,33 @@
-from baseClasses.BaseEffect import sumEffects
+from copy import deepcopy
+from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
-from characters.preservation.Aventurine import Aventurine
+from characters.abundance.Gallagher import Gallagher
 from characters.hunt.ImaginaryMarch import ImaginaryMarch
 from characters.harmony.Robin import Robin
 from characters.hunt.Feixiao import Feixiao
 from estimator.DefaultEstimator import DefaultEstimator
+from lightCones.abundance.QuidProQuo import QuidProQuo
 from lightCones.harmony.FlowingNightglow import FlowingNightglow
 from lightCones.harmony.PoisedToBloom import PoisedToBloom
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.hunt.IVentureForthToHunt import IVentureForthToHunt
 from lightCones.hunt.Swordplay import Swordplay
-from lightCones.preservation.DestinysThreadsForewoven import DestinysThreadsForewoven
-from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.DuranDynastyOfRunningWolves import DuranDynastyOfRunningWolves
+from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
-from relicSets.relicSets.KnightOfPurityPalace import KnightOfPurityPalace2pc, KnightOfPurityPalace4pc
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc, MusketeerOfWildWheat4pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
+from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc
 from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, WindSoaringValorous4pc
 
-def FeixiaoMarchRobinAventurine(config, 
+def FeixiaoMarchRobinGallagher(config, 
                                 feixiaoEidolon:int=None, 
                                 feixiaoSuperposition:int=0, 
                                 robinEidolon:int=None, 
                                 robinSuperposition:int=0,):
-    #%% March Feixiao Robin Aventurine Characters
+    #%% March Feixiao Robin Gallagher Characters
 
     FeixiaoLightcone = CruisingInTheStellarSea(**config) if feixiaoSuperposition == 0 else IVentureForthToHunt(superposition=feixiaoSuperposition,**config)
     FeixiaoSubstats = {'CR': 7, 'CD': 12, 'ATK.percent': 4, 'SPD.flat':5} if feixiaoSuperposition == 0 else {'CR': 10, 'CD': 11, 'ATK.percent': 3, 'SPD.flat':4}
@@ -64,46 +66,40 @@ def FeixiaoMarchRobinAventurine(config,
                                     eidolon=robinEidolon,
                                     **config)
 
-    AventurineCharacter = Aventurine(RelicStats(mainstats = ['DEF.percent', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
-                                    substats = {'CR': 3, 'CD': 5, 'SPD.flat': 12, 'DEF.percent': 8}),
-                                    lightcone = DestinysThreadsForewoven(defense=4000,**config),
-                                    leverage_cr = 0.48,
-                                    relicsetone = KnightOfPurityPalace2pc(), relicsettwo = KnightOfPurityPalace4pc(), planarset = BrokenKeel(),
+    GallagherCharacter = Gallagher(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'DEF.percent'],
+                                    substats = {'BreakEffect': 8, 'SPD.flat': 13, 'HP.percent': 3, 'RES': 6}),
+                                    lightcone = QuidProQuo(**config),
+                                    relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = ThiefOfShootingMeteor2pc(), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
     
-    team = [MarchCharacter, FeixiaoCharacter, RobinCharacter, AventurineCharacter]
+    team = [MarchCharacter, FeixiaoCharacter, RobinCharacter, GallagherCharacter]
 
-    #%% March Feixiao Robin Aventurine Team Buffs
+    #%% March Feixiao Robin Gallagher Team Buffs
     for character in [FeixiaoCharacter, MarchCharacter, RobinCharacter]:
-        character.addStat('CD',description='Broken Keel from Aventurine',amount=0.1)
+        character.addStat('CD',description='Broken Keel from Gallagher',amount=0.1)
     if RobinCharacter.lightcone.name == 'Poised to Bloom':
         for character in [FeixiaoCharacter, MarchCharacter]:
             character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
-    if RobinCharacter.lightcone.name == 'Flowing Nightglow':
-        RobinCharacter.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition)
-        FeixiaoCharacter.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition, uptime = 1.0/3.0)
-        MarchCharacter.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition, uptime = 1.0/4.0)
-        AventurineCharacter.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition,  uptime=1.0/3.0)
     
     # March Buff
     MarchCharacter.applySkillBuff(FeixiaoCharacter)
     MarchCharacter.applyTalentBuff(FeixiaoCharacter,uptime=1.0)
     
-    # Aventurine Buffs
-    AventurineCharacter.applyUltDebuff(team=team,rotationDuration=4.0,targetingUptime=1.0)
+    # Gallagher Buffs
+    GallagherCharacter.applyUltDebuff(team=team,rotationDuration=3.0)
 
     # Robin Buffs
     RobinCharacter.applyTalentBuff(team)
     RobinCharacter.applySkillBuff(team)
 
     RobinUltUptime = 0.5 if RobinCharacter.eidolon < 2 else 1.0
-    RobinCharacter.applyUltBuff([FeixiaoCharacter, MarchCharacter,AventurineCharacter],uptime=RobinUltUptime)
+    RobinCharacter.applyUltBuff([FeixiaoCharacter, MarchCharacter,GallagherCharacter],uptime=RobinUltUptime)
 
     #%% Print Statements
     for character in team:
         character.print()
 
-    #%% March Feixiao Robin Aventurine Rotations
+    #%% March Feixiao Robin Gallagher Rotations
     # assume 154 ish spd March and Feixiao, March slower than Feixiao, and 134 ish spd robin
     
     numBasicRobin = 0.0
@@ -132,35 +128,35 @@ def FeixiaoMarchRobinAventurine(config,
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['ultimate']) * RobinUltUptime]
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['followup']) * numFollowupMarch * RobinUltUptime]
 
-    numBasicAventurine = 4.0
-    numTalentAventurine = 4.0 # stacks from ultimate
-    numEnemyAttacks = AventurineCharacter.numEnemies * AventurineCharacter.enemySpeed / AventurineCharacter.getTotalStat('SPD') # extra stacks from people getting hit per turn
-    numEnemyAttacks += (1.0 + (6*1) / (6*1 + 4 + 3 + 3)) # extra stacks from when Aventurine is Targeted
-    numTalentAventurine += numBasicAventurine * numEnemyAttacks
-    
-    numFollowups = 2.5 * FeixiaoCharacter.getTotalStat('SPD') # Feixiao gets followup per turn
-    numFollowups += MarchCharacter.getTotalStat('SPD') # March gets about 1 followup per turn
-    numFollowups /= AventurineCharacter.getTotalStat('SPD')
-    numTalentAventurine += numBasicAventurine * numFollowups
-    
-    AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
-                          AventurineCharacter.useTalent() * numTalentAventurine,
-                          AventurineCharacter.useUltimate() * 1,]
+    numBasicGallagher = 2.0
+    numSkillGallagher = 1.0
+    numEnhancedGallagher = 1.0
+    GallagherRotation = [GallagherCharacter.useBasic() * numBasicGallagher,
+                         GallagherCharacter.useSkill() * numSkillGallagher,
+                         GallagherCharacter.useEnhancedBasic() * numEnhancedGallagher,
+                         GallagherCharacter.useUltimate() * 1,]
 
-    RobinRotationAventurine = [RobinCharacter.useTalent() * (numBasicAventurine + numTalentAventurine / 7.0)]
-    RobinRotationAventurine += [RobinCharacter.useConcertoDamage(['basic']) * numBasicAventurine * RobinUltUptime]
-    RobinRotationAventurine += [RobinCharacter.useConcertoDamage(['followup']) * (numTalentAventurine / 7.0) * RobinUltUptime]
+    RobinRotationGallagher = [RobinCharacter.useTalent() * (numBasicGallagher + numEnhancedGallagher + 1.0)]
+    RobinRotationGallagher += [RobinCharacter.useConcertoDamage(['basic']) * (numBasicGallagher + numEnhancedGallagher) * RobinUltUptime]
+    RobinRotationGallagher += [RobinCharacter.useConcertoDamage(['ultimate']) * 1.0 * RobinUltUptime]
+    
+    # assume 2 procs go to robin, then other 2 split between the rest
+    QPQEffect = BaseEffect()
+    QPQEffect.energy = 16.0
+    GallagherCharacter.addDebugInfo(QPQEffect,['buff'],'Quid Pro Quo Energy')
+    MarchRotation.append(deepcopy(QPQEffect) * MarchCharacter.getER() )
+    RobinRotation.append(deepcopy(QPQEffect) * 2 * RobinCharacter.getER() )
     
     # number of attacks in 2 feixiao turns
     numTurns = 2.0
     numAttacks = numTurns * 3.0 # feixiao attacks
     numAttacks += numTurns * (numBasicMarch + numFollowupMarch + numEnhancedMarch + 1.0) / numBasicMarch  # march attacks
-    numAttacks += numTurns * (1.0 + numTalentAventurine / 7.0) / numBasicAventurine # aventurine attacks
+    numAttacks += numTurns * (1.0 + numBasicGallagher + numEnhancedGallagher) / (numBasicGallagher + numSkillGallagher) # Gallagher attacks
     
     numBasicFeixiao = 0.0
     numSkillFeixiao = 2.0
     numFollowupFeixiao = (numBasicFeixiao + 2.0 * numSkillFeixiao)
-    numUltFeixiao = numAttacks * 0.5 + (2.34 * (numBasicFeixiao + numSkillFeixiao) if FeixiaoCharacter.eidolon >= 2 else 0.0)
+    numUltFeixiao = numAttacks * 0.5 + (1.75 * (numBasicFeixiao + numSkillFeixiao) if FeixiaoCharacter.eidolon >= 2 else 0.0)
     
     numBasicFeixiao *= 6.0 / numUltFeixiao
     numSkillFeixiao *= 6.0 / numUltFeixiao
@@ -179,7 +175,7 @@ def FeixiaoMarchRobinAventurine(config,
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['followup']) * numFollowupFeixiao * RobinUltUptime]
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['ultimate','followup']) * RobinUltUptime]
 
-    #%% March Feixiao Robin Aventurine Rotation Math
+    #%% March Feixiao Robin Gallagher Rotation Math
 
     # four turn robin advance math
     totalRobinEffect = sumEffects(RobinRotation)
@@ -189,44 +185,44 @@ def FeixiaoMarchRobinAventurine(config,
 
     MarchFourTurns = numTurnAV * MarchCharacter.useBasic().actionvalue / MarchCharacter.getTotalStat('SPD')
     FeixiaoFourTurns = numTurnAV * FeixiaoCharacter.useSkill().actionvalue / FeixiaoCharacter.getTotalStat('SPD')
-    AventurineFourTurns = numTurnAV * AventurineCharacter.useBasic().actionvalue / AventurineCharacter.getTotalStat('SPD')
+    GallagherFourTurns = numTurnAV * GallagherCharacter.useBasic().actionvalue / GallagherCharacter.getTotalStat('SPD')
     
     MarchRotation += [RobinCharacter.useAdvanceForward() * (MarchFourTurns - RobinRotationDuration) * MarchCharacter.getTotalStat('SPD') * numBasicMarch / numTurnAV]
     FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (FeixiaoFourTurns - RobinRotationDuration) * FeixiaoCharacter.getTotalStat('SPD') * (numBasicFeixiao + numSkillFeixiao) / numTurnAV]
-    AventurineRotation += [RobinCharacter.useAdvanceForward() * (AventurineFourTurns - RobinRotationDuration) * AventurineCharacter.getTotalStat('SPD') * numBasicAventurine / numTurnAV]
+    GallagherRotation += [RobinCharacter.useAdvanceForward() * (GallagherFourTurns - RobinRotationDuration) * GallagherCharacter.getTotalStat('SPD') * numBasicGallagher / numTurnAV]
         
     totalMarchEffect = sumEffects(MarchRotation)
     totalFeixiaoEffect = sumEffects(FeixiaoRotation)
-    totalAventurineEffect = sumEffects(AventurineRotation)
+    totalGallagherEffect = sumEffects(GallagherRotation)
     
     MarchRotationDuration = totalMarchEffect.actionvalue * 100.0 / MarchCharacter.getTotalStat('SPD')
     FeixiaoRotationDuration = totalFeixiaoEffect.actionvalue * 100.0 / FeixiaoCharacter.getTotalStat('SPD')
-    AventurineRotationDuration = totalAventurineEffect.actionvalue * 100.0 / AventurineCharacter.getTotalStat('SPD')
+    GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
     
     print('##### Rotation Durations #####')
     print('March: ',MarchRotationDuration * 2.0)
     print('Feixiao: ',FeixiaoRotationDuration * 2.0)
     print('Robin: ',RobinRotationDuration)
-    print('Aventurine: ',AventurineRotationDuration)
+    print('Gallagher: ',GallagherRotationDuration)
 
     # Scale other character's rotation
     FeixiaoRotation = [x * MarchRotationDuration / FeixiaoRotationDuration for x in FeixiaoRotation]
     RobinRotationFeixiao = [x * MarchRotationDuration / FeixiaoRotationDuration for x in RobinRotationFeixiao]
     RobinRotation = [x * MarchRotationDuration / RobinRotationDuration for x in RobinRotation]
-    AventurineRotation = [x * MarchRotationDuration / AventurineRotationDuration for x in AventurineRotation]
-    RobinRotationAventurine = [x * MarchRotationDuration / AventurineRotationDuration for x in RobinRotationAventurine]
+    GallagherRotation = [x * MarchRotationDuration / GallagherRotationDuration for x in GallagherRotation]
+    RobinRotationGallagher = [x * MarchRotationDuration / GallagherRotationDuration for x in RobinRotationGallagher]
     
     RobinRotation += RobinRotationMarch
     RobinRotation += RobinRotationFeixiao
-    RobinRotation += RobinRotationAventurine
+    RobinRotation += RobinRotationGallagher
     totalRobinEffect = sumEffects(RobinRotation)
 
     FeixiaoEstimate = DefaultEstimator(f'{FeixiaoCharacter.fullName()} {numSkillFeixiao:.2f}E {numFollowupFeixiao:.1f}T {numUltFeixiao:.1f}Q', FeixiaoRotation, FeixiaoCharacter, config)
     MarchEstimate = DefaultEstimator(f'{MarchCharacter.fullName()} {numBasicMarch:.1f}N {numEnhancedMarch:.1f}Enh 1Q', MarchRotation, MarchCharacter, config)
     RobinEstimate = DefaultEstimator(f'{RobinCharacter.fullName()} {numBasicRobin:.1f}N {numSkillRobin:.1f}E 1Q', 
                                     RobinRotation, RobinCharacter, config)
-    AventurineEstimate = DefaultEstimator(f'E{AventurineCharacter.eidolon} S{AventurineCharacter.lightcone.superposition:.0f} {AventurineCharacter.lightcone.name} Aventurine: {numBasicAventurine:.0f}N {numTalentAventurine:.1f}T 1Q',
-                                    AventurineRotation, AventurineCharacter, config)
+    GallagherEstimate = DefaultEstimator(f'Gallagher: {numBasicGallagher:.0f}N {numSkillGallagher:.0f}E {numEnhancedGallagher:.0f}Enh 1Q, S{GallagherCharacter.lightcone.superposition:d} {GallagherCharacter.lightcone.name}', 
+                                    GallagherRotation, GallagherCharacter, config)
 
-    return([FeixiaoEstimate, MarchEstimate, RobinEstimate, AventurineEstimate])
+    return([FeixiaoEstimate, MarchEstimate, RobinEstimate, GallagherEstimate])
 

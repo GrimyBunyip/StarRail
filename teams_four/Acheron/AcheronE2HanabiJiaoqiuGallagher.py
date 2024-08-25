@@ -39,7 +39,6 @@ def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
                         substats = {'ATK.flat': 3, 'SPD.flat': 5, 'EHR': 12, 'ATK.percent': 8}),
                         lightcone = EyesOfThePrey(**config),
                         relicsetone = Pioneer2pc(), relicsettwo = FiresmithOfLavaForging2pc(), planarset = SprightlyVonwacq(),
-                        talentStacks=3 if jiaoqiuEidolon is not None and jiaoqiuEidolon >= 1 else 2,
                         eidolon=jiaoqiuEidolon,
                         **config)
 
@@ -81,7 +80,10 @@ def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     jiaoqiuUltChance = 1.0 * 0.6 * (0.62 if JiaoqiuCharacter.eidolon >= 5 else 0.60)
     jiaoqiuUltChance *= 1.0 + JiaoqiuCharacter.getTotalStat('EHR')
     jiaoqiuUltChance = min(1.0, jiaoqiuUltChance)
-    numStacks += jiaoqiuUltChance * JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed # stacks from trend, assume each enemy does a single target per turn
+    enemyActionRate = JiaoqiuCharacter.numEnemies * JiaoqiuCharacter.enemySpeed
+    jiaoqiuUltRate = 6.0 * JiaoqiuCharacter.getTotalStat('SPD') / 3.0
+    jiaoqiuStackRate = min(jiaoqiuUltRate, enemyActionRate)
+    numStacks += jiaoqiuUltChance * jiaoqiuStackRate # stacks from trend, assume each enemy does a single target per turn
     numStacks /= HanabiCharacter.getTotalStat('SPD')
     numStacks += 1 + 1
     numStacks += 1 if AcheronCharacter.lightcone.name == 'Along the Passing Shore' else 0

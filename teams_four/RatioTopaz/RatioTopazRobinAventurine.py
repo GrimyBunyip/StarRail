@@ -7,6 +7,7 @@ from characters.hunt.Topaz import Topaz
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.harmony.ForTomorrowsJourney import ForTomorrowsJourney
 from lightCones.harmony.PoisedToBloom import PoisedToBloom
+from lightCones.hunt.BaptismOfPureThought import BaptismOfPureThought
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.hunt.Swordplay import Swordplay
 from lightCones.preservation.DestinysThreadsForewoven import DestinysThreadsForewoven
@@ -18,11 +19,13 @@ from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
 
-def DrRatioTopazRobinAventurine(config):
+def DrRatioTopazRobinAventurine(config,
+                                DrRatioSuperposition:int=0):
     #%% DrRatio Topaz Robin Aventurine Characters
+    DrRatioLightCone = CruisingInTheStellarSea(**config) if DrRatioSuperposition == 0 else BaptismOfPureThought(**config)
     DrRatioCharacter = DrRatio(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'ATK.percent'],
                                     substats = {'CD': 7, 'CR': 8, 'ATK.percent': 3, 'SPD.flat': 12}),
-                                    lightcone = CruisingInTheStellarSea(**config),
+                                    lightcone = DrRatioLightCone,
                                     relicsetone = Pioneer2pc(),
                                     relicsettwo = Pioneer4pc(stacks=2),
                                     planarset = IzumoGenseiAndTakamaDivineRealm(),
