@@ -154,7 +154,7 @@ def DrRatioTopazE1RobinAventurine(config):
     numFollowups = (numTalentTopaz + 2.0) * TopazCharacter.getTotalStat('SPD') / 4.0 # Topaz gets about this many followup attacks per her turns, 4 turn rotation
     numFollowups += (numTalentRatio) * DrRatioCharacter.getTotalStat('SPD') / 4.0 # Ratio gets about this many followup attacks per his turns, 4 turn rotation
     numFollowups /= AventurineCharacter.getTotalStat('SPD')
-    numTalentAventurine += numBasicAventurine * numFollowups
+    numTalentAventurine += numBasicAventurine * min(3.0,numFollowups)
     
     AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
                           AventurineCharacter.useTalent() * numTalentAventurine,

@@ -12,6 +12,7 @@ from lightCones.nihility.EyesOfThePrey import EyesOfThePrey
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
+from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
@@ -42,7 +43,7 @@ def AcheronPelaJiaoqiuGallagher(config, acheronEidolon:int=None, acheronSuperpos
     JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'EHR', 'ER'],
                             substats = {'CD': 3, 'CR': 5, 'EHR': 12, 'SPD.flat': 8}),
                             lightcone = BeforeTheTutorialMissionStarts(**config),
-                            relicsetone = Pioneer2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PanCosmicCommercialEnterprise(),
+                            relicsetone = Pioneer2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = ForgeOfTheKalpagniLantern(),
                             **config)
 
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],

@@ -126,7 +126,7 @@ def FeixiaoMarchTopazAventurine(config,
     numFollowups += MarchCharacter.getTotalStat('SPD') # March gets about 1 followup per turn
     numFollowups += TopazCharacter.getTotalStat('SPD') * (numTalentTopaz + numBasicTopaz + numSkillTopaz) / (numBasicTopaz + numSkillTopaz)
     numFollowups /= AventurineCharacter.getTotalStat('SPD')
-    numTalentAventurine += numBasicAventurine * numFollowups
+    numTalentAventurine += numBasicAventurine * min(3.0,numFollowups)
     
     AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
                           AventurineCharacter.useTalent() * numTalentAventurine,

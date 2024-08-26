@@ -6,6 +6,7 @@ from characters.harmony.Robin import Robin
 from characters.hunt.Feixiao import Feixiao
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.harmony.FlowingNightglow import FlowingNightglow
+from lightCones.harmony.ForTomorrowsJourney import ForTomorrowsJourney
 from lightCones.harmony.PoisedToBloom import PoisedToBloom
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.hunt.IVentureForthToHunt import IVentureForthToHunt
@@ -78,8 +79,9 @@ def FeixiaoTopazRobinAventurine(config,
     #%% Topaz Feixiao Robin Aventurine Team Buffs
     for character in [FeixiaoCharacter, TopazCharacter, RobinCharacter]:
         character.addStat('CD',description='Broken Keel from Aventurine',amount=0.1)
-    for character in [FeixiaoCharacter, TopazCharacter]:
-        character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
+    if RobinCharacter.lightcone.name == 'Poised to Bloom':
+        for character in [FeixiaoCharacter, TopazCharacter]:
+            character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
@@ -98,6 +100,7 @@ def FeixiaoTopazRobinAventurine(config,
 
     RobinUltUptime = 0.5 if RobinCharacter.eidolon < 2 else 1.0
     RobinCharacter.applyUltBuff([FeixiaoCharacter,TopazCharacter,AventurineCharacter],uptime=RobinUltUptime)
+    
 
     #%% Print Statements
     for character in team:
@@ -137,7 +140,7 @@ def FeixiaoTopazRobinAventurine(config,
     numFollowups = 2.5 * FeixiaoCharacter.getTotalStat('SPD') # Feixiao gets about 2.5 followup per turn
     numFollowups += TopazCharacter.getTotalStat('SPD') * (numTalentTopaz + numBasicTopaz + numSkillTopaz) / (numBasicTopaz + numSkillTopaz)
     numFollowups /= AventurineCharacter.getTotalStat('SPD')
-    numTalentAventurine += numBasicAventurine * numFollowups
+    numTalentAventurine += numBasicAventurine * min(3.0,numFollowups)
     
     AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
                           AventurineCharacter.useTalent() * numTalentAventurine,

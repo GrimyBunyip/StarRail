@@ -128,7 +128,7 @@ def MarchTopazRobinAventurine(config):
     numFollowups = (numTalentTopaz + 2.0) * TopazCharacter.getTotalStat('SPD') / 4.0 # Topaz gets about this many followup attacks per her turns, 4 turn rotation
     numFollowups += MarchCharacter.getTotalStat('SPD') # March gets about 1 followup per turn
     numFollowups /= AventurineCharacter.getTotalStat('SPD')
-    numTalentAventurine += numBasicAventurine * numFollowups
+    numTalentAventurine += numBasicAventurine * min(3.0,numFollowups)
     
     AventurineRotation = [AventurineCharacter.useBasic() * numBasicAventurine,
                           AventurineCharacter.useTalent() * numTalentAventurine,

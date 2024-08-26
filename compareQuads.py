@@ -145,10 +145,10 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Acheron Teams
 
 # # E2 Teams
-visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
-visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1, jiaoqiuEidolon=2))
+# visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1))
+# visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
 
-visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
+# visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2HanabiPelaGallagher(config, acheronSuperposition=1))
 
 # visualizationList.append(AcheronE2HanabiKafkaGallagher(config, acheronSuperposition=1))
@@ -290,7 +290,7 @@ visualizationList.append(AcheronE2BronyaKafkaGallagher(config, acheronSuperposit
 # visualizationList.append(FeixiaoMarchRobinAventurine(config))
 
 # Feixiao Teams
-# visualizationList.append(FeixiaoTopazRobinAventurine(config))
+visualizationList.append(FeixiaoTopazRobinAventurine(config))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
 # visualizationList.append(FeixiaoMarchRobinAventurine(config))
 # visualizationList.append(FeixiaoMarchRobinGallagher(config, robinEidolon=2))

@@ -11,6 +11,7 @@ from lightCones.nihility.AlongThePassingShore import AlongThePassingShore
 from lightCones.nihility.EyesOfThePrey import EyesOfThePrey
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from relicSets.planarSets.BrokenKeel import BrokenKeel
+from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc
@@ -35,10 +36,10 @@ def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                         **config)
 
-    JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'ATK.percent', 'EHR', 'ER'],
-                        substats = {'ATK.flat': 3, 'SPD.flat': 5, 'EHR': 12, 'ATK.percent': 8}),
+    JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'EHR', 'ER'],
+                        substats = {'ATK.flat': 3, 'SPD.flat': 8, 'EHR': 12, 'ATK.percent': 5}),
                         lightcone = EyesOfThePrey(**config),
-                        relicsetone = Pioneer2pc(), relicsettwo = FiresmithOfLavaForging2pc(), planarset = SprightlyVonwacq(),
+                        relicsetone = Pioneer2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = ForgeOfTheKalpagniLantern(),
                         eidolon=jiaoqiuEidolon,
                         **config)
 

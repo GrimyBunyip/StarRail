@@ -14,6 +14,7 @@ from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
 from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
+from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
@@ -41,10 +42,10 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
                         relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                         **config)
 
-    JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'ATK.percent', 'EHR', 'ER'],
-                        substats = {'ATK.flat': 3, 'SPD.flat': 5, 'EHR': 12, 'ATK.percent': 8}),
+    JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'EHR', 'ER'],
+                        substats = {'ATK.flat': 3, 'SPD.flat': 8, 'EHR': 12, 'ATK.percent': 5}),
                         lightcone = EyesOfThePrey(**config),
-                        relicsetone = Pioneer2pc(), relicsettwo = FiresmithOfLavaForging2pc(), planarset = SprightlyVonwacq(),
+                        relicsetone = Pioneer2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = ForgeOfTheKalpagniLantern(),
                         eidolon=jiaoqiuEidolon,
                         **config)
 
@@ -66,7 +67,7 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
 
     # Jiaoqiu Debuffs, 3 turn Jiaoqiu rotation
     JiaoqiuCharacter.applyTalentDebuff(team)
-    jiaoqiuUltUptime = 0.75
+    jiaoqiuUltUptime = 1.0
     JiaoqiuCharacter.applyUltDebuff(team, uptime=jiaoqiuUltUptime)
         
     # Bronya Buffs
@@ -117,8 +118,8 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     AcheronRotation += [AcheronCharacter.useUltimate_end()]
     AcheronRotation += [BronyaCharacter.useAdvanceForward() * numSkillAcheron * 0.5] # Half of the turns
 
-    numBasicJiaoqiu = 4.0
-    numSkillJiaoqiu = 0.0
+    numBasicJiaoqiu = 1.0
+    numSkillJiaoqiu = 2.0
     JiaoqiuRotation = [JiaoqiuCharacter.useBasic() * numBasicJiaoqiu,
                        JiaoqiuCharacter.useSkill() * numSkillJiaoqiu,
                         JiaoqiuCharacter.useUltimate(),]
