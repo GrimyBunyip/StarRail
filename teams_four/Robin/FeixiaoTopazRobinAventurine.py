@@ -8,8 +8,10 @@ from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.harmony.FlowingNightglow import FlowingNightglow
 from lightCones.harmony.ForTomorrowsJourney import ForTomorrowsJourney
 from lightCones.harmony.PoisedToBloom import PoisedToBloom
+from lightCones.hunt.BaptismOfPureThought import BaptismOfPureThought
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.hunt.IVentureForthToHunt import IVentureForthToHunt
+from lightCones.hunt.InTheNight import InTheNight
 from lightCones.hunt.Swordplay import Swordplay
 from lightCones.hunt.WorrisomeBlissful import WorrisomeBlissful
 from lightCones.preservation.DestinysThreadsForewoven import DestinysThreadsForewoven
@@ -26,18 +28,34 @@ from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, Wind
 
 def FeixiaoTopazRobinAventurine(config, 
                                 feixiaoEidolon:int=None, 
-                                feixiaoSuperposition:int=0, 
+                                feixiaoSuperposition:int=0,
+                                feixiaoLightCone:str='IVentureForthToHunt',
                                 robinEidolon:int=None, 
                                 robinSuperposition:int=0,
                                 topazEidolon:int=None,
                                 topazSuperposition:int=0,):
     #%% Topaz Feixiao Robin Aventurine Characters
-
-    FeixiaoLightcone = CruisingInTheStellarSea(**config) if feixiaoSuperposition == 0 else IVentureForthToHunt(superposition=feixiaoSuperposition,**config)
-    FeixiaoSubstats = {'CR': 7, 'CD': 8, 'ATK.percent': 3, 'SPD.flat':10} if feixiaoSuperposition == 0 else {'CR': 10, 'CD': 5, 'ATK.percent': 3, 'SPD.flat':10}
+        
+    FeixiaoSubstats = {'CR': 5, 'CD': 10, 'ATK.percent': 3, 'SPD.flat':10}
     if robinEidolon is not None and robinEidolon >= 2:
         FeixiaoSubstats['SPD.flat'] += 1
         FeixiaoSubstats['CD'] -= 1
+        
+    if feixiaoSuperposition == 0:
+        FeixiaoLightcone = CruisingInTheStellarSea(**config)
+    elif feixiaoLightCone == 'IVentureForthToHunt':
+        FeixiaoLightcone = IVentureForthToHunt(superposition=feixiaoSuperposition,**config)
+        FeixiaoSubstats['CR'] += 5
+        FeixiaoSubstats['CD'] -= 5
+    elif feixiaoLightCone == 'InTheNight':
+        FeixiaoLightcone = InTheNight(**config)
+        FeixiaoSubstats['CR'] += 4
+        FeixiaoSubstats['CD'] -= 4
+    elif feixiaoLightCone == 'BaptismOfPureThought':
+        FeixiaoLightcone = BaptismOfPureThought(**config)
+        FeixiaoSubstats['CR'] += 5
+        FeixiaoSubstats['CD'] -= 5
+        
     FeixiaoCharacter = Feixiao(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind'],
                                     substats = FeixiaoSubstats),
                                     lightcone = FeixiaoLightcone,
@@ -100,6 +118,9 @@ def FeixiaoTopazRobinAventurine(config,
 
     RobinUltUptime = 0.5 if RobinCharacter.eidolon < 2 else 1.0
     RobinCharacter.applyUltBuff([FeixiaoCharacter,TopazCharacter,AventurineCharacter],uptime=RobinUltUptime)
+    # assume feixiao buff has 100% uptime
+    if RobinUltUptime < 1.0:
+        RobinCharacter.applyUltBuff([FeixiaoCharacter], uptime=1.0-RobinUltUptime)
     
 
     #%% Print Statements
@@ -176,7 +197,7 @@ def FeixiaoTopazRobinAventurine(config,
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['basic']) * numBasicFeixiao * RobinUltUptime]
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['skill']) * numSkillFeixiao * RobinUltUptime]
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['followup']) * numFollowupFeixiao * RobinUltUptime]
-    RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['ultimate','followup']) * RobinUltUptime]
+    RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['ultimate','followup']) ] # assume we bank feixiao ults for robin uptime
 
     #%% Topaz Feixiao Robin Aventurine Rotation Math
 

@@ -58,24 +58,27 @@ class Robin(BaseCharacter):
                                     amount=0.55 if self.eidolon >= 3 else 0.50,
                                     uptime=uptime)
         
-    def applyUltBuff(self,team:list,uptime=0.5):
+    def applyUltBuff(self,team:list,uptime=0.5,type=None):
         amount = self.getTotalStat('ATK')
         amount *= 0.2432 if self.eidolon >= 3 else 0.228
         amount += 230 if self.eidolon >= 3 else 200
         for character in team:
             character.addStat('ATK.flat',description='Robin Ultimate Buff',
                                 amount=amount,
-                                uptime=uptime)
+                                uptime=uptime,
+                                type=type)
             
             if self.eidolon >= 1:
                 character.addStat('ResPen',description='Robin E1',
                                 amount=0.24,
-                                uptime=uptime)
+                                uptime=uptime,
+                                type=type)
                 
             if self.eidolon >= 2:
                 character.addStat('SPD.percent', description='Robin E2',
                                 amount=0.16,
-                                uptime=uptime)
+                                uptime=uptime,
+                                type=type)
 
     def useSkill(self):
         retval = BaseEffect()

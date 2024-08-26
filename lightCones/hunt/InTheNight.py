@@ -5,9 +5,11 @@ import math
 class InTheNight(BaseLightCone):
     def __init__(self,
                 superposition:int=None,
+                speed:float=160.0,
                 **config):
         self.loadConeStats('In the Night')
         self.setSuperposition(superposition,config)
+        self.speed=speed
 
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
@@ -15,7 +17,7 @@ class InTheNight(BaseLightCone):
             char.addStat('CR',description=self.name,
                                     amount=0.15 + 0.03 * self.superposition)
             
-            num_stacks = math.floor( ( char.getTotalStat('SPD') - 100.0 ) / 10.0 )
+            num_stacks = math.floor( self.speed - 100.0 ) / 10.0
             num_stacks = min(num_stacks, 6)
             
             char.addStat('ATK.percent',description=self.name,

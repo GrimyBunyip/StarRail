@@ -81,9 +81,11 @@ from teams_four.Qingque.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.Qingque.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
 from teams_four.RatioTopaz.RatioTopazRobinAventurine import DrRatioTopazRobinAventurine
 from teams_four.Robin.FeixiaoBronyaTopazLingsha import FeixiaoBronyaTopazLingsha
+from teams_four.Robin.FeixiaoMarchMozeAventurine import FeixiaoMarchMozeAventurine
 from teams_four.Robin.FeixiaoMarchRobinLynx import FeixiaoMarchRobinLynx
 from teams_four.Robin.FeixiaoMarchTopazAventurine import FeixiaoMarchTopazAventurine
 from teams_four.Robin.FeixiaoMarchRobinGallagher import FeixiaoMarchRobinGallagher
+from teams_four.Robin.FeixiaoTopazMozeAventurine import FeixiaoTopazMozeAventurine
 from teams_four.Robin.FeixiaoTopazRobinAventurine import FeixiaoTopazRobinAventurine
 from teams_four.Seele.SilverWolfMarchRobinHuohuo import SilverWolfMarchRobinHuohuo
 from teams_four.Robin.FeixiaoMarchRobinAventurine import FeixiaoMarchRobinAventurine
@@ -291,8 +293,13 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # Feixiao Teams
 visualizationList.append(FeixiaoTopazRobinAventurine(config))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config, feixiaoSuperposition=1))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config, feixiaoSuperposition=1, feixiaoLightCone='InTheNight'))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config, feixiaoSuperposition=1, feixiaoLightCone='BaptismOfPureThought'))
+# visualizationList.append(FeixiaoTopazMozeAventurine(config))
+# visualizationList.append(FeixiaoMarchMozeAventurine(config))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
-# visualizationList.append(FeixiaoMarchRobinAventurine(config))
+visualizationList.append(FeixiaoMarchRobinAventurine(config))
 # visualizationList.append(FeixiaoMarchRobinGallagher(config, robinEidolon=2))
 # visualizationList.append(FeixiaoMarchRobinLynx(config, robinEidolon=2))
 

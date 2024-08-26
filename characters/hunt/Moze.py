@@ -37,10 +37,10 @@ class Moze(BaseCharacter):
         # Gear
         self.equipGear()
         
-    def applyDebuff(self,team:list,uptime:float):
+    def applyDebuff(self,team:list,uptime:float=0.5):
         for character in team:
             character:BaseCharacter
-            character.addStat('Vulnerability',description='Topaz Skill Debuff',amount=0.55 if self.eidolon >= 3 else 0.5,type=['followup'],uptime=uptime)
+            character.addStat('Vulnerability',description='Moze Debuff',amount=0.25,type=['followup'],uptime=uptime)
         
         if self.eidolon >= 2:
             for character in team:
@@ -62,7 +62,7 @@ class Moze(BaseCharacter):
         self.addDebugInfo(retval,type)
         return retval
 
-    def useSkill(self):
+    def useSkill(self, skillpoints:float=0.0, actionvalue:float=1.0):
         retval = BaseEffect()
         type = ['skill']
         retval.damage = self.getTotalMotionValue('skill',type)
@@ -72,8 +72,8 @@ class Moze(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 60.0 * self.getBreakEfficiency(type)
         retval.energy = ( 30.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
-        retval.skillpoints = -1.0
-        retval.actionvalue = 1.0 + self.getAdvanceForward(type)
+        retval.skillpoints = skillpoints
+        retval.actionvalue = actionvalue
         self.addDebugInfo(retval,type)
         return retval
 
