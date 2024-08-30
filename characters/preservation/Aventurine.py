@@ -19,8 +19,8 @@ class Aventurine(BaseCharacter):
         self.leverage_cr = leverage_cr
 
         # Motion Values should be set before talents or gear
-        self.motionValueDict['basic'] = [BaseMV(area='single', stat='def', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='def', value=2.7, eidolonThreshold=5, eidolonBonus=0.216)]
+        self.motionValueDict['basic'] = [BaseMV(area='single', stat='def', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
+        self.motionValueDict['ultimate'] = [BaseMV(area='single', stat='def', value=2.7, eidolonThreshold=3, eidolonBonus=0.216)]
         self.motionValueDict['talent'] = [BaseMV(area='single', stat='def', value=0.25, eidolonThreshold=5, eidolonBonus=0.025)]
 
         # Talents
@@ -38,7 +38,7 @@ class Aventurine(BaseCharacter):
         ultUptime = min(1.0, ultUptime)
         for character in team:
             character.addStat('CD',description='Aventurine Ultimate',
-                            amount=(0.15 if self.eidolon >= 5 else 0.03),
+                            amount=(0.162 if self.eidolon >= 3 else 0.15),
                             uptime=ultUptime)
         
     def useBasic(self):

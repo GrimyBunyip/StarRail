@@ -109,13 +109,15 @@ def FeixiaoTopazRobinAventurine(config,
         for character in [FeixiaoCharacter, TopazCharacter]:
             character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
     elif RobinCharacter.lightcone.name == 'Flowing Nightglow':
+        RobinCharacter.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition)
         for character in team:
-            character.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition, uptime=RobinUltUptime)
+            if character.name is not 'Robin':
+                character.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition, uptime=RobinUltUptime)
     elif RobinCharacter.lightcone.name == 'Carve the Moon, Weave the Clouds':
         for character in team:
-            character.addStat('ATK.percent',description='Carve The Moon',amount=0.2, uptime=1.0/3.0)
-            character.addStat('CD',description='Carve The Moon',amount=0.24, uptime=1.0/3.0)
-            character.addStat('ER',description='Carve The Moon',amount=0.12, uptime=1.0/3.0)
+            character.addStat('ATK.percent',description='Carve The Moon',amount=0.075 + 0.025 * RobinCharacter.lightcone.superposition, uptime=1.0/3.0)
+            character.addStat('CD',description='Carve The Moon',amount=0.09 + 0.03 * RobinCharacter.lightcone.superposition, uptime=1.0/3.0)
+            character.addStat('ER',description='Carve The Moon',amount=0.045 + 0.015 * RobinCharacter.lightcone.superposition, uptime=1.0/3.0)
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
@@ -150,7 +152,7 @@ def FeixiaoTopazRobinAventurine(config,
     RobinRotation = [RobinCharacter.useBasic() * numBasicRobin,
                     RobinCharacter.useSkill() * numSkillRobin,
                     RobinCharacter.useUltimate() * 1,]
-    RobinCharacter.applyUltBuff([RobinCharacter],uptime=1.0) # apply robin buff after we calculate damage for her basics
+    RobinCharacter.applyUltBuff([RobinCharacter],uptime=1.0, ignoreSpeed=True) # apply robin buff after we calculate damage for her basics
 
     numBasicTopaz = 2.0 if RobinCharacter.eidolon < 2 else 2.6
     numSkillTopaz = 2.0 if RobinCharacter.eidolon < 2 else 1.6
@@ -197,10 +199,7 @@ def FeixiaoTopazRobinAventurine(config,
     numFollowupFeixiao = (numBasicFeixiao + 2.0 * numSkillFeixiao)
     numUltFeixiao = numAttacks * 0.5 + (3.0 if FeixiaoCharacter.eidolon >= 2 else 0.0)
     
-    numBasicFeixiao *= 6.0 / numUltFeixiao
-    numSkillFeixiao *= 6.0 / numUltFeixiao
-    numFollowupFeixiao *= 6.0 / numUltFeixiao
-    numUltFeixiao = 1.0
+    numUltFeixiao = numUltFeixiao / 6.0
     
     FeixiaoRotation = []
     FeixiaoRotation += [FeixiaoCharacter.useBasic() * numBasicFeixiao]

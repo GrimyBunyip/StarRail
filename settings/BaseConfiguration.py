@@ -18,7 +18,7 @@ Configuration = {
     'hertaSuperpositions': 5, #number of superpositions on herta light cones
     'eventSuperpositions': 5, #number of superpositions on herta light cones
     'forgottenHallSuperpositions': 5, #number of superpositions on forgotten hall
-    'battlePassSuperpositions': 1, #number of superpositions on battlepass lightcones
+    'battlePassSuperpositions': 5, #number of superpositions on battlepass lightcones
     'fivestarSuperpositions': 1, #number of superpositions on fivestar light cones
     'fourstarSuperpositions': 5, #number of superpositions on fourstar light cones
     'threestarSuperpositions': 5, #number of superpositions on threestar light cones

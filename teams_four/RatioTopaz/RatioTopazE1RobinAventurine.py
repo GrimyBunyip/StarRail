@@ -112,7 +112,7 @@ def DrRatioTopazE1RobinAventurine(config):
     RobinRotation = [RobinCharacter.useBasic() * numBasicRobin,
                     RobinCharacter.useSkill() * numSkillRobin,
                     RobinCharacter.useUltimate() * 1,]
-    RobinCharacter.applyUltBuff([RobinCharacter],uptime=1.0) # apply robin buff after we calculate damage for her basics
+    RobinCharacter.applyUltBuff([RobinCharacter],uptime=1.0, ignoreSpeed=True) # apply robin buff after we calculate damage for her basics
     
     numSkillRatio = 3.5
     numUltRatio = 1.0

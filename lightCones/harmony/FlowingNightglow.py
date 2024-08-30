@@ -4,7 +4,7 @@ from baseClasses.BaseLightCone import BaseLightCone
 class FlowingNightglow(BaseLightCone):
     def __init__(self,
                  stacks=4.0,
-                 uptime=0.5,
+                 uptime=1.0,
                 superposition:int=None,
                 **config):
         self.loadConeStats('Flowing Nightglow')

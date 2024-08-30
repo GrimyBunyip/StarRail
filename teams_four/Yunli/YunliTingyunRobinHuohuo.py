@@ -127,7 +127,7 @@ def YunliTingyunRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:in
     RobinRotation = [RobinCharacter.useBasic() * numBasicRobin,
                     RobinCharacter.useSkill() * numSkillRobin,
                     RobinCharacter.useUltimate() * 1,]
-    RobinCharacter.applyUltBuff([RobinCharacter],uptime=1.0) # apply robin buff after we calculate damage for her basics
+    RobinCharacter.applyUltBuff([RobinCharacter],uptime=1.0, ignoreSpeed=True) # apply robin buff after we calculate damage for her basics
 
 
     numBasicHuohuo = 3.0

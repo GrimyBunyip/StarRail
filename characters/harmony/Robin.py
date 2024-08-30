@@ -58,7 +58,7 @@ class Robin(BaseCharacter):
                                     amount=0.55 if self.eidolon >= 3 else 0.50,
                                     uptime=uptime)
         
-    def applyUltBuff(self,team:list,uptime=0.5,type=None):
+    def applyUltBuff(self,team:list,uptime=0.5,type=None,ignoreSpeed=False):
         amount = self.getTotalStat('ATK')
         amount *= 0.2432 if self.eidolon >= 3 else 0.228
         amount += 230 if self.eidolon >= 3 else 200
@@ -74,7 +74,7 @@ class Robin(BaseCharacter):
                                 uptime=uptime,
                                 type=type)
                 
-            if self.eidolon >= 2:
+            if self.eidolon >= 2 and not ignoreSpeed:
                 character.addStat('SPD.percent', description='Robin E2',
                                 amount=0.16,
                                 uptime=uptime,

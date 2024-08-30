@@ -48,7 +48,7 @@ class ImaginaryMarch(BaseCharacter):
             self.addStat('CD',description='March 7th E6',
                          amount=0.50,
                          uptime=self.e6Uptime,
-                         type=['enhancedBasic'])
+                         type=['ultEnhancedBasic'])
         
         # Gear
         self.equipGear()
@@ -79,15 +79,17 @@ class ImaginaryMarch(BaseCharacter):
         self.addDebugInfo(retval,type)
         return retval
 
-    def useEnhancedBasic(self, actionValue:float=1.0, numHits:float=1.0, chance:float=0.6):
+    def useEnhancedBasic(self, actionValue:float=1.0, numHits:float=3.0, chance:float=0.6):
         skillGauge = 1.0
         if self.master.path in ['harmony', 'nihility', 'preservation', 'abundance']:
             skillGauge = 2.0
             
         retval = BaseEffect()
-        type = ['enhancedBasic']
+        type = ['basic','enhancedBasic']
+        if numHits == 5.0:
+            type += ['ultEnhancedBasic']
         
-        extraHits = chance * (1.0 - chance) + 2 * (1.0 - chance) * chance ** 2 + 3 * chance ** 3
+        extraHits = chance + chance ** 2 + chance ** 3
         
         retval.damage = self.getTotalMotionValue('enhancedBasic',type) * (numHits + extraHits)
         retval.damage *= self.getTotalCrit(type)
