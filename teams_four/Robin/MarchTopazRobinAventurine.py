@@ -5,6 +5,9 @@ from characters.hunt.ImaginaryMarch import ImaginaryMarch
 from characters.harmony.Robin import Robin
 from characters.hunt.Topaz import Topaz
 from estimator.DefaultEstimator import DefaultEstimator
+from lightCones.harmony.CarveTheMoonWeaveTheClouds import CarveTheMoonWeaveTheClouds
+from lightCones.harmony.FlowingNightglow import FlowingNightglow
+from lightCones.harmony.ForTomorrowsJourney import ForTomorrowsJourney
 from lightCones.harmony.PoisedToBloom import PoisedToBloom
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from lightCones.hunt.Swordplay import Swordplay
@@ -18,7 +21,9 @@ from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
-def MarchTopazRobinAventurine(config):
+def MarchTopazRobinAventurine(config,
+                              robinEidolon:int=None,
+                              robinLightCone:str='PoisedToBloom'):
     #%% March Topaz Robin Aventurine Characters
     TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'CR', 'ATK.percent'],
                                     substats = {'CR': 12, 'CD': 7, 'ATK.percent': 3, 'SPD.flat': 6}),
@@ -35,9 +40,19 @@ def MarchTopazRobinAventurine(config):
                                     master=TopazCharacter,
                                     **config)
     
+
+    RobinUltUptime = 0.5 if robinEidolon is None or robinEidolon < 2 else 1.0
+    if robinLightCone == 'PoisedToBloom':
+        RobinLightCone = PoisedToBloom(**config)
+    elif robinLightCone == 'FlowingNightglow':
+        RobinLightCone = FlowingNightglow(**config, uptime=RobinUltUptime)
+    elif robinLightCone == 'ForTomorrowsJourney':
+        RobinLightCone = ForTomorrowsJourney(**config)
+    elif robinLightCone == 'CarveTheMoonWeaveTheClouds':
+        RobinLightCone = CarveTheMoonWeaveTheClouds(**config)
     RobinCharacter = Robin(RelicStats(mainstats = ['ER', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
                                     substats = {'ATK.percent': 11, 'SPD.flat': 9, 'RES': 3, 'ATK.flat': 5}),
-                                    lightcone = PoisedToBloom(**config),
+                                    lightcone = RobinLightCone,
                                     relicsetone = Prisoner2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SprightlyVonwacq(),
                                     **config)
 
@@ -53,8 +68,17 @@ def MarchTopazRobinAventurine(config):
     #%% March Topaz Robin Aventurine Team Buffs
     for character in [TopazCharacter, MarchCharacter, RobinCharacter]:
         character.addStat('CD',description='Broken Keel from Aventurine',amount=0.1)
-    for character in [TopazCharacter, MarchCharacter]:
-        character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
+    if RobinCharacter.lightcone.name == 'Poised to Bloom':
+        for character in [TopazCharacter, MarchCharacter]:
+            character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
+    elif RobinCharacter.lightcone.name == 'Flowing Nightglow':
+        for character in team:
+            character.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition, uptime=RobinUltUptime)
+    elif RobinCharacter.lightcone.name == 'Carve the Moon, Weave the Clouds':
+        for character in team:
+            character.addStat('ATK.percent',description='Carve The Moon',amount=0.2, uptime=1.0/3.0)
+            character.addStat('CD',description='Carve The Moon',amount=0.24, uptime=1.0/3.0)
+            character.addStat('ER',description='Carve The Moon',amount=0.12, uptime=1.0/3.0)
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
@@ -69,7 +93,6 @@ def MarchTopazRobinAventurine(config):
     # Robin Buffs
     RobinCharacter.applyTalentBuff(team)
     RobinCharacter.applySkillBuff(team)
-    RobinUltUptime = 0.5 # assume better robin ult uptime because of shorter robin rotation
     RobinCharacter.applyUltBuff([MarchCharacter,TopazCharacter,AventurineCharacter],uptime=RobinUltUptime)
 
     #%% Print Statements

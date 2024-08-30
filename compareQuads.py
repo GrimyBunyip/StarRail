@@ -80,17 +80,9 @@ from teams_four.Qingque.QingqueHanabiSilverWolfLuocha import QingqueHanabiSilver
 from teams_four.Qingque.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
 from teams_four.Qingque.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
 from teams_four.RatioTopaz.RatioTopazRobinAventurine import DrRatioTopazRobinAventurine
-from teams_four.Robin.FeixiaoBronyaTopazLingsha import FeixiaoBronyaTopazLingsha
-from teams_four.Robin.FeixiaoMarchMozeAventurine import FeixiaoMarchMozeAventurine
-from teams_four.Robin.FeixiaoMarchRobinLynx import FeixiaoMarchRobinLynx
-from teams_four.Robin.FeixiaoMarchTopazAventurine import FeixiaoMarchTopazAventurine
-from teams_four.Robin.FeixiaoMarchRobinGallagher import FeixiaoMarchRobinGallagher
-from teams_four.Robin.FeixiaoTopazMozeAventurine import FeixiaoTopazMozeAventurine
 from teams_four.Robin.FeixiaoTopazRobinAventurine import FeixiaoTopazRobinAventurine
 from teams_four.Seele.SilverWolfMarchRobinHuohuo import SilverWolfMarchRobinHuohuo
 from teams_four.Robin.FeixiaoMarchRobinAventurine import FeixiaoMarchRobinAventurine
-from teams_four.Robin.FeixiaoMarchRobinGallagher import FeixiaoMarchRobinGallagher
-from teams_four.Robin.MarchBronyaRobinGallagher import MarchBronyaRobinGallagher
 from teams_four.Robin.MarchTopazRobinAventurine import MarchTopazRobinAventurine
 from teams_four.Seele.SeeleMaxSilverWolfBronyaLuocha import SeeleMaxSilverWolfBronyaLuocha
 from teams_four.Seele.SeeleMaxSilverWolfHanabiFuxuan import SeeleMaxSilverWolfHanabiFuxuan
@@ -292,15 +284,18 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(FeixiaoMarchRobinAventurine(config))
 
 # Feixiao Teams
-visualizationList.append(FeixiaoTopazRobinAventurine(config))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, feixiaoSuperposition=1))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, feixiaoSuperposition=1, feixiaoLightCone='InTheNight'))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, feixiaoSuperposition=1, feixiaoLightCone='BaptismOfPureThought'))
 # visualizationList.append(FeixiaoTopazMozeAventurine(config))
 # visualizationList.append(FeixiaoMarchMozeAventurine(config))
-# visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
-visualizationList.append(FeixiaoMarchRobinAventurine(config))
-# visualizationList.append(FeixiaoMarchRobinGallagher(config, robinEidolon=2))
+visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
+visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2, robinLightCone='CarveTheMoonWeaveTheClouds'))
+visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2, robinLightCone='ForTomorrowsJourney'))
+visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2, robinLightCone='FlowingNightglow'))
+# visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2))
+# visualizationList.append(FeixiaoMarchRobinGallagher(config))
 # visualizationList.append(FeixiaoMarchRobinLynx(config, robinEidolon=2))
 
 # the old guard

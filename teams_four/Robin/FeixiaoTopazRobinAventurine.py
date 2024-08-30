@@ -5,6 +5,7 @@ from characters.hunt.Topaz import Topaz
 from characters.harmony.Robin import Robin
 from characters.hunt.Feixiao import Feixiao
 from estimator.DefaultEstimator import DefaultEstimator
+from lightCones.harmony.CarveTheMoonWeaveTheClouds import CarveTheMoonWeaveTheClouds
 from lightCones.harmony.FlowingNightglow import FlowingNightglow
 from lightCones.harmony.ForTomorrowsJourney import ForTomorrowsJourney
 from lightCones.harmony.PoisedToBloom import PoisedToBloom
@@ -28,10 +29,9 @@ from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, Wind
 
 def FeixiaoTopazRobinAventurine(config, 
                                 feixiaoEidolon:int=None, 
-                                feixiaoSuperposition:int=0,
-                                feixiaoLightCone:str='IVentureForthToHunt',
+                                feixiaoLightCone:str='CruisingInTheStellarSea',
                                 robinEidolon:int=None, 
-                                robinSuperposition:int=0,
+                                robinLightCone:str ='PoisedToBloom',
                                 topazEidolon:int=None,
                                 topazSuperposition:int=0,):
     #%% Topaz Feixiao Robin Aventurine Characters
@@ -41,10 +41,10 @@ def FeixiaoTopazRobinAventurine(config,
         FeixiaoSubstats['SPD.flat'] += 1
         FeixiaoSubstats['CD'] -= 1
         
-    if feixiaoSuperposition == 0:
+    if feixiaoLightCone == 'CruisingInTheStellarSea':
         FeixiaoLightcone = CruisingInTheStellarSea(**config)
     elif feixiaoLightCone == 'IVentureForthToHunt':
-        FeixiaoLightcone = IVentureForthToHunt(superposition=feixiaoSuperposition,**config)
+        FeixiaoLightcone = IVentureForthToHunt(**config)
         FeixiaoSubstats['CR'] += 5
         FeixiaoSubstats['CD'] -= 5
     elif feixiaoLightCone == 'InTheNight':
@@ -77,7 +77,15 @@ def FeixiaoTopazRobinAventurine(config,
                                     eidolon=topazEidolon,
                                     **config)
     
-    RobinLightCone = PoisedToBloom(**config) if robinSuperposition == 0 else FlowingNightglow(superposition=robinSuperposition,**config)
+    RobinUltUptime = 0.5 if robinEidolon is None or robinEidolon < 2 else 1.0
+    if robinLightCone == 'PoisedToBloom':
+        RobinLightCone = PoisedToBloom(**config)
+    elif robinLightCone == 'FlowingNightglow':
+        RobinLightCone = FlowingNightglow(**config, uptime=RobinUltUptime)
+    elif robinLightCone == 'ForTomorrowsJourney':
+        RobinLightCone = ForTomorrowsJourney(**config)
+    elif robinLightCone == 'CarveTheMoonWeaveTheClouds':
+        RobinLightCone = CarveTheMoonWeaveTheClouds(**config)
     RobinCharacter = Robin(RelicStats(mainstats = ['ER', 'ATK.percent', 'ATK.percent', 'ATK.percent'],
                                     substats = {'ATK.percent': 11, 'SPD.flat': 9, 'RES': 3, 'ATK.flat': 5}),
                                     lightcone = RobinLightCone,
@@ -100,6 +108,14 @@ def FeixiaoTopazRobinAventurine(config,
     if RobinCharacter.lightcone.name == 'Poised to Bloom':
         for character in [FeixiaoCharacter, TopazCharacter]:
             character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
+    elif RobinCharacter.lightcone.name == 'Flowing Nightglow':
+        for character in team:
+            character.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition, uptime=RobinUltUptime)
+    elif RobinCharacter.lightcone.name == 'Carve the Moon, Weave the Clouds':
+        for character in team:
+            character.addStat('ATK.percent',description='Carve The Moon',amount=0.2, uptime=1.0/3.0)
+            character.addStat('CD',description='Carve The Moon',amount=0.24, uptime=1.0/3.0)
+            character.addStat('ER',description='Carve The Moon',amount=0.12, uptime=1.0/3.0)
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
@@ -116,7 +132,6 @@ def FeixiaoTopazRobinAventurine(config,
     RobinCharacter.applyTalentBuff(team)
     RobinCharacter.applySkillBuff(team)
 
-    RobinUltUptime = 0.5 if RobinCharacter.eidolon < 2 else 1.0
     RobinCharacter.applyUltBuff([FeixiaoCharacter,TopazCharacter,AventurineCharacter],uptime=RobinUltUptime)
     # assume feixiao buff has 100% uptime
     if RobinUltUptime < 1.0:
