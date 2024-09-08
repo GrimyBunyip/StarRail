@@ -10,21 +10,13 @@ from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.nihility.AlongThePassingShore import AlongThePassingShore
 from lightCones.nihility.EyesOfThePrey import EyesOfThePrey
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
-from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
-from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
-from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
-from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
-from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc
-from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
+from relicSets.planarSets.LushakaTheSunkenSeas import LushakaTheSunkenSeas
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
-from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
-from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
 def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuEidolon:int=None):
     #%% Acheron Bronya Jiaoqiu Gallagher Characters
@@ -53,7 +45,7 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
                         substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                         lightcone = Multiplication(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = SacerdosRelivedOrdeal2pc(), planarset = SprightlyVonwacq(),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = SacerdosRelivedOrdeal2pc(), planarset = LushakaTheSunkenSeas(),
                         **config)
     
     team = [AcheronCharacter, BronyaCharacter, JiaoqiuCharacter, GallagherCharacter]
@@ -76,6 +68,7 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
+    AcheronCharacter.addStat('ATK.percent',description='Lushaka Gallagher',amount=0.12)
       
     #%% Print Statements
     for character in team:

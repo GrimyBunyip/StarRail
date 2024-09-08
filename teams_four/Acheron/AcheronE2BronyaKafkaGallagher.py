@@ -10,17 +10,14 @@ from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.nihility.AlongThePassingShore import AlongThePassingShore
 from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
-from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShinesAsPearlsOfSweat
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
-from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
-from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
+from relicSets.planarSets.LushakaTheSunkenSeas import LushakaTheSunkenSeas
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
-from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
 def AcheronE2BronyaKafkaGallagher(config, acheronSuperposition:int=0):
     #%% Acheron Bronya Kafka Gallagher Characters
@@ -48,7 +45,7 @@ def AcheronE2BronyaKafkaGallagher(config, acheronSuperposition:int=0):
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
                         substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                         lightcone = Multiplication(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = SacerdosRelivedOrdeal2pc(), planarset = SprightlyVonwacq(),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = SacerdosRelivedOrdeal2pc(), planarset = LushakaTheSunkenSeas(),
                         **config)
     
     team = [AcheronCharacter, BronyaCharacter, KafkaCharacter, GallagherCharacter]
@@ -62,10 +59,11 @@ def AcheronE2BronyaKafkaGallagher(config, acheronSuperposition:int=0):
     BronyaCharacter.applyUltBuff(AcheronCharacter,uptime=0.25) # only get Bronya ult buff every 4 bronya turns
     BronyaCharacter.applyUltBuff(KafkaCharacter,uptime=0.5) # only get Bronya ult buff every 4 bronya turns
     BronyaCharacter.applyUltBuff(GallagherCharacter,uptime=0.5) # only get Bronya ult buff every 4 bronya turns
+    AcheronCharacter.addStat('CD',description='Sacerdos Bronya',amount=0.2)
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
-    AcheronCharacter.addStat('CD',description='Sacerdos Bronya',amount=0.2)
+    AcheronCharacter.addStat('ATK.percent',description='Lushaka Gallagher',amount=0.12)
       
     #%% Print Statements
     for character in team:

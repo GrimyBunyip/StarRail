@@ -22,19 +22,7 @@ from teams_four.Jingyuan.JingyuanHanabiTingyunHuohuo import JingYuanHanabiTingyu
 from teams_four.Jingyuan.JingyuanTingyunHanabiFuxuan import JingyuanTingyunHanabiFuxuan
 from teams_four.DotTeams.KafkaGuinaifenBlackSwanLuocha import KafkaGuinaifenBlackSwanLuocha
 from teams_four.DotTeams.KafkaS1RuanMeiBlackSwanLuocha import KafkaS1RuanMeiBlackSwanLuocha
-from teams_four.Lunae.LunaeE2HanabiTingyunLuocha import LunaeE2HanabiTingyunLuocha
-from teams_four.Lunae.LunaeHanabiTingyunLuocha import LunaeHanabiTingyunLuocha
-from teams_four.Lunae.LunaeHanyaPelaLuocha import LunaeHanyaPelaLuocha
-from teams_four.Lunae.LunaeHanyaTingyunLuocha import LunaeHanyaTingyunLuocha
-from teams_four.Lunae.LunaeHanyaYukongLuocha import LunaeHanyaYukongLuocha
-from teams_four.Lunae.LunaePelaTingyunLuocha import LunaePelaTingyunLuocha
-from teams_four.Lunae.LunaePelaYukongLuocha import LunaePelaYukongLuocha
-from teams_four.Lunae.LunaeRuanMeiTingyunLuocha import LunaeRuanMeiTingyunLuocha
-from teams_four.Lunae.LunaeTingyunYukongLuocha import LunaeTingyunYukongLuocha
-from teams_four.Qingque.QingqueHanabiPelaFuxuan import QingqueHanabiPelaFuxuan
-from teams_four.Qingque.QingqueHanabiSilverWolfLuocha import QingqueHanabiSilverWolfLuocha
-from teams_four.Qingque.QingqueHanyaPelaFuxuan import QingqueHanyaPelaFuxuan
-from teams_four.Qingque.QingqueHanyaSilverWolfFuxuan import QingqueHanyaSilverWolfFuxuan
+from teams_four.Lunae.LunaeHanabiTingyunGallagher import LunaeHanabiTingyunGallagher
 from teams_four.RatioTopaz.RatioTopazRobinAventurine import DrRatioTopazRobinAventurine
 from teams_four.Robin.FeixiaoTopazRobinAventurine import FeixiaoTopazRobinAventurine
 from teams_four.Seele.SilverWolfMarchRobinHuohuo import SilverWolfMarchRobinHuohuo
@@ -47,13 +35,6 @@ from teams_four.Seele.SeeleMaxSilverWolfTingyunFuxuan import SeeleMaxSilverWolfT
 from teams_four.Seele.SeeleMidSilverWolfBronyaFuxuan import SeeleMidSilverWolfBronyaFuxuan
 from teams_four.Seele.SeeleMidSilverWolfBronyaLuocha import SeeleMidSilverWolfBronyaLuocha
 from teams_four.Seele.SeeleNoneSilverWolfHanabiFuxuan import SeeleNoneSilverWolfHanabiLuocha
-from teams_four.Xueyi.XueyiAstaTopazFuxuan import XueyiAstaTopazFuxuan
-from teams_four.Xueyi.XueyiHanabiPelaFuxuan import XueyiHanabiPelaFuxuan
-from teams_four.Xueyi.XueyiHanabiTingyunFuxuan import XueyiHanabiTingyunFuxuan
-from teams_four.Xueyi.XueyiHanyaPelaFuxuan import XueyiHanyaPelaFuxuan
-from teams_four.Yanqing.YanqingTingyunHanabiAventurine import YanqingTingyunHanabiAventurine
-from teams_four.Yanqing.YanqingTingyunHanabiGepard import YanqingTingyunHanabiGepard
-from teams_four.Yanqing.YanqingTingyunRuanMeiGepard import YanqingTingyunRuanMeiGepard
 from teams_four.Yunli.YunliHanabiRobinHuohuo import YunliHanabiRobinHuohuo
 from teams_four.Yunli.YunliTingyunHanabiHuohuo import YunliTingyunHanabiHuohuo
 from teams_four.Yunli.YunliTingyunHanabiLynx import YunliTingyunHanabiLynx
@@ -77,10 +58,10 @@ visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 visualizationList.append(YunliHanabiRobinHuohuo(config))
 
 # # Team Comparisons
-# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
-# visualizationList.append(BladeBronyaJadeLuocha(config))
-# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-# visualizationList.append(LunaeHanabiTingyunLuocha(config))
+visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+visualizationList.append(BladeBronyaJadeLuocha(config))
+visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+visualizationList.append(LunaeHanabiTingyunGallagher(config))
 # visualizationList.append(MarchBronyaRobinGallagher(config))
 # visualizationList.append(MarchTopazRobinAventurine(config))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
@@ -88,9 +69,9 @@ visualizationList.append(YunliHanabiRobinHuohuo(config))
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
 
 # low dps teams
-# visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
+visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
 # visualizationList.append(QingqueHanabiPelaFuxuan(config))
-# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
+# visualizationfList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
 # visualizationList.append(YanqingTingyunHanabiAventurine(config))
 
 # # Acheron Teams
@@ -160,15 +141,7 @@ visualizationList.append(YunliHanabiRobinHuohuo(config))
 # visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
 
 # # Lunae Teams
-# visualizationList.append(LunaeHanabiTingyunLuocha(config))
-# visualizationList.append(LunaeHanyaTingyunLuocha(config))
-# visualizationList.append(LunaeHanyaYukongLuocha(config))
-# # visualizationList.append(LunaeHanyaPelaLuocha(config))
-# # visualizationList.append(LunaeRuanMeiTingyunLuocha(config))
-# # visualizationList.append(LunaeTingyunYukongLuocha(config))
-# visualizationList.append(LunaePelaTingyunLuocha(config))
-# # visualizationList.append(LunaePelaYukongLuocha(config))
-# # # visualizationList.append(LunaeE2HanabiTingyunLuocha(config))
+# visualizationList.append(LunaeHanabiTingyunGallagher(config))
 
 # # Kafka Teams
 # # config['enemySpeed'] = 190 / 1.125
@@ -185,12 +158,6 @@ visualizationList.append(YunliHanabiRobinHuohuo(config))
 # # E2 Jiaoqiu Teams
 # visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,kafkaSuperposition=True,jiaoqiuEidolon=2))
 # visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,jiaoqiuEidolon=2))
-
-# # Qingque Teams
-# visualizationList.append(QingqueHanabiPelaFuxuan(config))
-# # visualizationList.append(QingqueHanabiSilverWolfLuocha(config))
-# # visualizationList.append(QingqueHanyaSilverWolfFuxuan(config))
-# # visualizationList.append(QingqueHanyaPelaFuxuan(config))
 
 # # Seele Teams
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
@@ -220,18 +187,6 @@ visualizationList.append(YunliHanabiRobinHuohuo(config))
 
 # the old guard
 # visualizationList.append(MarchTopazRobinAventurine(config))
-
-# # Xueyi Teams
-# # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))
-# visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
-# # visualizationList.append(XueyiHanabiPelaFuxuan(config,breakRatio=0.5))
-# # visualizationList.append(XueyiHanyaPelaFuxuan(config,breakRatio=0.5)) # dont like the break assumptions here
-# # visualizationList.append(XueyiAstaTopazFuxuan(config)) # needs review, why is the SP so negative? also this team makes no sense
-
-# # Yanqing Team
-# visualizationList.append(YanqingTingyunHanabiAventurine(config))
-# # visualizationList.append(YanqingTingyunHanabiGepard(config))
-# # visualizationList.append(YanqingTingyunRuanMeiGepard(config))
 
 # # Yunli Team
 # visualizationList.append(YunliTingyunHanabiLynx(config))

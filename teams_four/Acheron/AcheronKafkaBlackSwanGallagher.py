@@ -12,6 +12,7 @@ from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from lightCones.nihility.PatienceIsAllYouNeed import PatienceIsAllYouNeed
 from relicSets.planarSets.FirmamentFrontlineGlamoth import FirmamentFrontlineGlamoth
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
+from relicSets.planarSets.LushakaTheSunkenSeas import LushakaTheSunkenSeas
 from relicSets.planarSets.PanCosmicCommercialEnterprise import PanCosmicCommercialEnterprise
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
@@ -46,7 +47,7 @@ def AcheronKafkaBlackSwanGallagher(config, acheronEidolon:int=None, acheronSuper
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
                             substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                             lightcone = Multiplication(**config),
-                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = SacerdosRelivedOrdeal2pc(), planarset = SprightlyVonwacq(),
+                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = SacerdosRelivedOrdeal2pc(), planarset = LushakaTheSunkenSeas(),
                             **config)
     
     team = [AcheronCharacter, KafkaCharacter, BlackSwanCharacter, GallagherCharacter]
@@ -63,6 +64,7 @@ def AcheronKafkaBlackSwanGallagher(config, acheronEidolon:int=None, acheronSuper
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
+    AcheronCharacter.addStat('ATK.percent',description='Lushaka Gallagher',amount=0.12)
         
     #%% Print Statements
     for character in team:

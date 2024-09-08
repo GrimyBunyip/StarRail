@@ -13,6 +13,7 @@ from lightCones.nihility.GoodNightAndSleepWell import GoodNightAndSleepWell
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
+from relicSets.planarSets.LushakaTheSunkenSeas import LushakaTheSunkenSeas
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
@@ -47,7 +48,7 @@ def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
                         substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                         lightcone = Multiplication(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = SacerdosRelivedOrdeal2pc(), planarset = SprightlyVonwacq(),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = SacerdosRelivedOrdeal2pc(), planarset = LushakaTheSunkenSeas(),
                         **config)
     
     team = [AcheronCharacter, HanabiCharacter, JiaoqiuCharacter, GallagherCharacter]
@@ -67,7 +68,9 @@ def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     AcheronCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.2)
     
     # Apply Gallagher Debuff
-    GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)  
+    GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
+    AcheronCharacter.addStat('ATK.percent',description='Lushaka Gallagher',amount=0.12)
+    
     #%% Print Statements
     for character in team:
         character.print()
