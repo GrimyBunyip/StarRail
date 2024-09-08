@@ -18,6 +18,7 @@ from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
+from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
 def AcheronGuinaifenPelaGallagher(config, acheronSuperposition:int=0):
@@ -46,7 +47,7 @@ def AcheronGuinaifenPelaGallagher(config, acheronSuperposition:int=0):
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
                             substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                             lightcone = Multiplication(**config),
-                            relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
+                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = SacerdosRelivedOrdeal2pc(), planarset = SprightlyVonwacq(),
                             **config)
     
     team = [AcheronCharacter, GuinaifenCharacter, PelaCharacter, GallagherCharacter]

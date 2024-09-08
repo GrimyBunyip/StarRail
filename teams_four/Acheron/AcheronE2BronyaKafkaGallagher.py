@@ -19,6 +19,7 @@ from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
+from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
 def AcheronE2BronyaKafkaGallagher(config, acheronSuperposition:int=0):
@@ -35,7 +36,7 @@ def AcheronE2BronyaKafkaGallagher(config, acheronSuperposition:int=0):
     BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'HP.percent', 'CD', 'ER'],
                         substats = {'CD': 12, 'SPD.flat': 8, 'HP.percent': 5, 'DEF.percent': 3}),
                         lightcone = PastAndFuture(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                         **config)
     
     KafkaCharacter = Kafka(relicstats = RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'DMG.lightning'],
@@ -47,7 +48,7 @@ def AcheronE2BronyaKafkaGallagher(config, acheronSuperposition:int=0):
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
                         substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                         lightcone = Multiplication(**config),
-                        relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = SacerdosRelivedOrdeal2pc(), planarset = SprightlyVonwacq(),
                         **config)
     
     team = [AcheronCharacter, BronyaCharacter, KafkaCharacter, GallagherCharacter]
@@ -55,10 +56,6 @@ def AcheronE2BronyaKafkaGallagher(config, acheronSuperposition:int=0):
     #%% Acheron Bronya Kafka Gallagher Team Buffs
     for character in [KafkaCharacter, AcheronCharacter, GallagherCharacter]:
         character.addStat('CD',description='Broken Keel from Bronya',amount=0.1)
-        
-    # Bronya Messenger 4 pc
-    for character in [AcheronCharacter, KafkaCharacter, GallagherCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)
         
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
@@ -68,6 +65,7 @@ def AcheronE2BronyaKafkaGallagher(config, acheronSuperposition:int=0):
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
+    AcheronCharacter.addStat('CD',description='Sacerdos Bronya',amount=0.2)
       
     #%% Print Statements
     for character in team:

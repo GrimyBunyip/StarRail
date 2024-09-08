@@ -17,6 +17,7 @@ from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
+from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
 def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuEidolon:int=None):
@@ -33,7 +34,7 @@ def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                         substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
                         lightcone = PastAndFuture(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                         **config)
 
     JiaoqiuCharacter = Jiaoqiu(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'EHR', 'ER'],
@@ -46,7 +47,7 @@ def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
                         substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                         lightcone = Multiplication(**config),
-                        relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
+                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = SacerdosRelivedOrdeal2pc(), planarset = SprightlyVonwacq(),
                         **config)
     
     team = [AcheronCharacter, HanabiCharacter, JiaoqiuCharacter, GallagherCharacter]
@@ -54,10 +55,6 @@ def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     #%% Acheron Hanabi Jiaoqiu Gallagher Team Buffs
     for character in [JiaoqiuCharacter, AcheronCharacter, GallagherCharacter]:
         character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
-        
-    # Hanabi Messenger 4 pc
-    for character in [AcheronCharacter, JiaoqiuCharacter, GallagherCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 
     # Jiaoqiu Debuffs, 3 turn Jiaoqiu rotation
     JiaoqiuCharacter.applyTalentDebuff(team)
@@ -67,6 +64,7 @@ def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=AcheronCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
+    AcheronCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.2)
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)  
