@@ -17,6 +17,7 @@ from relicSets.planarSets.SpaceSealingStation import SpaceSealingStation
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc, Prisoner4pc
+from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc
 
 def KafkaGuinaifenBlackSwanLuocha(config, kafkaSuperposition:int=0):
     #%% Kafka Guinaifen BlackSwan Luocha
@@ -47,7 +48,7 @@ def KafkaGuinaifenBlackSwanLuocha(config, kafkaSuperposition:int=0):
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                             substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                             lightcone = Multiplication(**config),
-                            relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = FleetOfTheAgeless(),
+                            relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = FleetOfTheAgeless(),
                             **config)
     
     team = [KafkaCharacter, GuinaifenCharacter, BlackSwanCharacter, LuochaCharacter]

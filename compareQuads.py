@@ -14,7 +14,6 @@ from teams_four.Blade.BladeBronyaJadeLuocha import BladeBronyaJadeLuocha
 from teams_four.Boothill.BoothillBronyaRuanMeiGallagher import BoothillBronyaRuanMeiGallagher
 from teams_four.Boothill.BoothillTraiblazerRuanMeiGallagher import BoothillTrailblazerRuanMeiGallagher
 from teams_four.Clara.ClaraTingyunHanabiFuxuan import ClaraTingyunHanabiFuxuan
-from teams_four.DotTeams.KafkaJiaoqiuBlackSwanLuocha import KafkaJiaoqiuBlackSwanLuocha
 from teams_four.DotTeams.KafkaS1RobinBlackSwanGallagher import KafkaS1RobinBlackSwanGallagher
 from teams_four.Firefly.FireflyTraiblazerRuanMeiGallagher import FireflyTrailblazerRuanMeiGallagher
 from teams_four.Firefly.FireflyTraiblazerRuanMeiLingsha import FireflyTrailblazerRuanMeiLingsha
@@ -23,8 +22,6 @@ from teams_four.Jingyuan.JingyuanHanabiTingyunHuohuo import JingYuanHanabiTingyu
 from teams_four.Jingyuan.JingyuanTingyunHanabiFuxuan import JingyuanTingyunHanabiFuxuan
 from teams_four.DotTeams.KafkaGuinaifenBlackSwanLuocha import KafkaGuinaifenBlackSwanLuocha
 from teams_four.DotTeams.KafkaS1RuanMeiBlackSwanLuocha import KafkaS1RuanMeiBlackSwanLuocha
-from teams_four.DotTeams.KafkaGuinaifenLukaLuocha import KafkaGuinaifenLukaLuocha
-from teams_four.DotTeams.KafkaGuinaifenSampoLuocha import KafkaGuinaifenSampoLuocha
 from teams_four.Lunae.LunaeE2HanabiTingyunLuocha import LunaeE2HanabiTingyunLuocha
 from teams_four.Lunae.LunaeHanabiTingyunLuocha import LunaeHanabiTingyunLuocha
 from teams_four.Lunae.LunaeHanyaPelaLuocha import LunaeHanyaPelaLuocha
@@ -73,11 +70,11 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 #%% Team Imports
 
 # # Backloaded Teams
-# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
-# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-# visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
-# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-# visualizationList.append(YunliHanabiRobinHuohuo(config))
+visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
+visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+visualizationList.append(YunliHanabiRobinHuohuo(config))
 
 # # Team Comparisons
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
@@ -159,8 +156,8 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 
 # # Jingyuan Teams
-visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
-visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
+# visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
+# visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
 
 # # Lunae Teams
 # visualizationList.append(LunaeHanabiTingyunLuocha(config))
@@ -178,9 +175,6 @@ visualizationList.append(JingyuanTingyunHanabiFuxuan(config))
 # # config['numEnemies'] = 2
 # # E0 S0 Teams
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config))
-# # visualizationList.append(KafkaGuinaifenSampoLuocha(config))
-# # visualizationList.append(KafkaGuinaifenLukaLuocha(config))
 
 # # S1 Teams
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config, kafkaSuperposition=True))
