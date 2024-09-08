@@ -18,13 +18,7 @@ from teams_four.DotTeams.KafkaJiaoqiuBlackSwanLuocha import KafkaJiaoqiuBlackSwa
 from teams_four.DotTeams.KafkaS1RobinBlackSwanGallagher import KafkaS1RobinBlackSwanGallagher
 from teams_four.Firefly.FireflyTraiblazerRuanMeiGallagher import FireflyTrailblazerRuanMeiGallagher
 from teams_four.Firefly.FireflyTraiblazerRuanMeiLingsha import FireflyTrailblazerRuanMeiLingsha
-from teams_four.Jingliu.JingliuBronyaHanabiLuocha import JingliuBronyaHanabiLuocha
-from teams_four.Jingliu.JingliuBronyaMarchLuocha import JingliuBronyaMarchLuocha
-from teams_four.Jingliu.JingliuBronyaPelaLuocha import JingliuBronyaPelaLuocha
 from teams_four.Jingliu.JingliuBronyaRuanMeiLuocha import JingliuBronyaRuanMeiLuocha
-from teams_four.Jingliu.JingliuBronyaTingyunLuocha import JingliuBronyaTingyunLuocha
-from teams_four.Jingliu.JingliuHanyaBladeHuohuo import JingliuHanyaBladeHuohuo
-from teams_four.Jingliu.JingliuRuanMeiBladeLuocha import JingliuRuanMeiBladeLuocha
 from teams_four.Jingyuan.JingyuanHanabiS1TingyunHuohuo import JingYuanHanabiS1TingyunHuohuo
 from teams_four.Jingyuan.JingyuanHanabiTingyunHuohuo import JingYuanHanabiTingyunHuohuo
 from teams_four.Jingyuan.JingyuanTingyunAstaLuocha import JingyuanTingyunAstaLuocha
@@ -168,12 +162,6 @@ visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 
 # # Jingliu Teams
 # visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
-# # visualizationList.append(JingliuBronyaHanabiLuocha(config))
-# visualizationList.append(JingliuBronyaTingyunLuocha(config))
-# visualizationList.append(JingliuBronyaMarchLuocha(config))
-# visualizationList.append(JingliuBronyaPelaLuocha(config))
-# # visualizationList.append(JingliuRuanMeiBladeLuocha(config))
-# # visualizationList.append(JingliuHanyaBladeHuohuo(config))
 
 # # Jingyuan Teams
 # visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
