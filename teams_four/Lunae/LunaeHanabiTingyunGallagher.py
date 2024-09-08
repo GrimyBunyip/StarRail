@@ -19,8 +19,8 @@ from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditr
 def LunaeHanabiTingyunGallagher(config):
     #%% Lunae Hanabi Tingyun Gallagher Characters
     
-    LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
-                            substats = {'CR': 11, 'CD': 9, 'SPD.flat': 5, 'ATK.percent': 3}),
+    LunaeCharacter = Lunae(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
+                            substats = {'CR': 11, 'CD': 9, 'ATK.percent': 5, 'BreakEffect': 3}),
                             lightcone = OnTheFallOfAnAeon(uptime=1.0,**config),
                             relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = WastelanderOfBanditryDesert4pc(), planarset = RutilantArena(),
                             **config)

@@ -8,6 +8,7 @@ from characters.harmony.Hanabi import Hanabi
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.PostOpConversation import PostOpConversation
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
+from lightCones.erudition.TodayIsAnotherPeacefulDay import TodayIsAnotherPeacefulDay
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
@@ -24,8 +25,8 @@ from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, 
 def JingYuanHanabiTingyunHuohuo(config):
     #%% JingYuan Hanabi Tingyun Huohuo Characters
     JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.lightning'],
-                            substats = {'CD': 9, 'CR': 11, 'ATK.percent': 5, 'BreakEffect': 3}),
-                            lightcone = GeniusesRepose(**config),
+                            substats = {'CD': 8, 'CR': 12, 'ATK.percent': 5, 'BreakEffect': 3}),
+                            lightcone = TodayIsAnotherPeacefulDay(**config),
                             relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=6.5,stacks=8.0,uptime=1.0), planarset = TheWondrousBananAmusementPark(),
                             **config)
     

@@ -61,18 +61,13 @@ visualizationList.append(YunliHanabiRobinHuohuo(config))
 visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 visualizationList.append(BladeBronyaJadeLuocha(config))
 visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
 visualizationList.append(LunaeHanabiTingyunGallagher(config))
 # visualizationList.append(MarchBronyaRobinGallagher(config))
 # visualizationList.append(MarchTopazRobinAventurine(config))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config))
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
-
-# low dps teams
-visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
-# visualizationList.append(QingqueHanabiPelaFuxuan(config))
-# visualizationfList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=0.5))
-# visualizationList.append(YanqingTingyunHanabiAventurine(config))
 
 # # Acheron Teams
 

@@ -5,7 +5,7 @@ class TodayIsAnotherPeacefulDay(BaseLightCone):
     def __init__(self,
                 superposition:int=None,
                 **config):
-        self.loadConeStats('Today Is Another Peaceful Day')
+        self.loadConeStats('Today Is Another Peaceful Day',shortname='Peaceful')
         self.setSuperposition(superposition,config)
 
     def equipTo(self, char:BaseCharacter):
