@@ -53,10 +53,6 @@ def YunliTingyunRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:in
     team = [YunliCharacter, TingyunCharacter, RobinCharacter, HuohuoCharacter]
 
     #%% Yunli Tingyun Robin Huohuo Team Buffs
-    for character in [TingyunCharacter, YunliCharacter, RobinCharacter]:
-        character.addStat('CD',description='Broken Keel from Huohuo',amount=0.1)
-    for character in [RobinCharacter, YunliCharacter, RobinCharacter]:
-        character.addStat('ATK.percent',description='Fleet from Tingyun',amount=0.08)
         
     # Carve the Moon Buffs
     for character in team:
@@ -79,7 +75,10 @@ def YunliTingyunRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:in
     HuohuoCharacter.applyUltBuff([TingyunCharacter,RobinCharacter, YunliCharacter],uptime=2.0/4.0)
     YunliCharacter.addStat('CD',description='Sacerdos Huohuo',amount=0.20,uptime=2.0/3.0)
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

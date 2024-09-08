@@ -50,12 +50,6 @@ def YunliTingyunHanabiHuohuo(config, yunliSuperposition:int=0):
     team = [YunliCharacter, TingyunCharacter, HanabiCharacter, HuohuoCharacter]
 
     #%% Yunli Tingyun Hanabi Huohuo Team Buffs
-    for character in [TingyunCharacter, YunliCharacter, HanabiCharacter]:
-        character.addStat('CD',description='Broken Keel from Huohuo',amount=0.1)
-    for character in [TingyunCharacter, YunliCharacter, HuohuoCharacter]:
-        character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
-    for character in [HanabiCharacter, YunliCharacter, HuohuoCharacter]:
-        character.addStat('ATK.percent',description='Fleet from Tingyun',amount=0.08)
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
@@ -72,7 +66,10 @@ def YunliTingyunHanabiHuohuo(config, yunliSuperposition:int=0):
     HuohuoCharacter.applyUltBuff([TingyunCharacter,HanabiCharacter, YunliCharacter],uptime=2.0/4.0)
     YunliCharacter.addStat('CD',description='Sacerdos Huohuo',amount=0.20,uptime=2.0/3.0)
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

@@ -47,9 +47,6 @@ def LunaeHanabiTingyunGallagher(config):
     team = [LunaeCharacter, HanabiCharacter, TingyunCharacter, GallagherCharacter]
 
     #%% Lunae Hanabi Tingyun Gallagher Team Buffs
-    # Penacony Buff
-    for character in [LunaeCharacter, GallagherCharacter, TingyunCharacter]:
-        character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
@@ -70,7 +67,10 @@ def LunaeHanabiTingyunGallagher(config):
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
     LunaeCharacter.addStat('ATK.percent',description='Lushaka Gallagher',amount=0.12)
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

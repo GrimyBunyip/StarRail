@@ -49,10 +49,6 @@ def ClaraTingyunHanabiFuxuan(config):
     team = [ClaraCharacter, TingyunCharacter, HanabiCharacter, FuxuanCharacter]
 
     #%% Clara Tingyun Hanabi Fuxuan Team Buffs
-    for character in [TingyunCharacter, ClaraCharacter, HanabiCharacter]:
-        character.addStat('CD',description='Broken Keel from Fuxuan',amount=0.1)
-    for character in [TingyunCharacter, ClaraCharacter, FuxuanCharacter]:
-        character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
@@ -69,7 +65,10 @@ def ClaraTingyunHanabiFuxuan(config):
     # Fu Xuan Buffs
     FuxuanCharacter.applySkillBuff(team)
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

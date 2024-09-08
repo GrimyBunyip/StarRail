@@ -48,9 +48,6 @@ def SeeleMidSilverWolfBronyaFuxuan(config):
     team = [SeeleCharacter, SilverWolfCharacter, BronyaCharacter, FuxuanCharacter]
 
     #%% Seele MID Silver Wolf Bronya Team Buffs
-        
-    for character in [SilverWolfCharacter, SeeleCharacter, FuxuanCharacter]:
-        character.addStat('CD',description='Broken Keel from Bronya',amount=0.1)
 
     for character in [SilverWolfCharacter, SeeleCharacter, BronyaCharacter]:
         character.addStat('DMG.quantum',description='Penacony from Fuxuan',amount=0.1)
@@ -75,7 +72,10 @@ def SeeleMidSilverWolfBronyaFuxuan(config):
     
     SeeleCharacter.addStat('DMG',description='Past and Future', amount=0.12 + 0.04 * BronyaCharacter.lightcone.superposition, uptime=0.5)
         
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

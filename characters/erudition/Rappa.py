@@ -49,7 +49,7 @@ class Rappa(BaseCharacter):
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
         retval.gauge = 30.0 * self.getBreakEfficiency(type)
         self.addDebugInfo(retval,type)
-        return 
+        return retval
 
     def useBasic(self):
         retval = BaseEffect()
@@ -64,13 +64,13 @@ class Rappa(BaseCharacter):
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
-        return 
+        return retval
 
     def useEnhancedBasic(self):
         num_adjacents = min( self.numEnemies - 1, 2 )
         retval = BaseEffect()
-        type = ['enhancedBasic']
-        retval.damage = self.getTotalMotionValue('basic',type)
+        type = ['basic','enhancedBasic']
+        retval.damage = self.getTotalMotionValue('enhancedBasic',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
@@ -80,7 +80,7 @@ class Rappa(BaseCharacter):
         retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
-        return 
+        return retval
 
     def useSkill(self):
         retval = BaseEffect()
@@ -105,20 +105,20 @@ class Rappa(BaseCharacter):
         self.addDebugInfo(retval,type)
         return retval
                 
-    def useSuperBreak(self,character:BaseCharacter,baseGauge:float,extraTypes:list=[]):
+    def useSuperBreak(self,baseGauge:float,extraTypes:list=[]):
         retval = BaseEffect()
         type = ['break','superBreak'] + extraTypes
 
-        superBreakDamage = character.breakLevelMultiplier
+        superBreakDamage = self.breakLevelMultiplier
         superBreakDamage *= 0.6 # trace
-        # superBreakDamage *= BREAK_MULTIPLIERS[character.element] # does not seem to scale off type
-        superBreakDamage *= character.getBreakEffect(type)
-        superBreakDamage *= character.getVulnerability(type)
-        superBreakDamage = character.applyDamageMultipliers(superBreakDamage,type)
+        # superBreakDamage *= BREAK_MULTIPLIERS[self.element] # does not seem to scale off type
+        superBreakDamage *= self.getBreakEffect(type)
+        superBreakDamage *= self.getVulnerability(type)
+        superBreakDamage = self.applyDamageMultipliers(superBreakDamage,type)
 
         retval.damage = superBreakDamage
         # factor in uptime
-        retval *= character.weaknessBrokenUptime
-        character.addDebugInfo(retval,type,f'Super Break Damage {character.name}')
+        retval *= self.weaknessBrokenUptime
+        self.addDebugInfo(retval,type,f'Super Break Damage {self.name}')
         
         return retval

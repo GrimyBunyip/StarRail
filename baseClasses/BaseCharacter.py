@@ -40,6 +40,8 @@ if os.name == 'posix':
 class BaseCharacter(object):
     stats:dict
     tempStats:dict
+    motionValueDict:dict
+    teamBuffList:list
 
     graphic:str
     initialEnergy:float
@@ -75,6 +77,7 @@ class BaseCharacter(object):
         self.relicstats = relicstats
         
         self.motionValueDict = {}
+        self.teamBuffList = []
         
     def loadCharacterStats(self, name:str):
         df = pd.read_csv(STATS_FILEPATH)
@@ -339,6 +342,10 @@ class BaseCharacter(object):
             debugEntry.append([self.getTotalStat(stat,type),getStatComments(self,stat,type)])
         effect.debugInfo.append(debugEntry)
         effect.debugCount.append(1)
+        
+    def applyTeamBuffs(self, team:list=[]):
+        for teamBuff in self.teamBuffList:
+            teamBuff(team)
         
     def print(self):
         print(f'##### Name: {self.name} #####')

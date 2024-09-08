@@ -54,10 +54,6 @@ def DrRatioTopazRobinAventurine(config,
     team = [DrRatioCharacter, TopazCharacter, RobinCharacter, AventurineCharacter]
 
     #%% DrRatio Topaz Robin Aventurine Team Buffs
-    for character in [TopazCharacter, DrRatioCharacter, RobinCharacter]:
-        character.addStat('CD',description='Broken Keel from Aventurine',amount=0.1)
-    for character in [TopazCharacter, DrRatioCharacter, AventurineCharacter]:
-        character.addStat('CD',description='Broken Keel from Robin',amount=0.1)
     for character in [TopazCharacter, DrRatioCharacter]:
         character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
 
@@ -76,7 +72,10 @@ def DrRatioTopazRobinAventurine(config,
     RobinUltUptime = 0.5 # assume about half of our attacks get robin buff
     RobinCharacter.applyUltBuff([DrRatioCharacter,TopazCharacter,AventurineCharacter],uptime=RobinUltUptime)
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

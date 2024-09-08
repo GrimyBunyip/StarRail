@@ -51,8 +51,6 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     team = [AcheronCharacter, BronyaCharacter, JiaoqiuCharacter, GallagherCharacter]
 
     #%% Acheron Bronya Jiaoqiu Gallagher Team Buffs
-    for character in [JiaoqiuCharacter, AcheronCharacter, GallagherCharacter]:
-        character.addStat('CD',description='Broken Keel from Bronya',amount=0.1)
         
     # Jiaoqiu Debuffs, 3 turn Jiaoqiu rotation
     JiaoqiuCharacter.applyTalentDebuff(team)
@@ -70,7 +68,10 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
     AcheronCharacter.addStat('ATK.percent',description='Lushaka Gallagher',amount=0.12)
       
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

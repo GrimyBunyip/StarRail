@@ -59,9 +59,6 @@ def KafkaS1RobinBlackSwanGallagher(config):
     team = [KafkaCharacter, RobinCharacter, BlackSwanCharacter, GallagherCharacter]
 
     #%% Kafka Robin BlackSwan Gallagher Team Buffs
-    # Fleet of the Ageless Buff
-    for character in [KafkaCharacter, RobinCharacter, BlackSwanCharacter]:
-        character.addStat('ATK.percent',description='Fleet Gallagher',amount=0.08)
 
     # Robin Buffs
     RobinCharacter.applyTalentBuff(team)
@@ -78,7 +75,10 @@ def KafkaS1RobinBlackSwanGallagher(config):
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

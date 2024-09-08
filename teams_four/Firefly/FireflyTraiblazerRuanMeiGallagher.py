@@ -78,7 +78,10 @@ def FireflyTrailblazerRuanMeiGallagher(config,
     # apply firefly self buffs and MV calculations at the end
     FireflyCharacter.addBreakEffectTalent()
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

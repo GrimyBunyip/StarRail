@@ -47,9 +47,6 @@ def BoothillBronyaRuanMeiGallagher(config):
     team = [BoothillCharacter, BronyaCharacter, RuanMeiCharacter, GallagherCharacter]
 
     #%% Boothill Bronya RuanMei Gallagher Team Buffs
-    # Broken Keel Buff
-    for character in [BoothillCharacter, RuanMeiCharacter, GallagherCharacter]:
-        character.addStat('CD',description='Broken Keel Bronya',amount=0.10)
 
     # Messenger 4 pc
     for character in [BoothillCharacter, RuanMeiCharacter, GallagherCharacter]:
@@ -77,7 +74,10 @@ def BoothillBronyaRuanMeiGallagher(config):
 
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

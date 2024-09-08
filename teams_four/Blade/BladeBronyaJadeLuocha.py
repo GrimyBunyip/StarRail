@@ -47,12 +47,6 @@ def BladeBronyaJadeLuocha(config, jadeCone:BaseLightCone = None):
     team = [BladeCharacter, BronyaCharacter, JadeCharacter, LuochaCharacter]
 
     #%% Blade Bronya Jade Luocha Team Buffs
-    # Broken Keel Buff
-    for character in [BladeCharacter, BronyaCharacter, JadeCharacter]:
-        character.addStat('CD',description='Broken Keel Luocha',amount=0.10)
-    for character in [BladeCharacter, JadeCharacter, LuochaCharacter]:
-        character.addStat('CD',description='Broken Keel Bronya',amount=0.10)
-
     # Bronya Planetary Rendezvous
     BladeCharacter.addStat('DMG.wind',description='Planetary Rendezvous',amount=0.09 + 0.03 * BronyaCharacter.lightcone.superposition)
 
@@ -67,7 +61,10 @@ def BladeBronyaJadeLuocha(config, jadeCone:BaseLightCone = None):
     BronyaCharacter.applyUltBuff(LuochaCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / LuochaCharacter.getTotalStat('SPD') / 0.8) # 0.8 for multiplication
     BladeCharacter.addStat('CD',description='Sacerdos Bronya',amount=0.2)
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

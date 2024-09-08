@@ -102,8 +102,7 @@ def FeixiaoMarchRobinAventurine(config,
     team = [MarchCharacter, FeixiaoCharacter, RobinCharacter, AventurineCharacter]
 
     #%% March Feixiao Robin Aventurine Team Buffs
-    for character in [FeixiaoCharacter, MarchCharacter, RobinCharacter]:
-        character.addStat('CD',description='Broken Keel from Aventurine',amount=0.1)
+        
     if RobinCharacter.lightcone.name == 'Poised to Bloom':
         for character in [FeixiaoCharacter, MarchCharacter]:
             character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
@@ -134,7 +133,10 @@ def FeixiaoMarchRobinAventurine(config,
     if RobinUltUptime < 1.0:
         RobinCharacter.applyUltBuff([FeixiaoCharacter], uptime=1.0-RobinUltUptime)
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

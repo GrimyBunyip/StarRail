@@ -23,6 +23,7 @@ from teams_four.Jingyuan.JingyuanTingyunHanabiFuxuan import JingyuanTingyunHanab
 from teams_four.DotTeams.KafkaGuinaifenBlackSwanLuocha import KafkaGuinaifenBlackSwanLuocha
 from teams_four.DotTeams.KafkaS1RuanMeiBlackSwanLuocha import KafkaS1RuanMeiBlackSwanLuocha
 from teams_four.Lunae.LunaeHanabiTingyunGallagher import LunaeHanabiTingyunGallagher
+from teams_four.Rappa.RappaHanabiTingyunHuohuo import RappaHanabiTingyunHuohuo
 from teams_four.RatioTopaz.RatioTopazRobinAventurine import DrRatioTopazRobinAventurine
 from teams_four.Robin.FeixiaoTopazRobinAventurine import FeixiaoTopazRobinAventurine
 from teams_four.Seele.SilverWolfMarchRobinHuohuo import SilverWolfMarchRobinHuohuo
@@ -51,21 +52,22 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 #%% Team Imports
 
 # # Backloaded Teams
-visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
-visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
-visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-visualizationList.append(YunliHanabiRobinHuohuo(config))
+# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+# visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
+# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+# visualizationList.append(YunliHanabiRobinHuohuo(config))
 
 # # Team Comparisons
-visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+# visualizationList.append(RappaHanabiTingyunHuohuo(config))
 visualizationList.append(BladeBronyaJadeLuocha(config))
-visualizationList.append(JingliuBronyaRuanMeiGallagher(config))
-visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
-visualizationList.append(LunaeHanabiTingyunGallagher(config))
-visualizationList.append(MarchTopazRobinAventurine(config))
-visualizationList.append(DrRatioTopazRobinAventurine(config))
-visualizationList.append(FeixiaoTopazRobinAventurine(config))
+# visualizationList.append(JingliuBronyaRuanMeiGallagher(config))
+# visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
+# visualizationList.append(LunaeHanabiTingyunGallagher(config))
+# visualizationList.append(MarchTopazRobinAventurine(config))
+# visualizationList.append(DrRatioTopazRobinAventurine(config))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config))
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
 
 # # Acheron Teams

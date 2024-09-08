@@ -56,9 +56,6 @@ def KafkaS1RuanMeiBlackSwanLuocha(config):
     team = [KafkaCharacter, RuanMeiCharacter, BlackSwanCharacter, LuochaCharacter]
 
     #%% Kafka RuanMei BlackSwan Luocha Team Buffs
-    # Fleet of the Ageless Buff
-    for character in [KafkaCharacter, RuanMeiCharacter, BlackSwanCharacter]:
-        character.addStat('ATK.percent',description='Fleet Luocha',amount=0.08)
         
     # RuanMei Buffs, max skill uptime
     RuanMeiCharacter.applyWeaknessModifiers(team=team)
@@ -72,7 +69,10 @@ def KafkaS1RuanMeiBlackSwanLuocha(config):
     # BlackSwanCharacter.applyUltDebuff(team,rotationDuration=SwanUltRotation)
     # Epiphany does not apply to detonations, so bump this buff til after the rotation cone
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

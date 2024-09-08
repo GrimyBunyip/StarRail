@@ -51,9 +51,6 @@ def SeeleNoneSilverWolfHanabiLuocha(config):
     team = [SeeleCharacter, SilverWolfCharacter, HanabiCharacter, LuochaCharacter]
 
     #%% Seele MID Silver Wolf Hanabi Team Buffs
-        
-    for character in [SilverWolfCharacter, SeeleCharacter, HanabiCharacter]:
-        character.addStat('CD',description='Broken Keel from Luocha',amount=0.1)
     for character in [SeeleCharacter, HanabiCharacter, LuochaCharacter]:
         character.addStat('DMG.quantum',description='Penacony from Silver Wolf',amount=0.1)
 
@@ -66,7 +63,10 @@ def SeeleNoneSilverWolfHanabiLuocha(config):
     HanabiCharacter.applySkillBuff(character=SeeleCharacter,uptime=2.0/3.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
         
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

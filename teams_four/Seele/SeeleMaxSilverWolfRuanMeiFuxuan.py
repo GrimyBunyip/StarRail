@@ -67,7 +67,10 @@ def SeeleMaxSilverWolfRuanMeiFuxuan(config):
     RuanMeiCharacter.applySkillBuff(team=team,uptime=3.0/3.0)
     RuanMeiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
         
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

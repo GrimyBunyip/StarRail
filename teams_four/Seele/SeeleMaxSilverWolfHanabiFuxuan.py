@@ -65,7 +65,10 @@ def SeeleMaxSilverWolfHanabiFuxuan(config):
     HanabiCharacter.applySkillBuff(character=SeeleCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
         
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

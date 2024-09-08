@@ -10,11 +10,16 @@ class BrokenKeel(RelicSet):
         self.graphic = graphic
         self.shortname = shortname
         self.uptime = uptime
+        
+        def applyTeamBuff(team):
+            for char in team:
+                char.addStat('CD',description=self.shortname,
+                             amount=0.10,
+                             uptime=self.uptime)
+                
+        self.applyTeamBuff = applyTeamBuff
 
     def equipTo(self, char:BaseCharacter):
+        char.teamBuffList.append(self.applyTeamBuff)
         char.addStat('RES',description=self.shortname,
                                 amount=0.10)
-        char.addStat('CD',description=self.shortname,
-                                amount=0.10,
-                                uptime=self.uptime)
-        # party wide buffs not yet implemented

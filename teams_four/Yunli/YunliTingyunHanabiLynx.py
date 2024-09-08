@@ -48,10 +48,6 @@ def YunliTingyunHanabiLynx(config):
     team = [YunliCharacter, TingyunCharacter, HanabiCharacter, LynxCharacter]
 
     #%% Yunli Tingyun Hanabi Lynx Team Buffs
-    for character in [TingyunCharacter, YunliCharacter, HanabiCharacter]:
-        character.addStat('CD',description='Broken Keel from Lynx',amount=0.1)
-    for character in [TingyunCharacter, YunliCharacter, LynxCharacter]:
-        character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
 
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
@@ -70,7 +66,10 @@ def YunliTingyunHanabiLynx(config):
     LynxCharacter.applySkillBuff(YunliCharacter,uptime=LynxBuffUptime)
     YunliCharacter.addStat('CD',description='Sacerdos Lynx',amount=0.20,uptime=2.0/3.0)
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

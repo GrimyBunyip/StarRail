@@ -71,7 +71,10 @@ def BoothillTrailblazerRuanMeiGallagher(config):
     for character in team:
         character.weaknessBrokenUptime = 1.0 - (1.0 - character.weaknessBrokenUptime) / 1.4
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

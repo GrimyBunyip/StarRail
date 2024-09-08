@@ -92,7 +92,10 @@ def FireflyTrailblazerRuanMeiLingsha(config,
     FireflyCharacter.addBreakEffectTalent()
     LingshaCharacter.addAttackForTalent()
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

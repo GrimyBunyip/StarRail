@@ -52,10 +52,6 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
     team = [YunliCharacter, HanabiCharacter, RobinCharacter, HuohuoCharacter]
 
     #%% Yunli Hanabi Robin Huohuo Team Buffs
-    for character in [HanabiCharacter, YunliCharacter, RobinCharacter]:
-        character.addStat('CD',description='Broken Keel from Huohuo',amount=0.1)
-    for character in [RobinCharacter, YunliCharacter, RobinCharacter]:
-        character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
         
     # Carve the Moon Buffs
     for character in team:
@@ -79,7 +75,10 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
     HuohuoCharacter.applyUltBuff([HanabiCharacter,RobinCharacter, YunliCharacter],uptime=2.0/4.0)
     YunliCharacter.addStat('CD',description='Sacerdos Huohuo',amount=0.20,uptime=2.0/3.0)
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

@@ -66,8 +66,7 @@ def MarchTopazRobinAventurine(config,
     team = [MarchCharacter, TopazCharacter, RobinCharacter, AventurineCharacter]
 
     #%% March Topaz Robin Aventurine Team Buffs
-    for character in [TopazCharacter, MarchCharacter, RobinCharacter]:
-        character.addStat('CD',description='Broken Keel from Aventurine',amount=0.1)
+        
     if RobinCharacter.lightcone.name == 'Poised to Bloom':
         for character in [TopazCharacter, MarchCharacter]:
             character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
@@ -97,7 +96,10 @@ def MarchTopazRobinAventurine(config,
     RobinCharacter.applySkillBuff(team)
     RobinCharacter.applyUltBuff([MarchCharacter,TopazCharacter,AventurineCharacter],uptime=RobinUltUptime)
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

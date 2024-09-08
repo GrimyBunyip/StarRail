@@ -53,8 +53,6 @@ def SilverWolfMarchRobinHuohuo(config, silverwolfEidolon:int=1):
     team = [SilverWolfCharacter, MarchCharacter, RobinCharacter, HuohuoCharacter]
 
     #%% SilverWolf March Robin Huohuo Team Buffs
-    for character in [MarchCharacter, SilverWolfCharacter, RobinCharacter]:
-        character.addStat('CD',description='Broken Keel from Huohuo',amount=0.1)
 
     # Silver Wolf Debuffs
     SilverWolfCharacter.applyDebuffs(team=team,
@@ -75,7 +73,10 @@ def SilverWolfMarchRobinHuohuo(config, silverwolfEidolon:int=1):
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([MarchCharacter,RobinCharacter, SilverWolfCharacter],uptime=2.0/4.0)
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

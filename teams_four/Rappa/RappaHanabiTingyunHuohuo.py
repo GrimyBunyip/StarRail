@@ -1,7 +1,7 @@
 from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Huohuo import Huohuo
-from characters.erudition.Argenti import Argenti
+from characters.erudition.Rappa import Rappa
 from characters.harmony.Tingyun import Tingyun
 from characters.harmony.Hanabi import Hanabi
 from estimator.DefaultEstimator import DefaultEstimator
@@ -16,13 +16,15 @@ from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
+from relicSets.relicSets.ScholarLostInErudition import ScholarLostInErudition2pc
+from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc
 
-def ArgentiHanabiTingyunHuohuo(config):
-    #%% Argenti Hanabi Tingyun Huohuo Characters
-    ArgentiCharacter = Argenti(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
+def RappaHanabiTingyunHuohuo(config):
+    #%% Rappa Hanabi Tingyun Huohuo Characters
+    RappaCharacter = Rappa(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.imaginary'],
                         substats = {'CR': 8, 'CD': 12, 'ATK.flat': 3, 'ATK.percent': 5}),
                         lightcone =  TodayIsAnotherPeacefulDay(**config),
-                        relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = ChampionOfStreetwiseBoxing4pc(uptime=0.4), planarset = RutilantArena(),
+                        relicsetone = WastelanderOfBanditryDesert2pc(), relicsettwo = ScholarLostInErudition2pc(), planarset = RutilantArena(),
                         **config)
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
@@ -35,7 +37,7 @@ def ArgentiHanabiTingyunHuohuo(config):
                         substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                         lightcone = MemoriesOfThePast(**config),
                         relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = LushakaTheSunkenSeas(),
-                        benedictionTarget=ArgentiCharacter,
+                        benedictionTarget=RappaCharacter,
                         **config)
 
     HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
@@ -44,28 +46,28 @@ def ArgentiHanabiTingyunHuohuo(config):
                         relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
-    team = [ArgentiCharacter, HanabiCharacter, TingyunCharacter, HuohuoCharacter]
+    team = [RappaCharacter, HanabiCharacter, TingyunCharacter, HuohuoCharacter]
 
-    #%% Argenti Hanabi Tingyun Huohuo Team Buffs
+    #%% Rappa Hanabi Tingyun Huohuo Team Buffs
 
     # Past and Future
-    ArgentiCharacter.addStat('DMG',description='Past and Future',amount=0.32)
+    RappaCharacter.addStat('DMG',description='Past and Future',amount=0.32)
     
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
-    HanabiCharacter.applySkillBuff(character=ArgentiCharacter,uptime=1.0)
+    HanabiCharacter.applySkillBuff(character=RappaCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/2.75) # let's say half the time huohuo can shave off a turn
-    ArgentiCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20)
+    RappaCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20)
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([TingyunCharacter,HanabiCharacter],uptime=2.0/4.0)
-    HuohuoCharacter.applyUltBuff([ArgentiCharacter],uptime=2.0/5.0)
+    HuohuoCharacter.applyUltBuff([RappaCharacter],uptime=2.0/5.0)
         
     # Tingyun Buffs
-    TingyunCharacter.applySkillBuff(ArgentiCharacter)
-    TingyunCharacter.applyUltBuff(ArgentiCharacter,tingRotationDuration=2.75)  # let's say half the time, huohuo can shave off a turn
-    ArgentiCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20)
-    ArgentiCharacter.addStat('ATK.percent',description='Lushaka Tingyun',amount=0.12)
+    TingyunCharacter.applySkillBuff(RappaCharacter)
+    TingyunCharacter.applyUltBuff(RappaCharacter,tingRotationDuration=2.75)  # let's say half the time, huohuo can shave off a turn
+    RappaCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20)
+    RappaCharacter.addStat('ATK.percent',description='Lushaka Tingyun',amount=0.12)
     
     #%% Team Buffs and Print Statements
     for character in team:
@@ -74,28 +76,35 @@ def ArgentiHanabiTingyunHuohuo(config):
     for character in team:
         character.print()
 
-    #%% Argenti Hanabi Tingyun Huohuo Rotations
+    #%% Rappa Hanabi Tingyun Huohuo Rotations
     numBasicHanabi = 0.0
     numSkillHanabi = 2.75 # let's say half the time, huohuo can shave off a turn
     HanabiRotation = [HanabiCharacter.useBasic() * numBasicHanabi,
                        HanabiCharacter.useSkill() * numSkillHanabi,
                     HanabiCharacter.useUltimate()]
 
-    # Argenti & Tingyun Rotation
+    # Rappa & Tingyun Rotation
+    rappaBreakRate = 0.25
+    
     TingyunEnergyPerTurn = (60.0 if TingyunCharacter.eidolon >= 6 else 50.0) / 2.75  # let's say half the time, huohuo can shave off a turn
-    HuohuoEnergyPerTurn = ArgentiCharacter.maxEnergy * (0.21 if HuohuoCharacter.eidolon >= 5 else 0.20)  / 4.0
+    HuohuoEnergyPerTurn = RappaCharacter.maxEnergy * (0.21 if HuohuoCharacter.eidolon >= 5 else 0.20)  / 4.0
     TingyunEnergyPerTurn *= TingyunCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')
     HuohuoEnergyPerTurn *= HuohuoCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')
-    numSkill = (180.0 - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (30.0 + TingyunEnergyPerTurn + HuohuoEnergyPerTurn + 3 * ArgentiCharacter.numEnemies)
-    numUlt = 1
+    numTurnsRappa = (160.0 - 35.0 - 8.0 * RappaCharacter.numEnemies * rappaBreakRate) / (30.0 + TingyunEnergyPerTurn + HuohuoEnergyPerTurn + 3 * RappaCharacter.numEnemies)
+    numEnhancedRappa = min(3.0,numTurnsRappa + 1.0)
+    numSkillRappa = min(0,numTurnsRappa + 1.0 - 3.0)
+    numTalentRappa = (numTurnsRappa + 1.0) * RappaCharacter.numEnemies * (1.0 - RappaCharacter.weaknessBrokenUptime) * rappaBreakRate
 
-    ArgentiRotation = [ArgentiCharacter.useSkill() * numSkill,
-                        ArgentiCharacter.useEnhancedUltimate() * numUlt,
-                        HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - ArgentiCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * numSkill,
+    RappaRotation = [RappaCharacter.useSkill() * numSkillRappa,
+                     RappaCharacter.useEnhancedBasic() * numEnhancedRappa,
+                     RappaCharacter.useSuperBreak(baseGauge=120.0) * numEnhancedRappa,
+                     RappaCharacter.useTalent() * numTalentRappa,
+                     RappaCharacter.useUltimate(),
+                     HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - RappaCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * numTurnsRappa,
     ]
 
-    ArgentiRotation.append(TingyunCharacter.useBenediction(['skill']) * numSkill * ArgentiCharacter.numEnemies)
-    ArgentiRotation.append(TingyunCharacter.useBenediction(['ultimate','enhancedUltimate']) * numUlt * ArgentiCharacter.numEnemies)
+    RappaRotation.append(TingyunCharacter.useBenediction(['skill']) * numSkillRappa)
+    RappaRotation.append(TingyunCharacter.useBenediction(['basic','enhancedBasic']) * numEnhancedRappa)
 
     TingyunRotation = [ 
             TingyunCharacter.useBasic() * 1.5, # let's say half the time, huohuo can shave off a turn 
@@ -109,33 +118,33 @@ def ArgentiHanabiTingyunHuohuo(config):
                     HuohuoCharacter.useSkill() * numSkillHuohuo,
                     HuohuoCharacter.useUltimate(),]
 
-    #%% Argenti Hanabi Tingyun Huohuo Rotation Math
-    totalArgentiEffect = sumEffects(ArgentiRotation)
+    #%% Rappa Hanabi Tingyun Huohuo Rotation Math
+    totalRappaEffect = sumEffects(RappaRotation)
     totalHanabiEffect = sumEffects(HanabiRotation)
     totalTingyunEffect = sumEffects(TingyunRotation)
     totalHuohuoEffect = sumEffects(HuohuoRotation)
 
-    ArgentiRotationDuration = totalArgentiEffect.actionvalue * 100.0 / ArgentiCharacter.getTotalStat('SPD')
+    RappaRotationDuration = totalRappaEffect.actionvalue * 100.0 / RappaCharacter.getTotalStat('SPD')
     HanabiRotationDuration = totalHanabiEffect.actionvalue * 100.0 / HanabiCharacter.getTotalStat('SPD')
     TingyunRotationDuration = totalTingyunEffect.actionvalue * 100.0 / TingyunCharacter.getTotalStat('SPD')
     HuohuoRotationDuration = totalHuohuoEffect.actionvalue * 100.0 / HuohuoCharacter.getTotalStat('SPD')
 
-    ArgentiRotation.append(HuohuoCharacter.giveUltEnergy(ArgentiCharacter) * ArgentiRotationDuration / HuohuoRotationDuration)
-    ArgentiRotation.append(TingyunCharacter.giveUltEnergy() * ArgentiRotationDuration / TingyunRotationDuration)
+    RappaRotation.append(HuohuoCharacter.giveUltEnergy(RappaCharacter) * RappaRotationDuration / HuohuoRotationDuration)
+    RappaRotation.append(TingyunCharacter.giveUltEnergy() * RappaRotationDuration / TingyunRotationDuration)
 
     print('##### Rotation Durations #####')
-    print('Argenti: ',ArgentiRotationDuration)
+    print('Rappa: ',RappaRotationDuration)
     print('Hanabi: ',HanabiRotationDuration)
     print('Tingyun: ',TingyunRotationDuration)
     print('Huohuo: ',HuohuoRotationDuration)
 
     # scale other character's rotation
-    HanabiRotation = [x * ArgentiRotationDuration / HanabiRotationDuration for x in HanabiRotation]
-    TingyunRotation = [x * ArgentiRotationDuration / TingyunRotationDuration for x in TingyunRotation]
-    HuohuoRotation = [x * ArgentiRotationDuration / HuohuoRotationDuration for x in HuohuoRotation]
+    HanabiRotation = [x * RappaRotationDuration / HanabiRotationDuration for x in HanabiRotation]
+    TingyunRotation = [x * RappaRotationDuration / TingyunRotationDuration for x in TingyunRotation]
+    HuohuoRotation = [x * RappaRotationDuration / HuohuoRotationDuration for x in HuohuoRotation]
 
-    ArgentiEstimate = DefaultEstimator(f'Argenti: {numSkill:.1f}E {numUlt:.1f}EnhQ', 
-                                            ArgentiRotation, ArgentiCharacter, config)
+    RappaEstimate = DefaultEstimator(f'{RappaCharacter.fullName()} {numSkillRappa:.0f}E {numEnhancedRappa:.0f}Enh {numTalentRappa:.1f}T 1Q', 
+                                            RappaRotation, RappaCharacter, config)
     HanabiEstimate = DefaultEstimator(f'Hanabi {numSkillHanabi:.1f}E {numBasicHanabi:.1f}N S{HanabiCharacter.lightcone.superposition:.0f} {HanabiCharacter.lightcone.name}, 12 Spd Substats', 
                                     HanabiRotation, HanabiCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, 12 spd substats',
@@ -143,4 +152,4 @@ def ArgentiHanabiTingyunHuohuo(config):
     HuohuoEstimate = DefaultEstimator(f'Huohuo: {numBasicHuohuo:.0f}N {numSkillHuohuo:.0f}E 1Q, S{HuohuoCharacter.lightcone.superposition:.0f} {HuohuoCharacter.lightcone.name}',
                                     HuohuoRotation, HuohuoCharacter, config)
 
-    return([ArgentiEstimate, HanabiEstimate, TingyunEstimate, HuohuoEstimate])
+    return([RappaEstimate, HanabiEstimate, TingyunEstimate, HuohuoEstimate])

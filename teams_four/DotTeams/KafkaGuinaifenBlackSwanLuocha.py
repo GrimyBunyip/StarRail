@@ -54,9 +54,6 @@ def KafkaGuinaifenBlackSwanLuocha(config, kafkaSuperposition:int=0):
     team = [KafkaCharacter, GuinaifenCharacter, BlackSwanCharacter, LuochaCharacter]
 
     #%% Kafka Guinaifen BlackSwan Luocha Team Buffs
-    # Fleet of the Ageless Buff
-    for character in [KafkaCharacter, GuinaifenCharacter, BlackSwanCharacter]:
-        character.addStat('ATK.percent',description='Fleet Luocha',amount=0.08)
         
     # Apply Guinaifen Debuff
     GuinaifenCharacter.applyFirekiss(team=team,uptime=1.0)
@@ -76,7 +73,10 @@ def KafkaGuinaifenBlackSwanLuocha(config, kafkaSuperposition:int=0):
     # BlackSwanCharacter.applyUltDebuff(team,rotationDuration=SwanUltRotation)
     # Epiphany does not apply to detonations, so bump this buff til after the rotation cone
 
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

@@ -46,12 +46,6 @@ def JingYuanHanabiTingyunHuohuo(config):
     team = [JingYuanCharacter, HanabiCharacter, TingyunCharacter, HuohuoCharacter]
 
     #%% JingYuan Hanabi Tingyun Huohuo Team Buffs
-
-    # Broken Keel & Penacony Buff
-    for character in [JingYuanCharacter, HanabiCharacter, TingyunCharacter]:
-        character.addStat('CD',description='Broken Keel Huohuo',amount=0.10)
-    for character in [JingYuanCharacter, TingyunCharacter, HuohuoCharacter]:
-        character.addStat('CD',description='Broken Keel Hanabi',amount=0.10)
     for character in [JingYuanCharacter, HuohuoCharacter, HanabiCharacter]:
         character.addStat('DMG.lightning',description='Penacony from Tingyun',amount=0.1)
     
@@ -74,7 +68,10 @@ def JingYuanHanabiTingyunHuohuo(config):
     TingyunCharacter.applyUltBuff(JingYuanCharacter,tingRotationDuration=3.2)
     JingYuanCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20)
     
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 

@@ -54,8 +54,6 @@ def AcheronGuinaifenPelaGallagher(config, acheronSuperposition:int=0):
     team = [AcheronCharacter, GuinaifenCharacter, PelaCharacter, GallagherCharacter]
 
     #%% Acheron Silver Wolf Pela Gallagher Team Buffs
-    for character in [GuinaifenCharacter, AcheronCharacter, GallagherCharacter]:
-        character.addStat('CD',description='Broken Keel from Pela',amount=0.1)
 
     # Pela Debuffs, 3 turn pela rotation
     PelaCharacter.applyUltDebuff(team,rotationDuration=2)
@@ -76,7 +74,10 @@ def AcheronGuinaifenPelaGallagher(config, acheronSuperposition:int=0):
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
     AcheronCharacter.addStat('ATK.percent',description='Lushaka Gallagher',amount=0.12)
         
-    #%% Print Statements
+    #%% Team Buffs and Print Statements
+    for character in team:
+        character.applyTeamBuffs(team)
+        
     for character in team:
         character.print()
 
