@@ -59,8 +59,6 @@ def FireflyTrailblazerRuanMeiLingsha(config,
 
     #%% Firefly Trailblazer RuanMei Lingsha Team Buffs
     for character in team:
-        character.addStat('DMG.fire',description='Penacony from Lingsha',amount=0.1)
-    for character in team:
         character.addStat('BreakEffect',description='Watchmaker 4pc', amount=0.30, uptime=0.66)
 
     # RuanMei Buffs, 3 turn RuanMei rotation

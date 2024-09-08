@@ -46,8 +46,6 @@ def JingYuanHanabiTingyunHuohuo(config):
     team = [JingYuanCharacter, HanabiCharacter, TingyunCharacter, HuohuoCharacter]
 
     #%% JingYuan Hanabi Tingyun Huohuo Team Buffs
-    for character in [JingYuanCharacter, HuohuoCharacter, HanabiCharacter]:
-        character.addStat('DMG.lightning',description='Penacony from Tingyun',amount=0.1)
     
     # Tingyun Planetary
     for character in team:
