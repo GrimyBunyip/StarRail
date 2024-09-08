@@ -15,35 +15,37 @@ from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
+from relicSets.planarSets.TheWondrousBananAmusementPark import TheWondrousBananAmusementPark
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
+from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 
 def JingYuanHanabiTingyunHuohuo(config):
     #%% JingYuan Hanabi Tingyun Huohuo Characters
     JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.lightning'],
                             substats = {'CD': 9, 'CR': 11, 'ATK.percent': 5, 'BreakEffect': 3}),
                             lightcone = GeniusesRepose(**config),
-                            relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=6.5,stacks=8.0,uptime=1.0), planarset = InertSalsotto(),
+                            relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=6.5,stacks=8.0,uptime=1.0), planarset = TheWondrousBananAmusementPark(),
                             **config)
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                         substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
                         lightcone = PastAndFuture(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                         **config)
 
     TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
                         substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                         lightcone = PlanetaryRendezvous(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = PenaconyLandOfDreams(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = PenaconyLandOfDreams(),
                         benedictionTarget=JingYuanCharacter,
                         **config)
 
     HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
                         substats = {'HP.percent': 7, 'SPD.flat': 12, 'HP.flat': 3, 'RES': 6}),
                         lightcone = PostOpConversation(**config),
-                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
     team = [JingYuanCharacter, HanabiCharacter, TingyunCharacter, HuohuoCharacter]
@@ -57,14 +59,6 @@ def JingYuanHanabiTingyunHuohuo(config):
         character.addStat('CD',description='Broken Keel Hanabi',amount=0.10)
     for character in [JingYuanCharacter, HuohuoCharacter, HanabiCharacter]:
         character.addStat('DMG.lightning',description='Penacony from Tingyun',amount=0.1)
-
-    # Hanabi Messenger 4 pc
-    for character in [JingYuanCharacter, TingyunCharacter, HuohuoCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/2.75) # let's say half the time, huohuo can shave off a turn
-        
-    # Tingyun Messenger 4 pc
-    for character in [JingYuanCharacter, HanabiCharacter, HuohuoCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.2) # let's say half the time, huohuo can shave off a turn
     
     # Tingyun Planetary
     for character in team:
@@ -74,6 +68,7 @@ def JingYuanHanabiTingyunHuohuo(config):
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=JingYuanCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/2.75) # let's say half the time huohuo can shave off a turn
+    JingYuanCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20)
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([TingyunCharacter,HanabiCharacter, JingYuanCharacter],uptime=2.0/4.0)
@@ -81,6 +76,7 @@ def JingYuanHanabiTingyunHuohuo(config):
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(JingYuanCharacter)
     TingyunCharacter.applyUltBuff(JingYuanCharacter,tingRotationDuration=3.2)
+    JingYuanCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20)
     
     #%% Print Statements
     for character in team:

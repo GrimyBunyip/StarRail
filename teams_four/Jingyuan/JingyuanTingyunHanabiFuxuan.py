@@ -17,6 +17,7 @@ from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
+from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 
 def JingyuanTingyunHanabiFuxuan(config):
     #%% JingYuan Tingyun Hanabi Fuxuan Characters
@@ -29,14 +30,14 @@ def JingyuanTingyunHanabiFuxuan(config):
     TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                             lightcone = MemoriesOfThePast(**config),
-                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = PenaconyLandOfDreams(),
+                            relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = PenaconyLandOfDreams(),
                             benedictionTarget=JingYuanCharacter,
                             **config)
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                             substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
                             lightcone = DanceDanceDance(**config),
-                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                            relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                             **config)
 
     FuxuanCharacter = Fuxuan(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
@@ -55,19 +56,12 @@ def JingyuanTingyunHanabiFuxuan(config):
         character.addStat('CD',description='Broken Keel from Fuxuan',amount=0.1)
     for character in [JingYuanCharacter, HanabiCharacter, FuxuanCharacter]:
         character.addStat('DMG.lightning',description='Penacony from Tingyun',amount=0.1)
-        
-    # Hanabi Messenger 4 pc
-    for character in [JingYuanCharacter, TingyunCharacter, FuxuanCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-        
-    # Tingyun Messenger Buff
-    for character in [JingYuanCharacter, HanabiCharacter, FuxuanCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
 
     # Hanabi Buffs
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=JingYuanCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
+    JingYuanCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20)
     
     # Fu Xuan Buffs
     FuxuanCharacter.applySkillBuff(team)
@@ -75,6 +69,7 @@ def JingyuanTingyunHanabiFuxuan(config):
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(JingYuanCharacter)
     TingyunCharacter.applyUltBuff(JingYuanCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/JingYuanCharacter.getTotalStat('SPD'))
+    JingYuanCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20)
 
     #%% Print Statements
     for character in team:
