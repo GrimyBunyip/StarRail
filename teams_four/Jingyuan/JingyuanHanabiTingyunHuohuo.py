@@ -47,10 +47,6 @@ def JingYuanHanabiTingyunHuohuo(config):
 
     #%% JingYuan Hanabi Tingyun Huohuo Team Buffs
     
-    # Tingyun Planetary
-    for character in team:
-        character.addStat('DMG.lightning',description='Planetary from Tingyun',amount=0.24)
-    
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=JingYuanCharacter,uptime=1.0)

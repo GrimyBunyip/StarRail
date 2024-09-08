@@ -11,7 +11,13 @@ class PlanetaryRendezvous(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            pass #harmony cones not yet implemented fully
+            def applyTeamBuff(team):
+                for char in team:
+                    char.addStat(f'DMG.{char.element}',
+                                description=f'{self.shortname} from {char.name}',
+                                amount=0.09 + 0.03 * self.superposition,)
+                    
+            char.teamBuffList.append(applyTeamBuff)
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

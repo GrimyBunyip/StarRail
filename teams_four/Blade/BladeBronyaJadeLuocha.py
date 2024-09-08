@@ -47,8 +47,6 @@ def BladeBronyaJadeLuocha(config, jadeCone:BaseLightCone = None):
     team = [BladeCharacter, BronyaCharacter, JadeCharacter, LuochaCharacter]
 
     #%% Blade Bronya Jade Luocha Team Buffs
-    # Bronya Planetary Rendezvous
-    BladeCharacter.addStat('DMG.wind',description='Planetary Rendezvous',amount=0.09 + 0.03 * BronyaCharacter.lightcone.superposition)
 
     # Jade Buffs, 3 turn Jade rotation
     JadeCharacter.applySkillBuff(BladeCharacter)
