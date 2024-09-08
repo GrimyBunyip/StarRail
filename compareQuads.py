@@ -84,7 +84,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 #%% Team Imports
 
 # # Backloaded Teams
-# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
@@ -128,7 +128,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 
 # # Blade Teams
-visualizationList.append(BladeBronyaJadeLuocha(config))
+# visualizationList.append(BladeBronyaJadeLuocha(config))
 
 # # Boothill Teams
 # visualizationList.append(BoothillTrailblazerRuanMeiGallagher(config))

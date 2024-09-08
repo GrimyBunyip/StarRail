@@ -6,8 +6,8 @@ from characters.destruction.Firefly import Firefly
 from characters.harmony.RuanMei import RuanMei
 from characters.harmony.ImaginaryTrailblazer import ImaginaryTrailblazer
 from estimator.DefaultEstimator import DefaultEstimator
+from lightCones.abundance.DreamsMontage import DreamsMontage
 from lightCones.abundance.ScentAloneStaysTrue import ScentAloneStaysTrue
-from lightCones.abundance.QuidProQuo import QuidProQuo
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.destruction.WhereaboutsShouldDreamsRest import WhereaboutsShouldDreamsRest
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
@@ -15,7 +15,6 @@ from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.IronCavalryAgainstTheScourge import IronCavalryAgainstTheScourge2pc, IronCavalryAgainstTheScourge4pc
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 from relicSets.relicSets.WatchmakerMasterOfDreamMachinations import Watchmaker2pc, Watchmaker4pc
 
@@ -48,7 +47,7 @@ def FireflyTrailblazerRuanMeiLingsha(config,
                                     relicsetone = Watchmaker2pc(), relicsettwo = Watchmaker4pc(uptime=0.0), planarset = ForgeOfTheKalpagniLantern(),
                                     **config)
 
-    lingshaLightcone = QuidProQuo(**config) if lingshaSuperposition == 0 else ScentAloneStaysTrue(**config)
+    lingshaLightcone = DreamsMontage(**config) if lingshaSuperposition == 0 else ScentAloneStaysTrue(**config)
     LingshaCharacter = Lingsha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                                     substats = {'SPD.flat': 5, 'BreakEffect': 12, 'ATK.percent': 8, 'ATK.flat': 3}),
                                     lightcone = lingshaLightcone,
