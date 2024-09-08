@@ -11,7 +11,22 @@ class CarveTheMoonWeaveTheClouds(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            pass #harmony cones not yet implemented fully
+            def applyTeamBuff(team):
+                for char in team:
+                    char.addStat('ATK.percent',
+                                description=f'{self.shortname} from {char.name}',
+                                amount=0.075 + 0.025 * self.superposition,
+                                uptime=1.0/3.0)
+                    char.addStat('CD',
+                                description=f'{self.shortname} from {char.name}',
+                                amount=0.09 + 0.03 * self.superposition,
+                                uptime=1.0/3.0)
+                    char.addStat('ER',
+                                description=f'{self.shortname} from {char.name}',
+                                amount=0.045 + 0.015 * self.superposition,
+                                uptime=1.0/3.0)
+                    
+            char.teamBuffList.append(applyTeamBuff)
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration

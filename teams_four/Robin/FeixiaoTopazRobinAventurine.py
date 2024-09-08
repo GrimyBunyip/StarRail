@@ -112,11 +112,6 @@ def FeixiaoTopazRobinAventurine(config,
         for character in team:
             if character.name is not 'Robin':
                 character.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition, uptime=RobinUltUptime)
-    elif RobinCharacter.lightcone.name == 'Carve the Moon, Weave the Clouds':
-        for character in team:
-            character.addStat('ATK.percent',description='Carve The Moon',amount=0.075 + 0.025 * RobinCharacter.lightcone.superposition, uptime=1.0/3.0)
-            character.addStat('CD',description='Carve The Moon',amount=0.09 + 0.03 * RobinCharacter.lightcone.superposition, uptime=1.0/3.0)
-            character.addStat('ER',description='Carve The Moon',amount=0.045 + 0.015 * RobinCharacter.lightcone.superposition, uptime=1.0/3.0)
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)

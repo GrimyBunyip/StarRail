@@ -53,12 +53,6 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
 
     #%% Yunli Hanabi Robin Huohuo Team Buffs
         
-    # Carve the Moon Buffs
-    for character in team:
-        character.addStat('ATK.percent',description='Carve The Moon',amount=0.2, uptime=1.0/3.0)
-        character.addStat('CD',description='Carve The Moon',amount=0.24, uptime=1.0/3.0)
-        character.addStat('ER',description='Carve The Moon',amount=0.12, uptime=1.0/3.0)
-
     # Robin Buffs
     RobinCharacter.applyTalentBuff(team)
     RobinCharacter.applySkillBuff(team)
