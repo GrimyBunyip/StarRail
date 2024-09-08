@@ -10,15 +10,7 @@ from teams_four.Acheron.AcheronGuinaifenPelaGallagher import AcheronGuinaifenPel
 from teams_four.Acheron.AcheronKafkaBlackSwanGallagher import AcheronKafkaBlackSwanGallagher
 from teams_four.Acheron.AcheronPelaJiaoqiuGallagher import AcheronPelaJiaoqiuGallagher
 from teams_four.Argenti.ArgentiHanabiTingyunHuohuo import ArgentiHanabiTingyunHuohuo
-from teams_four.Blade.BladeBronyaHanabiLuocha import BladeBronyaHanabiLuocha
-from teams_four.Blade.BladeBronyaJadeHanya import BladeBronyaJadeHanya
 from teams_four.Blade.BladeBronyaJadeLuocha import BladeBronyaJadeLuocha
-from teams_four.Blade.BladeBronyaPelaFuxuan import BladeBronyaPelaFuxuan
-from teams_four.Blade.BladeBronyaPelaLuocha import BladeBronyaPelaLuocha
-from teams_four.Blade.BladeBronyaPelaLynx import BladeBronyaPelaLynx
-from teams_four.Blade.BladeBronyaRuanMeiFuxuan import BladeBronyaRuanMeiFuxuan
-from teams_four.Blade.BladeBronyaRuanMeiLuocha import BladeBronyaRuanMeiLuocha
-from teams_four.Blade.JadeBronyaRuanMeiLuocha import JadeBronyaRuanMeiLuocha
 from teams_four.Boothill.BoothillBronyaRuanMeiGallagher import BoothillBronyaRuanMeiGallagher
 from teams_four.Boothill.BoothillTraiblazerRuanMeiGallagher import BoothillTrailblazerRuanMeiGallagher
 from teams_four.Clara.ClaraE1TingyunHanabiFuxuan import ClaraE1TingyunHanabiFuxuan
@@ -149,19 +141,10 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(AcheronGuinaifenPelaGallagher(config))
 
 # # Argenti Teams
-visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 
 # # Blade Teams
-# visualizationList.append(BladeBronyaJadeLuocha(config))
-# visualizationList.append(BladeBronyaHanabiLuocha(config))
-# visualizationList.append(BladeBronyaRuanMeiLuocha(config))
-# visualizationList.append(BladeBronyaPelaLuocha(config))
-# # visualizationList.append(JadeBronyaRuanMeiLuocha(config))
-# # visualizationList.append(BladeBronyaPelaLynx(config))
-
-# visualizationList.append(BladeBronyaJadeHanya(config))
-# # visualizationList.append(BladeBronyaPelaFuxuan(config)) # 100% vow uptime with fu xuan
-# # visualizationList.append(BladeBronyaRuanMeiFuxuan(config)) # 100% vow uptime with fu xuan, unbalanced SP usage
+visualizationList.append(BladeBronyaJadeLuocha(config))
 
 # # Boothill Teams
 # visualizationList.append(BoothillTrailblazerRuanMeiGallagher(config))

@@ -19,6 +19,7 @@ from relicSets.relicSets.GeniusOfBrilliantStars import GeniusOfBrilliantStars2pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
+from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 
 def BladeBronyaJadeLuocha(config, jadeCone:BaseLightCone = None):
     #%% Blade Bronya Jade Luocha Characters
@@ -32,7 +33,7 @@ def BladeBronyaJadeLuocha(config, jadeCone:BaseLightCone = None):
     BronyaCharacter = Bronya(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'ER'],
                         substats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                         lightcone = PlanetaryRendezvous(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                         **config)
 
     JadeCharacter = Jade(RelicStats(mainstats = ['CR', 'DMG.quantum', 'ATK.percent', 'ATK.percent'],
@@ -44,7 +45,7 @@ def BladeBronyaJadeLuocha(config, jadeCone:BaseLightCone = None):
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                         substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                         lightcone = Multiplication(**config),
-                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
     team = [BladeCharacter, BronyaCharacter, JadeCharacter, LuochaCharacter]
@@ -59,10 +60,6 @@ def BladeBronyaJadeLuocha(config, jadeCone:BaseLightCone = None):
     # Bronya Planetary Rendezvous
     BladeCharacter.addStat('DMG.wind',description='Planetary Rendezvous',amount=0.09 + 0.03 * BronyaCharacter.lightcone.superposition)
 
-    # Messenger 4 pc
-    for character in [BladeCharacter, JadeCharacter, LuochaCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-
     # Jade Buffs, 3 turn Jade rotation
     JadeCharacter.applySkillBuff(BladeCharacter)
             
@@ -72,6 +69,7 @@ def BladeBronyaJadeLuocha(config, jadeCone:BaseLightCone = None):
     BronyaCharacter.applySkillBuff(BladeCharacter,uptime=1.0/2.0) # estimate 1 bronya skill buff per 2 blade attacks
     BronyaCharacter.applyUltBuff(JadeCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / JadeCharacter.getTotalStat('SPD'))
     BronyaCharacter.applyUltBuff(LuochaCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / LuochaCharacter.getTotalStat('SPD') / 0.8) # 0.8 for multiplication
+    BladeCharacter.addStat('CD',description='Sacerdos Bronya',amount=0.2)
 
     #%% Print Statements
     for character in team:
