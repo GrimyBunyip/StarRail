@@ -12,10 +12,10 @@ from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.InertSalsotto import InertSalsotto
-from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
+from relicSets.planarSets.LushakaTheSunkenSeas import LushakaTheSunkenSeas
 from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
-from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
+from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 
 def ClaraTingyunHanabiFuxuan(config):
     #%% Clara Tingyun Hanabi Fuxuan Characters
@@ -30,20 +30,20 @@ def ClaraTingyunHanabiFuxuan(config):
     TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                             lightcone = MemoriesOfThePast(**config),
-                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = SprightlyVonwacq(),
+                            relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = LushakaTheSunkenSeas(),
                             benedictionTarget=ClaraCharacter,
                             **config)
     
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                             substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
                             lightcone = DanceDanceDance(**config),
-                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                            relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                             **config)
 
     FuxuanCharacter = Fuxuan(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
                             substats = {'HP.percent': 7, 'SPD.flat': 12, 'DEF.percent': 3, 'RES': 6}),
                             lightcone = DayOneOfMyNewLife(**config),
-                            relicsetone = LongevousDisciple2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+                            relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                             **config)
     
     team = [ClaraCharacter, TingyunCharacter, HanabiCharacter, FuxuanCharacter]
@@ -58,18 +58,13 @@ def ClaraTingyunHanabiFuxuan(config):
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=ClaraCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
-    
-    # Hanabi Messenger 4 pc
-    for character in [ClaraCharacter, TingyunCharacter, FuxuanCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-        
-    # Tingyun Messenger Buff
-    for character in [ClaraCharacter, HanabiCharacter, FuxuanCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
+    ClaraCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(ClaraCharacter)
     TingyunCharacter.applyUltBuff(ClaraCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/ClaraCharacter.getTotalStat('SPD'))
+    ClaraCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20)
+    ClaraCharacter.addStat('ATK.percent',description='Lushaka Tingyun',amount=0.12)
     
     # Fu Xuan Buffs
     FuxuanCharacter.applySkillBuff(team)
