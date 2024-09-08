@@ -7,16 +7,13 @@ from characters.hunt.ImaginaryMarch import ImaginaryMarch
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
-from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.hunt.CruisingInTheStellarSea import CruisingInTheStellarSea
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.RutilantArena import RutilantArena
-from relicSets.relicSets.HunterOfGlacialForest import HunterOfGlacialForest2pc, HunterOfGlacialForest4pc
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
-from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
-from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
+from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
+from relicSets.relicSets.ScholarLostInErudition import ScholarLostInErudition2pc, ScholarLostInErudition4pc
 from relicSets.relicSets.WastelanderOfBanditryDesert import WastelanderOfBanditryDesert2pc, WastelanderOfBanditryDesert4pc
 
 def JingliuBronyaMarchLuocha(config):
@@ -25,7 +22,7 @@ def JingliuBronyaMarchLuocha(config):
     JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
                         substats = {'CR': 12, 'CD': 6, 'SPD.flat': 7, 'ATK.percent': 3}),
                         lightcone = OnTheFallOfAnAeon(**config),
-                        relicsetone = HunterOfGlacialForest2pc(), relicsettwo = HunterOfGlacialForest4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
+                        relicsetone = ScholarLostInErudition2pc(), relicsettwo = ScholarLostInErudition4pc(), planarset = RutilantArena(uptime=0.0),
                         **config)
 
     MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.imaginary'],
@@ -40,13 +37,13 @@ def JingliuBronyaMarchLuocha(config):
     BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'ER'],
                         substats = {'CD': 10, 'SPD.flat': 10, 'HP.percent': 5, 'DEF.percent': 3}),
                         lightcone = PastAndFuture(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                         **config)
 
     LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
                         substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                         lightcone = Multiplication(**config),
-                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
     team = [JingliuCharacter, BronyaCharacter, MarchCharacter, LuochaCharacter]
@@ -61,16 +58,13 @@ def JingliuBronyaMarchLuocha(config):
     for character in [JingliuCharacter, MarchCharacter, LuochaCharacter]:
         character.addStat('CD',description='Broken Keel Bronya',amount=0.10)
 
-    # Messenger 4 pc Bronya
-    for character in [JingliuCharacter, MarchCharacter, LuochaCharacter]: # uptime 1.0 because bronya casts every 4 jingliu turns
-        character.addStat('SPD.percent',description='Messenger 4 pc Bronya',amount=0.12,uptime=1.0/4.0)
-
     # March Buff
     MarchCharacter.applySkillBuff(JingliuCharacter)
     MarchCharacter.applyTalentBuff(JingliuCharacter,uptime=0.5)
         
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
+    JingliuCharacter.addStat('CD',description='Sacerdos Bronya',amount=0.2)
 
     #%% Print Statements
     for character in team:

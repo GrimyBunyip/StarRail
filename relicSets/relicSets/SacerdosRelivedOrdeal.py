@@ -17,7 +17,7 @@ class SacerdosRelivedOrdeal4pc(RelicSet):
     def __init__(self,
                 graphic:str='',
                 shortname:str='Sacerdos 4pc',
-                uptime = 1.0/3.0,
+                uptime = 0.2,
                 **config):
         self.graphic = graphic
         self.shortname = shortname
