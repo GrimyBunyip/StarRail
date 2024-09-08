@@ -16,8 +16,8 @@ class BrokenKeel(RelicSet):
                                 amount=0.10)
         
         def applyTeamBuff(team):
-            for char in team:
-                char.addStat('CD',description=f'{self.shortname} from {char.name}',
+            for targetChar in team:
+                targetChar.addStat('CD',description=f'{self.shortname} from {char.name}',
                              amount=0.10,
                              uptime=self.uptime)
                 

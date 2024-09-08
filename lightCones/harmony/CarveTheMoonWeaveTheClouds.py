@@ -12,16 +12,16 @@ class CarveTheMoonWeaveTheClouds(BaseLightCone):
         self.addStats(char)
         if char.path == self.path:
             def applyTeamBuff(team):
-                for char in team:
-                    char.addStat('ATK.percent',
+                for targetChar in team:
+                    targetChar.addStat('ATK.percent',
                                 description=f'{self.shortname} from {char.name}',
                                 amount=0.075 + 0.025 * self.superposition,
                                 uptime=1.0/3.0)
-                    char.addStat('CD',
+                    targetChar.addStat('CD',
                                 description=f'{self.shortname} from {char.name}',
                                 amount=0.09 + 0.03 * self.superposition,
                                 uptime=1.0/3.0)
-                    char.addStat('ER',
+                    targetChar.addStat('ER',
                                 description=f'{self.shortname} from {char.name}',
                                 amount=0.045 + 0.015 * self.superposition,
                                 uptime=1.0/3.0)

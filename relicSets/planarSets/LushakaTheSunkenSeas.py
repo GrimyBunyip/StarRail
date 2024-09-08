@@ -14,8 +14,8 @@ class LushakaTheSunkenSeas(RelicSet):
                                 amount=0.05)
         
         def applyTeamBuff(team):
-            char = team[0]
-            char.addStat('ATK.percent',
+            targetChar = team[0]
+            targetChar.addStat('ATK.percent',
                             description=f'{self.shortname} from {char.name}',
                             amount=0.12,)
                 

@@ -102,11 +102,8 @@ def FeixiaoMarchRobinAventurine(config,
     team = [MarchCharacter, FeixiaoCharacter, RobinCharacter, AventurineCharacter]
 
     #%% March Feixiao Robin Aventurine Team Buffs
-        
-    if RobinCharacter.lightcone.name == 'Poised to Bloom':
-        for character in [FeixiaoCharacter, MarchCharacter]:
-            character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
-    elif RobinCharacter.lightcone.name == 'Flowing Nightglow':
+
+    if RobinCharacter.lightcone.name == 'Flowing Nightglow':
         RobinCharacter.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition)
         for character in team:
             if character.name is not 'Robin':

@@ -54,8 +54,6 @@ def DrRatioTopazRobinAventurine(config,
     team = [DrRatioCharacter, TopazCharacter, RobinCharacter, AventurineCharacter]
 
     #%% DrRatio Topaz Robin Aventurine Team Buffs
-    for character in [TopazCharacter, DrRatioCharacter]:
-        character.addStat('CD',description='Poised to Bloom',amount=0.12+0.04*RobinCharacter.lightcone.superposition)
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)

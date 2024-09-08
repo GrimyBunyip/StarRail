@@ -16,8 +16,8 @@ class FleetOfTheAgeless(RelicSet):
                      amount=0.12)
         
         def applyTeamBuff(team):
-            for char in team:
-                char.addStat('ATK.percent',description=f'{self.shortname} from {char.name}',
+            for targetChar in team:
+                targetChar.addStat('ATK.percent',description=f'{self.shortname} from {char.name}',
                              amount=0.08)
                 
         char.teamBuffList.append(applyTeamBuff)

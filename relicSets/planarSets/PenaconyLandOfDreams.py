@@ -14,8 +14,8 @@ class PenaconyLandOfDreams(RelicSet):
                                 amount=0.05)
         
         def applyTeamBuff(team):
-            for char in team:
-                char.addStat(f'DMG.{char.element}',
+            for targetChar in team:
+                targetChar.addStat(f'DMG.{char.element}',
                              description=f'{self.shortname} from {char.name}',
                              amount=0.10,)
                 
