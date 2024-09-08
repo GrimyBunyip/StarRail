@@ -10,11 +10,11 @@ from lightCones.erudition.GeniusesRepose import GeniusesRepose
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from relicSets.planarSets.BrokenKeel import BrokenKeel
+from relicSets.planarSets.LushakaTheSunkenSeas import LushakaTheSunkenSeas
 from relicSets.planarSets.RutilantArena import RutilantArena
-from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
-from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
+from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 
 def ArgentiHanabiTingyunHuohuo(config):
     #%% Argenti Hanabi Tingyun Huohuo Characters
@@ -27,20 +27,20 @@ def ArgentiHanabiTingyunHuohuo(config):
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                         substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
                         lightcone = PastAndFuture(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                         **config)
 
     TingyunCharacter = Tingyun(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ATK.percent', 'ER'],
                         substats = {'ATK.percent': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                         lightcone = MemoriesOfThePast(**config),
-                        relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = SprightlyVonwacq(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = LushakaTheSunkenSeas(),
                         benedictionTarget=ArgentiCharacter,
                         **config)
 
     HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
                         substats = {'HP.percent': 7, 'SPD.flat': 12, 'HP.flat': 3, 'RES': 6}),
                         lightcone = PostOpConversation(**config),
-                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
     team = [ArgentiCharacter, HanabiCharacter, TingyunCharacter, HuohuoCharacter]
@@ -55,19 +55,12 @@ def ArgentiHanabiTingyunHuohuo(config):
 
     # Past and Future
     ArgentiCharacter.addStat('DMG',description='Past and Future',amount=0.32)
-
-    # Hanabi Messenger 4 pc
-    for character in [ArgentiCharacter, TingyunCharacter, HuohuoCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/2.75) # let's say half the time, huohuo can shave off a turn
-        
-    # Tingyun Messenger 4 pc
-    for character in [ArgentiCharacter, HanabiCharacter, HuohuoCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/2.75) # let's say half the time, huohuo can shave off a turn
     
     # Hanabi Buffs, max skill uptime
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=ArgentiCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/2.75) # let's say half the time huohuo can shave off a turn
+    ArgentiCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20)
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([TingyunCharacter,HanabiCharacter],uptime=2.0/4.0)
@@ -76,6 +69,8 @@ def ArgentiHanabiTingyunHuohuo(config):
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(ArgentiCharacter)
     TingyunCharacter.applyUltBuff(ArgentiCharacter,tingRotationDuration=2.75)  # let's say half the time, huohuo can shave off a turn
+    ArgentiCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20)
+    ArgentiCharacter.addStat('ATK.percent',description='Lushaka Tingyun',amount=0.12)
     
     #%% Print Statements
     for character in team:
