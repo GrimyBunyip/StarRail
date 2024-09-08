@@ -128,6 +128,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(MarchBronyaRobinGallagher(config))
 # visualizationList.append(MarchTopazRobinAventurine(config))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config))
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
 
 # low dps teams
@@ -275,42 +276,23 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # # Robin Teams
 
-# to do:
-# e2 robin teams
-# feixiao march bronya
-# er rope march
-
-# visualizationList.append(MarchTopazRobinAventurine(config))
-# visualizationList.append(FeixiaoMarchRobinAventurine(config))
-
 # Feixiao Teams
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, feixiaoSuperposition=1))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, feixiaoSuperposition=1, feixiaoLightCone='InTheNight'))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, feixiaoSuperposition=1, feixiaoLightCone='BaptismOfPureThought'))
-# visualizationList.append(FeixiaoTopazMozeAventurine(config))
-# visualizationList.append(FeixiaoMarchMozeAventurine(config))
-# visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=0))
+visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=0))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=0, robinLightCone='CarveTheMoonWeaveTheClouds'))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=0, robinLightCone='ForTomorrowsJourney'))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=0, robinLightCone='FlowingNightglow'))
-visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2, feixiaoLightCone='IVentureForthToHunt'))
-# visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2))
+# visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2, feixiaoLightCone='IVentureForthToHunt'))
+visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=0))
 # visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=0, robinLightCone='CarveTheMoonWeaveTheClouds'))
 # visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=0, robinLightCone='ForTomorrowsJourney'))
 # visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=0, robinLightCone='FlowingNightglow'))
-# visualizationList.append(FeixiaoMarchRobinGallagher(config))
-# visualizationList.append(FeixiaoMarchRobinLynx(config, robinEidolon=2))
 
 # the old guard
-# visualizationList.append(MarchBronyaRobinGallagher(config))
-# visualizationList.append(DrRatioTopazRobinAventurine(config))
-# visualizationList.append(DrRatioTopazRobinAventurine(config, DrRatioSuperposition=1))
 # visualizationList.append(MarchTopazRobinAventurine(config))
-
-# Retire these teams for various reasons
-# visualizationList.append(FeixiaoBronyaTopazLingsha(config))
-# visualizationList.append(FeixiaoMarchTopazAventurine(config))
 
 # # Xueyi Teams
 # # visualizationList.append(XueyiHanabiTingyunFuxuan(config,breakRatio=1.0))

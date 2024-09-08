@@ -66,7 +66,7 @@ def FeixiaoMarchRobinAventurine(config,
     if robinEidolon is not None and robinEidolon >= 2:
         MarchSubstats['SPD.flat'] += 2
         MarchSubstats['CD'] -= 2
-    MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.imaginary'],
+    MarchCharacter = ImaginaryMarch(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ATK.percent'],
                                     substats = MarchSubstats),
                                     lightcone = MarchLightCone,
                                     relicsetone = MusketeerOfWildWheat2pc(),
@@ -130,6 +130,9 @@ def FeixiaoMarchRobinAventurine(config,
     RobinCharacter.applySkillBuff(team)
 
     RobinCharacter.applyUltBuff([FeixiaoCharacter, MarchCharacter,AventurineCharacter],uptime=RobinUltUptime)
+    # assume feixiao buff has 100% uptime
+    if RobinUltUptime < 1.0:
+        RobinCharacter.applyUltBuff([FeixiaoCharacter], uptime=1.0-RobinUltUptime)
 
     #%% Print Statements
     for character in team:
@@ -161,8 +164,8 @@ def FeixiaoMarchRobinAventurine(config,
     RobinRotationMarch = [RobinCharacter.useTalent() * (2.0 * numBasicMarch + numEnhancedMarch + 1.0)]
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['basic']) * numBasicMarch * RobinUltUptime]
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['basic','enhancedBasic']) * numEnhancedMarch * RobinUltUptime]
-    RobinRotationMarch += [RobinCharacter.useConcertoDamage(['ultimate']) * RobinUltUptime]
     RobinRotationMarch += [RobinCharacter.useConcertoDamage(['followup']) * numFollowupMarch * RobinUltUptime]
+    RobinRotationMarch += [RobinCharacter.useConcertoDamage(['ultimate']) * RobinUltUptime]
 
     numBasicAventurine = 4.0
     numTalentAventurine = 4.0 # stacks from ultimate
@@ -206,7 +209,7 @@ def FeixiaoMarchRobinAventurine(config,
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['basic']) * numBasicFeixiao * RobinUltUptime]
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['skill']) * numSkillFeixiao * RobinUltUptime]
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['followup']) * numFollowupFeixiao * RobinUltUptime]
-    RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['ultimate','followup']) * RobinUltUptime]
+    RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['ultimate','followup'])] # assume we bank feixiao ults for robin uptime
 
     #%% March Feixiao Robin Aventurine Rotation Math
 

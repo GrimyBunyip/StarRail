@@ -211,7 +211,7 @@ def FeixiaoTopazRobinAventurine(config,
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['basic']) * numBasicFeixiao * RobinUltUptime]
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['skill']) * numSkillFeixiao * RobinUltUptime]
     RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['followup']) * numFollowupFeixiao * RobinUltUptime]
-    RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['ultimate','followup']) ] # assume we bank feixiao ults for robin uptime
+    RobinRotationFeixiao += [RobinCharacter.useConcertoDamage(['ultimate','followup'])] # assume we bank feixiao ults for robin uptime
 
     #%% Topaz Feixiao Robin Aventurine Rotation Math
 
