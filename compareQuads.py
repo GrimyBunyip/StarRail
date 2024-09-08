@@ -64,9 +64,9 @@ visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
 visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
 visualizationList.append(LunaeHanabiTingyunGallagher(config))
 # visualizationList.append(MarchBronyaRobinGallagher(config))
-# visualizationList.append(MarchTopazRobinAventurine(config))
-# visualizationList.append(DrRatioTopazRobinAventurine(config))
-# visualizationList.append(FeixiaoTopazRobinAventurine(config))
+visualizationList.append(MarchTopazRobinAventurine(config))
+visualizationList.append(DrRatioTopazRobinAventurine(config))
+visualizationList.append(FeixiaoTopazRobinAventurine(config))
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
 
 # # Acheron Teams
