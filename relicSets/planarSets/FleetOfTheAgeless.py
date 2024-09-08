@@ -10,15 +10,14 @@ class FleetOfTheAgeless(RelicSet):
         self.graphic = graphic
         self.shortname = shortname
         self.uptime = uptime
+
+    def equipTo(self, char:BaseCharacter):
+        char.addStat('HP.percent',description=self.shortname,
+                     amount=0.12)
         
         def applyTeamBuff(team):
             for char in team:
-                char.addStat('ATK.percent',description=self.shortname,
+                char.addStat('ATK.percent',description=f'{self.shortname} from {char.name}',
                              amount=0.08)
                 
-        self.applyTeamBuff = applyTeamBuff
-
-    def equipTo(self, char:BaseCharacter):
-        char.teamBuffList.append(self.applyTeamBuff)
-        char.addStat('HP.percent',description=self.shortname,
-                     amount=0.12)
+        char.teamBuffList.append(applyTeamBuff)
