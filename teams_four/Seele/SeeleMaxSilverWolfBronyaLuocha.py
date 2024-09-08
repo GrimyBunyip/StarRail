@@ -47,9 +47,6 @@ def SeeleMaxSilverWolfBronyaLuocha(config):
 
     #%% Seele MAX Silver Wolf Bronya Luocha Team Buffs
 
-    for character in [SilverWolfCharacter, SeeleCharacter, LuochaCharacter]:
-        character.addStat('DMG.quantum',description='Penacony from Silver Wolf',amount=0.1)
-
     # Silver Wolf Debuffs
     # handle this separately for seele, assume it doesn't apply to her basics
     SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, BronyaCharacter, LuochaCharacter],targetingUptime=1.0) 

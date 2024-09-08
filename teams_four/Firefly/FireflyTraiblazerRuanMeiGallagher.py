@@ -7,13 +7,11 @@ from characters.harmony.RuanMei import RuanMei
 from characters.harmony.ImaginaryTrailblazer import ImaginaryTrailblazer
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
-from lightCones.destruction.IndeliblePromise import IndeliblePromise
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.destruction.WhereaboutsShouldDreamsRest import WhereaboutsShouldDreamsRest
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
-from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.relicSets.IronCavalryAgainstTheScourge import IronCavalryAgainstTheScourge2pc, IronCavalryAgainstTheScourge4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
@@ -48,14 +46,12 @@ def FireflyTrailblazerRuanMeiGallagher(config,
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
                                     substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
                                     lightcone = Multiplication(**config),
-                                    relicsetone = IronCavalryAgainstTheScourge2pc(), relicsettwo = IronCavalryAgainstTheScourge4pc(), planarset = PenaconyLandOfDreams(),
+                                    relicsetone = IronCavalryAgainstTheScourge2pc(), relicsettwo = IronCavalryAgainstTheScourge4pc(), planarset = SprightlyVonwacq(),
                                     **config)
     
     team = [FireflyCharacter, TrailblazerCharacter, RuanMeiCharacter, GallagherCharacter]
 
     #%% Firefly Trailblazer RuanMei Gallagher Team Buffs
-    for character in team:
-        character.addStat('DMG.fire',description='Penacony from Gallagher',amount=0.1)
     for character in team:
         character.addStat('BreakEffect',description='Watchmaker 4pc', amount=0.30, uptime=0.66)
 

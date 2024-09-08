@@ -59,12 +59,10 @@ def YunliTingyunHanabiLynx(config):
     TingyunCharacter.applySkillBuff(YunliCharacter)
     TingyunCharacter.applyUltBuff(YunliCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/YunliCharacter.getTotalStat('SPD'))
     YunliCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20)
-    YunliCharacter.addStat('ATK.percent',description='Lushaka Tingyun',amount=0.12)
 
     # Lynx Buffs    
     LynxBuffUptime = LynxCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD') / 3.0
     LynxCharacter.applySkillBuff(YunliCharacter,uptime=LynxBuffUptime)
-    YunliCharacter.addStat('CD',description='Sacerdos Lynx',amount=0.20,uptime=2.0/3.0)
 
     #%% Team Buffs and Print Statements
     for character in team:

@@ -65,7 +65,6 @@ def ArgentiHanabiTingyunHuohuo(config):
     TingyunCharacter.applySkillBuff(ArgentiCharacter)
     TingyunCharacter.applyUltBuff(ArgentiCharacter,tingRotationDuration=2.75)  # let's say half the time, huohuo can shave off a turn
     ArgentiCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20)
-    ArgentiCharacter.addStat('ATK.percent',description='Lushaka Tingyun',amount=0.12)
     
     #%% Team Buffs and Print Statements
     for character in team:

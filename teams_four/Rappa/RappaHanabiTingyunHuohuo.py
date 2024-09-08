@@ -67,7 +67,6 @@ def RappaHanabiTingyunHuohuo(config):
     TingyunCharacter.applySkillBuff(RappaCharacter)
     TingyunCharacter.applyUltBuff(RappaCharacter,tingRotationDuration=2.75)  # let's say half the time, huohuo can shave off a turn
     RappaCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20)
-    RappaCharacter.addStat('ATK.percent',description='Lushaka Tingyun',amount=0.12)
     
     #%% Team Buffs and Print Statements
     for character in team:

@@ -12,5 +12,11 @@ class PenaconyLandOfDreams(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('ER',description=self.shortname,
                                 amount=0.05)
-        char.addStat('DMG',description=self.shortname,
-                                amount=0.10)
+        
+        def applyTeamBuff(team):
+            for char in team:
+                char.addStat(f'DMG.{char.element}',
+                             description=f'{self.shortname} from {char.name}',
+                             amount=0.10,)
+                
+        char.teamBuffList.append(applyTeamBuff)

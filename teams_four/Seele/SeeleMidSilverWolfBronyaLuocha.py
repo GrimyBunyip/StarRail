@@ -47,9 +47,6 @@ def SeeleMidSilverWolfBronyaLuocha(config):
 
     #%% Seele MID Silver Wolf Bronya Team Buffs
 
-    for character in [SeeleCharacter, BronyaCharacter, LuochaCharacter]:
-        character.addStat('DMG.quantum',description='Penacony from Silver Wolf',amount=0.1)
-
     # Silver Wolf Debuffs
     # handle this separately for seele, assume it doesn't apply to her basics
     SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, BronyaCharacter, LuochaCharacter])

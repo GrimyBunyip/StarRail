@@ -61,11 +61,9 @@ def LunaeHanabiTingyunGallagher(config):
     TingyunCharacter.applySkillBuff(LunaeCharacter)
     TingyunCharacter.applyUltBuff(LunaeCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/LunaeCharacter.getTotalStat('SPD'))
     LunaeCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20)
-    LunaeCharacter.addStat('ATK.percent',description='Lushaka Tingyun',amount=0.12)
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
-    LunaeCharacter.addStat('ATK.percent',description='Lushaka Gallagher',amount=0.12)
 
     #%% Team Buffs and Print Statements
     for character in team:

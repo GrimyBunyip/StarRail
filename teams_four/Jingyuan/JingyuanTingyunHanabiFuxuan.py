@@ -49,8 +49,6 @@ def JingyuanTingyunHanabiFuxuan(config):
     team = [JingYuanCharacter, TingyunCharacter, HanabiCharacter, FuxuanCharacter]
 
     #%% JingYuan Tingyun Hanabi Fuxuan Team Buffs
-    for character in [JingYuanCharacter, HanabiCharacter, FuxuanCharacter]:
-        character.addStat('DMG.lightning',description='Penacony from Tingyun',amount=0.1)
 
     # Hanabi Buffs
     HanabiCharacter.applyTraceBuff(team=team)

@@ -72,7 +72,6 @@ def AcheronE2BronyaPelaGallagher(config, acheronSuperposition:int=0):
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
-    AcheronCharacter.addStat('ATK.percent',description='Lushaka Gallagher',amount=0.12)
       
     #%% Team Buffs and Print Statements
     for character in team:

@@ -48,11 +48,6 @@ def SeeleMaxSilverWolfRuanMeiFuxuan(config):
     team = [SeeleCharacter, SilverWolfCharacter, RuanMeiCharacter, FuxuanCharacter]
 
     #%% Seele MID Silver Wolf RuanMei Team Buffs
-        
-    for character in [SilverWolfCharacter, SeeleCharacter, RuanMeiCharacter]:
-        character.addStat('DMG.quantum',description='Penacony from Fuxuan',amount=0.1)
-    for character in [SeeleCharacter, RuanMeiCharacter, FuxuanCharacter]:
-        character.addStat('DMG.quantum',description='Penacony from Silver Wolf',amount=0.1)
 
     # Silver Wolf Debuffs
     # handle this separately for seele, assume it doesn't apply to her basics

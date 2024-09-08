@@ -51,9 +51,6 @@ def JingliuBronyaRuanMeiGallagher(config):
     #%% Jingliu Bronya RuanMei Gallagher Team Buffs
     # only enhanced skills have rutilant arena buff
     JingliuCharacter.addStat('DMG',description='Rutilant Arena', amount=0.20, type=['enhancedSkill']) # take care of rutilant arena manually
-        
-    for character in [JingliuCharacter, BronyaCharacter, GallagherCharacter]:
-        character.addStat('DMG.ice',description='Penacony Ruan Mei',amount=0.10)
 
     # RuanMei Buffs, 3 turn RuanMei rotation
     RuanMeiCharacter.applyWeaknessModifiers(team=team)
@@ -67,7 +64,6 @@ def JingliuBronyaRuanMeiGallagher(config):
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
-    JingliuCharacter.addStat('ATK.percent',description='Lushaka Gallagher',amount=0.12)
 
     #%% Team Buffs and Print Statements
     for character in team:

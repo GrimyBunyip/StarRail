@@ -12,4 +12,11 @@ class LushakaTheSunkenSeas(RelicSet):
     def equipTo(self, char:BaseCharacter):
         char.addStat('ER',description=self.shortname,
                                 amount=0.05)
-        # second effect not implemented
+        
+        def applyTeamBuff(team):
+            char = team[0]
+            char.addStat('ATK.percent',
+                            description=f'{self.shortname} from {char.name}',
+                            amount=0.12,)
+                
+        char.teamBuffList.append(applyTeamBuff)

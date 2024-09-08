@@ -13,14 +13,10 @@ from lightCones.nihility.ResolutionShinesAsPearlsOfSweat import ResolutionShines
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.LushakaTheSunkenSeas import LushakaTheSunkenSeas
-from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
-from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
-from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc
 from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc
-from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
 def AcheronGuinaifenPelaGallagher(config, acheronSuperposition:int=0):
     #%% Acheron Silver Wolf Pela Gallagher Characters
@@ -35,7 +31,7 @@ def AcheronGuinaifenPelaGallagher(config, acheronSuperposition:int=0):
     GuinaifenCharacter = Guinaifen(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'ER', 'DMG.fire'],
                             substats = {'ATK.percent': 8, 'SPD.flat': 12, 'EHR': 4, 'BreakEffect': 4}),
                             lightcone = BeforeTheTutorialMissionStarts(**config),
-                            relicsetone = Pioneer2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = PenaconyLandOfDreams(),
+                            relicsetone = Pioneer2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = LushakaTheSunkenSeas(),
                             firekissStacks=2.0,
                             **config)
 
@@ -72,7 +68,6 @@ def AcheronGuinaifenPelaGallagher(config, acheronSuperposition:int=0):
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
-    AcheronCharacter.addStat('ATK.percent',description='Lushaka Gallagher',amount=0.12)
         
     #%% Team Buffs and Print Statements
     for character in team:
