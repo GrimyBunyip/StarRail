@@ -7,6 +7,7 @@ from characters.harmony.Hanabi import Hanabi
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.PostOpConversation import PostOpConversation
 from lightCones.erudition.GeniusesRepose import GeniusesRepose
+from lightCones.erudition.TodayIsAnotherPeacefulDay import TodayIsAnotherPeacefulDay
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from relicSets.planarSets.BrokenKeel import BrokenKeel
@@ -20,7 +21,7 @@ def ArgentiHanabiTingyunHuohuo(config):
     #%% Argenti Hanabi Tingyun Huohuo Characters
     ArgentiCharacter = Argenti(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
                         substats = {'CR': 8, 'CD': 12, 'ATK.flat': 3, 'ATK.percent': 5}),
-                        lightcone =  GeniusesRepose(**config),
+                        lightcone =  TodayIsAnotherPeacefulDay(**config),
                         relicsetone = ChampionOfStreetwiseBoxing2pc(), relicsettwo = ChampionOfStreetwiseBoxing4pc(uptime=0.4), planarset = RutilantArena(),
                         **config)
     

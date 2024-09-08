@@ -7,19 +7,13 @@ from characters.harmony.Tingyun import Tingyun
 from characters.harmony.Hanabi import Hanabi
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.PostOpConversation import PostOpConversation
-from lightCones.erudition.GeniusesRepose import GeniusesRepose
 from lightCones.erudition.TodayIsAnotherPeacefulDay import TodayIsAnotherPeacefulDay
-from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
 from relicSets.planarSets.BrokenKeel import BrokenKeel
-from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
-from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.planarSets.TheWondrousBananAmusementPark import TheWondrousBananAmusementPark
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
-from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 
 def JingYuanHanabiTingyunHuohuo(config):

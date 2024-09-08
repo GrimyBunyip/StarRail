@@ -6,21 +6,13 @@ from characters.destruction.Yunli import Yunli
 from characters.harmony.Tingyun import Tingyun
 from characters.harmony.Hanabi import Hanabi
 from estimator.DefaultEstimator import DefaultEstimator
-from lightCones.abundance.Multiplication import Multiplication
-from lightCones.abundance.PostOpConversation import PostOpConversation
 from lightCones.abundance.QuidProQuo import QuidProQuo
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
-from lightCones.preservation.DayOneOfMyNewLife import DayOneOfMyNewLife
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.LushakaTheSunkenSeas import LushakaTheSunkenSeas
-from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
-from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseBoxing2pc, ChampionOfStreetwiseBoxing4pc
-from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
-from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, WindSoaringValorous4pc
 

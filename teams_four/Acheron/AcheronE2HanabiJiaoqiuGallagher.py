@@ -14,12 +14,9 @@ from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
 from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.LushakaTheSunkenSeas import LushakaTheSunkenSeas
-from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
-from relicSets.relicSets.FiresmithOfLavaForging import FiresmithOfLavaForging2pc
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
-from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
 def AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuEidolon:int=None):
     #%% Acheron Hanabi Jiaoqiu Gallagher Characters

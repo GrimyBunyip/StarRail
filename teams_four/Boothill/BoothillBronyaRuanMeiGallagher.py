@@ -6,19 +6,14 @@ from characters.harmony.Bronya import Bronya
 from characters.harmony.RuanMei import RuanMei
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
-from lightCones.destruction.ASecretVow import ASecretVow
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
-from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
 from lightCones.hunt.Swordplay import Swordplay
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
-from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
 from relicSets.planarSets.TaliaKingdomOfBanditry import TaliaKingdomOfBanditry
-from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, LongevousDisciple4pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
-from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
 def BoothillBronyaRuanMeiGallagher(config):
