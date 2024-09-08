@@ -17,7 +17,7 @@ from teams_four.Clara.ClaraTingyunHanabiFuxuan import ClaraTingyunHanabiFuxuan
 from teams_four.DotTeams.KafkaS1RobinBlackSwanGallagher import KafkaS1RobinBlackSwanGallagher
 from teams_four.Firefly.FireflyTraiblazerRuanMeiGallagher import FireflyTrailblazerRuanMeiGallagher
 from teams_four.Firefly.FireflyTraiblazerRuanMeiLingsha import FireflyTrailblazerRuanMeiLingsha
-from teams_four.Jingliu.JingliuBronyaRuanMeiLuocha import JingliuBronyaRuanMeiLuocha
+from teams_four.Jingliu.JingliuBronyaRuanMeiGallagher import JingliuBronyaRuanMeiGallagher
 from teams_four.Jingyuan.JingyuanHanabiTingyunHuohuo import JingYuanHanabiTingyunHuohuo
 from teams_four.Jingyuan.JingyuanTingyunHanabiFuxuan import JingyuanTingyunHanabiFuxuan
 from teams_four.DotTeams.KafkaGuinaifenBlackSwanLuocha import KafkaGuinaifenBlackSwanLuocha
@@ -60,10 +60,9 @@ visualizationList.append(YunliHanabiRobinHuohuo(config))
 # # Team Comparisons
 visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 visualizationList.append(BladeBronyaJadeLuocha(config))
-visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+visualizationList.append(JingliuBronyaRuanMeiGallagher(config))
 visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
 visualizationList.append(LunaeHanabiTingyunGallagher(config))
-# visualizationList.append(MarchBronyaRobinGallagher(config))
 visualizationList.append(MarchTopazRobinAventurine(config))
 visualizationList.append(DrRatioTopazRobinAventurine(config))
 visualizationList.append(FeixiaoTopazRobinAventurine(config))
@@ -97,39 +96,14 @@ visualizationList.append(FeixiaoTopazRobinAventurine(config))
 # visualizationList.append(BoothillBronyaRuanMeiGallagher(config))
 
 # Clara Teams
-# visualizationList.append(ClaraS1TingyunHanabiFuxuan(config))
-# visualizationList.append(ClaraE1TingyunHanabiFuxuan(config))
-# visualizationList.append(ClaraE3S1TingyunHanabiFuxuan(config))
-
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-# visualizationList.append(ClaraTingyunRobinHuohuo(config))
-# visualizationList.append(ClaraTingyunHanabiHuohuo(config))
-# visualizationList.append(ClaraTingyunHanabiAventurine(config))
-# visualizationList.append(ClaraTingyunHanabiLuocha(config))
-# # visualizationList.append(ClaraTingyunRuanMeiFuxuan(config))
-# # visualizationList.append(ClaraTingyunRuanMeiLuocha(config))
-# # visualizationList.append(ClaraTingyunHanyaLuocha(config))
-# visualizationList.append(ClaraTopazAstaLuocha(config))
-# visualizationList.append(ClaraTopazHanyaLuocha(config))
-# # # visualizationList.append(ClaraTingyunPelaLuocha(config))
-# visualizationList.append(ClaraTingyunTopazLuocha(config))
-# # # visualizationList.append(ClaraSilverWolfPelaLuocha(config))
-# # # visualizationList.append(ClaraTingyunHanabiFuxuanEscapade(config))
 
 # # Firefly Teams
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
-# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=2))
-# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=2, fireflySuperposition=1))
 # visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config))
-# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2))
-# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2,lingshaSuperposition=1))
-# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2,lingshaEidolon=1))
-# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2,lingshaEidolon=2))
-# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2,lingshaEidolon=2,lingshaSuperposition=1))
-# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=2, fireflySuperposition=1))
 
 # # Jingliu Teams
-# visualizationList.append(JingliuBronyaRuanMeiLuocha(config))
+# visualizationList.append(JingliuBronyaRuanMeiGallagher(config))
 
 # # Jingyuan Teams
 # visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
@@ -147,21 +121,7 @@ visualizationList.append(FeixiaoTopazRobinAventurine(config))
 # # S1 Teams
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config, kafkaSuperposition=True))
 # visualizationList.append(KafkaS1RuanMeiBlackSwanLuocha(config))
-# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,kafkaSuperposition=True))
 # visualizationList.append(KafkaS1RobinBlackSwanGallagher(config))
-
-# # E2 Jiaoqiu Teams
-# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,kafkaSuperposition=True,jiaoqiuEidolon=2))
-# visualizationList.append(KafkaJiaoqiuBlackSwanLuocha(config,jiaoqiuEidolon=2))
-
-# # Seele Teams
-# visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
-# # visualizationList.append(SeeleMaxSilverWolfTingyunFuxuan(config))
-# # visualizationList.append(SeeleMaxSilverWolfRuanMeiFuxuan(config))
-# # visualizationList.append(SeeleMaxSilverWolfBronyaLuocha(config))
-# # visualizationList.append(SeeleMidSilverWolfBronyaLuocha(config))
-# # visualizationList.append(SeeleMidSilverWolfBronyaFuxuan(config))
-# # visualizationList.append(SeeleNoneSilverWolfHanabiLuocha(config))
 
 # # Robin Teams
 

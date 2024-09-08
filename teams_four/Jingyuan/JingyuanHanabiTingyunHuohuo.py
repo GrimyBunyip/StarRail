@@ -46,7 +46,7 @@ def JingYuanHanabiTingyunHuohuo(config):
     HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
                         substats = {'HP.percent': 7, 'SPD.flat': 12, 'HP.flat': 3, 'RES': 6}),
                         lightcone = PostOpConversation(**config),
-                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                         **config)
     
     team = [JingYuanCharacter, HanabiCharacter, TingyunCharacter, HuohuoCharacter]
@@ -73,6 +73,7 @@ def JingYuanHanabiTingyunHuohuo(config):
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([TingyunCharacter,HanabiCharacter, JingYuanCharacter],uptime=2.0/4.0)
+    JingYuanCharacter.addStat('CD',description='Sacerdos Huohuo',amount=0.20,uptime=2.0/3.0)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(JingYuanCharacter)

@@ -48,8 +48,6 @@ def LunaeHanabiTingyunGallagher(config):
 
     #%% Lunae Hanabi Tingyun Gallagher Team Buffs
     # Penacony Buff
-    for character in [LunaeCharacter, HanabiCharacter, TingyunCharacter]:
-        character.addStat('CD',description='Broken Keel from Gallagher',amount=0.1)
     for character in [LunaeCharacter, GallagherCharacter, TingyunCharacter]:
         character.addStat('CD',description='Broken Keel from Hanabi',amount=0.1)
 
@@ -103,11 +101,13 @@ def LunaeHanabiTingyunGallagher(config):
             TingyunCharacter.useUltimate(),
     ]
 
-    GallagherRotation = [GallagherCharacter.useBasic() * 3,
-                    GallagherCharacter.useUltimate() * 1,
-                    GallagherCharacter.useSkill() * 1,]
-    GallagherRotation[-1].actionvalue = 0.0 #Assume free Gallagher skill cast
-    GallagherRotation[-1].skillpoints = 0.0 #Assume free Gallagher skill cast
+    numBasicGallagher = 4.0
+    numEnhancedGallagher = 1.0
+    GallagherRotation = [GallagherCharacter.useBasic() * numBasicGallagher,
+                         GallagherCharacter.useEnhancedBasic() * numEnhancedGallagher,
+                         GallagherCharacter.useUltimate() * 1,]
+    if GallagherCharacter.lightcone.name == 'Multiplication':
+        GallagherRotation[-1].actionvalue += 0.20 # advance foward cannot exceed a certain amount
 
     #%% Lunae Hanabi Tingyun Gallagher Rotation Math
     totalLunaeEffect = sumEffects(LunaeRotation)
@@ -132,7 +132,7 @@ def LunaeHanabiTingyunGallagher(config):
                                     HanabiRotation, HanabiCharacter, config)
     TingyunEstimate = DefaultEstimator(f'E{TingyunCharacter.eidolon:.0f} Tingyun S{TingyunCharacter.lightcone.superposition:.0f} {TingyunCharacter.lightcone.name}, {numBasicTingyun:.1f}N {numSkillTingyun:.1f}E 1Q, 12 spd substats', 
                                     TingyunRotation, TingyunCharacter, config)
-    GallagherEstimate = DefaultEstimator('Gallagher: 3N 1E 1Q, S{:.0f} {}'.format(GallagherCharacter.lightcone.superposition, GallagherCharacter.lightcone.name), 
+    GallagherEstimate = DefaultEstimator(f'{GallagherCharacter.fullName()} {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q', 
                                     GallagherRotation, GallagherCharacter, config)
 
     return([LunaeEstimate,HanabiEstimate,TingyunEstimate,GallagherEstimate])

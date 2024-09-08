@@ -1,6 +1,6 @@
 from baseClasses.BaseEffect import sumEffects
 from baseClasses.RelicStats import RelicStats
-from characters.abundance.Luocha import Luocha
+from characters.abundance.Gallagher import Gallagher
 from characters.destruction.Jingliu import Jingliu
 from characters.harmony.Bronya import Bronya
 from characters.harmony.RuanMei import RuanMei
@@ -10,6 +10,7 @@ from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from relicSets.planarSets.BrokenKeel import BrokenKeel
+from relicSets.planarSets.LushakaTheSunkenSeas import LushakaTheSunkenSeas
 from relicSets.planarSets.PenaconyLandOfDreams import PenaconyLandOfDreams
 from relicSets.planarSets.RutilantArena import RutilantArena
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
@@ -17,8 +18,8 @@ from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, 
 from relicSets.relicSets.ScholarLostInErudition import ScholarLostInErudition2pc, ScholarLostInErudition4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 
-def JingliuBronyaRuanMeiLuocha(config):
-    #%% Jingliu Bronya RuanMei Luocha Characters
+def JingliuBronyaRuanMeiGallagher(config):
+    #%% Jingliu Bronya RuanMei Gallagher Characters
     
     # do ruan mei first because she needs to alter the enemy speed and toughness uptime
     RuanMeiCharacter = RuanMei(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'DEF.percent', 'ER'],
@@ -28,36 +29,34 @@ def JingliuBronyaRuanMeiLuocha(config):
                         **config)
     
     JingliuCharacter = Jingliu(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.ice'],
-                        substats = {'CR': 12, 'CD': 8, 'SPD.flat': 3, 'ATK.percent': 5}),
+                        substats = {'CR': 10, 'CD': 10, 'SPD.flat': 5, 'ATK.percent': 3}),
                         lightcone = OnTheFallOfAnAeon(**config),
-                        relicsetone = ScholarLostInErudition2pc(), relicsettwo = ScholarLostInErudition4pc(uptime=0.4), planarset = RutilantArena(uptime=0.0),
+                        relicsetone = ScholarLostInErudition2pc(), relicsettwo = ScholarLostInErudition4pc(), planarset = RutilantArena(uptime=0.0),
                         **config)
 
-    BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'HP.percent', 'CD', 'ER'],
-                        substats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
+    BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'ER'],
+                        substats = {'CD': 12, 'SPD.flat': 4, 'HP.percent': 8, 'DEF.percent': 4}),
                         lightcone = PastAndFuture(**config),
                         relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                         **config)
 
-    LuochaCharacter = Luocha(RelicStats(mainstats = ['ER', 'SPD.flat', 'ATK.percent', 'ATK.percent'],
-                        substats = {'ATK.percent': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
-                        lightcone = Multiplication(**config),
-                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
-                        **config)
+    GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
+                            substats = {'BreakEffect': 7, 'SPD.flat': 12, 'HP.percent': 3, 'RES': 6}),
+                            lightcone = Multiplication(**config),
+                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = SacerdosRelivedOrdeal2pc(), planarset = LushakaTheSunkenSeas(),
+                            **config)
     
-    team = [JingliuCharacter, BronyaCharacter, RuanMeiCharacter, LuochaCharacter]
+    team = [JingliuCharacter, BronyaCharacter, RuanMeiCharacter, GallagherCharacter]
 
-    #%% Jingliu Bronya RuanMei Luocha Team Buffs
+    #%% Jingliu Bronya RuanMei Gallagher Team Buffs
     # only enhanced skills have rutilant arena buff
     JingliuCharacter.addStat('DMG',description='Rutilant Arena', amount=0.20, type=['enhancedSkill']) # take care of rutilant arena manually
 
     # Broken Keel and Penacony Buff
-    for character in [JingliuCharacter, BronyaCharacter, RuanMeiCharacter]:
-        character.addStat('CD',description='Broken Keel Luocha',amount=0.10)
-    for character in [JingliuCharacter, RuanMeiCharacter, LuochaCharacter]:
+    for character in [JingliuCharacter, RuanMeiCharacter, GallagherCharacter]:
         character.addStat('CD',description='Broken Keel Bronya',amount=0.10)
         
-    for character in [JingliuCharacter, BronyaCharacter, LuochaCharacter]:
+    for character in [JingliuCharacter, BronyaCharacter, GallagherCharacter]:
         character.addStat('DMG.ice',description='Penacony Ruan Mei',amount=0.10)
 
     # RuanMei Buffs, 3 turn RuanMei rotation
@@ -69,12 +68,16 @@ def JingliuBronyaRuanMeiLuocha(config):
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
     JingliuCharacter.addStat('CD',description='Sacerdos',amount=0.2)
+    
+    # Apply Gallagher Debuff
+    GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
+    JingliuCharacter.addStat('ATK.percent',description='Lushaka Gallagher',amount=0.12)
 
     #%% Print Statements
     for character in team:
         character.print()
 
-    #%% Jingliu Bronya RuanMei Luocha Rotations
+    #%% Jingliu Bronya RuanMei Gallagher Rotations
     BronyaRotation = [BronyaCharacter.useSkill() * 4,
                     BronyaCharacter.useUltimate(),]
 
@@ -111,36 +114,38 @@ def JingliuBronyaRuanMeiLuocha(config):
                        RuanMeiCharacter.useSkill() * numSkillRuanMei,
                     RuanMeiCharacter.useUltimate()]
 
-    LuochaRotation = [LuochaCharacter.useBasic() * 3,
-                    LuochaCharacter.useUltimate() * 1,
-                    LuochaCharacter.useSkill() * 1] 
-    LuochaRotation[-1].actionvalue = 0.0 #Assume free luocha skill cast
-    LuochaRotation[-1].skillpoints = 0.0 #Assume free luocha skill cast
+    numBasicGallagher = 4.0
+    numEnhancedGallagher = 1.0
+    GallagherRotation = [GallagherCharacter.useBasic() * numBasicGallagher,
+                         GallagherCharacter.useEnhancedBasic() * numEnhancedGallagher,
+                         GallagherCharacter.useUltimate() * 1,]
+    if GallagherCharacter.lightcone.name == 'Multiplication':
+        GallagherRotation[-1].actionvalue += 0.20 # advance foward cannot exceed a certain amount
 
-    #%% Jingliu Bronya RuanMei Luocha Rotation Math
+    #%% Jingliu Bronya RuanMei Gallagher Rotation Math
     totalJingliuEffect = sumEffects(JingliuRotation)
     totalBronyaEffect = sumEffects(BronyaRotation)
     totalRuanMeiEffect = sumEffects(RuanMeiRotation)
-    totalLuochaEffect = sumEffects(LuochaRotation)
+    totalGallagherEffect = sumEffects(GallagherRotation)
 
     JingliuRotationDuration = totalJingliuEffect.actionvalue * 100.0 / JingliuCharacter.getTotalStat('SPD')
     BronyaRotationDuration = totalBronyaEffect.actionvalue * 100.0 / BronyaCharacter.getTotalStat('SPD')
     RuanMeiRotationDuration = totalRuanMeiEffect.actionvalue * 100.0 / RuanMeiCharacter.getTotalStat('SPD')
-    LuochaRotationDuration = totalLuochaEffect.actionvalue * 100.0 / LuochaCharacter.getTotalStat('SPD')
+    GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')
     print('Jingliu: ',JingliuRotationDuration)
     print('Bronya: ',BronyaRotationDuration)
     print('Ruan Mei: ',RuanMeiRotationDuration)
-    print('Luocha: ',LuochaRotationDuration)
+    print('Gallagher: ',GallagherRotationDuration)
 
     # scale other character's rotation
     BronyaRotation = [x * JingliuRotationDuration / BronyaRotationDuration for x in BronyaRotation]
     RuanMeiRotation = [x * JingliuRotationDuration / RuanMeiRotationDuration for x in RuanMeiRotation]
-    LuochaRotation = [x * JingliuRotationDuration / LuochaRotationDuration for x in LuochaRotation]
+    GallagherRotation = [x * JingliuRotationDuration / GallagherRotationDuration for x in GallagherRotation]
     
     # calculate total number of breaks for Ruan Mei Talent
-    totalEffect = sumEffects(JingliuRotation + BronyaRotation + RuanMeiRotation + LuochaRotation)
+    totalEffect = sumEffects(JingliuRotation + BronyaRotation + RuanMeiRotation + GallagherRotation)
     numBreaks = totalEffect.gauge * RuanMeiCharacter.weaknessBrokenUptime / RuanMeiCharacter.enemyToughness
     RuanMeiRotation.append(RuanMeiCharacter.useTalent() * numBreaks)
 
@@ -150,7 +155,7 @@ def JingliuBronyaRuanMeiLuocha(config):
                                     BronyaRotation, BronyaCharacter, config)
     RuanMeiEstimate = DefaultEstimator(f'{RuanMeiCharacter.fullName()} {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q', 
                                     RuanMeiRotation, RuanMeiCharacter, config)
-    LuochaEstimate = DefaultEstimator('Luocha: 3N 1E 1Q, S{:.0f} {}'.format(LuochaCharacter.lightcone.superposition, LuochaCharacter.lightcone.name),
-                                    LuochaRotation, LuochaCharacter, config)
+    GallagherEstimate = DefaultEstimator(f'{GallagherCharacter.fullName()} {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q', 
+                                    GallagherRotation, GallagherCharacter, config)
 
-    return([JingliuEstimate, BronyaEstimate, RuanMeiEstimate, LuochaEstimate])
+    return([JingliuEstimate, BronyaEstimate, RuanMeiEstimate, GallagherEstimate])

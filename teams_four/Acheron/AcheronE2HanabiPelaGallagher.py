@@ -53,8 +53,6 @@ def AcheronE2HanabiPelaGallagher(config, acheronSuperposition:int=0):
     team = [AcheronCharacter, HanabiCharacter, PelaCharacter, GallagherCharacter]
 
     #%% Acheron Hanabi Pela Gallagher Team Buffs
-    for character in [HanabiCharacter, AcheronCharacter, PelaCharacter]:
-        character.addStat('CD',description='Broken Keel from Gallagher',amount=0.1)
     for character in [HanabiCharacter, AcheronCharacter, GallagherCharacter]:
         character.addStat('CD',description='Broken Keel from Pela',amount=0.1)
     for character in [PelaCharacter, AcheronCharacter, GallagherCharacter]:

@@ -13,10 +13,10 @@ from lightCones.harmony.ForTomorrowsJourney import ForTomorrowsJourney
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
-from relicSets.relicSets.PasserbyOfWanderingCloud import PasserbyOfWanderingCloud2pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
+from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, WindSoaringValorous4pc
 
 def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int=0):
@@ -34,7 +34,7 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                             substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
                             lightcone = CarveTheMoonWeaveTheClouds(**config),
-                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
+                            relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                             **config)
     
     RobinCharacter = Robin(RelicStats(mainstats = ['ER', 'ATK.percent', 'ATK.percent', 'SPD.flat'],
@@ -46,7 +46,7 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
     HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
                         substats = {'HP.percent': 7, 'SPD.flat': 12, 'HP.flat': 3, 'RES': 6}),
                         lightcone = QuidProQuo(**config),
-                        relicsetone = PasserbyOfWanderingCloud2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                         **config)
     
     team = [YunliCharacter, HanabiCharacter, RobinCharacter, HuohuoCharacter]
@@ -73,13 +73,11 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=YunliCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
-    
-    # Hanabi Messenger 4 pc
-    for character in [YunliCharacter, RobinCharacter, HuohuoCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
+    YunliCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20)
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([HanabiCharacter,RobinCharacter, YunliCharacter],uptime=2.0/4.0)
+    YunliCharacter.addStat('CD',description='Sacerdos Huohuo',amount=0.20,uptime=2.0/3.0)
 
     #%% Print Statements
     for character in team:
