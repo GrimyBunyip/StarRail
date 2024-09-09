@@ -54,9 +54,6 @@ def DrRatioTopazRobinAventurine(config,
     team = [DrRatioCharacter, TopazCharacter, RobinCharacter, AventurineCharacter]
 
     #%% DrRatio Topaz Robin Aventurine Team Buffs
-
-    # Topaz Vulnerability Buff
-    TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
     
     # Dr Ratio Buff
     DrRatioCharacter.applyTalentBuff(team)

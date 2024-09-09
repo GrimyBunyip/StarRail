@@ -14,6 +14,7 @@ class Topaz(BaseCharacter):
                 planarset:RelicSet=None,
                 e1Stacks:float=2.0,
                 eidolon:int=None,
+                debuffUptime:float=1.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Topaz')
@@ -43,15 +44,18 @@ class Topaz(BaseCharacter):
         # Gear
         self.equipGear()
         
-    def applyVulnerabilityDebuff(self,team:list,uptime:float):
-        for character in team:
-            character:BaseCharacter
-            character.addStat('Vulnerability',description='Topaz Skill Debuff',amount=0.55 if self.eidolon >= 3 else 0.5,type=['followup'],uptime=uptime)
-        
-        if self.eidolon >= 1:
+        # Team Buffs
+        def applyVulnerabilityDebuff(self,team:list):
             for character in team:
                 character:BaseCharacter
-                character.addStat('CD',description='Topaz e1',amount=0.25,type=['followup'],stacks=self.e1Stacks)
+                character.addStat('Vulnerability',description='Topaz Skill Debuff',amount=0.55 if self.eidolon >= 3 else 0.5,type=['followup'],uptime=debuffUptime)
+            
+            if self.eidolon >= 1:
+                for character in team:
+                    character:BaseCharacter
+                    character.addStat('CD',description='Topaz e1',amount=0.25,type=['followup'],stacks=self.e1Stacks)
+                
+        self.teamBuffList.append(applyVulnerabilityDebuff)
         
     def useBasic(self):
         retval = BaseEffect()

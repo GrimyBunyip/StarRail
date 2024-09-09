@@ -104,9 +104,6 @@ def FeixiaoTopazRobinAventurine(config,
     team = [TopazCharacter, FeixiaoCharacter, RobinCharacter, AventurineCharacter]
 
     #%% Topaz Feixiao Robin Aventurine Team Buffs
-
-    # Topaz Vulnerability Buff
-    TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
     
     # Aventurine Buffs
     AventurineCharacter.applyUltDebuff(team=team,rotationDuration=4.0,targetingUptime=1.0)

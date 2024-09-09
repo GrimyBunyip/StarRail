@@ -68,9 +68,6 @@ def MarchTopazRobinAventurine(config,
 
     #%% March Topaz Robin Aventurine Team Buffs
     
-    # Topaz Vulnerability Buff
-    TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
-    
     # March Buff
     MarchCharacter.applySkillBuff(TopazCharacter)
     MarchCharacter.applyTalentBuff(TopazCharacter,uptime=1.0)
