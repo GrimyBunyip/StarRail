@@ -13,10 +13,12 @@ class Robin(BaseCharacter):
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
                 eidolon:int=None,
+                ultUptime:float=0.5,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Robin')
         self.eidolon = self.eidolon if eidolon is None else eidolon
+        self.ultUptime = ultUptime
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
@@ -28,6 +30,24 @@ class Robin(BaseCharacter):
         
         # Gear
         self.equipGear()
+        
+        # team buffs
+        def applyTalentBuff(self,team:list):
+            for character in team:
+                character.addStat('CD',description='Robin Talent Buff',
+                                        amount=0.23 if self.eidolon >= 5 else 0.20)
+                character.addStat('CD',description='Robin Trace Buff',
+                                        amount=0.25,
+                                        type=['followup'])
+        
+        def applySkillBuff(self,team:list):
+            for character in team:
+                character.addStat('DMG',description='Robin Skill Buff',
+                                        amount=0.55 if self.eidolon >= 3 else 0.50,
+                                        uptime=self.ultUptime)
+                
+        self.teamBuffList.append(applyTalentBuff)
+        self.teamBuffList.append(applySkillBuff)
         
     def useBasic(self):
         retval = BaseEffect()
@@ -43,20 +63,6 @@ class Robin(BaseCharacter):
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
-    
-    def applyTalentBuff(self,team:list):
-        for character in team:
-            character.addStat('CD',description='Robin Talent Buff',
-                                    amount=0.23 if self.eidolon >= 5 else 0.20)
-            character.addStat('CD',description='Robin Trace Buff',
-                                    amount=0.25,
-                                    type=['followup'])
-    
-    def applySkillBuff(self,team:list,uptime:float=1.0):
-        for character in team:
-            character.addStat('DMG',description='Robin Skill Buff',
-                                    amount=0.55 if self.eidolon >= 3 else 0.50,
-                                    uptime=uptime)
         
     def applyUltBuff(self,team:list,uptime=0.5,type=None,ignoreSpeed=False):
         amount = self.getTotalStat('ATK')

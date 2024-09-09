@@ -90,6 +90,7 @@ def FeixiaoMarchRobinAventurine(config,
                                     lightcone = RobinLightCone,
                                     relicsetone = Prisoner2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SprightlyVonwacq(),
                                     eidolon=robinEidolon,
+                                    ultUptime=RobinUltUptime,
                                     **config)
 
     AventurineCharacter = Aventurine(RelicStats(mainstats = ['DEF.percent', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
@@ -111,9 +112,6 @@ def FeixiaoMarchRobinAventurine(config,
     AventurineCharacter.applyUltDebuff(team=team,rotationDuration=4.0,targetingUptime=1.0)
 
     # Robin Buffs
-    RobinCharacter.applyTalentBuff(team)
-    RobinCharacter.applySkillBuff(team)
-
     RobinCharacter.applyUltBuff([FeixiaoCharacter, MarchCharacter,AventurineCharacter],uptime=RobinUltUptime)
     # assume feixiao buff has 100% uptime
     if RobinUltUptime < 1.0:

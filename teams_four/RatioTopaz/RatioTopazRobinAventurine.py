@@ -65,8 +65,6 @@ def DrRatioTopazRobinAventurine(config,
     AventurineCharacter.applyUltDebuff(team=team,rotationDuration=4.0,targetingUptime=1.0)
 
     # Robin Buffs
-    RobinCharacter.applyTalentBuff(team)
-    RobinCharacter.applySkillBuff(team)
     RobinUltUptime = 0.5 # assume about half of our attacks get robin buff
     RobinCharacter.applyUltBuff([DrRatioCharacter,TopazCharacter,AventurineCharacter],uptime=RobinUltUptime)
 

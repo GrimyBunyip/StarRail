@@ -61,8 +61,6 @@ def SilverWolfMarchRobinHuohuo(config, silverwolfEidolon:int=1):
                                      numSkillUses=1.0 if silverwolfEidolon >= 1 else 2.0)
 
     # Robin Buffs
-    RobinCharacter.applyTalentBuff(team)
-    RobinCharacter.applySkillBuff(team)
     RobinUltUptime = 0.5 # assume better robin ult uptime because of shorter robin rotation
     RobinCharacter.applyUltBuff([SilverWolfCharacter,MarchCharacter,HuohuoCharacter],uptime=RobinUltUptime)
         

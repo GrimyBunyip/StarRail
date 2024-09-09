@@ -54,6 +54,7 @@ def MarchTopazRobinAventurine(config,
                                     substats = {'ATK.percent': 11, 'SPD.flat': 9, 'RES': 3, 'ATK.flat': 5}),
                                     lightcone = RobinLightCone,
                                     relicsetone = Prisoner2pc(), relicsettwo = MusketeerOfWildWheat2pc(), planarset = SprightlyVonwacq(),
+                                    ultUptime=RobinUltUptime,
                                     **config)
 
     AventurineCharacter = Aventurine(RelicStats(mainstats = ['DEF.percent', 'SPD.flat', 'DEF.percent', 'DEF.percent'],
@@ -78,8 +79,6 @@ def MarchTopazRobinAventurine(config,
     AventurineCharacter.applyUltDebuff(team=team,rotationDuration=4.0,targetingUptime=1.0)
 
     # Robin Buffs
-    RobinCharacter.applyTalentBuff(team)
-    RobinCharacter.applySkillBuff(team)
     RobinCharacter.applyUltBuff([MarchCharacter,TopazCharacter,AventurineCharacter],uptime=RobinUltUptime)
 
     #%% Team Buffs and Print Statements

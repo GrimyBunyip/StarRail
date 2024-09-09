@@ -55,8 +55,6 @@ def YunliTingyunRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:in
     #%% Yunli Tingyun Robin Huohuo Team Buffs
     
     # Robin Buffs
-    RobinCharacter.applyTalentBuff(team)
-    RobinCharacter.applySkillBuff(team)
     RobinUltUptime = 0.5 # assume better robin ult uptime because of shorter robin rotation
     RobinCharacter.applyUltBuff([YunliCharacter,TingyunCharacter,HuohuoCharacter],uptime=RobinUltUptime)
         
