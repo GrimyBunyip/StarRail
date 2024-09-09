@@ -18,7 +18,6 @@ class Robin(BaseCharacter):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Robin')
         self.eidolon = self.eidolon if eidolon is None else eidolon
-        self.ultUptime = ultUptime
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
@@ -31,7 +30,7 @@ class Robin(BaseCharacter):
         # Gear
         self.equipGear()
         
-        # team buffs
+        # Team Buffs
         def applyTalentBuff(self,team:list):
             for character in team:
                 character.addStat('CD',description='Robin Talent Buff',
@@ -44,7 +43,7 @@ class Robin(BaseCharacter):
             for character in team:
                 character.addStat('DMG',description='Robin Skill Buff',
                                         amount=0.55 if self.eidolon >= 3 else 0.50,
-                                        uptime=self.ultUptime)
+                                        uptime=ultUptime)
                 
         self.teamBuffList.append(applyTalentBuff)
         self.teamBuffList.append(applySkillBuff)

@@ -51,12 +51,6 @@ def BoothillBronyaRuanMeiGallagher(config):
     # Messenger 4 pc
     for character in [BoothillCharacter, RuanMeiCharacter, GallagherCharacter]:
         character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
-
-    # RuanMei Buffs, 3 turn RuanMei rotation
-    RuanMeiCharacter.applyWeaknessModifiers(team=team)
-    RuanMeiCharacter.applyPassiveBuffs(team=team)
-    RuanMeiCharacter.applySkillBuff(team=team,uptime=3.0/3.0)
-    RuanMeiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
             
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)

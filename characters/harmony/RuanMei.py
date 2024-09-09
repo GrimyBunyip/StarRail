@@ -12,6 +12,9 @@ class RuanMei(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
+                enemyTurnsPerBreak:float=2.0,
+                skillUptime:float=1.0,
+                ultUptime:float=2.0/3.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Ruan Mei')
@@ -29,41 +32,47 @@ class RuanMei(BaseCharacter):
         # Gear
         self.equipGear()
         
-    def applyWeaknessModifiers(self,team:list,enemyTurnsPerBreak:float=2.0):
-        # estimate weakness break uptime assuming we break every 2 enemy turns
-        for character in team:
-            character:BaseCharacter
-            character.enemySpeed = self.baseEnemySpeed * enemyTurnsPerBreak / (enemyTurnsPerBreak + 0.25 + 0.10 + 0.20 * self.getTotalStat('BreakEffect'))
-            character.enemyDotSpeed = self.baseEnemySpeed * (enemyTurnsPerBreak + 1) / (enemyTurnsPerBreak + 0.25 + 0.10 + 0.20 * self.getTotalStat('BreakEffect'))
-            character.weaknessBrokenUptime = 1.0 - (1.0 - self.baseWeaknessBrokenUptime) * (enemyTurnsPerBreak + 0.25) / (enemyTurnsPerBreak + 0.25 + 0.10 + 0.20 * self.getTotalStat('BreakEffect') )
-                
-    def applyPassiveBuffs(self,team:list):
-        for character in team:
-            character:BaseCharacter
-            character.addStat('BreakEffect',description='Ruan Mei Trace',amount=0.20)
-            character.addStat('DMG',description='Ruan Mei Trace',
-                              amount=max(0.0,min(0.36,(self.getTotalStat('BreakEffect')-1.20) * 0.60)),
-                              uptime=self.weaknessBrokenUptime)
-            if character.name != 'Ruan Mei;':
-                character.addStat('SPD.percent',description='talent',amount=0.104 if self.eidolon >= 3 else 0.10)
-
-    def applyUltBuff(self,team:list,uptime:float):
-        for character in team:
-            character:BaseCharacter
-            character.addStat('ResPen', description='Ruan Mei Ult', 
-                              amount=0.27 if self.eidolon >= 3 else 0.25, uptime=uptime)
-            
-            if self.eidolon >= 1:
-                character.addStat('DefShred', description='Ruan Mei E1', amount=0.20, uptime=uptime)
+        # Team Buffs        
+        def applyWeaknessModifiers(self,team:list):
+            # estimate weakness break uptime assuming we break every 2 enemy turns
+            for character in team:
+                character:BaseCharacter
+                character.enemySpeed = self.baseEnemySpeed * enemyTurnsPerBreak / (enemyTurnsPerBreak + 0.25 + 0.10 + 0.20 * self.getTotalStat('BreakEffect'))
+                character.enemyDotSpeed = self.baseEnemySpeed * (enemyTurnsPerBreak + 1) / (enemyTurnsPerBreak + 0.25 + 0.10 + 0.20 * self.getTotalStat('BreakEffect'))
+                character.weaknessBrokenUptime = 1.0 - (1.0 - self.baseWeaknessBrokenUptime) * (enemyTurnsPerBreak + 0.25) / (enemyTurnsPerBreak + 0.25 + 0.10 + 0.20 * self.getTotalStat('BreakEffect') )
+ 
+        def applyPassiveBuffs(self,team:list):
+            for character in team:
+                character:BaseCharacter
+                character.addStat('BreakEffect',description='Ruan Mei Trace',amount=0.20)
+                character.addStat('DMG',description='Ruan Mei Trace',
+                                amount=max(0.0,min(0.36,(self.getTotalStat('BreakEffect')-1.20) * 0.60)),
+                                uptime=self.weaknessBrokenUptime)
+                if character.name != 'Ruan Mei;':
+                    character.addStat('SPD.percent',description='talent',amount=0.104 if self.eidolon >= 3 else 0.10)
         
-    def applySkillBuff(self,team:list,uptime:float):
-        for character in team:
-            character:BaseCharacter
-            character.addStat('DMG',description='Ruan Mei Skill',
-                                amount=0.3528 if self.eidolon >= 5 else 0.32,
-                                uptime=uptime)
-            character.addStat('BreakEfficiency',description='Ruan Mei Skill',
-                                amount=0.50, uptime=uptime)
+        def applySkillBuff(self,team:list,uptime:float):
+            for character in team:
+                character:BaseCharacter
+                character.addStat('DMG',description='Ruan Mei Skill',
+                                    amount=0.3528 if self.eidolon >= 5 else 0.32,
+                                    uptime=skillUptime)
+                character.addStat('BreakEfficiency',description='Ruan Mei Skill',
+                                    amount=0.50, uptime=skillUptime)
+
+        def applyUltBuff(self,team:list,uptime:float):
+            for character in team:
+                character:BaseCharacter
+                character.addStat('ResPen', description='Ruan Mei Ult', 
+                                amount=0.27 if self.eidolon >= 3 else 0.25, uptime=ultUptime)
+                
+                if self.eidolon >= 1:
+                    character.addStat('DefShred', description='Ruan Mei E1', amount=0.20, uptime=ultUptime)
+                
+        self.teamBuffList.append(applyWeaknessModifiers)
+        self.teamBuffList.append(applyPassiveBuffs)
+        self.teamBuffList.append(applySkillBuff)
+        self.teamBuffList.append(applyUltBuff)
         
     def useBasic(self):
         retval = BaseEffect()

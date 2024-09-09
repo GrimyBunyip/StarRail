@@ -61,12 +61,6 @@ def FireflyTrailblazerRuanMeiLingsha(config,
     for character in team:
         character.addStat('BreakEffect',description='Watchmaker 4pc', amount=0.30, uptime=0.66)
 
-    # RuanMei Buffs, 3 turn RuanMei rotation
-    RuanMeiCharacter.applyWeaknessModifiers(team=team)
-    RuanMeiCharacter.applyPassiveBuffs(team=team)
-    RuanMeiCharacter.applySkillBuff(team=team,uptime=3.0/3.0)
-    RuanMeiCharacter.applyUltBuff(team=team,uptime=2.0/3.0)
-
     # Trailblazer Vulnerability Buff
     TrailblazerCharacter.applyUltBuff(team=team)
     TrailblazerCharacter.applyE4Buff(team=team)
