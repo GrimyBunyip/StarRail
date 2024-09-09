@@ -52,9 +52,6 @@ def SeeleMaxSilverWolfRuanMeiFuxuan(config):
     # Silver Wolf Debuffs
     # handle this separately for seele, assume it doesn't apply to her basics
     SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, RuanMeiCharacter, FuxuanCharacter])
-
-    # Fu Xuan Buffs
-    FuxuanCharacter.applySkillBuff(team)
         
     #%% Team Buffs and Print Statements
     for character in team:

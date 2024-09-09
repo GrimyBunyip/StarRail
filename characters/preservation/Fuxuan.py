@@ -12,6 +12,7 @@ class Fuxuan(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
+                skillBuffUptime:float=1.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Fu Xuan')
@@ -29,14 +30,17 @@ class Fuxuan(BaseCharacter):
         # Gear
         self.equipGear()
         
-    def applySkillBuff(self, team:list, uptime:float=1.0):
-        for character in team:
-            character:BaseCharacter
-            character.addStat('CR',description='Matrix of Presience',amount=0.132 if self.eidolon >= 3 else 0.12,uptime=uptime)
-            character.addStat('HP.flat',description='Matrix of Presience',amount=(0.066 if self.eidolon >= 3 else 0.06) * self.getTotalStat('HP'),uptime=uptime)
-            character.addStat('DmgReduction',description='Bleak Breeds Bliss',amount=0.196 if self.eidolon >= 3 else 0.18,uptime=uptime)
-            if self.eidolon >= 1:
-                character.addStat('CD',description='Fu Xuan e1',amount=0.30,uptime=uptime)
+        # Team Buffs
+        def applySkillBuff(self, team:list):
+            for character in team:
+                character:BaseCharacter
+                character.addStat('CR',description='Matrix of Presience',amount=0.132 if self.eidolon >= 3 else 0.12,uptime=skillBuffUptime)
+                character.addStat('HP.flat',description='Matrix of Presience',amount=(0.066 if self.eidolon >= 3 else 0.06) * self.getTotalStat('HP'),uptime=skillBuffUptime)
+                character.addStat('DmgReduction',description='Bleak Breeds Bliss',amount=0.196 if self.eidolon >= 3 else 0.18,uptime=skillBuffUptime)
+                if self.eidolon >= 1:
+                    character.addStat('CD',description='Fu Xuan e1',amount=0.30,uptime=skillBuffUptime)
+                
+        self.teamBuffList.append(applySkillBuff)
         
     def useBasic(self):
         retval = BaseEffect()

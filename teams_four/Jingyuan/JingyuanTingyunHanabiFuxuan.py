@@ -55,9 +55,6 @@ def JingyuanTingyunHanabiFuxuan(config):
     HanabiCharacter.applySkillBuff(character=JingYuanCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
     JingYuanCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20)
-    
-    # Fu Xuan Buffs
-    FuxuanCharacter.applySkillBuff(team)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(JingYuanCharacter)

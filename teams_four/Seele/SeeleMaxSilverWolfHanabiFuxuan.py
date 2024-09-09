@@ -53,8 +53,6 @@ def SeeleMaxSilverWolfHanabiFuxuan(config):
     # handle this separately for seele, assume it doesn't apply to her basics
     SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, HanabiCharacter, FuxuanCharacter])
 
-    # Fu Xuan Buffs
-    FuxuanCharacter.applySkillBuff(team)
     # Hanabi Buffs
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=SeeleCharacter,uptime=1.0)

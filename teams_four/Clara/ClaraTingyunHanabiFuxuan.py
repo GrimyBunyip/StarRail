@@ -60,9 +60,6 @@ def ClaraTingyunHanabiFuxuan(config):
     TingyunCharacter.applySkillBuff(ClaraCharacter)
     TingyunCharacter.applyUltBuff(ClaraCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/ClaraCharacter.getTotalStat('SPD'))
     ClaraCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20)
-    
-    # Fu Xuan Buffs
-    FuxuanCharacter.applySkillBuff(team)
 
     #%% Team Buffs and Print Statements
     for character in team:
