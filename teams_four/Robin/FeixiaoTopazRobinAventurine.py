@@ -104,12 +104,6 @@ def FeixiaoTopazRobinAventurine(config,
 
     #%% Topaz Feixiao Robin Aventurine Team Buffs
 
-    if RobinCharacter.lightcone.name == 'Flowing Nightglow':
-        RobinCharacter.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition)
-        for character in team:
-            if character.name is not 'Robin':
-                character.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition, uptime=RobinUltUptime)
-
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
     if topazSuperposition > 0:

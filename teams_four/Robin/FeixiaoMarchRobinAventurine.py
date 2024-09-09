@@ -103,12 +103,6 @@ def FeixiaoMarchRobinAventurine(config,
 
     #%% March Feixiao Robin Aventurine Team Buffs
 
-    if RobinCharacter.lightcone.name == 'Flowing Nightglow':
-        RobinCharacter.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition)
-        for character in team:
-            if character.name is not 'Robin':
-                character.addStat('DMG',description=RobinCharacter.lightcone.name,amount=0.2 + 0.04 * RobinCharacter.lightcone.superposition, uptime=RobinUltUptime)
-    
     # March Buff
     MarchCharacter.applySkillBuff(FeixiaoCharacter)
     MarchCharacter.applyTalentBuff(FeixiaoCharacter,uptime=1.0)

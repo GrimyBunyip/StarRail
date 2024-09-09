@@ -15,8 +15,17 @@ class FlowingNightglow(BaseLightCone):
     def equipTo(self, char:BaseCharacter):
         self.addStats(char)
         if char.path == self.path:
-            char.addStat('ER',description=self.name,amount=0.025 + 0.005 * self.superposition, stacks=self.stacks)
-            char.addStat('ATK.percent',description=self.name,amount=0.36 + 0.12 * self.superposition, uptime=self.uptime)
+            char.addStat('ER',description=self.name,amount=0.36 + 0.12 * self.superposition, stacks=self.stacks)
+            char.addStat('ATK.percent',description=self.name,amount=0.2 + 0.04 * self.superposition, uptime=self.uptime)
+            
+            def applyTeamBuff(team):
+                for targetChar in team:
+                    targetChar.addStat('DMG',description=f'{self.shortname} from {char.name}',
+                                       amount=0.2 + 0.04 * self.superposition, 
+                                       uptime=self.uptime)
+
+                    
+            char.teamBuffList.append(applyTeamBuff)
             
 if __name__ == '__main__':
     from settings.BaseConfiguration import Configuration
