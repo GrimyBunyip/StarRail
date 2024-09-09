@@ -107,9 +107,6 @@ def FeixiaoMarchRobinAventurine(config,
     # March Buff
     MarchCharacter.applySkillBuff(FeixiaoCharacter)
     MarchCharacter.applyTalentBuff(FeixiaoCharacter,uptime=1.0)
-    
-    # Aventurine Buffs
-    AventurineCharacter.applyUltDebuff(team=team,rotationDuration=4.0,targetingUptime=1.0)
 
     # Robin Buffs
     RobinCharacter.applyUltBuff([FeixiaoCharacter, MarchCharacter,AventurineCharacter],uptime=RobinUltUptime)

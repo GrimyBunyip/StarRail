@@ -57,9 +57,6 @@ def DrRatioTopazRobinAventurine(config,
     
     # Dr Ratio Buff
     DrRatioCharacter.applyTalentBuff(team)
-    
-    # Aventurine Buffs
-    AventurineCharacter.applyUltDebuff(team=team,rotationDuration=4.0,targetingUptime=1.0)
 
     # Robin Buffs
     RobinUltUptime = 0.5 # assume about half of our attacks get robin buff

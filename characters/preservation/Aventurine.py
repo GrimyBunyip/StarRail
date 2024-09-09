@@ -13,6 +13,8 @@ class Aventurine(BaseCharacter):
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
                 leverage_cr:float = 0.48,
+                rotationDuration:float=4.0,
+                targetingUptime:float=1.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Aventurine')
@@ -31,15 +33,18 @@ class Aventurine(BaseCharacter):
         # Gear
         self.equipGear()
         
-    def applyUltDebuff(self,team:list, rotationDuration:float=4.0,targetingUptime:float=None):
-        ultUptime = (3.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
-        if targetingUptime is None:
-            ultUptime /= self.numEnemies
-        ultUptime = min(1.0, ultUptime)
-        for character in team:
-            character.addStat('CD',description='Aventurine Ultimate',
-                            amount=(0.162 if self.eidolon >= 3 else 0.15),
-                            uptime=ultUptime)
+        # Team Buffs
+        def applyUltDebuff(self,team:list):
+            ultUptime = (3.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
+            if targetingUptime is None:
+                ultUptime /= self.numEnemies
+            ultUptime = min(1.0, ultUptime)
+            for character in team:
+                character.addStat('CD',description='Aventurine Ultimate',
+                                amount=(0.162 if self.eidolon >= 3 else 0.15),
+                                uptime=ultUptime)
+                
+        self.teamBuffList.append(applyUltDebuff)
         
     def useBasic(self):
         retval = BaseEffect()

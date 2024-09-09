@@ -71,9 +71,6 @@ def MarchTopazRobinAventurine(config,
     # March Buff
     MarchCharacter.applySkillBuff(TopazCharacter)
     MarchCharacter.applyTalentBuff(TopazCharacter,uptime=1.0)
-    
-    # Aventurine Buffs
-    AventurineCharacter.applyUltDebuff(team=team,rotationDuration=4.0,targetingUptime=1.0)
 
     # Robin Buffs
     RobinCharacter.applyUltBuff([MarchCharacter,TopazCharacter,AventurineCharacter],uptime=RobinUltUptime)
