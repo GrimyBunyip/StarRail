@@ -13,7 +13,7 @@ from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.LushakaTheSunkenSeas import LushakaTheSunkenSeas
-from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, WindSoaringValorous4pc
 
@@ -37,7 +37,7 @@ def YunliTingyunHanabiLynx(config):
     HanabiCharacter = Hanabi(RelicStats(mainstats = ['CD', 'HP.percent', 'SPD.flat', 'ER'],
                             substats = {'CD': 8, 'SPD.flat': 12, 'RES': 5, 'DEF.percent': 3}),
                             lightcone = DanceDanceDance(**config),
-                            relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
+                            relicsetone = MessengerTraversingHackerspace2pc(), relicsettwo = MessengerTraversingHackerspace4pc(), planarset = BrokenKeel(),
                             **config)
 
     LynxCharacter = Lynx(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
@@ -59,7 +59,6 @@ def YunliTingyunHanabiLynx(config):
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(YunliCharacter)
     TingyunCharacter.applyUltBuff(YunliCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/YunliCharacter.getTotalStat('SPD'))
-    # YunliCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
 
     # Lynx Buffs    
     LynxBuffUptime = LynxCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD') / 3.0
