@@ -61,7 +61,7 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=YunliCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
-    YunliCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20)
+    YunliCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20, stacks=2)
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([HanabiCharacter,RobinCharacter, YunliCharacter],uptime=2.0/4.0)

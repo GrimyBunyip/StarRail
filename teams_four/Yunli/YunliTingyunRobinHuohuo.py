@@ -61,7 +61,7 @@ def YunliTingyunRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:in
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(YunliCharacter)
     TingyunCharacter.applyUltBuff(YunliCharacter,targetSpdMult=RobinCharacter.getTotalStat('SPD')/YunliCharacter.getTotalStat('SPD'))
-    YunliCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20)
+    YunliCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([TingyunCharacter,RobinCharacter, YunliCharacter],uptime=2.0/4.0)
