@@ -34,7 +34,7 @@ class Aventurine(BaseCharacter):
         self.equipGear()
         
         # Team Buffs
-        def applyUltDebuff(self,team:list):
+        def applyUltDebuff(team:list):
             ultUptime = (3.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed
             if targetingUptime is None:
                 ultUptime /= self.numEnemies

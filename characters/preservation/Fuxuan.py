@@ -31,7 +31,7 @@ class Fuxuan(BaseCharacter):
         self.equipGear()
         
         # Team Buffs
-        def applySkillBuff(self, team:list):
+        def applySkillBuff(team:list):
             for character in team:
                 character:BaseCharacter
                 character.addStat('CR',description='Matrix of Presience',amount=0.132 if self.eidolon >= 3 else 0.12,uptime=skillBuffUptime)

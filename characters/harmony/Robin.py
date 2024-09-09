@@ -31,7 +31,7 @@ class Robin(BaseCharacter):
         self.equipGear()
         
         # Team Buffs
-        def applyTalentBuff(self,team:list):
+        def applyTalentBuff(team:list):
             for character in team:
                 character.addStat('CD',description='Robin Talent Buff',
                                         amount=0.23 if self.eidolon >= 5 else 0.20)
@@ -39,7 +39,7 @@ class Robin(BaseCharacter):
                                         amount=0.25,
                                         type=['followup'])
         
-        def applySkillBuff(self,team:list):
+        def applySkillBuff(team:list):
             for character in team:
                 character.addStat('DMG',description='Robin Skill Buff',
                                         amount=0.55 if self.eidolon >= 3 else 0.50,

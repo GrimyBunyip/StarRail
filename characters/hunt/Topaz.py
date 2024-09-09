@@ -45,7 +45,7 @@ class Topaz(BaseCharacter):
         self.equipGear()
         
         # Team Buffs
-        def applyVulnerabilityDebuff(self,team:list):
+        def applyVulnerabilityDebuff(team:list):
             for character in team:
                 character:BaseCharacter
                 character.addStat('Vulnerability',description='Topaz Skill Debuff',amount=0.55 if self.eidolon >= 3 else 0.5,type=['followup'],uptime=debuffUptime)

@@ -42,7 +42,7 @@ class DrRatio(BaseCharacter):
         self.equipGear()
         
         # Team Buffs
-        def applyTalentBuff(self, team:list):
+        def applyTalentBuff(team:list):
             for character in team:
                 character:BaseCharacter
                 character.addStat('DMG',description='Dr Ratio Trace',amount=min(0.50,0.10*self.debuffStacks), uptime=debuffTargetingUptime)
