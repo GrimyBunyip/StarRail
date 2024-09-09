@@ -14,6 +14,7 @@ from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.planarSets.InertSalsotto import InertSalsotto
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
 from relicSets.relicSets.PrisonerInDeepConfinement import Prisoner2pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
@@ -47,7 +48,7 @@ def YunliTingyunRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:in
     HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
                         substats = {'HP.percent': 7, 'SPD.flat': 12, 'HP.flat': 3, 'RES': 6}),
                         lightcone = QuidProQuo(**config),
-                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
     team = [YunliCharacter, TingyunCharacter, RobinCharacter, HuohuoCharacter]
@@ -61,11 +62,10 @@ def YunliTingyunRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:in
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(YunliCharacter)
     TingyunCharacter.applyUltBuff(YunliCharacter,targetSpdMult=RobinCharacter.getTotalStat('SPD')/YunliCharacter.getTotalStat('SPD'))
-    YunliCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
+    # YunliCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([TingyunCharacter,RobinCharacter, YunliCharacter],uptime=2.0/4.0)
-    YunliCharacter.addStat('CD',description='Sacerdos Huohuo',amount=0.20,uptime=2.0/3.0)
 
     #%% Team Buffs and Print Statements
     for character in team:

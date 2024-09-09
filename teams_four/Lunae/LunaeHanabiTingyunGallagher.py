@@ -52,7 +52,7 @@ def LunaeHanabiTingyunGallagher(config):
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=LunaeCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
-    LunaeCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
+    LunaeCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20, stacks=2)
     
     # Past and Future
     LunaeCharacter.addStat('DMG',description='Past and Future',amount=0.32)
@@ -60,7 +60,7 @@ def LunaeHanabiTingyunGallagher(config):
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(LunaeCharacter)
     TingyunCharacter.applyUltBuff(LunaeCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/LunaeCharacter.getTotalStat('SPD'))
-    LunaeCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
+    # LunaeCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)

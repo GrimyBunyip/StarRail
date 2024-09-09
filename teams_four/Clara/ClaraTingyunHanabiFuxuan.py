@@ -59,7 +59,7 @@ def ClaraTingyunHanabiFuxuan(config):
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(ClaraCharacter)
     TingyunCharacter.applyUltBuff(ClaraCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/ClaraCharacter.getTotalStat('SPD'))
-    ClaraCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
+    # ClaraCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
 
     #%% Team Buffs and Print Statements
     for character in team:

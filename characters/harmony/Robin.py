@@ -13,6 +13,7 @@ class Robin(BaseCharacter):
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
                 eidolon:int=None,
+                skillUptime:float=1.0,
                 ultUptime:float=0.5,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
@@ -43,7 +44,7 @@ class Robin(BaseCharacter):
             for character in team:
                 character.addStat('DMG',description='Robin Skill Buff',
                                         amount=0.55 if self.eidolon >= 3 else 0.50,
-                                        uptime=ultUptime)
+                                        uptime=skillUptime)
                 
         self.teamBuffList.append(applyTalentBuff)
         self.teamBuffList.append(applySkillBuff)

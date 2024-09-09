@@ -46,7 +46,7 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
     HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
                         substats = {'HP.percent': 7, 'SPD.flat': 12, 'HP.flat': 3, 'RES': 6}),
                         lightcone = QuidProQuo(**config),
-                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
     team = [YunliCharacter, HanabiCharacter, RobinCharacter, HuohuoCharacter]
@@ -65,7 +65,6 @@ def YunliHanabiRobinHuohuo(config, yunliEidolon:int=None, yunliSuperposition:int
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([HanabiCharacter,RobinCharacter, YunliCharacter],uptime=2.0/4.0)
-    YunliCharacter.addStat('CD',description='Sacerdos Huohuo',amount=0.20,uptime=2.0/3.0)
 
     #%% Team Buffs and Print Statements
     for character in team:

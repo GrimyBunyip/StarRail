@@ -14,6 +14,7 @@ from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.FleetOfTheAgeless import FleetOfTheAgeless
 from relicSets.planarSets.InertSalsotto import InertSalsotto
+from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, WindSoaringValorous4pc
 
@@ -44,7 +45,7 @@ def YunliTingyunHanabiHuohuo(config, yunliSuperposition:int=0):
     HuohuoCharacter = Huohuo(RelicStats(mainstats = ['ER', 'SPD.flat', 'HP.percent', 'HP.percent'],
                         substats = {'HP.percent': 7, 'SPD.flat': 12, 'HP.flat': 3, 'RES': 6}),
                         lightcone = QuidProQuo(**config),
-                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = MessengerTraversingHackerspace2pc(), planarset = BrokenKeel(),
                         **config)
     
     team = [YunliCharacter, TingyunCharacter, HanabiCharacter, HuohuoCharacter]
@@ -60,11 +61,10 @@ def YunliTingyunHanabiHuohuo(config, yunliSuperposition:int=0):
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(YunliCharacter)
     TingyunCharacter.applyUltBuff(YunliCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/YunliCharacter.getTotalStat('SPD'))
-    YunliCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
+    # YunliCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([TingyunCharacter,HanabiCharacter, YunliCharacter],uptime=2.0/4.0)
-    YunliCharacter.addStat('CD',description='Sacerdos Huohuo',amount=0.20,uptime=2.0/3.0)
 
     #%% Team Buffs and Print Statements
     for character in team:

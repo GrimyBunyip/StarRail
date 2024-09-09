@@ -59,7 +59,7 @@ def JingyuanTingyunHanabiFuxuan(config):
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(JingYuanCharacter)
     TingyunCharacter.applyUltBuff(JingYuanCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/JingYuanCharacter.getTotalStat('SPD'))
-    JingYuanCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
+    # JingYuanCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.20, stacks=2, uptime=2.0/3.0)
 
     #%% Team Buffs and Print Statements
     for character in team:
