@@ -107,11 +107,6 @@ def FeixiaoTopazRobinAventurine(config,
 
     # Topaz Vulnerability Buff
     TopazCharacter.applyVulnerabilityDebuff(team,uptime=1.0)
-    if topazSuperposition > 0:
-        for character in [FeixiaoCharacter, RobinCharacter, AventurineCharacter]:
-                character.addStat('CD',description='Worrisome, Blissful',
-                                        amount=0.10 + 0.02 * TopazCharacter.lightcone.superposition,
-                                        stacks=2.0)
     
     # Aventurine Buffs
     AventurineCharacter.applyUltDebuff(team=team,rotationDuration=4.0,targetingUptime=1.0)
