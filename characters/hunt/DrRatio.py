@@ -13,6 +13,7 @@ class DrRatio(BaseCharacter):
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
                 debuffStacks:float=3.0,
+                debuffTargetingUptime:float=1.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Dr Ratio')
@@ -40,10 +41,13 @@ class DrRatio(BaseCharacter):
         # Gear
         self.equipGear()
         
-    def applyTalentBuff(self, team:list, uptime:float=1.0):
-        for character in team:
-            character:BaseCharacter
-            character.addStat('DMG',description='Dr Ratio Trace',amount=min(0.50,0.10*self.debuffStacks), uptime=uptime)
+        # Team Buffs
+        def applyTalentBuff(self, team:list):
+            for character in team:
+                character:BaseCharacter
+                character.addStat('DMG',description='Dr Ratio Trace',amount=min(0.50,0.10*self.debuffStacks), uptime=debuffTargetingUptime)
+                
+        self.teamBuffList.append(applyTalentBuff)
         
     def useBasic(self):
         retval = BaseEffect()

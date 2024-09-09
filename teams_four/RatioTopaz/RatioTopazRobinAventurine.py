@@ -54,9 +54,6 @@ def DrRatioTopazRobinAventurine(config,
     team = [DrRatioCharacter, TopazCharacter, RobinCharacter, AventurineCharacter]
 
     #%% DrRatio Topaz Robin Aventurine Team Buffs
-    
-    # Dr Ratio Buff
-    DrRatioCharacter.applyTalentBuff(team)
 
     # Robin Buffs
     RobinUltUptime = 0.5 # assume about half of our attacks get robin buff
