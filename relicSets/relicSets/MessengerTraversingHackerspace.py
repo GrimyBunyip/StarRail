@@ -24,6 +24,10 @@ class MessengerTraversingHackerspace4pc(RelicSet):
         self.uptime = uptime
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('SPD.percent',description=self.shortname,
-                                amount=0.12,
-                                uptime=self.uptime)
+        def applyTeamBuff(team):
+            for targetChar in team:
+                targetChar.addStat('SPD.percent',description=f'{self.shortname} from {char.name}',
+                             amount=0.12,
+                             uptime=self.uptime)
+                
+        char.teamBuffList.append(applyTeamBuff)

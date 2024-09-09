@@ -47,10 +47,6 @@ def BoothillBronyaRuanMeiGallagher(config):
     team = [BoothillCharacter, BronyaCharacter, RuanMeiCharacter, GallagherCharacter]
 
     #%% Boothill Bronya RuanMei Gallagher Team Buffs
-
-    # Messenger 4 pc
-    for character in [BoothillCharacter, RuanMeiCharacter, GallagherCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
             
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)

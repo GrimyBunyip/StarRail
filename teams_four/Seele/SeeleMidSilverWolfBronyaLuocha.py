@@ -51,10 +51,6 @@ def SeeleMidSilverWolfBronyaLuocha(config):
     # handle this separately for seele, assume it doesn't apply to her basics
     SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, BronyaCharacter, LuochaCharacter])
 
-    # Bronya Messenger Buff
-    for character in [SeeleCharacter, SilverWolfCharacter, LuochaCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/4.0)
-
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
     BronyaCharacter.applyUltBuff(SeeleCharacter,uptime=1.0/4.0) # estimate 1 bronya buff per 4 rotations

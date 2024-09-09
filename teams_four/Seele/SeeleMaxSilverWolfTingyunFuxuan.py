@@ -51,10 +51,6 @@ def SeeleMaxSilverWolfTingyunFuxuan(config):
     # Silver Wolf Debuffs
     # handle this separately for seele, assume it doesn't apply to her basics
     SilverWolfCharacter.applyDebuffs([SilverWolfCharacter, TingyunCharacter, FuxuanCharacter])
-
-    # Tingyun Messenger Buff
-    for character in [SeeleCharacter, SilverWolfCharacter, FuxuanCharacter]:
-        character.addStat('SPD.percent',description='Messenger 4 pc',amount=0.12,uptime=1.0/3.0)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(SeeleCharacter)
