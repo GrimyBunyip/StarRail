@@ -34,10 +34,12 @@ def FeixiaoTopazRobinAventurine(config,
                                 topazSuperposition:int=0,):
     #%% Topaz Feixiao Robin Aventurine Characters
         
-    FeixiaoSubstats = {'CR': 5, 'CD': 10, 'ATK.percent': 3, 'SPD.flat':10}
     if robinEidolon is not None and robinEidolon >= 2:
-        FeixiaoSubstats['SPD.flat'] += 1
-        FeixiaoSubstats['CD'] -= 1
+        FeixiaoMainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind']
+        FeixiaoSubstats = {'CR': 5, 'CD': 9, 'ATK.percent': 3, 'SPD.flat':11}
+    else:
+        FeixiaoMainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.wind']
+        FeixiaoSubstats = {'CR': 12, 'CD': 10, 'ATK.percent': 3, 'SPD.flat':5}
         
     if feixiaoLightCone == 'CruisingInTheStellarSea':
         FeixiaoLightcone = CruisingInTheStellarSea(**config)
@@ -54,7 +56,7 @@ def FeixiaoTopazRobinAventurine(config,
         FeixiaoSubstats['CR'] += 5
         FeixiaoSubstats['CD'] -= 5
         
-    FeixiaoCharacter = Feixiao(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind'],
+    FeixiaoCharacter = Feixiao(RelicStats(mainstats = FeixiaoMainstats,
                                     substats = FeixiaoSubstats),
                                     lightcone = FeixiaoLightcone,
                                     relicsetone = WindSoaringValorous2pc(),
@@ -64,10 +66,10 @@ def FeixiaoTopazRobinAventurine(config,
                                     **config)
 
     topazLightcone = Swordplay(**config) if topazSuperposition == 0 else WorrisomeBlissful(superposition=topazSuperposition,**config)
-    TopazSubstats = {'CR': 10, 'CD': 5, 'ATK.percent': 3, 'SPD.flat': 10}
+    TopazSubstats = {'CR': 12, 'CD': 8, 'ATK.percent': 3, 'SPD.flat': 5}
     if robinEidolon is not None and robinEidolon >= 2:
-        TopazSubstats['SPD.flat'] += 2
-        TopazSubstats['CD'] -= 2
+        TopazSubstats['SPD.flat'] += 7
+        TopazSubstats['CD'] -= 7
     TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'CR', 'ATK.percent'],
                                     substats = TopazSubstats),
                                     lightcone = topazLightcone, 
@@ -197,18 +199,22 @@ def FeixiaoTopazRobinAventurine(config,
     TopazFourTurns = numTurnAV * TopazCharacter.useBasic().actionvalue / TopazCharacter.getTotalStat('SPD')
     FeixiaoFourTurns = numTurnAV * FeixiaoCharacter.useSkill().actionvalue / FeixiaoCharacter.getTotalStat('SPD')
     AventurineFourTurns = numTurnAV * AventurineCharacter.useBasic().actionvalue / AventurineCharacter.getTotalStat('SPD')
+    longestTurn = max(TopazFourTurns-1.0, FeixiaoFourTurns-1.0, AventurineFourTurns-1.0, RobinRotationDuration)
     
-    TopazRotation += [RobinCharacter.useAdvanceForward() * (TopazFourTurns - RobinRotationDuration) * TopazCharacter.getTotalStat('SPD') * (numBasicTopaz + numSkillTopaz) / numTurnAV]
-    FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (FeixiaoFourTurns - RobinRotationDuration) * FeixiaoCharacter.getTotalStat('SPD') * (numBasicFeixiao + numSkillFeixiao) / numTurnAV]
-    AventurineRotation += [RobinCharacter.useAdvanceForward() * (AventurineFourTurns - RobinRotationDuration) * AventurineCharacter.getTotalStat('SPD') * numBasicAventurine / numTurnAV]
+    TopazRotation += [RobinCharacter.useAdvanceForward() * (TopazFourTurns - longestTurn) * TopazCharacter.getTotalStat('SPD') * (numBasicTopaz + numSkillTopaz) / numTurnAV]
+    FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (FeixiaoFourTurns - longestTurn) * FeixiaoCharacter.getTotalStat('SPD') * (numBasicFeixiao + numSkillFeixiao) / numTurnAV]
+    AventurineRotation += [RobinCharacter.useAdvanceForward() * (AventurineFourTurns - longestTurn) * AventurineCharacter.getTotalStat('SPD') * numBasicAventurine / numTurnAV]
+    RobinRotation += [RobinCharacter.useAdvanceForward() * (RobinRotationDuration - longestTurn) * RobinCharacter.getTotalStat('SPD') / 100.0]
         
     totalTopazEffect = sumEffects(TopazRotation)
     totalFeixiaoEffect = sumEffects(FeixiaoRotation)
     totalAventurineEffect = sumEffects(AventurineRotation)
+    totalRobinEffect = sumEffects(RobinRotation)
     
     TopazRotationDuration = totalTopazEffect.actionvalue * 100.0 / TopazCharacter.getTotalStat('SPD')
     FeixiaoRotationDuration = totalFeixiaoEffect.actionvalue * 100.0 / FeixiaoCharacter.getTotalStat('SPD')
     AventurineRotationDuration = totalAventurineEffect.actionvalue * 100.0 / AventurineCharacter.getTotalStat('SPD')
+    RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
     
     print('##### Rotation Durations #####')
     print('Topaz: ',TopazRotationDuration * 4.0 / (numBasicTopaz + numSkillTopaz))

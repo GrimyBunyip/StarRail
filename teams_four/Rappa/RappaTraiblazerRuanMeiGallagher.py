@@ -80,13 +80,13 @@ def RappaTrailblazerRuanMeiGallagher(config,
 
     #%% Rappa Trailblazer RuanMei Gallagher Rotations
 
-    numSkillRappa = 2.8
+    numSkillRappa = 2.3
     numSkillRappa -= (2.0 / 3.0) if RappaCharacter.eidolon >= 1 else 0.0
     numSkillRappa -= (2.0 * 12.0 / 30.0) if rappaLightcone == 'Passkey' else 0.0
     numSkillRappa = rappaNumSkillOverride if rappaNumSkillOverride is not None else numSkillRappa
     numEnhancedRappa = 3.0
     numTalentRappa = 2 * (RappaCharacter.numEnemies - 1)
-    numTalentRappa *= (numSkillRappa + numEnhancedRappa) 
+    numTalentRappa *= (0.5 * numSkillRappa + numEnhancedRappa) 
     numTalentRappa *= rappaNumTalentRatio
     RappaRotation = [ 
             RappaCharacter.useSkill() * numSkillRappa,

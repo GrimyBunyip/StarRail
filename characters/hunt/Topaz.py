@@ -97,7 +97,7 @@ class Topaz(BaseCharacter):
 
     def useTalent(self, windfall=False):
         retval = BaseEffect()
-        type = ['talent','followup'] + ['windfall'] if windfall else []
+        type = ['talent','followup'] + ( ['windfall'] if windfall else [] )
         retval.damage = self.getTotalMotionValue('talent',type) * (2.0 if windfall else 1.0)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)

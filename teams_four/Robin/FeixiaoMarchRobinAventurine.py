@@ -26,16 +26,17 @@ from relicSets.relicSets.WindSoaringValorous import WindSoaringValorous2pc, Wind
 
 def FeixiaoMarchRobinAventurine(config, 
                                 feixiaoEidolon:int=None, 
-                                feixiaoSuperposition:int=0, 
                                 feixiaoLightCone:str='CruisingInTheStellarSea',
                                 robinEidolon:int=None, 
                                 robinLightCone:str='PoisedToBloom'):
     #%% March Feixiao Robin Aventurine Characters
 
-    FeixiaoSubstats = {'CR': 7, 'CD': 12, 'ATK.percent': 4, 'SPD.flat':5} if feixiaoSuperposition == 0 else {'CR': 10, 'CD': 11, 'ATK.percent': 3, 'SPD.flat':4}
     if robinEidolon is not None and robinEidolon >= 2:
-        FeixiaoSubstats['SPD.flat'] += 1
-        FeixiaoSubstats['CD'] -= 1
+        FeixiaoMainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind']
+        FeixiaoSubstats = {'CR': 7, 'CD': 11, 'ATK.percent': 3, 'SPD.flat':6}
+    else:
+        FeixiaoMainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind']
+        FeixiaoSubstats = {'CR': 7, 'CD': 12, 'ATK.percent': 3, 'SPD.flat':5}        
         
     if feixiaoLightCone == 'CruisingInTheStellarSea':
         FeixiaoLightcone = CruisingInTheStellarSea(**config)
@@ -51,7 +52,7 @@ def FeixiaoMarchRobinAventurine(config,
         FeixiaoLightcone = BaptismOfPureThought(**config)
         FeixiaoSubstats['CR'] += 5
         FeixiaoSubstats['CD'] -= 5
-    FeixiaoCharacter = Feixiao(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind'],
+    FeixiaoCharacter = Feixiao(RelicStats(mainstats = FeixiaoMainstats,
                                     substats = FeixiaoSubstats),
                                     lightcone = FeixiaoLightcone,
                                     relicsetone = WindSoaringValorous2pc(),
@@ -198,7 +199,6 @@ def FeixiaoMarchRobinAventurine(config,
 
     # four turn robin advance math
     totalRobinEffect = sumEffects(RobinRotation)
-    print(RobinCharacter.getTotalStat('SPD'))
     RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
     
     numTurnAV = 300.0 if RobinCharacter.eidolon >= 2 else 400.0
@@ -206,18 +206,22 @@ def FeixiaoMarchRobinAventurine(config,
     MarchFourTurns = numTurnAV * MarchCharacter.useBasic().actionvalue / MarchCharacter.getTotalStat('SPD')
     FeixiaoFourTurns = numTurnAV * FeixiaoCharacter.useSkill().actionvalue / FeixiaoCharacter.getTotalStat('SPD')
     AventurineFourTurns = numTurnAV * AventurineCharacter.useBasic().actionvalue / AventurineCharacter.getTotalStat('SPD')
+    longestTurn = max(MarchFourTurns-1.0, FeixiaoFourTurns-1.0, AventurineFourTurns-1.0, RobinRotationDuration)
     
-    MarchRotation += [RobinCharacter.useAdvanceForward() * (MarchFourTurns - RobinRotationDuration) * MarchCharacter.getTotalStat('SPD') * numBasicMarch / numTurnAV]
-    FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (FeixiaoFourTurns - RobinRotationDuration) * FeixiaoCharacter.getTotalStat('SPD') * (numBasicFeixiao + numSkillFeixiao) / numTurnAV]
-    AventurineRotation += [RobinCharacter.useAdvanceForward() * (AventurineFourTurns - RobinRotationDuration) * AventurineCharacter.getTotalStat('SPD') * numBasicAventurine / numTurnAV]
+    MarchRotation += [RobinCharacter.useAdvanceForward() * (MarchFourTurns - longestTurn) * MarchCharacter.getTotalStat('SPD') * numBasicMarch / numTurnAV]
+    FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (FeixiaoFourTurns - longestTurn) * FeixiaoCharacter.getTotalStat('SPD') * (numBasicFeixiao + numSkillFeixiao) / numTurnAV]
+    AventurineRotation += [RobinCharacter.useAdvanceForward() * (AventurineFourTurns - longestTurn) * AventurineCharacter.getTotalStat('SPD') * numBasicAventurine / numTurnAV]
+    RobinRotation += [RobinCharacter.useAdvanceForward() * (RobinRotationDuration - longestTurn) * RobinCharacter.getTotalStat('SPD') / 100.0]
         
     totalMarchEffect = sumEffects(MarchRotation)
     totalFeixiaoEffect = sumEffects(FeixiaoRotation)
     totalAventurineEffect = sumEffects(AventurineRotation)
+    totalRobinEffect = sumEffects(RobinRotation)
     
     MarchRotationDuration = totalMarchEffect.actionvalue * 100.0 / MarchCharacter.getTotalStat('SPD')
     FeixiaoRotationDuration = totalFeixiaoEffect.actionvalue * 100.0 / FeixiaoCharacter.getTotalStat('SPD')
     AventurineRotationDuration = totalAventurineEffect.actionvalue * 100.0 / AventurineCharacter.getTotalStat('SPD')
+    RobinRotationDuration = totalRobinEffect.actionvalue * 100.0 / RobinCharacter.getTotalStat('SPD')
     
     print('##### Rotation Durations #####')
     print('March: ',MarchRotationDuration * 2.0)

@@ -27,4 +27,3 @@ class Watchmaker4pc(RelicSet):
         char.addStat('BreakEffect',description=self.shortname,
                                         amount=0.30,
                                         uptime=self.uptime)
-        # energy mechanics not really implemented
