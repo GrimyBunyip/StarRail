@@ -17,7 +17,9 @@ from relicSets.relicSets.ChampionOfStreetwiseBoxing import ChampionOfStreetwiseB
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 
-def ArgentiHanabiTingyunHuohuo(config):
+def ArgentiHanabiTingyunHuohuo(config,
+                               argentiUltIsEnhanced:bool=True,
+                               extraArgentiEnergy:float=0.0,):
     #%% Argenti Hanabi Tingyun Huohuo Characters
     ArgentiCharacter = Argenti(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.physical'],
                         substats = {'CR': 8, 'CD': 12, 'ATK.flat': 3, 'ATK.percent': 5}),
@@ -84,11 +86,12 @@ def ArgentiHanabiTingyunHuohuo(config):
     HuohuoEnergyPerTurn = ArgentiCharacter.maxEnergy * (0.21 if HuohuoCharacter.eidolon >= 5 else 0.20)  / 4.0
     TingyunEnergyPerTurn *= TingyunCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')
     HuohuoEnergyPerTurn *= HuohuoCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')
-    numSkill = (180.0 - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (30.0 + TingyunEnergyPerTurn + HuohuoEnergyPerTurn + 3 * ArgentiCharacter.numEnemies)
+    argentiUltEnergy = 180.0 if argentiUltIsEnhanced else 90.0
+    numSkill = (argentiUltEnergy - extraArgentiEnergy - 5.0 - 3.0 * ArgentiCharacter.numEnemies) / (30.0 + TingyunEnergyPerTurn + HuohuoEnergyPerTurn + 3 * ArgentiCharacter.numEnemies)
     numUlt = 1
 
     ArgentiRotation = [ArgentiCharacter.useSkill() * numSkill,
-                        ArgentiCharacter.useEnhancedUltimate() * numUlt,
+                        (ArgentiCharacter.useEnhancedUltimate() if argentiUltIsEnhanced else ArgentiCharacter.useUltimate()) * numUlt,
                         HanabiCharacter.useAdvanceForward(advanceAmount=1.0 - ArgentiCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD')) * numSkill,
     ]
 

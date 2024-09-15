@@ -36,10 +36,12 @@ class Lingsha(BaseCharacter):
         # Gear
         self.equipGear()
         
+        # Team Buffs
+        def addAttackForTalent(team:list=[]):
+            self.addStat('ATK.percent',description='Lingsha Break Talent',amount=min(0.50,0.25 * self.getBreakEffect()))
+            self.addStat('Heal',description='Lingsha Break Talent',amount=min(0.20,0.10 * self.getBreakEffect()))
 
-    def addAttackForTalent(self):
-        self.addStat('ATK.percent',description='Lingsha Break Talent',amount=min(0.50,0.25 * self.getBreakEffect()))
-        self.addStat('Heal',description='Lingsha Break Talent',amount=min(0.20,0.10 * self.getBreakEffect()))
+        self.teamBuffList.append(addAttackForTalent)
         
     def applyUltDebuff(self,team:list, rotationDuration:float=3.0):
         ultUptime = (2.0 / rotationDuration) * self.getTotalStat('SPD') / self.enemySpeed

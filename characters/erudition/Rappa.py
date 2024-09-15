@@ -21,34 +21,52 @@ class Rappa(BaseCharacter):
         # Motion Values should be set before talents or gear
         # to do: check eidolons
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]
-        self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=0.8*2, eidolonThreshold=5, eidolonBonus=0.08*2),
-                                                 BaseMV(area='adjacent', stat='atk', value=0.4*2, eidolonThreshold=5, eidolonBonus=0.04*2),
-                                                 BaseMV(area='all', stat='atk', value=0.8, eidolonThreshold=5, eidolonBonus=0.08),]
+        self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=1.0*2, eidolonThreshold=5, eidolonBonus=0.1*2),
+                                                 BaseMV(area='adjacent', stat='atk', value=0.5*2, eidolonThreshold=5, eidolonBonus=0.05*2),
+                                                 BaseMV(area='all', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1),]
 
         self.motionValueDict['skill'] = [BaseMV(area='all', stat='atk', value=1.2, eidolonThreshold=3, eidolonBonus=0.12)]
 
-        self.motionValueDict['ultimate'] = [BaseMV(area='all', stat='atk', value=1.6, eidolonThreshold=5, eidolonBonus=0.128)]
-        self.motionValueDict['talent'] = [BaseMV(area='single', stat='atk', value=1.8, eidolonThreshold=3, eidolonBonus=0.18)]
-
         # Talents
         self.addStat('BreakEfficiency',description='Rappa Ult Buff',amount=0.5,type=['enhancedBasic'])
-        self.addStat('BreakEffect',description='Rappa Ult Buff',amount=0.3,type=['enhancedBasic'])
+        self.addStat('BreakEffect',description='Rappa Ult Buff',amount=0.34 if self.eidolon >= 5 else 0.30,type=['enhancedBasic'])
         
         # Eidolons
+        if self.eidolon >= 1:
+            self.addStat('DefShred',description='Rappa Talent',amount=0.15,type=['enhancedBasic'])
+            self.addStat('BonusEnergyAttack',description='Rappa Talent',amount=20.0,type=['ultimate'])
         
         # Gear
         self.equipGear()
+        
+        # Team Buffs
+        def addVulnForTalent(team:list=[]):
+            amount = min(0,self.getTotalStat('ATK')-2000)
+            amount = 0.03 + amount * 0.01 / 100.0
+            amount = min(12.0,amount)
+            self.addStat('Vulnerability',
+                         description='Rappa Vulnerability Talent',
+                         amount=amount,
+                         uptime=self.weaknessBrokenUptime,
+                         type=['break','superBreak'])
 
-    def useTalent(self):
+        self.teamBuffList.append(addVulnForTalent)
+
+    def useTalent(self,extraTypes:list=[]):
         retval = BaseEffect()
-        type = ['talent']
-        retval.damage = self.getTotalMotionValue('basic',type)
-        retval.damage *= self.getTotalCrit(type)
-        retval.damage *= self.getDmg(type)
-        retval.damage *= self.getVulnerability(type)
-        retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = 30.0 * self.getBreakEfficiency(type)
-        self.addDebugInfo(retval,type)
+        type = ['break','superBreak'] + extraTypes
+
+        superBreakDamage = self.breakLevelMultiplier
+        superBreakDamage *= 1.92 if self.eidolon >= 3 else 1.8
+        # superBreakDamage *= BREAK_MULTIPLIERS[self.element] # does not seem to scale off type
+        superBreakDamage *= self.getBreakEffect(type)
+        superBreakDamage *= self.getVulnerability(type)
+        superBreakDamage = self.applyDamageMultipliers(superBreakDamage,type)
+
+        retval.damage = superBreakDamage
+        # factor weakness broken uptime into whether we apply gauge
+        retval.gauge = 30.0 * self.getBreakEfficiency(type) * (1.0 - self.weaknessBrokenUptime)
+        self.addDebugInfo(retval,type,f'Super Break Damage {self.name}')
         return retval
 
     def useBasic(self):
@@ -75,9 +93,8 @@ class Rappa(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = ( 60.0 + 30.0 * num_adjacents ) * self.getBreakEfficiency(type)
+        retval.gauge = ( 120.0 + 60.0 * num_adjacents + 30.0 * self.numEnemies ) * self.getBreakEfficiency(type)
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
-        retval.skillpoints = 1.0
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
@@ -100,12 +117,12 @@ class Rappa(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.energy = 5.0 * self.getER(type)
+        retval.energy = (5.0 + self.getBonusEnergyAttack(type)) * self.getER(type)
         retval.actionvalue = -1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
                 
-    def useSuperBreak(self,baseGauge:float,extraTypes:list=[]):
+    def useSuperBreak(self,extraTypes:list=[]):
         retval = BaseEffect()
         type = ['break','superBreak'] + extraTypes
 

@@ -79,10 +79,6 @@ def FireflyTrailblazerRuanMeiLingsha(config,
             character.addStat('Vulnerability',description='Scent Alone Stays True', 
                               amount=0.14 + 0.04 * LingshaCharacter.lightcone.superposition,
                               uptime=min(1.0, 1.0 / lingshaUltRotation))
-    
-    # apply Firefly and Lingsha self buffs and MV calculations at the end
-    FireflyCharacter.addBreakEffectTalent()
-    LingshaCharacter.addAttackForTalent()
 
     #%% Team Buffs and Print Statements
     for character in team:

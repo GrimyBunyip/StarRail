@@ -3,30 +3,42 @@ from baseClasses.BaseEffect import BaseEffect, sumEffects
 from baseClasses.RelicStats import RelicStats
 from characters.abundance.Gallagher import Gallagher
 from characters.destruction.Firefly import Firefly
-from characters.harmony.RuanMei import RuanMei
+from characters.erudition.Rappa import Rappa
 from characters.harmony.ImaginaryTrailblazer import ImaginaryTrailblazer
 from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.destruction.OnTheFallOfAnAeon import OnTheFallOfAnAeon
 from lightCones.destruction.WhereaboutsShouldDreamsRest import WhereaboutsShouldDreamsRest
+from lightCones.erudition.AfterTheCharmonyFall import AfterTheCharmonyFall
+from lightCones.erudition.NinjutsuInscription import NinjutsuInscription
+from lightCones.erudition.Passkey import Passkey
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from relicSets.planarSets.ForgeOfTheKalpagniLantern import ForgeOfTheKalpagniLantern
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
+from relicSets.planarSets.TaliaKingdomOfBanditry import TaliaKingdomOfBanditry
 from relicSets.relicSets.IronCavalryAgainstTheScourge import IronCavalryAgainstTheScourge2pc, IronCavalryAgainstTheScourge4pc
 from relicSets.relicSets.ThiefOfShootingMeteor import ThiefOfShootingMeteor2pc, ThiefOfShootingMeteor4pc
 from relicSets.relicSets.WatchmakerMasterOfDreamMachinations import Watchmaker2pc, Watchmaker4pc
 
-def FireflyTrailblazerRuanMeiGallagher(config,
+def FireflyTrailblazerRappaGallagher(config,
                                        fireflyEidolon:int=None,
-                                       fireflySuperposition:int=0):
-    #%% Firefly Trailblazer RuanMei Gallagher Characters
+                                       fireflySuperposition:int=0,
+                                       rappaEidolon:int=None,
+                                       rappaLightcone:str='Passkey',):
+    #%% Firefly Trailblazer Rappa Gallagher Characters
     
-    # do ruan mei first because she needs to alter the enemy speed and toughness uptime
-    RuanMeiCharacter = RuanMei(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'DEF.percent', 'ER'],
-                                    substats = {'DEF.percent': 3, 'BreakEffect': 12, 'SPD.flat': 8, 'HP.percent': 5}),
-                                    lightcone = MemoriesOfThePast(**config),
-                                    relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = SprightlyVonwacq(),
+    if rappaLightcone == 'Passkey':
+        RappaLightcone = Passkey(**config)
+    elif rappaLightcone == 'AfterTheCharmonyFall':
+        RappaLightcone = AfterTheCharmonyFall(**config)
+    elif rappaLightcone == 'NinjutsuInscription':
+        RappaLightcone = NinjutsuInscription(**config)
+    RappaCharacter = Rappa(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'SPD.flat', 'BreakEffect'],
+                                    substats = {'SPD.flat': 12, 'ATK.flat': 3, 'BreakEffect': 8, 'ATK.percent': 5}),
+                                    lightcone = RappaLightcone,
+                                    eidolon = rappaEidolon,
+                                    relicsetone = IronCavalryAgainstTheScourge2pc(), relicsettwo = IronCavalryAgainstTheScourge4pc(), planarset = TaliaKingdomOfBanditry(),
                                     **config)
     
     fireflyLightcone = OnTheFallOfAnAeon(**config,uptime=1.0) if fireflySuperposition == 0 else WhereaboutsShouldDreamsRest(superposition=fireflySuperposition, **config)
@@ -49,9 +61,9 @@ def FireflyTrailblazerRuanMeiGallagher(config,
                                     relicsetone = IronCavalryAgainstTheScourge2pc(), relicsettwo = IronCavalryAgainstTheScourge4pc(), planarset = SprightlyVonwacq(),
                                     **config)
     
-    team = [FireflyCharacter, TrailblazerCharacter, RuanMeiCharacter, GallagherCharacter]
+    team = [FireflyCharacter, TrailblazerCharacter, RappaCharacter, GallagherCharacter]
 
-    #%% Firefly Trailblazer RuanMei Gallagher Team Buffs
+    #%% Firefly Trailblazer Rappa Gallagher Team Buffs
     for character in team:
         character.addStat('BreakEffect',description='Watchmaker 4pc', amount=0.30, uptime=0.66)
 
@@ -60,7 +72,7 @@ def FireflyTrailblazerRuanMeiGallagher(config,
     TrailblazerCharacter.applyE4Buff(team=team)
     
     # Handle firefly's ult vulnerability separately
-    FireflyCharacter.applyUltVulnerability(team=[TrailblazerCharacter, GallagherCharacter, RuanMeiCharacter])
+    FireflyCharacter.applyUltVulnerability(team=[TrailblazerCharacter, GallagherCharacter, RappaCharacter])
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
@@ -72,7 +84,7 @@ def FireflyTrailblazerRuanMeiGallagher(config,
     for character in team:
         character.print()
 
-    #%% Firefly Trailblazer RuanMei Gallagher Rotations
+    #%% Firefly Trailblazer Rappa Gallagher Rotations
     # assume each elite performs 1 single target attack per turn
     # times 2 as the rotation is 2 of her turns long
 
@@ -119,15 +131,28 @@ def FireflyTrailblazerRuanMeiGallagher(config,
                                                extraTypes=['skill']) * numSkillTrailblazer,
     ]
 
-    numBasicRuanMei = 2.0
-    numSkillRuanMei = 1.0
-    RuanMeiRotation = [RuanMeiCharacter.useBasic() * numBasicRuanMei,
-                       RuanMeiCharacter.useSkill() * numSkillRuanMei,
-                       RuanMeiCharacter.useUltimate(),]
-    TrailblazerRotationRuanMei = [
-                       TrailblazerCharacter.useSuperBreak(character=RuanMeiCharacter,
-                                                          baseGauge=RuanMeiCharacter.useBasic().gauge,
-                                                          extraTypes=['basic']) * numBasicRuanMei
+    numSkillRappa = 2.8
+    numSkillRappa -= (2.0 / 3.0) if RappaCharacter.eidolon >= 1 else 0.0
+    numSkillRappa -= (2.0 * 12.0 / 30.0) if rappaLightcone == 'Passkey' else 0.0
+    numEnhancedRappa = 3.0
+    numTalentRappa = RappaCharacter.numEnemies - 1
+    numTalentRappa *= (numSkillRappa + numEnhancedRappa) 
+    numTalentRappa *= (1.0 - RappaCharacter.weaknessBrokenUptime)
+    numTalentRappa *= 0.5 # trigger talent about half the time we attack. as an estimate
+    RappaRotation = [ 
+            RappaCharacter.useSkill() * numSkillRappa,
+            RappaCharacter.useEnhancedBasic() * numEnhancedRappa,
+            RappaCharacter.useTalent() * numTalentRappa,
+            RappaCharacter.useSuperBreak() * numEnhancedRappa * RappaCharacter.weaknessBrokenUptime,
+            RappaCharacter.useUltimate(),
+    ]
+    TrailblazerRotationRappa = [
+            TrailblazerCharacter.useSuperBreak(character=RappaCharacter, 
+                                               baseGauge=RappaCharacter.useSkill().gauge,
+                                               extraTypes=['skill']) * numSkillRappa,
+            TrailblazerCharacter.useSuperBreak(character=RappaCharacter, 
+                                               baseGauge=RappaCharacter.useEnhancedBasic().gauge,
+                                               extraTypes=['basic','enhancedBasic']) * numEnhancedRappa,
     ]
 
     numBasicGallagher = 4.0
@@ -150,16 +175,16 @@ def FireflyTrailblazerRuanMeiGallagher(config,
                                                              extraTypes=['ultimate']),
     ]
 
-    #%% Firefly Trailblazer RuanMei Gallagher Rotation Math
+    #%% Firefly Trailblazer Rappa Gallagher Rotation Math
 
     totalFireflyEffect = sumEffects(FireflyRotation)
     totalTrailblazerEffect = sumEffects(TrailblazerRotation)
-    totalRuanMeiEffect = sumEffects(RuanMeiRotation)
+    totalRappaEffect = sumEffects(RappaRotation)
     totalGallagherEffect = sumEffects(GallagherRotation)
 
     FireflyRotationDuration = totalFireflyEffect.actionvalue * 100.0 / FireflyCharacter.getTotalStat('SPD')
     TrailblazerRotationDuration = totalTrailblazerEffect.actionvalue * 100.0 / TrailblazerCharacter.getTotalStat('SPD')
-    RuanMeiRotationDuration = totalRuanMeiEffect.actionvalue * 100.0 / RuanMeiCharacter.getTotalStat('SPD')
+    RappaRotationDuration = totalRappaEffect.actionvalue * 100.0 / RappaCharacter.getTotalStat('SPD')
     GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
 
     # Apply Dance Dance Dance Effect
@@ -175,37 +200,37 @@ def FireflyTrailblazerRuanMeiGallagher(config,
     FireflyCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     FireflyRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    DanceDanceDanceEffect.actionvalue = -0.24 * RuanMeiRotationDuration / TrailblazerRotationDuration
-    RuanMeiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    RuanMeiRotation.append(deepcopy(DanceDanceDanceEffect))
+    DanceDanceDanceEffect.actionvalue = -0.24 * RappaRotationDuration / TrailblazerRotationDuration
+    RappaCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+    RappaRotation.append(deepcopy(DanceDanceDanceEffect))
     
     DanceDanceDanceEffect.actionvalue = -0.24 * GallagherRotationDuration / TrailblazerRotationDuration
     GallagherCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
     GallagherRotation.append(deepcopy(DanceDanceDanceEffect))
     
-    totalRuanMeiEffect = sumEffects(RuanMeiRotation)
+    totalRappaEffect = sumEffects(RappaRotation)
     totalFireflyEffect = sumEffects(FireflyRotation)
     totalGallagherEffect = sumEffects(GallagherRotation)
 
     FireflyRotationDuration = totalFireflyEffect.actionvalue * 100.0 / FireflyCharacter.getTotalStat('SPD')
-    RuanMeiRotationDuration = totalRuanMeiEffect.actionvalue * 100.0 / RuanMeiCharacter.getTotalStat('SPD')
+    RappaRotationDuration = totalRappaEffect.actionvalue * 100.0 / RappaCharacter.getTotalStat('SPD')
     GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
 
     print('##### Rotation Durations #####')
     print('Firefly: ',FireflyRotationDuration)
     print('Trailblazer: ',TrailblazerRotationDuration)
-    print('RuanMei: ',RuanMeiRotationDuration)
+    print('Rappa: ',RappaRotationDuration)
     print('Gallagher: ',GallagherRotationDuration)
 
     # Scale other character's rotation
     TrailblazerRotation = [x * FireflyRotationDuration / TrailblazerRotationDuration for x in TrailblazerRotation]
-    RuanMeiRotation = [x * FireflyRotationDuration / RuanMeiRotationDuration for x in RuanMeiRotation]
+    RappaRotation = [x * FireflyRotationDuration / RappaRotationDuration for x in RappaRotation]
     GallagherRotation = [x * FireflyRotationDuration / GallagherRotationDuration for x in GallagherRotation]
-    TrailblazerRotationRuanMei = [x * FireflyRotationDuration / RuanMeiRotationDuration for x in TrailblazerRotationRuanMei]
+    TrailblazerRotationRappa = [x * FireflyRotationDuration / RappaRotationDuration for x in TrailblazerRotationRappa]
     TrailblazerRotationGallagher = [x * FireflyRotationDuration / GallagherRotationDuration for x in TrailblazerRotationGallagher]
     
     TrailblazerRotation += TrailblazerRotationFirefly
-    TrailblazerRotation += TrailblazerRotationRuanMei
+    TrailblazerRotation += TrailblazerRotationRappa
     TrailblazerRotation += TrailblazerRotationGallagher
     totalTrailblazerEffect = sumEffects(TrailblazerRotation)
 
@@ -213,10 +238,10 @@ def FireflyTrailblazerRuanMeiGallagher(config,
                                        FireflyRotation, FireflyCharacter, config)
     TrailblazerEstimate = DefaultEstimator(f'{TrailblazerCharacter.fullName()} {numSkillTrailblazer:.0f}E {numBasicTrailblazer:.0f}N Q', 
                                            TrailblazerRotation, TrailblazerCharacter, config)
-    RuanMeiEstimate = DefaultEstimator(f'{RuanMeiCharacter.fullName()} {numBasicRuanMei:.0f}N {numSkillRuanMei:.0f}E 1Q', 
-                                    RuanMeiRotation, RuanMeiCharacter, config)
+    RappaEstimate = DefaultEstimator(f'{RappaCharacter.fullName()} {numSkillRappa:.1f}E {numEnhancedRappa:.0f}Enh {numTalentRappa:.1f}T', 
+                                       RappaRotation, RappaCharacter, config)
     GallagherEstimate = DefaultEstimator(f'{GallagherCharacter.fullName()} {numBasicGallagher:.0f}N {numEnhancedGallagher:.0f}Enh 1Q', 
                                     GallagherRotation, GallagherCharacter, config)
 
-    return([FireflyEstimate, TrailblazerEstimate, GallagherEstimate, RuanMeiEstimate])
+    return([FireflyEstimate, TrailblazerEstimate, GallagherEstimate, RappaEstimate])
 

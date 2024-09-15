@@ -17,7 +17,10 @@ from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc, Longevou
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 
-def BladeBronyaJadeLuocha(config, jadeCone:BaseLightCone = None):
+def BladeBronyaJadeLuocha(config, 
+                          jadeCone:BaseLightCone = None,
+                          bladeExtraEnergy = 30.0,
+                          jadeExtraEnergy = 30.0,):
     #%% Blade Bronya Jade Luocha Characters
     
     BladeCharacter = Blade(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CR', 'DMG.wind'],
