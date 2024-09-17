@@ -206,7 +206,10 @@ def FeixiaoMarchRobinAventurine(config,
     MarchFourTurns = numTurnAV * MarchCharacter.useBasic().actionvalue / MarchCharacter.getTotalStat('SPD')
     FeixiaoFourTurns = numTurnAV * FeixiaoCharacter.useSkill().actionvalue / FeixiaoCharacter.getTotalStat('SPD')
     AventurineFourTurns = numTurnAV * AventurineCharacter.useBasic().actionvalue / AventurineCharacter.getTotalStat('SPD')
-    longestTurn = max(MarchFourTurns-1.0, FeixiaoFourTurns-1.0, AventurineFourTurns-1.0, RobinRotationDuration)
+    longestTurn = max(MarchFourTurns - 100.0 * MarchCharacter.useBasic().actionvalue / MarchCharacter.getTotalStat('SPD'), 
+                      FeixiaoFourTurns - 100.0 * FeixiaoCharacter.useSkill().actionvalue / FeixiaoCharacter.getTotalStat('SPD'), 
+                      AventurineFourTurns - 100.0 * AventurineCharacter.useBasic().actionvalue / AventurineCharacter.getTotalStat('SPD'), 
+                      RobinRotationDuration)
     
     MarchRotation += [RobinCharacter.useAdvanceForward() * (MarchFourTurns - longestTurn) * MarchCharacter.getTotalStat('SPD') * numBasicMarch / numTurnAV]
     FeixiaoRotation += [RobinCharacter.useAdvanceForward() * (FeixiaoFourTurns - longestTurn) * FeixiaoCharacter.getTotalStat('SPD') * (numBasicFeixiao + numSkillFeixiao) / numTurnAV]
