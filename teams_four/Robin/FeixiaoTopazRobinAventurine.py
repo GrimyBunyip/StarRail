@@ -18,7 +18,9 @@ from lightCones.hunt.WorrisomeBlissful import WorrisomeBlissful
 from lightCones.preservation.DestinysThreadsForewoven import DestinysThreadsForewoven
 from relicSets.planarSets.BrokenKeel import BrokenKeel
 from relicSets.planarSets.DuranDynastyOfRunningWolves import DuranDynastyOfRunningWolves
+from relicSets.planarSets.IzumoGenseiAndTakamaDivineRealm import IzumoGenseiAndTakamaDivineRealm
 from relicSets.planarSets.SprightlyVonwacq import SprightlyVonwacq
+from relicSets.planarSets.TheWondrousBananAmusementPark import TheWondrousBananAmusementPark
 from relicSets.relicSets.AshblazingGrandDuke import GrandDuke2pc, GrandDuke4pc
 from relicSets.relicSets.KnightOfPurityPalace import KnightOfPurityPalace2pc, KnightOfPurityPalace4pc
 from relicSets.relicSets.MusketeerOfWildWheat import MusketeerOfWildWheat2pc
@@ -73,7 +75,7 @@ def FeixiaoTopazRobinAventurine(config,
     TopazCharacter = Topaz(RelicStats(mainstats = ['DMG.fire', 'SPD.flat', 'CR', 'ATK.percent'],
                                     substats = TopazSubstats),
                                     lightcone = topazLightcone, 
-                                    relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = DuranDynastyOfRunningWolves(),
+                                    relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(), planarset = IzumoGenseiAndTakamaDivineRealm(),
                                     eidolon=topazEidolon,
                                     **config)
     

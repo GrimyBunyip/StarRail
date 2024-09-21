@@ -62,7 +62,7 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
     BronyaCharacter.applyUltBuff(AcheronCharacter,uptime=0.25) # only get Bronya ult buff every 4 bronya turns
     BronyaCharacter.applyUltBuff(JiaoqiuCharacter,uptime=0.5) # only get Bronya ult buff every 4 bronya turns
     BronyaCharacter.applyUltBuff(GallagherCharacter,uptime=0.5) # only get Bronya ult buff every 4 bronya turns
-    AcheronCharacter.addStat('CD',description='Sacerdos Bronya',amount=0.2)
+    AcheronCharacter.addStat('CD',description='Sacerdos Bronya',amount=0.18)
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)

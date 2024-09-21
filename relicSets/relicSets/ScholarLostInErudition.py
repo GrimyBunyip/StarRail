@@ -26,6 +26,6 @@ class ScholarLostInErudition4pc(RelicSet):
         # buff applied to followup attacks
         char.addStat('DMG',description=self.shortname,amount=0.20, type=['ultimate','skill'])
         char.addStat('DMG',description=self.shortname,
-                     amount=0.20,
+                     amount=0.25,
                      uptime=self.uptime,
                      type=['skill'])

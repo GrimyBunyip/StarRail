@@ -60,7 +60,7 @@ def BladeBronyaJadeLuocha(config,
     BronyaCharacter.applySkillBuff(BladeCharacter,uptime=1.0/2.0) # estimate 1 bronya skill buff per 2 blade attacks
     BronyaCharacter.applyUltBuff(JadeCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / JadeCharacter.getTotalStat('SPD'))
     BronyaCharacter.applyUltBuff(LuochaCharacter,uptime=(1.0/4.0) * BronyaCharacter.getTotalStat('SPD') / LuochaCharacter.getTotalStat('SPD') / 0.8) # 0.8 for multiplication
-    BladeCharacter.addStat('CD',description='Sacerdos Bronya',amount=0.2)
+    BladeCharacter.addStat('CD',description='Sacerdos Bronya',amount=0.18)
 
     #%% Team Buffs and Print Statements
     for character in team:
