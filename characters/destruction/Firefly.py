@@ -24,6 +24,7 @@ class Firefly(BaseCharacter):
         self.motionValueDict['enhancedBasic'] = [BaseMV(area='single', stat='atk', value=2.0, eidolonThreshold=3, eidolonBonus=0.2)]
 
         # Talents
+        self.addStat('BreakEfficiency',description='Firefly Ultimate BreakEfficiency', amount=0.5, type=['enhancedBasic','enhancedSkill'])
         
         # Eidolons
         if self.eidolon >= 1:
@@ -44,12 +45,10 @@ class Firefly(BaseCharacter):
         self.teamBuffList.append(addBreakEffectTalent)
 
         
-    def applyUltVulnerability(self,team:list,uptime=None):
-        uptime = self.weaknessBrokenUptime if uptime is None else uptime
-        for character in team:
-            character.addStat('Vulnerability',description='Firefly Ult',
-                         amount=0.225 if self.eidolon >= 5 else 0.20833,
-                         uptime=uptime)
+    def applyUltVulnerability(self):
+        self.addStat('Vulnerability',description='Firefly Ult Vulnerability',
+                        amount=0.22 if self.eidolon >= 5 else 0.20,
+                        type=['break'])
 
     def useBasic(self):
         retval = BaseEffect()

@@ -40,7 +40,7 @@ def FeixiaoTopazRobinAventurine(config,
         FeixiaoMainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind']
         FeixiaoSubstats = {'CR': 5, 'CD': 9, 'ATK.percent': 3, 'SPD.flat':11}
     else:
-        FeixiaoMainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.wind']
+        FeixiaoMainstats = ['ATK.percent', 'SPD.flat', 'CR', 'ATK.percent']
         FeixiaoSubstats = {'CR': 7, 'CD': 8, 'ATK.percent': 3, 'SPD.flat':10}
         
     if feixiaoLightCone == 'CruisingInTheStellarSea':

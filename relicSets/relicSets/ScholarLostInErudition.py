@@ -10,7 +10,7 @@ class ScholarLostInErudition2pc(RelicSet):
         self.shortname = shortname
 
     def equipTo(self, char:BaseCharacter):
-        char.addStat('CR',description=self.shortname,amount=0.06)
+        char.addStat('CR',description=self.shortname,amount=0.08)
         
 class ScholarLostInErudition4pc(RelicSet):
     def __init__(self,

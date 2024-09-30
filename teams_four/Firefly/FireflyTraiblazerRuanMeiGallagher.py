@@ -59,9 +59,6 @@ def FireflyTrailblazerRuanMeiGallagher(config,
     TrailblazerCharacter.applyUltBuff(team=team)
     TrailblazerCharacter.applyE4Buff(team=team)
     
-    # Handle firefly's ult vulnerability separately
-    FireflyCharacter.applyUltVulnerability(team=[TrailblazerCharacter, GallagherCharacter, RuanMeiCharacter])
-    
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
 
@@ -96,7 +93,7 @@ def FireflyTrailblazerRuanMeiGallagher(config,
                                                extraTypes=['skill']) * numSkillFirefly,        
     ]
 
-    FireflyCharacter.applyUltVulnerability([FireflyCharacter],uptime=1.0)
+    FireflyCharacter.applyUltVulnerability()
     numEnhancedFirefly *= 1.5 if FireflyCharacter.eidolon >= 2.0 else 1.0
     FireflyRotation += [FireflyCharacter.useEnhancedSkill() * numEnhancedFirefly]
     FireflyRotation[-1].actionvalue *= 2.0 / 3.0 if FireflyCharacter.eidolon >= 2 else 1.0

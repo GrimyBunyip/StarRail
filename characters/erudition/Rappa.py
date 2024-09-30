@@ -41,9 +41,9 @@ class Rappa(BaseCharacter):
         
         # Team Buffs
         def addVulnForTalent(team:list=[]):
-            amount = min(0,self.getTotalStat('ATK')-2000)
-            amount = 0.03 + amount * 0.01 / 100.0
-            amount = min(12.0,amount)
+            amount = min(0,self.getTotalStat('ATK')-2400)
+            amount = 0.02 + amount * 0.01 / 100.0
+            amount = min(0.08,amount)
             self.addStat('Vulnerability',
                          description='Rappa Vulnerability Talent',
                          amount=amount,
@@ -52,21 +52,21 @@ class Rappa(BaseCharacter):
 
         self.teamBuffList.append(addVulnForTalent)
 
-    def useTalent(self,extraTypes:list=[]):
+    def useTalent(self,extraTypes:list=[],numCharges:int=1):
         retval = BaseEffect()
         type = ['break','superBreak'] + extraTypes
 
-        superBreakDamage = self.breakLevelMultiplier
-        superBreakDamage *= 1.92 if self.eidolon >= 3 else 1.8
-        # superBreakDamage *= BREAK_MULTIPLIERS[self.element] # does not seem to scale off type
-        superBreakDamage *= self.getBreakEffect(type)
-        superBreakDamage *= self.getVulnerability(type)
-        superBreakDamage = self.applyDamageMultipliers(superBreakDamage,type)
+        imagBreakDamage = 0.66 if self.eidolon >= 3 else 0.60
+        imagBreakDamage += (0.55 if self.eidolon >= 3 else 0.50) * numCharges
+        imagBreakDamage *= self.breakLevelMultiplier
+        imagBreakDamage *= self.getBreakEffect(type)
+        imagBreakDamage *= self.getVulnerability(type)
+        imagBreakDamage = self.applyDamageMultipliers(imagBreakDamage,type)
 
-        retval.damage = superBreakDamage
+        retval.damage = imagBreakDamage
         # factor weakness broken uptime into whether we apply gauge
-        retval.gauge = 30.0 * self.getBreakEfficiency(type) * (1.0 - self.weaknessBrokenUptime)
-        self.addDebugInfo(retval,type,f'Super Break Damage {self.name}')
+        retval.gauge = (6.0 + 3.0 * numCharges) * self.getBreakEfficiency(type)
+        self.addDebugInfo(retval,type,f'Rappa Talent {self.name}')
         return retval
 
     def useBasic(self):

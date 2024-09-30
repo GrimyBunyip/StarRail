@@ -22,7 +22,7 @@ from relicSets.relicSets.WatchmakerMasterOfDreamMachinations import Watchmaker2p
 def RappaTrailblazerRuanMeiGallagher(config,
                                      rappaEidolon:int=None,
                                      rappaLightcone:str='Passkey',
-                                     rappaNumTalentRatio:float = 1.0/3.0,
+                                     numChargesRappa:float = 5.0,
                                      rappaNumSkillOverride:float=None,):
     #%% Rappa Trailblazer RuanMei Gallagher Characters
     
@@ -80,18 +80,16 @@ def RappaTrailblazerRuanMeiGallagher(config,
 
     #%% Rappa Trailblazer RuanMei Gallagher Rotations
 
-    numSkillRappa = 2.3
+    numSkillRappa = 1.7
+    numSkillRappa -= RappaCharacter.numEnemies * 0.1 if config['enemyType'] == 'elite' else 0.0
     numSkillRappa -= (2.0 / 3.0) if RappaCharacter.eidolon >= 1 else 0.0
     numSkillRappa -= (2.0 * 12.0 / 30.0) if rappaLightcone == 'Passkey' else 0.0
     numSkillRappa = rappaNumSkillOverride if rappaNumSkillOverride is not None else numSkillRappa
     numEnhancedRappa = 3.0
-    numTalentRappa = 2 * (RappaCharacter.numEnemies - 1)
-    numTalentRappa *= (0.5 * numSkillRappa + numEnhancedRappa) 
-    numTalentRappa *= rappaNumTalentRatio
     RappaRotation = [ 
             RappaCharacter.useSkill() * numSkillRappa,
             RappaCharacter.useEnhancedBasic() * numEnhancedRappa,
-            RappaCharacter.useTalent() * numTalentRappa,
+            RappaCharacter.useTalent(numCharges=numChargesRappa) * numEnhancedRappa,
             RappaCharacter.useSuperBreak() * numEnhancedRappa * RappaCharacter.weaknessBrokenUptime,
             RappaCharacter.useUltimate(),
     ]
@@ -101,6 +99,9 @@ def RappaTrailblazerRuanMeiGallagher(config,
                                                extraTypes=['skill']) * numSkillRappa,
             TrailblazerCharacter.useSuperBreak(character=RappaCharacter, 
                                                baseGauge=RappaCharacter.useEnhancedBasic().gauge,
+                                               extraTypes=['basic','enhancedBasic']) * numEnhancedRappa,
+            TrailblazerCharacter.useSuperBreak(character=RappaCharacter, 
+                                               baseGauge=RappaCharacter.useTalent(numCharges=numChargesRappa).gauge,
                                                extraTypes=['basic','enhancedBasic']) * numEnhancedRappa,
     ]
 
@@ -216,7 +217,7 @@ def RappaTrailblazerRuanMeiGallagher(config,
     TrailblazerRotation += TrailblazerRotationGallagher
     totalTrailblazerEffect = sumEffects(TrailblazerRotation)
 
-    RappaEstimate = DefaultEstimator(f'{RappaCharacter.fullName()} {numSkillRappa:.1f}E {numEnhancedRappa:.0f}Enh {numTalentRappa:.1f}T', 
+    RappaEstimate = DefaultEstimator(f'{RappaCharacter.fullName()} {numSkillRappa:.1f}E {numEnhancedRappa:.0f}Enh {numChargesRappa:.1f}Avg Charges', 
                                        RappaRotation, RappaCharacter, config)
     TrailblazerEstimate = DefaultEstimator(f'{TrailblazerCharacter.fullName()} {numSkillTrailblazer:.0f}E {numBasicTrailblazer:.0f}N Q', 
                                            TrailblazerRotation, TrailblazerCharacter, config)

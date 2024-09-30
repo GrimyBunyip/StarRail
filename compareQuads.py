@@ -24,7 +24,6 @@ from teams_four.Jingyuan.JingyuanTingyunHanabiFuxuan import JingyuanTingyunHanab
 from teams_four.DotTeams.KafkaGuinaifenBlackSwanLuocha import KafkaGuinaifenBlackSwanLuocha
 from teams_four.DotTeams.KafkaS1RuanMeiBlackSwanLuocha import KafkaS1RuanMeiBlackSwanLuocha
 from teams_four.Lunae.LunaeHanabiTingyunGallagher import LunaeHanabiTingyunGallagher
-from teams_four.Rappa.FireflyTraiblazerRappaGallagher import FireflyTrailblazerRappaGallagher
 from teams_four.Rappa.RappaTraiblazerRuanMeiGallagher import RappaTrailblazerRuanMeiGallagher
 from teams_four.RatioTopaz.RatioTopazRobinAventurine import DrRatioTopazRobinAventurine
 from teams_four.Robin.FeixiaoTopazRobinAventurine import FeixiaoTopazRobinAventurine
@@ -54,8 +53,8 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 #%% Team Imports
 
 # # Backloaded Teams
-# visualizationList.append(RappaTrailblazerRuanMeiGallagher(config))
-# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+visualizationList.append(RappaTrailblazerRuanMeiGallagher(config,numChargesRappa=2.0))
+visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 # visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
@@ -89,7 +88,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(AcheronKafkaBlackSwanGallagher(config))
 
 # # E0 teams
-# visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
+# visualizationList.append(AcheronPelaJiaoqiuGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronGuinaifenPelaGallagher(config))
 
 # # Argenti Teams
@@ -137,12 +136,13 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, feixiaoSuperposition=1))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, feixiaoSuperposition=1, feixiaoLightCone='InTheNight'))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, feixiaoSuperposition=1, feixiaoLightCone='BaptismOfPureThought'))
-visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=0, robinLightCone='ForTomorrowsJourney'))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=0, robinLightCone='ForTomorrowsJourney'))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2, robinLightCone='FlowingNightglow'))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2, feixiaoLightCone='IVentureForthToHunt', robinLightCone='ForTomorrowsJourney'))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2, feixiaoEidolon=1, robinLightCone='ForTomorrowsJourney'))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2, feixiaoEidolon=2, robinLightCone='ForTomorrowsJourney'))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=1))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=0, robinLightCone='PoisedToBloom'))
 # visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=0, feixiaoLightCone='IVentureForthToHunt', feixiaoEidolon=1))
@@ -184,9 +184,6 @@ visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=0, rob
 # visualizationList.append(YunliTingyunHanabiHuohuo(config, yunliSuperposition=1))
 
 # Rappa Team
-# config['numEnemies'] = 5
-# config['enemyToughness'] = 60 # mostly consider tweaking this for boothill
-# config['enemyType'] = 'basic'
 
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config, extraArgentiEnergy=50.0))
 # visualizationList.append(BladeBronyaJadeLuocha(config))
