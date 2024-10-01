@@ -54,7 +54,7 @@ class Rappa(BaseCharacter):
 
     def useTalent(self,extraTypes:list=[],numCharges:int=1):
         retval = BaseEffect()
-        type = ['break','superBreak'] + extraTypes
+        type = ['break','enhancedBasic'] + extraTypes
 
         imagBreakDamage = 0.66 if self.eidolon >= 3 else 0.60
         imagBreakDamage += (0.55 if self.eidolon >= 3 else 0.50) * numCharges
@@ -65,7 +65,7 @@ class Rappa(BaseCharacter):
 
         retval.damage = imagBreakDamage
         # factor weakness broken uptime into whether we apply gauge
-        retval.gauge = (6.0 + 3.0 * numCharges) * self.getBreakEfficiency(type)
+        retval.gauge = (6.0 + 3.0 * numCharges) * self.numEnemies * self.getBreakEfficiency(type)
         self.addDebugInfo(retval,type,f'Rappa Talent {self.name}')
         return retval
 
@@ -93,7 +93,7 @@ class Rappa(BaseCharacter):
         retval.damage *= self.getDmg(type)
         retval.damage *= self.getVulnerability(type)
         retval.damage = self.applyDamageMultipliers(retval.damage,type)
-        retval.gauge = ( 120.0 + 60.0 * num_adjacents + 30.0 * self.numEnemies ) * self.getBreakEfficiency(type)
+        retval.gauge = ( 60.0 + 30.0 * num_adjacents + 15.0 * self.numEnemies ) * self.getBreakEfficiency(type)
         retval.energy = ( 20.0 + self.getBonusEnergyAttack(type) + self.getBonusEnergyTurn(type) ) * self.getER(type)
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
@@ -124,7 +124,7 @@ class Rappa(BaseCharacter):
                 
     def useSuperBreak(self,extraTypes:list=[]):
         retval = BaseEffect()
-        type = ['break','superBreak'] + extraTypes
+        type = ['break','enhancedBasic'] + extraTypes
 
         superBreakDamage = self.breakLevelMultiplier
         superBreakDamage *= 0.6 # trace

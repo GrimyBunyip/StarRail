@@ -62,7 +62,7 @@ def RappaTrailblazerRuanMeiGallagher(config,
 
     #%% Rappa Trailblazer RuanMei Gallagher Team Buffs
     for character in team:
-        character.addStat('BreakEffect',description='Watchmaker 4pc', amount=0.30, uptime=0.66)
+        character.addStat('BreakEffect',description='Watchmaker 4pc', amount=0.30, uptime=1.0)
 
     # Trailblazer Vulnerability Buff
     TrailblazerCharacter.applyUltBuff(team=team)
@@ -90,7 +90,7 @@ def RappaTrailblazerRuanMeiGallagher(config,
             RappaCharacter.useSkill() * numSkillRappa,
             RappaCharacter.useEnhancedBasic() * numEnhancedRappa,
             RappaCharacter.useTalent(numCharges=numChargesRappa) * numEnhancedRappa,
-            RappaCharacter.useSuperBreak() * numEnhancedRappa * RappaCharacter.weaknessBrokenUptime,
+            RappaCharacter.useSuperBreak() * numEnhancedRappa,
             RappaCharacter.useUltimate(),
     ]
     TrailblazerRotationRappa = [

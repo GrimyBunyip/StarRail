@@ -53,7 +53,8 @@ def FireflyTrailblazerRuanMeiGallagher(config,
 
     #%% Firefly Trailblazer RuanMei Gallagher Team Buffs
     for character in team:
-        character.addStat('BreakEffect',description='Watchmaker 4pc', amount=0.30, uptime=0.66)
+        watchmakerUptime = 0.66 if FireflyCharacter.eidolon == 0 else 1.0
+        character.addStat('BreakEffect',description='Watchmaker 4pc', amount=0.30, uptime=watchmakerUptime)
 
     # Trailblazer Vulnerability Buff
     TrailblazerCharacter.applyUltBuff(team=team)
