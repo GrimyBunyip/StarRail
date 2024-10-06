@@ -21,7 +21,7 @@ from relicSets.relicSets.WatchmakerMasterOfDreamMachinations import Watchmaker2p
 
 def RappaTrailblazerRuanMeiGallagher(config,
                                      rappaEidolon:int=None,
-                                     rappaLightcone:str='Passkey',
+                                     rappaLightcone:str='AfterTheCharmonyFall',
                                      numChargesRappa:float = 5.0,
                                      rappaNumSkillOverride:float=None,):
     #%% Rappa Trailblazer RuanMei Gallagher Characters
@@ -81,7 +81,7 @@ def RappaTrailblazerRuanMeiGallagher(config,
     #%% Rappa Trailblazer RuanMei Gallagher Rotations
 
     numSkillRappa = 1.7
-    numSkillRappa -= RappaCharacter.numEnemies * 0.1 if config['enemyType'] == 'elite' else 0.0
+    numSkillRappa -= RappaCharacter.numEnemies * 0.15 if config['enemyType'] == 'elite' else 0.0
     numSkillRappa -= (2.0 / 3.0) if RappaCharacter.eidolon >= 1 else 0.0
     numSkillRappa -= (2.0 * 12.0 / 30.0) if rappaLightcone == 'Passkey' else 0.0
     numSkillRappa = rappaNumSkillOverride if rappaNumSkillOverride is not None else numSkillRappa
