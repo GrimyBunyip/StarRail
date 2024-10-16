@@ -132,8 +132,14 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Robin Teams
 
 # Feixiao Teams
-# visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
-visualizationList.append(FeixiaoMarchRobinAventurine(config))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config))
+# visualizationList.append(FeixiaoMarchRobinAventurine(config))
+
+visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
+visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2))
+
+visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2, feixiaoLightCone='IVentureForthToHunt'))
+visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2, robinLightCone='FlowingNightglow'))
 
 # the old guard
 # visualizationList.append(MarchTopazRobinAventurine(config))

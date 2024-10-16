@@ -56,11 +56,12 @@ def YunliTingyunHanabiHuohuo(config, yunliSuperposition:int=0):
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=YunliCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
-    YunliCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20, stacks=2)
+    YunliCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.18, stacks=2)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(YunliCharacter)
     TingyunCharacter.applyUltBuff(YunliCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/YunliCharacter.getTotalStat('SPD'))
+    YunliCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.18, stacks=4.0/3.0)
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([TingyunCharacter,HanabiCharacter, YunliCharacter],uptime=2.0/4.0)

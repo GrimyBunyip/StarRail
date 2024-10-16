@@ -54,11 +54,12 @@ def YunliTingyunHanabiLynx(config):
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=YunliCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=3.0/3.0)
-    YunliCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20, stacks=2)
+    YunliCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.18, stacks=2)
         
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(YunliCharacter)
     TingyunCharacter.applyUltBuff(YunliCharacter,targetSpdMult=HanabiCharacter.getTotalStat('SPD')/YunliCharacter.getTotalStat('SPD'))
+    YunliCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.18, stacks=4.0/3.0)
 
     # Lynx Buffs    
     LynxBuffUptime = LynxCharacter.getTotalStat('SPD') / HanabiCharacter.getTotalStat('SPD') / 3.0

@@ -57,7 +57,7 @@ def ArgentiHanabiTingyunHuohuo(config,
     HanabiCharacter.applyTraceBuff(team=team)
     HanabiCharacter.applySkillBuff(character=ArgentiCharacter,uptime=1.0)
     HanabiCharacter.applyUltBuff(team=team,uptime=2.0/2.75) # let's say half the time huohuo can shave off a turn
-    ArgentiCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.20, stacks=2)
+    ArgentiCharacter.addStat('CD',description='Sacerdos Hanabi',amount=0.18, stacks=2)
     
     # Huohuo Buffs
     HuohuoCharacter.applyUltBuff([TingyunCharacter,HanabiCharacter],uptime=2.0/4.0)
@@ -66,6 +66,7 @@ def ArgentiHanabiTingyunHuohuo(config,
     # Tingyun Buffs
     TingyunCharacter.applySkillBuff(ArgentiCharacter)
     TingyunCharacter.applyUltBuff(ArgentiCharacter,tingRotationDuration=2.75)  # let's say half the time, huohuo can shave off a turn
+    ArgentiCharacter.addStat('CD',description='Sacerdos Tingyun',amount=0.18, stacks=4.0/3.0)
     
     #%% Team Buffs and Print Statements
     for character in team:
