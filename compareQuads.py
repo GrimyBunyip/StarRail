@@ -54,20 +54,20 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 # # Backloaded Teams
 # visualizationList.append(RappaTrailblazerRuanMeiGallagher(config,numChargesRappa=2.0))
-# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
-# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-# visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
-# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-# visualizationList.append(YunliTingyunHanabiLynx(config))
+visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
+visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+visualizationList.append(YunliTingyunHanabiLynx(config))
 
 # # Team Comparisons
-# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
-# visualizationList.append(BladeBronyaJadeLuocha(config))
-# visualizationList.append(FeixiaoTopazRobinAventurine(config))
-# visualizationList.append(FeixiaoMarchRobinAventurine(config))
-# visualizationList.append(JingliuBronyaRuanMeiGallagher(config))
-# visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
-# visualizationList.append(LunaeHanabiTingyunGallagher(config))
+visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
+visualizationList.append(BladeBronyaJadeLuocha(config))
+visualizationList.append(FeixiaoTopazRobinAventurine(config))
+visualizationList.append(FeixiaoMarchRobinAventurine(config))
+visualizationList.append(JingliuBronyaRuanMeiGallagher(config))
+visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
+visualizationList.append(LunaeHanabiTingyunGallagher(config))
 
 # # Weaker Teams
 # visualizationList.append(MarchTopazRobinAventurine(config))
@@ -135,11 +135,11 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(FeixiaoTopazRobinAventurine(config))
 # visualizationList.append(FeixiaoMarchRobinAventurine(config))
 
-visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
-visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config, robinEidolon=2))
+# visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2))
 
-visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2, feixiaoLightCone='IVentureForthToHunt'))
-visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2, robinLightCone='FlowingNightglow'))
+# visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2, feixiaoLightCone='IVentureForthToHunt'))
+# visualizationList.append(FeixiaoMarchRobinAventurine(config, robinEidolon=2, robinLightCone='FlowingNightglow'))
 
 # the old guard
 # visualizationList.append(MarchTopazRobinAventurine(config))
