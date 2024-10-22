@@ -19,7 +19,7 @@ from relicSets.relicSets.LongevousDisciple import LongevousDisciple2pc
 from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversingHackerspace2pc, MessengerTraversingHackerspace4pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 
-def JingyuanTingyunHanabiFuxuan(config):
+def JingYuanTingyunHanabiFuxuan(config):
     #%% JingYuan Tingyun Hanabi Fuxuan Characters
     JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.lightning'],
                             substats = {'CD': 13, 'CR': 7, 'ATK.percent': 5, 'BreakEffect': 3}), # get to 140 speed before buffs, to just guarantee battalia crush

@@ -91,7 +91,7 @@ class JingYuan(BaseCharacter):
 
     def useTalent(self):
         retval = BaseEffect()
-        type = ['talent','followup']
+        type = ['talent','followup','summon']
         retval.damage = self.getTotalMotionValue('talent',type)
         retval.damage *= self.getTotalCrit(type)
         retval.damage *= self.getDmg(type)
