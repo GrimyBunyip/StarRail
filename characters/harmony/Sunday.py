@@ -62,8 +62,8 @@ class Sunday(BaseCharacter):
     def useSkill(self):
         retval = BaseEffect()
         type = ['skill']
-        retval.energy = ( 30.0 + self.getBonusEnergyTurn(type) ) * self.getER(type)
-        retval.skillpoints = -0.5
+        retval.energy = ( 30.0 + self.getBonusEnergyTurn(type) + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.skillpoints = (-2.0/3.0) if self.lightcone.name != 'A Grounded Ascent' else (-1.0 / 6.0)
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
@@ -71,7 +71,8 @@ class Sunday(BaseCharacter):
     def useUltimate(self):
         retval = BaseEffect()
         type = ['ultimate']
-        retval.energy = 5.0 * self.getER(type)
+        retval.energy = ( 5.0 + self.getBonusEnergyAttack(type) ) * self.getER(type)
+        retval.skillpoints = 0.0 if self.lightcone.name != 'A Grounded Ascent' else 0.5
         retval.actionvalue = self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval

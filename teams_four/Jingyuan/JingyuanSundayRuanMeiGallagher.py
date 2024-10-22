@@ -10,6 +10,7 @@ from estimator.DefaultEstimator import DefaultEstimator
 from lightCones.abundance.Multiplication import Multiplication
 from lightCones.erudition.EternalCalculus import EternalCalculus
 from lightCones.erudition.TheSeriousnessOfBreakfast import TheSeriousnessOfBreakfast
+from lightCones.harmony.AGroundedAscent import AGroundedAscent
 from lightCones.harmony.DanceDanceDance import DanceDanceDance
 from lightCones.harmony.MemoriesOfThePast import MemoriesOfThePast
 from lightCones.harmony.PlanetaryRendezvous import PlanetaryRendezvous
@@ -39,22 +40,32 @@ def JingYuanSundayRuanMeiGallagher(config,
                         relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = LushakaTheSunkenSeas(),
                         **config)
     
-    if jingyuanCone == 'EternalCalculus':
-        JingyuanLightCone = EternalCalculus(**config)
-    elif jingyuanCone == 'TheSeriousnessOfBreakfast':
-        JingyuanLightCone = TheSeriousnessOfBreakfast(**config)
-    JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.lightning'],
-                        substats = {'CD': 8, 'CR': 11, 'ATK.percent': 3, 'SPD.flat': 6}),
-                        lightcone = JingyuanLightCone,
-                        relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=6.5,stacks=8.0,uptime=1.0), planarset = TheWondrousBananAmusementPark(),
-                        **config)
+    JingYuanMainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.lightning']
+    JingYuanSubstats = {'CD': 8, 'CR': 11, 'ATK.percent': 3, 'SPD.flat': 6}
+    SundaySubstats = {'CD': 12, 'SPD.flat': 0, 'HP.percent': 9, 'DEF.percent': 3}
 
     if sundayCone == 'DanceDanceDance':
         SundayLightCone = DanceDanceDance(**config)
+    elif sundayCone == 'A Grounded Ascent':
+        SundayLightCone = AGroundedAscent(**config)
+        JingYuanMainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.lightning']
+        JingYuanSubstats = {'CD': 8, 'CR': 11, 'ATK.percent': 3, 'SPD.flat': 6}
+        SundaySubstats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 9, 'DEF.percent': 3}
+        
     SundayCharacter = Sunday(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'ER'],
-                        substats = {'CD': 12, 'SPD.flat': 0, 'HP.percent': 9, 'DEF.percent': 3}),
+                        substats = SundaySubstats),
                         lightcone = SundayLightCone,
-                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
+                        relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = LushakaTheSunkenSeas(),
+                        **config)
+    
+    if jingyuanCone == 'EternalCalculus':
+        JingyuanLightCone = EternalCalculus(**config)
+    elif jingyuanCone == 'TheSeriousnessOfBreakfast':
+        JingyuanLightCone = TheSeriousnessOfBreakfast(**config)        
+    JingYuanCharacter = JingYuan(RelicStats(mainstats = JingYuanMainstats,
+                        substats = JingYuanSubstats),
+                        lightcone = JingyuanLightCone,
+                        relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=6.5,stacks=8.0,uptime=1.0), planarset = TheWondrousBananAmusementPark(),
                         **config)
 
     GallagherCharacter = Gallagher(RelicStats(mainstats = ['BreakEffect', 'SPD.flat', 'HP.percent', 'DEF.percent'],
@@ -74,6 +85,11 @@ def JingYuanSundayRuanMeiGallagher(config,
     SundayCharacter.applyUltBuff(JingYuanCharacter,uptime=SundayUltUptime)
     SundayCharacter.applySkillBuff(JingYuanCharacter,uptime=1.0)
     JingYuanCharacter.addStat('CD',description='Sacerdos Sunday',amount=0.18 * (1.0 + SundayUltUptime / 3.0))
+    
+    if SundayCharacter.lightcone.name == 'A Grounded Ascent':
+        JingYuanCharacter.addStat('DMG',description='A Grounded Ascent',
+                                  amount = 0.1275 + 0.0225 * SundayCharacter.lightcone.superposition,
+                                  stacks=3.0)
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
@@ -129,26 +145,27 @@ def JingYuanSundayRuanMeiGallagher(config,
     RuanMeiRotationDuration = totalRuanMeiEffect.actionvalue * 100.0 / RuanMeiCharacter.getTotalStat('SPD')
     GallagherRotationDuration = totalGallagherEffect.actionvalue * 100.0 / GallagherCharacter.getTotalStat('SPD')
 
-    # Apply Dance Dance Dance Effect
-    DanceDanceDanceEffect = BaseEffect()
+    if SundayCharacter.lightcone.name == 'Dance! Dance! Dance!':
+        # Apply Dance Dance Dance Effect
+        DanceDanceDanceEffect = BaseEffect()
 
-    DanceDanceDanceEffect.actionvalue = -0.24
-    SundayCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    SundayRotation.append(deepcopy(DanceDanceDanceEffect))
-    totalHanabiEffect = sumEffects(SundayRotation)
-    SundayRotationDuration = totalHanabiEffect.actionvalue * 100.0 / SundayCharacter.getTotalStat('SPD')
+        DanceDanceDanceEffect.actionvalue = -0.24
+        SundayCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+        SundayRotation.append(deepcopy(DanceDanceDanceEffect))
+        totalHanabiEffect = sumEffects(SundayRotation)
+        SundayRotationDuration = totalHanabiEffect.actionvalue * 100.0 / SundayCharacter.getTotalStat('SPD')
 
-    DanceDanceDanceEffect.actionvalue = -0.24 * JingYuanRotationDuration / SundayRotationDuration
-    JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    JingYuanRotation.append(deepcopy(DanceDanceDanceEffect))
-    
-    DanceDanceDanceEffect.actionvalue = -0.24 * RuanMeiRotationDuration / SundayRotationDuration
-    RuanMeiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    RuanMeiRotation.append(deepcopy(DanceDanceDanceEffect))
-    
-    DanceDanceDanceEffect.actionvalue = -0.24 * GallagherRotationDuration / SundayRotationDuration
-    GallagherCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
-    GallagherRotation.append(deepcopy(DanceDanceDanceEffect))
+        DanceDanceDanceEffect.actionvalue = -0.24 * JingYuanRotationDuration / SundayRotationDuration
+        JingYuanCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+        JingYuanRotation.append(deepcopy(DanceDanceDanceEffect))
+        
+        DanceDanceDanceEffect.actionvalue = -0.24 * RuanMeiRotationDuration / SundayRotationDuration
+        RuanMeiCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+        RuanMeiRotation.append(deepcopy(DanceDanceDanceEffect))
+        
+        DanceDanceDanceEffect.actionvalue = -0.24 * GallagherRotationDuration / SundayRotationDuration
+        GallagherCharacter.addDebugInfo(DanceDanceDanceEffect,['buff'],'Dance Dance Dance Effect')
+        GallagherRotation.append(deepcopy(DanceDanceDanceEffect))
     
     totalTingyunEffect = sumEffects(RuanMeiRotation)
     totalJingYuanEffect = sumEffects(JingYuanRotation)
