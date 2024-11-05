@@ -52,10 +52,10 @@ class Fugue(BaseCharacter):
         def applySelfBuff(team:list):
             self.addStat('BreakEffect', description='Fugue Self Buff Trace', amount=0.30)
             
-        def applyTeamBuff(team:list):
+        def applyTeamBuff(team:list,stacks:int=2):
             for character in team:
                 character:BaseCharacter
-                character.addStat('BreakEffect', description='Fugue Team Buff Trace', amount=0.15)
+                character.addStat('BreakEffect', description='Fugue Team Buff Trace', amount=0.16,stacks=stacks)
                     
         self.teamBuffList.append(applyWeaknessModifiers)
         self.teamBuffList.append(applyDefShred)

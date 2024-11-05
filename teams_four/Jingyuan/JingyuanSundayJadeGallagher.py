@@ -30,7 +30,7 @@ def JingYuanSundayJadeGallagher(config,
     elif jingyuanCone == 'TheSeriousnessOfBreakfast':
         JingyuanLightCone = TheSeriousnessOfBreakfast(**config)
     JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.lightning'],
-                        substats = {'CD': 13, 'CR': 7, 'ATK.percent': 5, 'SPD.flat': 3}),
+                        substats = {'CD': 6, 'CR': 7, 'ATK.percent': 3, 'SPD.flat': 12}),
                         lightcone = JingyuanLightCone,
                         relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=6.5,stacks=8.0,uptime=1.0), planarset = TheWondrousBananAmusementPark(),
                         **config)
@@ -38,14 +38,14 @@ def JingYuanSundayJadeGallagher(config,
     if sundayCone == 'DanceDanceDance':
         SundayLightCone = DanceDanceDance(**config)
     SundayCharacter = Sunday(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'ER'],
-                        substats = {'CD': 12, 'SPD.flat': 4, 'HP.percent': 9, 'DEF.percent': 3}),
+                        substats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 5, 'DEF.percent': 3}),
                         lightcone = SundayLightCone,
                         relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                         **config)
 
     if jadeCone == 'TheSeriousnessOfBreakfast':
         JadeLightCone = TheSeriousnessOfBreakfast(**config)
-    JadeCharacter = Jade(RelicStats(mainstats = ['CR', 'DMG.quantum', 'SPD.flat', 'ATK.percent'],
+    JadeCharacter = Jade(RelicStats(mainstats = ['CR', 'DMG.quantum', 'ATK.percent', 'ATK.percent'],
                         substats = {'CR': 12, 'CD': 8, 'ATK.percent': 3, 'SPD.flat': 5}),
                         lightcone = JadeLightCone,
                         relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=6.5,stacks=8.0,uptime=1.0), planarset = DuranDynastyOfRunningWolves(),
@@ -65,7 +65,6 @@ def JingYuanSundayJadeGallagher(config,
     JadeCharacter.applySkillBuff(JingYuanCharacter)
             
     # Sunday Buffs
-    SundayCharacter.applyTraceBuff(team)
     SundayCharacter.applySkillBuff(JingYuanCharacter,uptime=1.0,hasSummon=True)
     SundayUltUptime = 1.0 if SundayCharacter.lightcone.name == 'A Grounded Ascent' else 0.75
     SundayCharacter.applyUltBuff(JingYuanCharacter,uptime=SundayUltUptime)

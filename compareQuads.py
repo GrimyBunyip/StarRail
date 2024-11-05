@@ -21,8 +21,8 @@ from teams_four.Firefly.FireflyTraiblazerRuanMeiLingsha import FireflyTrailblaze
 from teams_four.Jingliu.JingliuBronyaRobinGallagher import JingliuBronyaRobinGallagher
 from teams_four.Jingliu.JingliuBronyaRuanMeiGallagher import JingliuBronyaRuanMeiGallagher
 from teams_four.Jingyuan.JingyuanHanabiTingyunHuohuo import JingYuanHanabiTingyunHuohuo
+from teams_four.Jingyuan.JingyuanSundayBronyaGallagher import JingYuanSundayBronyaGallagher
 from teams_four.Jingyuan.JingyuanSundayJadeGallagher import JingYuanSundayJadeGallagher
-from teams_four.Jingyuan.JingyuanSundayMarchGallagher import JingYuanSundayMarchGallagher
 from teams_four.Jingyuan.JingyuanSundayRuanMeiGallagher import JingYuanSundayRuanMeiGallagher
 from teams_four.Jingyuan.JingyuanTingyunHanabiFuxuan import JingYuanTingyunHanabiFuxuan
 from teams_four.DotTeams.KafkaGuinaifenBlackSwanLuocha import KafkaGuinaifenBlackSwanLuocha
@@ -56,7 +56,7 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
-visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+visualizationList.append(FireflyTrailblazerFugueGallagher(config, fireflyEidolon=0 ))
 visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
 visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
 visualizationList.append(ClaraTingyunHanabiFuxuan(config))
@@ -69,6 +69,7 @@ visualizationList.append(JingYuanSundayRuanMeiGallagher(config))
 visualizationList.append(LunaeHanabiTingyunGallagher(config))
 
 # # Weaker Teams
+# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
 # visualizationList.append(RappaTrailblazerRuanMeiGallagher(config,numChargesRappa=2.0))
 # visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # visualizationList.append(MarchTopazRobinAventurine(config))
@@ -117,12 +118,12 @@ visualizationList.append(LunaeHanabiTingyunGallagher(config))
 # visualizationList.append(JingliuBronyaRuanMeiGallagher(config))
 
 # # Jingyuan Teams
+visualizationList.append(JingYuanSundayBronyaGallagher(config, sundayCone='A Grounded Ascent', bronyaEidolon=1))
 # visualizationList.append(JingYuanSundayRuanMeiGallagher(config, sundayCone='A Grounded Ascent'))
 # visualizationList.append(JingYuanSundayRuanMeiGallagher(config))
 # visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
 # visualizationList.append(JingYuanTingyunHanabiFuxuan(config))
 # visualizationList.append(JingYuanSundayJadeGallagher(config))
-# visualizationList.append(JingYuanSundayMarchGallagher(config))
 
 # # Lunae Teams
 # visualizationList.append(LunaeHanabiTingyunGallagher(config))

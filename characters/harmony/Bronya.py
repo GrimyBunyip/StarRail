@@ -12,9 +12,11 @@ class Bronya(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
+                eidolon:int=None,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Bronya')
+        self.eidolon = self.eidolon if eidolon is None else eidolon
 
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=5, eidolonBonus=0.1)]

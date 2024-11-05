@@ -25,20 +25,15 @@ class Sunday(BaseCharacter):
         
         # Gear
         self.equipGear()
-        
-    def applyTraceBuff(self,team:list):
-        for character in team:
-            character:BaseCharacter
-            character.addStat('DMG',description='Sunday Trace',amount=0.1)
              
     def applyUltBuff(self,character:BaseCharacter,uptime:float):
         character.addStat('CD',description='Sunday Ult',
-                            amount=((0.28 * self.getTotalStat('CD') + 0.0832) if self.eidolon >= 3 else (0.25 * self.getTotalStat('CD') + 0.08)),
+                            amount=((0.336 * self.getTotalStat('CD') + 0.128) if self.eidolon >= 3 else (0.30 * self.getTotalStat('CD') + 0.12)),
                             uptime=uptime)
         
     def applySkillBuff(self,character:BaseCharacter,uptime:float,type:list=None,hasSummon:bool=False):
         character.addStat('DMG',description='Sunday Skill',
-                            amount=(0.4 if self.eidolon >= 5 else 0.44) * (2.0 if hasSummon else 1.0),
+                            amount=(0.44 if self.eidolon >= 5 else 0.40) * (2.0 if hasSummon else 1.0),
                             uptime=uptime, type=type)
         character.addStat('CR',description='Sunday Talent',
                             amount=0.22 if self.eidolon >= 5 else 0.2,
@@ -63,7 +58,7 @@ class Sunday(BaseCharacter):
         retval = BaseEffect()
         type = ['skill']
         retval.energy = ( 30.0 + self.getBonusEnergyTurn(type) + self.getBonusEnergyAttack(type) ) * self.getER(type)
-        retval.skillpoints = 0.5 if self.lightcone.name != 'A Grounded Ascent' else 0.0
+        retval.skillpoints = 0.0 if self.lightcone.name != 'A Grounded Ascent' else 0.5
         retval.actionvalue = 1.0 + self.getAdvanceForward(type)
         self.addDebugInfo(retval,type)
         return retval
@@ -86,5 +81,6 @@ class Sunday(BaseCharacter):
     def giveUltEnergy(self,target:BaseCharacter):
         retval = BaseEffect()
         retval.energy = 0.2 * target.maxEnergy
-        self.addDebugInfo(retval,['Huohuo Energy'],'Huohuo Ult Energy')
+        retval.energy = max(40.0, retval.energy)
+        self.addDebugInfo(retval,['Sunday Energy'],'Sunday Ult Energy')
         return retval

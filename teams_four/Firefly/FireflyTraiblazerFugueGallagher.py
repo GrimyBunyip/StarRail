@@ -45,7 +45,7 @@ def FireflyTrailblazerFugueGallagher(config,
     elif fugueCone == 'LongRoadLeadsHome':
         FugueLightCone = LongRoadLeadsHome(**config)
     FugueCharacter = Fugue(RelicStats(mainstats = ['EHR', 'SPD.flat', 'DEF.percent', 'ER'],
-                                    substats = {'EHR': 5, 'BreakEffect': 12, 'SPD.flat': 8, 'HP.percent': 3}),
+                                    substats = {'EHR': 6, 'BreakEffect': 12, 'SPD.flat': 7, 'HP.percent': 3}),
                                     lightcone = FugueLightCone,
                                     eidolon = fugueEidolon,
                                     relicsetone = IronCavalryAgainstTheScourge2pc(), relicsettwo = IronCavalryAgainstTheScourge4pc(), planarset = ForgeOfTheKalpagniLantern(),
@@ -144,8 +144,8 @@ def FireflyTrailblazerFugueGallagher(config,
                                                extraTypes=['skill']) * numSkillTrailblazer,
     ]
 
-    numBasicFugue = 4.0
-    numSkillFugue = 2.0
+    numBasicFugue = 3.6
+    numSkillFugue = 1.8
     FugueRotation = [FugueCharacter.useEnhancedBasic() * numBasicFugue,
                      FugueCharacter.useSkill() * numSkillFugue,
                      FugueCharacter.useUltimate(),
