@@ -12,9 +12,14 @@ class Fugue(BaseCharacter):
                 relicsetone:RelicSet=None,
                 relicsettwo:RelicSet=None,
                 planarset:RelicSet=None,
+                eidolon:int=None,
+                enemyTurnsPerBreak:float=2.0,
                 **config):
         super().__init__(lightcone=lightcone, relicstats=relicstats, relicsetone=relicsetone, relicsettwo=relicsettwo, planarset=planarset, **config)
         self.loadCharacterStats('Fugue')
+        self.eidolon = self.eidolon if eidolon is None else eidolon
+        self.baseEnemySpeed = config['enemySpeed']
+        self.baseWeaknessBrokenUptime = config['weaknessBrokenUptime']
         
         # Motion Values should be set before talents or gear
         self.motionValueDict['basic'] = [BaseMV(area='single', stat='atk', value=1.0, eidolonThreshold=3, eidolonBonus=0.1)]
@@ -30,6 +35,14 @@ class Fugue(BaseCharacter):
         self.equipGear()
         
         # Team Buffs
+        def applyWeaknessModifiers(team:list):
+            # estimate weakness break uptime assuming we break every 2 enemy turns
+            for character in team:
+                character:BaseCharacter
+                character.enemySpeed = self.baseEnemySpeed * enemyTurnsPerBreak / (enemyTurnsPerBreak + 0.25 + 0.15)
+                character.enemyDotSpeed = self.baseEnemySpeed * (enemyTurnsPerBreak + 1) / (enemyTurnsPerBreak + 0.25 + 0.15)
+                character.weaknessBrokenUptime = 1.0 - (1.0 - self.baseWeaknessBrokenUptime) * (enemyTurnsPerBreak + 0.25) / (enemyTurnsPerBreak + 0.25 + 0.15)
+ 
         def applyDefShred(team:list):
             for character in team:
                 character:BaseCharacter
@@ -44,6 +57,7 @@ class Fugue(BaseCharacter):
                 character:BaseCharacter
                 character.addStat('BreakEffect', description='Fugue Team Buff Trace', amount=0.15)
                     
+        self.teamBuffList.append(applyWeaknessModifiers)
         self.teamBuffList.append(applyDefShred)
         self.teamBuffList.append(applySelfBuff)
         self.teamBuffList.append(applyTeamBuff)

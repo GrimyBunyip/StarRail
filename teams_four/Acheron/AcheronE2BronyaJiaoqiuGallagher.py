@@ -6,6 +6,8 @@ from characters.nihility.Jiaoqiu import Jiaoqiu
 from characters.harmony.Bronya import Bronya
 from estimator.DefaultEstimator import DefaultEstimator, DotEstimator
 from lightCones.abundance.Multiplication import Multiplication
+from lightCones.harmony.AGroundedAscent import AGroundedAscent
+from lightCones.harmony.ButTheBattleIsntOver import ButTheBattleIsntOver
 from lightCones.harmony.PastAndFuture import PastAndFuture
 from lightCones.nihility.AlongThePassingShore import AlongThePassingShore
 from lightCones.nihility.EyesOfThePrey import EyesOfThePrey
@@ -18,7 +20,11 @@ from relicSets.relicSets.MessengerTraversingHackerspace import MessengerTraversi
 from relicSets.relicSets.PioneerDiverOfDeadWaters import Pioneer2pc, Pioneer4pc
 from relicSets.relicSets.SacerdosRelivedOrdeal import SacerdosRelivedOrdeal2pc, SacerdosRelivedOrdeal4pc
 
-def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuEidolon:int=None):
+def AcheronE2BronyaJiaoqiuGallagher(config, 
+                                    acheronSuperposition:int=0, 
+                                    jiaoqiuEidolon:int=None,
+                                    bronyaCone:str='PastAndFuture',
+                                    ):
     #%% Acheron Bronya Jiaoqiu Gallagher Characters
     acheronLightCone = GoodNightAndSleepWell(**config) if acheronSuperposition == 0 else AlongThePassingShore(superposition=acheronSuperposition,**config)
     AcheronCharacter = Acheron(RelicStats(mainstats = ['ATK.percent', 'ATK.percent', 'CR', 'ATK.percent'],
@@ -29,9 +35,15 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
                         eidolon=2,
                         **config)
     
+    if bronyaCone == 'PastAndFuture':
+        BronyaLightCone = PastAndFuture(**config)
+    elif bronyaCone == 'ButTheBattleIsntOver':
+        BronyaLightCone = ButTheBattleIsntOver(**config)
+    if bronyaCone == 'AGroundedAscent':
+        BronyaLightCone = AGroundedAscent(**config)
     BronyaCharacter = Bronya(RelicStats(mainstats = ['HP.percent', 'HP.percent', 'CD', 'ER'],
                         substats = {'CD': 12, 'SPD.flat': 8, 'HP.percent': 5, 'DEF.percent': 3}),
-                        lightcone = PastAndFuture(**config),
+                        lightcone = BronyaLightCone,
                         relicsetone = SacerdosRelivedOrdeal2pc(), relicsettwo = SacerdosRelivedOrdeal4pc(), planarset = BrokenKeel(),
                         **config)
 
@@ -59,10 +71,15 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
         
     # Bronya Buffs
     BronyaCharacter.applyTraceBuff(team)
-    BronyaCharacter.applyUltBuff(AcheronCharacter,uptime=0.25) # only get Bronya ult buff every 4 bronya turns
-    BronyaCharacter.applyUltBuff(JiaoqiuCharacter,uptime=0.5) # only get Bronya ult buff every 4 bronya turns
-    BronyaCharacter.applyUltBuff(GallagherCharacter,uptime=0.5) # only get Bronya ult buff every 4 bronya turns
+    BronyaUltUptime = 0.5 if BronyaCharacter.lightcone.name == 'Past And Future' else 2.0 / 3.0
+    BronyaCharacter.applyUltBuff(AcheronCharacter,uptime=BronyaUltUptime / 2) 
+    BronyaCharacter.applyUltBuff(JiaoqiuCharacter,uptime=BronyaUltUptime) 
+    BronyaCharacter.applyUltBuff(GallagherCharacter,uptime=BronyaUltUptime) 
     AcheronCharacter.addStat('CD',description='Sacerdos Bronya',amount=0.18)
+    if BronyaCharacter.lightcone.name == 'A Grounded Ascent':
+        AcheronCharacter.addStat('DMG',description='A Grounded Ascent',
+                                  amount = 0.1275 + 0.0225 * BronyaCharacter.lightcone.superposition,
+                                  stacks=3.0)
     
     # Apply Gallagher Debuff
     GallagherCharacter.applyUltDebuff(team=team,rotationDuration=4.0)
@@ -101,7 +118,10 @@ def AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition:int=0, jiaoqiuE
                         AcheronCharacter.useBasic() * numBasicAcheron * 0.5,] # half of acheron skills will not be bronya buffed
     
     BronyaCharacter.applySkillBuff(AcheronCharacter,uptime=1.0)
-    AcheronCharacter.addStat('DMG',description='Past and Future', amount=0.12 + 0.04 * BronyaCharacter.lightcone.superposition)
+    if AcheronCharacter.lightcone.name == 'Past and Future':
+        AcheronCharacter.addStat('DMG',description='Past and Future', amount=0.12 + 0.04 * BronyaCharacter.lightcone.superposition)
+    elif AcheronCharacter.lightcone.name == 'But the Battle Isn\'t Over':
+        AcheronCharacter.addStat('DMG',description='But the Battle Isn\'t Over', amount=0.25 + 0.05 * BronyaCharacter.lightcone.superposition)
     AcheronRotation += [AcheronCharacter.useSkill() * numSkillAcheron * 0.5]
     AcheronRotation += [AcheronCharacter.useBasic() * numBasicAcheron * 0.5]
     AcheronRotation += [AcheronCharacter.useUltimate_st() * 3]

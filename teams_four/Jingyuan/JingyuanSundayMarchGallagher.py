@@ -33,8 +33,8 @@ def JingYuanSundayMarchGallagher(config,
         JingyuanLightCone = EternalCalculus(**config)
     elif jingyuanCone == 'TheSeriousnessOfBreakfast':
         JingyuanLightCone = TheSeriousnessOfBreakfast(**config)
-    JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.lightning'],
-                        substats = {'CD': 9, 'CR': 11, 'ATK.percent': 3, 'SPD.flat': 5}),
+    JingYuanCharacter = JingYuan(RelicStats(mainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.lightning'],
+                        substats = {'CD': 13, 'CR': 7, 'ATK.percent': 3, 'SPD.flat': 5}),
                         lightcone = JingyuanLightCone,
                         relicsetone = GrandDuke2pc(), relicsettwo = GrandDuke4pc(followupStacks=6.5,stacks=8.0,uptime=1.0), planarset = TheWondrousBananAmusementPark(),
                         **config)
@@ -77,7 +77,6 @@ def JingYuanSundayMarchGallagher(config,
     SundayCharacter.applySkillBuff(JingYuanCharacter,uptime=1.0,hasSummon=True)
     SundayUltUptime = 1.0 if SundayCharacter.lightcone.name == 'A Grounded Ascent' else 0.75
     SundayCharacter.applyUltBuff(JingYuanCharacter,uptime=SundayUltUptime)
-    SundayCharacter.applySkillBuff(JingYuanCharacter,uptime=1.0)
     JingYuanCharacter.addStat('CD',description='Sacerdos Sunday',amount=0.18 * (1.0 + SundayUltUptime / 3.0))
     
     # Apply Gallagher Debuff

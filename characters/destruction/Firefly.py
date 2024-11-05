@@ -119,12 +119,13 @@ class Firefly(BaseCharacter):
         self.addDebugInfo(retval,type)
         return retval
                 
-    def useSuperBreak(self,extraTypes:list=[]):
+    def useSuperBreak(self,baseGauge:float,extraTypes:list=[]):
         retval = BaseEffect()
         type = ['break','superBreak'] + extraTypes
 
         totalBreakEffect = self.getTotalStat('BreakEffect')
         superBreakDamage = self.breakLevelMultiplier
+        superBreakDamage *= baseGauge / 30.0
         superBreakDamage *= 0.5 if totalBreakEffect >= 3.6 else (0.35 if totalBreakEffect >= 2.0 else 0.0)
         # superBreakDamage *= BREAK_MULTIPLIERS[self.element] # does not seem to scale off type
         superBreakDamage *= self.getBreakEffect(type)

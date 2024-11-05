@@ -15,6 +15,7 @@ from teams_four.Boothill.BoothillBronyaRuanMeiGallagher import BoothillBronyaRua
 from teams_four.Boothill.BoothillTraiblazerRuanMeiGallagher import BoothillTrailblazerRuanMeiGallagher
 from teams_four.Clara.ClaraTingyunHanabiFuxuan import ClaraTingyunHanabiFuxuan
 from teams_four.DotTeams.KafkaS1RobinBlackSwanGallagher import KafkaS1RobinBlackSwanGallagher
+from teams_four.Firefly.FireflyTraiblazerFugueGallagher import FireflyTrailblazerFugueGallagher
 from teams_four.Firefly.FireflyTraiblazerRuanMeiGallagher import FireflyTrailblazerRuanMeiGallagher
 from teams_four.Firefly.FireflyTraiblazerRuanMeiLingsha import FireflyTrailblazerRuanMeiLingsha
 from teams_four.Jingliu.JingliuBronyaRobinGallagher import JingliuBronyaRobinGallagher
@@ -55,24 +56,21 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
-# # Backloaded Teams
-# visualizationList.append(RappaTrailblazerRuanMeiGallagher(config,numChargesRappa=2.0))
-# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
-# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-# visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
-# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-# visualizationList.append(YunliTingyunHanabiLynx(config))
-
-# # Team Comparisons
-# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
-# visualizationList.append(BladeBronyaJadeLuocha(config))
-# visualizationList.append(FeixiaoTopazRobinAventurine(config))
-# visualizationList.append(FeixiaoMarchRobinAventurine(config))
-# visualizationList.append(JingliuBronyaRuanMeiGallagher(config))
-# visualizationList.append(JingYuanSundayRuanMeiGallagher(config))
-# visualizationList.append(LunaeHanabiTingyunGallagher(config))
+visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
+visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
+visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+visualizationList.append(YunliTingyunHanabiLynx(config))
+visualizationList.append(BladeBronyaJadeLuocha(config))
+visualizationList.append(FeixiaoTopazRobinAventurine(config))
+visualizationList.append(FeixiaoMarchRobinAventurine(config))
+visualizationList.append(JingliuBronyaRuanMeiGallagher(config))
+visualizationList.append(JingYuanSundayRuanMeiGallagher(config))
+visualizationList.append(LunaeHanabiTingyunGallagher(config))
 
 # # Weaker Teams
+# visualizationList.append(RappaTrailblazerRuanMeiGallagher(config,numChargesRappa=2.0))
+# visualizationList.append(ArgentiHanabiTingyunHuohuo(config))
 # visualizationList.append(MarchTopazRobinAventurine(config))
 # visualizationList.append(DrRatioTopazRobinAventurine(config))
 # visualizationList.append(SeeleMaxSilverWolfHanabiFuxuan(config))
@@ -80,6 +78,8 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # # Acheron Teams
 
 # # E2 Teams
+# visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1, bronyaCone='AGroundedAscent'))
+# visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1, bronyaCone='ButTheBattleIsntOver'))
 # visualizationList.append(AcheronE2BronyaJiaoqiuGallagher(config, acheronSuperposition=1))
 # visualizationList.append(AcheronE2HanabiJiaoqiuGallagher(config, acheronSuperposition=1))
 
@@ -108,8 +108,10 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 # visualizationList.append(ClaraTingyunHanabiFuxuan(config))
 
 # # Firefly Teams
-visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
-visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config))
+# visualizationList.append(FireflyTrailblazerFugueGallagher(config, fireflyEidolon=0, fugueEidolon=1))
+# visualizationList.append(FireflyTrailblazerFugueGallagher(config, fireflyEidolon=0 ))
+# visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config, fireflyEidolon=0))
+# visualizationList.append(FireflyTrailblazerRuanMeiLingsha(config, fireflyEidolon=0))
 
 # # Jingliu Teams
 # visualizationList.append(JingliuBronyaRuanMeiGallagher(config))

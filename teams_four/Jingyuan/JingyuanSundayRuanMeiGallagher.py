@@ -40,16 +40,16 @@ def JingYuanSundayRuanMeiGallagher(config,
                         relicsetone = ThiefOfShootingMeteor2pc(), relicsettwo = ThiefOfShootingMeteor4pc(), planarset = LushakaTheSunkenSeas(),
                         **config)
     
-    JingYuanMainstats = ['ATK.percent', 'ATK.percent', 'CD', 'DMG.lightning']
-    JingYuanSubstats = {'CD': 8, 'CR': 11, 'ATK.percent': 3, 'SPD.flat': 6}
+    JingYuanMainstats = ['ATK.percent', 'ATK.percent', 'CR', 'DMG.lightning']
+    JingYuanSubstats = {'CD': 13, 'CR': 7, 'ATK.percent': 3, 'SPD.flat': 6}
     SundaySubstats = {'CD': 12, 'SPD.flat': 0, 'HP.percent': 9, 'DEF.percent': 3}
 
     if sundayCone == 'DanceDanceDance':
         SundayLightCone = DanceDanceDance(**config)
     elif sundayCone == 'A Grounded Ascent':
         SundayLightCone = AGroundedAscent(**config)
-        JingYuanMainstats = ['ATK.percent', 'SPD.flat', 'CD', 'DMG.lightning']
-        JingYuanSubstats = {'CD': 8, 'CR': 11, 'ATK.percent': 3, 'SPD.flat': 6}
+        JingYuanMainstats = ['ATK.percent', 'SPD.flat', 'CR', 'DMG.lightning']
+        JingYuanSubstats = {'CD': 13, 'CR': 7, 'ATK.percent': 3, 'SPD.flat': 6}
         SundaySubstats = {'CD': 8, 'SPD.flat': 12, 'HP.percent': 9, 'DEF.percent': 3}
         
     SundayCharacter = Sunday(RelicStats(mainstats = ['HP.percent', 'SPD.flat', 'CD', 'ER'],
@@ -83,7 +83,6 @@ def JingYuanSundayRuanMeiGallagher(config,
     SundayCharacter.applySkillBuff(JingYuanCharacter,uptime=1.0,hasSummon=True)
     SundayUltUptime = 1.0 if SundayCharacter.lightcone.name == 'A Grounded Ascent' else 0.75
     SundayCharacter.applyUltBuff(JingYuanCharacter,uptime=SundayUltUptime)
-    SundayCharacter.applySkillBuff(JingYuanCharacter,uptime=1.0)
     JingYuanCharacter.addStat('CD',description='Sacerdos Sunday',amount=0.18 * (1.0 + SundayUltUptime / 3.0))
     
     if SundayCharacter.lightcone.name == 'A Grounded Ascent':

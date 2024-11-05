@@ -22,7 +22,7 @@ def DotEstimator(rotation:list, char:BaseCharacter, config:dict, dotMode:str = '
         return num_enemy_turns * char.numEnemies
     return 0.0
 
-def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config:dict, breakDotMode:str = 'limited', numDot:float=0.0):
+def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config:dict, breakDotMode:str = 'limited', numDot:float=0.0, exoToughness:bool=False):
     
     totalEffect:BaseEffect = BaseEffect()
     breakEffect:BaseEffect = BaseEffect()
@@ -40,6 +40,7 @@ def DefaultEstimator(rotationName:str, rotation:list, char:BaseCharacter, config
     char.enemyDotSpeed = char.enemySpeed if char.enemyDotSpeed is None else char.enemyDotSpeed
     num_enemy_turns = totalEffect.actionvalue * char.enemyDotSpeed / char.getTotalStat('SPD')
     num_breaks = totalEffect.gauge * config['weaknessBrokenUptime'] / config['enemyToughness']
+    num_breaks *= 2.0 if exoToughness else 1.0
     breakEffect += char.useBreak() * num_breaks
     if breakDotMode == 'limited': # limited means we are not able to maintain 100% break dot uptime
         if char.element in ['physical', 'fire', 'lightning', 'wind']:

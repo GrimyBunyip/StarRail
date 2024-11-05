@@ -96,7 +96,6 @@ def FireflyTrailblazerRuanMeiLingsha(config,
     fireflySpdMod *= numEnhancedFirefly
     FireflyRotation = [ 
             FireflyCharacter.useSkill() * numSkillFirefly,
-            FireflyCharacter.useSuperBreak(extraTypes=['skill']) * numSkillFirefly,
             FireflyCharacter.useUltimate() * numUltFirefly,
             FireflyCharacter.extraTurn(), # advance from ult
             FireflyCharacter.extraTurn() * 0.25 * (numSkillFirefly - 1.0), # advance from skill
@@ -112,7 +111,8 @@ def FireflyTrailblazerRuanMeiLingsha(config,
     numEnhancedFirefly *= 1.5 if FireflyCharacter.eidolon >= 2.0 else 1.0
     FireflyRotation += [FireflyCharacter.useEnhancedSkill() * numEnhancedFirefly]
     FireflyRotation[-1].actionvalue *= 2.0 / 3.0 if FireflyCharacter.eidolon >= 2 else 1.0
-    FireflyRotation += [FireflyCharacter.useSuperBreak(extraTypes=['skill','enhancedSkill']) * numEnhancedFirefly]
+    FireflyRotation += [FireflyCharacter.useSuperBreak(baseGauge=FireflyCharacter.useEnhancedSkill().gauge,
+                                                       extraTypes=['skill','enhancedSkill']) * numEnhancedFirefly]
     TrailblazerRotationFirefly += [TrailblazerCharacter.useSuperBreak(character=FireflyCharacter, 
                                                                       baseGauge=FireflyCharacter.useEnhancedSkill().gauge,
                                                                       extraTypes=['skill','enhancedSkill']) * numEnhancedFirefly]
