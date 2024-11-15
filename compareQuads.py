@@ -11,6 +11,7 @@ from teams_four.Acheron.AcheronKafkaBlackSwanGallagher import AcheronKafkaBlackS
 from teams_four.Acheron.AcheronPelaJiaoqiuGallagher import AcheronPelaJiaoqiuGallagher
 from teams_four.Argenti.ArgentiHanabiTingyunHuohuo import ArgentiHanabiTingyunHuohuo
 from teams_four.Blade.BladeBronyaJadeLuocha import BladeBronyaJadeLuocha
+from teams_four.Blade.LingshaSundayJadeHanya import LingshaSundayJadeHanya
 from teams_four.Boothill.BoothillBronyaRuanMeiGallagher import BoothillBronyaRuanMeiGallagher
 from teams_four.Boothill.BoothillTraiblazerRuanMeiGallagher import BoothillTrailblazerRuanMeiGallagher
 from teams_four.Clara.ClaraTingyunHanabiFuxuan import ClaraTingyunHanabiFuxuan
@@ -56,17 +57,17 @@ config['enemySpeed'] = 158 / 1.125 # assume 25% action delay every 2 enemy turns
 
 #%% Team Imports
 
-visualizationList.append(FireflyTrailblazerFugueGallagher(config, fireflyEidolon=0 ))
-visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
-visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
-visualizationList.append(ClaraTingyunHanabiFuxuan(config))
-visualizationList.append(YunliTingyunHanabiLynx(config))
-visualizationList.append(BladeBronyaJadeLuocha(config))
-visualizationList.append(FeixiaoTopazRobinAventurine(config))
-visualizationList.append(FeixiaoMarchRobinAventurine(config))
-visualizationList.append(JingliuBronyaRuanMeiGallagher(config))
-visualizationList.append(JingYuanSundayRuanMeiGallagher(config))
-visualizationList.append(LunaeHanabiTingyunGallagher(config))
+# visualizationList.append(FireflyTrailblazerFugueGallagher(config, fireflyEidolon=0 ))
+# visualizationList.append(KafkaGuinaifenBlackSwanLuocha(config))
+# visualizationList.append(AcheronPelaJiaoqiuGallagher(config))
+# visualizationList.append(ClaraTingyunHanabiFuxuan(config))
+# visualizationList.append(YunliTingyunHanabiLynx(config))
+# visualizationList.append(BladeBronyaJadeLuocha(config))
+# visualizationList.append(FeixiaoTopazRobinAventurine(config))
+# visualizationList.append(FeixiaoMarchRobinAventurine(config))
+# visualizationList.append(JingliuBronyaRuanMeiGallagher(config))
+# visualizationList.append(JingYuanSundayRuanMeiGallagher(config))
+# visualizationList.append(LunaeHanabiTingyunGallagher(config))
 
 # # Weaker Teams
 # visualizationList.append(FireflyTrailblazerRuanMeiGallagher(config))
@@ -120,7 +121,8 @@ visualizationList.append(LunaeHanabiTingyunGallagher(config))
 # # Jingyuan Teams
 visualizationList.append(JingYuanSundayBronyaGallagher(config, sundayCone='A Grounded Ascent', bronyaEidolon=1))
 # visualizationList.append(JingYuanSundayRuanMeiGallagher(config, sundayCone='A Grounded Ascent'))
-# visualizationList.append(JingYuanSundayRuanMeiGallagher(config))
+visualizationList.append(JingYuanSundayRuanMeiGallagher(config))
+visualizationList.append(LingshaSundayJadeHanya(config))
 # visualizationList.append(JingYuanHanabiTingyunHuohuo(config))
 # visualizationList.append(JingYuanTingyunHanabiFuxuan(config))
 # visualizationList.append(JingYuanSundayJadeGallagher(config))

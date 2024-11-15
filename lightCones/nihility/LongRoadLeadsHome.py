@@ -16,7 +16,7 @@ class LongRoadLeadsHome(BaseLightCone):
                 for char in team:
                     char.addStat('Vulnerability',
                                 description=f'{self.shortname} from {char.name}',
-                                amount=0.175 + 0.025 * self.superposition,
+                                amount=0.15 + 0.03 * self.superposition,
                                 type=['Break'])
                     
             char.teamBuffList.append(applyTeamBuff)

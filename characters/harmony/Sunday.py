@@ -33,7 +33,7 @@ class Sunday(BaseCharacter):
         
     def applySkillBuff(self,character:BaseCharacter,uptime:float,type:list=None,hasSummon:bool=False):
         character.addStat('DMG',description='Sunday Skill',
-                            amount=(0.44 if self.eidolon >= 5 else 0.40) * (2.0 if hasSummon else 1.0),
+                            amount=(0.33 if self.eidolon >= 5 else 0.30) * (8.0 / 3.0 if hasSummon else 1.0),
                             uptime=uptime, type=type)
         character.addStat('CR',description='Sunday Talent',
                             amount=0.22 if self.eidolon >= 5 else 0.2,

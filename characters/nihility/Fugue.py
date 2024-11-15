@@ -55,7 +55,8 @@ class Fugue(BaseCharacter):
         def applyTeamBuff(team:list,stacks:int=2):
             for character in team:
                 character:BaseCharacter
-                character.addStat('BreakEffect', description='Fugue Team Buff Trace', amount=0.16,stacks=stacks)
+                if character.name != self.name:
+                    character.addStat('BreakEffect', description='Fugue Team Buff Trace', amount=0.12+0.06,stacks=stacks)
                     
         self.teamBuffList.append(applyWeaknessModifiers)
         self.teamBuffList.append(applyDefShred)
@@ -64,7 +65,7 @@ class Fugue(BaseCharacter):
         
     def applySkillBuff(self,character:BaseCharacter,uptime:float=1.0):
         character.addStat('BreakEffect',description='Fugue Skill',
-                        amount=0.44 if self.eidolon >= 3 else 0.40,
+                        amount=0.33 if self.eidolon >= 3 else 0.30,
                         uptime=uptime)
         if self.eidolon >= 1:
             character.addStat('BreakEfficiency', description='Fugue E1', amount=0.5)
